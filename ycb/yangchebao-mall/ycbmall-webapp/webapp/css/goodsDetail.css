@@ -1,412 +1,0 @@
-@charset "utf-8";
-/*smallNav*/
-div.smallNav{
-	margin-top: 15px;
-	padding-bottom: 15px;
-	border-bottom: 1px solid #fd6244;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-}
-div.smallNav span{
-	margin-top: 15px;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-}
-div.smallNav span a{
-	margin-top: 15px;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-}
-/*goodsDetail_conTop*/
-div.goodsDetail_conTop{
-	margin-top: 30px;
-	overflow: hidden;
-}
-div.goodsDetail_conTop div.goodsDetail_conTop_imgs{
-	position: relative;
-	float: left;
-	margin-right: 25px;
-}
-div.goodsDetail_conTop div.goodsDetail_conTop_imgs p.goodsDetail_big{
-	margin-bottom: 8px;
-	width: 500px;
-}
-div.goodsDetail_conTop div.goodsDetail_conTop_imgs p.goodsDetail_small span{
-	display: inline-block;
-	width: 86px;
-	margin-right: 5px;
-	border: 1px solid #E5E4E2;
-}
-div.goodsDetail_conTop div.goodsDetail_conTop_imgs p.goodsDetail_small span.span_first{
-	border: 2px solid #FD6244;
-}
-img.angle{
-	position: absolute;
-	bottom: 89px;
-	left: 43px;
-}
-p.goodsDetail_small span{
-	cursor: pointer;
-}
-div.goodsDetail_conTop div.goodsDetail_conTop_items{
-	float: left;
-	width: 675px;
-}
-div.goodsDetail_conTop div.goodsDetail_conTop_items h2{
-	margin-bottom: 20px;
-	font-size: 24px;
-	font-family: "microsoft yahei";
-	color: #333;
-}div.goodsDetail_conTop div.goodsDetail_conTop_items h2 span.groupDetailsmark{	display: inline-block;	width: 94px;	height: 28px;	background: url(../img/groupDetailsmark-1.png) no-repeat;	margin-left: 25px;}
-div.goodsDetail_conTop div.goodsDetail_conTop_items div.goodsDetail_conTop_price{
-	background-color: #F7F7F7;
-	padding: 12px 20px;
-}
-div.goodsDetail_conTop div.goodsDetail_conTop_items div.goodsDetail_conTop_price p{
-	margin: 8px 0;
-	font-size: 16px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-p.goodsDetail_conTop_mallPrice span{
-	font-size: 24px;
-	font-family: "microsoft yahei";
-	color: #ea4627;
-}
-p.goodsDetail_conTop_marketPrice span{
-	font-size: 16px;
-	font-family: "microsoft yahei";
-	color: #333;
-	text-decoration: line-through;
-}
-div.goodsBasicAttr,div.goodsItems_SKU{
-	margin: 0 20px;
-	padding: 18px 0 12px 0;
-	/*border-bottom: 1px dotted #aaa;*/
-}div.goodsItems_SKU{	border-top: 1px dotted #aaa;	border-bottom: 1px dotted #aaa;	font: "微软雅黑" 14px ;}
-div.goodsBasicAttr p{
-	margin-bottom: 10px;
-}
-div.goodsBasicAttr p span{
-	display: inline-block;
-	width: 250px;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-/*div.goodsItems_SKU p{
-
-	margin-bottom: 6px;
-
-}
-
-div.goodsItems_SKU p span,div.goodsItems_SKU p input{
-
-	font-size: 14px;
-
-	font-family: "microsoft yahei";
-
-	color: #333;
-
-	vertical-align: middle;
-
-}*/div.goodsItems_SKU{	font: "微软雅黑" 14px ;}.skuParame{	position: relative;	padding: 8px 0;	padding-left: 60px;	height: 34px;	line-height: 40px;	display: block;	clear: both;}.skuParame dt{	display: block;	margin-left: -60px;	float: left;	height: 36px;	width: 50px;	line-height: 36px;	text-align: left;	font-family: "微软雅黑";	font-size: 14px;}.skuParame dd{	display: inline;clear: both;}.skuParame li{	float: left;	margin-right: 6px;	position: relative;}.skuParame li a{	display: block;	height: 30px;	line-height: 30px;}.skuParameList li a{	display: inline-block;	font-family: "微软雅黑";	font-size: 14px;	padding: 1px 6px;	border: 1px solid #ababab;		}.skuParameList li a:hover{	border: 2px solid #E94526; text-decoration: none;cursor: pointer;	padding:0 5px}.skuParameList li a i{	position:absolute; 	width:10px; height:10px; 	font-size:0; 	line-height:0; 	right:2px; 	bottom:2px; 	background:url(../img/sys_item_selected.gif) no-repeat right bottom; 	z-index:99; 	display:none;}.skuParameList li a.selected i{	display: block;}.skuParameList li a.selected{	border: 2px solid #E94526;	padding:0 5px;}.skuParameItem li a.disabled{	border: 1px dashed #CCCCCC;	color: #CCCCCC;	cursor: no-drop;	padding: 0 6px;}.skuParameItem li a.disabled i{	display: none;}
-span.goodsRadio{
-	margin-right: 15px;
-}
-
-div.goodsDetail_buyNum{
-	margin: 30px 20px 10px 0;
-}
-div.goodsDetail_buyNum p.ui-note{
-	padding-left: 70px;
-	padding-top: 10px;
-	height: 18px;
-	line-height: 18px;
-	font-size: 12px;
-	font-family: "microsoft yahei";
-	color: #f00;
-}
-div.goodsDetail_buyNum,span.selfBuyNum,span.buyData_item,span.buyData_item_number,span.buyData_item_unit{
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-div.goodsDetail_buyNum span.buyData_item_number{
-	color: #ea4627;
-}
-span.buyNum_down{
-	display: inline-block;
-	height: 36px;
-	line-height: 36px;
-	padding: 0 6px;
-	border-left: 1px solid #ccc;
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	background-color: #ededed;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-	cursor: pointer;
-}
-span.buyNum_up{
-	display: inline-block;
-	height: 36px;
-	line-height: 36px;
-	margin-right: 30px;
-	padding: 0 6px;
-	border-right: 1px solid #ccc;
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	background-color: #ededed;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-	cursor: pointer;
-}
-input.selfBuyNum{
-	width: 40px;
-	height: 20px;
-	line-height: 20px;
-	padding: 8px 10px;
-	border: 1px solid #ccc;
-	background-color: #FFF;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-	text-align: center;
-}
-
-div.buyThis{
-	margin: 40px 20px;
-}
-div.buyThis a.putShopCar{
-	display: inline-block;
-	padding: 10px 50px;
-	border-radius: 3px;
-	background-color: #fd6244;
-	font-size: 16px;
-	font-family: "microsoft yahei";
-	color: #fff;
-	text-align: center;
-}
-div.buyThis a.minuntBuy{
-	display: inline-block;
-	margin-left: 12px;
-	padding: 10px 40px;
-	border-radius: 3px;
-	background-color: #ffa809;
-	font-size: 16px;
-	font-family: "microsoft yahei";
-	color: #fff;
-	text-align: center;
-}
-div.goodsPermit{
-	margin: 40px 20px;
-}
-div.goodsPermit ul,div.goodsPermit ul li{
-	overflow: hidden;
-	margin-right: 40px;
-}
-div.goodsPermit ul li,div.goodsPermit_itermImg,div.goodsPermit_itermText{
-	float: left;
-}
-div.goodsPermit ul li p{
-	margin-left: 11px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-/*tab*/
-/*div.goodsDetail_conBottom{
-	border: 1px solid #E5E4E2;
-}
-div.tabTitle{
-	position: relative;
-	background-color: #f7f7f7;
-	border-bottom: 1px solid #E5E4E2;
-}
-div.tabTitle ul{
-	overflow: hidden;
-}
-div.tabTitle ul li{
-	float: left;
-	width: 160px;
-	border-top-width: 3px;
-	border-top: 2px solid #fd6244;
-}
-.current{
-	position: relative;
-	height: 50px;
-	 -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background: #fff none repeat scroll 0 0;
-    border-color: #e5e5e5 #e5e5e5 #fff;
-    border-image: none;
-    border-style: solid;
-    border-width: 0 1px 1px;
-    color: #d70000;
-    margin-left: -1px;
-}*/
-/*div.tabTitle ul li a{
-	display: block;
-	padding: 12px 0;
-	text-align: center;
-	font-size: 16px;
-	font-family: "microsoft yahei";
-	color: #fd6244;
-}*/
-/*div.goodsDetail-info{
-	padding: 10px 40px 80px 40px;
-}*/
-div.goodsDetail-info h3{
-	margin-bottom: 40px;
-	margin-top: 50px;
-	padding: 0 0 10px 2px;
-	border-bottom: 2px solid #ccc;
-	font-size: 16px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-
-div.goodsDetail-info-sku{
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-}
-div.goodsDetail-info-sku p{
-	border-bottom: 1px solid #ccc;
-	height: 40px;
-	line-height: 40px;
-}
-div.goodsDetail-info-sku p span{
-	line-height: 40px;
-	display: inline-block;
-}
-div.goodsDetail-info-sku p span.goodsDetail-info-skuName{
-	width: 200px;
-	text-align: center;
-	background-color: #f7f7f7; 
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #b3b3b3;
-	border-right: 1px solid #ccc;
-}
-div.goodsDetail-info-sku p span.goodsDetail-info-skuValue{
-	padding: 0 25px;
-	width: 863px;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-
-div.carType-info{
-	padding-top: 50px;
-}div.ui_note{	font-size: 17px;	color: #333;	font-family: "microsoft yahei";	text-align: center;}
-div.carType-info table.Table-carType{
-	width: 100%;
-	border-top: 2px solid #ccc;
-	border-left: 1px solid #ccc;
-}
-div.carType-info table.Table-carType thead{
-	background-color: #F7F7F7;
-}
-div.carType-info table.Table-carType thead td{
-	border-right: 1px solid #ccc;
-	height: 18px;
-	line-height: 18px;
-	padding: 16px 0;
-	font-size: 16px;
-	font-family: "microsoft yahei";
-	color: #333;
-	text-align: center;
-	border-bottom: 1px solid #ccc;
-}
-div.carType-info table.Table-carType thead td.title1{
-	width:190px;
-}
-div.carType-info table.Table-carType thead td.title2{
-	width:150px;
-}
-div.carType-info table.Table-carType thead td.title3{
-	width:150px;
-}
-div.carType-info table.Table-carType thead td.title4{
-	width:623px;
-}
-div.carType-info table.Table-carType tbody tr td{
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-div.carType-info table.Table-carType tbody tr td p{
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-div.carType-info table.Table-carType tbody tr td.center_td{
-	text-align: center;
-}
-div.carType-info table.Table-carType tbody tr td.brand_td{
-	padding: 20px;
-}
-div.carType-info table.Table-carType tbody tr td.brand_td p{
-	font-size: 16px!important;
-	font-family: "microsoft yahei";
-}
-	
-div.carType-info table.Table-carType tbody tr td.carType_td{
-	padding-left: 30px;
-	padding-right: 20px;
-}
-
-
-div.putShopCar-success{
-	position: fixed;
-	width: 400px;
-	z-index: 1600;
-	top: 30%;
-	left: 50%;
-	margin-left: -191px;
-	padding: 40px 0 40px 40px;
-	background-color: #fff;
-	border: 1px solid #FD6244;
-	overflow: hidden;
-}
-div.putShopCar-success div.hsaPutShopCarImg{
-	float: left;
-	margin-right: 20px;
-}
-div.putShopCar-success div.hasPutShopCarText{
-	width: 282px;
-	float: right;
-}
-div.putShopCar-success div.hasPutShopCarText p.p_one{
-	font-family: "microsoft yahei";
-	font-size: 22px;
-	color: #333;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #FD6244;
-}
-div.putShopCar-success div.hasPutShopCarText p.p_two{
-	margin-top: 12px;
-}
-div.putShopCar-success div.hasPutShopCarText p.p_two span.tocarSettle a{
-	font-family: "microsoft yahei";
-	font-size: 16px;
-	color: #FD6244;
-	margin-right: 26px;
-}
-div.putShopCar-success div.hasPutShopCarText p.p_two span.continueShop a{
-	font-family: "microsoft yahei";
-	font-size: 12px;
-	color: #FD6244;
-}
-div.putShopCar-success div.hasPutShopCarText p.p_two span.continueShop{
-	font-family: "microsoft yahei";
-	font-size: 12px;
-	color: #333;
-}#errorMessage{	position: absolute;	z-index: 10;	color: #FF0000;	font-size: 12px;	font-family: "microsoft yahei";	margin: -11px 0 0px 70px;}.kuang{	margin-left: 0!important;	padding-left: 20px!important;	border:1px solid #f00!important;}div.priceGradient{position: relative;background-color: #FFFFFF;}div.priceGradient ul{overflow: hidden;}div.priceGradient ul li{float: left;position: relative;width: 116px;height: 85px;}div.priceGradient ul li.Header{width: 60px;}div.priceGradient ul li span{display: block;font-family: "微软雅黑";font-size:14px;width: 116px;height:35px;line-height:35px;float: left;margin: 0 auto;text-align: center;}div.priceGradient ul li span.num{margin-bottom: 8px;color: #FFFFFF;}div.priceGradient ul li.Header span.num{background: #456933;width: 60px;}div.priceGradient ul li.Header span.price{width: 58px; color:#000;}div.priceGradient ul li._1 span.num{background: #58A034;}div.priceGradient ul li._2 span.num{background: #95AC26;}div.priceGradient ul li._3 span.num{background: #FABB12;}div.priceGradient ul li._4 span.num{background: #F19C39;}div.priceGradient ul li._5 span.num{background: #FD6244;}div.priceGradient ul li._1 span.price{color: #58A034;}div.priceGradient ul li._2 span.price{color: #95AC26;}div.priceGradient ul li._3 span.price{color: #FABB12;}div.priceGradient ul li._4 span.price{color: #F19C39;}div.priceGradient ul li._5 span.price{color: #FD6244;}div.priceGradient ul li.border_1{border: 2px solid #58A034;width: 106px;}div.priceGradient ul li.border_2{border: 2px solid #95AC26;width: 106px;}div.priceGradient ul li.border_3{border: 2px solid #FABB12;width: 106px;}div.priceGradient ul li.border_4{border: 2px solid #F19C39;width: 106px;}div.priceGradient ul li.border_5{border: 2px solid #FD6244;width: 106px;}div.priceGradient ul li.border_1 span.num{height: 33px;line-height: 33px;width: 106px;}div.priceGradient ul li.border_2 span.num{height: 33px;line-height: 33px;width: 106px;}div.priceGradient ul li.border_3 span.num{height: 33px;line-height: 33px;width: 106px;}div.priceGradient ul li.border_4 span.num{height: 33px;line-height: 33px;width: 106px;}div.priceGradient ul li.border_5 span.num{height: 33px;line-height: 33px;width: 106px;}

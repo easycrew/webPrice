@@ -1,88 +1,0 @@
-@charset 'utf-8';
-div.helpCenter{
-	overflow: hidden;
-	margin-top: 26px;
-}
-div.helpCenter div.htelpCenter_left{
-	float: left;
-	width: 230px;
-	height: 600px;
-	border: 1px solid #FD6244;
-	margin-right: 50px;
-}
-div.helpCenter div.htelpCenter_left h2{
-	font-family: "microsoft yahei";
-	font-size: 16px;
-	color: #fff;
-	height: 16px;
-	line-height: 16px;
-	padding: 12px 20px;
-	background-color: #FD6244;
-}
-div.helpCenter div.htelpCenter_left ul{
-	margin: 12px 5px;
-}
-div.helpCenter div.htelpCenter_left ul li{
-	font-family: "microsoft yahei";
-	font-size: 14px;
-	color: #333;
-	padding: 10px 15px;
-	height: 14px;
-	line-height: 14px;
-	cursor: pointer;
-}
-div.helpCenter div.helpCenter_right{
-	float: left;
-	width:918px;
-}
-div.helpCenter div.helpCenter_right div.helpCenter_contactUs ul li{	float: left;		width: 450px;	
-	overflow: hidden;
-	border-bottom: 1px dashed #E5E4E2;
-	padding: 60px 0 25px 0;
-}
-div.helpCenter div.helpCenter_right div.helpCenter_contactUs ul li p.helpCenter-contactUs-img{
-	float: left;
-	margin-right: 22px;
-}
-div.helpCenter div.helpCenter_right div.helpCenter_contactUs ul li div.helpCenter-contactUs-text{
-	float: left;
-}
-.helpCenterLi_hover{
-	color: #FD6244!important;
-	background-color: #FFEFEC!important;
-}
-.helpCenterLi_click{
-	color: #FD6244!important;
-	background-color: #FFEFEC!important;
-}
-div.helpCenter-contactUs-text p.applyBusi{
-	font-family: "microsoft yahei";
-	font-size: 14px;
-	color: #FD6244;
-}
-div.helpCenter-contactUs-text p.applyBusi span{
-	font-family: "microsoft yahei";
-	font-size: 18px;
-	color: #FD6244;
-	margin-right: 8px;
-}
-div.helpCenter-contactUs-text p.contactTel{		float: left;		font-family: "microsoft yahei";
-	font-size: 14px;
-	color: #333;		padding-left: 20px;
-}div.helpCenter-contactUs-text p.one{		background: url(../img/mobile.jpg) no-repeat;	}
-div.helpCenter-contactUs-text p.two{		background: url(../img/email.jpg) no-repeat 0 4px ;		margin-left: 30px;		padding-left: 32px;	}div.mapPicture{	position: relative;		clear: both;		border: 0;		text-align: center;		padding-top: 20px;}div.mapPicture p.addressPoint{	background: url(../img/addressPoint.jpg) no-repeat left 2px;	text-align: left;	padding-left: 20px;	color: #FD6244;	margin: 20px 0 20px 128px;	font-family: "微软雅黑";	font-size: 14px;}
-div.helpCenter_aboutUs h2,div.helpCenter_LegalStatement h2,div.helpCenter_aboutCompany h2{
-	padding: 30px 0;
-	font-family: "microsoft yahei";
-	font-size: 24px;
-	color: #333;
-	text-align: center;
-	border-bottom: 1px dashed #E5E4E2;
-}
-div.helpCenter_aboutCompany div.helpCenter-aboutCompany-con p,div.helpCenter_aboutUs div.helpCenter-aboutUs-con p,div.helpCenter_LegalStatement div.helpCenter-LegalStatement-con p{
-	font-family: "microsoft yahei";
-	font-size: 14px;
-	color: #333;
-	text-indent: 2em;
-	margin: 30px 0;
-}div.helpCenter_aboutUs div.helpCenter-aboutUs-con p.helpCenter-aboutUs-con-title{	color: #FD6244;}div.helpCenter_aboutUs div.helpCenter-aboutUs-con p.helpCenter-aboutUs-con-center{	text-align: center;}

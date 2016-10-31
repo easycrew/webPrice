@@ -1,247 +1,0 @@
-@charset 'utf-8';
-/*banner*/
-div.banner{
-	margin-top: 18px;
-}
-div.banner img{
-	width: 100%;
-}
-/*weekLimit*/
-div.weekLimit{
-	margin-top: 40px;
-}
-div.weekLimit div.weekLimit_top{
-	margin-bottom: 35px;
-}
-div.weekLimit div.weekLimit_top div.weekLimit_title span.weekLimit_text,span.toOnline_text{
-	display: inline-block;
-	height: 30px;
-	line-height: 30px;
-	font-size: 30px;
-	color:#fd6244;
-	margin: 0 25px;
-	font-family: 'microsoft yahei';
-}
-span.left_line,span.right_line{
-	position: relative;
-	top: -7px;
-	left: 0;
-	display: inline-block;
-	height:0;
-	width: 500px;
-	border-top: 2px solid #fd6244;
-}
-span.left_line2,span.right_line2{
-	width: 515px;
-}
-div.weekLimit div.weekLimit_date{
-	text-align: center;
-}
-div.weekLimit div.weekLimit_date{
-	text-align: center;
-}
-div.weekLimit div.weekLimit_date span{
-	display: inline-block;
-	margin-top: 7px;
-	padding: 6px 0;
-	border-radius: 12px;
-	width: 100px;
-	background-color: #FD6244;
-	font-size: 14px;
-	font-family: 'microsoft yahei';
-	color: #fff;
-	line-height: 14px;
-}
-div.weekLimit div.weekLimit_con ul li{
-	margin-bottom: 18px;
-	padding: 10px 0;
-	background-color: #F7F7F7;
-	overflow: hidden;
-}
-div.weekLimit div.weekLimit_con ul li div.limitGood{
-	float: left;
-	margin: 0 10px;
-	width: 650px;
-	height: 330px;
-	background-color: #fff;
-	text-align: center;
-	line-height: 320px;
-}
-div.weekLimit div.weekLimit_con ul li div.limitGood img{	width: 300px;	height: 300px;
-	margin: auto;
-}
-div.weekLimit div.weekLimit_con ul li div.limitGood_detail{	float: left;
-	margin: 10px 0 0 16px;
-	width: 514px;
-	overflow: hidden;
-}
-div.weekLimit div.weekLimit_con ul li div.limitGood_detail div.limitGood_num{
-	margin-right: 20px;
-	padding-bottom: 5px;
-	border-bottom: 1px solid #ddd;
-}
-div.weekLimit div.weekLimit_con ul li div.limitGood_detail div.limitGood_num img{
-	vertical-align: bottom;
-}
-div.weekLimit div.weekLimit_con ul li div.limitGood_detail div.limitGood_num span{
-	position: relative;
-	top: 2px;
-	left:0;
-	padding-left: 16px;
-	font-size: 24px;
-	font-family: "microsoft yahei";
-	color: #fd6244;
-}
-div.weekLimit div.weekLimit_con ul li h2{
-	margin: 16px 20px 6px 0;
-}
-div.weekLimit div.weekLimit_con ul li h2 a{
-	font-size: 20px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-div.weekLimit div.weekLimit_con ul li p.limitGood_recommand{
-	margin-right: 20px;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #999;
-}
-div.weekLimit div.weekLimit_con ul li div.limitGood_buy{
-	float: right;	vertical-align: middle;
-	margin-top: 20px;
-	height: 77px;
-	line-height: 90px;		width: 452px;
-	background: url(../img/limitPrice_bg.png) center right no-repeat;		}
-div.weekLimit div.weekLimit_con ul li div.limitGood_buy label{	display: inline-block;	margin-left: 50px;	+margin-top: 26px;
-	font-size: 20px;
-	font-family: "microsoft yahei";
-	color: #fff; 
-}
-div.weekLimit div.weekLimit_con ul li div.limitGood_buy span.limitGood_price{	position: relative;
-	font-size: 28px;
-	font-family: "microsoft yahei";
-	color: #fff;
-}.limitGood_price_change{	font-size:18px!important;	color: #FEE7B8!important;	background-color: #FD6244;	margin-left: -19px;	cursor:pointer;}
-div.weekLimit div.weekLimit_con ul li div.limitGood_buy a.limitGood_shop{
-	position: relative;		float: right;	margin-right: 10px;	+margin-top: -55px;
-	top: 15px;
-
-	display: inline-block;
-	padding: 16px 25px;
-	border-radius: 3px;
-	background-color: #FFA809;
-	height: 18px;
-	line-height: 18px;
-	font-size: 18px;
-	font-family: "microsoft yahei";
-	color: #fff;
-	cursor: pointer;
-}
-div.weekLimit div.weekLimit_con div.liRight_bottom{
-	position: relative;	float: left;	overflow: hidden;	width: 300px;
-}
-div.weekLimit div.weekLimit_con div.liRight_bottom ul.liRight_bottomUl{	zoom: 1;
-	float: left;
-	padding-top: 26px;
-}
-div.weekLimit div.weekLimit_con div.liRight_bottom ul.liRight_bottomUl li{
-	float: left;
-	padding: 0 16px;
-	border-right:1px solid #ddd;
-} 
-div.weekLimit div.weekLimit_con div.liRight_bottom ul.liRight_bottomUl li.mallPrice{
-	padding: 0 16px 0 0;
-}
-div.weekLimit div.weekLimit_con div.liRight_bottom ul.liRight_bottomUl li span.Gray{
-	font-size: 14px;
-	color: #999;
-	font-family: "microsoft yahei";
-}
-div.weekLimit div.weekLimit_con div.liRight_bottom ul.liRight_bottomUl li span.Price{
-	font-size: 14px;
-	color: #333;
-	font-family: "microsoft yahei";
-}
-div.weekLimit div.weekLimit_con div.liRight_bottom p.buyPerson{
-	position: absolute;
-	right: 0;
-	top: 186px;
-	display: inline-block;
-	margin: -60px 20px 10px 226px;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-div.weekLimit div.weekLimit_con div.liRight_bottom p.buyPerson span.buyPersonNum{
-	position: relative;
-	top: 2px;
-	left: 0px;
-	padding-left: 5px;
-	font-size: 24px;
-	font-family: "microsoft yahei";
-	color: #FFA809;
-}
-/*toOnline*/
-div.toOnline{
-	margin-top: 40px;
-}
-div.toOnline_top{
-	margin-bottom: 40px;
-}
-div.toOnline_con{
-	padding-bottom: 40px;
-}
-div.toOnline_con ul{
-	overflow: hidden;
-}
-div.toOnline_con ul li{
-	float: left;
-	margin-left: 15px;		margin-bottom: 10px;
-	padding: 10px;
-	background-color: #F7F7F7;
-}
-div.toOnline_con ul li p.toOnline_goodsName{
-	margin-top: 10px;	width: 256px;	height: 48px;
-	font-size: 16px;
-	font-family: "microsoft yahei";
-	color: #000;
-}
-div.toOnline_con ul li p.toOnline_goodsSKU{
-	margin-bottom: 8px;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #000;
-}
-div.toOnline_con ul li p.toOnline_stockGoods{
-	padding-bottom: 15px;
-	border-bottom: 1px dotted #e1e1e1;
-	overflow: hidden;
-}
-div.toOnline_con ul li p.toOnline_stockGoods span.delMallPrice{
-	font-size: 12px;
-	font-family: "microsoft yahei";
-	color: #666;
-	text-decoration: line-through;
-}
-div.toOnline_con ul li p.toOnline_stockGoods span.stockGoods{
-	float: right;
-	font-size: 14px;
-	font-family: "microsoft yahei";
-	color: #333;
-}
-div.toOnline_con ul li p.toOnline_buy{
-	margin-top: 12px;
-}
-div.toOnline_con ul li p.toOnline_buy span.toOnline_price{
-	display: inline-block;
-	height: 44px;
-	line-height: 44px;
-	font-size: 24px;
-	font-family: "microsoft yahei";
-	color: #fd6244;
-}.toOnline_price_change{	font-family: "微软雅黑"!important;	font-size:16px!important;	color: #FC6244!important;	cursor: pointer;}
-div.toOnline_con ul li p.toOnline_buy span.smallShop_car{
-	float: right;
-	padding: 13px 10px;
-	background-color: #fd6244;
-}
