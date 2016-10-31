@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>选择车系</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<script src="./js/commen.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<style>
+		ul.allModels-ul li{
+			border-bottom: 1px solid #D9D9E2;
+		}
+		ul.allModels-ul li div.carModel-title{
+			border-bottom: 1px solid #D9D9E2;
+			color: #999;
+			font-size: 1.3rem;
+			padding: 0.8rem 1.25rem;
+			background-color: #f4f7f8;
+		}
+		ul.allModels-ul li div.carModel-detail{
+			background-color: #fff;
+			padding-left: 3rem;
+		}
+		ul.allModels-ul li div.carModel-detail p{
+			font-size: 1.6rem;
+			padding: 1.3rem 0;
+			border-bottom: 1px solid #D9D9E2;
+			cursor: pointer;
+		}
+		ul.allModels-ul li div.carModel-detail p:last-child{
+			border-bottom: none!important;
+		}
+	</style>
+</head>
+<body>
+	<section id="selectModel">
+		<ul class="allModels-ul">
+		</ul>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/support/model/list?brandId='+paramJson.brandId,
+			type:'get',
+			dataType:'json',
+			async:false,
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				var modelStr='';
+				data.forEach(function(key,i){
+					// modelStr+='<p>'+key+'</p>'
+					modelStr+='<li>'
+							 +'<div class="carModel-title" id="'+key.id+'">'+key.name+'</div>'
+							 +'<div class="carModel-detail">'
+					key.models.forEach(function(key2,j){
+						modelStr+='<p id="'+key2.id+'">'+key2.name+'</p>'
+					});
+					modelStr+='</div></li>'
+				});
+				$('ul.allModels-ul').html(modelStr);
+				$('ul.allModels-ul li div.carModel-detail p').unbind('click').bind('click',function(){
+					var theModelName=$(this).html();
+					var theModelId=$(this).attr('id');
+					var customerId=store.get('customerId');
+					var carInfoId=store.get('carInfoId');
+					store.set('modelId', theModelId);
+					store.set('modelName', theModelName);
+					// 判断主车ID
+					var _postData={};
+					_postData.modelId=theModelId;
+					_postData.customerId=customerId;
+					if(!carInfoId){
+						$.ajax({
+							url:'/yangchebao-app-ws/ws/0.1/user/complete/addCarInfo',
+							type:'post',
+							dataType:'json',
+							async:false,
+							data:$.toJSON(_postData),
+							contentType:'application/json;charset=utf-8',
+							success:function(data){
+								store.set('carInfoId', data.carInfoId);
+								if(store.get('bizType') != 0){
+									window.location.href='standardServ/selectServAttribute.html'
+								}else{
+									if(store.get('cityLevel') == 1){
+										window.location.href='hotycb.html'
+									}else{
+										window.location.href='nohotycb.html'
+									}
+								}
+							},
+							error:function(xhr){
+								var error=eval('('+xhr.responseText+')');
+								alert(error[0].message)
+							}
+						})
+					}else{
+						_postData.carInfoId=carInfoId;
+						// 编辑主车信息
+						$.ajax({
+							url:'/yangchebao-app-ws/ws/0.1/user/complete/editCarInfo',
+							type:'post',
+							dataType:'json',
+							data:$.toJSON(_postData),
+							contentType:'application/json;charset=utf-8',
+							success:function(data){
+								if(store.get('isNearShopWash') != 1){
+									if(store.get('isAllWash') != 1){
+										if(store.get('bizType') != 0){
+											window.location.href='standardServ/selectServAttribute.html'
+										}else{
+											if(store.get('cityLevel') == 1){
+												window.location.href='hotycb.html'
+											}else{
+												window.location.href='nohotycb.html'
+											}
+										}
+									}else{
+										window.location.href='standardServ/selectServAttribute.html'
+									}
+								}else{
+									window.location.href='nearShopWash.html'
+								}
+							},
+							error:function(xhr){
+								var error=eval('('+xhr.responseText+')');
+								alert(error[0].message)
+							}
+						})
+					}
+					
+					
+				})
+			}
+		})
+	})
+</script>
+</html>

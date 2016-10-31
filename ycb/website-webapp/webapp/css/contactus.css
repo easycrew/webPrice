@@ -1,0 +1,31 @@
+@charset "utf-8";
+.about{
+	width: 860px;
+	border: 1px solid #dbdbdb;
+	overflow: hidden;
+	padding: 30px;
+	margin: auto;
+}
+.about h3, .about p, .ls{
+	font-size:16px;
+	font-family:"微软雅黑";
+	text-align: center;
+}
+.ls{
+	color: #690;
+}
+.about h3{
+	font-size: 28px;
+	font-weight: normal;
+	color: #3a639a;
+	padding-bottom: 10px;
+	width: 100%;
+	text-align: center;
+	border-bottom: 1px dashed #CCC;
+	margin-bottom: 20px;
+}
+.about p{
+	line-height: 1.8;
+	margin-bottom: 15px;
+	color: #444;
+}

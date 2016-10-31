@@ -1,0 +1,331 @@
+<style>
+.height28{
+  height:28px;
+  line-height:28px;
+}
+</style>
+<div class="urlContentWraper" id="Wraper_standardCheck">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>标准化服务审核</strong><bottom class="all-work-info numb86">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+		<div class="pic-grid">
+			<table id="Table_standardCheck"></table>
+		</div>
+    </div> 
+  <div id="Form_standardCheck" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		<input type="hidden" name="id"/>
+		<div class="row"> 
+			 <div class="span5 grid-layout-content">
+				   <div name="auditDesc" class="jrad-textarea-container"></div>
+								</div>
+		</div>
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container">
+		<span class="jrad-btn-primary">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div>
+ <div id="Form_standardPrice" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		<input type="hidden" name="id"/>
+		<div class="row"> 
+			 <label class="span3 grid-layout-label">结算价：</label>
+			 <div class="span8 grid-layout-content">
+				   <div name="clearingPrice" class="jrad-input-container"></div>
+								</div>
+		</div>
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container">
+		<span class="jrad-btn-primary">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div>
+<div id="Form_explain_eg86" style="display:none;">
+    <div class="grid-layout-main jrad-form"> 
+        <div class="row">
+            <label class="span3 grid-layout-label">业务说明：</label>
+            <div class="span12 grid-layout-content">
+                <div><strong>功能简介：</strong>商家自己创建、修改标准化服务时，需要在此审核，审核通过后，才能生效。</div>
+                <div><strong>重要功能说明：</strong>无。</div>
+                <div><strong>注意事项：</strong>无。</div>
+            </div> 
+        </div> 
+        <div class="row">
+            <label class="span3 grid-layout-label">备注：</label>
+            <div class="span12 grid-layout-content">
+                <div class="jrad-textarea-container" name="remark">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="jrad-buttons-container ui-buttons-container"> 
+        <span class="jrad-btn-primary">确定</span> 
+        <span class="jrad-btn-normal">取消</span>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_standardCheck');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	jRad.validators['auditDesc'] = [{"msg":"请填写原因","type":"min","value":"1"}];
+	jRad.validators['clearingPriceModify'] = [{"msg":"请填写结算价","type":"min","value":"1"}];
+	var checkParam = {};
+	checkParam['auditDesc'] = {grid:14};
+	$('#Form_standardCheck').form({
+		title: '驳回原因',
+		validators: jRad.validators,
+		fields_params:checkParam,
+		item:{} ,
+		type:'post', 
+		url:'/shopmanage-ws/ws/0.1/busiStandardService/auditRejectForVip', 
+		before_submit:function(json){
+			json.operator = carsmart_config.operatorName;
+			//json.auditPerson = carsmart_config.operatorName;
+			return json;
+		},
+		success_callback: function(){
+			$("#Form_standardCheck").form('close');
+			$('#Table_standardCheck').flexMessage('已驳回!', 'success');
+			$('#Table_standardCheck').flexReloadSearch();
+		},
+		error:function(xhr){
+			var errormsg = eval("(" + xhr.responseText + ")"); 
+			if (errormsg != undefined) {
+				$('#Table_standardCheck').flexMessage(errormsg[0].message, 'error');
+			}
+		},
+		autobinding:true
+	});  
+	var checkParam2 = {};
+	checkParam2['clearingPriceModify'] = {grid:8};
+	$('#Form_standardPrice').form({
+		title: '修改结算价',
+		validators: jRad.validators,
+		fields_params:checkParam2,
+		//item:{} ,
+		url:'/shopmanage-ws/ws/0.1/busiStandardService/editClearingPrice', 
+		type: 'post',
+		before_submit:function(json){
+			json.auditPerson = carsmart_config.operatorName;
+			return json;
+		},
+		success_callback: function(){
+			$("#Form_standardPrice").form('close');
+			$('#Table_standardCheck').flexMessage('修改成功!', 'success');
+			$('#Table_standardCheck').flexReloadSearch();
+		},
+		error:function(xhr){
+			var errormsg = eval("(" + xhr.responseText + ")"); 
+			if (errormsg != undefined) {
+				$('#Table_standardCheck').flexMessage(errormsg[0].message, 'error');
+			}
+		},
+		autobinding:true
+	});  
+
+    page_column_model.push({display: 'ID', name : 'id',hidden:true});
+    page_column_model.push({display: '商家简称', name : 'businessName',diy:function(item,$div){
+	   var $a = $("<a>").html(item.businessName); 
+	   $div.html($a);
+	   $a.click(function(){
+		$(document).data("checkShopId",item.businessInfoId)
+		$.jRadOpenTab({'id':'3010','name':'商家信息管理','url':'shopManage/list2.html'},true);
+	   });
+	}});
+    page_column_model.push({display: '服务名称', name : 'serviceName'});
+    page_column_model.push({display: '门市价', name : 'shopPrice'});
+	page_column_model.push({display: '预定价', name : 'reservePrice'}); 
+	page_column_model.push({display: '结算价', name : 'clearingPrice'});
+	page_column_model.push({display: '工时费', name : 'workPrice'}); 
+	page_column_model.push({display: '所需工时', name : 'workHour'});
+	page_column_model.push({display: '预约信息', name : 'reserveInfo',diy:function(item,$div){
+		if(item.reserveInfo=="0"){
+			$div.html('无');
+		}else if(item.reserveInfo=="1"){
+			$div.html('1天');
+		}else if(item.reserveInfo=="2"){
+			$div.html('2天');
+		}else if(item.reserveInfo=="3"){
+			$div.html('3天');
+		}else if(item.reserveInfo=="4"){
+			$div.html('4天');
+		}else if(item.reserveInfo=="5"){
+			$div.html('5天');
+		}else if(item.reserveInfo=="6"){
+			$div.html('2小时');
+		}
+	}});
+	page_column_model.push({display: '使用规则', name : 'useRule'});
+	page_column_model.push({display: '审核人', name : 'auditPerson'}); 
+	page_column_model.push({display: '审核时间', name : 'auditTime'});
+	page_column_model.push({display: '提交审核时间', name : 'commitAuditTime'}); 
+	page_column_model.push({display: '审核状态', name : 'auditStatusDesc',width:120,diy:function(item,$div){
+	    $div.html(item.auditStatusDesc+"&nbsp;&nbsp;&nbsp;&nbsp;");
+	    if(item.auditStatus=='2'){
+		 var $a = $("<a>").html("查看原因");
+		 $div.append($a);
+		 $a.click(function(){
+			$.jRadAlert(item.audiDesc,"info"); 
+		 });
+		 var checkDiv = $("<div>").addClass("checkInfo");
+	    } 
+	}}); 
+	page_search_items.push({row:'1',type:'jrad-input',display:'商家简称',name:'businessName'});
+	page_search_items.push({row:'1',type:'jrad-select',display:'状态',name:'auditStatus',params:{
+		data:[
+				// {id:'',name:'全部'},
+				// {id:'1',name:'审核中'},
+				// {id:'2',name:'通过'},
+				// {id:'3',name:'未通过'}
+				{id:'',name:'全部'},
+				{id:'0',name:'审核中'},
+				{id:'1',name:'通过'},
+				{id:'2',name:'未通过'}
+		]}});
+	page_search_items.push({row:'1',type:'jrad-input',display:'审核人',name:'auditPerson'});
+
+	page_list_buttons.push({displayname: '通过',name:'pass',bclass: 'pass',prefunc:function(){
+            var checked = $('#Table_standardCheck').getCheckedTrs();
+            if (checked.length == 0) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_standardCheck').getCheckedTrs();
+			var ids = [];
+			$.each(checked,function(){
+				ids.push(this.id);
+			});
+			$.jRadConfirm('确认审核通过吗？',1,function(){
+				 var postData = {}; 
+				 postData.idString = ids.join(',');
+				 postData.operator= carsmart_config.operatorName;  
+				$.jRadAjax({
+				    type:'post',
+					data:postData,
+					url:'/shopmanage-ws/ws/0.1/busiStandardService/checkStanSerRepeat',
+					success: function(data){
+
+						if(data.result == 2){
+
+							// var blockDiv = $('<div style="display: block;background:#000;"></div>');
+							// $("body").append(blockDiv)
+							$.jRadConfirm(data.msg,1,function(){
+								var postData2 = {};
+								postData2.idString = data.idString;
+								postData2.operator = carsmart_config.operatorName;
+								$.jRadAjax({
+								    type:'post',
+									data:postData2,
+									url:'/shopmanage-ws/ws/0.1/busiStandardService/auditPassForVip', 
+									success:function(){
+										$('#Table_standardCheck').flexMessage('审核通过成功!', 'success');
+				           	    		$('#Table_standardCheck').flexReloadSearch();
+									},
+									error:function(xhr){
+									    var errormsg = eval("(" + xhr.responseText + ")"); 
+										if (errormsg != undefined) {
+											$('#Table_standardCheck').flexMessage(errormsg[0].message, 'error');
+				           	    			$('#Table_standardCheck').flexReloadSearch();
+										}
+									}
+								});
+							})
+						}else{
+							$('#Table_standardCheck').flexMessage('审核通过成功!', 'success');
+	           	    		$('#Table_standardCheck').flexReloadSearch();
+						}
+					},
+					error:function(xhr){
+					    var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined) {
+							$('#Table_standardCheck').flexMessage(errormsg[0].message, 'error');
+				           	$('#Table_standardCheck').flexReloadSearch();
+						}
+					}
+				});
+			});
+		}
+	});
+	page_list_buttons.push({displayname: '驳回',name:'reject',bclass: 'reject',prefunc:function(){
+            var checked = $('#Table_standardCheck').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_standardCheck').getCheckedTrs(); 
+			$('#Form_standardCheck').form({  
+				item:{'id':checked[0].id}
+			}).form('open');  
+		}
+	}); 
+	page_list_buttons.push({displayname: '修改结算价',name:'upprice',bclass: 'upprice',prefunc:function(){
+            var checked = $('#Table_standardCheck').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_standardCheck').getCheckedTrs(); 
+			$('#Form_standardPrice').form({  
+				item:{'id':checked[0].id,'clearingPrice':checked[0].clearingPrice}
+			}).form('open');  
+		}
+	}); 
+    page_list_buttons.push({separator: true});
+    $('#Table_standardCheck').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+			showSearch:true,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			overflow:true,
+            url:'/shopmanage-ws/ws/0.1/busiStandardService/queryStandardServiceForVip', 
+			onError:showServiceCheckError
+    });  
+    
+    $(".numb86").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg86").form({}).form('close');
+        $("#Form_explain_eg86").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg86 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg86").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg86").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg86 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+
+function showServiceCheckError(xhr){
+ 	var errormsg = eval("(" + xhr.responseText + ")");
+  	var cDiv = $("#Wraper_standardCheck .cDiv");
+  	$.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+}
+ 
+</script>

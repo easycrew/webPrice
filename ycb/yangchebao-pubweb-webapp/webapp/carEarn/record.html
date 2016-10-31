@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>返利记录</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<script src="./js/commen.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<style>  
+	 .list	li{
+	 	height: 5rem;
+	 	line-height: 5rem;
+	 	padding: 0 1.5rem;
+	 	font-size: 1.3rem;
+	 	background:#ffffff;
+		border-top:1px solid #d9d9e2; 
+	 }
+	 .rightT{
+	 	float: right;
+	 	font-size: 1.1rem;
+	 	line-height: 150%;
+	 	padding-top: 1rem;
+	 }
+	 .org{ 
+		font-size:1.2rem;
+		color:#ff6138; 
+	 }
+	 .list li:last-child{
+	 	border-bottom:1px solid #d9d9e2;
+	 }
+	.list-null img{
+		width:16%;
+		margin:5rem auto 2.5rem;
+		display:block;
+	}
+	.list-null p{ 
+		font-size:1.5rem;
+		color:#a2a2a2; 
+		text-align:center;
+	}
+	.tip{
+		font-size:1.5rem;
+		color:#a2a2a2; 
+		text-align:center;
+		display:none;
+		margin-top:1rem;
+	}
+	</style>
+</head>
+<body>
+	<ul class="list">
+		<!-- <li>
+			<span class="leftT">奖励日期 08-12</span>
+			<span class="rightT">已领<br><span class="org">¥0.5</span></span>
+		</li> --> 
+	</ul>
+	<p class="tip">点击查看更多</p>
+	<div class="list-null" style="display:none;">
+		<img src="img/null.png"/>
+		<p>您还没有获奖记录</p> 
+	</div> 
+<script type="text/javascript">
+var paramJson={}; 
+$(function(){   
+    var url = window.location.search; 
+    if(url!=''){
+         var paramsArr = (url.split("?")[1]).split("&"); 
+         $.each(paramsArr,function(i){
+           var item = paramsArr[i].split("=");
+               paramJson[item[0]] = item[1];
+         }) 
+    } 
+    getRecord();  
+	$(".tip").click(function(){
+	getRecord();  
+	});
+});
+var pageindex = 0;
+function getRecord(){   
+    //1.盒子返利；2.车险返利   
+	$.ajax({
+		url: '/yangchebao-app-ws/ws/0.1/autogain/subsidy/record/history?userInfoId='+paramJson.userId+"&subsidySource="+paramJson.subsidySource+"&pagesize=20&pageindex="+pageindex,
+		type: 'get',
+		async: false,
+		dataType: 'json',
+		success: function(data) { 
+			if((data.page+1)<data.totalPages){
+                $(".tip").show();
+              } else{
+                $(".tip").hide();
+              }  		
+			 var items = data.items;
+			 pageindex++;  
+             var items = data.items; 
+             if(items.length>0){
+				 $.each(items,function(i){
+					var item = items[i]; 
+					var status = "";
+					if(item.awardStatus==0){
+						status = "待领取";
+					}else if(item.awardStatus==1){
+						status = "已领取";
+					}else if(item.awardStatus==2){
+						status = "已过期";
+					}
+					var _li = '<li>'
+						+'<span class="leftT">奖励日期 '+item.createDate+'</span>'
+						+'<span class="rightT">'+status+'<br><span class="org">¥'+item.amount+'</span></span>'
+						+'</li>';
+					 $(".list").append(_li); 
+				 });
+			 }else{
+               $(".list-null").show(); 
+             }
+		},
+		error:function(xhr){   
+			var mes = eval('('+xhr.responseText+')');  
+			errorLog("获取数据失败");
+		}
+	}); 
+}
+</script>
+</body>
+</html>

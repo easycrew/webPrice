@@ -1,0 +1,421 @@
+<div class="urlContentWraper" id="Wraper_agentBox_cash"> 
+	<div class="row-fluid ui-data-show"> 
+			<div class="hDiv">
+				 <h2 class="ui-tit"><strong>返现列表</strong></h2> 
+				 <table id="Table_agentBox_cash_list"></table>
+			</div> 
+			<div class="bDiv">
+				<br/>
+				 <h2 class="ui-tit"><strong>盒子详情</strong></h2> 
+				<table id="Table_agentBox_cash_info"></table>
+			</div> 
+    </div> 
+	<div id="Form_agentBox_set" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>所属代理商：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="minTackCash" class="jrad-select-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>盒子上限数：</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="maxTackCash" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+
+	<div id="Form_agentBox_import" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>所属代理商：</label>
+				<div class="span4 grid-layout-content fluid-wrap">
+					<div name="isTransfered" class="jrad-select-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>IMEI：</label>
+				<div class="span4 grid-layout-content fluid-wrap">
+					<div name="isTransfered" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>手机号：</label>
+				<div class="span4 grid-layout-content fluid-wrap">
+					<div name="isTransfered" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>补贴时间始：</label>
+				<div class="span4 grid-layout-content fluid-wrap">
+					<div name="isTransfered" class="jrad-dateinput-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>补贴时间终：</label>
+				<div class="span4 grid-layout-content fluid-wrap">
+					<div name="isTransfered" class="jrad-dateinput-container">
+					</div> 
+				</div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>	
+
+    <div id="Form_agentBox_import_much" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>批量导入：</label>
+				<div class="span4 grid-layout-content fluid-wrap">
+					<div name="isTransfered" class="jrad-select-container">
+					</div> 
+				</div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>	
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	var ExchangeCodeId = "";
+    var wraper = $('#Wraper_agentBox_cash');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	
+	var page_column_model_c = new Array(); 
+	var page_list_buttons_c = new Array();
+    var page_search_items_c = new Array();
+	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+    jRad.validators['zeroService'] = [{"msg":"绑定服务不能为空","type":"min","value":"1"}]; 
+
+	jRad.validators['remarks'] = [{"msg":"内容超长","type":"max","value":"2000"}];  
+	jRad.params['auditStatus'] = {data:[{id:'',name:'全部'},{id:'0',name:'审核中'},{id:'1',name:'审核通过'},{id:'2',name:'审核驳回'}]}
+	var checkParam = {};
+
+	jRad.params['isTransfered'] = {data:[{id:'0',name:'否'},{id:'',name:'全部'},{id:'1',name:'是'}]}
+	checkParam['reasonOfReject'] = {grid:14};
+
+	var fields_params = {}; 
+
+	fields_params['isTransfered'] = {data:[{id:'1',name:'是'},{id:'2',name:'否'}]}
+
+	fields_params['isTransfered'] = {
+        url:'/shopmanage-ws/ws/0.1/busiProfitRate/batchSetProfit',
+        autocomplete:false,
+        success: function(data) {   
+            if (data != undefined&&data[0]!=undefined&&data[0].message!="") {
+                $.jRadAlert(data[0].message,"error");  
+            }else{
+                $('#Form_agentBox_import_much',wraper).form('close');
+                $('#Table_agentBox_cash_list').flexReloadCurrentPage();        
+                if(data.status=="400"){
+                    $.jRadAlert(data.msg, 'warning',"",-1); 
+                }else{
+                    $('#Table_agentBox_cash_list',wraper).flexMessage(data.msg, 'success'); 
+                }
+            } 
+        },
+        error:function(xhr){
+            var errormsg = eval("(" + xhr.responseText + ")");
+            $.jRadMessage({level:'error',message:errormsg[0].message,selector:$('#Form_agentBox_import_much .pop-up-middle',wraper)})
+        }
+    };  
+
+    $('#Form_agentBox_import_much',wraper).form({
+        title: '收益批量设置',
+        validators: jRad.validators,
+        fields_params: fields_params,  
+        submit: addShortMessage 
+    });
+    function addShortMessage(){
+           var _form = $("#Form_agentBox_import_much");
+           var json = _form.form('getValue'); 
+           var flag = _form.form('validateAll');
+           if(!flag) {
+             return;
+           }  
+           delete json.profitFile;
+           $('div[name=isTransfered]',wraper).upload({
+            params: json,
+           }).upload('upload'); 
+    } 
+
+	page_column_model.push({display: '所属代理商', name : 'applyData'}); 
+    page_column_model.push({display: '盒子上限数', name : 'businessId'}); 
+    page_column_model.push({display: '当前盒子数', name : 'businessRegName'}); 
+    page_column_model.push({display: '累计返现金额', name : 'cashWithdrawal'}); 
+    page_column_model.push({display: '当月返现金额', name : 'cashWithdrawalReal'}); 
+    page_column_model.push({display: '结算状态', name : 'auditStatus',width:150,diy:function(item,$div){
+	    $div.html(item.auditStatus);
+	    if(item.auditStatus=='审核驳回'){
+	    	$div.html('审核驳回&nbsp;&nbsp;&nbsp;&nbsp;')
+		 var $a = $("<a>").html("驳回原因");
+		 $div.append($a);
+		 $a.click(function(){
+			$.jRadAlert(item.remark,"info");
+		 });
+		 var checkDiv = $("<div>").addClass("checkInfo");
+	    }
+	    else if(item.auditStatus=='1'){$div.html('审核通过')}
+	    else if(item.auditStatus=='0'){$div.html('审核中')}
+	}});
+    page_column_model.push({display: '生成时间', name : 'auditDate'}); 
+    page_column_model.push({display: '转账时间时间', name : 'transferDate'}); 
+    page_column_model.push({display: '操作人', name : 'auditOperator'});
+   
+   page_search_items.push({row:'1',type:'jrad-select',display:'所属代理商',name:'businessId'});
+   page_search_items.push({row:'1',type:'jrad-dateinput',display:'更新时间始',name:'applyStartDate'}); 
+   page_search_items.push({row:'1',type:'jrad-dateinput',display:'更新时间终',name:'applyEndDate'}); 
+ 	
+ 	page_list_buttons.push({displayname: '修改转账状态',name:'pass',bclass: 'pass',prefunc:function(){
+            var checked = $('#Table_agentBox_cash_list').getCheckedTrs();
+            if (checked.length == 0 || checked[0].auditStatus !== '审核中') {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_agentBox_cash_list').getCheckedTrs();
+			var ids = [];
+			$.each(checked,function(){
+				ids.push(this.carInfoId);
+			});
+			$.jRadConfirm('是否确认已转账？',1,function(){
+				 var postData = []; 
+				 $.each(checked,function(i){
+				 	var postJson={};
+				 	postJson.busiTackCashAuditId=this.busiTackCashAuditId;
+				 	postJson.auditOperator=carsmart_config.operatorName;
+				 	postJson.businessId=this.businessId;
+				 	postJson.auditReasult=1;
+				 	postData.push(postJson)
+				 });
+				 
+				$.jRadAjax({
+				    type:'post',
+					data:postData,
+					url:'/shopmanage-ws/ws/0.1/businessTackCash/auditTackCash', 
+					success: function(){
+						$('#Table_agentBox_cash_list').flexMessage('修改成功!', 'success');
+           	    		$('#Table_agentBox_cash_list').flexReloadSearch();
+					},
+					error:function(xhr){
+					    var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined) {
+							$('#Table_agentBox_cash_list').flexMessage(errormsg[0].message, 'error');
+						}
+					}
+				});
+			});
+		}
+	});
+ 
+	page_list_buttons.push({displayname: '设置盒子上限数',name:'cashInstall', bclass: 'cashInstall',onpress : function(){
+			var _item=$.jRadGet({url:'/shopmanage-ws/ws/0.1/businessTackCash/getRule'});
+			$('#Form_agentBox_set',wraper).form({
+				title:'主动提现设置',
+				url:'/shopmanage-ws/ws/0.1/businessTackCash/setRule',
+				item:{},
+				type:'post',
+				before_submit:function(json){
+					return json
+				},
+				success_callback:function(){
+					$('#Table_agentBox_cash_list').flexMessage('设置成功', 'success')
+					$('#Table_agentBox_cash_list').flexReloadSearch();
+				}
+			}).form('open');
+	}}); 
+
+	function excelplus(){
+		var param = {};
+			 var businessId = $.trim($(".searchContent div[name='businessId']",wraper).input('val'));
+			 if(businessId!=""){
+				param['businessId'] = businessId;
+			 };
+			 var businessRegName = $.trim($(".searchContent div[name='businessRegName']",wraper).input('val'));
+			 if(businessRegName!=""){
+				param['businessRegName'] = businessRegName;
+			 };
+			 var auditStatus = $.trim($(".searchContent div[name='auditStatus']",wraper).select('val'));
+			 if(auditStatus!=""){
+				param['auditStatus'] = auditStatus;
+			 };
+			 var applyStartDate = $.trim($(".searchContent div[name='applyStartDate']",wraper).dateinput('val'));
+			 if(applyStartDate!=""){
+				param['applyStartDate'] = applyStartDate;
+			 };
+			 var applyEndDate = $.trim($(".searchContent div[name='applyEndDate']",wraper).dateinput('val'));
+			 if(applyEndDate!=""){
+				param['applyEndDate'] = applyEndDate;
+			 };
+			 var isTransfered = $.trim($(".searchContent div[name='isTransfered']",wraper).select('val'));
+			 if(isTransfered!=""){
+				param['isTransfered'] = isTransfered;
+			 };
+			 var auditStartDate = $.trim($(".searchContent div[name='auditStartDate']",wraper).dateinput('val'));
+			 if(auditStartDate!=""){
+				param['auditStartDate'] = auditStartDate;
+			 };
+			 var auditEndDate = $.trim($(".searchContent div[name='auditEndDate']",wraper).dateinput('val'));
+			 if(auditEndDate!=""){
+				param['auditEndDate'] = auditEndDate;
+			 };
+			 var paramUrl = "";
+			 if(param!={}){
+				 paramUrl+="?"
+				 $.each(param,function(k,v){paramUrl+="&"+k+"="+v;});
+			 }
+			 param['paramUrl'] = paramUrl;
+			 return param;
+	}
+	page_list_buttons.push({displayname: '导出Excel',name:'excel', bclass: 'excel',onpress : function(){
+			$.jRadConfirm('确认导出吗？',1,function(){
+			 var paramUrl = excelplus().paramUrl;
+			 window.open('/shopmanage-ws/ws/0.1/businessTackCash/exportTakeAuditList'+paramUrl);
+			})
+		}
+	});
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_agentBox_cash_list').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true, 
+			overflow:true,
+            url:'/shopmanage-ws/ws/0.1/businessTackCash/getTackCashList', 
+			onError:showError
+    }); 
+
+    var total=$.jRadGet({url:'/shopmanage-ws/ws/0.1/businessTackCash/getTackCashList'});
+	$.each(total,function(i,val){
+		var obj = total.items;
+		if(obj !=''&&obj !='undefined'){
+			$.each(obj,function(i,k){
+				$('.hDivBox:eq(0) th:eq(4)',wraper).html('&nbsp;&nbsp;提现金额(元)<br>（合计'+k.totalCash+'元）');
+				$('.hDivBox:eq(0) th:eq(5)',wraper).html('&nbsp;&nbsp;扣2%后金额(元)<br>（合计'+k.totalCashReal+'元）');
+			})
+		}else{
+			$('.hDivBox:eq(0) th:eq(4)',wraper).html('提现金额(元)');
+			$('.hDivBox:eq(0) th:eq(5)',wraper).html('扣2%后金额(元)');
+		}
+	})
+	$('.ui-btn-icon:first',wraper).click(function(){
+			var param = excelplus();
+		    var total2=$.jRadGet({url:'/shopmanage-ws/ws/0.1/businessTackCash/getTackCashList'+param.paramUrl});
+			$.each(total2,function(i,val){
+				var obj2 = total2.items;
+				if(obj2 !=''&&obj2 !='undefined'){
+					$.each(obj2,function(i,H){
+						$('.hDivBox:eq(0) th:eq(4)',wraper).html('&nbsp;&nbsp;提现金额(元)<br>（合计'+H.totalCash+'元）');
+						$('.hDivBox:eq(0) th:eq(5)',wraper).html('&nbsp;&nbsp;扣2%后金额(元)<br>（合计'+H.totalCashReal+'元）');
+					})
+				}else{
+						$('.hDivBox:eq(0) th:eq(4)',wraper).html('提现金额');
+						$('.hDivBox:eq(0) th:eq(5)',wraper).html('扣2%后金额(元)');
+				}
+			}) 
+	}); 
+
+	page_column_model_c.push({display: '所属代理商', name : 'orderNumber'});	
+	page_column_model_c.push({display: 'IMEI', name : 'orderDate'});	
+	page_column_model_c.push({display: '手机号', name : 'serviceDate'});
+	page_column_model_c.push({display: '返现类型', name : 'orderTotalAmount'});
+	page_column_model_c.push({display: '类型说明', name : 'generalAmount'});
+	page_column_model_c.push({display: '返现金额', name : 'subsidyMoney'});
+	page_column_model_c.push({display: '更新时间', name : 'balancePayAmount'});
+
+    page_search_items_c.push({row:'1',type:'jrad-select',display:'所属代理商',name:'businessId'});
+    page_search_items_c.push({row:'1',type:'jrad-input',display:'IMEI',name:'businessId'});
+    page_search_items_c.push({row:'1',type:'jrad-input',display:'手机号',name:'businessId'});
+    page_search_items_c.push({row:'2',type:'jrad-dateinput',display:'更新时间始',name:'businessId'});
+    page_search_items_c.push({row:'2',type:'jrad-dateinput',display:'更新时间终',name:'businessId'});
+
+    page_list_buttons_c.push({displayname: '非批量导入盒子',name:'contractInstall', bclass: 'contractInstall',prefunc:function(){
+            var checked = $('#Table_agentBox_cash_info',wraper).getCheckedTrs();
+            if (checked.length == 0) {return false;}else{return true;}
+        },onpress : function(){ 
+		    $('#Form_agentBox_import').form({
+                title: '非批量导入盒子',
+                url:'/shopmanage-ws/ws/0.1/busiProfitRate/updateProfit',
+                before_submit:function(json){
+                    var checked=$('#Table_agentBox_cash_info',wraper).getCheckedTrs();
+                    return json
+                },
+                success_callback:function(){ 
+                    $('#Table_agentBox_cash_info').flexMessage('导入成功', 'success');
+                    $('#Table_agentBox_cash_info').flexReload();
+                }
+		    }).form('open');
+        }
+    });   
+    page_list_buttons_c.push({displayname: '批量导入盒子',name:'contractInstall', bclass: 'contractInstall',
+        onpress : function(){ 
+            var checked=$('#Table_agentBox_cash_info',wraper).getCheckedTrs();
+            $('#Form_agentBox_import_much').form({
+                title: '批量导入盒子',
+                fields_params:fields_params,
+                item:{'setType':1,'operator':carsmart_config.operatorName}
+            }).form('open');
+        }
+    });
+ 	page_list_buttons_c.push({displayname: '导出EXCEL',name:'excel', bclass: 'excel',onpress : function(){ 
+		 $ .jRadConfirm('确认导出吗？',1,function(){
+			 	var checked = $('#Table_agentBox_cash_list').getCheckedTrs();
+			 	if(checked[0]){
+				 	var businessId = checked[0].businessId;
+				 	var applyDate = checked[0].applyData;
+					window.open('/shopmanage-ws/ws/0.1/businessTackCash/exportOrderList?businessId='+businessId+'&applyDate='+applyDate);
+				}else{
+					alert('请勾选一家商家提现')
+				}
+			}); 
+        }
+    });
+	$('#Table_agentBox_cash_info').flexigrid({  
+            reload:true,
+			method:'get',
+            colModel : page_column_model_c,
+            buttons : page_list_buttons_c,
+            searchitems :page_search_items_c,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true, 
+			overflow:true,
+            url:'/shopmanage-ws/ws/0.1/businessTackCash/getTackCashList', 
+			onError:showError
+	});      
+	
+});
+function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		} 
+</script>

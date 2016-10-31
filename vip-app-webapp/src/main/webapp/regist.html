@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<script type="text/javascript" src="./js/jquery-1.9.1.min.js"></script>  
+<script type="text/javascript" src="./js/jquery.json-2.2.js"></script> 
+<script type="text/javascript" src="./js/index.js"></script> 
+<link rel="stylesheet" href="css/index.css">
+<title>创建会员</title>
+</head> 
+<style type="text/css">  
+.form-wrap li {
+    background-color: #fff;
+    border-bottom: 1px solid #d9d9e2;
+    height: 15px;
+    margin-bottom: 15px;
+    padding: 15px 90px 15px 35px;
+    position: relative;
+} 
+.form-wrap .phone {
+    left: 0;
+    margin: 10px 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 35px;
+}
+.form-wrap .msg {
+    left: 0;
+    margin: 15px 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 35px;
+}
+.form-wrap .regist-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.regist-btn {
+    background-color: #6eaade;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    font-size: 1.4em;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    width: 90px;
+}
+.form-wrap input {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: -moz-use-text-color -moz-use-text-color -moz-use-text-color #d9d9e2;
+    border-image: none;
+    border-radius: 0;
+    border-style: none none none solid;
+    border-width: medium medium medium 1px;
+    display: block;
+    font-size: 1.5em;
+    height: 15px;
+    line-height: 15px;
+    padding: 0 11px;
+}
+.phone img {
+    width: 13px;
+}
+.msg img {
+    width: 18px;
+}  
+.voice-code{
+    color: #6eaade;
+    font-size: 1.2em;
+    padding: 0 10px;
+    text-align: right;
+}  
+.button {
+    background-color: #34cc89;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 1.8em;
+    height: 2.16em;
+    line-height: 2.16em;
+    text-align: center;
+    width: 100%;
+}
+.comment{
+   font-size: 1.2em;
+   color:#707c92;
+   margin: 0 23px;
+   border-top:1px solid #cfd1db;
+   line-height: 150%;
+}
+.comment h1{
+  padding: 10px 0;
+  border-top:1px solid #fff;
+}
+.regist-tip{
+  text-align: center;
+  font-size: 1.2em;
+  color: #ff8463;
+  margin-bottom: 10px;
+} 
+.card-wrap{
+  position: relative;
+}
+.check-link {
+    background-color: #fff;
+    border-bottom: 1px solid #d9d9e2;
+    cursor: pointer;
+    font-size: 1.5em;
+    height: 45px;
+    line-height: 45px;
+    margin-bottom: 15px;
+    padding: 0 10px; 
+} 
+.check-link .arrow {
+    border-right: 1px solid #c3c3c7;
+    border-top: 1px solid #c3c3c7;
+    display: inline-block;
+    float: right;
+    height: 12px;
+    margin-top: 15px;
+    transform: rotate(45deg);
+    -ms-transform:rotate(45deg);   
+    -moz-transform:rotate(45deg); 
+    -webkit-transform:rotate(45deg);  
+    -o-transform:rotate(45deg); 
+    width: 12px;
+} 
+.dropList{
+  position: absolute;
+  top:46px;
+  left: 0;
+  width: 100%;
+  background-color: #fff; 
+  display: none;
+  box-shadow: 3px 3px 3px #d9d9e2;
+}
+.dropList li{
+  padding: 0 10px;
+  border-bottom: 1px solid #d9d9e2; 
+  font-size: 1.5em;
+  height: 45px;
+  line-height: 45px; 
+}
+.dropList li.selected{
+  background-image: url("http://app.yangchebao.com.cn/group1/M00/0A/F5/ChUBl1VxCAyAHLr9AAACNlXa_ys717.png");
+    background-repeat: no-repeat;
+    background-size: 23px auto; 
+    background-position:right center;
+}
+ol li{
+  margin-left: 10px;
+}
+</style>
+<body>  
+  <section class="regist-wrap"> 
+    <ul class="form-wrap" style="padding-top: 25px">
+    <li><span class="phone"><img src="css/images/phone2.png"></span>
+       <div ><input type="text" placeholder="请输入客户的手机号码" id="mobile"/></div>
+      <span class="regist-btn" id="getcodeBtn">获取验证码</span></li>
+    <li><span class="msg"><img src="css/images/msg.png"></span>
+       <div ><input type="text" placeholder="请输入客户的验证码" id="code"/></div></li>  
+    </ul> 
+    <div class="card-wrap">
+      <p class="check-link cardCheckBtn" relid="-99"><span>赠送的车主卡:不赠送</span><label class="arrow"></label></p>
+      <ul class="dropList"></ul> 
+    </div>
+    <p class="voice-code" id="voiceCode">短信收不到，获取语音验证码</p>  
+    <div class="btnn" id="submit">确认</div>
+    <p class="regist-tip">
+      创建后的会员信息请登陆电脑商家后台查看
+    </p>
+    <article class="comment">
+        <h1>创建会员步骤：</h1>
+        <ol>
+          <li>输入客户手机号，点击“获取验证码”；</li>
+          <li>若手机号未注册，会向此手机发送短信验证码，输入验证码后，点击“确认”即可成为注册会员；若手机号已在养车宝注册账号，点击“确认”直接创建会员；</li>
+          <li>系统给未注册养车宝账号的客户创建养车宝账号，密码会以短信形式发送到客户手机。</li>
+        </ol>
+    </article>
+  </section>  
+<script type="text/javascript">
+$(document).ready(function(){  
+      var shopAccountId = 224,businessInfoId=146682;
+      index.init = function(userInfo,bridge) { 
+        shopAccountId = userInfo.shopAccountId;
+        businessInfoId = userInfo.businessInfoId;
+      }
+      $(".cardCheckBtn").click(function(){
+        if($(".dropList").css('display')=="block"){
+          $(".dropList").fadeOut();  
+        }else{
+         $(".dropList").fadeIn();
+         } 
+      }); 
+      $(".dropList").on('click','li',function(){
+         $(".dropList li").removeClass("selected");
+         $(this).addClass("selected");
+         $(".dropList").fadeOut();
+         $(".cardCheckBtn span").html($(this).html());
+         $(".cardCheckBtn").attr("relid",$(this).attr("relid"));
+      });
+      // $(document).click(function(){
+      //    if(target.tagName.toLowerCase() == 'a' || $(target).hasClass('call')) {
+      //       return;
+      //    } 
+      // });
+      giftListt();
+	   $("#dialog2 .next").click(function(){ 
+           $("#dialog2").hide();
+      });    
+      $("#getcodeBtn").click(function(){ 
+          if($(this).hasClass("disabled")){
+            return false;
+          }
+          isReg();
+      });  
+	   $("#voiceCode").click(function(){   
+	    if($(this).hasClass("unable")){
+            return false;
+          }
+		      isReg("1");
+      });      
+      $("#submit").click(function(){ 
+          var mobile = $.trim($("#mobile").val());
+          if(mobile==""){
+             alertTasat("请输入手机号码");
+             return;
+          } 
+          var phoneReg = /^((\+86)|(86)){0,}1\d{10}$/; 
+          if(!phoneReg.test(mobile)){
+            alertTasat("请输入正确的手机号码"); 
+            return;
+          }   
+          var code = $.trim($("#code").val());  
+          if(code!=""){ 
+            var cReg = /^\d{4}$/; 
+            if(!cReg.test(code)){
+              alertTasat("请输入正确的验证码"); 
+              return;
+            }    
+          }
+          var postData = {};  
+          postData.mobile = mobile;
+          postData.code = code;  
+          postData.vipLevel = "1"; //默认1
+          postData.shopAccountId = shopAccountId;   
+          postData.modifyPerson = businessInfoId; 
+          postData.memberDonateRelId =  $(".cardCheckBtn").attr("relid");  
+          if(postData.memberDonateRelId=="-99"){
+            postData.isDonate == 0;
+          }else{
+            postData.isDonate == 1; 
+          }
+          $.ajax({
+                url: '/vip-app-ws/ws/0.1/userMember/registerUserMember',
+                type: 'post',
+                async: false,
+                data:$.toJSON(postData),
+                dataType: 'json',
+                contentType:'application/json;charset=utf-8',
+                success:function(data){ 
+                    alertRe("此手机号码已注册养车宝账号","创建会员成功！");
+                },error:function(xhr){ 
+                     var mes = eval('('+xhr.responseText+')'); 
+                     alertRe(mes[0].message);  
+                } 
+            }); 
+       });   
+      function isReg(type){ 
+          var sendType = type;
+          var mobile = $.trim($("#mobile").val());
+          if(mobile==""){
+             alertTasat("请输入手机号码");
+             return;
+          } 
+          var phoneReg = /^((\+86)|(86)){0,}1\d{10}$/; 
+          if(!phoneReg.test(mobile)){
+            alertTasat("请输入正确的手机号码"); 
+            return;
+          }  
+          $.ajax({
+              url: '/vip-app-ws/ws/0.1/userInfo/isRegistered?mobile='+mobile,
+              type: 'get', 
+              dataType: 'json',
+              success: function(data) {    
+                if(data.isRegistered=="0"){//是否注册：0.未注册  1.已注册 
+                    sendMsg(sendType);
+                }else{
+                    alertRe("此手机号码已注册养车宝账号");
+                }
+              },error:function(xhr){  
+              }
+          });  
+      }      
+      function giftListt(){  
+          $.ajax({
+              url: '/vip-app-ws/ws/0.1/userMember/giftList',
+              type: 'get', 
+              dataType: 'json',
+              success: function(data) {     
+                $.each(data,function(i){
+                   var item = data[i];
+                   var _li = '<li relid="'+item.memberDonateRelId+'">'+item.donateName+'</li>';
+                   if(item.memberDonateRelId=="-99"){
+                    _li = '<li relid="'+item.memberDonateRelId+'" class="selected">'+item.donateName+'</li>'; 
+                   }
+                   $(".dropList").append(_li);
+                });           
+              },error:function(xhr){  
+              }
+          });  
+      }      
+      function sendMsg(voice){ 
+            var postData = {};
+            var mobile = $.trim($("#mobile").val());
+            if(mobile==""){
+                alertTasat("请输入手机号码");
+                return;
+            }
+            var phoneReg = /^((\+86)|(86)){0,}1\d{10}$/; 
+            if(!phoneReg.test(mobile)){
+              alertTasat("请输入正确的手机号码"); 
+              return;
+            }   
+            postData.user = mobile; 
+            if(voice!=undefined&&voice=="1"){ 
+      				voiceTime();
+      			}else{
+              voice="0";
+      				time(); 
+      			} 
+            $.ajax({
+                url: '/vip-app-ws/ws/0.1/userInfo/registry/getcode?user='+mobile+'&voice='+voice,
+                type: 'get', 
+                dataType: 'json',
+                success:function(data){ 
+        					 
+                },error:function(xhr){ 
+                     var mes = eval('('+xhr.responseText+')');  
+					           alertTasat(mes[0].message);
+                } 
+            }); 
+      } 
+});
+var wait = 60;
+function time() {
+  var o = $("#getcodeBtn");
+  if (wait == 0) {
+  o.removeClass("disabled");
+  o.html("获取验证码"); 
+  wait = 60;
+  } else {
+  o.addClass("disabled", true);
+  o.html(wait + " s");
+  wait--;
+  setTimeout(function() {
+  time();//循环调用
+  },
+  1000)
+  }
+}
+var voiceWait = 60;
+function voiceTime() {
+  var o = $("#voiceCode");
+  if (voiceWait == 0) {
+  o.removeClass("unable"); 
+  voiceWait = 60;
+  } else {
+  o.addClass("unable", true); 
+  voiceWait--;
+  setTimeout(function() {
+  voiceTime();//循环调用
+  },
+  1000)
+  }
+}    
+</script>  
+</body>
+</html>

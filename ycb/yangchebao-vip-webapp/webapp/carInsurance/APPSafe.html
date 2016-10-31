@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width,inital-scale=1.0,maxinum-scale=1.0,mininum-scale=1.0,user-scalble=no" />
+
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+
+	<title>客户手机</title>
+
+</head>
+
+<style>
+
+	*{
+
+		margin: 0;
+
+		padding: 0;
+
+		list-style: none;
+
+	}
+
+	body{
+
+		background-color: #f4f7f8;
+
+		font-size: 62.5%;
+
+		font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+
+		color: #1e1e1e;
+
+	}
+
+	img{
+
+		border: none;
+
+		vertical-align: middle;
+
+	}
+
+	a{
+
+		text-decoration: none;
+
+		outline:none;
+
+		blr:expression(this.onFocus=this.blur());
+
+	}
+
+
+
+	section{
+
+		position: relative;
+
+		min-width: 320px;
+
+		max-width: 640px;
+
+		height: 800px;
+
+		margin: 0 auto;
+
+		background-color: #f4f7f8;
+
+		padding-bottom: 5rem;
+
+	}
+
+	article{
+
+		background-color: #fff;
+
+		padding: 1rem 1.2rem 5rem;
+
+		border: 1px solid #ddd;
+
+	}
+
+	p.please,p.lastTip{
+
+		font-size: 1rem;
+
+		color: #555;
+
+	}
+
+	
+
+	input{
+
+		-webkit-box-sizing: border-box;
+
+		-moz-box-sizing: border-box;
+
+		box-sizing: border-box;
+
+		border: 1px solid #bbb;
+
+		background-color: #fff;
+
+		padding: 4px;
+
+		font-size: 1rem;
+
+		line-height: 18px;
+
+		color: #1e1e1e;
+
+	}
+
+	div.mobileNo{
+
+		overflow: hidden;
+
+	}
+
+	div.qrCode input{
+
+		width: 100%;
+
+	}
+
+	div.mobileNo input{
+
+		float: left;
+
+		width: 70%;
+
+	}
+
+	span.getQrcodeBtn{
+
+		background-color: #006699;
+
+		color: #fff;
+
+		font-size: 1rem;
+
+		line-height: 28px;
+
+		cursor: pointer;
+
+		display: inline-block;
+
+		text-align: center;
+
+		width: 5rem;
+
+		width: 30%;
+
+	}
+
+	div.row{
+
+		margin-top: 1rem;
+
+		overflow: hidden;
+
+	}
+
+	div.btn p{
+
+		width: 50%;
+
+		text-align: center;
+
+		background-color: #006699;
+
+		color: #fff;
+
+		font-size: 1rem;
+
+		line-height: 2rem;
+
+		cursor: pointer;
+
+		margin: 0 auto;
+
+	}
+
+	p.lastTip{
+
+		margin-top: 2rem;
+
+	}
+
+</style>
+
+<body>
+
+	<section>
+
+		<article>
+
+			<p class="please">请输入购买保险客户的手机号码</p>
+
+			<div class="mobileNo row">
+
+				<input type="text" placeholder='请输入客户手机号' name="mobileNo" id="mobileNo"><span class="getQrcodeBtn">获取验证码</span>
+
+			</div>
+
+			<div class="qrCode row">
+
+				<input type="text" placeholder='请输入客户手机接收的验证码' name="qrCode" id="qrCode">
+
+			</div>
+
+			<div class="btn row">
+
+				<p>确定</p>
+
+			</div>
+
+			<p class="lastTip">最后保单支付还需客户在养车宝APP完成，请协助用户下载养车宝APP。</p>
+
+		</article>
+
+	</section>
+
+</body>
+
+<script type="text/javascript">
+
+	$(function(){
+
+		$('div.btn p').unbind('click').bind('click',function(){
+		   if(window.location.href.indexOf('172.18.180.11')>-1){
+				window.location.href="http://172.18.180.11/yangchebao-pubweb/baoxian/carSafe-step1.html"
+			}else{
+				window.location.href="http://app.yangchebao.com.cn/yangchebao-pubweb/baoxian/carSafe-step1.html"
+			}
+			
+		})
+
+	})
+
+</script>
+
+</html>

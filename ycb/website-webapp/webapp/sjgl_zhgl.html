@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta name="keywords" content="养车宝，汽车保养，洗车美容">
+<meta name="description" content="养车宝为车主提供汽车保养，汽车美容，汽车维修，免费电话救援等服务，简易流程让您养车省心，交易透明让您养车安心，专业服务让您养车不用担心！">
+<title>商家攻略_汽车保养美容商家齐聚_养车宝！</title>
+<link rel="icon" href="img/icon.png" type="image/png">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/pagination.css">
+<link rel="stylesheet" href="css/cd.css">
+<link rel="stylesheet" href="css/sjgl_zhgl.css">
+<link rel="stylesheet" href="css/cjwt.css">
+</head>
+<body>
+	<div class="container">
+		<div class="top">
+			<div id="navi"></div>
+		</div>
+		<div class="content">
+			<div class="left_bar">
+				<ul class="navbar">正在加载...</ul>
+			</div>
+			<div class="middle">
+				<h2>正在加载...</h2>
+				<div class="line_1"><p></p></div>
+				<div class="mi_con">正在加载...</div>
+				<div class="pagination"></div>
+			</div>
+			<div class="right">
+				<h2>常见问题</h2>
+				<div class="line_2"><p></p></div>
+				<div class="ri_con">正在加载...</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer"></div>
+</body>
+<!--[if IE 6.0]>
+	<script src="js/DD_belatedPNG.js"></script>
+	<script>
+        DD_belatedPNG.fix("img");
+	</script>
+<![endif]-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff924926d1eaf998748c11fd77a92f7ca' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script src="js/jquery-1.7.min.js"></script>
+<script src="js/jquery.pagination.js"></script>
+<script src="js/jquery.urlParam.js"></script>
+<script src="js/main.js"></script>
+<script src="js/cd.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#navi").load("head.html");
+		Car.footer();
+		
+		$.get(Car.url("/strategyWeb/getStrategyTree"), function (data) {
+			if (data && data.tree) {
+				var tree = data.tree, html = "";
+				for (var i = 0; i < tree.length; i++) {
+					var seconds = tree[i].seconds;
+					html += "<li class='navbar_li'><p><img src='img/bar_icon1.png'><span class='navbar_li_sp'>" + tree[i].name + "</span>";
+					if (seconds.length > 0) html += "<img src='img/bar_icon4.png' class='bar_icon3'>";
+					html += "</p>";
+					if (seconds.length > 0) {
+						html += "<ul>";
+						for (j = 0; j < seconds.length; j++) {
+							html += "<li><img src='img/bar_icon2.png'><span><a href='sjgl_zhgl.html?secondId=" + seconds[j].secondId + "'>" + seconds[j].secondName + "</a></span></li>";
+						}
+						html += "</ul>";
+					}
+					html += "</li>";
+				}
+				$(".navbar").html(html);
+				$.expand();
+			}
+		});
+		
+		loadData(1);
+
+		$.get(Car.url("/strategyWeb/getStrategyCommon"), function (data) {
+			if (data && data.commons) {
+				var commons = data.commons, html = "";
+				for (var i = 0; i < commons.length; i++) {
+					html += "<p><a href='sjgl_detail.html?thirdId=" + commons[i].thirdId + "'>" + commons[i].thirdName + "</a></p>";
+				}
+				$(".ri_con").html(html);
+			}
+		});
+	});
+	
+	var initPagination = false;
+	function loadData(pageIndex){
+		$.get(Car.url("/strategyWeb/getStrategyThirdPage"), {
+			pageIndex: pageIndex,
+			secondId: $.getQuery("secondId")
+		},function (data) {
+			if (data) {
+				$(".middle h2").html(data.secondName);
+				var thirds = data.thirds, html = "";
+				if (thirds && thirds.items.length > 0) {
+					for (var i = 0; i < thirds.items.length; i++) {
+						html += "<p><span class='smallicon'>.</span><span><a href='sjgl_detail.html?thirdId=" + thirds.items[i].thirdId + "'>" + thirds.items[i].thirdName + "</a></span></p>";
+					}
+					$(".mi_con").html(html);
+					if (!initPagination) {
+						$(".pagination").pagination(thirds.totalItems, {
+							items_per_page: 12,
+							num_display_entries: 4,
+							num_edge_entries: 1,
+							link_to: "javascript:void(0);",
+							prev_text: "上一页",
+							next_text: "下一页",
+							callback: function(page_index){
+								loadData(page_index + 1);
+							}
+						});
+						initPagination = true;
+					}
+				} else {
+					$(".mi_con").html("暂无数据...");
+				}
+			}
+		});
+	}
+</script>
+</html>

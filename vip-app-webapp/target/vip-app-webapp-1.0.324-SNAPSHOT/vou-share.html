@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="js/jquery.json-2.2.js"></script> 
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=RfF2Bd19VQ7GUxnwasyy38cQ"></script> 
+<script type="text/javascript" src="js/index.js"></script>  
+<title></title>
+<style>
+.feedback-wrap{background: #fff;}
+.btnn{
+	height:2.0em;
+	line-height:2.0em;
+	margin: 1.2em 8em;
+}
+.info{height:31px;line-height:31px;text-align: center;font-size:14px;color:#fff;background: #6EAADE;}
+.feedback-textarea p{font-family:"STHeitiSC-Medium"; font-size:1.4em; color:#707C92; line-height:20px}
+.tuhao{text-align: center;}
+.tuhao img{width:100%;border:none;vertical-align:middle;}
+.tuhao p{text-align: center;}
+.tuhao span{display:block;font-size:2.5em;color:#fff;font-weight: bold;margin-top:-63px;}
+.canbay{margin:60px auto 15px;}
+.canbay span{font-size:1.6em;}
+.phone, .checkedCode{
+	background-color:#ffffff;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px #a3aecd solid;
+	/*color:#cfd1db;*/
+	font-family:'华文细黑','HelveticaNeue-Light';
+	font-size:14px;
+	padding:0.53em;
+	width:100%;
+	height:3.2em;
+	line-height:3.2em;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	margin-top:1em;
+}
+.feedback-textarea .phone{
+	height:2.6em;
+	line-height: 2.6em;
+	padding:0em 0.53em;
+	font-size:17px;
+}
+.checkedCode {padding:0;}
+.checkedCode input{
+	padding:0.53em;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	border:none;
+	width:68%;
+	float:left; 
+    color: #1e1e1e;
+    margin-left:3px;
+	font-family:'华文细黑','HelveticaNeue-Light';
+    font-size: 1.2em;
+}
+.checkedCode span{
+	border:none;
+	float:right;
+	background-color: #a3aecd;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    width: 30%;
+}
+.feedback-textarea .y-btnn{height:3em;line-height:3em;margin: 1.5em 1.4em;};
+.shop-wrap {text-align: center;}
+.shop-wrap figure {padding:50px 15px 20px 15px;background: #fff;margin-top:15px;}
+.shop-wrap img{max-width:100%;}
+#dituContent img{max-width: none;}
+/*#dituContent{height:50px;}*/
+.down{text-align:center;height:50px;line-height:50px;width:100%;display:inline-block;background:#6EAADE;color:#fff;font-size:19px;}
+</style>
+<body>
+	<section class="feedback-wrap"> 
+		<p class="info">此代金券为您店铺专属代金券，养车宝不予结算</p>
+		<div class="feedback-textarea">
+			<div class="status-show">
+				<div class="tuhao">
+					<img src="css/images/tuhao.png">
+					<p><span></span></p>
+				</div>
+				<p class="canbay"><span></span></p>
+				<input type="text" class="phone" placeholder="输入手机号">
+				<div class="checkedCode clearfix">
+					<input type="text" placeholder="输入验证码">
+					<span>获取验证码</span>
+				</div>
+			</div>
+			<a href="javascript:void(0)" class="btnn y-btnn" id="submit">领取代金券</a>	
+		</div>
+	</section>
+	<section class="shop-wrap">
+		<figure>
+			<img src="css/images/ycb-shop.png">
+		</figure>
+		<div id="dituContent" style="width:100%"></div>
+		<a href="http://d.yangchebao.com.cn" class="down">下载养车宝领取10元代金券</a>
+	<script type="text/javascript"> 
+		$(document).ready(function(){ 
+
+				var response = 1;
+				var url =decodeURI(window.location.href);  
+				var paramsArr = (url.split("?")[1]).split("&");
+				var data = {};
+				$.each(paramsArr,function(i){
+					var item = paramsArr[i].split("=");
+					data[item[0]] = item[1];
+				});
+
+				var mapHeight=window.innerHeight-350;
+				$('div#dituContent').css('height',mapHeight);
+				var map;
+				function initMap(){
+					creatMap();
+					setMapEvent()
+				}
+				function creatMap(){
+					map=new BMap.Map('dituContent');
+					var point=new BMap.Point('116.267151','39.923346');
+					map.centerAndZoom(point,14)
+				}
+				function setMapEvent(){
+			        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+			        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+			        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+			        map.enableKeyboard();//启用键盘上下左右键移动地图
+			    }
+
+				var serviceId = data.serviceId
+				var serviceName = data.serviceName
+				var reservePrice = data.reservePrice
+
+				$("title").html(serviceName);
+				$(".serviceName").html(serviceName);
+				initMap()
+				function doReply(){ 
+			 		var postData = {};
+			 		postData.shopAccountId = shopAccountId;
+			 		postData.serviceId = data.serviceId;
+			 		postData.voucherTopic = $(".name").val();
+			 		postData.issuanceNum = $(".num").val();
+			 		postData.money = $(".price").val();
+			 		postData.validDays = $(".day").val();
+			 		postData.illustrate = remarks;
+			 		postData.publisher = publisher;
+			 		postData.reservePrice = data.reservePrice;
+			 		postData.serviceName = data.serviceName;
+					$.ajax({
+						url: '/vip-app-ws/ws/0.1/voucherVip/addVoucherTopicToService',
+						contentType : "application/json;charset=utf-8",
+						dataType : "json",
+						type : "POST",
+						data : $.toJSON(postData),
+						async : false,
+						success: function(data) {  
+							$(".tuhao span").html(data.money+'代金券');
+							$(".canbay span").html('可用于购买：'+data.serviceName);
+						},
+						error:function(xhr){
+	                        var errormsg = eval("(" + xhr.responseText + ")"); 
+	                        if (errormsg != undefined){
+								alertRe(errormsg[0].message); 	
+	                        }		
+						}
+					}); 
+			 	}
+				index.init = function(userInfo,bridge) {
+					shopAccountId = userInfo.shopAccountId;
+					publisher = userInfo.userId;
+				 	$("#submit").on('click',function(){
+						doReply();
+					});
+					return response;
+				};
+		 
+		});   
+	</script>  
+</body>
+
+</html>
+

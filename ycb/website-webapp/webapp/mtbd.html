@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta name="keywords" content="养车宝，汽车保养，洗车美容">
+<meta name="description" content="养车宝为车主提供汽车保养，汽车美容，汽车维修，免费电话救援等服务，简易流程让您养车省心，交易透明让您养车安心，专业服务让您养车不用担心！">
+<title>养车宝_汽车保养美容专家！</title>
+<link rel="icon" href="img/icon.png" type="image/png">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/smallnav.css">
+<link rel="stylesheet" href="css/mtbd.css">
+</head>
+<body>
+	<div class="container">
+		<div class="top">
+			<div id="navi"></div>
+			<div class="smallnav">
+				<p><span><a href="index.html">养车宝</a></span><span>></span><span><a href="mtbdAll.html">媒体报道</a></span><span>></span><span class="question">正在加载...</span></p>
+			</div>
+		</div>
+		<div class="content">
+			<div class="left">
+			    <div class="left_one">
+				    <h2>正在加载...</h2>
+				    <p>正在加载...</p>
+				</div>
+				<div class="line"></div>
+				<div class="left_two">正在加载...</div>
+			</div>
+			<div class="right">
+				<a href="javascript:void(0);"><img src="img/loading.jpg" width="335" height="312"></a>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div class="footer"></div>
+</body>
+<!--[if IE 6.0]>
+	<script src="js/DD_belatedPNG.js"></script>
+	<script>
+        DD_belatedPNG.fix("img");
+	</script>
+<![endif]-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff924926d1eaf998748c11fd77a92f7ca' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script src="js/jquery-1.7.min.js"></script>
+<script src="js/jquery.urlParam.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/keyword.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#navi").load("head.html");
+		Car.footer();
+		
+		$.get(Car.url("/articleWeb/getMediaReportArticleDetail"), {
+			articleId: $.getQuery("articleId")
+		}, function (data) {
+			if (data) {
+				document.title = data.title + "_汽车保养美容专家！";
+				$(".question").html(data.title);
+				$(".left_one h2").html(data.title);
+				$(".left_one p").html("<p>发布时间：" + moment(data.createTime).format("YYYY-MM-DD") + "<span>媒体来源：" + data.mediaSource + "</span></p>");
+				$(".left_two").html($.keyword(data.detail));
+				$(".left_two img").attr("title", "养车宝");
+				$(".left_two .keyword").css("font-size", function(){
+					return $(this).parent().css("font-size");
+				}).css("font-family", function(){
+					return $(this).parent().css("font-family");
+				});
+			}
+		});
+		
+		$.get(Car.url("/adWeb/getArticleRightAd"), function(data) {
+			if (data && data.picUrl) {
+				var me = $(".right a");
+				if (data.jumpUrl) {
+					me.attr({href: data.jumpUrl, target: "_blank"});
+				}
+				me.html("<img src='" + data.picUrl + "' width='335' height='312'>");
+			}
+		});
+	});
+</script>
+</html>

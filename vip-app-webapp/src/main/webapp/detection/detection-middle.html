@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+		<link type="text/css" href="../css/base.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="css/detection.css" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script> 
+		<script type="text/javascript" src="../js/index.js"></script>
+		<title>养车宝测试总店</title>
+		<style>
+			body{
+				font-size: 62.5%;
+			}
+		</style>
+	</head>
+	<body>
+	<input type="hidden" name="plateNumber" value="" />
+	<input type="hidden" name="vinNumber" value="" />
+	<section class="header-wrap">
+		<div class="header">
+			<ul>
+				<li class="header-fir">
+					<div class="progressBar progressBar-l">
+						<p class="circle active circle-l">1</p>
+						<p class="liner active"></p>					
+					</div>
+					<label>填写车牌/车架</label>
+				</li>
+				<li class="header-sec">
+					<div class="progressBar progressBa-m">
+							<p class="circle circle-m active">2</p>
+							<p class="liner active"></p>					
+					</div>
+					<label>填写检测</label>
+					</li>
+				<li class="header-thir">
+					<div class="progressBar progressBar-r">
+						<p class="liner"></p>					
+						<p class="circle circle-r">3</p>
+					</div>
+					<label>提交检测</label>		
+				</li>
+			</ul>
+		</div>
+	</section>
+	<div class="shopTitle"><span>京A23121</span>车辆信息</div>
+	<section>
+		<div class="carInfo">
+			<ul>
+				<li>
+					<div class="label">品牌</div>
+					<div class="content" id="brand">
+						<span class="detail init" id="" name="brandId">未填写</span>
+					</div>
+					<div class="more">&nbsp;</div>
+				</li>
+				<li>
+					<div class="label">车系</div>
+					<div class="content" id="model">
+						<span class="detail init" id="" name="modelId">未填写</span>
+					</div>
+					<div class="more">&nbsp;</div>
+				</li>
+				<li>
+					<div class="label">车型</div>
+					<div class="content" id="style">
+						<span class="detail init" id="" name="styleId">未填写</span>
+					</div>
+					<div class="more">&nbsp;</div>
+				</li>
+				<li class="includeInput">
+					<div class="label">车颜色</div>
+					<div class="content">
+						<input type="text" class="detail" id="color"  placeholder="未填写" maxlength="10"/>
+					</div>
+				</li>
+				<li class="includeInput">
+					<div class="label">里程数(公里)</div>
+					<div class="content">
+						<input type="text" class="detail" id="totalMileage"  placeholder="未填写" maxlength="10"/>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<div class="button-wrap"><div id="commite" class="button">提交检测</div></div>
+	<script type="text/javascript">
+		var postData={},userId="";
+		$(function() {
+			var plateNumber,	/*车牌号*/
+				vinNumber,		/*车架号*/
+				brandId,		/*品牌ID*/
+				brandName,		/*品牌名称*/
+				modelId,		/*车系ID*/
+				modelName,		/*车系名称*/
+				styleId,		/*车型ID*/
+				styleName,		/*车系名称*/
+				color,			/*车颜色*/
+				totalMileage,	/*里程数*/
+				carInfoId,		/*工单ID*/
+				businessInfoId;	/*商家ID*/
+			var addWorkOrderN;
+			var response="0";
+			var bridge;
+			var url = window.location.search;
+			var paramJson = {};
+			if (url != undefined && url != "") {
+				var paramsArr = (url.split("?")[1]).split("&");
+				$.each(paramsArr, function(i) {
+					var item = paramsArr[i].split("=");
+					paramJson[item[0]] = item[1];
+				});
+			}
+			plateNumber=store.get(plateNumber);
+			vinNumber=store.get(vinNumber);
+			$(".shopTitle span").html(plateNumber);
+			
+			/*切换弹框*/
+			function changeReturn(){
+				$(".dialog").remove();
+				$(".dialog-overlay").remove();
+				confirmReSeach(/^[1][34578][0-9]{9}$/,'请输入11位手机号',addWorkOrderN,turnHomePage,'请输入手机号');
+			}
+			/*创建工单*/
+			function addWorkOrder(userId,carInfoId,businessInfoId){
+				var postData_={};
+				postData_.businessInfoId=businessInfoId;
+				postData_.carInfoId=carInfoId;
+				postData_.mobile=$(".dialog input").val();
+				postData_.operator=userId;
+				$.ajax({
+					type:"post",
+					url:"/vip-app-ws/ws/0.1/workOrder/addWorkOrder",
+					async:false,
+					data:JSON.stringify(postData_),
+					dataType:'json',
+					contentType:'application/json;charset=utf-8',
+					success:function(data){
+						alertTasatF('工单生成成功',turnHomePage);
+					},
+					error:function(xhr){
+						var error=JSON.param(xhr.responseText);
+						alertTasat('error[0].message');
+					}
+				});
+			};
+			
+			function turnHomePage(){
+				if(bIsAndroid()){
+					window.mallTitle.popToRootVC('1');   
+				}else{
+					bridge.callHandler('popToRootVC',{'isPopToRootVC':'1'});
+				}
+			};
+			
+			index.init=function(userInfo,bridge_){
+				bridge=bridge_;
+				plateNumber=store.get('plateNumber');
+				vinNumber=store.get('vinNumber');
+				brandId=store.get('brandId');
+				brandName=store.get('brandName');
+				modelId=store.get('modelId');
+				modelName=store.get('modelName');
+				styleId=store.get('styleId');
+				styleName=store.get('styleName');
+				color=store.get('color');
+				totalMileage=store.get('totalMileage');
+				/*title 商家名称显示*/
+				var shopName;
+				shopName=store.get('shopName');
+				$("title").html(shopName);
+				if(bIsAndroid()){
+					window.mallTitle.getMallTitle('0',shopName);  
+				}else{
+					bridge.callHandler('sendShopNameTitle',{'shopNameTitle':shopName});
+				}
+				
+				if(plateNumber){
+					$(".shopTitle span").html(plateNumber);
+				}
+				if(brandId){
+					$('span[name="brandId"]').attr('id',brandId);
+					$('span[name="brandId"]').html(brandName);
+				}
+				if(modelId){
+					$('span[name="modelId"]').attr('id',modelId);
+					$('span[name="modelId"]').html(modelName);
+				}
+				if(styleId){
+					$('span[name="styleId"]').attr('id',styleId);
+					$('span[name="styleId"]').html(styleName);
+				}
+				if(color){
+					$("#color").val(color);
+				}
+				if(totalMileage){
+					$("#totalMileage").val(totalMileage);
+				}
+				userId=userInfo.userId;
+				businessInfoId=userInfo.businessInfoId;
+				var path=getPath();
+				$("#brand").click(function(){
+					window.location.href="http://w2nw?"+path+"/brand.html";
+				});
+				$("#model").click(function(){
+					var brandName=$("#brand span").html();
+					if(brandName=="未填写"){
+						alertTasat("请优先选择品牌");
+						return false;
+					}
+					var brandId=$("#brand span").attr('id');
+					window.location.href="http://w2nw?"+path+"/model.html?brandId="+brandId;
+				});
+				$("#style").click(function(){
+					var brandName=$("#brand span").html();
+					if(brandName=="未填写"){
+						alertTasat("请优先选择品牌");
+						return false;
+					}
+					var modelName=$("#model span").html();
+					if(modelName=="未填写"){
+						alertTasat("请优先选择车系");
+						return false;
+					}
+					var modelId=$("#model span").attr('id');
+					window.location.href="http://w2nw?"+path+"/style.html?modelId="+modelId;
+				})
+				$("#color").on('input',function(){
+					var color=$.trim($("#color").val());
+					var reg=/^[\u4e00-\u9fa5]+$/;
+					if(color==""||(!reg.test(color))){
+						return
+					}else{
+						store.set('color',color);
+					}
+				});
+				$("#totalMileage").on('input',function(){
+					var totalMileage=$.trim($("#totalMileage").val());
+					var reg=/[1-9]\d*/;
+					if(totalMileage==""||(!reg.test(totalMileage))){
+						return
+					}else{
+						store.set('totalMileage',totalMileage);
+					}
+				})
+				$("#commite").click(function(){
+					var brandId=$("#brand").children('span').attr('id');
+					var modelId=$("#model").children('span').attr('id');
+					var styleId=$("#style").children('span').attr('id');
+					if(!brandId){
+						alertTasat("请选择品牌");
+						return
+					}
+					if(!modelId){
+						alertTasat("请选择车系");
+						return
+					}
+					if(!styleId){
+						alertTasat("请选择车型");
+						return
+					}
+					var color=$.trim($("#color").val());
+					var reg=/^[\u4e00-\u9fa5]+$/;
+					if(color==""){
+						alertTasat("请输入车颜色信息");
+						return
+					}
+					if(!reg.test(color)){
+						alertTasat("请输入正确的颜色信息");
+						return
+					}
+					var totalMileage=$.trim($("#totalMileage").val());
+					var reg=/[1-9]\d*/;
+					if(totalMileage==""){
+						alertTasat("请输入里程数信息");
+						return
+					}
+					if(!reg.test(totalMileage)){
+						alertTasat("请输入正确的里程数信息");
+						return
+					}
+					postData.brandId=brandId;
+					postData.modelId=modelId;
+					postData.styleId=styleId;
+					postData.color=color;
+					postData.totalMileage=totalMileage;
+					postData.plateNumber=plateNumber;
+					if(vinNumber){
+						postData.vinNumber=vinNumber;
+					}
+					$.ajax({
+						type:"post",
+						url:"/vip-app-ws/ws/0.1/workOrder/addCarInfo",
+						async:false,
+						data:JSON.stringify(postData),
+						dataType:'json',
+						contentType:'application/json;charset=utf-8',
+						success:function(data){
+							carInfoId=data.carInfoId;
+							confirmRe('检测已成功提交，是否生成工单',changeReturn,turnHomePage);
+						},
+						error:function(xhr){
+							var error=eval('('+xhr.responseText+')');
+							alertTasat(error[0].message);
+						}
+					});
+				});
+				addWorkOrderN=function(){
+					addWorkOrder(userId,carInfoId,businessInfoId);
+				}
+				/*
+				 * 是否结束"返回按钮"跳转到前一个历史页面操作
+				 * 变量  finish
+				 * android 	-**-  mallTitle.isFinish( String finish),"1"结束，"0"不结束
+				 * ios  	-**-  bridge.callHandler('isWebCheckCarOK',{},function(){})"1"结束，"0"不结束   isStart,1:启动;0:不启动
+				 * 1：结束（点击左箭头跳转到第一个页面）
+				 * 0：不结束（点击左箭头跳转到前一个页面）
+				 */
+				if(bIsAndroid()){
+					window.mallTitle.isFinish("1");  
+				}else{
+					 bridge.callHandler('isWebCheckCarOK',{'finish':'1'});
+				}
+				return response;
+			}
+			
+		})
+	</script>
+	</body>
+</html>

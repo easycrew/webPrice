@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>选择品牌</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		ul.allBrands-ul li{
+			border-bottom: 1px solid #D9D9E2;
+		}
+		ul.allBrands-ul li div.brand-letter{
+			background-color: #F2F3F4;
+			font-size: 0.9rem;
+			line-height: 1.6rem;
+			color: #999;
+			padding: 0 2rem;
+		}
+		ul.allBrands-ul li div.brand-detail p{
+			border-top: 1px solid #D9D9E2;
+			cursor: pointer;
+			line-height: 3rem;
+			color: #323434;
+			font-size: 1rem;
+			padding: 0.3rem 2rem;
+			background-color: #fff;
+		}
+		article.allBrands-letters{
+			position: absolute;
+			top:0.1rem;
+			right: 0;
+			z-index: 200;
+		}
+		p.allBrands-letters-p{
+			text-align: right;
+			line-height: 0.9rem;
+		}
+		article.allBrands-letters span{
+			display: inline-block;
+			margin: 0.02rem 0.6rem;
+			color:#4172a2;
+			font-size: 0.7rem;
+			font-weight: bold;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<section id="selectBrand">
+		<article class="allBrands">
+			<ul class="allBrands-ul" style="position: relative;">
+			</ul>
+		</article>
+		<article class="allBrands-letters" style='display:none;'>
+			<p class="allBrands-letters-p">
+				<span>A</span><br />
+				<span>B</span><br />
+				<span>C</span><br />
+				<span>D</span><br />
+				<span>E</span><br />
+				<span>F</span><br />
+				<span>G</span><br />
+				<span>H</span><br />
+				<span>I</span><br />
+				<span>J</span><br />
+				<span>K</span><br />
+				<span>L</span><br />
+				<span>M</span><br />
+				<span>N</span><br />
+				<span>O</span><br />
+				<span>P</span><br />
+				<span>Q</span><br />
+				<span>R</span><br />
+				<span>S</span><br />
+				<span>T</span><br />
+				<span>U</span><br />
+				<span>V</span><br />
+				<span>W</span><br />
+				<span>X</span><br />
+				<span>Y</span><br />
+				<span>Z</span><br />
+			</p>
+		</article>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		// 初始化品牌列表
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/support/brand/list',
+			async:false,
+			type:'get',
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				var brandStr='';
+				var letterJson={};
+				"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(function(key,i){
+					letterJson[key]=''
+				});
+				$.each(data,function(key,val){
+					letterJson[key]+='<li>'
+									+'<div class="brand-letter" id="'+key+'">'+key+'</div>';
+					val.forEach(function(brandName,i){
+						letterJson[key]+='<div class="brand-detail">'
+										+'<p id="'+brandName.id+'">'+brandName.name+'</p>'
+										+'</div>'
+					});
+					letterJson[key]+='</li>'
+				});
+				$.each(letterJson,function(key,val){
+					brandStr+=val
+				});
+				$('ul.allBrands-ul').html(brandStr);
+				$('article.allBrands-letters').show();
+				$('article.allBrands').css({'height':window.innerHeight,'overflow':'auto'});
+				$('p.allBrands-letters-p span').unbind('click').bind('click',function(){
+					var _id=$(this).html();
+					$('article.allBrands').scrollTop($('div#'+_id).position().top+1)
+				});
+				$('ul.allBrands-ul li div.brand-detail p').unbind('click').bind('click',function(){
+					var theBrandId=$(this).attr('id');
+					window.location.href="selectModel.html?brandId="+theBrandId+'&userId='+paramJson.userId+'&customerId='+paramJson.customerId
+				})
+			}
+		})
+	})
+</script>
+</html>

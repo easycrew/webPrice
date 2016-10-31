@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="js/index.js"></script>
+<link type="text/css" href="css/base.css" rel="stylesheet"/>
+<title>首页</title>
+</head>
+<style type="text/css"> 
+article{
+ 	margin-bottom: 1rem;
+ 	background-color: #fff;
+}
+.modelChange{
+	background-color: #A3AC56;
+	text-align: center;
+	color: #fff; 
+	display: block;
+	font-size: 1.6rem; 
+	height: 4rem;
+	line-height: 4rem;
+}
+.modelChange img{
+	vertical-align: middle;
+	width: 2.2rem;
+	margin-left: 1.3rem;
+}
+.large-tool{
+	padding: 3rem 1.8rem;
+	height: auto;
+	overflow: auto;
+}
+.large-tool>div{ 
+	width: 50%;
+	float: left; 
+    box-sizing:border-box;   
+}
+.large-tool a{ 
+	display: block;
+	font-size: 1.5rem;
+	color: #6EAADE;
+	text-align: center;
+	border: 2px dashed #6ea9dd;  
+	padding: 1.5rem 0 1.1rem;
+}
+.large-tool .left{
+	padding-right: 1.1rem; 
+}
+.large-tool .right{
+	padding-left: 1.1rem; 
+}
+.large-tool .icon{
+	display:block;
+	margin: 0 auto 0.6rem;
+	width: 2.5rem;
+	height: 3.2rem;
+	background-image: url("images/tool.png");
+	background-size: auto 3.2rem;
+	background-repeat: no-repeat;
+	background-position: left center;  
+}
+.large-tool .right .icon{
+    background-position: right center;  	
+}
+.title{
+	font-size: 1.5rem;
+	padding: 0 1rem;
+	font-weight: normal;
+	height: 4rem;
+	line-height: 4rem;
+	border-bottom: 1px solid #D9D9E2;
+}
+.title .right{
+	color: #A2A2A2;
+	float: right;
+}
+.title .icon{
+	display: inline-block;
+	width:2rem;
+	height: 2.3rem;
+	background-image: url("images/icon.png");
+	background-size: auto 2.3rem;
+	background-repeat: no-repeat;
+	background-position: left center;  
+	vertical-align: middle;
+	margin-right: 0.8rem;
+}
+.small-tool {
+	height: auto;   
+    overflow: auto; 
+}
+.small-tool li{
+	float: left; 
+    text-align: center;
+    width: 25%;
+}
+.small-tool a{
+	display: block;
+	margin: 1.9rem 0 1rem;
+}
+.small-tool .icon {
+    background-image:url("images/tool2.png");
+    background-repeat: no-repeat;
+    background-size:auto 2.4rem;
+    display: block;
+    height: 2.4rem;
+    width: 2.4rem;
+    margin: 0 auto;
+}
+.small-tool .icon2{
+	background-position: -29px;
+}
+.small-tool .icon3{
+	background-position: -57px;
+}
+.small-tool .icon4{
+	background-position: -84px;
+}
+.small-tool label {
+    display: inline-block;
+    font-size: 1.2em; 
+    text-align: center;
+    width: 7rem;
+    color: #A2A2A2;
+} 
+.small-tool .carwash {
+    background-position:0px 0px;
+} 
+.org{
+	color: #FF6138;
+}
+.num-wrap .num{
+	font-size: 1.4rem;
+	color: #FF6138; 
+	display:block;
+	text-align: center;
+}
+.num-wrap a{
+	border-right: 1px solid #D9D9E2;
+}
+.num-wrap a:last-child{
+   border: none;
+}
+.performance-wrap .icon{
+	background-position: right -2px;
+} 
+</style>
+<body>
+<a class="modelChange" href="javascript:void(0)">切换到用户模式<img src="images/model.png"/></a>
+<article class="large-tool">
+	<div class="left"><a href="javascript:void(0)" class="creatOrderLink"><span class="icon"></span>创建理赔单</a></div>
+	<div class="right"><a href="javascript:void(0)" class="shopListLink"><span class="icon"></span>附近修理厂</a></div>
+</article>
+<article>
+	<h1 class="title"><span class="icon"></span>我创建的理赔单<span class="right toOrderLink">全部理赔单(<label class="allOrderNum">-</label>) ></span></h1>
+	<ul class="small-tool orderTool">
+		<li>
+		    <a href="javascript:void(0);">
+			<span class="icon"></span>
+			<p><label>待确认(<span class="org confirmOrderNum">-</span>)</label></p>
+		    </a>
+		</li>
+		<li>
+		    <a href="javascript:void(0);">
+			<span class="icon icon2"></span>
+			<p><label>维修中(<span class="org maintainOrderNum">-</span>)</label></p>
+		    </a>
+		</li>
+		<li>
+		    <a href="javascript:void(0);">
+			<span class="icon icon3"></span>
+			<p><label>已付款(<span class="org paidOrderNum">-</span>)</label></p>
+		    </a>
+		</li>
+		<li>
+		    <a href="javascript:void(0);">
+			<span class="icon icon4"></span>
+			<p><label>删除(<span class="org cancelOrderNum">-</span>)</label></p>
+		    </a>
+		</li>
+	</ul> 
+</article>
+<article>
+	<h1 class="title performance-wrap"><span class="icon"></span>我的业绩<span class="right cashBtn">提现 ></span></h1>
+	<ul class="small-tool num-wrap">
+		<li>
+		    <a href="javascript:void(0);">
+			<span class="num monthOrderNum">-</span>
+			<p><label>本月/单</label></p>
+		    </a>
+		</li>
+		<li>
+		    <a href="javascript:void(0);">
+			<span class="num sumOrderNum">-</span>
+			<p><label>总计/单</label></p>
+		    </a>
+		</li>
+		<li>
+		    <a href="javascript:void(0);">
+			<span class="num cashAmount">-</span>
+			<p><label>可提绩效/元</label></p>
+		    </a>
+		</li>
+		<li>
+		    <a href="javascript:void(0);">
+			<span class="num sumAmount">-</span>
+			<p><label>总绩效/元</label></p>
+		    </a>
+		</li>
+	</ul> 
+</article>
+<div class="dialog" style="display:none;"> 
+    <div class="dialog-content">
+       <h1>提示<span class="close"><label></label></span></h1>
+       <p>可到个人中心"余额"中进行提现操作。</p> 
+	   <div class="dialog-btn-wrap"><a href="javascript:void(0);">确定</a></div> 
+   </div>
+ </div> 
+<script type="text/javascript">  
+var paramJson = {};
+$(document).ready(function(){ 
+	var url = window.location.search; 
+	var paramsArr = (url.split("?")[1]).split("&"); 
+	$.each(paramsArr,function(i){
+	var item = paramsArr[i].split("=");
+	paramJson[item[0]] = item[1];
+	}); 
+	if(paramJson.customerId!=undefined&&paramJson.customerId!=""&&paramJson.customerId!="null"){
+       getStatistics();  
+	}else{
+	   var customerId = getCustomerId(paramJson.userId); 
+	   if(customerId=="-1"){
+		window.location.href = "http://w2l/?presentType=2&androidName=8&iosName=LoginViewController";
+	   }else{
+	    paramJson.customerId = customerId;
+	    getStatistics();  
+	   }
+	   
+	}
+	$(".toOrderLink").click(function(){
+		window.location.href="http://w2nw?"+getPath()+"orderList.html";
+	});
+	$(".creatOrderLink").click(function(){
+		window.location.href="http://w2nw?"+getPath()+"orderShop.html?page=order";
+	});	
+	$(".shopListLink").click(function(){
+		window.location.href="http://w2nw?"+getPath()+"orderShop.html?page=shop";
+	});
+	$(".orderTool li:nth-child(1)").click(function(){
+		window.location.href="http://w2nw?"+getPath()+"orderList.html?status=1";
+	});
+	$(".orderTool li:nth-child(2)").click(function(){
+		window.location.href="http://w2nw?"+getPath()+"orderList.html?status=2";
+	});
+	$(".orderTool li:nth-child(3)").click(function(){
+		window.location.href="http://w2nw?"+getPath()+"orderList.html?status=3";
+	});
+	$(".orderTool li:nth-child(4)").click(function(){
+		window.location.href="http://w2nw?"+getPath()+"orderList.html?status=4";
+	}); 
+	$(".cashBtn").click(function(){
+		$(".dialog").fadeIn();
+	}); 
+	$(".dialog .close").click(function(){
+		$(".dialog").fadeOut();
+	}); 
+	$(".dialog-btn-wrap").click(function(){
+		$(".dialog").fadeOut();
+	}); 
+	getIndexPage();
+});  
+function getStatistics(){  
+		$.ajax({
+			url: '/yangchebao-app-ws/ws/0.1/claims/person/statistics?customerId='+paramJson.customerId,
+			type: 'get',
+			async: false,
+			dataType: 'json',
+			success: function(data) {  
+				$(".sumOrderNum").html(data.sumOrderNum);
+				$(".confirmOrderNum").html(data.confirmOrderNum);
+				$(".maintainOrderNum").html(data.maintainOrderNum);
+				$(".paidOrderNum").html(data.paidOrderNum);
+				$(".cancelOrderNum").html(data.cancelOrderNum); 
+				$(".monthOrderNum").html(data.monthOrderNum); 
+				if(data.cashAmount==undefined){
+					$(".cashAmount").html("0");
+				}else{
+					$(".cashAmount").html(data.cashAmount);
+				} 
+				if(data.sumAmount==undefined){
+					$(".sumAmount").html("0");
+				}else{
+					$(".sumAmount").html(data.sumAmount);
+				}   
+				$(".allOrderNum").html(data.allOrderNum);  
+			},
+			error:function(xhr){   
+				var mes = eval('('+xhr.responseText+')');  
+				alertTasat("获取数据失败");
+			}
+		}); 
+}
+function getIndexPage(){  
+		$.ajax({
+			url: '/yangchebao-app-ws/ws/0.1/advertise/index?cityName='+paramJson.cityName+'&modelId='+paramJson.modelId+'&mode=1',
+			type: 'get',
+			async: false,
+			dataType: 'json',
+			success: function(data) { 
+				$(".modelChange").attr("href",data.url.split("?")[0]+window.location.search);
+			},
+			error:function(xhr){  
+			}
+		}); 
+}  	
+</script>
+</body> 
+</html>
+

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>洗车</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<script src="./js/commen.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<style>
+		div.carTip{
+			position: relative;
+			background-color: #FEF4CA;
+			font-size: 1.2rem;
+			border: 1px solid #F5A623;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			text-align: center;
+			margin: 1.5rem 1.5rem 0.2rem;
+		}
+		div.carTip p{
+			padding: 0.8rem 0;
+		}
+		div.carTip em{
+			position: absolute;
+			z-index: 100;
+			bottom: -6px;
+			left: 40px;
+			border-top: 8px solid #FEF4CA;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+		}
+		div.carTip span{
+			position: absolute;
+			z-index: 50;
+			bottom: -8px;
+			left: 40px;
+			border-top: 8px solid #F5A623;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+		}
+		div.model{
+			margin-top: 1rem;
+			background-color: #fff;
+			border-bottom: 1px solid #d9d9e2;
+			padding: 1.5rem;
+		}
+		p.modelName{
+			float: left;
+			font-size: 1.5rem;
+		}
+		p.editModel{
+			float: right;
+			font-size: 1.5rem;
+			color: #6EAADE;
+		}
+		span.rightArrow{
+			position: relative;
+		}
+		span.rightArrow::before,span.rightArrow::after{
+			position: absolute;
+			top: 2px;
+			width: 0;
+			height: 0;
+			content: '';
+			font-size: 0px;
+			border-top: 7px solid transparent;
+			border-bottom: 7px solid transparent;
+		}
+		span.rightArrow::before{
+			right: -4px;
+			border-left: 7px solid #a2a2a2;
+		}
+		span.rightArrow::after{
+			right: -3px;
+			border-left: 7px solid #fff;
+		}
+		
+		span.editText{
+			margin-right: 0.7rem;
+		}
+		ul.carWashServs-ul{
+			margin-top: 4rem;
+			margin-bottom: 3rem;
+		}
+		ul.carWashServs-ul li{
+			position: relative;
+			float: left;
+			width: 30%;
+			margin-left: 2.5%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			text-align: center;
+			height: 49px;
+			/*padding: 1.45rem 0 1.4rem;*/
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
+		.unselected{
+			border: 1px solid #d9d9e2;
+			background-color: #fff;
+		}
+		.selectedServ{
+			border: 1px solid #f55d5d;
+			color: #f55d5d;
+			background: none;
+		}
+		ul.carWashServs-ul li span{
+			position: absolute;
+			background-color: #f55d5d;
+			color: #fff;
+			font-size: 1.1rem;
+			-webkit-border-radius: 2px;
+			-moz-border-radius: 2px;
+			border-radius: 2px;
+			padding: 2px 4px;
+			top: -1rem;
+			right: 0.7rem;
+		}
+
+		div.servDetail{
+			background-color: #fff;
+			border-top: 1px solid #d9d9e2;
+			border-bottom: 1px solid #d9d9e2;
+			padding: 1rem;
+		}
+		p.detailT{
+			padding-bottom: 1rem;
+			border-bottom: 1px solid #d9d9e2;
+			font-size: 1.5rem;
+			color: #f55d5d;
+		}
+		p.detailT span{
+			font-size: 1.2rem;
+			padding-left: 0.6rem;
+		}
+		p.detailCon{
+			padding-top: 1rem;
+			font-size: 1.3rem;
+			line-height: 1.8rem;
+		}
+		
+		/*article.servEvaluate{
+			margin-top: 0.8rem;
+			background-color: #fff;
+			border-bottom: 1px solid #d9d9e2;
+		}*/
+		div.title{
+			border-bottom: 1px solid #d9d9e2;
+			padding: 0.95rem 1rem 0.85rem 0.8rem;
+		}
+		div.title p{
+			font-size: 1.5rem;
+			padding-left: 0.5rem;
+			border-left: 2px solid #f55d5d;
+		}
+		/*div.evaluateW{
+			padding: 0.6rem 1rem;
+		}
+		div.evaItem{
+			padding: 0.4rem 0;
+		}
+		p.evaItemL{
+			float: left;
+			font-size: 1.2rem;
+		}
+		p.evaItemR{
+			float: right;
+			font-size: 1.2rem;
+		}*/
+
+		article.orderTips{
+			background-color: #fff;
+			border-bottom: 1px solid #d9d9e2;
+		}
+		div.orderTipsCon{
+			position: relative;
+			padding: 1.5rem;
+		}
+		p.tipTitle{
+			position: relative;
+			font-size: 1.3rem;
+			color: #6EAADE;
+		}
+		/*p.theLine{
+			position: absolute;
+			width: 11px;
+			height: 45px;
+			display: inline-block;
+			border-top: 1px solid #d9d9e2;
+			border-bottom: 1px solid #d9d9e2;
+			border-left: 1px solid #d9d9e2;
+			top: 2.4rem;
+			left: 1.2rem;
+		}*/
+		/*p.tipTitle span{
+			position: absolute;
+			left: -1rem;
+			top: 0.7rem;
+			display: inline-block;
+			background-color: #d9d9e2;
+			height: 5px;
+			width: 5px;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+		}*/
+		p.tipCon{
+			font-size: 1.3rem;
+		}
+		div.useRule{
+			padding-top: 0.8rem;
+		}
+		div.servInstruction div{
+			border-bottom: 1px solid #d9d9e2;
+			position: relative;
+			margin-top: 2.8rem;
+			margin-bottom: 9rem;
+			margin-left: 1rem;
+			margin-right: 1rem;
+		}
+		div.servInstruction p{
+			position: absolute;
+			top: -0.7rem;
+			display: inline-block;
+			width: 146px;
+			left: 50%;
+			margin-left: -73px;
+			font-size: 1.2rem;
+			color: #a2a2a2;
+			background-color: #f4f7f8;
+			text-align: center;
+		}
+		div.pay{
+			position: fixed;
+			z-index: 100;
+			width: 100%;
+			bottom: 0;
+		}
+		p.payMoney{
+			float: left;
+			width: 50%;
+			border-top: 1px solid #d9d9e2;
+			background-color: #fff;
+			text-align: center;
+			padding: 1.6rem 0;
+			color: #f55d5d;
+			font-size: 1.8rem;
+		}
+		p.payBtn{
+			float: right;
+			width: 50%;
+			border-top: 1px solid #f55d5d;
+			background-color: #f55d5d;
+			text-align: center;
+			padding: 1.6rem 0;
+			color: #fff;
+			font-size: 1.8rem;
+		}
+		p.nosupportTip{
+			color: #a2a2a2;
+			font-size: 1.3rem;
+			padding: 1rem;
+		}
+		div.supportShopBtn{
+			background-color: #f55d5d;
+			color: #fff;
+			text-align: center;
+			font-size: 1.8rem;
+			width: 70%;
+			padding: 1.25rem 0;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			margin-left: 15%;
+			margin-top: 5rem;
+		}
+
+		span.starsW{
+			margin-right: 1rem;
+		}
+		span.starsW img{
+			width: 1.3rem;
+			position: relative;
+			top: -1px;
+		}
+	</style>
+</head>
+<body>
+	<article class="top">
+		<div class="car" style="display:none;">
+			<div class="carTip"><p>下单车类型与服务车类型不符，商家可能不提供服务</p><em></em><span></span></div>
+			<div class="model clearfix">
+				<p class="modelName"><span class="modelT">车系：</span><span class="modelCon"></span></p>
+				<p class="editModel"><span class="editText">修改</span><span class="rightArrow"></span></p>
+			</div>
+		</div>
+		<p class="nosupportTip no">商家不支持小轿车的洗车服务，请到提供服务的商家购买服务。</p>
+		<div class="carWashServs yes">
+			<div class="carWashServs-ulW">
+			</div>
+			<div class="servDetail">
+				<p class="detailT"></p>
+				<p class="detailCon"></p>
+			</div>
+		</div>
+	</article>
+	<!-- <article class="servEvaluate yes">
+		<div class="title"><p>服务评价</p></div>
+		<div class="evaluateW">
+			<div class="evaItem servAttitude clearfix">
+				<p class="evaItemL">
+					<span class="evaItemT">服务态度：</span>
+					<span class="starsW"><img src="./img/yellowStar.jpg"><img src="./img/yellowStar.jpg"><img src="./img/yellowStar.jpg"><img src="./img/yellowStar.jpg"><img src="./img/grayStar.jpg"></span>
+					<span class="evaItemGrades">9.8</span>
+				</p>
+				<p class="evaItemR">高于行业0%</p>
+			</div>
+			<div class="evaItem effect clearfix">
+				<p class="evaItemL">
+					<span class="evaItemT">施工效果：</span>
+					<span class="starsW"><img src="./img/yellowStar.jpg"><img src="./img/yellowStar.jpg"><img src="./img/yellowStar.jpg"><img src="./img/yellowStar.jpg"><img src="./img/grayStar.jpg"></span>
+					<span class="evaItemGrades"><span></span>9.8</span>
+				</p>
+				<p class="evaItemR">高于行业0%</p>
+			</div>
+		</div>
+	</article> -->
+	<article class="orderTips yes">
+		<div class="title"><p>预约须知</p></div>
+		<div class="orderTipsCon">
+			<p class="theLine"></p>
+			<div class="orderInfo">
+				<p class="tipTitle"><span></span>预约信息</p>
+				<p class="tipCon reserveInfo"></p>
+			</div>
+			<div class="useRule">
+				<p class="tipTitle"><span></span>使用规则</p>
+				<p class="tipCon useRule"></p>
+			</div>
+		</div>
+	</article>
+	<div class="servInstruction yes">
+		<div><p>点击查看服务详情</p></div>
+	</div>
+	<div class="pay clearfix yes">
+		<p class="payMoney">￥35</p>
+		<p class="payBtn">立即支付</p>
+	</div>
+	<div class="supportShopBtn no">查看提供服务的商家</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    $.ajax({
+	    	url:'/yangchebao-app-ws/ws/0.1/standardservice/service/detail?userInfoId='+store.get('userInfoId')+'&serviceId='+store.get('serviceId')+'&businessInfoId='+store.get('businessInfoId'),
+	    	type:'get',
+	    	dataType:'json',
+	    	contentType:'application/json;charset=utf-8',
+	    	success:function(data){
+	    		if(data.isMatchCar==1){
+	    			$('div.car').show();
+	    			$('span.modelCon').html(data.modelName+'（'+data.carTypeName+'）');
+	    			$('div.car').on('click',function(){
+	    				store.set('isNearShopWash','1');
+	    				window.location.href="brand.html"
+	    			})
+	    		}
+	    		// 服务方式
+	    		var servStr='';
+				var services={};
+	    		data.attributes.forEach(function(key,i){
+	    			servStr+='<ul class="carWashServs-ul clearfix">'
+	    			key.options.forEach(function(_key,j){
+	    				var servJson={};
+	    				var servOptionId=_key.optionId;
+	    				servJson.optionName = _key.optionName;
+	    				servJson.recommendDesc = _key.recommendDesc;
+	    				servJson.recommendDetail = _key.recommendDetail;
+	    				servJson.brandDesc = _key.brandDesc;
+	    				servJson.descriptionUrl = _key.descriptionUrl;
+	    				servJson.reserveInfo = _key.reserveInfo;
+	    				servJson.useRule = _key.useRule;
+	    				servJson.reservePrice = _key.reservePrice;
+	    				services[servOptionId] = servJson;
+	    				if(_key.isRecommended){
+	    					servStr+='<li class="selectedServ" data-id="'+_key.optionId+'" payId="'+_key.busiServiceRelId+'"><p>'+_key.optionName+'</p><span>'+_key.recommendTag+'</span></li>'
+	    				}else{
+	    					servStr+='<li class="unselected" data-id="'+_key.optionId+'" payId="'+_key.busiServiceRelId+'"><p>'+_key.optionName+'</p></li>'
+	    				}
+	    			});
+	    			servStr+='</ul>'
+	    		});
+	    		$('div.carWashServs-ulW').html(servStr);
+
+	    		$('ul.carWashServs-ul li').each(function(){
+	    			var liH=$(this).outerHeight();
+	    			var pH=$(this).find('p').outerHeight();
+	    			var pConLen=$(this).find('p').text().length;
+	    			var pCon=$(this).find('p').text();
+	    			if(pConLen>10){
+	    				$(this).find('p').html(pCon.substring(0,9)+'…')
+	    			}
+	    			$(this).find('p').css({'position':'relative','top':'50%','margin-top':'-'+pH/2+'px'})
+	    		});
+
+	    		var nowId=$('li.selectedServ:eq(0)').attr('data-id');
+	    		$('p.detailT').html(services[nowId].optionName+'<span>'+services[nowId].recommendDesc+'</span>');
+    			$('p.detailCon').html(services[nowId].recommendDetail);
+    			$('p.reserveInfo').html(services[nowId].reserveInfo);
+    			$('p.useRule').html(services[nowId].useRule);
+    			$('p.payMoney').html('￥'+services[nowId].reservePrice);
+
+    			$('div.servInstruction p').unbind('click').bind('click',function(){
+    				window.location.href=services[nowId].descriptionUrl
+    			});
+
+	    		$('ul.carWashServs-ul li').on('click',function(){
+	    			var thisId=$(this).attr('data-id');
+	    			// 边框变化
+	    			$(this).parent().find('li.selectedServ').addClass('unselected').removeClass('selectedServ');
+	    			$(this).addClass('selectedServ').removeClass('unselected');
+	    			// 内容变化
+	    			$('p.detailT').html(services[thisId].optionName+'<span>'+services[thisId].recommendDesc+'</span>');
+	    			$('p.detailCon').html(services[thisId].recommendDetail);
+	    			$('p.reserveInfo').html(services[thisId].reserveInfo);
+	    			$('p.useRule').html(services[thisId].useRule);
+	    			$('p.payMoney').html('￥'+services[thisId].reservePrice);
+	    			// 服务详情
+	    			$('div.servInstruction p').unbind('click').bind('click',function(){
+	    				window.location.href=services[thisId].descriptionUrl
+	    			})
+	    		});
+	    		// 支付
+	    		$('p.payBtn').on('click',function(){
+	    			var $li=$('li.selectedServ:eq(0)');
+			    	var busiServiceRelId=$li.attr('payId');
+			    	window.location.href="standardServ/payOrder.html?sourceId="+busiServiceRelId
+	    		})
+	    	}
+	    })
+		$('.yes').show();
+		$('.no').hide();
+	})
+</script>
+</html>

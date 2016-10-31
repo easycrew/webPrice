@@ -1,0 +1,353 @@
+<script type="text/javascript" src="orderManage/orderList.js"></script>
+<style>
+	#Wraper_orderList_manage div#branchOrderInfo div.grid-layout-content,#Wraper_orderList_manage div#orderMailInfo div.grid-layout-content,#Wraper_orderList_manage div#Form_cancel_order div.grid-layout-content{
+		line-height: 24px;
+	}
+</style>
+<div class="urlContentWraper" id="Wraper_orderList_manage">
+<div class="ui-info-layout">
+<div class="ui-info-layout-subbox "> 
+	<div class="jrad-table">
+        <h2 class="ui-tit"><strong>订单管理</strong></h2>
+        <!-- 列表显示 -->
+        <table id="Table_orderList_manage"></table>
+    </div>
+	<div class="details-box" style="display:none;">
+			<ul class="details-tab">
+				<li class="tab-cur tab-cur-first f-left" rele="branchOrder_goodsInfo"><span name="title">分订单商品信息</span></li>
+				<li class="f-left" rele="branchOrderInfo"><span name="title">分订单信息</span></li>
+				<li class="f-left" rele="userOrderInfo"><span name="title">总订单信息</span></li>
+				<li class="f-left" rele="orderMailInfo"><span name="title">物流信息</span></li>
+				<li class="f-right"><span class="return"></span></li>
+			</ul>
+			<div class="details-content">
+				<div class="details-scroll">
+					<div class="details-content-inner">
+					<!-- 分订单信息 -->
+						<div class="grid-layout ui-form tabReleForm" id="branchOrderInfo" style="display:none;">
+							<div class="jrad-form">  
+								<div class="grid-layout-main">
+								<input type="hidden" name="branchOrderId">
+								<input type="hidden" name="userOrderId">
+								<div class="row-fluid">
+								    <label class="span3 grid-layout-label">分订单编号：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="branchOrderNumber"></div>
+									</div>
+									<label class="span3 grid-layout-label">分订单金额：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="branchPayment"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+								 <label class="span3 grid-layout-label">分订单状态：</label>
+								 <div class="span5 grid-layout-content">
+									   <div name="branchOrderStatusName"></div>
+													</div>
+								</div> 
+								<div class="row-fluid">
+								 <label class="span3 grid-layout-label">商品重量：</label>
+								 <div class="span5 grid-layout-content">
+									   <div name="commodityWeight"></div>
+													</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">商品体积：</label>
+									<div class="span5 grid-layout-content">
+										<div name="commodityVolume"></div>
+									</div>
+									<label class="span3 grid-layout-label">实际支付运费： </label>
+									<div class="span5 grid-layout-content">
+									   <div name="postage" class="jrad-input-container"></div>元
+													</div>
+								</div>  
+								<div class="row-fluid area">
+									<label class="span3 grid-layout-label">备注：</label>
+									<div class="span10 grid-layout-content">
+									   <div name="remark" class="jrad-textarea-container"></div>
+													</div>
+								</div> 
+								</div> 
+							</div>
+							<div class="offset3 jrad-buttons-container ui-buttons-container">
+								<span class="jrad-btn-primary jrad-form-element ui-btn-primary" tabindex="1">
+									<span class="ui-btn-primary-content">确定</span>
+								</span> 
+								<span class="jrad-btn-normal jrad-form-element ui-btn-normal" tabindex="1">
+									<span class="ui-btn-normal-content">取消</span>
+								</span>
+							</div>
+						</div>
+						<!-- 总订单信息 -->
+						<div class="grid-layout tabReleForm" id="userOrderInfo" style="display:none;">
+							<div class="jrad-form">  
+								<div class="grid-layout-main">
+								<input type="hidden" name="userOrderId">
+								<div class="row-fluid">
+								    <label class="span3 grid-layout-label">总订单编号：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="orderNumber"></div>
+									</div>
+									<label class="span3 grid-layout-label">下单用户手机：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="mobile"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+								 <label class="span3 grid-layout-label">总订单状态：</label>
+								 <div class="span5 grid-layout-content">
+									   <div name="orderStatusName"></div>
+													</div>
+								</div> 
+								<div class="row-fluid">
+								    <label class="span3 grid-layout-label">总订单金额：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="originalPayment"></div>
+									</div>
+									<label class="span3 grid-layout-label">调整金额： </label>
+									<div class="span5 grid-layout-content">
+									    <div name="adjustAmount" class="jrad-input-container"></div>元
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">第三方支付金额：</label>
+									<div class="span5 grid-layout-content">
+										<div name="thirdPay"></div>
+									</div>
+								</div>
+									<div class="row-fluid">
+									<label class="span3 grid-layout-label">余额支付金额：</label>
+									<div class="span5 grid-layout-content">
+										<div name="blancePay"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">商品重量：</label>
+									<div class="span5 grid-layout-content">
+										<div name="commodityWeight"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">商品体积：</label>
+									<div class="span5 grid-layout-content">
+										<div name="commodityVolume"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">实收运费：</label>
+									<div class="span5 grid-layout-content">
+										<div name="realPostage"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">支付方式：</label>
+									<div class="span5 grid-layout-content">
+										<div name="payOnline" class="jrad-select-container"></div>
+									</div>
+									<label class="span3 grid-layout-label">支付渠道：</label>
+									<div class="span5 grid-layout-content">
+										<div name="payChannelName"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">付款单位：</label>
+									<div class="span5 grid-layout-content">
+										<div name="payer"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">付款账户：</label>
+									<div class="span5 grid-layout-content">
+										<div name="payAccount"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">付款银行：</label>
+									<div class="span5 grid-layout-content">
+										<div name="payBank"></div>
+									</div>
+									<label class="span3 grid-layout-label">付款时间：</label>
+									<div class="span5 grid-layout-content">
+										<div name="payDate"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">支付证明：</label>
+									<div class="span5 grid-layout-content">
+										<div name="provePic">
+										<ul class="pic-show"></ul>
+										</div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">发票：</label>
+									<div class="span5 grid-layout-content">
+										<div name="invoiceType" class="jrad-select-container"></div>
+									</div>
+									<label class="span3 grid-layout-label">发票抬头：</label>
+									<div class="span5 grid-layout-content">
+										<div name="invoiceTitle" class="jrad-input-container"></div>
+									</div>
+								</div>  
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">发票内容：</label>
+									<div class="span5 grid-layout-content">
+										<div name="invoiceDetail"></div>
+									</div>
+									<label class="span3 grid-layout-label">商家增票资质：</label>
+									<div class="span5 grid-layout-content">
+										<div name="vatStatus"></div>
+									</div>
+									<label class="span3 grid-layout-label">增票单位名称：</label>
+									<div class="span5 grid-layout-content">
+										<div name="unitName"></div>
+									</div>
+								</div>   
+								<div class="row-fluid area">
+									<label class="span3 grid-layout-label">备注：</label>
+									<div class="span5 grid-layout-content">
+									   <div name="systemRemark" class="jrad-textarea-container"></div>
+													</div>
+									<label class="span3 grid-layout-label">买家留言：</label>
+									<div class="span10 grid-layout-content">
+									   <div name="userRemark" class="jrad-textarea-container"></div>
+													</div>
+								</div> 
+								</div> 
+							</div>
+							<div class="offset3 jrad-buttons-container ui-buttons-container">
+								<span class="jrad-btn-primary jrad-form-element ui-btn-primary" tabindex="1">
+									<span class="ui-btn-primary-content">确定</span>
+								</span> 
+								<span class="jrad-btn-normal jrad-form-element ui-btn-normal" tabindex="1">
+									<span class="ui-btn-normal-content">取消</span>
+								</span>
+							</div>
+						</div>
+						<!-- 分订单商品信息 -->
+						<div class="grid-layout tabReleForm" id="branchOrder_goodsInfo">
+							<table id="Table_branchOrder_goodsInfoList"></table>
+						</div>
+						<!-- 物流信息 -->
+						<div class="grid-layout ui-form tabReleForm" id="orderMailInfo" style="display:none;">
+							<div class="jrad-form">  
+								<div class="grid-layout-main">
+								<div class="row-fluid">
+								    <label class="span3 grid-layout-label">收货人姓名：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="consigneeName"></div>
+									</div>
+								    <label class="span2 grid-layout-label">商家店名：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="shopName"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">收货行政区域：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="address"></div>
+									</div>
+									<label class="span2 grid-layout-label">街道：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="postalAddress"></div>
+									</div>
+								</div> 
+								<div class="row-fluid">
+								    <label class="span3 grid-layout-label">邮编：</label>
+								    <div class="span5 grid-layout-content">
+									    <div name="postcode"></div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">手机：</label>
+									<div class="span5 grid-layout-content">
+										<div name="mobile"></div>
+									</div>
+									<label class="span2 grid-layout-label">座机：</label>
+									<div class="span5 grid-layout-content">
+										<div name="telephone"></div>
+									</div>
+								</div>
+								<!-- <div class="row-fluid">
+									<label class="span3 grid-layout-label">包裹1：快递公司：</label>
+									<div class="span5 grid-layout-content">
+										<div name="commodityVolume"></div>
+									</div>
+									<label class="span3 grid-layout-label">快递单号：</label>
+									<div class="span5 grid-layout-content">
+										<div name="commodityVolume"></div>
+									</div>
+								</div> --> 
+								</div> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+     </div>
+</div>
+</div>
+	<!-- 取消订单form -->
+	<div id="Form_cancel_order" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		 <h3>商家信息</h3>
+		  <div class="row">
+			<label class="span3 grid-layout-label"> 商家店名：</label>
+			<div class="span5 grid-layout-content">
+				<div name="shopName"></div>
+			</div>  
+		</div> 
+		<h3>订单信息</h3>
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 订单金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="realPayment"></div>
+			</div>
+		</div> 
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 差异扣款：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-input-container" name="deductions"></div>
+			</div>
+		</div> 
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 备注：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-textarea-container" name="deductionsNote"></div>
+			</div>  
+		</div> 
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary" id="btn">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+	</div> 
+		<!-- 确认收款form -->
+	<div id="Form_confirm_receipt" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		<div class="row">
+			<label class="span3 grid-layout-label">支付方式</label>
+			<div class="span5 grid-layout-content">
+				<div class="jrad-select-container" name="payWay"></div>
+			</div>  
+		</div>
+		<div class="row">
+			<label class="span3 grid-layout-label">支付渠道</label>
+			<div class="span5 grid-layout-content">
+				<div class="jrad-select-container" name="payChannel"></div>
+			</div>  
+		</div>
+		<div class="row">
+			<label class="span3 grid-layout-label">支付证明</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-uploadimg-container" name="payProve"></div>
+				<font color="#FF0000" id="picShowErro"></font>
+			</div> 
+		</div>   
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary" id="btn">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+	</div> 							
+</div>

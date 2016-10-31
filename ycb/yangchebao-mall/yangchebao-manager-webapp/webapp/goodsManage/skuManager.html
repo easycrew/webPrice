@@ -1,0 +1,351 @@
+<script type="text/javascript" src="goodsManage/skuManager.js"></script>
+<style>
+	#Wraper_skuMannager_list #Table_goodsSKU_list th,#Wraper_goodsManage_list #Table_goodsSKU_list td{
+		padding:5px 0;
+		border-bottom:1px solid #eee;
+		border-right:1px solid #eee;
+		text-align:center;
+	}
+	#Wraper_skuMannager_list #Table_goodsSKU_list th{
+		font-size:16px;
+		background-color:#F8F8F8;
+	}
+	#Wraper_skuMannager_list #Table_goodsSKU_list tr:nth-child(even){
+		background-color:#fff;
+	}
+	#Wraper_skuMannager_list #Table_goodsSKU_list tr:nth-child(odd){
+		background-color:#F8F8F8;
+	}
+	#Form_goodsSKU_manage div.ui-info-layout{
+		margin-bottom: 0!important;
+	}
+	#Form_goodsSKU_manage div.ui-info-layout-subbox{
+		margin-bottom: 0!important;
+	}.cityCount{margin-left: 0;}
+	.cityCount table td{text-align: center;}
+	.cityCount table td input{margin: 8px 0;}
+	.nationPrice{margin-left: 0;}
+	.nationPrice table th{text-align: center;}
+	.nationPrice table th input{margin: 8px 0;}
+	.nationPrice table td{text-align: center;}
+	.nationPrice table td input{margin: 8px 0;}
+	.cityPrice{margin-left: 0;}
+	.cityPrice table th{text-align: center;}
+	.cityPrice table th input{margin: 8px 0;}
+	.cityPrice table td{text-align: center;}
+	.cityPrice table td input{margin: 8px 0;}
+	/*#salesCount-goodsSKU .pop-up-scroll{max-height: auto!important;}*/
+</style>
+<div class="urlContentWraper" id="Wraper_skuMannager_list">
+<div class="ui-info-layout">
+	<div class="ui-info-layout-subbox "> 
+		<div class="jrad-table">
+			<h2 class="ui-tit"><strong>sku管理列表</strong></h2>
+			<div class="pic-grid">
+				<table id="Table_sku_list"></table> 
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 创建编辑SKU -->
+<div id="Form_goodsSKU_manage" style="display:none; ">
+	<div class="ui-info-layout">
+		<div class="ui-info-layout-subbox ">
+			<div class="details-box"> 
+				<ul class="details-tab">
+					<li class="tab-cur tab-cur-first f-left" rele="basicInfo-goodsSKU"><span name="title">基本信息</span></li>
+					<li class="f-left" rele="costPrice-goodsSKU"><span name="title">成本价</span></li>
+					<li class="f-left" rele="salesCount-goodsSKU"><span name="title">可卖数</span></li>
+					<li class="f-left" rele="price-goodsSKU"><span name="title">价格</span></li>
+					<li class="f-left" rele="bindCarType-goodsSKU"><span name="title">绑定车型</span></li>
+					<li class="f-left" rele="status-goodsSKU"><span name="title">SKU状态</span></li>
+					
+				</ul>
+				<div class="details-content">
+					<div class="details-scroll">
+						<div class="details-content-inner">
+							<!--基本信息-->
+							<div class="grid-layout ui-form tabReleForm" id="basicInfo-goodsSKU">
+								<div class="jrad-form"> 
+									<div class="grid-layout-main">
+										<input type="hidden" name="skuId">
+										<input type="hidden" name="commodityId">
+										<div class="row-fluid">
+											<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>市场价：</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-input-container" name="marketPrice">
+												</div>
+											</div>  
+										</div>
+										<div class="row-fluid"> 
+											<label class="span4 grid-layout-label"> 
+												条形码：
+											</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-input-container" name="barcode">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid"> 
+											<label class="span4 grid-layout-label"> 
+												第三方编码：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-input-container" name="thirdPartyCode">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid"> 
+											<label class="span4 grid-layout-label"> 
+												型号：
+											</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-input-container" name="productModel">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid"> 
+											<label class="span4 grid-layout-label"> 
+												统计计数：
+											</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-input-container" name="statisticalCounting">
+												</div>
+											</div>
+										</div>
+										
+										<div class="row-fluid"> 
+											<label class="span4 grid-layout-label"> 
+											<span class="ui-form-required">*</span>
+												重量：
+											</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-input-container" name="weight">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid"> 
+											<label class="span4 grid-layout-label"> 
+											<span class="ui-form-required">*</span>
+												体积：
+											</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-input-container" name="volume">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid"> 
+											<label class="span4 grid-layout-label"> 
+											<span class="ui-form-required">*</span>
+												限量：
+											</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-input-container" name="limitNum">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid"> 
+											<label class="span4 grid-layout-label">
+												个人累计限量：
+											</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-input-container" name="singleAccuLimit">
+												</div>
+											</div>
+										</div>
+									</div> 
+								</div>
+								<div class="offset3">
+									<span class="ui-btn-primary" tabindex="1">
+										<span class="ui-btn-primary-content">确定</span>
+									</span> 
+								</div>
+							</div>
+							<!-- 成本价 -->
+							<div id="costPrice-goodsSKU" class="tabReleForm span20" style="display:none;"> 
+								<div class="jrad-form"> 
+								<div class="grid-layout-main">
+								<div class="row-fluid">
+									<div class="icon-btn16"><div>
+										<span class="icon16 add" title="新增供应商"></span>
+										<span class="icon-summary">新增供应商</span>
+									</div></div>
+								</div>
+								<div class="row-fluid supply"> 
+										<label class="span4 grid-layout-label">
+											供应商：
+										</label>
+										<div class="span5 grid-layout-content">
+											<div class="jrad-select-container" name="supplyId">
+											</div>
+										</div>
+										<label class="span4 grid-layout-label">
+											成本价：
+										</label>
+										<div class="span5 grid-layout-content">
+											<div class="jrad-input-container" name="costPrice">
+											</div>
+										</div>
+								</div>
+								</div> 
+								<div class="offset3">
+									<span class="ui-btn-primary" tabindex="1">
+									<span class="ui-btn-primary-content">确定</span>
+									</span> 
+							    </div>
+							</div>
+							</div>
+							<!--可卖数-->
+							<div id="salesCount-goodsSKU" class="tabReleForm span20" style="display: none;">
+								<div class="urlContentWraper" id="jrad-dialog-popup-dialog">
+									<div class="ui-info-layout">
+										<div class="ui-info-layout-subbox ui-form">
+											<div class="jrad-buttons-container">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="jrad-form">
+									<div class="grid-layout-main">
+										<input type="hidden" name="operator">
+										<input type="hidden" name="skuId">
+										<!--<input type="hidden" name="updateOrAdd"/>-->
+										<div class="row">
+							                <label class="span1 grid-layout-label"></label>
+							                <div class="span6 grid-layout-content">
+							                       <div name="canSellNumType" class="jrad-radio-container"></div>
+							                </div> 
+							            </div> 
+							            <div class="row cityCount" id="cityCount" style="display:none">
+							                <table border="1" bordercolor="#BFC4CD" cellspacing="0" cellpadding="0" style="text-align: center;">
+												<thead style="background-color: #DEE1E6;">
+													<tr>
+														<td>省份</td>
+														<td>城市</td>
+														<td>可销售数量</td>
+													</tr>
+												</thead>
+												<tbody>
+													
+												</tbody>
+												<tfoot></tfoot>
+											</table> 
+							            </div> 
+							            <div class="row countryCount" style="display: none;">
+							                <label class="span3 grid-layout-label">全国可卖数：</label>
+							                <div class="span6 grid-layout-content">
+							                       <div name="nationCanSellNum" class="jrad-input-container"></div>
+							                </div> 
+            							</div>
+									</div>
+									<span class="ui-btn-primary" tabindex="1">
+										<span class="ui-btn-primary-content">确定</span>
+									</span> 
+								</div>
+							</div>
+							<!-- 价格 -->
+							<div id="price-goodsSKU" class="tabReleForm span20" style="display:none;">
+							<div class="jrad-form">
+							<div class="grid-layout-main">
+							<h2 class="ui-tit" style="display:inline-block"><strong>全国统一价格</strong></h2>
+							<label style="color:#aeb4c1;font-size: 12px;">&nbsp;&nbsp;&nbsp;(展示价格不能包含#等特殊符号)</label>
+							            <div class="row nationPrice" id="nationPrice">
+							                <table border="1" bordercolor="#BFC4CD" cellspacing="0" cellpadding="0" style="text-align: center;">
+												<thead style="background-color: #DEE1E6;">
+													<tr>
+														<th colspan="2">普通价格</th>
+														<th colspan="2">VIP价格</th>
+													</tr>	
+													<tr>
+														<th>售价</th>
+														<th>前台展示</th>
+														<th>VIP价格</th>
+														<th>前台展示</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><input type="text" /></td>
+														<td><input type="text" /></td>
+														<td><input type="text" /></td>
+														<td><input type="text" /></td>
+													</tr>
+												</tbody>
+												<tfoot></tfoot>
+											</table> 
+							            </div>
+							<h2 class="ui-tit"><strong>城市单独价格</strong></h2>
+							            <div class="row cityPrice" id="cityPrice">
+							                <table border="1" bordercolor="#BFC4CD" cellspacing="0" cellpadding="0" style="text-align: center;">
+												<thead style="background-color: #DEE1E6;">
+													<tr>
+														<th rowspan="2" >省份</th>
+														<th rowspan="2" >城市</th>
+														<th colspan="2" >普通价格</th>
+														<th colspan="2" >VIP价格</th>
+													</tr>
+													<tr>
+														<th>售价</th>
+														<th>前台展示</th>
+														<th>VIP价格</th>
+														<th>前台展示</th>
+													</tr>
+												</thead>
+												<tbody>
+													
+												</tbody>
+												<tfoot></tfoot>
+											</table> 
+							            </div> 
+							          </div>
+								<span class="ui-btn-primary" tabindex="1">
+										<span class="ui-btn-primary-content">确定</span>
+								</span> 
+							</div>
+							</div>
+							<!--SKU状态-->
+							<div class="grid-layout ui-form tabReleForm" id="status-goodsSKU" style="display:none;">
+							<div class="jrad-form"> 
+									<div class="grid-layout-main">
+									<div class="row-fluid"> 
+											<label class="span4 grid-layout-label"> 
+											<span class="ui-form-required">*</span>
+												状态：
+											</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-select-container" name="status">
+												</div>
+											</div>
+									</div>
+									</div>
+								<div class="offset3">
+									<span class="ui-btn-primary" tabindex="1">
+									<span class="ui-btn-primary-content">确定</span>
+									</span> 
+							    </div>
+							</div>
+							</div>
+							<!--SKU绑定车型-->
+							<div id="bindCarType-goodsSKU" class="tabReleForm span20" style="display:none;">
+								<table id="Table_bindCarType_list"></table> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--车型-->
+<div id="Form_service_brand" style="display:none;">
+	<div class="grid-layout-main jrad-form">
+		<div class="jrad-tree" id="brandsTree"></div>
+		<div class="jrad-checkbox-container" name="vendor" style="position:absolute;bottom:25px;font-weight:bold;"></div> 
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div>
+	
+</div>

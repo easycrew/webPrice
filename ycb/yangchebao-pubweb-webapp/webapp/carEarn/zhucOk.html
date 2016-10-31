@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+<meta name="format-detection" content="telephone=no" />
+<title>注册成功页面</title>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script>
+<style>
+html {
+	font-size: 62.5%;
+}
+body {
+	font-family:"MicrosoftYaHei","HelveticaNeue-Light";
+	font-weight: normal;
+	font-style: normal;
+	line-height: normal;
+	width: 100%;
+	margin: 0 auto;
+	background:#f4f7f8;
+}
+i, em {
+	font-style: normal;
+}
+a {
+	text-decoration: none;
+}
+ul {
+	list-style: none;
+}
+li{ list-style-type:none;}
+img {
+	border: none;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+.clearfix {
+ *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+.clearfix:after {
+	clear: both;
+}
+section,article{ width:100%; display:block; background:#f4f7f8;}
+.box{ width:100%; display:block;}
+.box input{ width:100%; padding:32px 0 31px 40px; box-sizing:border-box; border:none; border-bottom:1px solid #c2c2c6; background:#fff; font-size:3.6rem;}
+.box p{ width:100%; display:block;margin:0 auto; }
+.getQrcodeBtn.disabled{
+	background-color: #ccc;
+	color: #fff;
+	cursor: default;
+}
+
+.box .p3{ width:90%; display:block; margin:0 auto; color:#fff; border-radius:10px; line-height:88px; text-align:center; background-color:#ff6138; font-size:3.6rem;}
+.box .p2{ font-size:2.6rem; color:#000; width:90%; text-align:center; padding:20px 0px 50px 0;}
+@media screen and (max-width:414px) {
+.box .p2{ font-size:1.3rem; padding:1rem 0px 2.5rem 0;}
+
+.box .p3{line-height:4.4rem; font-size:1.8rem;}
+}
+div.errorLog{
+	position: fixed;
+	top: 0;
+	z-index: 500;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0);
+}
+div.errorLog p{
+	position: relative;
+	width: 90%;
+	margin: 10rem auto;
+	background-color: rgba(0,0,0,0.5);
+	font-size: 1.6rem;
+	color: #fff;
+	text-align: center;
+	padding: 1rem 0;
+	border-radius: 8px;
+}
+
+</style>
+</head>
+
+<body>
+<section>
+	<article>
+    	<div class="box">
+        	
+            <p class="p2">恭喜！成功注册为养车宝用户</p>
+           <a class="download-btn p3"> 点击下载养车宝</a>
+        </div>
+    </article>
+</section>
+</body>
+<script type="text/javascript">
+$(function(){
+	var ua = navigator.userAgent.toLowerCase();
+	if(ua.match(/MicroMessenger/i)=="micromessenger") {
+		$('.download-btn').attr('href','http://a.app.qq.com/o/simple.jsp?pkgname=com.carsmart.emaintain');
+	}else{
+		var sUserAgent = navigator.userAgent.toLowerCase(); 
+		var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+		var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+		var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+		var bIsAndroid = sUserAgent.match(/android/i) == "android"; 
+		if(bIsIpad || bIsIphone || bIsIphoneOs){
+			$('.download-btn').attr('href','https://itunes.apple.com/us/app/yang-che-bao/id736543893');
+		}else{    
+			$('.download-btn').attr('href','http://yangchebao.com.cn/website-ws/ws/0.1/app/download')
+			 
+		}
+	} 	
+})
+</script>
+</html>

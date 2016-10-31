@@ -1,0 +1,659 @@
+<style>
+    .infotab, .infotab tr th, .infotab tr td {
+        border:none;
+    }
+    /* Tipso Bubble Styles 提示层样式*/
+    .tipso_bubble, .tipso_bubble > .tipso_arrow{
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing:    border-box;
+        box-sizing:         border-box;
+    }
+    .tipso_bubble {
+        position: absolute;
+        text-align: center;
+        border-radius: 6px;
+        z-index: 9999;
+        /*border:1px solid #d99118;*/
+        padding: 10px;
+        font-size: 12px;
+    }
+    .tipso_style{
+        /*cursor: help;*/
+        /*border-bottom: 1px dotted;*/
+    }
+
+    /* Tipso Bubble Div */
+    .tipso_bubble > .tipso_arrow{
+        position: absolute;
+        width: 0; height: 0;
+        border: 8px solid #d99118;
+        pointer-events: none;
+    }
+    .tipso_bubble.top > .tipso_arrow {
+        border-top-color: #000;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        top: 100%;
+        left: 50%;
+        margin-left: -8px;
+    }
+    .tipso_bubble.bottom > .tipso_arrow {
+        border-bottom-color: #000;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        border-top-color: transparent;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -8px;
+    }
+    .tipso_bubble.left > .tipso_arrow {
+        border-left-color: #000;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+        top: 50%;
+        left: 100%;
+        margin-top: -8px;
+    }
+    .tipso_bubble.right > .tipso_arrow {
+        border-right-color: #000;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+        top: 50%;
+        right: 100%;
+        margin-top: -8px;
+    }
+    .Oval{width:20px;height:20px;margin-left:5px;cursor:pointer;}
+    .cDiv table tr td, .cDiv table tr th{text-align:center;}
+
+    .tipsBox{
+        min-width: 950px;
+        height: 270px;
+        background-color: #fff;
+        margin-bottom: 20px;
+    }
+    .autoRecall h1{
+        font-size: 16px;
+        padding-top: 43px;
+        /*padding-left: 42px;*/
+        margin: 0;
+        display: inline-block;
+    }
+
+    input[type="checkbox"] + .lbl::before, input[type="radio"] + .lbl::before{
+        background-color: #9EB1CF !important;
+        border-color:#9EB1CF !important;
+    }
+    input[type=checkbox].ace-switch:checked + .lbl::before{
+        background-color: #2E83F8 !important;
+        border-color:#2E83F8 !important;
+    }
+
+input.ace-switch[type="checkbox"] + .lbl::before {
+    /*content: "ON         OFF";*/
+    /*width:50px;*/
+}
+.autoRecall{
+    padding-left: 42px;
+    font-size: 12px;
+}
+.tips-content{
+    color: #FB0007;
+    font-size: 15px;
+}
+#page-content {
+    background-color: #dfe4ec !important;
+}
+.urlContentWraper{
+    background-color: #fff !important;
+}
+.btn-group{
+    display: none;
+}
+.giftVoucher{
+    padding-left: 42px;
+    font-size: 12px;
+}
+.giftVoucher h1{
+    padding-top: 0;
+    font-size: 16px;
+    margin: 0;
+    display: inline-block;
+}
+.vouchersType{
+    margin-left: 20px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+    .Oval{width:20px;height:20px;margin-left:5px;cursor:pointer;}
+</style>
+<div class="tipsBox">
+    <div class="autoRecall">
+        <h1>自动召回</h1>
+        <div class="widget-toolbar no-border">
+                        <label>
+                            <input type="checkbox" class="ace-switch ace-switch-3 btn1" name="isAutoSendMessage" checked ='checked'>
+                            <span class=lbl></span>
+                        </label>
+        </div>
+        <p class="tips-content">说明：打开自动召回后，养车宝将向符合召回条件的车主发送车辆到期需要保养的短信。关闭后不会自动发送短信，需要人工联系。</p>
+        <p>短信示例：您的常用商户”养车宝示范店”提醒您，车辆京A N52P2 公里数到达官方保养手册要求，欢迎咨询保养方案：010-51678854。</p>
+    </div>
+    <div class="giftVoucher">
+        <h1>同时赠送代金券</h1>
+        <div class="widget-toolbar no-border">
+                        <label>
+                            <input type="checkbox" class="ace-switch ace-switch-3 btn2" name="isSendVoucher">
+                            <span class=lbl></span>
+                        </label>
+                        <span class="vouchersType"></span><a href="javascript:;" class="vouchersEdit">修改</a>
+        </div>
+        <p class="tips-content">说明：打开赠送代金券后，在发送的短信中附赠一张代金券，增加用户召回成功率。只有自动召回可以赠送代金券。</p>
+        <p>短信示例：您的常用商户”养车宝示范店”提醒您，车辆京A N52P2 公里数到达官方保养手册要求，赠送您本店x元代金券，欢迎咨询保养方案。欢迎咨询保养方案：010-51678854。</p>
+    </div>
+</div>
+<div class="urlContentWraper" id="Wraper_repairRecall_manage">
+    <div id="recallTabs">
+
+	    <div class="ui-info-layout" id="repairCall">
+	    	<div class="vdiv">
+	            <table id="Table_car_repair"></table>
+	        </div>
+	        <div class="udiv" style="margin-top:10px;">
+	           <table id="Table_repair_list"></table>
+	        </div>
+		</div>
+    </div>
+          
+    <div id="Form_repairRecall_set" class="grid-layout ui-form" style="display:none">
+		<div class="grid-layout-main jrad-form">
+            <p class="note" style="margin-left:65px;">我们将以代金券的方式召回客户，同一用户每月最多保养召回一次。</p>  
+			<div class="grid-row-fluid">
+				<label class="span6 grid-layout-label">代金券名称：</label>
+				<div class="span12 grid-layout-content fluid-wrap">
+					<div name="voucherTopic" class="jrad-input-container" placeholder="例：“店名”老用户10元通用券"></div>
+				</div>
+			</div> 
+			<div class="grid-row-fluid">
+				<label class="span6 grid-layout-label"></label>
+				<div class="span12 grid-layout-content fluid-wrap">
+					<div name="isquandian" class="jrad-radio-container"></div>
+				</div>
+			</div> 
+			<div class="grid-row-fluid isshow" style="display:none">
+				<label class="span6 grid-layout-label">支持服务：</label>
+				<div class="span12 grid-layout-content fluid-wrap">
+					<div name="zeroService" class="jrad-select-container service"></div>
+				</div>
+			</div> 
+			<div class="grid-row-fluid">
+				<label class="span6 grid-layout-label">代金券金额：</label>
+				<div class="span12 grid-layout-content fluid-wrap">
+					<div name="money" class="jrad-input-container"></div>
+				</div>
+			</div> 
+			<div class="grid-row-fluid">
+				<label class="span6 grid-layout-label">有效期(天)：</label>
+				<div class="span12 grid-layout-content fluid-wrap">
+					<div name="validDays" class="jrad-input-container"></div>
+				</div>
+			</div>   
+			<div class="grid-row-fluid">
+				<label class="span6 grid-layout-label">代金券详情：</label>
+				<div class="span12 grid-layout-content fluid-wrap">
+					<div name="illustrate" class="jrad-textarea-container"></div>
+				</div>
+			</div> 
+			<div class="grid-row-fluid">
+				<label class="span6 grid-layout-label"></label>
+				<div class="span14 grid-layout-content fluid-wrap">
+                    <p class="note">说明：1、此代金券为您店铺专属代金券，养车宝不予结算；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、创建代金券将发给需保养用户，养车宝将以短信、系统消息、PUSH多种方式通知到用户；</p>
+				</div>
+			</div> 
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<button class="jrad-btn-primary btn btn-small btn-primary">确定</button>
+			<button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+		</div>
+	</div> 
+
+<!-- 	<div id="Form_recall_Dtails" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid"> 
+                <table class="infotab">
+                    <tr>
+                        <th>详情</th>
+                        <th>时间</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div> -->
+</div>
+<script type="text/javascript" src="js/tipso.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+ 
+	var wraper = $('#Wraper_repairRecall_manage');
+	//var parentId = carsmart_config.shopId;
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+
+    var page_column_model_b = new Array();
+    var page_search_items_b = new Array();
+    var page_list_buttons_b = new Array(); 
+
+    var page_column_model_c = new Array(); 
+
+    var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+
+    jRad.params['liveness']={data:[{id:' ',name:'全部'},{id:'0',name:'沉默'},{id:'1',name:'一般'},{id:'2',name:'活跃'}]};
+    var field_params={};  
+    field_params['isquandian']={
+        data:[{id:'1',name:'全店通用代金券'},{id:'2',name:'指定服务代金券'}],
+        onclick:function(){  
+            if($("div[name='isquandian']",wraper).radio('val')=='1'){ 
+               $(".isshow",wraper).hide();
+            }
+            else{
+                $(".isshow",wraper).show();
+            }
+        }
+    };
+    field_params['zeroService'] = {
+        data:[{id:'',name:'请选择'},{id:'1',name:'洗车'},{id:'2',name:'美容'},{id:'3',name:'保养'},{id:'4',name:'维修'}] ,
+        onchange:function(val){ 
+            getServiceSonNode(1,val,wraper); 
+        }
+    };
+    page_column_model_b.push({display: '召回活动id', name : 'recallActivityId',hidden:true});
+    page_column_model_b.push({display: '召回时间', name : 'recallDate'});
+    page_column_model_b.push({display: '可召回客户', name : 'recallNumber'});
+    page_column_model_b.push({display: '回店客户数', name : 'backNumber'});
+    page_column_model_b.push({display: '自动召回', name : 'isAutoSendMessage',
+        diy:function(item,$div){
+            var $up = $("<span>").addClass('up').attr("style","margin-left:10px;").html("开（已发短信）");
+            var $down = $("<span>").addClass('down').attr("style","margin-left:10px;").html("关（需人工联系）");
+            if(item.isAutoSendMessage == "2"){
+                    $div.append($up)
+             }else{
+                    $div.append($down)
+            }
+        }
+    });
+    page_search_items_b.push({row:'2',type:'jrad-daterange',display:'订单生成时间',name:'date',grid:7}); 
+
+        // 修改
+        $(".vouchersEdit").click(function() {
+            var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/busiMaintenceRecall/addBusinessRecallMmessage'});
+            $('#Form_repairRecall_set').form({
+                title: '发起召回', 
+                fields:field_params,
+                 url: '/vip-ws/ws/0.1/busiMaintenceRecall/addBusinessRecallMmessage', 
+                item:{isquandian:1},
+                preSubmit:function(json){
+                    // json.activityType = 1; 
+                    json.businessInfoId = carsmart_config.businessInfoId;
+                    //if($('.isshow').attr("style","display:block;")){
+                        // var length = $("#Form_repairRecall_set .service").length;
+                        var voucherTopic=$("#Form_repairRecall_set div[name=voucherTopic]").input("val");
+                        var money=$("#Form_repairRecall_set div[name=money]").input("val");
+                        var validDays=$("#Form_repairRecall_set div[name=validDays]").input("val");
+                        var illustrate=$("#Form_repairRecall_set div[name=illustrate]").textarea("val");
+                        var $select = $("#Form_repairRecall_set .service:last"); 
+                        var serviceId = $select.select('val');
+                        if(serviceId==""){
+                            //serviceId = $($("#Form_repairRecall_set .service")[length-2]).select('val');
+                            json.serviceId = ""
+                        } 
+                        json.recallType=1;
+                        json.isAutoSendMessage=2;
+                        json.serviceId = serviceId;
+                        json.money = money;
+                        json.validDays = validDays;
+                        json.illustrate = illustrate;
+                        json.voucherTopic = voucherTopic;
+                    return json;
+                },
+                success:function(){ 
+                    $("#Table_car_repair").flexMessage('发起成功', 'success');
+                    $('#Table_car_repair').flexReload();
+                    $(".vouchersType").html($("#Form_repairRecall_set div[name=voucherTopic]").input("val"));
+                    // $(".vouchersType").attr("day",$("#Form_repairRecall_set div[name=day]").input("val"))
+                }
+            }).form('open');
+            // isquandian
+            //$(".isshow",wraper).hide();
+    //     }
+    });
+    //page_list_buttons_b.push({separator: true});
+    $('#Table_car_repair').flexigrid({
+        reload: true,
+        autoload: true,
+        pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model_b,
+        searchitems: page_search_items_b,
+        buttons : page_list_buttons_b,
+        pagedStyle: 'oc',
+		method:'get',
+		showSearch:true,
+        //showCheckbox: false, 
+        overflow:true,
+        onError:showError2,
+        url:'/vip-ws/ws/0.1/busiMaintenceRecall/recallActivityList?businessInfoId='+carsmart_config.businessInfoId+'&recallType='+1,
+        checkBoxType:'single',
+        trEvent:function(){		 
+			var checked = $('#Table_car_repair').getCheckedTrs();  
+			$('#Table_repair_list').flexOptions({ 
+				extParam:{
+					recallActivityId: checked[0].recallActivityId,
+                                                            recallType:1,
+                                                            businessInfoId:carsmart_config.businessInfoId
+				}
+			}).flexReload();
+		}
+    });      
+    $('.vdiv .tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:15px;float:left;line-height:60px;">保养召回历史</span>');
+    $('.cDiv:eq(0) th:eq(3) div',wraper).html('可召回客户'+'<img class="Oval" src="css/images/Oval.png"  data-toggle="tooltip" title="活跃：最近180天服务大于5次，或最近15天有到店服务。<br>一般：最近180天服务1至5次，或最近两个月有到店服务。<br>沉默：最近180天没有服务">')
+     $('.Oval').tipso({background:'#11afd2',color:'#fff'});
+    $('.vdiv .hDiv tr th').eq(1).attr("style","display:none;")
+    function showError2(xhr){
+        var errormsg = eval("(" + xhr.responseText + ")");
+        var vdiv = $("#Wraper_repairRecall_manage .vdiv");
+        $.jRadMessage({level:'error',message:errormsg[0].message,selector:vdiv});
+    }
+    page_column_model_c.push({display: '客户姓名', name : 'userName',diy:function(item,$div){
+        if(item.userName == '' || item.userName == undefined){
+            $div.html("--")
+        }else{
+            $div.html(item.userName)
+        }
+    }});
+    page_column_model_c.push({display: '手机号', name : 'mobile'});
+    page_column_model_c.push({display: '活跃度', name : 'liveness'});
+    page_column_model_c.push({display: '上次保养里程', name : 'lastMaintainMileage'}); 
+    page_column_model_c.push({display: '当前里程数(km)', name : 'totalMileage',
+         diy:function(item,$div){
+                var $details  = $("<a>").addClass('flexOperate').html("");
+                $div.html(item.totalMileage+"&nbsp;&nbsp;&nbsp;&nbsp;").append($details);
+                if(item.totalMileage > item.nextMaintainMileage){
+                    $div.css("background-color","#f00");
+                }
+            }
+    });
+    page_column_model_c.push({display: '下次保养里程', name : 'nextMaintainMileage'});
+    page_column_model_c.push({display: '上次保养时间', name : 'lastMaintainDate'});
+    page_column_model_c.push({display: '下次保养时间', name : 'lastMaintainDate',
+        diy:function(item,$div){
+            function currentTime(){
+                        var d = new Date(),str = '';
+                        str += d.getFullYear()+'-';
+                        str  += d.getMonth() + 1+'-';
+                        str  += d.getDate()+' ';
+                        // str += d.getHours()+':'; 
+                        // str  += d.getMinutes()+':'; 
+                        // str+= d.getSeconds(); 
+                        return str;
+            }
+            function Days1(day1, day2){
+                        var y1, y2, y3, m1, m2, m3, d1, d2, d3, h1, h2, h3, _m1, _m2, _m3, s1, s2, s3;
+                        var reg = /年|月|日 |\/|:|-| /;
+                        //dayinfo -  用正则分割
+                        var DI1 = day1.split(reg);
+                        var DI2 = day2.split(reg);
+                        var date1 = new Date(DI1[0], DI1[1], DI1[2]);
+                        var date2 = new Date(DI2[0], DI2[1], DI2[2]);
+                        //用距标准时间差来获取相距时间
+                        var minsec = Date.parse(date1) - Date.parse(date2);
+                        var days = minsec / 1000 / 60 / 60 / 24; //factor: second / minute / hour / day
+                        return days;
+            }
+            var str1 = currentTime().toString();
+            var str2 = item.lastMaintainDate;
+            console.log(str1)
+            console.log(str2)
+            var poor=Days1(str1, str2);
+            console.log(poor)
+            var $details  = $("<a>").addClass('flexOperate').html("");
+            $div.html(item.lastMaintainDate+"&nbsp;&nbsp;&nbsp;&nbsp;").append($details);
+            if(poor >0){
+                $div.css("background-color","#f00");
+            }
+        }
+    });
+    page_column_model_c.push({display: '回店时间', name : 'lastServiceTime'});
+    page_column_model_c.push({display: '车辆档案',width:200, name : 'operate',
+            diy:function(item,$div){
+                var $view = $("<a>").addClass('flexOperate').html("查看");
+                $div.append($view); 
+    }
+})
+
+    $('#Table_repair_list').flexigrid({
+        reload: true,
+        pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model_c,
+        pagedStyle: 'oc',
+		method:'get',
+		showSearch:true,
+        autoload: false,
+        showCheckbox: false, 
+        overflow:true,
+        url:'/vip-ws/ws/0.1/busiMaintenceRecall/recallDetailList',
+        checkBoxType:'single'
+    });
+
+  // 自动召回
+            $(".btn1").click(function(event) {
+                var flag=$(this).is(':checked');
+                console.log(flag)
+                var json={};
+                if(flag ==""){
+                    console.log("关")
+                   json.isAutoSendMessage=1;
+                   // $(".btn2").attr("disabled", "disabled");
+                   $(".btn2").attr("checked",false).attr("disabled", "disabled");
+                   $(".vouchersEdit").css("visibility","hidden");
+                   $(".vouchersType").css("display","none");
+                }else{
+                    console.log("开")
+                    json.isAutoSendMessage=2;
+                    $(".btn2").removeAttr("disabled");
+                    if($(".vouchersType").html() != ""){
+                             $(".vouchersEdit").css("visibility","visible");
+                    }
+                    $(".vouchersType").css("display","inline-block");
+                }
+                json.businessInfoId=carsmart_config.businessInfoId;
+                json.recallType=2;
+               $.jRadAjax({
+                url: '/vip-ws/ws/0.1/busiMaintenceRecall/addBusinessRecallMmessage',
+                type: 'post',
+                data:json
+            })
+            });
+          // 赠送代金券  
+          // if($(".btn1").is(':checked') == ""){
+          //      $(".btn2").attr("disabled", "disabled");
+          //   }
+          $(".btn2 ").click(function(event) {
+                var flag=$(this).is(':checked');
+                var json={};
+                if(flag ==""){
+                    console.log("关")
+                   json.isSendVoucher=1;
+                }else{
+                    console.log("开")
+                    json.isSendVoucher=2;
+                }
+                if($(".vouchersType").html() == "" && flag !=""){
+                    $('#Form_repairRecall_set').form({
+                        title: '发起召回', 
+                        fields:field_params,
+                         url: '/vip-ws/ws/0.1/busiMaintenceRecall/addBusinessRecallMmessage', 
+                        item:{isquandian:'1'},
+                        preSubmit:function(json){
+                            // json.activityType = 1; 
+                            json.businessInfoId = carsmart_config.businessInfoId;
+                            //if($('.isshow').attr("style","display:block;")){
+                                // var length = $("#Form_repairRecall_set .service").length;
+                                var voucherTopic=$("#Form_repairRecall_set div[name=voucherTopic]").input("val");
+                                var money=$("#Form_repairRecall_set div[name=money]").input("val");
+                                var validDays=$("#Form_repairRecall_set div[name=validDays]").input("val");
+                                var illustrate=$("#Form_repairRecall_set div[name=illustrate]").textarea("val");
+                                var $select = $("#Form_repairRecall_set .service:last"); 
+                                var serviceId = $select.select('val');
+                                if(serviceId==""){
+                                    //serviceId = $($("#Form_repairRecall_set .service")[length-2]).select('val');
+                                    json.serviceId = ""
+                                } 
+                                json.recallType=1;
+                                json.isAutoSendMessage=2;
+                                json.serviceId = serviceId;
+                                json.money = money;
+                                json.validDays = validDays;
+                                json.illustrate = illustrate;
+                                json.voucherTopic = voucherTopic;
+                            return json;
+                        },
+                        success:function(data){ 
+                            console.log(data)
+                            $("#Table_car_repair").flexMessage('发起成功', 'success');
+                            $('#Table_car_repair').flexReload();
+                            $(".vouchersType").html($("#Form_repairRecall_set div[name=voucherTopic]").input("val"));
+                            $(".vouchersEdit").css("visibility","visible");
+                        }
+                        }).form('open');
+                }
+            //     json.businessInfoId=carsmart_config.businessInfoId;
+            //     json.recallType=1;
+            //     json.isAutoSendMessage=2;
+            //    $.jRadAjax({
+            //     url: '/vip-ws/ws/0.1/busiMaintenceRecall/addBusinessRecallMmessage',
+            //     type: 'post',
+            //     data:json
+            // })
+        });
+
+      if($(".vouchersType").html() == ""){
+                    $(".vouchersEdit").css("visibility","hidden");
+        }
+
+    $('.udiv .tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:15px;float:left;line-height:60px;">单次召回详情</span>');
+
+    $('.hDiv',wraper).css('overflow','hidden');
+    $('.bDiv',wraper).css('overflow-x','scroll');
+
+        function getServiceSonNode(n,val,wraper){   
+
+        var label = "",serviceClass = "",num = "";
+
+        var node = n;
+
+        if(node==1){
+
+            label = "一级服务";
+
+            serviceClass = "firstService"; 
+
+            num = "first"; 
+
+            $("#Form_repairRecall_set .first").parents(".grid-row-fluid").remove();
+
+            $("#Form_repairRecall_set .second").parents(".grid-row-fluid").remove();
+
+            $("#Form_repairRecall_set .third").parents(".grid-row-fluid").remove();
+
+            $("#Form_repairRecall_set .four").parents(".grid-row-fluid").remove();
+
+        }else if(node==2){
+
+            label = "二级服务";
+
+            serviceClass = "secondService"; 
+
+            num = "second"; 
+
+            $("#Form_repairRecall_set .second").parents(".grid-row-fluid").remove();
+
+            $("#Form_repairRecall_set .third").parents(".grid-row-fluid").remove();
+
+            $("#Form_repairRecall_set .four").parents(".grid-row-fluid").remove();
+
+        } else if(node==3){
+
+            label = "三级服务";
+
+            serviceClass = "thirdService"; 
+
+            num = "third"; 
+
+            $("#Form_repairRecall_set .third").parents(".grid-row-fluid").remove();
+
+            $("#Form_repairRecall_set .four").parents(".grid-row-fluid").remove();
+
+        } else if(node==4){
+
+            label = "四级服务";
+
+            serviceClass = "fourService"; 
+
+            num = "four"; 
+
+            $("#Form_repairRecall_set .four").parents(".grid-row-fluid").remove();
+
+        }
+
+        if(val!=""){
+
+            //var item = $.jRadGetDataSources("/shopmanage-ws/ws/0.1/service/getSonServices?parentId="+val,"id","serviceName");
+
+            var item = $.jRadGetDataSources('/vip-ws/ws/0.1/business/getServiceListByShopId?parentId='+val+'&level='+node+'&shopAccountId='+carsmart_config.shopId,"serviceId","serviceName");
+
+            if(item.length>0){
+
+                item.unshift({id:'',name:'请选择'}); 
+
+                var row = '<div class="grid-row-fluid defaultHide">'
+
+                            +'<label class="span6 grid-layout-label">'+label+'：</label>'
+
+                            +'<div class="span12 grid-layout-content fluid-wrap">'
+
+                            +'<div name="'+serviceClass+'" class="jrad-select-container service '+ num +'"></div>'
+
+                            +'</div>'
+
+                            +'</div>'  
+
+                $("#Form_repairRecall_set .service:last",wraper).parents(".grid-row-fluid").after(row); 
+
+                node++;
+
+                $('#Form_repairRecall_set div[name='+serviceClass+']').select({
+
+                    data:item,
+
+                    unshiftData: {id:'',name:'请选择'},
+
+                    grid:'12',
+
+                    onchange:function(val){
+
+                        getServiceSonNode(node,val,wraper)
+
+                    } 
+
+                });
+
+            } 
+
+        }
+
+    } 
+
+})
+</script>

@@ -1,0 +1,534 @@
+<div class="urlContentWraper" id="Wraper_oilPrice">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>油价列表</strong><bottom class="all-work-info numb124">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <table id="Table_oilPrice"></table>
+    </div>
+    <div id="Form_oilPrice" style="display:none;"> 
+		<div class="grid-layout-main jrad-form">
+            <input name="messageId" type="hidden">  
+			<div class="row">
+				<label class="span3 grid-layout-label"><span class="ui-form-required">*</span> 省：</label>
+				<div class="span5 grid-layout-content">
+					<div class="jrad-select-container" name="provinceId">
+					</div>
+				</div> 
+			</div> 
+            <div class="row"> 
+             <label class="span3 grid-layout-label">0#油价：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="zero" class="jrad-input-container"></div>
+                                    </div>
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label">90#油价：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="ninety" class="jrad-input-container"></div>
+                                    </div>
+            </div> 
+			<div class="row">
+                 <label class="span3 grid-layout-label">93#油价：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="ninetyThree" class="jrad-input-container"></div>
+                                    </div>
+            </div> 
+			<div class="row">
+                 <label class="span3 grid-layout-label">97#油价：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="ninetySeven" class="jrad-input-container"></div>
+                                    </div>
+            </div>  
+        </div> 
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span> 
+        </div>
+    </div>
+    <div id="Form_oilPrice_change" style="display:none;"> 
+		<div class="grid-layout-main jrad-form">
+            <input name="messageId" type="hidden">  
+			<div class="row">
+				<label class="span3 grid-layout-label"><span class="ui-form-required">*</span> 省：</label>
+				<div class="span5 grid-layout-content">
+					<div class="jrad-select-container" name="provinceId">
+					</div>
+				</div> 
+			</div> 
+			<div class="row"  style="text-align:center;">
+				<label class="span3 grid-layout-label"></label>
+				<div class="span4 grid-layout-content">
+					修改前金额
+				</div> 
+				<div class="span4 grid-layout-content">
+					修改后金额
+				</div>
+				<div class="span4 grid-layout-content">
+					加减量
+				</div>
+			</div>
+            <div class="row smallInput"> 
+             <label class="span3 grid-layout-label">金额(0#)：</label>
+             	 <div class="span4 grid-layout-content">
+                       <div name="pre_zero" class="jrad-input-container"></div>
+                 </div>
+                 <div class="span4 grid-layout-content">
+                       <div name="zero" class="jrad-input-container"></div>
+                 </div>
+                 <div class="span4 grid-layout-content">
+                       <div name="zeroIncrease" class="jrad-input-container"></div>
+                 </div>
+            </div>  
+            <div class="row smallInput">
+                 <label class="span3 grid-layout-label">金额(90#)：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="pre_ninety" class="jrad-input-container"></div>
+                 </div>
+                 <div class="span4 grid-layout-content">
+                       <div name="ninety" class="jrad-input-container"></div>
+                 </div>
+                 <div class="span4 grid-layout-content">
+                       <div name="ninetyIncrease" class="jrad-input-container"></div>
+                 </div>
+            </div> 
+			<div class="row smallInput">
+                 <label class="span3 grid-layout-label">金额(92/93#)：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="pre_ninetyThree" class="jrad-input-container"></div>
+                 </div>
+                 <div class="span4 grid-layout-content">
+                       <div name="ninetyThree" class="jrad-input-container"></div>
+                 </div>
+                 <div class="span4 grid-layout-content">
+                       <div name="ninetyThreeIncrease" class="jrad-input-container"></div>
+                 </div>
+            </div> 
+			<div class="row smallInput">
+                 <label class="span3 grid-layout-label">金额(95/97#)：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="pre_ninetySeven" class="jrad-input-container"></div>
+                 </div>
+                 <div class="span4 grid-layout-content">
+                       <div name="ninetySeven" class="jrad-input-container"></div>
+                 </div>
+                 <div class="span4 grid-layout-content">
+                       <div name="ninetySevenIncrease" class="jrad-input-container"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>生效时间：</label>
+                 <div class="span12 grid-layout-content">
+                       <div name="effectiveTime" class="jrad-dateinput-container"></div>
+                       <p class="ui-note">修改后金额：直接填写需要变更后的金额；<br>浮动金额：按发改委发布通知输入金额，如每升提高0.05元，则输入0.05，每升降价0.05<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;，输入-0.05该省市油价以及加油站管理对应省油价将做对应调整。</p>
+                                    </div>
+            </div>  
+        </div> 
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span> 
+        </div>
+    </div>
+    <div id="Form_explain_eg124" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>在APP的首页，侧拉框出来后，会显示对应城市的油价，此油价数据源就在此处。</div>
+                    <div><strong>重要功能说明：</strong>油价批量修改：在修改页面，可单个或批量修改对应城市的油价。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){ 
+    var wraper = $('#Wraper_oilPrice');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	 	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});   
+	jRad.validators['provinceId'] = [{"msg":"请选择省","type":"min","value":"1"}];
+	jRad.validators['zero'] = [{"msg":"油价不能为空","type":"min","value":"1"},{msg:"油价需为数字且最多精确到小数点后两位",type:'regex',value:/^\d+(\.\d{1,2})?$/}];
+	jRad.validators['ninety'] = [{"msg":"油价不能为空","type":"min","value":"1"},{msg:"油价需为数字且最多精确到小数点后两位",type:'regex',value:/^\d+(\.\d{1,2})?$/}];
+	jRad.validators['ninetyThree'] = [{"msg":"油价不能为空","type":"min","value":"1"},{msg:"油价需为数字且最多精确到小数点后两位",type:'regex',value:/^\d+(\.\d{1,2})?$/}];
+	jRad.validators['ninetySeven'] = [{"msg":"油价不能为空","type":"min","value":"1"},{msg:"油价需为数字且最多精确到小数点后两位",type:'regex',value:/^\d+(\.\d{1,2})?$/}];
+	var validators={};
+	// validators['zeroIncrease'] = [{msg:"加减量最多精确到小数点后两位",type:'regex',value:/^-*(([0-9]+.(([0-9]{0,1}[1-9])|([1-9][0-9])))|([0-9]*[1-9][0-9]*.[0-9]{1,2})|([0-9]*[1-9][0-9]*))$/}];
+	// validators['ninetyIncrease'] = [{msg:"加减量最多精确到小数点后两位",type:'regex',value:/^-*(([0-9]+.(([0-9]{0,1}[1-9])|([1-9][0-9])))|([0-9]*[1-9][0-9]*.[0-9]{1,2})|([0-9]*[1-9][0-9]*))$/}];
+	// validators['ninetyThreeIncrease'] = [{msg:"加减量最多精确到小数点后两位",type:'regex',value:/^-*(([0-9]+.(([0-9]{0,1}[1-9])|([1-9][0-9])))|([0-9]*[1-9][0-9]*.[0-9]{1,2})|([0-9]*[1-9][0-9]*))$/}];
+	// validators['ninetySevenIncrease'] = [{msg:"加减量最多精确到小数点后两位",type:'regex',value:/^-*(([0-9]+.(([0-9]{0,1}[1-9])|([1-9][0-9])))|([0-9]*[1-9][0-9]*.[0-9]{1,2})|([0-9]*[1-9][0-9]*))$/}];
+    
+	validators['zero'] = [{msg:"油价需为正数且最多精确到小数点后两位",type:'regex',value:/^(([0-9]+.(([0-9]{0,1}[1-9])|([1-9][0-9])))|([0-9]*[1-9][0-9]*.[0-9]{1,2})|([0-9]*[1-9][0-9]*))$/}];
+	validators['ninety'] = [{msg:"油价需为正数且最多精确到小数点后两位",type:'regex',value:/^(([0-9]+.(([0-9]{0,1}[1-9])|([1-9][0-9])))|([0-9]*[1-9][0-9]*.[0-9]{1,2})|([0-9]*[1-9][0-9]*))$/}];
+	validators['ninetyThree'] = [{msg:"油价需为正数且最多精确到小数点后两位",type:'regex',value:/^(([0-9]+.(([0-9]{0,1}[1-9])|([1-9][0-9])))|([0-9]*[1-9][0-9]*.[0-9]{1,2})|([0-9]*[1-9][0-9]*))$/}];
+	validators['ninetySeven'] = [{msg:"油价需为正数且最多精确到小数点后两位",type:'regex',value:/^(([0-9]+.(([0-9]{0,1}[1-9])|([1-9][0-9])))|([0-9]*[1-9][0-9]*.[0-9]{1,2})|([0-9]*[1-9][0-9]*))$/}];
+	
+	var fields_params = {};	
+	fields_params['provinceId'] = {
+	urlData:{
+		url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll' 
+	},
+	unshiftData: {id:'0',name:'全部'} 
+	};
+	$('div[name="effectiveTime"]').dateinput({
+		dateFmt: 'yyyy-MM-dd HH:mm:ss'
+	});
+	$('#Form_oilPrice',wraper).form({ 
+				validators: jRad.validators,
+				fields_params: fields_params  
+	});
+	$('#Form_oilPrice_change',wraper).form({ 
+				validators: validators,
+				fields_params: fields_params  
+	});
+    page_column_model.push({display: '省', name : 'provinceName'});
+    page_column_model.push({display: '0#价格(元)', name : 'zero'});
+	page_column_model.push({display: '90#价格(元)', name : 'ninety'});
+    page_column_model.push({display: '93#价格(元)', name : 'ninetyThree'});
+    page_column_model.push({display: '97#价格(元)', name : 'ninetySeven'});   
+	page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){
+            var readonlyFields = {};
+	        readonlyFields['provinceId'] = false; 
+			$('#Form_oilPrice',wraper).form({
+                title: '创建', 
+				readonlyFields: readonlyFields,
+                item:{}, 
+				url:'/shopmanage-ws/ws/0.1/oilPrice/addOilPrice',
+                success_callback: function(){
+					$('#Table_oilPrice').flexMessage('创建成功!', 'success');
+					$('#Table_oilPrice').flexReload();
+				} 
+            }).form('open');
+        }
+    }); 
+	// page_list_buttons.push({title: '修改',name:'Edit', bclass: 'edit',prefunc:function(){
+ //            var checked = $('#Table_oilPrice').getCheckedTrs();
+ //            if (checked.length != 1) {return false;}else{return true;}
+ //        },onpress : function(){
+ //            var checked = $('#Table_oilPrice').getCheckedTrs(); 
+ //            if(checked[0]) {
+	// 		    var item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/oilPrice/detailOilPrice?id='+checked[0].id});
+	// 			var readonlyFields = {};
+	//             readonlyFields['provinceId'] = true; 
+	// 			$('#Form_oilPrice',wraper).form({
+	// 				title: '修改', 
+	// 				readonlyFields: readonlyFields,
+	// 				item:item, 
+	// 				url:'/shopmanage-ws/ws/0.1/oilPrice/editOilPrice',
+	// 				success_callback: function(){ 
+	// 					$('#Table_oilPrice').flexMessage('修改成功!', 'success');
+	// 					$('#Table_oilPrice').flexReload();
+	// 				} 
+	// 			}).form('open'); 
+ //            }
+ //        }
+ //    }); 
+  
+	page_list_buttons.push({name:'delete',bclass: 'delete',prefunc:function(){
+            var checked = $('#Table_oilPrice').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_oilPrice').getCheckedTrs();
+			$.jRadConfirm('确认删除吗？',1,function(){
+				var id =  checked[0].id; 
+				$.jRadAjax({
+				    type:'post',
+					url:'/shopmanage-ws/ws/0.1/oilPrice/deleteOilPrice?id='+id, 
+					success: function(){
+						$('#Table_oilPrice').flexMessage('删除成功!', 'success');
+           	    		$('#Table_oilPrice').flexReload();
+					},
+					error:function(xhr){
+					    var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined) {
+							$('#Table_oilPrice').flexMessage(errormsg[0].message, 'error');
+						}
+					}
+				});
+			});
+		}
+	}); 
+	page_list_buttons.push({title: '油价批量修改',displayname:'油价批量修改',name:'oilprice', bclass: 'oilprice',
+        onpress : function(){            
+            var readonlyFields = {};
+	        readonlyFields['provinceId'] = false; 
+	        var checked = $('#Table_oilPrice').getCheckedTrs();
+            if(checked[0]){
+    			$('#Form_oilPrice_change',wraper).form({
+                    title: '油价批量修改', 
+    				readonlyFields: readonlyFields,
+                    //item:{provinceId:checked[0].provinceId,pre_zero:checked[0].zero,pre_ninety:checked[0].ninety,pre_ninetyThree:checked[0].ninetyThree,pre_ninetySeven:checked[0].ninetySeven}, 
+                    item:{provinceId:checked[0].provinceId},
+    				url:'/shopmanage-ws/ws/0.1/oilPrice/bathEdit',
+    				before_submit:function(json){
+    					json.operator = carsmart_config.operatorName;
+    					return json
+    				},
+                    success_callback: function(){
+    					$('#Table_oilPrice').flexMessage('修改成功!', 'success');
+    					$('#Table_oilPrice').flexReload();
+    				} 
+                }).form('open'); 
+
+                $('#Form_oilPrice_change div[name="zero"]',wraper).input('readonly',false);
+                $('#Form_oilPrice_change div[name="ninety"]',wraper).input('readonly',false);
+                $('#Form_oilPrice_change div[name="ninetyThree"]',wraper).input('readonly',false);
+                $('#Form_oilPrice_change div[name="ninetySeven"]',wraper).input('readonly',false);
+
+                var provinceIdVal=$('#Form_oilPrice_change div[name="provinceId"]',wraper).select('val');
+                $.jRadGet({
+                    url:'/shopmanage-ws/ws/0.1/oilPrice/oilPriceByProvince?provinceId='+provinceIdVal,
+                    success:function(data){
+                        $('#Form_oilPrice_change div.smallInput input').val('');
+                        $('#Form_oilPrice_change div[name="pre_zero"]',wraper).input('val',data.zero);
+                        $('#Form_oilPrice_change div[name="pre_ninety"]',wraper).input('val',data.ninety);
+                        $('#Form_oilPrice_change div[name="pre_ninetyThree"]',wraper).input('val',data.ninetyThree);
+                        $('#Form_oilPrice_change div[name="pre_ninetySeven"]',wraper).input('val',data.ninetySeven)
+                    },
+                    error:function(xhr){
+                        var errormsg = eval("(" + xhr.responseText + ")");  
+                        var _form = $('#Form_oilPrice_change');
+                        if (errormsg != undefined) {
+                            $.jRadMessage({level:'error',message:errormsg[0].message,selector:_form})
+                        }
+                    }
+                })
+            }else{
+                $('#Form_oilPrice_change',wraper).form({
+                    title: '油价批量修改', 
+                    readonlyFields: readonlyFields,
+                    item:{provinceId:0},
+                    url:'/shopmanage-ws/ws/0.1/oilPrice/bathEdit',
+                    before_submit:function(json){
+                        json.operator = carsmart_config.operatorName;
+                        return json
+                    },
+                    success_callback: function(){
+                        $('#Table_oilPrice').flexMessage('修改成功!', 'success');
+                        $('#Table_oilPrice').flexReload();
+                    } 
+                }).form('open'); 
+                $('#Form_oilPrice_change div[name="zero"]',wraper).input('readonly',true);
+                $('#Form_oilPrice_change div[name="ninety"]',wraper).input('readonly',true);
+                $('#Form_oilPrice_change div[name="ninetyThree"]',wraper).input('readonly',true);
+                $('#Form_oilPrice_change div[name="ninetySeven"]',wraper).input('readonly',true);
+            }
+
+            $('#Form_oilPrice_change div.smallInput',wraper).find('.ui-input-content').removeClass('span4').addClass('span3');
+            $('#Form_oilPrice_change div.smallInput',wraper).css('text-align',"center");
+            $('#Form_oilPrice_change div.smallInput input',wraper).css('text-align',"center");
+            $('#Form_oilPrice_change div[name="pre_zero"]',wraper).input('readonly',true);
+            $('#Form_oilPrice_change div[name="pre_ninety"]',wraper).input('readonly',true);
+            $('#Form_oilPrice_change div[name="pre_ninetyThree"]',wraper).input('readonly',true);
+            $('#Form_oilPrice_change div[name="pre_ninetySeven"]',wraper).input('readonly',true);
+
+            // $('#Form_oilPrice_change div[name="zero"]',wraper).input('readonly',true);
+            // $('#Form_oilPrice_change div[name="ninety"]',wraper).input('readonly',true);
+            // $('#Form_oilPrice_change div[name="ninetyThree"]',wraper).input('readonly',true);
+            // $('#Form_oilPrice_change div[name="ninetySeven"]',wraper).input('readonly',true);
+
+            $('#Form_oilPrice_change div[name="provinceId"]',wraper).select({
+            	onclick:function(){
+            		var provinceIdVal=$('#Form_oilPrice_change div[name="provinceId"]',wraper).select('val');
+            		if(provinceIdVal == '0'){
+            			$('#Form_oilPrice_change div.smallInput input').val('')
+                        $('#Form_oilPrice_change div[name="zero"]',wraper).input('readonly',true);
+                        $('#Form_oilPrice_change div[name="ninety"]',wraper).input('readonly',true);
+                        $('#Form_oilPrice_change div[name="ninetyThree"]',wraper).input('readonly',true);
+                        $('#Form_oilPrice_change div[name="ninetySeven"]',wraper).input('readonly',true);
+            		}else{
+                        $('#Form_oilPrice_change div[name="zero"]',wraper).input('readonly',false);
+                        $('#Form_oilPrice_change div[name="ninety"]',wraper).input('readonly',false);
+                        $('#Form_oilPrice_change div[name="ninetyThree"]',wraper).input('readonly',false);
+                        $('#Form_oilPrice_change div[name="ninetySeven"]',wraper).input('readonly',false);
+            			$.jRadGet({
+            				url:'/shopmanage-ws/ws/0.1/oilPrice/oilPriceByProvince?provinceId='+provinceIdVal,
+            				success:function(data){
+            					$('#Form_oilPrice_change div.smallInput input').val('');
+            					$('#Form_oilPrice_change div[name="pre_zero"]',wraper).input('val',data.zero);
+            					$('#Form_oilPrice_change div[name="pre_ninety"]',wraper).input('val',data.ninety);
+            					$('#Form_oilPrice_change div[name="pre_ninetyThree"]',wraper).input('val',data.ninetyThree);
+            					$('#Form_oilPrice_change div[name="pre_ninetySeven"]',wraper).input('val',data.ninetySeven)
+            				},
+            				error:function(xhr){
+							    var errormsg = eval("(" + xhr.responseText + ")");  //转换为json对象
+							    var _form = $('#Form_oilPrice_change');
+								if (errormsg != undefined) {
+									$.jRadMessage({level:'error',message:errormsg[0].message,selector:_form})
+								}
+							}
+            			})
+            		}
+            	}
+            });
+ 			$('#Form_oilPrice_change div[name="zero"]').focusout(function(){
+ 				if($.trim($(this).input('val'))!=''){
+ 					var changeData = parseFloat($(this).input('val')) - parseFloat($('#Form_oilPrice_change div[name="pre_zero"]').input('val'));
+ 					if(!isNaN(changeData)){
+	 					$('#Form_oilPrice_change div[name="zeroIncrease"]').input('val',changeData.toFixed(2))
+ 					}else{
+ 						$('#Form_oilPrice_change div[name="zeroIncrease"]').input('val','')
+ 					}
+ 				}else{
+ 					$('#Form_oilPrice_change div[name="zeroIncrease"]').input('val','')
+ 				}
+ 			});
+ 			$('#Form_oilPrice_change div[name="ninety"]').focusout(function(){
+ 				if($.trim($(this).input('val'))!=''){
+ 					var changeData = parseFloat($(this).input('val')) - parseFloat($('#Form_oilPrice_change div[name="pre_ninety"]').input('val'));
+ 					if(!isNaN(changeData)){
+ 						$('#Form_oilPrice_change div[name="ninetyIncrease"]').input('val',changeData.toFixed(2))
+ 					}else{
+ 						$('#Form_oilPrice_change div[name="ninetyIncrease"]').input('val','')
+ 					}
+ 				}else{
+ 					$('#Form_oilPrice_change div[name="ninetyIncrease"]').input('val','')
+ 				}
+ 			});
+ 			$('#Form_oilPrice_change div[name="ninetyThree"]').focusout(function(){
+ 				if($.trim($(this).input('val'))!=''){
+ 					var changeData = parseFloat($(this).input('val')) - parseFloat($('#Form_oilPrice_change div[name="pre_ninetyThree"]').input('val'));
+ 					if(!isNaN(changeData)){
+ 						$('#Form_oilPrice_change div[name="ninetyThreeIncrease"]').input('val',changeData.toFixed(2))
+ 					}else{
+ 						$('#Form_oilPrice_change div[name="ninetyThreeIncrease"]').input('val','')
+ 					}
+ 				}else{
+ 					$('#Form_oilPrice_change div[name="ninetyThreeIncrease"]').input('val','')
+ 				}
+ 			});
+ 			$('#Form_oilPrice_change div[name="ninetySeven"]').focusout(function(){
+ 				if($.trim($(this).input('val'))!=''){
+ 					var changeData = parseFloat($(this).input('val')) - parseFloat($('#Form_oilPrice_change div[name="pre_ninetySeven"]').input('val'));
+ 					if(!isNaN(changeData)){
+ 						$('#Form_oilPrice_change div[name="ninetySevenIncrease"]').input('val',changeData.toFixed(2))
+ 					}else{
+ 						$('#Form_oilPrice_change div[name="ninetySevenIncrease"]').input('val','')
+ 					}
+ 				}else{
+ 					$('#Form_oilPrice_change div[name="ninetySevenIncrease"]').input('val','')
+ 				}
+ 			});
+
+ 			$('#Form_oilPrice_change div[name="zeroIncrease"]').focusout(function(){
+ 				if($.trim($(this).input('val'))!=''){
+ 					var afterChange = parseFloat($(this).input('val')) + parseFloat($('#Form_oilPrice_change div[name="pre_zero"]').input('val'));
+ 					if(!isNaN(afterChange)){
+ 						$('#Form_oilPrice_change div[name="zero"]').input('val',afterChange.toFixed(2))
+ 					}else{
+ 						$('#Form_oilPrice_change div[name="zero"]').input('val','')
+ 					}
+ 				}else{
+ 					$('#Form_oilPrice_change div[name="zero"]').input('val','')
+ 				}
+ 			});
+ 			$('#Form_oilPrice_change div[name="ninetyIncrease"]').focusout(function(){
+ 				if($.trim($(this).input('val'))!=''){
+ 					var afterChange = parseFloat($(this).input('val')) + parseFloat($('#Form_oilPrice_change div[name="pre_ninety"]').input('val'));
+ 					if(!isNaN(afterChange)){
+ 						$('#Form_oilPrice_change div[name="ninety"]').input('val',afterChange.toFixed(2))
+ 					}else{
+ 						$('#Form_oilPrice_change div[name="ninety"]').input('val','')
+ 					}
+ 				}else{
+ 					$('#Form_oilPrice_change div[name="ninety"]').input('val','')
+ 				}
+ 			});
+ 			$('#Form_oilPrice_change div[name="ninetyThreeIncrease"]').focusout(function(){
+ 				if($.trim($(this).input('val'))!=''){
+ 					var afterChange = parseFloat($(this).input('val')) + parseFloat($('#Form_oilPrice_change div[name="pre_ninetyThree"]').input('val'));
+ 					if(!isNaN(afterChange)){
+ 						$('#Form_oilPrice_change div[name="ninetyThree"]').input('val',afterChange.toFixed(2))
+ 					}else{
+ 						$('#Form_oilPrice_change div[name="ninetyThree"]').input('val','')
+ 					}
+ 				}else{
+ 					$('#Form_oilPrice_change div[name="ninetyThree"]').input('val','')
+ 				}
+ 			});
+ 			$('#Form_oilPrice_change div[name="ninetySevenIncrease"]').focusout(function(){
+ 				if($.trim($(this).input('val'))!=''){
+ 					var afterChange = parseFloat($(this).input('val')) + parseFloat($('#Form_oilPrice_change div[name="pre_ninetySeven"]').input('val'));
+ 					if(!isNaN(afterChange)){
+ 						$('#Form_oilPrice_change div[name="ninetySeven"]').input('val',afterChange.toFixed(2))
+ 					}else{
+ 						$('#Form_oilPrice_change div[name="ninetySeven"]').input('val','')
+ 					}
+ 				}else{
+ 					$('#Form_oilPrice_change div[name="ninetySeven"]').input('val','')
+ 				}
+ 			});
+        }
+    });
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_oilPrice').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true,
+            checkBoxType: 'single',
+            url:'/shopmanage-ws/ws/0.1/oilPrice/queryOilPrice',
+			onError:showOilListMessageError,
+			overflow:true
+    });  
+    $(".numb124").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg124").form({}).form('close');
+        $("#Form_explain_eg124").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg124 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg124").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg124").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg124 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+}); 
+
+function showOilListMessageError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_oilPrice .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			} 
+</script>

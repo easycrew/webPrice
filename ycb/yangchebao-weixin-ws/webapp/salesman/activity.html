@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>  
+<title>推广养车宝</title>
+<script language="javascript" src="./js/jquery-1.10.1.min.js"></script> 
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script language="javascript" src="./js/share.js"></script> 
+<link rel="stylesheet" href="./css/index.css">
+</head> 
+<body>
+    <section class="activity-wrap">
+        <figure>
+            <img src="css/images/tg_1.jpg"> 
+        </figure> 
+        <article class="content-wrap"> 
+            <div class="tit-center"><img src="css/images/tg_2.png" alt="申请推广养车宝，收入倍增不是梦" /></div> 
+            <h1 class="intro">推荐下载养车宝，最高奖10元！</h1>
+            <h1 class="intro">多劳多得，上不封顶！</h1>  
+            <a class="btn" href="javascript:void(0);" id="toRegist" style="margin: 2.78em 0;">立即申请</a>
+            <p class="intro">推广流程：</p>
+            <p class="intro">第一步：申请成为养车宝推广业务员；</p>
+            <p class="intro">第二步：推荐客户扫描“推广二维码”，下载养车宝；</p>
+            <p class="intro">第三步：客户注册，您即可得2元；注册当天完成首个订单，再得8元！</p> 
+            
+        </article>   
+    </section> 
+    <script type="text/javascript">
+        $(document).ready(function(){  
+            var url = window.location.search; 
+            var paramsArr = (url.split("?")[1]).split("&");
+            var paramJson = {};
+            $.each(paramsArr,function(i){
+                var item = paramsArr[i].split("=");
+                paramJson[item[0]] = item[1];
+            });  
+            $("#toRegist").click(function(){
+                 window.location.href = "regist.html?code="+paramJson.code;
+            });
+        });
+    </script>
+</body>
+
+</html>
+

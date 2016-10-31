@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta name="format-detection" content="telephone=no" />
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery.json-2.2.js"></script>
+<script src="js/index.js"></script>
+<title>我的订单</title>
+</head>
+<style type="text/css">
+*{
+padding: 0;
+margin: 0;
+}
+body{
+    color: #1e1e1e;
+    font-family: "冬青黑体","黑体","HelveticaNeue-Light";
+    font-size: 62.5%;
+    background-color: #f4f7f8;
+} 
+a,a:hover{
+    text-decoration: none;
+    outline: none;
+}
+img,button {
+    border:none;
+}
+ul,ol{
+    list-style: none;
+}
+.header {
+    position: relative;
+}
+.header img {
+  display: block;
+  width: 100%;
+} 
+.text-align-middle section {
+    background-color: #fff;
+    margin-bottom: 1em;
+}
+.service-wrap, .carwash-wrap, .want-wrap, .news-wrap, .group-buying-wrap {
+    background-color: #fff;
+}
+.service-wrap {
+    height: auto;
+    overflow: auto;
+    padding: 9px 0 7px;
+}
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.clearfix::after {
+    clear: both;
+}
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}  
+.orderList li{
+  background-color: #fff; 
+  margin-bottom: 10px;
+}
+.orderList h1{
+  font-weight: normal;
+  font-size: 1.5em;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #d9d9e2;
+  padding: 0 10px;
+}
+.orderList .pic-wrap{
+  border-bottom: 1px solid #d9d9e2; 
+  position: relative;
+  min-height: 85px;
+}
+.orderList .pic{
+  width: 57px;
+  position: absolute;
+  left: 15px;
+  top: 15px;
+}
+.orderList .pic-wrap img{
+  width: 100%;
+  display: block;
+}
+.orderList .pic-wrap .content{
+  width: 100%;
+  display: table;
+  box-sizing: border-box;
+  padding: 15px 10px 15px 15px;
+}
+.orderList .pic-wrap .content .left{
+  display: table-cell; 
+  padding-left: 67px;
+}
+.orderList .pic-wrap .content .right{
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+  font-size: 1.8em;
+}
+.orderList .info{
+  font-size: 1.2em;
+  padding: 10px 10px 10px 15px; 
+  border-bottom: 1px solid #d9d9e2;
+}
+.status{
+  float: right;
+  font-size:1.17em;
+  display: block; 
+  margin-top: -7px;
+}
+.orderList .tit{
+  font-size: 1.4em;
+  padding-top: 5px;
+}
+.orderList .service{
+  font-size: 1.2em; 
+  padding: 5px 0 0 5px;
+}
+.org{
+  color: #fb451f;
+} 
+.orderList .coupon{
+  font-size: 0.72em;
+  white-space: nowrap;
+}
+.more {
+    background-image: url("css/images/arrow.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 10px auto;
+    color: #6eaade;
+    float: right;
+    font-size: 1.5em;
+    height: 40px;
+    line-height: 40px;
+    padding-right: 12px;
+}
+.orderList h1 + .more {
+    margin: -2.8em 0.8em 0 0;
+}
+/**错误提示**/
+.tasat-wrap{
+   position: fixed;
+   text-align: center;
+   bottom: 50%;
+   width: 100%; 
+}
+.tasat {
+    background-color: #000;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 20px;
+    opacity: 0.8;
+    padding: 10px;
+}
+/**查看更多**/
+.tip {
+    color: #a0a097;
+    font-size: 1.5em;
+    padding: 10px;
+    text-align: center;
+    display: none;
+    cursor:pointer;
+}
+/**查询结果空**/
+.null-tip::before {
+    border-bottom: 1px solid #cfd1db;
+    content: "";
+    display: inline-block;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    width: 2.4em;
+}
+.null-tip::after {
+    border-bottom: 1px solid #cfd1db;
+    content: "";
+    display: inline-block;
+    margin-left: 0.5em;
+    vertical-align: middle;
+    width: 2.4em;
+}
+.null-tip {
+    color: #cfd1db;
+    font-size: 1.8em;
+    margin-top: 2.78em;
+    text-align: center;
+    display: none;
+}
+</style>
+<body> 
+   <section>
+      <ul class="orderList">
+        <!--<li>
+            <h1>美车源（东直门店）</h1> 
+            <span class="more"></span>
+            <div class="pic-wrap">
+                <div class="pic"><img src="css/images/service.png"/></div>
+                <div class="content">
+                  <div class="left">
+                    <p class="tit">「洗车洗车洗车洗车洗车洗洗车洗车洗车」</p>
+                    <p class="service">3M-PN903M-PN93M-PN903M-PN90</p>
+                  </div>
+                  <div class="right org"><p class="price">¥120</p><p class="coupon">抵用券20</p></div>
+                </div>
+            </div>
+            <p class="info">
+              状&nbsp;&nbsp;态：<span class="org">待付款</span><br/>
+              订单号：3838473020409<span class="status">已评价</span> 
+            </p>
+        </li>  -->
+      </ul>
+  </section>
+<p class="null-tip">暂无订单</p>
+<p class="tip">点击查看更多</p>  
+<script type="text/javascript">
+var customerId = "";
+$(document).ready(function(){
+    var pageindex = 0;
+	var customerId = "" ;
+	index.init = function(userInfo){ 
+	  customerId = userInfo.customerId;  
+	  getOrderList(); 
+	};   
+  $(".tip").click(function(){
+        getOrderList();
+  });   
+  function getOrderList(){  
+    $.ajax({
+        url: "/yangchebao-app-ws/ws/0.1/orderservice/order/page?orderStatus=-1&customerId="+customerId+'&pagesize=10&pageindex='+pageindex+"&"+(new Date()).getTime(),
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        type: "get",
+        success: function(data) {
+          if(data.totalCount>0){ 
+		    if((data.page+1)<data.totalPages){
+				$(".tip").show();
+			} else{
+				$(".tip").hide();
+			} 
+			pageindex++;  	
+            var items = data.items; 
+            $.each(items,function(i){
+              var item  = items[i]; 
+              
+			  var pic = "css/images/service_default.png"; 
+              var _li = '<li>'
+                      +'<h1>'+item.businessName+'</h1> ' 
+                      +'<div class="pic-wrap">'
+                      +'<div class="pic"><img src="'+item.servicePic+'" onerror="javascript:this.src=\''+pic+'\';"/></div>'
+                      +'    <div class="content">'
+                      +'      <div class="left">'
+                      +'        <p class="tit">「'+item.serviceName+'」</p>'
+                      +'        <p class="service">'+item.extraName+'</p>'
+                      +'      </div>'
+                      +'      <div class="right org"><p class="price">¥'+item.payment+'</p></div>'
+                      +'    </div>'
+                      +'</div>'
+                      +'<p class="info">'
+                      +'  状&nbsp;&nbsp;态：<span class="org">'+item.orderStatusName+'</span><br/>'
+                      +'  短信服务码：'+item.serviceCode
+                      +'</p>'
+                      +'</li>';
+              $(".orderList").append(_li);
+            });
+          }else{
+			$(".null-tip").show();
+		  }
+        },error: function(xhr) {
+			   var mes = eval('('+xhr.responseText+')'); 
+			   alertTasat(mes[0].message);
+		}
+    });
+  }
+   });
+</script>
+</body>
+</html>

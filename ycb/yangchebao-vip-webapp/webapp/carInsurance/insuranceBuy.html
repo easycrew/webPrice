@@ -1,0 +1,61 @@
+<style>
+	#Wraper_insuranceBuy h2{
+		background-color:#35beeb;
+		color:#fff;
+		padding-left: 16px;
+	}
+	a{
+		text-decoration:none;
+	}
+	a:hover{
+		text-decoration:none;
+	}
+	div.insuranceBuy{
+		width: 100%;
+		border:1px solid #ccc;
+	}
+	div.wraper{
+		padding:10px 2%;
+		overflow: hidden;
+	}
+	div.APP_page{
+		float: left;
+		width: 600px;
+		margin-right: 5%;
+		border: 1px solid #ccc;
+	}
+	div.tipItems{
+		float: left;
+		margin-top: 50px;
+	}
+	/*div.tipItems h3{
+		float: left;
+		margin-top: 50px;
+	}*/
+</style>
+<div class="urlContentWraper" id="Wraper_insuranceBuy">
+    <div class="ui-info-layout">
+        <div class="insuranceBuy">
+        	<h2>车险购买</h2>
+        	<div class="wraper">
+	        	<div class="APP_page">
+	        		<iframe src="carInsurance/APPSafe.html" frameborder="0" width="100%" id="iframepage" name="iframepage" onLoad="iFrameHeight()"></iframe>
+        		</div>
+	        	<div class="tipItems">
+		        	<h3>说明：</h3>
+		        	<p>1、此处只能给用户下投保单，最后支付环节需要客户在养车宝APP完成；</p>
+		        	<p>2、投保完成后，客户进入养车宝的个人中心->我的保险订单，点击立即支付即可完成订单支付。</p>
+		        </div>
+	        </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+		function iFrameHeight() {
+        var ifm= document.getElementById("iframepage");
+        var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
+            if(ifm != null && subWeb != null) {
+            	ifm.height = subWeb.body.scrollHeight
+            }
+    }
+</script>

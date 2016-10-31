@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>电瓶订单</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		ul.ul-batteryOrder li{
+			margin-top: 0.8rem;
+			border-bottom: 1px solid #D9D9E2;
+			background-color: #FFF;
+		}
+		p.li-top{
+			padding: 0rem 0.6rem 0rem 0.6rem;
+			font-size: 1rem;
+			border-bottom: 1px solid #D9D9E2;
+			line-height: 2.2rem;
+		}
+		p.li-top span.grayArrow{
+			float: right;
+			top: 0.52rem;
+		}
+		div.li-middle{
+			padding: 1rem 1.2rem 1rem 0.6rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		p.imgWraper{
+			float: left;
+		}
+		p.imgWraper img{
+			width: 3.8rem;
+			margin-right: 1rem;
+		}
+		div.textWraper{
+			float: left;
+		}
+		div.textWraper p:nth-of-type(1){
+			padding: 0.4rem 0 0.1rem;
+			font-size: 1rem;
+		}
+		div.textWraper p:nth-of-type(2){
+			padding: 0.1rem 0 0.4rem;
+			font-size: 0.8rem;
+		}
+		p.priceWraper{
+			float: right;
+			color: #f55d5d;
+			font-size: 1.2rem;
+		}
+		section{
+			margin-bottom: 2.6rem;
+		}
+		div.li-bottomLeft{
+			float: left;
+			padding: 0.3rem 0 0.3rem 0.3rem;
+		}
+		div.li-bottomLeft p{
+			font-size: 0.8rem;
+		}
+		div.li-bottomRight{
+			float: right;
+			line-height: 3rem;
+		}
+		div.li-bottomRight span.cancleBtn{
+			color: #f55d5d;
+			margin-right: 0.8rem;
+		}
+		div.li-bottomRight span.payAgainBtn{
+			display: inline-block;
+			background-color: #f55d5d;
+			color: #fff;
+			padding: 0 1rem;
+		}
+		div.getMore{
+			text-align: center;
+			color:#999;
+			font-size:0.9rem;
+			line-height:2rem;
+			display: none;
+		}
+
+		div.dialog{
+			position: fixed;
+			top: 0;
+			z-index: 500;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0,0,0,0.5);
+		}
+		div.dialogWraper{
+			position: relative;
+			width: 90%;
+			margin: 5rem auto;
+			background-color: #fff;
+			border-radius: 8px;
+		}
+		div.dialogWraper div.payItem{
+			padding: 1rem 1rem 1rem 0.4rem;
+			border-bottom: 1px solid #D9D9E2;
+			overflow: hidden;
+		}
+		div.dialogWraper div.payItem p{
+			text-align: center;
+		}
+		div.cancleBtnTwo{
+			text-align: center;
+			overflow: hidden;
+		}
+		p.sureCancle{
+			font-size: 1rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 1rem;
+			float: left;
+			width: 50%;
+		}
+		p.notCancle{
+			font-size: 1rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 1rem;
+			float: left;
+			width: 50%;
+			border-right: 1px solid #D9D9E2;
+		}
+		div.toIndex{
+			position: fixed;
+			width: 100%;
+			bottom: 0;
+			text-align: center;
+			background-color: #f55d5d;
+			/*border-top: 1px solid #d9d9e2;*/
+			padding: 0.5rem 0;
+			color: #fff;
+			font-size: 1rem;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<ul class="ul-batteryOrder">
+			<!-- <li>
+				<p class="li-top">养车宝<span class="grayArrow"></span></p>
+				<div class="li-middle clearfix">
+					<p class="imgWraper"><img src="./img/batteryIcon.png"></p>
+					<div class="textWraper">
+						<p>瓦尔塔蓄电池</p>
+						<p>电瓶型号：2-100</p>
+					</div>
+					<p class="priceWraper">¥829</p>
+				</div>
+				<div class="li-bottom clearfix">
+					<div class="li-bottomLeft">
+						<p>状    态：待付款</p>
+						<p>预约编码：89884872874</p>
+					</div>
+					<div class="li-bottomRight">
+						<span class="cancleBtn">取消</span>
+						<span class="payAgainBtn">付款</span>
+					</div>
+				</div>
+			</li>
+			<li>
+				<p class="li-top">养车宝<span class="grayArrow"></span></p>
+				<div class="li-middle clearfix">
+					<p class="imgWraper"><img src="./img/batteryIcon.png"></p>
+					<div class="textWraper">
+						<p>瓦尔塔蓄电池</p>
+						<p>电瓶型号：2-100</p>
+					</div>
+					<p class="priceWraper">¥829</p>
+				</div>
+				<div class="li-bottom clearfix">
+					<div class="li-bottomLeft">
+						<p>状    态：待付款</p>
+						<p>预约编码：89884872874</p>
+					</div>
+					<div class="li-bottomRight">
+						<span class="cancleBtn">取消</span>
+					</div>
+				</div>
+			</li>
+			<li>
+				<p class="li-top">养车宝<span class="grayArrow"></span></p>
+				<div class="li-middle clearfix">
+					<p class="imgWraper"><img src="./img/batteryIcon.png"></p>
+					<div class="textWraper">
+						<p>瓦尔塔蓄电池</p>
+						<p>电瓶型号：2-100</p>
+					</div>
+					<p class="priceWraper">¥829</p>
+				</div>
+				<div class="li-bottom clearfix">
+					<div class="li-bottomLeft">
+						<p>状    态：待付款</p>
+						<p>预约编码：89884872874</p>
+					</div>
+					<div class="li-bottomRight">
+					</div>
+				</div>
+			</li> -->
+		</ul>
+		<div class="getMore">点击查看更多</div>
+	</section>
+	<div class="toIndex">查看服务介绍</div>
+	<div class="dialog" style="display:none;" id="cancleDialog">
+		<div class="dialogWraper" id="dialogWraper-cancle">
+			<div class="payItem"><p>确认取消订单吗？</p></div>
+			<div class="cancleBtnTwo"><p class="notCancle">取消</p><p class="sureCancle">确定</p></div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    $('div.toIndex').show();
+		// battery图片垂直居中
+		$('p.imgWraper,p.priceWraper').each(function(){
+			var rowH=$(this).closest('div.li-middle').height();
+			$(this).css('line-height',rowH+'px')
+		});
+		// 查看服务介绍
+		if(paramJson.userInfoId){
+			paramJson.userId=paramJson.userInfoId
+		}
+		$('div.toIndex').on('click',function(){
+			window.location.href="index.html?userInfoId="+paramJson.userId+'&customerId='+paramJson.customerId
+		});
+		// 获取订单列表
+		var getBatteryOrder=function(page){
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/battery/order/page?pageindex='+page+'&pagesize=10'+'&customerId='+paramJson.customerId+'&'+new Date().getTime(),
+				type:'get',
+				async:false,
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					var batteryOrderStr='';
+					if(data.items.length>0){
+						data.items.forEach(function(key,i){
+							batteryOrderStr+='<li data-id="'+key.batteryOrderId+'">'
+											+'<p class="li-top" data-id="'+key.orderNumber+'">'+key.orderNumber+'<span class="grayArrow"></span></p>'
+											+'<div class="li-middle clearfix">'
+											+'<p class="imgWraper"><img src="./img/batteryIcon.png"></p>'
+											+'<div class="textWraper">'
+											+'<p>'+key.batteryBrand+'</p>'
+											+'<p>电瓶型号：'+key.batteryModel+'</p>'
+											+'</div>'
+											+'<p class="priceWraper">¥'+key.price+'</p>'
+											+'</div>'
+											+'<div class="li-bottom clearfix">'
+											+'<div class="li-bottomLeft">'
+											+'<p class="orderStatusName" data-id="'+key.ispay+'">状    态：'+key.orderStatusName+'</p>'
+											+'<p>下单时间：'+key.orderDate+'</p>'
+											+'</div>'
+											+'<div class="li-bottomRight">'
+							if(key.orderStatus!='3' && key.orderStatus!='4'){
+								batteryOrderStr+='<span class="cancleBtn">取消</span>';
+								if(key.ispay==0){
+									batteryOrderStr+='<span class="payAgainBtn">付款</span>'
+								}
+							}
+							batteryOrderStr+='</div></div></li>'
+						});
+						$('ul.ul-batteryOrder').append(batteryOrderStr);
+						// 查看订单详情
+						$('p.li-top').unbind('click').bind('click',function(){
+							window.location.href="orderDetail.html?orderNumber="+$(this).attr('data-id')+"&customerId="+paramJson.customerId+'&userId='+paramJson.userId
+						});
+						// 取消订单
+						$('span.cancleBtn').unbind('click').bind('click',function(){
+							$('div#cancleDialog').show();
+							var $cancle=$(this);
+							if($cancle.parents('li').find('p.orderStatusName').attr('data-id')==1){
+								$('div#cancleDialog div.payItem p').html('您的订单已经支付成功，若需取消，请拨打客服电话：4000-77-3321');
+								$('div#cancleDialog p.sureCancle').unbind('click').bind('click',function(){
+									$('div#cancleDialog').hide()
+								})
+							}else{
+								$('div#cancleDialog div.payItem p').html('确认取消订单吗？');
+								var cancleData={};
+								cancleData.batteryOrderId=$(this).closest('li').attr('data-id');
+								cancleData.orderNumber=$(this).closest('li').find('p.li-top').attr('data-id');
+								cancleData.customerId=paramJson.customerId;
+								$('div#cancleDialog p.sureCancle').unbind('click').bind('click',function(){
+									$.ajax({
+										url:'/yangchebao-app-ws/ws/0.1/battery/order/cancel',
+										type:'post',
+										data:$.toJSON(cancleData),
+										dataType:'json',
+										async:false,
+										contentType:'application/json;charset=utf-8',
+										success:function(data2){
+											$cancle.closest('li').find('p.orderStatusName').html('状    态：'+data2.statusName);
+											$cancle.closest('li').find('span.payAgainBtn').remove();
+											$cancle.remove();
+											$('div#cancleDialog').hide()
+										},
+										error:function(xhr){
+											var error=eval('('+xhr.responseText+')');
+											$('div#cancleDialog').hide();
+											errorLog(error[0].message)
+										}
+									})
+								})
+							}
+							$('div#cancleDialog p.notCancle').unbind('click').bind('click',function(){
+								$('div#cancleDialog').hide()
+							})
+						});
+						// 付款
+						$('span.payAgainBtn').unbind('click').bind('click',function(){
+							var $payAgainBtn=$(this);
+							$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/battery/order/detail?orderNumber='+$payAgainBtn.closest('li').find('p.li-top').attr('data-id')+'&customerId='+paramJson.customerId,
+								type:'get',
+								async:false,
+								dataType:'json',
+								contentType:'application/json;charset=utf-8',
+								success:function(data2){
+									window.location.href='pay.html?sourceId='+data2.sourceId+'&orderChannel='+data2.orderChannel+'&userName='+data2.userName+'&userMobile='+data2.userMobile+'&batteryBrand='+data2.batteryBrand+'&batteryModel='+data2.batteryModel+'&batteryPrice='+data2.price+'&address='+data2.address+'&customerId='+paramJson.customerId+'&orderNumber='+data2.orderNumber
+								}
+							})
+							
+						});
+
+						if($('ul.ul-batteryOrder li').length<data.totalCount){
+							$('div.getMore').show();
+							$('div.getMore').unbind('click').bind('click',function(){
+								getBatteryOrder(page+1)
+							})
+						}else{
+							$('div.getMore').hide()
+						}
+					}else{
+						batteryOrderStr+='<p style="text-align:center;margin-top:2.6rem;"><img src="./img/noOrder.png" /></p>'
+										+'<p style="font-size:0.92rem;text-align:center;color:#A2A2A2;margin-top:2rem;">您还没有相关订单</p>';
+						$('ul.ul-batteryOrder').append(batteryOrderStr)
+					}
+					
+				}
+			})
+		};
+		getBatteryOrder(0)
+		
+	})
+</script>
+<script>
+//共用统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c8ab281430a0250a8afa2b494f8af641";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+//上门换电瓶
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c14459c2289e2bd6ce70240dedcb844a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script> 
+</html>

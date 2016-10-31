@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta name="format-detection" content="telephone=no" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+		<link type="text/css" href="css/index.css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="css/ycbmall/exclusive.css"/>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.dotdotdot.min.js" ></script>
+		<script src="js/jquery.urlParam.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/jquery.json-2.2.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<title>个人中心</title>
+		<style>
+			html{
+				font-size: 62.5%;
+			}
+			body{
+				font-family: 'STHeitiSC-Light';
+				color: #949DAE;
+			}
+			.ui-tit{
+				border-bottom: 1px solid rgba(112, 124, 146,0.3);
+			}
+			section.top-head-wrap{
+				margin-bottom: 0;
+			}
+			div.title img{
+				background-color: #F7F8FC;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="top-head-wrap">
+			<div class="title">
+				<img src="css/ycbmall/images/exclive-tbg.png"/>
+				<label></label>
+			</div>
+		</section>
+		<section class="contentHead-wrap">
+			<div class="headTab">
+				<ul>
+				</ul>
+			</div>
+			<div id="videoOrImg">
+				
+			</div>
+			
+		</section>
+		<section class="brief-wraper">
+			<h1 class="ui-tit"><span>简介</span></h1>
+			<div class="des">
+				
+			</div>
+		</section>
+		<section class="parameter-wraper">
+			<h1 class="ui-tit"><span>参数</span></h1>
+			<div class="des">
+				
+			</div>
+		</section>
+		<section class="gBDetails-wraper">
+			<h1 class="ui-tit"><span>礼包详情</span></h1>
+			<div id="giftDetails">
+				
+			</div>
+		</section>	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var dataJson={},response = "0",giftBagId=$.getQuery('giftBagId');
+			function getExclusiveDetails(userInfo){
+				var postData={};
+				postData.userInfoId=userInfo.userId;
+				postData.areaCodeId=userInfo.areaCodeId;
+				postData.giftBagId=giftBagId;
+				$.ajax({
+					type:"get",
+					url:"/ycbmall-app-ws/ws/0.1/giftBag/getBasicInfo",
+					async:false,
+					data:postData,
+					dataType:'json',
+					success:function(data){
+						dataJson=data;
+						giftBagId=data.giftBagId;
+						$(".top-head-wrap label").text(data.name);
+						$(".brief-wraper .des").html(data.introduction);
+						$(".parameter-wraper .des").html(data.parameter);
+							/*1:视频,2:图片*/
+						var videoOrImgStr=''
+						if(data.mediumType==1){
+							if(bIsAndroid()){
+								$("#videoOrImg").hide();								
+							}else{
+								videoOrImgStr='<video id="my_video" src="'+data.mediumUrl+'" controls preload="none" width="100%" height="100%" poster="css/ycbmall/images/video-bg.jpg"></video>'
+							}
+						}else if(data.mediumType==2){
+							videoOrImgStr='<img id="my_img" src="'+data.mediumUrl+'" />'
+						}
+						$("#videoOrImg").html(videoOrImgStr);
+						var strLi='';
+						$.each(data.giftIntroduces, function(i) {
+							if(i==0){
+								strLi+='<li class="checked" id="'+i+'">'+this.name+'</li>';
+								if(this.introduceUrl){
+									var introduceUrl=this,introduceUrl;
+									introduceUrl=introduceUrl.replace(/app/,'vipapp');
+									var newDiv=$("<div>").addClass(i).load(introduceUrl);
+									$("#giftDetails").append(newDiv);	
+									$(".gBDetails-wraper").show();
+								}else{
+									$(".gBDetails-wraper").hide();
+								}
+							}else{
+								strLi+='<li id="'+i+'">'+this.name+'</li>';
+							}
+						});
+						$(".contentHead-wrap ul").html(strLi);
+					},
+					error:function(xhr){
+						var error=eval('('+xhr.responseText+')');
+						showEmpty(error[0].message);
+					}
+				});
+			}
+			index.init=function(userInfo,bridge){
+				getExclusiveDetails(userInfo);
+				return 0;
+			}
+			$(".contentHead-wrap ul").on('click','li',function(){
+				var j=$(this).attr('id');
+				$(this).addClass('checked').siblings().removeClass('checked');
+				var introduceUrl= dataJson.giftIntroduces[j].introduceUrl;
+				if(introduceUrl){
+					if(!$("#giftDetails").children('div').eq(j).html()){
+						var newDiv=$('<div>').addClass(j).load(introduceUrl);
+						$("#giftDetails").append(newDiv);	
+					}
+					$('#giftDetails div').eq(j).show().siblings().hide();
+				}else{
+					$('#giftDetails div').eq(j).hide();
+				}
+			})
+			
+		})
+	</script>
+	</body>
+</html>

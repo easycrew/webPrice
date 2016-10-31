@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>会员认证奖励激活</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		div.banner{
+			padding: 1.5rem 1rem 2rem;
+		}
+		div.banner img{
+			width: 100%;
+		}
+		article.cardInfo{
+			background-color: #fff;
+		}
+		div.row{
+			position: relative;
+			padding: 0.8rem 0;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.row span{
+			display: inline-block;
+			float: left;
+			font-size: 1.8rem;
+			line-height: 3rem;
+			padding: 0 1rem;
+		}
+		div.row p{
+			margin-left: 5.6rem;
+			border-left: 1px solid #D9D9E2;
+			padding-left: 1rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		div.row input{
+			border: none;
+			width: 100%;
+			font-size: 1.8rem;
+			line-height: 3rem;
+		}
+		div.sureBtn{
+			text-align: center;
+			color: #fff;
+			background-color: #ff6138;
+			margin: 4rem auto 0;
+			font-size: 1.8rem;
+			width: 90%;
+			line-height: 4.2rem;
+			-webkit-border-radius: 8px;
+			-moz-border-radius: 8px;
+			border-radius: 8px;
+		}
+		div.disabled{
+		   background-color:#999;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<div class="banner"><img src="./img/memBanner.jpg"></div>
+		<article class="cardInfo">
+			<div class="row clearfix">
+				<span>卡号</span>
+				<p class="cardNum"><input name="cardNum" type="number"></p>
+			</div>
+			<div class="row clearfix">
+				<span>密码</span>
+				<p class="cardPwd"><input name="cardPwd" type="number"></p>
+			</div>
+			<div class="sureBtn">确认</div>
+		</article>
+	</section>
+</body>
+<script class="text/javascript">
+	var index = {};
+	var paramJson = {};
+	function connectWebViewJavascriptBridge(callback) {
+		if (window.WebViewJavascriptBridge) {
+			callback(WebViewJavascriptBridge)
+		} else {
+			document.addEventListener('WebViewJavascriptBridgeReady', function() {
+				callback(WebViewJavascriptBridge)
+			}, false)
+		}
+	}
+	connectWebViewJavascriptBridge(function(bridge) {
+		document.documentElement.style.webkitTouchCallout='none';
+		bridge.init(function(message, responseCallback) {   
+			if(message instanceof Object){  
+				if(typeof index.init === 'function') {  
+					responseCallback(index.init.apply(this,[message,bridge]));
+				} 
+			}else if(message=="pullUpRefresh"){
+				 typeof index[message] == 'function' && responseCallback(index.pullUpRefresh.apply(this));  
+			}else{
+				 responseCallback(setCallCountFromClient.apply(this,[message]));
+			}
+		}) 
+	 
+	});
+	var bridge;
+	index.init = function(userInfo,bri){  
+	  bridge = bri;
+	  paramJson = userInfo;
+	};
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	   
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }  
+		if(paramJson.customerId=='null' || paramJson.customerId==null || paramJson.customerId=='' || paramJson.customerId==undefined){ 
+			window.location.href="http://w2l?presentType=2&androidName=8&iosName=LoginViewController"; 
+		}
+		// 人保用户绑定
+		$('div.sureBtn').unbind('click').bind('click',function(){
+		    var nowTime = new Date().getTime();
+			var clickTime = $(this).attr("ctime");
+			if( clickTime != 'undefined' && (nowTime - clickTime < 5000)){  
+				return false;
+			}else{
+				$(this).attr("ctime",nowTime);  
+			}  
+			var cardNo=$.trim($('input[name="cardNum"]').val());
+			var cardPwd=$.trim($('input[name="cardPwd"]').val());
+			if(cardNo==''){
+				errorLog('请输入卡号');
+				return false
+			} 
+			if(cardPwd==''){
+				errorLog('请输入密码');
+				return false
+			} 
+			var postData={};
+			postData.userInfoId=paramJson.userId;
+			postData.cardNo=cardNo;
+			postData.cardPwd=cardPwd;
+			postData.channel=2;
+			postData.lat=paramJson.lat;
+			postData.lon=paramJson.lon;
+			postData.serviceCityName=paramJson.cityName;
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/driving/boundRenbaoUser',
+				type:'post',
+				dataType:'json',
+				data:$.toJSON(postData),
+				contentType:'application/json;charset=utf-8',
+				success:function(data){  
+					if(data.cardStatus==1){
+						//发消息给客户端 刷新挣钱页面
+						if(paramJson.osInfo=="3"){//android 
+							 window.shareInfos.moneyRefresh("1"); 
+						}else{
+							var json = {"moneyRefresh":"1"};
+							bridge.send(json, function(responseData) {
+								log('JS got response', responseData)
+							});
+						}
+						window.location.href="memberSuc.html?balance="+data.balance+'&userId='+paramJson.userId+'&boxStatus='+data.boxStatus
+					}else{
+						window.location.href="activeFail.html?cardStatus="+data.cardStatus
+					} 
+
+				},
+				error:function(xhr){
+					var error=eval('('+xhr.responseText+')');
+					errorLog(error[0].message);
+				}
+			})
+		})
+		
+	})
+</script>
+</html>

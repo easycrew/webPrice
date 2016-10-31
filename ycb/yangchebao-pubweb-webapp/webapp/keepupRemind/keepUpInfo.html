@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<meta name="format-detection" content="telephone=no" />
+	<title>保养提醒说明</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		html,body{
+			min-height: 100%;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		input, textarea, button, a, span, div, p, img{ -webkit-tap-highlight-color:rgba(0,0,0,0); }
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+		input,textarea{
+			border: none;
+			-webkit-appearance: none;
+		}
+		.clearfix::before,.clearfix::after{
+			display: block;
+			content: '';
+			font-size: 0px;
+		}
+		.clearfix::after{
+			clear: both;
+		}
+		article.top{
+			background-color: #fff;
+			padding: 2.6rem 0.8rem 1.6rem;
+		}
+		div.topOne{
+			position: relative;
+			border: 1px solid #FF6138;
+		}
+		p.commenIn{
+			padding: 1.8rem 0.8rem 1rem 0.8rem;
+			color: #A2A2A2;
+			font-size: 0.8rem;
+		}
+		div.commenOut{
+			position: absolute;
+			width: 12.6rem;
+			background-color: #fff;
+			top: -1.2rem;
+			left: 50%;
+			margin-left: -6.25rem;
+		}
+		div.commenOut2{
+			position: absolute;
+			width: 13.6rem;
+			background-color: #fff;
+			top: -1.2rem;
+			left: 50%;
+			margin-left: -6.25rem;
+		}
+		span.left{
+			float: left;
+			color: #FB451F;
+			font-size: 1.42rem;
+			padding: 0.1rem 0.8rem;
+			border-right: 2px solid #FB451F;
+		}
+		p.right{
+			float: left;
+			font-size: 0.82rem;
+			padding: 0 0.8rem;
+		}
+		article.bottom{
+			background-color: #f4f7f8;
+			border-top: 1px solid #D9D9E2;
+			padding: 1.8rem 1.2rem 5rem;
+		}
+		div.commentsW{
+			position: relative;
+			background-color: #E3F0F6;
+			border: 1px solid #6EAADE;
+			-webkit-border-radius: 8px;
+			-moz-border-radius: 8px;
+			border-radius: 8px;
+			padding: 1.2rem 0.6rem 0.6rem;
+		}
+		span.title{
+			position: absolute;
+			display: inline-block;
+			color: #fff;
+			font-size: 0.9rem;
+			line-height: 1.5rem;
+			padding: 0 1rem;
+			-webkit-border-radius: 0.8rem;
+			-moz-border-radius: 0.8rem;
+			border-radius: 0.8rem;
+			top: -0.75rem;
+			left: 1rem;
+			background-color: #6EAADE;
+		}
+		p.commentD{
+			color: #6EAADE;
+			font-size: 0.82rem;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<article class="top">
+			<div class="topOne">
+				<div class="commenOut clearfix">
+					<span class="left">填 写</span>
+					<p class="right"><span>上次的保养时间</span><br /><span>上次的保养里程</span></p>
+				</div>
+				<p class="commenIn">保养提醒的时间和里程是根据您填写的车辆上次保养时间、上次保养里程和您爱车的官方保养里程间隔、官方保养时间间隔计算得出。</p>
+			</div>
+			<div class="topOne" style="margin-top:2.6rem;">
+				<div class="commenOut2 clearfix">
+					<span class="left">未填写</span>
+					<p class="right"><span>上次的保养时间</span><br /><span>上次的保养里程</span></p>
+				</div>
+				<p class="commenIn">保养提醒的时间和里程是根据您爱车官方保养里程间隔和官方保养时间间隔，以您标准按照官方要求做保养为基础，计算得出，您可以填写准确保养信息，获取精准保养提醒。</p>
+			</div>
+		</article>
+		<article class="bottom">
+			<div class="commentsW">
+				<span class="title">说明</span>
+				<p class="commentD">无论是豪华车还是普通的家用汽车，都有相对固定的日常保养流程和规则，就算是长期不行驶，按时间保养少不得。要想让自己的爱车畅通无阻地行驶，一定要学会按期维修养护爱车。</p>
+			</div>
+		</article>
+	</section>
+</body>
+</html>

@@ -1,0 +1,305 @@
+@charset "utf-8";
+/*smallNav*/
+div.smallNav{
+	margin-top: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #fd6244;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+}
+div.smallNav span{
+	margin-top: 15px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+}
+div.smallNav span a{
+	margin-top: 15px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+}
+/*classiify_con*/
+div.classiify_con{
+	margin-top: 15px;
+	overflow: hidden;
+}
+div.classiify_con div.classify_downMenu{
+	float: left;
+	width: 200px;
+}
+div.classiify_con div.classify_downMenu ul.ul_first{
+	border-left: 1px solid #E3583D;
+	border-right: 1px solid #E3583D;
+	border-top: 1px solid #E3583D;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first{
+	vertical-align: bottom;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first p.p_first{
+	padding: 0 16px;
+	border-bottom: 1px solid #E3583D;
+	background-color: #fd6244;
+	overflow: hidden;
+	cursor: pointer;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first p.p_first span.menuIcon{
+	float: right;
+	*position: relative;
+	*top:7px;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first p.p_first span.menuText{
+	float: left;
+}
+
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first p.p_first span{
+	display: inline-block;
+	height: 36px;
+	line-height: 36px;
+	color: #fff;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_second{
+	padding: 10px 5px;
+	border-bottom: 1px solid #fd6244;
+}div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_second form{	position: relative;}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_third{
+	padding: 0 0 0 12px;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_third p.p_third{
+	padding: 6px 0 6px 12px;
+	font-family: "microsoft yahei";
+	color: #333;
+	cursor: pointer;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_second li.li_second p.p_second{
+	padding: 6px 12px;
+	font-family: "microsoft yahei";
+	color: #333;
+	cursor: pointer;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_classify p.p_second{
+	font-weight: bold!important;
+	font-size: 14px!important;
+	background-color: #F7F7F7;
+}
+.pClick{
+	color:#FD6244!important;
+	background-color:#FFEFEC!important;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_second li.li_second p.p_secondForm{
+	padding: 5px 2px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_second li.li_second p.p_secondForm select{
+	padding: 5px;
+	border: 1px solid #ddd;
+	width: 185px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_second li.li_second p.carButton{
+	text-align: center;
+}div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_second li.li_second span.carButton:active{background-color: #E04021;}
+div.classiify_con div.classify_downMenu ul.ul_first li.li_first ul.ul_second li.li_second span.carButton{
+	display: inline-block;
+	padding: 0 22px;
+	border-radius: 3px;
+	height: 30px;
+	background-color: #fd6244;
+	line-height: 30px;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #fff;
+	cursor: pointer;
+}
+
+div.classiify_goods{
+	float: left;
+	margin-left: 10px;
+	width: 990px;
+}
+div.classiify_goods div.classiify_searchItems{
+	margin-left: 10px;
+}
+div.classiify_goods div.classiify_searchItems ul{
+	border-top: 1px solid #e5e4e2;
+	border-bottom: 1px solid #e5e4e2;
+	border-right: 1px solid #e5e4e2;
+	background-color: #f7f7f7;
+	overflow: hidden;
+}
+div.classiify_goods div.classiify_searchItems ul li{
+	float: left;
+	padding: 0 15px;
+	border-left: 1px solid #e5e4e2;
+	/*height: 42px;*/
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #333;
+}div.classiify_goods div.classiify_searchItems ul li.selectType{	float: right;	border: 0;	position: relative;	}#existProduction{	position: absolute;	top: 15px;	left: 0;}
+li.saleDecrease p{
+	line-height: 42px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #333;
+	cursor:pointer;
+}
+.saleDecrease_hover{
+	color: #FD6244!important;
+}
+.saleDecrease_click{
+	color: #FD6244!important;
+}
+li.priceUpOrDown span,li.selectType span{
+	display: inline-block;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #333;
+	cursor:pointer;
+}
+li.priceUpOrDown span.priceText,li.selectType span.existText{
+	line-height: 42px;
+}
+li.priceUpOrDown span.priceImg{
+	position: relative;
+	top: 2px;
+	left: 6px;
+	width: 9px;
+	height: 15px;
+	background-image:url(../img/priceDownUp.png);
+	background-repeat: no-repeat;
+	background-position: -25px 0;
+}
+.priceUpImg{
+	background-position: -13px 0!important;
+}
+.priceDownImg{
+	background-position: 0 0!important;
+}
+li.hasSearchs{
+	line-height: 42px;
+}
+li.hasSearchs span{
+	display: inline-block;
+	margin-right: 8px;
+	padding: 0 12px;
+	background-color: #fff;
+	border: 1px solid #e5e4e2;
+	line-height: 18px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+li.hasSearchs span a{
+	position: relative;
+	bottom: 1px;
+	margin-left: 16px;
+}
+
+div.classiify_goodsDetail{
+	margin-top: 16px;
+	margin-bottom: 40px;
+}
+div.classiify_goodsDetail ul{
+	overflow: hidden;
+}
+div.classiify_goodsDetail ul li{
+	float: left;
+	position: relative;
+	width: 229px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	padding: 12px 3px;
+	border: 1px solid #e5e4e2;
+}
+div.classiify_goodsDetail ul li p.classiify_goodsImg{
+	text-align: center;
+}div.classiify_goodsDetail ul li p.classiify_goodsImg a{	display: inline-block;	position: relative;}div.classiify_goodsDetail ul li i{  	position: absolute;  	top: 0;  	right: 0;  	background-color: #fd6244;  	border-radius: 2px;	padding: 1px;	text-align: center;}div.classiify_goodsDetail ul li i span{  	font-family: "microsoft yahei"; 	color: #fff;  	font-size: 16px;  	display: inline-block;  	width: 86px;  	height: 26px;  	line-height: 28px;  	border: 1px solid #fe917c;  	border-radius: 2px;}
+div.classiify_goodsDetail ul li p.classiify_goodsName{
+	padding-left: 9px;
+	text-align: left;
+}
+div.classiify_goodsDetail ul li p.classiify_goodsName a{
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.classiify_goodsDetail ul li p.classiify_goodsSku{
+	padding-left: 9px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #333;
+}  
+div.classiify_goodsDetail ul li p.classiify_goodsPrice{
+	padding-left: 9px;
+	margin: 5px 0 0 0;
+	font-size: 20px;
+	font-family: "microsoft yahei";
+	color: #fd6244;
+	text-align: left;
+}
+div.classiify_goodsDetail ul li p.classiify_goodsMall{
+	text-align: left;
+	padding-left: 9px;
+	margin-bottom: 10px;
+	font-size: 12px;
+	font-family: "microsoft yahei";
+	color: #666;
+	overflow: hidden;
+}
+div.classiify_goodsDetail ul li p.classiify_goodsMall span.classiify_goodsMall_detail{
+	font-size: 12px;
+	font-family: "microsoft yahei";
+	color: #666;
+	text-decoration: line-through;
+}
+div.classiify_goodsDetail ul li p.classiify_goodsMall span.hasSaledNum{
+	float: right;
+	display: inline-block;
+	padding: 5px 15px;
+	font-size: 12px;
+	font-family: "microsoft yahei";
+	color: #fff;
+	background-color: #A8A8AA;
+	position: absolute;
+	bottom: 12px;
+	right: 0;
+}
+
+/*分页*/
+.pagination {
+    text-align: right;
+    margin-top: 15px;
+}
+.pagination .prev{
+    margin-right: 5px;
+}
+.pagination .next{
+    margin-left: 5px;
+}
+.pagination a {
+    text-decoration: none;
+    border: 1px solid #E8E8E8;
+    color: #555;
+}
+
+.pagination a,.pagination span {
+	font-family: 'microsoft yahei';
+	font-size: 14px;
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 5px;
+}
+
+.pagination .current {
+    background: #FD6244;
+    color: #fff;
+    border: 1px solid #FD6244;
+}
+
+.pagination .current.prev,.pagination .current.next {
+    color: #999;
+    border-color: #E8E8E8;
+    background: #fff;
+}

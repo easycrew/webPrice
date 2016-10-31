@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta name="format-detection" content="telephone=no" />
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<script src="js/index.js"></script>   
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<title>添加加油卡</title>
+</head>
+<style type="text/css">  
+  .input-wrap {
+    margin: 1rem 0;
+    background-color: #fff;
+    height: 5rem;
+    line-height: 5rem;
+    border-bottom: 1px solid #D9D9E2;
+    padding:0 1rem;
+    display: table;
+    width: 100%;
+    box-sizing:border-box;
+  }
+  .input-wrap input{
+    background-color: #fff;
+    border:none;
+    font-size: 1.8rem; 
+    width: 100%;
+  } 
+  .input-wrap div{ 
+    display: table-cell;
+  } 
+  .input-wrap label{
+    color: #f55d5d;
+    font-size: 1.2rem; 
+    display: table-cell;
+    width:8.8rem;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .info{
+    font-size: 1.3rem;
+    padding: 0 1.5rem;
+  }
+  .btn-wrap{
+    padding: 0 1.5rem;
+    margin-top: 1.7rem;
+  }
+    .cardInfo p{
+    height: 5rem;
+    line-height: 5rem;
+    border-bottom: 1px solid #D9D9E2;
+    font-size: 1.5rem;
+    padding: 0 1.5rem;
+    background-color: #fff;
+  }
+  .cardInfo p span{
+    display: inline-block;
+    margin-left: 1rem;
+  }
+  .cardInfo .btn-wrap{
+    margin-top: 3rem;
+  }
+</style>
+<body> 
+  <section class="add-wrap">
+  <div class="input-wrap">
+    <div><input type="text" placeholder="请输入19/16位加油卡卡号" id="num"/></div>
+    <label>只支持主卡充值</label>
+  </div>
+  <p class="info">支持中石油、中石化加油卡充值</p>
+  <div class="btn-wrap"><a href="javascript:void(0);"  class="button" id="nextBtn">下一步</a></div>
+  </section>
+
+  <section class="next-wrap" style="display:none;">
+    <div class="cardInfo">
+      <p>加油卡类型: <span id="cardType">中石油</span></p> 
+      <p>加油卡卡号:<span id="cardNo">1000 1184 6788 6544 411</span></p> 
+      <p>用户名:<span id="cardOwner">＊立</span></p>  
+    </div>
+    <div class="btn-wrap"><a href="javascript:void(0);"  id="sureBtn" class="button">确定</a></div>
+  </section>
+<script type="text/javascript">
+var paramJson = {};   
+$(document).ready(function(){
+    var url =window.location.search;   
+    if(url!=undefined&&url!=""){
+      var paramsArr = (url.split("?")[1]).split("&"); 
+      $.each(paramsArr,function(i){
+        var item = paramsArr[i].split("=");
+        paramJson[item[0]] = item[1];
+      });    
+    }
+    $("#nextBtn").click(function(){
+        query();
+    }); 
+    $("#sureBtn").click(function(){
+        bind();
+    }); 
+});
+function query(){
+      var cardNo = $.trim($("#num").val()); 
+      var reg = /(^\d{16}$)|(^\d{19}$)/; 
+      if(!reg.test(cardNo)){
+        alertTasat("请输入正确的加油卡卡号"); 
+        return;
+      }   
+      $.ajax({
+              url: '/yangchebao-app-ws/ws/0.1/oilcard/card/detail?userInfoId='+paramJson.userInfoId+'&cardNo='+cardNo+'&'+new Date().getTime(),
+              type: 'get', 
+              dataType: 'json',
+              success: function(data) {    
+                $(".next-wrap #cardType").html(data.cardTypeDesc);
+                $(".next-wrap #cardNo").html(data.cardNo);
+                $(".next-wrap #cardOwner").html(data.cardOwner);
+                $(".add-wrap").hide();
+                $(".next-wrap").show();
+              },error:function(xhr){  
+                var mes = eval('('+xhr.responseText+')'); 
+                alertTasat(mes[0].message);
+              }
+          });  
+
+   }
+function bind(){ 
+          var cardNo = $.trim($("#num").val()); 
+          var postData = {};
+          postData.userInfoId =paramJson.userInfoId ;
+          postData.cardNo=cardNo;  
+           $.ajax({
+                url: '/yangchebao-app-ws/ws/0.1/oilcard/card/bind',
+                type: 'post',
+                async: false,
+                data:$.toJSON(postData),
+                dataType: 'json',
+                contentType:'application/json;charset=utf-8',
+                success:function(data){ 
+                    window.location.href="index.html"+window.location.search+'&'+new Date().getTime();
+                },error:function(xhr){ 
+                    var mes = eval('('+xhr.responseText+')'); 
+                    alertTasat(mes[0].message);
+                } 
+            }); 
+      } 
+</script>
+</body>
+</html>

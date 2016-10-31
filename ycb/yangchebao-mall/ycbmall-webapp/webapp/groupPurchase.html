@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta name="keywords" content="养车宝，配件商城">
+		<meta name="description" content="养车宝配件商城，100%原厂品质，3M、威固、美孚、壳牌Ahell、普利司通、米其林等汽车配件，厂价直销！">
+		<title>全网正品汽车配件_养车宝配件商城！</title>
+		<link rel="icon" href="favicon.ico">
+		<script src="js/jquery-1.10.1.min.js"></script>
+		<script src="js/md5.js"></script>
+		<script src="js/common.js"></script>
+		<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script><!--根据IP地址获取当前所在地城市-->
+		<link rel="stylesheet" type="text/css" href="css/swiper-2.0.css"/>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/login.css">
+		<link rel="stylesheet" href="css/groupPurchase.css">
+</head>
+<body>
+	<div class="login"></div>
+	<div class="container">
+		<div class="top"></div>
+		<div class="main">
+			<div class="mainCommen"></div>
+			<div class="banner device">
+				<div class="swiper-container swiper1">
+					<div class="swiper-wrapper" id="mySwipe">
+						<!--<div class="swiper-slide">
+							<a><img src="" class="img-responsive" alt="养车宝配件商城" title="养车宝配件商城" width="1200" height="295"/> </a>
+						</div>-->
+					</div>
+					<div class="pagination"></div>
+					<div class="swiper-button-prev"></div>
+    				<div class="swiper-button-next"></div>
+				</div>
+			</div>
+			<div class="mainBanner">
+				<ul>
+					<li class="allItems"><a id="allItems" class="first-click click" >所有项目</a></li>
+					<li class="newLine"><a id="newLine">最新上线</a></li>
+					<li class="soonLine"><a id="soonLine">即将开始</a></li>
+					<li class="oldLine"><a id="oldLine">往期回顾</a></li>
+				</ul>
+			</div>
+			<div class="hotLoading">
+				<div class="titleTop">
+					<div class="title"><h2><span class="left_line"></span><span class="title_text">火热进行中</span><span class="right_line"></span></h2></div>
+				</div>
+				<div class="hotLoading_con">
+					<ul>
+
+					</ul>
+				</div>
+			</div>
+			<div class="newLine">
+				<div class="titleTop">
+					<div class="title"><h2><span class="left_line"></span><span class="title_text">最新上线</span><span class="right_line"></span></h2></div>
+				</div>
+				<div class="newLine_con">
+					<ul>
+
+					</ul>
+				</div>
+			</div>
+			<div class="soonLine">
+				<div class="titleTop">
+					<div class="title"><h2><span class="left_line"></span><span class="title_text">即将开始</span><span class="right_line"></span></h2></div>
+				</div>
+				<div class="soonLine_con">
+					<ul>
+
+					</ul>
+				</div>
+			</div>
+			<div class="oldLine">
+				<div class="titleTop">
+					<div class="title"><h2><span class="left_line"></span><span class="title_text">往期回顾</span><span class="right_line"></span></h2></div>
+				</div>
+				<div class="oldLine_con">
+					<ul>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer"></div>
+	</div>
+</body>
+</html>
+<script src="js/swiper-2.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	$(".banner").on('selectstart',function(){return false;});
+	$('div.top').load('top.html');
+	$('div.mainCommen').load('searchAndNav.html');
+	$('div.footer').load('footer.html');
+	var username=mall.getCookie('username');
+	var customerId=mall.getCookie('customerId');
+	var areaCodeId=mall.getCookie('areaCodeId');
+	var length=0;
+	$.ajax({
+		type:"get",
+		url:mall.url('/advertising/getAdvertisings'),
+		async:true,
+		data:{areaCodeId:areaCodeId,location:4,osInfo:5},
+		dataType:'json',
+		contentType:'application/json;charset="utf-8"',
+		success:function(data){
+			length=data.length;
+			var str="";
+			$.each(data, function() {
+				str+='<div class="swiper-slide">'
+					if(this.turnToUrl!=''){
+						str+='<a href="'+this.turnToUrl+'" target="_blank"><img src="'+this.adPicAddress+'" class="img-responsive" alt="养车宝配件商城" title="养车宝配件商城" width="1200" height="295"/></a>'
+					}else{
+						str+='<a><img src="'+this.adPicAddress+'" class="img-responsive" alt="养车宝配件商城" title="养车宝配件商城" width="1200" height="295"/></a>'
+					}
+					str+='</div>';
+				});
+				$("#mySwipe").html(str);
+				if(length==1){
+					var myswiper1 = new Swiper('.swiper1', {});
+					//$(".swiper-button-prev,.swiper-button-next").removeClass();
+				}else{
+					var myswiper1 = new Swiper('.swiper1', {
+				        autoplay: 5000,
+				        pagination: '.pagination',
+				        loop:true,
+				        paginationClickable: true,
+				        grabCursor: true
+				    });
+				    $('.swiper-button-prev').on('click', function(e){
+					    e.preventDefault();
+					    myswiper1.swipePrev();
+				  	});
+				  	$('.swiper-button-next').on('click', function(e){
+					    e.preventDefault();
+					    myswiper1.swipeNext();
+				  	});
+				}
+				$(".banner").mouseover(function(){
+					$(".swiper-button-prev,.swiper-button-next").show();
+				}).mouseout(function(){
+					$(".swiper-button-prev,.swiper-button-next").hide();
+				});
+			}
+		});
+	loadGoodsList(0,50,1);
+	loadGoodsList(0,50,2);
+	loadGoodsList(0,50,3);
+	loadGoodsList(0,50,4);
+	intTab();
+	$(window).bind('hashchange', function() {
+		intTab();
+	});
+	$("div.mainBanner li").click(function(){
+		var thisChild=$(this).children('a');
+		var IDname=thisChild.attr('id');
+		location.hash=IDname;
+//		intTab();
+		var DOMTop=$("div.mainBanner").offset().top;
+		$(document).scrollTop(DOMTop-20);
+	});
+	function intTab(){
+		var IDname=location.hash;
+		if(IDname){
+			$(""+IDname+"").removeClass().addClass('click').parent().siblings().children('a').removeClass();
+		}else{
+			$("#allItems").addClass('click').parent().siblings().children('a').removeClass();
+		}
+		switch(IDname){
+			case '#allItems':
+				$("div.hotLoading").show();
+				$("div.newLine").show();
+				$("div.soonLine").show();
+				$("div.oldLine").show();
+				loadGoodsList(0,50,1);
+				loadGoodsList(0,50,2);
+				loadGoodsList(0,50,3);
+				loadGoodsList(0,50,4);
+				break;
+			case '#newLine':
+				$("div.hotLoading").show();
+				$("div.newLine").show();
+				$("div.soonLine").hide();
+				$("div.oldLine").hide();
+				loadGoodsList(0,50,1);
+				loadGoodsList(0,50,2);
+				break;
+			case '#soonLine':
+				$("div.hotLoading").hide();
+				$("div.newLine").hide();
+				$("div.soonLine").show();
+				$("div.oldLine").hide();
+				loadGoodsList(0,50,3);
+				break;
+			case '#oldLine':
+				$("div.hotLoading").hide();
+				$("div.newLine").hide();
+				$("div.soonLine").hide();
+				$("div.oldLine").show();
+				loadGoodsList(0,50,4);
+				break;
+			default:
+				$("div.hotLoading").show();
+				$("div.newLine").show();
+				$("div.soonLine").show();
+				$("div.oldLine").show();
+				loadGoodsList(0,50,1);
+				loadGoodsList(0,50,2);
+				loadGoodsList(0,50,3);
+				loadGoodsList(0,50,4);
+				break;
+		}
+	}
+	function loadGoodsList(page,size,type){
+		var pageParams={};
+		pageParams.pageindex=page;
+		pageParams.pagesize=size;
+		if(customerId!=null){
+			pageParams.userInfoId=customerId;
+		}
+		pageParams.type=type;
+		$.get(mall.url('/groupPurchasing/queryGroupPurchasings'),pageParams,function(data){
+			if(data){
+				if(type==1){
+					var items=data.items;
+					var hotGoodsStr='';
+					if(data.totalCount!=0){
+						$("div.hotLoading,#hotLoading").show();
+						$.each(items, function(i) {
+							hotGoodsStr+='<li class="hot_good">'
+									+'<div class="loadingGood">'
+									+'<a href="groupPurchaseDetails.html?groupPurchasingId='+this.groupPurchasingId+'"><img src="'+this.picUrl+'" /></a>'
+									+'</div>'
+									+'<div class="loadingGood_detail">'
+									+'<h2 class="loadingGood_name"><a href="groupPurchaseDetails.html?groupPurchasingId='+this.groupPurchasingId+'" target="_blank">'+this.name+'</a></h2>'
+									+'<p class="loadingGood_recommand">'+this.subTitle+'</p>'
+									if(document.cookie.indexOf('customerId=')!=-1){
+										hotGoodsStr+='<span class="loadingGood_price">&yen;'+this.lowestPrice+'</span>'
+												+'<span class="loadingGood_unit">起</span>'
+									}else{
+										hotGoodsStr+='<span class="loadingGood_price change01">登录后查看优惠</span>'
+												+'<span class="loadingGood_unit change02"></span>'
+									}
+							hotGoodsStr+='<div class="progressBar">'
+							+'<dl class="barBox">'
+							+'<dd class="barLine">'
+							+'<div w="'+this.completionRate+'" style="width:0px;" class="charts"></div>'
+							+'</dd>'
+							+'</dl>'
+							+'<span class="payNum">'+this.cumulativeNum+'</span>'
+							+'<span class="goodNum">/'+this.minNum+'</span>'
+							+'</div>'
+							+'<span class="surplus">剩余'+this.daysRemaining+'天</span>'
+							+'</div>'
+							+'</li>'
+						});
+						$("div.hotLoading_con ul").html(hotGoodsStr);
+					}else{
+						$("div.hotLoading,#hotLoading").hide();
+					}
+				}else if(type==2){
+					var items=data.items;
+					var hotGoodsStr='';
+					if(data.totalCount!=0){
+						$("div.newLine,#newLine").show();
+						$.each(items, function(i) {
+							hotGoodsStr+='<li>'
+									+'<div class="newLine_leave">'
+									+'<span>剩余'+this.daysRemaining+'天</span>'
+									+'</div>'
+									+'<a href="groupPurchaseDetails.html?groupPurchasingId='+this.groupPurchasingId+'" target="_blank">'
+									+'<p class="lineGood"><img src="'+this.picUrl+'" width="265" height="265" /></p>'
+									+'<p class="lineGood_name">'+this.name+'</p>'
+									+'<p class="lineGood_introduce">'+this.subTitle+'</p>'
+									+'</a>'
+									+'<div class="lineGood_price">'
+									if(document.cookie.indexOf('customerId=')!=-1){
+										hotGoodsStr+='<span class="price">&yen;'+this.lowestPrice+'</span>'
+												+'<span class="start">起</span>'
+									}else{
+										hotGoodsStr+='<span class="price change01">登录后查看优惠</span>'
+												+'<span class="start change02"></span>'
+									}
+							hotGoodsStr+='<span class="goodNum">/'+this.minNum+'</span>'
+							+'<span class="payNum">'+this.cumulativeNum+'</span>'
+							+'</div>'
+							+'<div class="progressBar" style="margin-top:0">'
+							+'<dl class="barBox">'
+							+'<dd class="barLine">'
+							+'<div w="'+this.completionRate+'" style="width:0px;" class="charts"></div>'
+							+'</dd>'
+							+'</dl>'
+							+'</div>'
+							+'</li>'
+						});
+						$("div.newLine_con ul").html(hotGoodsStr);
+					}else{
+						$("div.newLine,#newLine").hide();
+					}
+				}else if(type==3){
+					var items=data.items;
+					var hotGoodsStr='';
+					if(data.totalCount!=0){
+						$("div.soonLine,#soonLine").show();
+						$.each(items, function(i) {
+							hotGoodsStr+='<li>'
+									+'<a href="groupPurchaseDetails.html?groupPurchasingId='+this.groupPurchasingId+'" target="_blank">'
+									+'<p class="lineGood"><img src="'+this.picUrl+'" width="265" height="265" /></p>'
+									+'<p class="lineGood_name">'+this.name+'</p>'
+									+'<p class="lineGood_introduce">'+this.subTitle+'</p>'
+									+'</a>'
+									+'<div class="lineGood_price">'
+									if(document.cookie.indexOf('customerId=')!=-1){
+										hotGoodsStr+='<span class="price">&yen;'+this.lowestPrice+'</span>'
+												+'<span class="start">起</span>'
+									}else{
+										hotGoodsStr+='<span class="price change01">登录后查看优惠</span>'
+												+'<span class="start change02"></span>'
+									}
+							hotGoodsStr+='<span class="goodNum">/'+this.minNum+'</span>'
+							+'<span class="payNum">'+this.cumulativeNum+'</span>'
+							+'</div>'
+							+'<p class="soonLine_time"><span>团购时间：'+this.startTime+' - '+this.endTime+'</span></p>'
+							+'</li>'
+						});
+						$("div.soonLine_con ul").html(hotGoodsStr);
+					}else{
+						$("div.soonLine,#soonLine").hide();
+					}
+				}else if(type==4){
+					var items=data.items;
+					var hotGoodsStr='';
+					if(data.totalCount!=0){
+						$("div.oldLine,#oldLine").show();
+						$.each(items, function(i) {
+							hotGoodsStr+='<li>'
+									+'<a href="groupPurchaseDetails.html?groupPurchasingId='+this.groupPurchasingId+'" target="_blank">'
+									+'<p class="lineGood"><img src="'+this.picUrl+'" width="265" height="265" /></p>'
+									+'<p class="lineGood_name">'+this.name+'</p>'
+									+'<p class="lineGood_introduce">'+this.subTitle+'</p>'
+									+'</a>'
+									+'<div class="lineGood_price">'
+									if(document.cookie.indexOf('customerId=')!=-1){
+										hotGoodsStr+='<span class="price">&yen;'+this.lowestPrice+'</span>'
+												+'<span class="start">起</span>'
+									}else{
+										hotGoodsStr+='<span class="price change01">登录后查看优惠</span>'
+												+'<span class="start change02"></span>'
+									}
+							hotGoodsStr+='<div class="finishNum"><span>目标完成'+this.completionRate+'</span></div>'
+							+'</div>'
+							+'</li>'
+						});
+						$("div.oldLine_con ul").html(hotGoodsStr);
+					}else{
+						$("div.oldLine,#oldLine").hide();
+					}
+				}
+			}
+			animate();
+		})
+	}
+	$('div.hotLoading_con ul').on('click','li span.change01',function(){
+			$('div.Form-login').show();
+			$('div.login-dialog-overlay').show();
+			$('li.login a').html('请登录');
+			$('li.username p').html('');
+	})
+	$('div.newLine_con ul').on('click','li span.change01',function(){
+			$('div.Form-login').show();
+			$('div.login-dialog-overlay').show();
+			$('li.login a').html('请登录');
+			$('li.username p').html('');
+	})
+	$('div.soonLine_con ul').on('click','li span.change01',function(){
+			$('div.Form-login').show();
+			$('div.login-dialog-overlay').show();
+			$('li.login a').html('请登录');
+			$('li.username p').html('');
+	})
+	$('div.oldLine_con ul').on('click','li span.change01',function(){
+			$('div.Form-login').show();
+			$('div.login-dialog-overlay').show();
+			$('li.login a').html('请登录');
+			$('li.username p').html('');
+	})
+
+});
+function animate(){
+	$(".charts").each(function(i,item){
+		var a=parseInt($(item).attr("w"));
+		if(a>100){
+			a=100;
+		}
+		$(item).animate({
+			width: a+"%"
+		},1000);
+	});
+	}
+
+</script>

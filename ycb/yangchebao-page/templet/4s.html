@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+	<!--script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js "></script--> 
+	<link href="template2.css" rel="stylesheet" type="text/css" />
+	<title>4s店</title>
+</head>
+<style type="text/css">
+body{
+	background-color:#f4f7f8;  
+	color:#1e1e1e;
+	font-family:'冬青黑体','黑体','HelveticaNeue-Light';
+	font-size:62.5%;
+} 
+a{
+	color:#00a0e9;
+	text-decoration: none;
+}
+a:focus{
+	outline:none;
+}
+ul{
+	list-style:none;
+}
+img{
+	border:none;
+}
+*{
+	margin:0;
+	padding:0;
+	text-shadow:none;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.shopList .list-module-pic h3 {
+    font-size: 1.4em; 
+    font-weight: normal;
+    margin-bottom: 0.323em;
+    min-height: 1.67em;
+} 
+.shopList .info {
+    color: #323232;
+    font-size: 1.2em;
+    line-height: 150%;
+    margin: 0;
+}
+.list-module-pic{
+	background-color:#f4f7f8;
+}
+.list-module-pic li {
+    border-bottom: 1px solid #c2c2c6;
+    padding: 0.625em 0.93em 0.93em;
+}
+.list-module-pic .pic {
+    float: left;
+    height: 6em;
+    margin-top: 0.5em;
+    width: 8.2em;
+}
+.shopList .list-module-pic .pic img {
+    display: block;
+    height: 6em;
+    width: 8.2em;
+}
+.shopList li {
+    background-color: #fff;
+    margin-top: 1em;
+}
+.list-module-pic .pic + div {
+    margin-left: 9.5em;
+}
+</style>
+<body style="width:100%;background-color:#f4f7f8;">
+<article class="shopList"> 
+	<ul class="list-module-pic" id="slist">
+		<!-- <li class="clearfix">
+			<div class="pic">
+				<img src="http://app.yangchebao.com.cn/group1/M00/02/F7/ChUBl1QjuWWAdSkEAAWELO_-XsI794.jpg"/>
+			</div>
+			<div>
+				<h3><span class="tit">北京易车行汽车服务</span><span class="distanceLabel">10km</span></h3> 
+				<p class="info">地址：北京市海淀区学院路12号院京师科技大厦A座10层还有如果很长很长地址就这样</p> 
+			</div>
+		</li>  -->
+	</ul>
+</article>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var url = window.location.search;
+		var paramsArr = (url.split("?")[1]).split("&");
+		var paramJson = {};
+		$.each(paramsArr,function(i){
+			var item = paramsArr[i].split("=");
+			paramJson[item[0]] = item[1];
+		}); 
+		getShopList(); 
+		function getShopList(){
+		        url: '/yangchebao-app-ws/ws/0.1/shop/nearby/page?areaName='+paramJson.areaName+'&modelId='+paramJson.modelId+'&service='+paramJson.service+'&lon='+paramJson.lon+'&lat='+paramJson.lat,
+		        type: 'get', 
+		        async: false,
+		        dataType: 'json',
+		        success: function(data) {
+		             var str = "";
+		             var items = data.items;
+		             $.each(items,function(i){
+		             	var item = items[i];
+		             	str += '<li class="clearfix" shopId="'+item.id+'">'
+								+'<div class="pic">'
+								+'	<img src="'+ item.logo +'"/>'
+								+'</div>'
+								+'<div>'
+								+'	<h3><span class="tit">'+item.name+'</span><span class="distanceLabel">'+item.distance+'km</span></h3>'
+								+'	<p class="info">地址：'+item.address+'</p>'
+								+'</div>'
+								+'</li> '
+		             });
+		             $("#slist").append(str);
+		        }
+		    }); 
+		} 
+	});
+</script>	 
+</body>
+</html>

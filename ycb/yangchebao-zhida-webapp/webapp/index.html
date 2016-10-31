@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/base.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+<title>商家详情</title> 
+<script type="text/javascript" name="baidu-tc-cerfication" src="http://apps.bdimg.com/cloudaapi/lightapp.js#b549b101949af1d41b82fbaf396396a0"></script>
+<script type="text/javascript">window.bd && bd._qdc && bd._qdc.init({app_id: 'e1cf9f344f8bd8fbe6f3eb8b'});</script> 
+</head>
+<body style="background-color:#f4f7f8;">
+	<header>测试商家2</header>
+	<div class='header'>
+	 	<img src='css/images/shop_banner.png'/>
+	 	<p id="cooperation" style="display:none;"><span class="info" id="worktime">营业时间：8:00-18:00</span>
+		   <span class="icon-open"></span>
+		   <span class="icon icon-sdrz fr"></span>
+		   <span class="icon icon-hzsj fr"></span> 
+		</p>
+		<ul class="expendUl" style="display:none;">
+		   <li><span class="icon-open close"></span></li>
+		   <li><span class="icon icon-hzsj"></span><span class="info">实地认证商家：位置，报价真实有效</span></li>
+		   <li><span class="icon icon-sdrz"></span><span class="info">金牌质保商家：服务可靠，质量过硬</span></li> 
+		</ul>
+	</div>
+	<h3 class="link percent-wrap"> 
+	 	<div>
+	 		<p class="percent" id="attentionNumber"></p>
+	 		<p class="label">关注</p>
+	 	</div>
+	 	<div>
+	 		<p class="percent" id="goodRatio"></p>
+	 		<p class="label">好评率</p>
+	 	</div>
+	 	<div>
+	 		<p class="percent" id="collectionNumber"></p>
+	 		<p class="label">收藏数</p>
+	 	</div>
+	</h3>
+	<section id="adInfoList">
+		<!-- <h3 class="sale_tip link">
+		 	<span class='label'>优惠</span>
+		 	<span id="adLabel">周末洗车5折扣，养车宝用户特惠！</span>
+		 	<span class="arrow"></span>
+		</h3>	 -->
+	</section>
+	
+	<h3 class="link" id="goDinner">  
+	 	<span>本店套餐(<span class='num' id="dinnerNum">20</span>)</span>
+	 	<span class="arrow"></span>
+	</h3>
+	<ul class='tabs'>
+	 	<li class='tab current' name="carwash">洗车</li>
+	 	<li class='tab' name="upkeep">保养</li>
+	 	<li class='tab' name="beautify">美容</li>
+	 	<li class='tab' name="repair">维修</li> 
+	</ul>
+	<section class="service-wrap">
+	 	<ul class="service-content" id="carwash">
+	 		<!-- <li>
+	 			<div>
+		 			<img src="css/images/service.png"/>
+		 			<div class="service-info">
+			 			<span class="label">人工普洗</span>
+			 			<span class="price">￥20</span>
+		 			</div>
+	 			</div>
+	 		</li>    -->
+	 	</ul>
+ 	 	<ul class="service-content" id="upkeep" style="display:none;"></ul>
+ 	 	<ul class="service-content" id="beautify" style="display:none;"></ul>
+ 	 	<ul class="service-content" id="repair" style="display:none;"></ul>
+	</section>
+	<div class="map"> 
+	 	<img id="mapUrl" src="http://api.map.baidu.com/staticimage?width=640&height=238&zoom=16&markers=%E5%A4%A9%"/>
+	 	<p class="address" id="address">北京市海淀区学院南路12号院</p>
+	</div>
+	<h3 class="link level" id="goRemark"> 
+		 	<span>用户评价(<span class='num' id="remarkCount">20</span>)</span>
+		 	<span class="arrow"></span>
+		 	<span class="score" id="level">4.5分</span>
+		 	<span class="star"></span> 
+	</h3>  
+	<h3 class="link" id="goIntroduce"> 
+	 	商家详细介绍
+	 	<span class="arrow"></span>
+	</h3> 
+	<h3 id="phone" style="margin-bottom:2em" class="link"> 
+	 	联系电话
+	 	<span class="arrow"></span>
+	</h3>
+	<footer class="button-wrap clearfix" style="display:none;">
+		<!-- <a href="tel:15201513015"><p>15201513015</p></a> -->
+		<a class="btn btn-pink" href="javascript:void(0);">取消</a> 
+	</footer>
+	<div class="overlay-wrap-phone" style="display:none;"></div> 
+	<script type="text/javascript">  
+		$(document).ready(function(){ 
+			// var id = window.location.href.split("http://")[1].split(".yangchebao.")[0];  
+			var id = "146682";
+			var shopTitle = "";
+			$(".tabs .tab").on('click',function(){
+				$(".tabs .tab").removeClass('current');
+				$(this).addClass('current'); 
+				var id = $(this).attr('name');
+				$(".service-wrap .service-content").hide();
+				$("#"+id).show(); 
+			});
+			$(".header p").on('click',function(){
+				$(this).hide();
+				$(".header ul").slideDown();
+			});
+			$(".header ul .close").on('click',function(){
+				$(".header ul").slideUp();
+				$(".header p").show();
+			});
+			$(".service-wrap").on("click","li",function(){
+				var serviceId = $(this).attr("serviceId");
+				window.location.href = "service.html?busiServiceRelId="+serviceId+"&businessInfoId="+id+"&title="+encodeURIComponent(shopTitle);
+			});
+			$("#goRemark").on('click',function(){ 
+				window.location.href = "remark.html?businessInfoId="+id+"&title="+encodeURIComponent(shopTitle);
+			});
+			$("#goDinner").on('click',function(){
+				window.location.href = "dinnerList.html?businessInfoId="+id+"&title="+encodeURIComponent(shopTitle);
+			});
+			$("#goIntroduce").on('click',function(){ 
+				window.location.href = "shop-intro.html?businessInfoId="+id+"&title="+encodeURIComponent(shopTitle);
+			});
+			$("#phone").on('click',function(){ 
+				$(".overlay-wrap-phone").show();
+				$("footer").show();
+			});
+			$(".btn-pink").on('click',function(){ 
+				$(".overlay-wrap-phone").hide();
+				$("footer").hide();
+			});
+			function getShopInfo(id){ 
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/shop/business/detail/v2?id='+id,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {  
+						shopTitle = data.name;
+						var appId = "5176500";
+						if(data.baiduAppId!=undefined&&data.baiduAppId!=""&&data.baiduAppId!=null){
+						 appId = data.baiduAppId;	
+						}
+					   var script = document.createElement("script"); 
+		               script.type = "text/javascript";  
+		               script.src = "http://apps.bdimg.com/cloudaapi/lightapp.js"; 
+		               script.setAttribute("name","baidu-tc-cerfication"); 
+		               script.setAttribute("data-appid",appId);  
+		               document.body.appendChild(script); 
+						 
+						 document.title = shopTitle;
+						 $("header").html(shopTitle);
+						 $("#worktime").html("营业时间："+data.worktime);
+						 $(".header img").attr("src",data.middlePicUrl);
+						 $("#attentionNumber").html(data.attentionNumber?data.attentionNumber:0);
+						 $("#goodRatio").html(data.goodRatio?data.goodRatio:0);
+						 $("#collectionNumber").html(data.collectionNumber?data.collectionNumber:0);
+						 $("#address").html(data.address);
+						 var mapUrl = "http://api.map.baidu.com/staticimage?width=640&height=238&zoom=16&markers="+data.baidulon+","+data.baidulat;
+						 $("#mapUrl").attr("src",mapUrl);
+						 $("#remarkCount").html(data.remarkCount);
+						 $("#level").html(data.level?data.level:''+"分"); 
+						 if(data.dinnerNum!=undefined&&data.dinnerNum!=""){
+						 	$("#dinnerNum").html(data.dinnerNum);
+						 }else{
+						 	$("#dinnerNum").parents(".link").hide();
+						 }
+						 if(data.level!=undefined&&data.level!=""&&data.level!="0.0"){
+							var score = parseInt(data.level)/2*10;
+							var className = "start-"+score;
+							$(".link .star").addClass(className);
+						 }else{
+							$(".link .star").addClass("start-00");
+						 }
+						 if(data.washcar!=undefined){
+						 var washcar = data.washcar.serviceList;
+						 var washcarStr = "";
+						 $.each(washcar,function(i){
+						 	var item = washcar[i]; 
+						 	var li = "<li serviceId='"+item.busiServiceRelId+"'>"
+									+"<div>"
+									+"<img src='"+ item.picUrl +"'/>"
+									+"<div class='service-info'>"
+									+"<span class='label'>"+ item.name +"</span>"
+									+"<span class='price'>￥"+ item.price +"</span>"
+									+"</div>"
+									+"</div>"
+									+"</li>";
+							washcarStr+=li;
+						 });
+						 $("#carwash").html(washcarStr);
+						}else{
+						 $(".tabs li[name='carwash']").remove();
+						}
+						if(data.maintain!=undefined){
+						 var maintain = data.maintain.serviceList;
+						 var maintainStr = "";
+						 $.each(maintain,function(i){
+						 	var item = maintain[i];
+						 	var li = "<li serviceId='"+item.busiServiceRelId+"'>"
+									+"<div>"
+									+"<img src='"+ item.picUrl +"'/>"
+									+"<div class='service-info'>"
+									+"<span class='label'>"+ item.name +"</span>"
+									+"<span class='price'>￥"+ item.price +"</span>"
+									+"</div>"
+									+"</div>"
+									+"</li>";
+							maintainStr+=li;
+						 });
+						 $("#upkeep").html(maintainStr);
+						}else{
+						 $(".tabs li[name='upkeep']").remove();
+						}
+						if(data.beautify!=undefined){
+						 var beautify = data.beautify.serviceList;
+						 var beautifyStr = "";
+						 $.each(beautify,function(i){
+						 	var item = beautify[i];
+						 	var li = "<li serviceId='"+item.busiServiceRelId+"'>"
+									+"<div>"
+									+"<img src='"+ item.picUrl +"'/>"
+									+"<div class='service-info'>"
+									+"<span class='label'>"+ item.name +"</span>"
+									+"<span class='price'>￥"+ item.price +"</span>"
+									+"</div>"
+									+"</div>"
+									+"</li>";
+							beautifyStr+=li;
+						 });
+						 $("#beautify").html(beautifyStr);	 
+						}else{
+						 $(".tabs li[name='beautify']").remove();
+						}
+						if(data.repair!=undefined){
+						 var repair = data.repair.serviceList;
+						 var repairStr = "";
+						 $.each(repair,function(i){
+						 	var item = repair[i];
+						 	var li = "<li serviceId='"+item.busiServiceRelId+"'>"
+									+"<div>"
+									+"<img src='"+ item.picUrl +"'/>"
+									+"<div class='service-info'>"
+									+"<span class='label'>"+ item.name +"</span>"
+									+"<span class='price'>￥"+ item.price +"</span>"
+									+"</div>"
+									+"</div>"
+									+"</li>";
+							repairStr+=li;
+						 });
+						 $("#repair").html(repairStr);
+						}else{
+						 $(".tabs li[name='repair']").remove();
+						}
+						 //优惠信息
+						if(data.adInfoList!=undefined&&data.adInfoList.length>0){
+						 	var adInfoList = data.adInfoList;
+						 	$.each(adInfoList,function(i){
+						 		var ad = adInfoList[i];
+						 		var li ='<a href="adUrl.html?adUrl='+ ad.adUrl +'&title='+encodeURIComponent(shopTitle)+'"><h3 class="sale_tip link">'
+										+'<span class="label">'+ ad.adLabel +'</span>'
+										+'<span id="adLabel">'+ ad.adIntroduction +'</span>'
+										+'<span class="arrow"></span>'
+										+'</h3></a>';
+								$("#adInfoList").append(li); 
+						 	}); 
+						}
+						var phones = data.serviceTel;
+						var phoneStr = "";
+						$.each(phones,function(i){
+							phoneStr += '<a href="tel:'+phones[i]+'"><p>'+phones[i]+'</p></a>'; 
+						});   
+						$("footer").prepend(phoneStr);
+						if(data.cooperation=="2"||data.cooperation=="3"||data.cooperation=="4"){
+							$("#cooperation").show();
+							if(data.cooperation=="2"){
+								$(".icon-sdrz").parents("li").hide();
+								$(".icon-sdrz").hide();
+							}
+						}
+						$(".tabs .tab:first").click();
+					},error:function(xhr){
+						//window.location.href = "http://www.yangchebao.com.cn";
+					}
+				});
+			} 
+			getShopInfo(id); 
+		});
+	</script> 
+	<div class="baiduCount">
+	<script>//baidu 统计
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?36befafd9d601c669f9856c43f3ab457";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script> 
+	</div>
+	
+</body> 
+</html>
+

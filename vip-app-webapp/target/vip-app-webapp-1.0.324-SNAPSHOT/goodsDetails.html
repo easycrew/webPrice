@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta name="format-detection" content="telephone=no" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+		<link rel="stylesheet" href="http://app.yangchebao.com.cn/group1/M00/00/9F/swiper.min.0000000000000000000.css">
+		<link type="text/css" href="css/index.css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="css/ycbmall/exclusive.css"/>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.json-2.2.js"></script> 
+		<script src="js/jquery.urlParam.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<title>个人中心</title>
+		<style>
+			html{
+				font-size: 62.5%;
+			}
+			.swiper-container{
+				/*width: 100vmin;*/
+				/*height: 100vmin;*/
+				width: 100%;
+				height: 30rem;
+			}
+			.swiper-wrapper img{
+				width: 100%;
+				height: 100%;
+			}
+			.swiper-pagination-bullet{
+				opacity: 0.5;
+			}
+			.swiper-pagination-bullet-active{
+				opacity: 1;
+				background: #FF8463;
+			}
+			.ui-tit{
+				border-bottom: 1px solid rgba(112, 124, 146,0.3);
+			}			
+			.ui-tit::before{
+				background-color: #FFFFFF;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<section class="main-wraper">
+			<div class="swiper-container">
+				<div class="swiper-wrapper" id="mySwipe">
+					
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+			<p class="goods-name"><span></span></p>
+		</section>
+		<section class="details-wraper">
+			<h1 class="ui-tit"><span>商品详情</span></h1>
+			<div class="goodsDetails" id="goodsDetails"></div>
+		</section>
+		<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/swiper.3.1.2.jquery.min.0000000.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var response = "1",skuId=$.getQuery('skuId');
+				function getgoodsDetails(skuId){
+					var length=0;
+					$.ajax({
+						type:"get",
+						url:"/ycbmall-app-ws/ws/0.1/sku/showCommodityInfo",
+						async:false,
+						data:{skuId:skuId},
+						dataType:'json',
+						success:function(data){
+							length=data.length;
+							var str='';
+							$("p.goods-name span").html(data.name);
+							var descriptionUrl=data.descriptionUrl;
+							descriptionUrl=descriptionUrl.replace(/app/,'vipapp');
+							$("#goodsDetails").load(descriptionUrl);
+							var pics=data.pics;
+							if(pics){
+								$.each(data.pics, function(i) {
+									str+='<div class="swiper-slide">'
+										+'<img src="'+this.middlePicUrl+'" />'
+										+'</div>'
+								});
+								$("#mySwipe").html(str);
+							}
+						}
+					});
+					if(length==1){
+						var swiper1 = new Swiper('.swiper-container', {});
+					}else{
+						var swiper1 = new Swiper('.swiper-container', {
+					        pagination: '.swiper-pagination',
+					        paginationClickable: true,
+					        loop:true,
+					        centeredSlides: true,
+					        autoplayDisableOnInteraction: false
+						});
+					}
+				}
+				index.init=function(userInfo,bridge){
+					getgoodsDetails(skuId);
+					return 0;
+				}
+
+			})
+		</script>
+	</body>
+</html>
+

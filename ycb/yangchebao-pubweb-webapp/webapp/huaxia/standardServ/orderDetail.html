@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>订单详情</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="../css/main.css">
+	<script src="../js/commen.js"></script>
+	<style>
+		article{
+			background-color: #fff;
+		}
+		div.servPayInfo{
+			background-color: #FFA600;
+			padding: 1.5rem;
+		}
+		div.servPayInfo p{
+			color: #fff;
+		}
+		div.servPayInfo p:nth-of-type(1){
+			font-size: 1.6rem;
+		}
+		div.servPayInfo p:nth-of-type(2){
+			font-size: 1.4rem;
+		}
+		div.servPayInfo p:nth-of-type(3){
+			font-size: 1.8rem;
+		}
+		div.topRow{
+			padding: 0.6rem 0;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		p.topRow-left{
+			float: left;
+			display: inline-block;
+			padding: 0 2.2rem;
+		}
+		p.topRow-left img{
+			width: 1.7rem;
+		}
+		div.topRow-right{
+			margin-left: 6rem;
+			padding: 1.7rem 1.5rem 1.3rem;
+			border-left: 1px solid #D9D9E2;
+		}
+		div.topRow-right p{
+			font-size: 1.4rem;
+		}
+
+		article.middle{
+			margin: 2.6rem 2.6rem 7.6rem;
+		}
+		div.miW{
+			border: 1px solid #6EAADE;
+			border-radius: 6px;
+			background-color: #E3F0F6;
+			padding: 1.3rem 1.5rem;
+			color: #6EAADE;
+			font-size: 1.3rem;
+		}
+		div.miW span.spanL{
+			display: inline-block;
+			width: 6.6rem;
+			text-align: right;
+		}
+
+		article.bottom{
+			position: fixed;
+			width: 100%;
+			bottom: 0;
+			border-top: 1px solid #D9D9E2;
+		}
+		article.bottom div.bottom-left{
+			float: left;
+			width: 50%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			text-align: left;
+			font-size: 1.2rem;
+			padding: 1rem;
+		}
+		article.bottom p.refundBtn{
+			float: left;
+			width: 50%;
+			background-color: #f55d5d;
+			color: #fff;
+			font-size: 1.8rem;
+			text-align: center;
+			padding: 1.6rem 0;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<article class="top">
+			<div class="servPayInfo">
+				<p class="firstServ"></p>
+				<p class="lastServ"></p>
+				<p class="payment"></p>
+			</div>
+			<div class="topRow clearfix">
+				<p class="topRow-left"><img src="./img/contact_icon.png"></p>
+				<div class="topRow-right">
+					<p class="shopName"></p>
+					<p class="address"></p>
+				</div>
+			</div>
+			<div class="topRow clearfix">
+				<p class="topRow-left"><img src="./img/location_icon.png"></p>
+				<div class="topRow-right">
+					<p class="nickName"></p>
+					<p class="mobile"></p>
+				</div>
+			</div>
+		</article>
+		<article class="middle">
+			<div class="miW">
+				<p><span class="spanL">订单号：</span><span class="orderNumber"></span></p>
+				<p><span class="spanL">下单时间：</span><span class="orderDate"></span></p>
+				<p><span class="spanL">服务时间：</span><span class="serviceDate"></span></p>
+				<p><span class="spanL">评价时间：</span><span class="remarkDate"></span></p>
+			</div>
+		</article>
+		<article class="bottom clearfix">
+			<div class="bottom-left">
+				<p>状态：<span class="orderStatus"></span></p>
+				<p>服务码：<span class="servCode"></span></p>
+			</div>
+			<p class="refundBtn">退款</p>
+		</article>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		// 获取订单详情
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/orderservice/order/detail/bynumber?orderNumber='+paramJson.orderNumber,
+			type:'get',
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				$('p.firstServ').html(data.serviceName);
+				$('p.lastServ').html(data.extraName);
+				$('p.payment').html('￥'+data.payment);
+
+				$('p.shopName').html(data.businessName);
+				$('p.address').html(data.businessAddress);
+				$('p.nickName').html(data.nicName);
+				$('p.mobile').html(data.mobile);
+
+				$('span.orderNumber').html(data.orderNumber);
+				$('span.orderDate').html(data.orderDate);
+
+				if(data.serviceDate!=''){
+					$('span.serviceDate').html(data.serviceDate)
+				}else{
+					$('span.serviceDate').html('服务后显示时间')
+				}
+
+				if(data.remarkDate!=''){
+					$('span.remarkDate').html(data.remarkDate)
+				}else{
+					$('span.remarkDate').html('评价后显示时间')
+				}
+				
+
+				$('span.orderStatus').html(data.orderStatusName);
+				$('span.servCode').html(data.serviceCode);
+
+				if(data.orderOperate == 3){
+					$('p.refundBtn').show();
+					// 退款
+					$('p.refundBtn').on('click',function(){
+						window.location.href="refundAccount.html?orderId="+data.orderId
+					})
+				}
+
+				// 图片垂直居中
+				$('p.topRow-left').each(function(){
+					var rowH=$(this).next('div.topRow-right').outerHeight();
+					$(this).css('line-height',rowH+'px')
+				})
+			}
+		})
+	})
+</script>
+</html>

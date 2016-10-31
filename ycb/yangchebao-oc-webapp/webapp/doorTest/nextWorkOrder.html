@@ -1,0 +1,523 @@
+ <style>
+.droplist{z-index:1000;}
+ </style>
+ <div class="urlContentWraper" id="Wraper_next_work_order">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>再次检测管理列表</strong><bottom class="all-work-info numb183">页面说明</bottom></h2> 
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_next_work_order"></table>
+		</div>
+    </div> 
+	<div id="Form_next_work_order" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <input name="id" type="hidden"> 
+            <input name = "orderStatus" type = "hidden" value = "2">
+            <div class="row" style="display:none;">
+                 <label class="span3 grid-layout-label">工单ID：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="workOrderId" class="jrad-input-container"></div> 
+				</div> 
+            </div>         
+            <div class="row" style="display:none;">
+                 <label class="span3 grid-layout-label" >微信ID/用户ID：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="wxUserInfoId" class="jrad-input-container"></div> 
+				</div> 
+            </div> 
+            <div class="row" style="display:none;">
+                 <label class="span3 grid-layout-label">用户注册ID：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="customerId" class="jrad-input-container"></div> 
+				</div> 
+            </div>   
+            <div class="row" style="display:none;">
+                 <label class="span3 grid-layout-label">昵称：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="nickname" class="jrad-input-container"></div> 
+						</div> 
+            </div> 
+            <div class="row">
+                 <label class="span3 grid-layout-label">姓名：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="realName" class="jrad-input-container"></div> 
+						</div> 
+            </div>         
+            <div class="row">
+                 <label class="span3 grid-layout-label">预约服务时间：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="reserveServiceDate" class="jrad-dateinput-container"></div> 
+						</div> 
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label">手机：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="mobile" class="jrad-input-container"></div> 
+						</div> 
+            </div>
+            <div class="row">
+                 	<label class="span3 grid-layout-label">
+					一级区域：
+					</label>
+					<div class="span4 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="wxAreaFirstId">
+						</div>
+					</div>
+					<label class="span3 grid-layout-label">
+					二级区域：
+					</label>
+					<div class="span4 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="wxAreaSecondId">
+					</div>
+					</div> 
+					<label class="span3 grid-layout-label">
+					三级区域：
+					</label>
+					<div class="span4 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="wxAreaThirdId">
+					</div>
+					</div> 
+            </div>     
+			<div class="row">
+                 <label class="span3 grid-layout-label">地址：</label>
+                 <div class="span12 grid-layout-content">
+                       <div name="address" class="jrad-input-container"></div> 
+						</div> 
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label">接单师傅：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="orderReceiverId" class="jrad-select-container"></div>
+                                    </div>
+            </div>
+             <!-- <div class="row">
+                 <label class="span3 grid-layout-label">状态：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="orderStatus" class="jrad-select-container"></div>
+                                    </div>
+            </div>  -->
+            <div class="row">
+                 <label class="span3 grid-layout-label">车牌号：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="plateNumber" class="jrad-input-container"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">品牌：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="brandId" class="jrad-select-container"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">车厂：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="factoryId" class="jrad-select-container"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">车系：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="modelId" class="jrad-select-container"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">备注：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="remarks" class="jrad-textarea-container"></div>
+                                    </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+
+    <div id="Form_confirm_status" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="row">
+                 <label class="span3 grid-layout-label">确认状态：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="status" class="jrad-select-container"></div>
+                                    </div>
+            </div>     
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg183" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>用户检测完成后的三个月，会在此页面生成再次检测提醒的数据。</div>
+                    <div><strong>重要功能说明：</strong>①确认状态：电话联系后，勾选数据，把数据标示为已经联系。若确认需要再次检测，可以在工单管理去生成检测工单。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_next_work_order');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {}; 
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	
+    page_column_model.push({display: '工单ID', name : 'workOrderId'});
+    page_column_model.push({display: '档案ID', name : 'inspectionHistoryId'});
+    page_column_model.push({display: '昵称', name : 'nickname'});
+    page_column_model.push({display: '手机', name : 'mobile'}); 
+    page_column_model.push({display: '城市/地址', name : 'areaCity'}); 
+    page_column_model.push({display: '上次预约时间', name : 'reserveServiceDate'});
+	page_column_model.push({display: '上次检测师傅', name : 'orderReceiverName'});
+	page_column_model.push({display: '检测提醒时间', name : 'nextInspectionDate'});
+	page_column_model.push({display: '确认状态', name : 'statusName'});
+	page_column_model.push({display: '备注', name : 'remarks'});
+	page_column_model.push({display: '最后操作人', name : 'lastModifyPeople'});
+	page_column_model.push({display: '最后操作时间', name : 'lastModifyDate'});
+	
+    page_search_items.push({row:'1',type:'jrad-input',display:'工单ID',name:'workOrderId'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'档案ID',name:'inspectionHistoryId'}); 
+    page_search_items.push({row:'1',type:'jrad-input',display:'手机',name:'mobile'}); 
+
+    page_search_items.push({row:'2',type:'jrad-input',display:'城市/地址',name:'address'}); 
+   	page_search_items.push({row:'2',type:'jrad-input',display:'上次检测师傅',name:'orderReceiverName'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'确认状态',name:'status',params:{ 
+			data:[{"id":"","name":"请选择"},
+		  		{"id":"1","name":"未确认"},
+		  		{"id":"2","name":"不需要"},
+		  		{"id":"3","name":"需要"}]
+	}});
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'检测提醒时间始',name:'nextInspectionDateStart',params:{'dateFmt':'yyyy-MM-dd'}});
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'检测提醒时间终',name:'nextInspectionDateEnd',params:{'dateFmt':'yyyy-MM-dd'}});
+     
+	var fields_params = {}; 
+
+	fields_params['wxAreaFirstId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/workOrderV2Cms/getWxArea',
+			id: 'areaId',
+			name: 'areaName'
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var wxAreaFirstIdCode = $('#Form_next_work_order div[name=wxAreaFirstId]',wraper).select('val'); 
+			if(wxAreaFirstIdCode==''){ 
+				$('#Form_next_work_order div[name=wxAreaSecondId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val:''});
+				$('#Form_next_work_order div[name=wxAreaThirdId]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val: ''})
+			}else{  
+				$('#Form_next_work_order div[name=wxAreaSecondId]',wraper).select({ 
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/workOrderV2Cms/getWxArea?parentId=' + wxAreaFirstIdCode,
+						id: 'areaId',
+						name: 'areaName'
+					},
+					unshiftData: {id:'',name:'请选择'}
+				}).select('val','');
+				$('#Form_next_work_order div[name=wxAreaThirdId]').select({
+						urlData:{url:''},
+						data:[{id:'',name:'请选择'}],
+						val: ''}); 
+			}
+		}
+	}; 
+	fields_params['wxAreaSecondId'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){
+			var wxAreaSecondIdCode = $('#Form_next_work_order div[name=wxAreaSecondId]').select('val');
+			if(wxAreaSecondIdCode==''){
+				$('#Form_next_work_order div[name=wxAreaThirdId]',wraper).select({
+															   urlData:{url:''},
+															   data:[{id:'',name:'请选择'}],
+															   val:''
+															});
+			}else{
+				$('#Form_next_work_order div[name=wxAreaThirdId]').select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/workOrderV2Cms/getWxArea?parentId=' + wxAreaSecondIdCode,
+						id: 'areaId',
+					    name: 'areaName'
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:""
+				});
+			}
+		}
+	};
+	fields_params['wxAreaThirdId'] = {
+			data: [{id:'',name:'请选择'}]
+	};
+
+
+	fields_params['orderReceiverId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/workOrderV2Cms/listOrderReceivers',
+			id: 'orderReceiverId',	
+			name: 'orderReceiverName' 
+		}, 
+		unshiftData: {id:'',name:'请选择'} 
+	};	
+	fields_params['orderStatus'] = {
+			data:[{"id":"","name":"请选择"},
+		  		{"id":"1","name":"待确认"},
+		  		{"id":"2","name":"已确认"},
+		  		{"id":"3","name":"已服务"},
+		  		{"id":"4","name":"取消"},
+		  		{"id":"5","name":"删除"},
+		  		{"id":"6","name":"测试"}]
+	}; 
+	fields_params['address'] = {
+		grid:11
+	};  
+	fields_params['reserveServiceDate'] = {
+		dateFmt: 'yyyy-MM-dd HH:mm',
+	}; 
+	
+
+	fields_params['brandId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/modelCms/brand/list',
+			id: 'brandId',
+			name: 'brandName'
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var brandId = $('#Form_next_work_order div[name=brandId]',wraper).select('val'); 
+			if(brandId==''){ 
+				$('#Form_next_work_order div[name=factoryId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val:''});
+				$('#Form_next_work_order div[name=modelId]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val: ''})
+			}else{  
+			$('#Form_next_work_order div[name=factoryId]',wraper).select({ 
+				urlData:{
+					url: '/shopmanage-ws/ws/0.1/modelCms/factory/list?brandId=' + brandId,
+					id: 'factoryId',
+					name: 'factoryName'
+				},
+				unshiftData: {id:'',name:'请选择'}
+			}).select('val','');
+			$('#Form_next_work_order div[name=modelId]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val: ''}); 
+			}
+		}
+	}; 
+	fields_params['factoryId'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){
+			var factoryId = $('#Form_next_work_order div[name=factoryId]',wraper).select('val');
+			if(factoryId==''){
+				$('#Form_next_work_order div[name=modelId]',wraper).select({
+															   urlData:{url:''},
+															   data:[{id:'',name:'请选择'}],
+															   val:''
+															   });
+			}else{
+				$('#Form_next_work_order div[name=modelId]',wraper).select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/modelCms/model/list?factoryId=' + factoryId,
+						id: 'modelId',
+					    name: 'modelName'
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:""
+				});
+			}
+		}
+	};
+	fields_params['modelId'] = {
+			data: [{id:'',name:'请选择'}]
+		};
+
+ 	var fields_params2 = {}; 
+	fields_params2['status'] = {
+		data:[{"id":"","name":"请选择"},
+			  {"id":"1","name":"未确认"},
+		  	  {"id":"2","name":"不需要"},
+		  	  {"id":"3","name":"需要"}]
+	};
+	$('#Form_confirm_status').form({ 
+		validators: jRad.validators,
+		fields_params:fields_params2, 
+		height:100,
+		autobinding: false
+	});
+	$('#Form_next_work_order').form({
+		validators: jRad.validators,
+		fields_params:fields_params
+	})
+	$('#Form_confirm_status .jrad-btn-primary').button({
+		click: function(){
+			var json = $('#Form_confirm_status').form('getValue');
+			if(json.status=="3"){
+				var checked = $('#Table_next_work_order',wraper).getCheckedTrs();
+				var item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/workOrderV2Cms/getComplexWorkOrder?workOrderId='+checked[0].workOrderId});
+               	$('#Form_next_work_order',wraper).form({
+					title: '修改', 
+					item:item,
+		            fields_params:fields_params,    
+					url:'/shopmanage-ws/ws/0.1/workOrderV2Cms/editNextInspectionWorkOrder',
+					before_submit:function(json){
+							json.workOrderId = checked[0].workOrderId;
+							json.status = 3;
+							return json;
+					},
+					success_callback:function(){ 
+                            $('#Form_next_work_order').form('close');
+                            $('#Form_confirm_status').form('close');
+                            $('#Table_next_work_order').flexMessage('修改成功', 'success');
+                            $('#Table_next_work_order').flexReload();
+                        } 
+                }).form('open');  
+			}else{
+				 $('#Form_confirm_status',wraper).form('submit'); 
+			}
+		}   
+	});
+	$('#Form_confirm_status .jrad-btn-normal').button({
+		click: function(){ 
+			$('#Form_confirm_status',wraper).form('close');  
+		}   
+	});
+
+    page_list_buttons.push({title: '确认状态',name:'enabled',displayname:'确认状态', bclass: 'enabled',prefunc:function(){
+            var checked = $('#Table_next_work_order').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },
+        onpress : function(){
+            	var checked = $('#Table_next_work_order').getCheckedTrs(); 
+            	var _status = $('#Form_confirm_status div[name="status"]').select('val')
+     	        if(checked[0].status=='3'){return false}
+     	        else{
+	     	        	var item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/workOrderV2Cms/getComplexWorkOrder?workOrderId='+checked[0].workOrderId});
+	     	        	$('#Form_confirm_status').form({
+							title: '确认状态', 
+							item:item,
+		            		fields_params:fields_params2,  
+							url:'/shopmanage-ws/ws/0.1/workOrderV2Cms/editNextInspectionWorkOrder',
+							before_submit:function(json){
+									// if(_status == '3'){
+					    //  	        	var item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/workOrderV2Cms/getComplexWorkOrder?workOrderId='+checked[0].workOrderId});
+						   //             	$('#Form_next_work_order').form({
+									// 		title: '修改', 
+									// 		item:item,   
+		       //      						fields_params:fields_params, 
+									// 		url:'/shopmanage-ws/ws/0.1/workOrderV2Cms/editNextInspectionWorkOrder',
+									// 		before_submit:function(json){
+									// 				json.workOrderId = checked[0].workOrderId;
+									// 				json.status = 3;
+									// 				return json;
+									// 		},
+									// 		success_callback:function(){ 
+									// 				$('#Form_confirm_status').form('close')
+						   //                          $('#Table_next_work_order').flexMessage('修改成功', 'success');
+						   //                          $('#Table_next_work_order').flexReload();
+						   //                      } 
+						   //              }).form('open');
+					    //  	        }
+					    //  	        else{
+			 						json.workOrderId = checked[0].workOrderId;
+									return json;
+									//}
+							},
+							success_callback:function(){ 
+		    			         $('#Table_next_work_order').flexMessage('修改成功', 'success');
+		                         $('#Table_next_work_order').flexReload();
+		                    } 
+		              }).form('open'); 
+	     	        
+     	        }
+	        
+        }
+    });
+  
+    page_list_buttons.push({separator: true});  
+    
+	$('#Table_next_work_order').flexigrid({
+			reload:true,
+			method:'get',  
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			url:'/shopmanage-ws/ws/0.1/workOrderV2Cms/quaryNextInspection',
+			onError:showError,
+			checkBoxType:'single'
+	});  
+	
+    $(".numb183").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg183").form({}).form('close');
+        $("#Form_explain_eg183").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg183 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg183").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg183").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg183 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	function showError(xhr){
+		var errormsg = eval("(" + xhr.responseText + ")");
+		var cDiv = $("#Wraper_next_work_order .cDiv");
+		$.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+	}
+});
+
+</script>

@@ -1,0 +1,588 @@
+<div class="urlContentWraper" id="Wraper_setting_User">
+<div class="ui-info-layout">
+<div class="ui-info-layout-subbox ">
+    <div class="jrad-table">
+        <h2 class="ui-tit"><strong>管理账号列表</strong><bottom class="all-work-info numb11">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <table id="Table_setting_User"></table>
+    </div>
+    <div class="details-box" style="display:none;">
+            <ul class="details-tab">
+                <li class="tab-cur tab-cur-first f-left"><span name="title">账号信息</span></li>
+                <li><span class="return"></span></li>
+            </ul>
+            <div class="details-content">
+                <div class="details-scroll">
+                    <div class="details-content-inner">
+                        <div class="grid-layout ui-form" id="Form_setting_User">
+                            <div class="jrad-form">  
+                                <div class="grid-layout-main">
+                                    <div name="regions"></div>
+                                    <div class="row">
+                                         <label class="span3 grid-layout-label">账号：</label>
+                                         <div class="span5 grid-layout-content">
+                                               <div name="name" class="jrad-input-container"></div>
+                                                            </div>
+                                    </div>
+                                    <div class="row">
+                                         <label class="span3 grid-layout-label">密码：</label>
+                                         <div class="span5 grid-layout-content">
+                                               <div name="password" class="jrad-input-container"></div>
+                                                            </div>
+                                    </div>  
+                                    <div class="row">
+                                         <label class="span3 grid-layout-label">员工姓名：</label>
+                                         <div class="span5 grid-layout-content">
+                                               <div name="displayName" class="jrad-input-container"></div>
+                                                            </div>
+                                    </div>
+                        			<div class="row">
+                                         <label class="span3 grid-layout-label">邮箱：</label>
+                                         <div class="span5 grid-layout-content">
+                                               <div name="email" class="jrad-input-container"></div>
+                                                            </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="span3 grid-layout-label"> 省市： </label>
+                                        <div class="span10 grid-layout-content fluid-wrap">
+                                            <div name="area_check_btn">
+                                                <span id="jrad-button-area" class="jrad-primary">
+                                                    点击选择 </span>
+                                            </div>
+                                            <div id="area_check_string" style="margin: 10px 0;"></div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="id"/> 
+                                </div>
+                            </div>
+                            <div class="jrad-buttons-container ui-buttons-container"> 
+                                <span class="jrad-btn-primary">确定</span>
+                    			<span class="jrad-btn-normal">取消</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="Form_area" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+              <div class="row-fluid">
+                <label class="span3 grid-layout-label"> 省：</label>
+                <div class="span5 grid-layout-content">
+                    <div class="jrad-select-container" name="provinceId">
+                    </div>
+                </div> 
+                <label class="span3 grid-layout-label"> 市：</label>
+                <div class="span5 grid-layout-content">
+                    <div class="jrad-select-container" name="areaCodeId">
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg11" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>创建登陆CMS的账号。</div>
+                    <div><strong>重要功能说明：</strong>1、创建&修改：邮箱必填，但后面不会用到；省市是标注代理商的（代理商权限就是根据这个省市来分配的），所以给自己公司员工设置账号时，省市要选择全部。2、重置密码：单选账号后，点击此按钮会把此账号密码修改为123456。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_setting_User');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	//var jRad = $.jRad('/radsample-ws','ent','Menu');	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+    
+	jRad.validators['name'] = [{"msg":"账号不能为空","type":"min","value":"1"}];
+    jRad.validators['displayName'] = [{"msg":"员工姓名不能为空","type":"min","value":"1"},{msg:"姓名含非法字符",type:'regex',value:/^[^*\/\\<>?]+$/}];
+	jRad.validators['email'] = [{"msg":"邮箱不能为空","type":"min","value":"1"},{msg:"邮箱格式不正确",type:'regex',value:/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/}];
+
+    jRad.params['provinceCodeSearch'] = {
+        urlData:{
+            url:'/euc/ws/0.1/user/provinces?userId='+carsmart_config.userId
+        },
+        unshiftData: {id:'',name:'请选择'},
+        onchange: function(){
+            var provinceCode = $('.searchContent div[name=provinceId]',wraper).select('val'); 
+            if(provinceCode==''){ 
+                $('.searchContent div[name=areaCodeId]',wraper).select({
+                                                                urlData:{url:''},
+                                                                data:[{id:'',name:'请选择'}],
+                                                                val:''});
+            }else{  
+            $('.searchContent div[name=areaCodeId]',wraper).select({ 
+                urlData:{
+                    url:'/euc/ws/0.1/user/cities?provinceId='+provinceCode+'&userId='+carsmart_config.userId
+                },
+                unshiftData: {id:'',name:'请选择'}
+            }).select('val','');
+            }
+        }
+    }; 
+    jRad.params['areaCodeSearchId'] = {
+            data: [{id:'',name:'请选择'}]
+    };
+      
+    page_column_model.push({display: '账号', name : 'name',  sortable : true,diy:function(item,$div){
+	   var json = $.toJSON(item);
+     if(carsmart_config.isAgentor == 1){
+      $div.html(item.name)
+     }else{
+      $div.html("<a class='userLink' data-item='"+json+"'>"+item.name+"</a>")
+    }
+	  }});
+    page_column_model.push({display: '员工姓名', name : 'displayName',  sortable: true}); 
+    page_column_model.push({display: '省、市', name : 'areaName',  sortable: true});
+    page_column_model.push({display: '创建时间', name : 'created',  sortable : true,diy:function(item,$div){
+      //timestampformat(item.created)
+       
+      $div.html(timestampformat(item.created))
+    }});
+    Date.prototype.format = function(format) {
+      var o = {
+          "M+": this.getMonth() + 1,
+          // month
+          "d+": this.getDate(),
+          // day
+          "h+": this.getHours(),
+          // hour
+          "m+": this.getMinutes(),
+          // minute
+          "s+": this.getSeconds(),
+          // second
+          "q+": Math.floor((this.getMonth() + 3) / 3),
+          // quarter
+          "S": this.getMilliseconds()
+          // millisecond
+      };
+      if (/(y+)/.test(format) || /(Y+)/.test(format)) {
+          format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+      }
+      for (var k in o) {
+          if (new RegExp("(" + k + ")").test(format)) {
+              format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+          }
+      }
+      return format;
+  };
+    function timestampformat(timestamp) {
+          return (new Date(timestamp)).format("yyyy-MM-dd hh:mm:ss");
+      }
+   page_search_items.push({row:'1',type:'jrad-input',display:'账号',name:'name'});
+   page_search_items.push({row:'1',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']});
+   page_search_items.push({row:'1',type:'jrad-select',display:'市',name:'areaCodeId',params:jRad.params['areaCodeSearchId']}); 
+    
+
+    $('#Form_setting_User .jrad-btn-normal',wraper).button({
+        click: function(){
+            $('.details-box',wraper).slideUp();
+            $('.jrad-table',wraper).slideDown(); 
+            $(".scroll-up-btn").click();
+        }
+    }); 
+    $('#Form_setting_User .jrad-btn-primary',wraper).button({
+        click: function(){
+            var _form = $("#Form_setting_User");
+            var flag = _form.form('validateAll');
+            if(!flag) {
+                return;
+            }
+            var json = _form.form('getValue');
+            json.description = "";
+            if(json.password != "" ){
+              json.password = hex_md5(json.password);
+            }else{
+              delete json.password;
+            } 
+            // json.location = json.location;
+            var _regions=[];
+            var regions = $("div[name='regions']",wraper).data("areaList");
+            if(regions.length==0){
+             $.jRadMessage({level:'error',message:"请选择要绑定的地域。"});
+             return;
+            }else{
+            $.each(regions,function(){
+              var region = {};
+              region.provinceId = this.provinceId+""; 
+              var areaCodeId = [];
+              var areaList = this.areaList;
+              for(var i=0;i<areaList.length;i++){
+              areaCodeId.push(areaList[i].areaCodeId);
+              }
+              region.areaCodeId = areaCodeId.join(",");
+              _regions.push(region)
+            });
+            }     
+            // json.createPerson = carsmart_config.operatorName;
+            json.mobile ="";
+           var obj = {
+                regions:_regions,
+                user : json,
+                departmentId : "3",
+                positionId : "7" 
+           }
+            if($(".details-box .details-tab",wraper).find("span[name='title']").html()=="账号添加"){
+            $.jRadPost({
+                        url:'/euc/ws/0.1/user/add',
+                        data:obj,
+                        success:function(){
+                            $('.details-box',wraper).slideUp();
+                            $('.jrad-table',wraper).slideDown();  
+                            $(".scroll-up-btn").click();
+                            $('#Table_setting_User').flexMessage('创建成功', 'success');
+                            $('#Table_setting_User').flexReload();
+                        },error:function(data){
+                            var mes = eval('('+data.responseText+')');
+                             $.jRadMessage({
+                                 level:'error', 
+                                 message:mes[0].message 
+                             });
+                        }
+                    });
+         }else{
+            $.jRadPost({
+                        url:'/euc/ws/0.1/user/update',
+                        data:obj,
+                        success:function(){
+                            $('.details-box',wraper).slideUp();
+                            $('.jrad-table',wraper).slideDown();  
+                            $(".scroll-up-btn").click();
+                            $('#Table_setting_User').flexMessage('修改成功', 'success');
+                            $('#Table_setting_User').flexReload();
+                        },error:function(data){
+                            var mes = eval('('+data.responseText+')');
+                             $.jRadMessage({
+                                 level:'error', 
+                                 message:mes[0].message 
+                             });
+                        }
+                    });
+         }
+        }    
+    }); 
+    $('#Form_setting_User').form({
+                validators: jRad.validators,
+                fields_params:jRad.params,
+                layout: 'grid', 
+                autobinding: false
+            });
+   
+   page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',prefunc:function(){
+            if (carsmart_config.isAgentor == 1) {return false;}else{return true;}
+        },onpress : function(){
+             initAccountsInfo(wraper); 
+             $('#Form_setting_User',wraper).form({item:{}}); 
+             $(".details-box .details-tab",wraper).find("span[name='title']").html("账号添加");
+             $('.jrad-table',wraper).slideUp();
+             $('.details-box',wraper).slideDown();
+             $(".scroll-up-btn").click();  
+        }
+    }); 
+	 page_list_buttons.push({title: '修改',name:'Edit', bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_setting_User').getCheckedTrs();
+            if (checked.length != 1 || carsmart_config.isAgentor == 1) {return false;}else{return true;}
+        },onpress : function(){
+            var checked = $('#Table_setting_User').getCheckedTrs(); 
+            if(checked[0]) {
+                updateUserView(checked[0]);   
+            }
+        }
+    }); 
+	page_list_buttons.push({displayname: '重置密码',name:'enabled',bclass: 'enabled',prefunc:function(){
+            var checked = $('#Table_setting_User').getCheckedTrs();
+            if (checked.length != 1 || carsmart_config.isAgentor == 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_setting_User').getCheckedTrs();
+			$ .jRadConfirm('确认重置密码？',1,function(){
+				var id =  checked[0].id; 
+				$.jRadPost({
+					url:'/euc/ws/0.1/user/password/reset?id='+id, 
+					success: function(){
+						$('#Table_setting_User').flexMessage('密码重置为123456，请通知相关人员尽快修改密码。', 'success');
+           	    		$('#Table_setting_User').flexReload();
+					}
+				});
+			});
+		}
+	}); 
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_setting_User').flexigrid({
+            reload:true,
+			      method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true,
+			//preProcess:userDataProcess,
+      url:'/euc/ws/0.1/user/all',
+		    // queryUrl:'/euc/ws/0.1/user/query',
+			onError:showUserError
+    });
+    var _span3=$('div.searchButtons',wraper).parent().removeClass('span3').addClass('span20');
+    var _div=$('<div>').addClass('row-fluid').append(_span3);
+    $('div.searchContent',wraper).append(_div);
+	  $(".userLink",wraper).live('click',function(){
+  		var item = $(this).data("item");
+  		updateUserView(item);
+	  });
+    $(".details-tab .return",wraper).click(function(){
+        $('.details-box',wraper).slideUp();
+        $('.jrad-table',wraper).slideDown(); 
+        $(".scroll-up-btn").click()
+    });
+
+    
+    $(".numb11").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg11").form({}).form('close');
+        $("#Form_explain_eg11").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg11 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg11").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg11").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg11 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	function updateUserView(item){
+         $(".details-box .details-tab",wraper).find("span[name='title']").html("账号修改"); 
+         initAccountsInfo(wraper);  
+         $('.jrad-table',wraper).slideUp();
+         $('.details-box',wraper).slideDown(); 
+         $(".scroll-up-btn").click();  
+         $('#Form_setting_User',wraper).form({item: item});  
+         var areaList = item.regions; 
+         $.each(areaList,function(i){
+             if(areaList[i].areaList.length==0){
+              areaList[i].areaList=[{"areaCodeId":"0"}];
+             }
+         });
+         $("#Form_setting_User div[name='regions']",wraper).data('areaList',areaList); 
+         addAreaList(areaList,wraper); 
+	
+	}
+    //省市选择
+    var area_fields_params = {};    
+    area_fields_params['provinceId'] = {
+        urlData:{
+            url:'/euc/ws/0.1/user/provinces?userId='+carsmart_config.userId
+        },
+        unshiftData: {id:'0',name:'全部'},
+        onchange: function(){
+            var provinceCode = $('#Form_area div[name=provinceId]',wraper).select('val');
+            if(provinceCode=='0'){
+                $('#Form_area div[name=areaCodeId]',wraper).select({data:[{id:'0',name:'全部'}]});
+            }else{
+            $('#Form_area div[name=areaCodeId]',wraper).select("val","0");
+            $('#Form_area div[name=areaCodeId]',wraper).select({
+                urlData:{
+                    url:'/euc/ws/0.1/user/cities?provinceId='+provinceCode+'&userId='+carsmart_config.userId
+                },
+                unshiftData: {id:'0',name:'全部'}
+            });
+            }
+        }
+    }
+    area_fields_params['areaCodeId'] = {
+            data: [{id:'0',name:'全部'}]
+        };
+    $('#Form_area',wraper).form({
+            title:"省市", 
+            fields_params:area_fields_params,
+            item:{"provinceId":"0","areaCodeId":"0"},
+            submit:function(){  
+                var json = {};
+                json.provinceId = $("#Form_area div[name='provinceId']",wraper).select('val');
+                json.provinceName = $("#Form_area div[name='provinceId']",wraper).select('text');
+                json.areaList = [];
+                json.areaList[0] = {};
+                json.areaList[0].areaCodeId = $("#Form_area div[name='areaCodeId']",wraper).select('val');
+                json.areaList[0].areaCodeName = $("#Form_area div[name='areaCodeId']",wraper).select('text');  
+                var array = $("div[name='regions']").data("areaList");
+                var pId = json.provinceId; 
+                var aId = json.areaList[0].areaCodeId;
+                if(pId=="0"){
+                    array = []; 
+                    array.push(json);
+                }else{
+                    if(array.length==1&&array[0].provinceId=="0"){
+                    array = []; 
+                    array.push(json);
+                    }else{
+                        var flag = true;
+                        $.each(array,function(){
+                            if(this.provinceId == pId){
+                              flag = false;
+                              var areaList = this.areaList;
+                              if(aId=="0"){
+                                    this.areaList = json.areaList;
+                              }else{ 
+                                    var areaflag = true;
+                                    for(var i=0;i<areaList.length;i++){
+                                    if(areaList[i].areaCodeId==0){
+                                    areaflag = false;
+                                    this.areaList = json.areaList;
+                                    break;
+                                    }
+                                    if(areaList[i].areaCodeId==aId){ 
+                                    areaflag = false;
+                                    $.jRadMessage({level:'error',message:"该地区已经选择",selector:$("#Form_area",wraper)});
+                                    return;
+                                    }
+                                    
+                                    }
+                                    if(areaflag){
+                                    this.areaList.push(json.areaList[0]);
+                                    }
+                              }
+                            }
+                        });
+                        if(flag){  
+                          array.push(json);
+                        }  
+                    }
+                }
+                addAreaList(array,wraper); 
+                $("div[name='regions']",wraper).data("areaList",array);
+                $("#Form_area div[name='areaCodeId']",wraper).select('destroy');
+                $("#Form_area",wraper).form("close");
+            }
+            });
+    $("#jrad-button-area",wraper).button({
+        click : function() {  
+            $('#Form_area',wraper).form({ 
+                fields_params:area_fields_params,
+                item:{"provinceId":"0","areaCodeId":"0"}
+            }).form('open');
+        }
+    });
+    //删除省市
+    $("#area_check_string .delArea",wraper).live('click',function(){
+        var info = $(this).data('info'); 
+        var arr = $("div[name='regions']",wraper).data("areaList");
+        $.each(arr,function(i){
+            var json = this;
+            if(json.provinceId==info.provinceId){
+                if(info.areaId=="0"){
+                    arr.splice(i,1);
+                }else if(json.areaList.length==1){
+                    arr.splice(i,1);
+                }else{
+                    $.each(json.areaList,function(j){
+                    var area = this;
+                    if(area.areaCodeId==info.areaId){ 
+                    json.areaList.splice(j,1); 
+                    }
+                    });
+                }
+            }
+        }); 
+        $(this).parent('.areaSpan').remove();
+    });
+    function initAccountsInfo(wraper){ 
+          //省市
+           $("#Form_setting_User div[name='regions']",wraper).data("areaList",[]); 
+           $("#Form_setting_User #area_check_string",wraper).html("");   
+    }
+});
+function showUserError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")");
+		  var cDiv = $("#Wraper_setting_User .cDiv");
+		  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+		}
+
+ function dateTurn(now, type){
+	 if(now ==null && now == "" ){
+		 return "";
+	 }
+	 var d=new Date(now);  
+	 var year=d.getYear();
+     var month=d.getMonth()+1; 
+	 if(month < 10){
+		 month ="0"+month;
+	 }
+     var date=d.getDate();
+	 if(date <10){
+		 date ="0"+date;
+	 }
+     var hour=d.getHours(); 
+	 if(hour <10){
+		 hour="0"+hour;
+	 }
+     var minute=d.getMinutes(); 
+	 if(minute <10){
+		  minute="0"+minute;
+	 }
+     var second=d.getSeconds();  
+	 if(second <10){
+		 second ="0"+second;
+	 }
+	 if(type == 2){
+		 return   year+"-"+month+"-"+date+"   "+hour+":"+minute+":"+second;
+	 }
+	 return  year+"-"+month+"-"+date;
+          
+  }  
+
+
+
+function userDataProcess(data){
+   for(var i=0;i<data.count;i++){
+     data.items[i].created = dateTurn(data.items[i].created,2); 
+   }
+   return data;
+} 
+</script>

@@ -1,0 +1,52 @@
+@charset "utf-8";
+.content{
+	margin-top:29px;
+}
+.left{
+	float:left;
+	width:659px;
+	margin-right:30px;
+}
+h2{
+	margin-bottom:6px;
+	font-size:26px;
+	font-family:"微软雅黑";
+	color:#555;
+	text-align: center;
+}
+div.line{
+	height:1px;
+	width:100%;
+	margin-top:18px;
+	overflow:hidden;
+	background-color:#dce1e8;
+}
+.person{
+	overflow:hidden;
+	zoom:1;
+	margin-bottom:32px;
+	padding:26px 0;
+	border-bottom:1px dashed #b2b2b2;
+}
+.person img{
+	float:left;
+	margin-right:32px;
+}
+.person div{
+	position:relative;
+	top:134px;
+}
+.person div p{
+	font-size:14px;
+	font-family:"微软雅黑";
+	color:#888;
+}
+.cggs_ar p{
+	font-size:14px;
+	font-family:"微软雅黑";
+	color:#666;
+	margin-bottom:20px;
+}
+.right{
+	float:left;
+}

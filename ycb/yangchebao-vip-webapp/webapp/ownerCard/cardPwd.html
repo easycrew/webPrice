@@ -1,0 +1,144 @@
+<style>
+    #Wraper_ownerCard_cardPwd h2{
+        background-color:#307ecc;
+        color:#fff;
+        padding-left:1%;
+        margin-bottom:0;
+    }
+    #Wraper_ownerCard_cardPwd #cardPwd,#cardList{
+        border:1px solid #ccc;
+        margin-bottom:15px;
+    }
+    #Wraper_ownerCard_cardPwd #Form_ownerCard_cardPwd{
+        margin-top:50px;
+        margin-bottom:60px;
+        margin-left:2%;
+    }
+    #Wraper_ownerCard_cardPwd .activateCode input{ 
+        font-size: 24px;
+        height:34px;
+        line-height: 34px; 
+        text-align:center;
+    }
+    #Wraper_ownerCard_cardPwd table th,#Wraper_ownerCard_cardPwd table td{
+        text-align:center;
+    }
+</style>
+<div class="urlContentWraper" id="Wraper_ownerCard_cardPwd">
+    <div id="cardPwd">
+        <h2>提交车主卡密码</h2>
+        <div id="Form_ownerCard_cardPwd" class="grid-layout ui-form">
+            <div class="grid-layout-main jrad-form">
+                <div class="grid-row-fluid"> 
+                    <div class="span10 grid-layout-content fluid-wrap">
+                        <div data-name="activateCode" class="jrad-input-container activateCode" placeholder='请输入售出车主卡的16位密码'>
+                        </div>
+                    </div>
+                    <button class="btn btn-big btn-primary" id="submit2" style="width:100px;">确定</button>
+                    <button class="btn btn-big btn-default" id="cancel2" style="width:100px;">取消</button>
+                </div>
+            </div>
+        </div>
+        <div id="Form_ownerCard_password" class="grid-layout ui-form" style="display:none;">
+            <div class="grid-layout-main jrad-form">
+                <div class="grid-row-fluid"> 
+                    <div class="span23 grid-layout-content fluid-wrap">
+                        <h1 class="message"></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="jrad-buttons-container ui-buttons-container">
+                <button class="jrad-btn-primary btn btn-small btn-primary submit">
+                    确定
+                </button>
+                <button class="jrad-btn-normal btn btn-small btn-default cancle">
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="cardList">
+        <h2>售出车主卡列表</h2>
+        <div class="ui-info-layout">
+            <table id="Table_ownerCard_cardPwd">
+            </table>
+        </div>  
+    </div>       
+</div> 
+<script type="text/javascript">
+$(document).ready(function() {
+    var wraper = $('#Wraper_ownerCard_cardPwd');
+    var parentId = carsmart_config.shopId;
+    var page_column_model = new Array();
+    var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    jRad.validators['activateCode']=[{msg:"请输入售出车主卡的16位密码",type:'min',value:16},{msg:"请输入售出车主卡的16位密码",type:'max',value:16}];
+    jRad.params['transferStatus']={data:[{id:'0',name:'否'},{id:'1',name:'否'},{id:'2',name:'是'}]};
+    $('#Form_ownerCard_cardPwd').form({
+        layout: 'grid', 
+        type:'get',
+        validators: jRad.validators,
+        autobinding: false 
+    });
+    $('#Form_ownerCard_password').form({
+        title:'密码验证',
+        fluid:true,
+        grid:8,
+        submit: function(){return false}, 
+        autobinding: true
+    });
+    $('div[data-name="activateCode"] input',wraper).focus(function(){
+        $('div.ui-field-error',wraper).hide();
+        $(this).parent().css({'border-color':'#f59942','border-shadow':'0 0 0 2px rgba(245, 153, 66, 0.3)'})
+    });
+    $('#submit2',wraper).click(function(){
+        var flag=$('#Form_ownerCard_cardPwd',wraper).form('validateAll');
+        if(!flag){
+            return false
+        }
+        var json=$('#Form_ownerCard_cardPwd',wraper).form('getValue');
+        json.shopAccountId=carsmart_config.shopId;
+        $.jRadPost({
+            url:'/vip-ws/ws/0.1/cardTopic/checkActivateCode',
+            data:json,
+            success:function(data){
+                $('#Form_ownerCard_password').form({item:{}}).form('open');
+                $('#Form_ownerCard_password h1',wraper).html(data.remark);
+                if(data.returnCode==200){
+                    $('#Form_ownerCard_password h1',wraper).html('验证成功！');
+                }
+                $('#Form_ownerCard_password button.submit',wraper).click(function(){
+                    $('#Form_ownerCard_password').form('close')
+                });
+                $('#Table_ownerCard_cardPwd').flexReload()
+            }
+        })
+    });
+    $('#cancel2',wraper).click(function(){
+        $('#Form_ownerCard_cardPwd div[data-name="activateCode"]').input('val','')
+    });
+    page_column_model.push({display: '车主卡名称', name : 'cardName'});
+    page_column_model.push({display: '售价', name : 'salePrice'}); 
+    page_column_model.push({display: '提成金额', name : 'saleCommission'}); 
+    page_column_model.push({display: '密码', name : 'pwd'});
+    page_column_model.push({display: '是否已转账', name : 'transferStatus',datasource:jRad.params['transferStatus'].data}); 
+    page_column_model.push({display: '激活时间', name : 'userActiveTime'}); 
+    page_column_model.push({display: '验证时间', name : 'busiVerifyTime'});
+
+    $('#Table_ownerCard_cardPwd',wraper).flexigrid({
+        reload: true,
+        grid:40,
+        pagination: {diaplay_pages: 6,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model,
+        method:'get',
+        showSearch:false,
+        showCheckbox:false,
+        url:'/vip-ws/ws/0.1/cardTopic/saleList?shopAccountId='+carsmart_config.shopId,      
+        overflow:true 
+    }); 
+    $('.mDiv',wraper).hide();
+    
+    $('.hDiv',wraper).css('overflow','hidden');
+    $('.bDiv',wraper).css('overflow-x','scroll');
+});
+</script>

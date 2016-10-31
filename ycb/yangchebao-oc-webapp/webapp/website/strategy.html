@@ -1,0 +1,468 @@
+<style type="text/css">
+	.ztree li span.button.edit {margin-right:2px; background-image:url('css/images/edit.png'); background-position: center; vertical-align:top; *vertical-align:middle;width:18px;}
+	.ztree li span.button.remove {margin-right:2px; background-image:url('css/images/remove.png'); background-position: center; vertical-align:top; *vertical-align:middle;width:18px;}
+	.ztree li span.button.add {margin-right:2px; background-image:url('css/images/add.png'); background-position: center; vertical-align:top; *vertical-align:middle;width:18px;}
+	.ztree li span.button.up {margin-right:2px; background-image:url('css/images/up.png'); background-position: center; vertical-align:top; *vertical-align:middle;width:18px;}
+</style>
+<div class="urlContentWraper" id="cms-strategy-wrapper">
+	<div class="ui-info-layout">
+		<h2 class="ui-tit"><strong>商家攻略管理</strong><bottom class="all-work-info numb196">页面说明</bottom></h2>
+		<div class="pic-grid">
+			<div class="jrad-tree cms-tree"></div>
+		</div>
+	</div>
+	<div class="cms-form" style="display:none;">
+		<div class="grid-layout-main jrad-form">
+			<input name="id" type="hidden">
+			<input name="level" type="hidden">
+			<div class="row">
+				<label class="span3 grid-layout-label"><span class="ui-form-required">*</span>名称：</label>
+				<div class="span6 grid-layout-content">
+					<div name="name" class="jrad-input-container"></div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label">特殊显示：</label>
+				<div class="span5 grid-layout-content">
+					<div name="isSpecial" class="jrad-select-container"></div>
+					<p class="span12 ui-note" style="margin-top: 5px;">选择“是”，创建的三级菜单显示在“快速导航”，四级菜单显示在“常见问题”。</p>
+				</div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label">状态：</label>
+				<div class="span5 grid-layout-content">
+					<div name="state" class="jrad-select-container"></div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label">详情：</label>
+				<div class="span6 grid-layout-content" style="margin-left:0;">
+					<div name="detail" class="jrad-mediaarea-container"></div>
+				</div>
+			</div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container">
+			<span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+    <div id="Form_explain_eg196" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>官网商家攻略的管理功能。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var config = {
+			url: {
+				base: "/websitemanager-ws/ws/0.1",
+				cms: "/strategyCms"
+			},
+			model: {
+				displayName: "商家攻略"
+			}
+		};
+		
+		var URL = {
+				page: getUrl("/page"),
+				add: getUrl("/add"),
+				edit: getUrl("/edit"),
+				detail: getUrl("/detail"),
+				remove: getUrl("/remove"),
+				list: getUrl("/list"),
+				move: {
+					up: getUrl("/move/up")
+				},
+				upload: {
+					pic1: config.url.base + "/fileCms/upload/pic1",
+					pic2: config.url.base + "/fileCms/upload/pic2"
+				}
+		};
+		
+		var wrapper = $("#cms-strategy-wrapper");
+		var submitForm = $(".cms-form", wrapper);
+		
+		var submitValidators = {
+			name: 			[{msg : "名称不能为空", type : "min", value : "1"}],
+			isSpecial: 		[{msg : "特殊显示不能为空", type : "min", value : "1"}],
+			state: 			[{msg : "状态不能为空", type : "min", value : "1"}]
+		};
+		
+		var submitParams = {
+			name: {
+				grid: 4
+			},
+			isSpecial: {
+				data : [
+					{id : "0", name : "否"},
+					{id : "1", name : "是"} 
+				]
+			},
+			state: {
+				data : [
+					{id : "1", name : "有效"}, 
+					{id : "0", name : "无效"}
+				],
+				onchange: function() {
+					var level = $("input[name='level']", wrapper).val();
+					var detailContainer = $("div[name='detail']", wrapper).parent("div").parent("div");
+					if (level == "3") {
+						detailContainer.show();
+					}
+					else {
+						detailContainer.hide();
+					}
+				}
+			},
+			detail: getEditorField()
+		};
+			
+		submitForm.form({
+			grid : 22,
+			fields_params : submitParams
+		});
+		
+		function getUrl(method) {
+			return config.url.base + config.url.cms + method;
+		}
+		
+		function getEditorField() {
+			return {
+	 			theme:"Full",
+	 			resizing: false, 
+	 			grid: 18, 
+	 			height: 200,
+	 			uploadImg: { //上传图片参数
+	 				url: URL.upload.pic2,
+	 				filename: 'file', 
+	 				delFunc: function(item) { 
+	 					item.list.remove(); 
+	 				}, 
+	 				validator : [{
+	 					msg : "只能上传jpg文件",
+	 					type : "regex",
+	 					value : /^.*\.(jpg|JPG)$/
+	 				}], 
+	 				success: function(data){ 
+	 					   if(data[0]&&data[0].code=="400"){
+	 						 $.jRadMessage({level:'error',message:data[0].message});
+	 					   } 
+	 					},
+	 				note: '仅支持 JPG图片文件。',
+	 				show:true,
+	 				showLarge:true, 
+	 				prev:'thumbnailPicUrl', 
+	 				params: {type:""}, 
+	 				single: true 
+	 			}
+			};
+		}
+		
+		// ************************** tree ************************
+		
+		var childrenTree = $.jRadGet({
+			url: URL.list + "?parentId=0"
+		});
+		
+		$.each(childrenTree, function() {
+			this.isParent = true;
+			this.open = true;
+		});
+		
+		var options = {
+			setting : {
+				async : {
+					enable : true,
+					url : URL.list,
+					type : 'get',
+					autoParam : ["id=parentId"],
+					dataFilter : ajaxDataFilter
+				},
+				view : {
+					expandSpeed : "",
+					addHoverDom : addHoverDom,
+					removeHoverDom : removeHoverDom,
+					selectedMulti : false,
+					showIcon : false
+				},
+				edit : {
+					enable : true,
+					renameTitle : "修改",
+					removeTitle : "删除",
+					showRemoveBtn : setRemoveBtn,
+					showRenameBtn : setRenameBtn
+				},
+				data : {
+					simpleData : {
+						enable : true
+					}
+				},
+				callback : {
+					beforeRemove : beforeRemove,
+					beforeEditName : editNode
+				}
+			},
+			data : [{
+				"pId" : -1,
+				"name" : "商家攻略管理",
+				"id" : 0,
+				children : childrenTree,
+				open : true
+			}]
+		};
+		
+		var tree = $(".cms-tree", wrapper);
+		
+		tree.tree(options);
+		var zTreeObj = tree.tree('getTreeObj');
+		
+		function ajaxDataFilter(treeId, parentNode, responseData) {
+			if (responseData) {
+				for (var i = 0; i < responseData.length; i++) {
+					responseData[i].isParent = true;
+					responseData[i].open = true;
+				}
+			}
+			return responseData;
+		}
+
+		function setRemoveBtn(treeId, treeNode) {
+			if (treeNode.level == 0) {
+				return false;
+			}
+			return true;
+		}
+
+		function setRenameBtn(treeId, treeNode) {
+			if (treeNode.level == 0) {
+				return false;
+			}
+			return true;
+		}
+		
+		function addHoverDom(treeId, treeNode) {
+			
+			var level = treeNode.level;
+			var nodeSpan = $("#" + treeNode.tId + "_span");
+			
+			if (level != 0 && $("#" + treeNode.tId + "_up").length <= 0) {
+				
+				var upButtonHtml = "<span class='button up' id='" + treeNode.tId + "_up' title='上移' onfocus='this.blur();'></span>";
+				nodeSpan.after(upButtonHtml);
+				
+				var upButton = $("#" + treeNode.tId + "_up");
+				if (upButton) {
+					upButton.bind("click", function() {
+						var flag = upNode(treeNode);
+						return flag;
+					});
+				}
+			}
+			
+			if (level != 3 && $("#" + treeNode.tId + "_add").length <= 0) {
+				
+				var addButtonHtml = "<span class='button add' id='" + treeNode.tId + "_add' title='增加' onfocus='this.blur();'></span>";
+				nodeSpan.after(addButtonHtml);
+				
+				var addButton = $("#" + treeNode.tId + "_add");
+				if (addButton) {
+					addButton.bind("click", function() {
+						var flag = addNode(treeNode);
+						return flag;
+					});
+				}
+			}
+		}
+
+		function removeHoverDom(treeId, treeNode) {
+			$("#" + treeNode.tId + "_add").unbind().remove();
+			$("#" + treeNode.tId + "_up").unbind().remove();
+		}
+
+		function addNode(treeNode) {
+			var name = "";
+			submitForm.form({
+				title : '创建',
+				url : URL.add,
+				item : {
+					level: treeNode.level + 1					
+				},
+				before_submit : function(json) {
+					json.parentId = treeNode.id;
+					name = json.name;
+					return json;
+				},
+				success_callback : function(data) {
+					submitForm.form('close');
+					$.jRadMessage({
+						level : 'success',
+						message : "添加成功！"
+					});
+					zTreeObj.addNodes(treeNode, {
+						id : data.id,
+						pId : treeNode.id,
+						isParent : false,
+						name : name
+					});
+				}
+			}).form('open');
+			
+			return false;
+		}
+		
+		function upNode(treeNode) {
+		
+			var id = treeNode.id;
+			
+			$.jRadPost({
+					
+				url : URL.move.up + "?id=" + id,
+				data : {},
+				success : function() {
+					
+					var parentNode = treeNode.getParentNode();
+					zTreeObj.reAsyncChildNodes(parentNode, "refresh");
+					
+					$.jRadMessage({
+						level : 'success',
+						message : "添加成功！"
+					});
+				},
+				error : onSubmitError
+			});
+			
+			return false;
+		}
+
+
+		function editNode(treeId, treeNode) {
+			var name = "";
+			var item = $.jRadGet({
+				url : URL.detail + "?id=" + treeNode.id
+			});
+			item.level = treeNode.level;
+			
+			submitForm.form({
+				title : '修改',
+				url : URL.edit,
+				item : item,
+				before_submit : function(json) {
+					name = json.name;
+					json.id = treeNode.id;
+					return json;
+				},
+				success_callback : function() {
+					$.jRadMessage({
+						level : 'success',
+						message : "更新成功！"
+					});
+					treeNode.name = name;
+					zTreeObj.updateNode(treeNode);
+				}
+			}).form('open');
+			
+			return true;
+		}
+
+		function beforeRemove(treeId, treeNode) {
+			var flag = false;
+			
+			$.jRadConfirm('确认删除吗？', 1, function() {
+				$.jRadAjax({
+					url : URL.remove + "?idString=" + treeNode.id,
+					type : 'post',
+					success : function() {
+						flag = true;
+						$.jRadMessage({
+							level : 'success',
+							message : "删除成功",
+							selector : wrapper
+						});
+						zTreeObj.removeNode(treeNode);
+					},
+					error : function(xhr) {
+						var errormsg = eval("(" + xhr.responseText + ")");
+						$.jRadMessage({
+							level : 'error',
+							message : errormsg[0].message,
+							selector : wrapper
+						});
+						console.log(errormsg[0].message);
+						flag = false;
+					}
+				});
+			}, function() {
+				flag = false;
+			});
+			return flag;
+		}
+		
+		function onSubmitError(xhr) {
+			var msg = getErrorMessage(xhr);
+			if (!!msg) {
+				$.jRadMessage({
+					level : "error",
+					message : msg
+				});
+			}
+		}
+		
+		function getErrorMessage(xhr) {
+			var msg = eval("(" + xhr.responseText + ")");
+			return !!msg ? msg[0].message : null;
+		}
+		$(".numb196").click(function(){
+            $('.overcurtainDiv').hide();
+            var menuId = $(".tabs-selected").attr("menuId")
+            var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+            $("#Form_explain_eg196").form({}).form('close');
+            $("#Form_explain_eg196").form({
+                title:'页面说明',
+                item:data,
+                autobinding: true, 
+				submit:function(){
+                	var postData = {};
+                    postData.operator = carsmart_config.operatorName;
+                    postData.menuName = $(".tabs-selected").attr("menuName");
+                    postData.menuId = $(".tabs-selected").attr("menuId");
+                    postData.remark = $("#Form_explain_eg196 div[name='remark']").textarea("val")
+					$.jRadPost({
+					    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+					    data:postData,
+					    success:function(){
+							$("#Form_explain_eg196").form('close')
+          					$('.overcurtainDiv').hide();
+					   	}
+					});
+				}, 
+				cancel:function(){
+					$("#Form_explain_eg196").form('close')
+          			$('.overcurtainDiv').hide();
+				}
+            }).form('open')
+            $("#Form_explain_eg196 .textarea-content").removeClass("span4").addClass("span12")
+            $('.overcurtainDiv').hide();
+            $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+        })
+	});
+
+</script>

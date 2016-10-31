@@ -1,0 +1,1160 @@
+<style>
+	*:focus {
+             outline: none;
+        }
+	body{background: #dfe4ec;}
+	#Wraper_promCode h2{
+		/*background-color:#35beeb;*/
+		background-color:#fff;
+	}
+	a{
+		text-decoration:none;
+	}
+	a:hover{
+		text-decoration:none;
+	}
+	div.left{
+		float:left;
+		width:72%;
+		margin-top:20px;
+	}
+	div.serviceCode,div.office_mess,div.app_download,div.info_count,div.connect{
+		/*border:1px solid #ccc;*/
+	}
+	div.wraper{
+		/*padding:10px 2%;
+		background: #fff;
+		padding-bottom: 20px;*/
+	}
+	/*服务码*/
+	.serviceCode input{ 
+	    font-size: 24px;
+	    height:34px;
+	    line-height: 34px; 
+	    text-align:center;
+	}
+	.serv_one{
+		background: #9eb2ce;
+		padding:40px 0;
+		/*border-bottom:1px solid #ccc;*/
+	}
+	button{
+		margin-left:23px;
+	}
+	.serv_two ul{
+		background: #ccc;
+		margin-bottom:30px;
+	}
+	.serv_two ul li{
+		background: #fff;
+		padding:28px 13px 20px 26px;
+		margin-bottom:1px;
+	}
+	p.serv_date{
+		color:#35beeb;
+	}
+
+	/*官方消息*/
+	div.office_mess,div.info_count,div.connect{
+		margin-top:10px;
+	}
+    div.office_mess .ui-checkbox{
+		margin-left:12px;
+    }
+    #itemContainer{
+    	padding:10px 25px 10px 30px;
+    }
+    ul#itemContainer h3{
+    	width:300px;
+    	height:30px;
+    	overflow: hidden;
+        font-size:12px;
+        line-height:30px;
+        color:#001d3d;
+        margin:0;
+        padding-left:20px;
+    }
+    ul#itemContainer li{
+        /*padding-left:20px;*/
+        /*padding-right:36px;*/
+        border-bottom:1px dashed #ddd;
+        position:relative;
+        padding:5px 0;
+    }
+    ul#itemContainer li p.date{
+        font-size:12px;
+        color:#888;
+        padding-left:20px;
+        margin-bottom:5px;
+    }
+    ul#itemContainer li p.content{
+        font-size:14px;
+        color:#000;
+        margin:10px 0 10px 0;
+    }
+    p.ishow{
+        /*text-align:right;*/
+        position: absolute;
+        left:330px;
+        top:25px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .showicon{
+        background:url(img/icon.png) no-repeat 0 16px;
+    }
+    .add_p{
+        text-align:center;
+        font-size:32px;
+    }
+    .uiPage{
+        display:none;
+    }
+    /*下载*/
+    .right{
+		float:left;
+		width:24%;
+		margin-left:1%;
+		margin-top:20px;
+    }
+    .app_download .wraper{
+    	text-align:center;
+    }
+    .app_download img{
+    	width:57%;
+    	height:auto;
+    	margin-bottom:10px;
+    }
+    .app_download a{
+    	cursor:pointer;
+    }
+    @media screen and (min-width:1400px){
+	    .app_download a.ios{
+			display:inline-block;
+			width:33%;
+			height:46px;
+			margin-right:4%;
+			font-size:1.2em;
+			line-height:46px;
+			text-align:center;
+			background-color:#188fcd;
+			color:#fff;
+	    }
+	    .app_download a.android{
+			display:inline-block;
+			width:33%;
+			height:46px;
+			font-size:1.2em;
+			line-height:46px;
+			text-align:center;
+			background-color:#1dd172;
+			color:#fff;
+	    }
+
+    }
+    @media screen and (max-width:1399px){
+		.app_download a.ios{
+		display:inline-block;
+		width:43%;
+		height:40px;
+		margin-right:4%;
+		font-size:1em;
+		line-height:40px;
+		text-align:center;
+		background-color:#188fcd;
+		color:#fff;
+    }
+    .app_download a.android{
+		display:inline-block;
+		width:43%;
+		height:40px;
+		font-size:1em;
+		line-height:40px;
+		text-align:center;
+		background-color:#1dd172;
+		color:#fff;
+    }
+    }
+    /*信息统计*/
+	.info_count li.li_border{
+		border-bottom:1px solid #ccc;
+	}
+	.info_count li h3{
+		font-size:14px;
+		font-weight:bold;
+		/*padding-left:4%;*/
+	}
+	.info_count li p{
+		/*width:100%;*/
+		/*text-align:center;*/
+		overflow:hidden;
+	}
+	.info_count li span.one{
+		display:block;
+		width:50%;
+		float:left;
+		text-align:right;
+	}
+	.info_count li span.two{
+		display:block;
+		width:32%;
+		float:left;
+		text-align:right;
+	}
+	/*联系养车宝*/
+	.connect span{
+		margin-left:12px;
+	}
+ .serviceCode select{  font-size: 24px;height: 24px;line-height: 24px;}
+ .notice h2{width:96%;}
+ .notice span{color:#fc2603;text-decoration: underline;font-weight: 500;}
+
+ /* 新首页style */
+ .top{/*width:100%;*/padding:45px 40px 45px 30px;}
+ .media-heading{margin:10px 0 0 260px;font-size:20px;font-weight: bold;}
+ .top-ul li{float:left;padding:0 56px;border-right:1px dashed #cbd5dd;}
+ .top-ul li p{margin-bottom:5px;}
+ .top-ul li h3{background:url(img/thericon.png) 0 0 no-repeat;height: 25px;line-height:25px;padding:5px 30px;font-weight:bold;margin-top:15px;}
+ .top-ul li .li_h3_1{background-position: 0 0;}
+ .top-ul li .li_h3_2{background-position: 0 -35px;}
+ .top-ul li .li_h3_3{background-position: 0 -70px;}
+ .ios-and{border-top:1px solid #ccc;overflow: hidden;}
+ .ios-and a{background: url(img/ios-and.png) center 0 no-repeat;}
+ .app_download a.ios{background-position: 0 5px;background-color:#fff;border-right:1px solid #ccc;float:left;width:50%;}
+ .app_download a.android{background-position: 0 -35px;background-color:#fff;float:left;}
+ .top-ul img{margin-bottom:5px;}
+
+.navbar .brand {
+    background: rgba(0, 0, 0, 0) url("css/images/base_header_logo_y.png") no-repeat scroll 0 0;
+    min-height: 38px;
+    width: 269px;
+    margin:22px 0 0 20px;
+}
+.navbar .navbar-inner {
+    min-height: 80px;
+    background: #3586f5;
+}
+#page-content {
+    background: #dfe4ec none repeat scroll 0 0;
+    margin: 0;
+    /*padding: 10px 20px 24px;*/
+    padding: 10px 0px 24px 20px;
+}
+/* top 中间内容 */
+.y-people{margin-left:10px;background:url("css/images/people.png") 0 0 no-repeat;width:50px;height:50px;position: relative;}
+.pull-left p{font-size:14px;margin-top:2px;}
+.y-people .phone{position: absolute;width:17px;height:29px;left:40px;top:20px;background: url("css/images/ico-phone.png") 0 0 no-repeat;cursor: pointer;}
+.whera{background:#3586f5;color:#fff;padding:2px 4px;display:none;position: absolute;left:-8px;top:54px;width:86px;}
+.y-people .pc{position: absolute;width:32px;height:21px;left:34px;top:24px;background: url("css/images/ico-pc.png") 0 0 no-repeat;cursor:pointer;}
+/* 小三角 */
+.y-tip{padding:2px 5px;border:1px solid #F00;border-radius:4px;background:#e74c3c;position:relative;margin-left:15px;}
+.y-tip i{font-style:normal;color:#fff;font-size:12px;}
+.y-tip em{font-style:normal;font-size:26px;position:absolute;left:-8px;top:0px;color:#e74c3c;}
+.media .body-content p{margin:7px 0 10px 0;}
+.body-content .grie{color:#8e95a3;}
+.media .body-content{margin-left:35px;}
+.media > .pull-right {text-align: center;padding:0 40px;}
+.media .right-border{border-right:1px dashed #cbd5dd;margin-left:0px;}
+.pull-right p{margin:5px 0;}
+.pull-right strong{font-size:14px;}
+.pull-right span{color:#8e95a3;}
+.y-page{background: #fff;margin-top:-29px;padding:30px 0;}
+.important-notice{background: #fff5af;padding:12px 30px 2px 30px;}
+.important-notice h3{font-size:18px;color:#000;}
+.important-notice a{font-size:12px;color:#000;}
+
+/* 是否显示按钮 */
+.mode-toggle{
+  line-height: 27px;
+  margin: 10px auto;
+  float: right;
+  padding-right:15px;
+}
+input[switch] {
+    display: none;
+}
+input[switch] + label {
+    font-size: 1em;
+    line-height: 1;
+    width: 3.5rem;
+    height: 26px;
+    background-color: #ddd;
+    background-image: none;
+    border-radius: 26px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2) inset;
+    font-family: inherit;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+}
+input[switch] + label:before {
+    text-transform: uppercase;
+    color: #b7b7b7;
+    content: attr(data-off-label);
+    display: block;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 0.7rem;
+    line-height: 1.74rem;
+    position: absolute;
+    right: 0.21667rem;
+    top: 0;
+    text-align: center;
+    min-width: 1.66667rem;
+    overflow: hidden;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+}
+input[switch] + label:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    background-color: #f7f7f7;
+    box-shadow: none;
+    border-radius: 16px;
+    height: 16px;
+    width: 16px;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+}
+input[switch]:checked + label {
+    background-color: lightgreen;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.2));
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3) inset;
+}
+input[switch]:checked + label:before {
+    color: #fff;
+    content: attr(data-on-label);
+    right: auto;
+    left: 0.21667rem;
+}
+input[switch]:checked + label:after {
+    left: 2.16667rem;
+    background-color: #f7f7f7;
+    box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.3);
+}
+#demo4{
+	padding:20px 0;
+}
+.wrap-input{
+	border:1px solid #8fa2bd;background: #e1e6ed;padding:15px 18px;
+}
+.inline-box{
+	border:1px solid #cee0f9;
+	overflow: hidden;
+	background: #fff;
+	padding:8px 2px;
+}
+.wrap-input input{
+	float:left;
+	font-size:30px;
+    text-align:center;
+    border:none;
+    border-left:1px solid #cee0f9;
+    font-weight: bold;
+}
+.wrap-input .input1{
+    border-left:none;
+    margin-left:10px;
+}
+.inline-box input:focus{ 
+    outline:none; 
+} 
+#submit{
+	margin-left:15px;height:90px;width:200px;font-size:25px;font-weight:bold;
+}
+.temp{color: #ff0000;}
+.ybs-alert{width:520px;background: #fff;position:fixed;z-index: 99999;left:50%;top:50%;margin-top:-175px;margin-left:-260px;}
+.alert-head{height:60px;padding:0 30px;overflow: hidden;border-bottom:1px solid #dee2e8;line-height:60px;}
+.alert-head span{float:left;font-size:16px;}
+.alert-head a{float:right;width:21px;height:21px;background:url(img/y-colse.png) 0 0 no-repeat;margin-top:20px;}
+.ybs-alert .y-h2{color:#1d77f2;font-size:18px;text-align: center;padding:20px 33px 0 33px;}
+.y-time{color:#abb2bd;text-align: center;padding:5px 33px;}
+.y-desc{padding:0 33px;font-size:14px;color:#1e2c47;line-height:20px;margin-top:10px;}
+.y-btn{width:230px;height:50px;line-height: 50px;text-align:center;margin:30px 0 30px 145px;background: #7e8899;border-radius: 5px;color:#fff;font-size:20px;cursor: pointer;display:block;padding:0 100px;border:none;}
+.drag{position:fixed;width:100%;height:100%;left:0;top:0;filter:;background: #000;z-index:99990;filter:alpha(opacity=70);-moz-opacity:0.7; opacity: 0.7;}
+</style>
+<script src="js/input.js"></script>
+<div class="urlContentWraper" id="Wraper_promCode">
+    <div class="ui-info-layout">
+    	<!-- <a href="http://mall.yangchebao.com.cn/" target="_blank" class="notice"><h2>重要通知：保真正品行货机油开卖，买1箱再送1箱-25℃玻璃水，搞10箱吧！10月10日发货，咨询电话：01058377979。<span>点击进入</span></h2></a> -->
+    	<div class="top" style="background:#fff">
+    		<div class="media">
+			    <div class="pull-left">
+			    	<a href="#">
+			      		<img class="media-object" src="img/shoplog.jpg" style="width:200px;height:160px;">
+			    	</a>
+			    </div>
+
+			    <div class="pull-body">
+			    	<h4 class="media-heading">北京车匠爱车会所</h4>
+			    	<div class="wraper">
+		    			<ul class="top-ul">
+		    				<li class="li_border">
+		    					<h3 class="li_h3_1">订单统计</h3>
+		    					<p><span class="one">待服务订单：</span><span class="two"><a href="javascript:" id="waitServiceOrderCnt"></a>单</span></p>
+		    					<p><span class="one">已完成订单：</span><span class="two"><a href="javascript:" id="finshedServiceOrderCnt"></a>单</span></p>
+		    					<p><span class="one">已退款订单：</span><span class="two"><a href="javascript:" id="refundServiceOrderCnt"></a>单</span></p>
+		    					<p><span class="one">过期订单：</span><span class="two"><a href="javascript:" id="overdueServiceOrderCnt"></a>单</span></p>
+		    				</li>
+		    				<li class="li_border">
+		    					<h3 class="li_h3_2">服务统计</h3>
+		    					<p><span class="one">在线服务：</span><span class="two"><a href="javascript:" id="baseServiceCnt"></a>个</span></p>
+		    					<p><span class="one">在线救援：</span><span class="two"><a href="javascript:" id="rescueCnt"></a>个</span></p>
+		    					<p><span class="one">在线套餐：</span><span class="two"><a href="javascript:" id="dinnerCnt"></a>个</span></p>
+		    					<p><span class="one">在线代金券：</span><span class="two"><a href="javascript:" id="voucherTopicCnt"></a>个</span></p>
+		    				</li>
+		    				<li class="li_border" style="border:none;">
+		    					<h3 class="li_h3_3">客户评论</h3>
+		    					<p><span class="one">最新评论：</span><span class="two"><a href="javascript:" id="noReadServiceRemarkCnt"></a>条</span></p>
+		    					<p><span class="one">历史评论：</span><span class="two"><a href="javascript:" id="hasReadServiceRemarkCnt"></a>条</span></p>
+		    				</li>
+		    			</ul>
+	    			</div>
+			    </div>
+
+			  	<div class="pull-right" style="margin:-50px 80px 25px 0;">
+		    		<div class="app_download">
+		    			<div class="wraper" style="border:1px solid #ccc;padding:10px 0 0 0;width:180px;margin-top: 20px;">
+			    			<img src="img/qrcode.png">
+			    			<p>商家客户端下载</p>
+			    			<div class="ios-and">
+			    				<a class="ios" onfocus="this.blur();" href="https://itunes.apple.com/us/app/yang-che-bao-shang-jia-ban/id937183920?mt=8" target='_blank'></a>
+			    				<a class="android" onfocus="this.blur();" href="http://app.yangchebao.com.cn/group1/M00/0A/FF/ChUBl1V1YV6AOVxJAFjfq7sBIzE714.apk"></a>
+			    			</div>
+		    			</div>
+		    		</div>
+				</div>
+			</div>
+    	</div>
+	    <div class="left">
+	        <div class="serviceCode">
+	        	<!-- <h2>服务码验证</h2> -->
+	        	<div class="wraper">
+		        	<div class="serv_one">
+		        		<div id="promoCode_v_form" class="grid-layout ui-form">
+							<div class="grid-layout-main"> 
+					        	<div class="row">
+						        	<div class="span6 offset1 wrap-input">
+						        		<div class="inline-box" id="wrapbox">
+								            <input type="text"  placeholder="—" class="span1 input1"/>
+								            <input type="text"  placeholder="—" class="span1"/>
+								            <input type="text"  placeholder="—" class="span1"/>
+								            <input type="text"  placeholder="—" class="span1"/>
+								            <input type="text"  placeholder="—" class="span1"/>
+								            <input type="text"  placeholder="—" class="span1"/>
+								            <input type="text"  placeholder="—" class="span1"/>
+								            <input type="text"  placeholder="—" class="span1"/>
+								        </div>
+					        		</div>
+					        		<button class="span2 offset1 btn btn-big btn-primary" id="submit">验证服务码</button>
+				        		</div>
+				        		<div class="offset1 temp" style="display:none;">请输入服务码</div>
+			        		</div>
+		        		</div>
+	        		</div>
+		        	<div class="serv_two">
+			        	<ul>
+			        		<!-- <li>
+					    		<div class="media">
+								    <div class="pull-left">
+									  	<div class="y-people">
+									  		<span class="phone"></span>
+									  		<span class="whera">商家客户端验证</span>
+									  	</div>
+									  	<p>13021170075</p>
+								    </div>
+								    <div class="pull-left body-content">
+								    	<p>
+								    		<span class="grie">2015-09-83 10:33:22</span>
+								    	    <span class="y-tip">
+										        <em>&#9670;</em>
+												<i>此订单赠送车挣盒子，请给客户安装盒子。</i>
+										    </span>
+								    	</p>
+								    	<p>美容-玻璃贴膜-全车玻璃-雷朋</p>
+								    </div>
+								    <div class="pull-right">
+								    	<p><strong>6546</strong></p>
+								    	<p><span>客服付费/次</span></p>
+							        </div>
+								    <div class="pull-right right-border">
+								    	<p><strong>623</strong></p>
+								    	<p><span>来店次数/次</span></p>
+							        </div>
+								</div>
+			        		</li>
+			        		<li>
+					    		<div class="media">
+								    <div class="pull-left">
+									  	<div class="y-people">
+									  		<span class="pc"></span>
+									  		<span class="whera">商家后台端验证</span>
+									  	</div>
+									  	<p>13021170075</p>
+								    </div>
+								    <div class="pull-left body-content">
+								    	<p>
+								    		<span class="grie">2015-09-83 10:33:22</span>
+								    	    <span class="y-tip">
+										        <em>&#9670;</em>
+												<i>此订单赠送车挣盒子，请给客户安装盒子。</i>
+										    </span>
+								    	</p>
+								    	<p>美容-玻璃贴膜-全车玻璃-雷朋</p>
+								    </div>
+								    <div class="pull-right">
+								    	<p><strong>6546</strong></p>
+								    	<p><span>客服付费/次</span></p>
+							        </div>
+								    <div class="pull-right right-border">
+								    	<p><strong>623</strong></p>
+								    	<p><span>来店次数/次</span></p>
+							        </div>
+								</div>
+			        		</li>
+			        		<li>
+					    		<div class="media">
+								    <div class="pull-left">
+									  	<div class="y-people">
+									  		<span class="phone"></span>
+									  		<span class="whera">商家客户端验证</span>
+									  	</div>
+									  	<p>13021170075</p>
+								    </div>
+								    <div class="pull-left body-content">
+								    	<p>
+								    		<span class="grie">2015-09-83 10:33:22</span>
+								    	    <span class="y-tip">
+										        <em>&#9670;</em>
+												<i>此订单赠送车挣盒子，请给客户安装盒子。</i>
+										    </span>
+								    	</p>
+								    	<p>美容-玻璃贴膜-全车玻璃-雷朋</p>
+								    </div>
+								    <div class="pull-right">
+								    	<p><strong>6546</strong></p>
+								    	<p><span>客服付费/次</span></p>
+							        </div>
+								    <div class="pull-right right-border">
+								    	<p><strong>623</strong></p>
+								    	<p><span>来店次数/次</span></p>
+							        </div>
+								</div>
+			        		</li>
+			        		<li>
+					    		<div class="media">
+								    <div class="pull-left">
+									  	<div class="y-people">
+									  		<span class="pc"></span>
+									  		<span class="whera">商家后台端验证</span>
+									  	</div>
+									  	<p>13021170075</p>
+								    </div>
+								    <div class="pull-left body-content">
+								    	<p>
+								    		<span class="grie">2015-09-83 10:33:22</span>
+								    	    <span class="y-tip">
+										        <em>&#9670;</em>
+												<i>此订单赠送车挣盒子，请给客户安装盒子。</i>
+										    </span>
+								    	</p>
+								    	<p>美容-玻璃贴膜-全车玻璃-雷朋</p>
+								    </div>
+								    <div class="pull-right">
+								    	<p><strong>6546</strong></p>
+								    	<p><span>客服付费/次</span></p>
+							        </div>
+								    <div class="pull-right right-border">
+								    	<p><strong>623</strong></p>
+								    	<p><span>来店次数/次</span></p>
+							        </div>
+								</div>
+			        		</li>
+			        		<li>
+					    		<div class="media">
+								    <div class="pull-left">
+									  	<div class="y-people">
+									  		<span class="phone"></span>
+									  		<span class="whera">商家客户端验证</span>
+									  	</div>
+									  	<p>13021170075</p>
+								    </div>
+								    <div class="pull-left body-content">
+								    	<p>
+								    		<span class="grie">2015-09-83 10:33:22</span>
+								    	    <span class="y-tip">
+										        <em>&#9670;</em>
+												<i>此订单赠送车挣盒子，请给客户安装盒子。</i>
+										    </span>
+								    	</p>
+								    	<p>美容-玻璃贴膜-全车玻璃-雷朋</p>
+								    </div>
+								    <div class="pull-right">
+								    	<p><strong>6546</strong></p>
+								    	<p><span>客服付费/次</span></p>
+							        </div>
+								    <div class="pull-right right-border">
+								    	<p><strong>623</strong></p>
+								    	<p><span>来店次数/次</span></p>
+							        </div>
+								</div>
+			        		</li>
+			        		<li>
+					    		<div class="media">
+								    <div class="pull-left">
+									  	<div class="y-people">
+									  		<span class="pc"></span>
+									  		<span class="whera">商家后台端验证</span>
+									  	</div>
+									  	<p>13021170075</p>
+								    </div>
+								    <div class="pull-left body-content">
+								    	<p>
+								    		<span class="grie">2015-09-83 10:33:22</span>
+								    	    <span class="y-tip">
+										        <em>&#9670;</em>
+												<i>此订单赠送车挣盒子，请给客户安装盒子。</i>
+										    </span>
+								    	</p>
+								    	<p>美容-玻璃贴膜-全车玻璃-雷朋</p>
+								    </div>
+								    <div class="pull-right">
+								    	<p><strong>6546</strong></p>
+								    	<p><span>客服付费/次</span></p>
+							        </div>
+								    <div class="pull-right right-border">
+								    	<p><strong>623</strong></p>
+								    	<p><span>来店次数/次</span></p>
+							        </div>
+								</div>
+			        		</li> -->
+			        	</ul>
+			        </div>
+			        <div class="y-page">
+			        	<div id="serv_page"></div>
+			        </div>
+			        
+		        </div>
+	        </div>
+	    </div>
+	    <div class="right">
+	    	<div class="important-notice">
+	    		<div class="wraper">
+	    			<div>
+	    				<h3><i class="icon-volume-up"></i>重要通知</h3>
+	    				<p>
+	    					<a href="http://mall.yangchebao.com.cn/" target="_blank" class="notice">
+	    						保真正品行货机油开卖，买1箱再送1箱-25℃玻璃水，搞10箱吧！10月10日发货，咨询电话：01058377979。<!-- <span>点击进入</span> -->
+	    					</a>
+	    				</p>
+	    			</div>
+	    		</div>
+	    	</div>
+	    	<div class="info_count">
+	    		<div style="background:#fff;overflow:hidden;">
+	    			<h2 style="margin-top:12px;float:left;">官方消息</h2>
+	    			<div class="mode-toggle">
+						<span style="line-height:26px;padding:0 10px 0 0;float:left;margin-top:10px;">只显示未读消息</span>
+						<input type="checkbox" id="switch" switch="none" style="float:left;" />
+						<label for="switch" style="margin-top:10px;" data-on-label="是" data-off-label="否" style="float:left;"></label>
+					</div>
+
+	    		</div>
+        		
+	        	<div class="wraper" style="background:#fff">
+					<p class="unReadCnt"></p>
+					<ul id="itemContainer"></ul>
+					<div class="demo">
+						<div id="demo4"></div>
+					</div>
+	        	</div>
+	    	</div>
+	    	<div class="connect">
+	    		<!-- <h2>联系养车宝</h2> -->
+	    		<div class="wraper" style="background:#fff;padding:20px 30px 0;">
+		    		<div>
+		    			<img src="css/images/qq.png">
+		    			<span>商家QQ群：321655178</span>
+		    			<!-- <p style="margin-left:31px;">联系电话：01058377979</p> -->
+	    			</div>
+		    		<div style="border-bottom:1px solid #ccc;padding-bottom:15px;">
+		    			<img src="css/images/phone.png">
+		    			<span>联系电话：01058377979</span>
+		    			<!-- <p style="margin-left:31px;"></p> -->
+	    			</div>
+		    		<div style="padding:10px 0"><img src="css/images/edit.png"><span><a href="javascript:" id="feedback">在线反馈</a></span></div>
+	    		</div>
+	    	</div>
+	    </div>
+    </div>
+</div>
+
+<div class="ybs-alert" style="display:none">
+	<div class="alert-head"><span>官方消息</span><a href="javascript:void(0)"></a></div>
+	<div class="y-h2"></div>
+	<p class="y-time"></p>
+	<div class="y-desc"></div>
+	<input type="submit" name="" class="y-btn" value="关闭">
+</div>
+<div class="drag" style="display:none"><div>
+
+<script type="text/javascript">
+	$(function(){
+		var wraper=$('Wraper_promCode');
+		var page_search_items = new Array();
+		$('h2').css('padding-left','15px');
+		$(".input1").focus().removeAttr("placeholder");;
+		//$('button').css('margin-left','30px');
+		// 服务验证码
+		
+		var fields={};
+		// var validators={};
+		// validators['serviceCode'] = [{
+		// 	msg: "请输入服务码",
+		// 	type: "min",
+		// 	value: "1"
+		// }];
+		$('#promoCode_v_form').form({
+			layout: 'grid', 
+			type:'get',
+			fields: fields, 
+			//validators: validators,
+			autobinding: false 
+		});
+		page_search_items.push({row:'2',type:'jrad-select',display:'是否结算',name:'transferStatus',params:{
+			data:[{id:'',name:'全部'},
+				{id:'0',name:'全部店铺'},
+				{id:'1',name:''}
+				]
+		}});
+
+		$('#submit').click(function(){
+			var flag=$('#promoCode_v_form').form('validateAll');
+			if(!flag){
+				return false;
+			}
+			//var json=$('#promoCode_v_form').form('getValue');
+			var txt = $('#wrapbox').find(':text'); 
+			var strValue = "";
+			txt.each(function(){
+				strValue += $(this).val();
+			});
+			if(strValue == ''){
+				$('.temp').show();
+				return false;
+			}else{
+				$('.temp').hide();
+			}
+			var json = {};
+			json.serviceCode = strValue
+			json.shopAccountId=carsmart_config.shopId;
+			$.jRadPost({
+				url:'/vip-ws/ws/0.1/serviceCode/checkCode',
+				data:json,
+				success:function(data){
+					var str="";
+					//var checkCode=$('#promoCode_v_form div[name="serviceCode"]').input('val');
+					if(data.remark.indexOf('：系统中无此服务码，请检查后输入！')>0||data.remark.indexOf('：已经使用过，请重新确认')>0||data.remark.indexOf('不是在本店或者旗下分店下单生成')>0){
+							$.jRadAlert(data.remark,'error')
+					}
+					else if(data.isSendCheZhengBox){
+						$.jRadAlert('<p>服务码验证成功，请给客户提供相应服务！</p>'+'<p style="color:#ff0000;" >此订单赠送了车挣盒子，请给客户安装盒子！</p>','success');	
+						// str+='<li>'
+						// 	+'<p class="serv_date">'+data.currentTime+'&nbsp;&nbsp;&nbsp;&nbsp;'+商家后台+'</p>'
+						// 	+'<p>'+data.remark+'</p>'
+						// 	+'</li>';
+							str +='<li>'	
+					    		+'<div class="media">'
+								    +'<div class="pull-left">'
+									  	+'<div class="y-people">'
+									  		+'<span class="phone"></span>'
+									  		+'<span class="whera">商家客户端验证</span>'
+									  	+'</div>'
+									  	+'<p>'+data.currentTime+'</p>'
+								    +'</div>'
+								    +'<div class="pull-left body-content">'
+								    	+'<p>'
+								    		+'<span class="grie">2015-09-83 10:33:22</span>'
+								    	    +'<span class="y-tip">'
+										        +'<em>&#9670;</em>'
+												+'<i>此订单赠送车挣盒子，请给客户安装盒子。</i>'
+										    +'</span>'
+								    	+'</p>'
+								    	+'<p>美容-玻璃贴膜-全车玻璃-雷朋</p>'
+								    +'</div>'
+								    +'<div class="pull-right">'
+								    	+'<p><strong>6546</strong></p>'
+								    	+'<p><span>客服付费/次</span></p>'
+							        +'</div>'
+								    +'<div class="pull-right right-border">'
+								    	+'<p><strong>623</strong></p>'
+								    	+'<p><span>来店次数/次</span></p>'
+							        +'</div>'
+								+'</div>'
+			        		+'</li>';
+						$('.serv_two ul').prepend(str);
+					}
+					else{
+							$.jRadAlert('服务码验证成功，请给客户提供相应服务！','success');
+							str +='<li>'	
+					    		+'<div class="media">'
+								    +'<div class="pull-left">'
+									  	+'<div class="y-people">'
+									  		+'<span class="phone"></span>'
+									  		+'<span class="whera">商家客户端验证</span>'
+									  	+'</div>'
+									  	+'<p>13021170075</p>'
+								    +'</div>'
+								    +'<div class="pull-left body-content">'
+								    	+'<p>'
+								    		+'<span class="grie">2015-09-83 10:33:22</span>'
+								    	    +'<span class="y-tip">'
+										        +'<em>&#9670;</em>'
+												+'<i>此订单赠送车挣盒子，请给客户安装盒子。</i>'
+										    +'</span>'
+								    	+'</p>'
+								    	+'<p>美容-玻璃贴膜-全车玻璃-雷朋</p>'
+								    +'</div>'
+								    +'<div class="pull-right">'
+								    	+'<p><strong>6546</strong></p>'
+								    	+'<p><span>客服付费/次</span></p>'
+							        +'</div>'
+								    +'<div class="pull-right right-border">'
+								    	+'<p><strong>623</strong></p>'
+								    	+'<p><span>来店次数/次</span></p>'
+							        +'</div>'
+								+'</div>'
+			        		+'</li>';
+							$('.serv_two ul').prepend(str);
+						}
+				},
+				error:showPvError
+			})
+			//change_page(0);
+		});
+		$('#cancel').click(function(){
+			$('#promoCode_v_form div[name="serviceCode"]').input('val','')
+		})
+
+		change_page(0);
+		function change_page(page){
+			$.jRadGet({
+				url:'/vip-ws/ws/0.1/serviceCode/getVerifyHisList?shopAccountId='+carsmart_config.shopId+"&pageindex="+page+"&pagesize=6",
+				success:function(data){
+					var str='';
+					$.each(data.items,function(i){
+						var item=data.items[i];
+						str +='<li>'	
+				    		+'<div class="media">'
+							    +'<div class="pull-left">'
+								  	+'<div class="y-people">'
+								  		+'<span></span>'
+								  		+'<span class="whera">'+item.verifyTypeDesc+'</span>'
+								  	+'</div>'
+								  	+'<p>'+item.mobile+'</p>'
+							    +'</div>'
+							    +'<div class="pull-left body-content">'
+							    	+'<p>'
+							    		+'<span class="grie">'+item.createTime+'</span>'
+							    	    +'<span class="y-tip">'
+									        +'<em>&#9670;</em>'
+											+'<i></i>'
+									    +'</span>'
+							    	+'</p>'
+							    	+'<p>'+item.serviceName+'</p>'
+							    +'</div>'
+							    +'<div class="pull-right">'
+							    	+'<p><strong>'+item.userPay+'</strong></p>'
+							    	+'<p><span>客服付费/元</span></p>'
+						        +'</div>'
+							    +'<div class="pull-right right-border">'
+							    	+'<p><strong>'+item.serviceNum+'</strong></p>'
+							    	+'<p><span>来店次数/次</span></p>'
+						        +'</div>'
+							+'</div>'
+		        		+'</li>'
+					});
+
+					$('.serv_two ul').html(str);
+
+					$.each(data.items,function(i){
+						var item=data.items[i];
+						var discription ="";
+						if(item.isSendBox == 1)
+						{
+							discription = discription + '此订单赠送乐乘盒子，请给客户安装盒子。';
+						}
+						if(item.giftInfo == 1)
+						{
+							discription = discription + '&nbsp;&nbsp;&nbsp;此用户需要赠送玻璃水！';
+						}
+						$('.y-tip i').eq(i).html(discription)
+						if(item.isSendBox == undefined && item.giftInfo == undefined){
+						$('.y-tip').eq(i).hide()
+						}
+					})
+					
+					$('.whera').each(function(i){
+						if($(this).html() == '商家后台验证'){
+							$(this).prev().addClass('pc')
+						}else if($(this).html() == '商家客户端验证'){
+							$(this).prev().addClass('phone')
+						}
+					})
+					
+					$('.phone').hover(
+						function(){
+							$(this).next().show()
+						},
+						function(){
+							$(this).next().hide()
+						}
+					)	
+					$('.pc').hover(
+						function(){
+							$(this).next().show()
+						},
+						function(){
+							$(this).next().hide()
+						}
+					)
+
+					$("#serv_page").page({
+						display_pages:6,
+						pageindex:data.page,
+						pagesize:6,
+						totalCount:data.totalCount,
+						totalPages:data.totalPages,
+						callback:function(pageIndex){
+							change_page(pageIndex)
+						},
+						align:'center',
+						showText:'从第_start_到_end_项 共_total_项'
+					})
+				}
+			})
+		}
+		// 官方消息
+		change_page1(0);
+        function change_page1(page1){
+            $.jRadGet({
+                url:'/vip-ws/ws/0.1/busiMsgCenter/list?shopAccountId='+carsmart_config.shopId+"&pageindex="+page1+"&pagesize=10",
+                success:function(data){
+                    var str="";
+                    $.each(data.items,function(i){
+                        var item=data.items[i];
+                        str+="<li>"
+                            +"<h3 class='title'>"+item.title+"</h3>"
+                            +"<p class='date'>"+item.createdDate+"</p>"
+                            +"<p class='content'>"+item.remarks+"</p>"
+                            +"<p class='isRead'>"+item.isRead+"</p>" //是否阅读
+                            +"<p class='busiMsgRelId'>"+item.busiMsgRelId+"</p>" //信息索引
+                            +"<p class='ishow'><a href='javascript:'>&gt;</a></p>"
+                            +"</li>";
+                    });
+                    $("ul#itemContainer").html(str);
+                    var len=$('p.isRead').length;
+                    for(i=0;i<len;i++){
+                        var p_read=$('p.isRead').eq(i);
+                        if(p_read.html()=="0"){
+                            p_read.parent().addClass("showicon");
+                        }
+                    };
+                    $('p.content').hide();
+                    $('p.ishow').bind("click",function(){
+                        //if($(this).text()=="展开∨"){
+                            var postData={};
+                            postData.busiMsgRelId=parseInt($(this).siblings("p.busiMsgRelId").html());
+                            $.jRadPost({
+                                url:"/vip-ws/ws/0.1/busiMsgCenter/changeToRead",
+                                data:postData
+                            });
+                        	$(this).parent().removeClass("showicon");
+                            $('.ybs-alert').show();
+                            $('.drag').show();
+                        	var title = $(this).parent().children('.title').html();
+                        	var date = $(this).parent().children('.date').html();
+                        	var content = $(this).parent().children('.content').html();
+                        	$('.y-h2').html(title)
+                        	$('.y-time').html(date)
+                        	$('.y-desc').html(content)
+                            $('.alert-head a').click(function(){
+                            	$('.ybs-alert').hide();
+                            	$('.drag').hide();
+                            })
+                            $('.y-btn').click(function(){
+                            	$('.ybs-alert').hide();
+                            	$('.drag').hide();
+                            })
+                     });
+                    $("p.isRead").hide();
+                    $("p.busiMsgRelId").hide();
+                    $("#demo4").page({
+                        diaplay_pages: 10, //展示几页页码
+                        pageindex: data.page, //当前页index
+                        pagesize: 10, //每页展示size
+                        totalCount: data.totalCount, //总条数
+                        totalPages: data.totalPages, //总页数
+                        callback: function(pageIndex) { //换页回调函数
+                            change_page1(pageIndex);
+                        },
+                        align:'center' //分页组件显示位置 left right center 默认center
+                        //showText:'从第_start_到_end_项 共_total_项' // 可自定义分页信息，可设置 开始项：_start_,结束项：_end_,总数：_total_,当前页码：_pageindex_,每页显示数量：_pagesize_,总页数：_totalPages_
+                    });
+
+                    $('#demo4 label').hide();
+
+                }
+            });
+        };
+        function change_page2(page2){
+            $.jRadGet({
+                url:'/vip-ws/ws/0.1/busiMsgCenter/list?shopAccountId='+carsmart_config.shopId+"&isRead=0"+"&pageindex="+page2+"&pagesize=10",
+                success:function(data){
+                    var str="";
+                    var cnt1=$.jRadGet({url:'/vip-ws/ws/0.1/busiMsgCenter/getUnReadMsgCnt?shopAccountId='+carsmart_config.shopId});
+                    if(cnt1.unReadCnt==0){
+                        $(".demo").hide();
+                     };
+                    $.each(data.items,function(i){
+                        var item=data.items[i];
+                        str+="<li>"
+                            +"<h3 class='title'>"+item.title+"</h3>"
+                            +"<p class='date'>"+item.createdDate+"</p>"
+                            +"<p class='content'>"+item.remarks+"</p>"
+                            +"<p class='isRead'>"+item.isRead+"</p>"
+                            +"<p class='busiMsgRelId'>"+item.busiMsgRelId+"</p>"
+                            +"<p class='ishow'><a href='javascript:'>&gt;</a></p>"
+                            +"</li>";
+                    });
+                    $("ul#itemContainer").html(str);
+                    var len=$('p.isRead').length;
+                    for(i=0;i<len;i++){
+                        var p_read=$('p.isRead').eq(i);
+                        if(p_read.html()=="0"){
+                            p_read.parent().addClass("showicon");
+                        }
+                    };
+                    $('p.content').hide();
+                    $('p.ishow').bind("click",function(e){
+                            var postData={};
+                            postData.busiMsgRelId=parseInt($(this).siblings("p.busiMsgRelId").html());
+                            $.jRadPost({
+                                url:"/vip-ws/ws/0.1/busiMsgCenter/changeToRead",
+                                data:postData
+                            });
+                            $(this).parent().removeClass("showicon");
+                            
+                            $('.ybs-alert').show();
+                            $('.drag').show();
+                        	var title = $(this).parent().children('.title').html();
+                        	var date = $(this).parent().children('.date').html();
+                        	var content = $(this).parent().children('.content').html();
+                        	$('.y-h2').html(title)
+                        	$('.y-time').html(date)
+                        	$('.y-desc').html(content)
+                            $('.alert-head a').click(function(){
+                            	$('.ybs-alert').hide();
+                            	$('.drag').hide();
+                            })
+                            $('.y-btn').click(function(){
+                            	$('.ybs-alert').hide();
+                            	$('.drag').hide();
+                            })
+                    });
+                    $("p.isRead").hide();
+                    $("p.busiMsgRelId").hide();
+                    $("#demo4").page({
+                        diaplay_pages: 10, //展示几页页码
+                        pageindex: data.page, //当前页index
+                        pagesize: 10, //每页展示size
+                        totalCount: data.totalCount, //总条数
+                        totalPages: data.totalPages, //总页数
+                        callback: function(pageIndex) { //换页回调函数
+                            change_page2(pageIndex);
+                        },
+                        align:'center' //分页组件显示位置 left right center 默认center
+                        //showText:'从第_start_到_end_项 共_total_项' // 可自定义分页信息，可设置 开始项：_start_,结束项：_end_,总数：_total_,当前页码：_pageindex_,每页显示数量：_pagesize_,总页数：_totalPages_
+                    });
+                    $('#itemContainer label').hide();
+                }
+            });
+        };
+        
+		$("#switch").change(function(){
+			if($("#switch").is(':checked')){
+				change_page2(0);
+			}
+			else{
+				change_page1(0);
+			}
+		})
+
+
+
+        $.jRadGet({
+        	url:'/vip-ws/ws/0.1/busiStatic/indexStatic?shopAccountId='+carsmart_config.shopId,
+        	success:function(data){
+        		$('#waitServiceOrderCnt').html(data.waitServiceOrderCnt);
+        		$('#finshedServiceOrderCnt').html(data.finshedServiceOrderCnt);
+        		$('#refundServiceOrderCnt').html(data.refundServiceOrderCnt);
+        		$('#overdueServiceOrderCnt').html(data.overdueServiceOrderCnt);
+        		$('#baseServiceCnt').html(data.baseServiceCnt);
+        		$('#rescueCnt').html(data.rescueCnt);
+        		$('#dinnerCnt').html(data.dinnerCnt);
+        		$('#voucherTopicCnt').html(data.voucherTopicCnt);
+        		$('#noReadServiceRemarkCnt').html(data.noReadServiceRemarkCnt);
+         		$('#hasReadServiceRemarkCnt').html(data.hasReadServiceRemarkCnt);
+	        	$('#newUserWantCnt').html(data.newUserWantCnt);
+	        	$('#repliedUserWantCnt').html(data.repliedUserWantCnt);
+
+	        	$("#waitServiceOrderCnt,#finshedServiceOrderCnt,#refundServiceOrderCnt,#overdueServiceOrderCnt").click(function(){
+		        	$.jRadOpen({'url':'orderManage.html'})
+		        })
+		        $("#baseServiceCnt").click(function(){
+		        	$.jRadOpen({'url':'serviceManage/serviceInfoEdit.html'})
+		        })
+		        $("#rescueCnt").click(function(){
+		        	$.jRadOpen({'url':'serviceManage/rescueManage.html'})
+		        })
+		        $("#dinnerCnt").click(function(){
+		        	$.jRadOpen({'url':'serviceManage/dinnerManage.html'})
+		        })
+		        $("#voucherTopicCnt").click(function(){
+		        	$.jRadOpen({'url':'serviceManage/voucherManage.html'})
+		        })
+		        $("#noReadServiceRemarkCnt").click(function(){
+		        	$.jRadOpen({'url':'comments.html'})
+		        })
+		        $("#hasReadServiceRemarkCnt").click(function(){
+		        	$.jRadOpen({'url':'comments.html'})
+		        })
+		        $("#newUserWantCnt").click(function(){
+		        	$.jRadOpen({'url':'userWant.html'})
+		        })
+		        $("#repliedUserWantCnt").click(function(){
+		        	$.jRadOpen({'url':'userWant.html'})
+		        })
+        	}
+        })
+
+        $("#feedback").click(function(){
+        	$.jRadOpen({'url':'feedback.html'})
+        })
+	})
+
+	function showPvError(xhr){
+		  var errormsg = eval("(" + xhr.responseText + ")");
+		  var cDiv = $("#promoCode_v");
+		  $.jRadMessage({message: errormsg[0].message,level: 'error'})
+	}
+</script>
+

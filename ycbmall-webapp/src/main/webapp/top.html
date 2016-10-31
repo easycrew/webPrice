@@ -1,0 +1,274 @@
+<div class="Form-login" style="display:none;">
+	<div class="dialog-title"><h3></h3><img src="img/alertRe_close.png" class="dialog-close"></div>
+	<div class="form-dialog-con">
+		<form class="form-login-detail">
+			<p class="ui-note" style="font-family:'microsoft yahei';font-size:12px;color:#f00;text-align:left;position:relative;top:-16px;"></p>
+			<p class="account"><span>账号</span><input type="text" name="username" class="userAccount"></p>
+			<p class="pwd"><span>密码</span><input type="password" name="password" class="password"></p>
+		</form>
+		<!-- <p class="findPwd"><a href="">找回密码</a></p> -->
+		<p class="loginAndRegist"><span class="dialog-login">登录</span><a href="http://vip.yangchebao.com.cn/regist.jsp" target="_blank"><span class="dialog-regist">注册</span></a></p>
+		<p class="goToVip">本商城仅供养车宝合约商户使用，请<a href="http://vip.yangchebao.com.cn/regist.jsp" target="_blank">前往商户后台注册</a></p>
+	</div>
+</div>
+<div class="login-dialog-overlay" style="display:none;"></div>
+<div class="top_wraper">
+	<div class="top_con">
+		<ul>
+			<li class="collectWeb"><a href="javascript:">收藏本站</a>
+			<li class="weixin_qrcode">
+				<a href="javascript:">关注养车宝微信 <img src="img/down_img.png"></a>
+				<div class="qrcode">
+					<p class="qrcode_img"><img src="img/qrcode_img.png" alt="关注养车宝微信" width='106' height='103'></p>
+				</div>
+			</li>
+			<li class="myOrders"><a href="javascript:" class="myOrders_a">我的订单</a></li>
+			<li class="regist"><a href="http://vip.yangchebao.com.cn/regist.jsp" target="_blank">免费注册</a></li>
+			<li class="login"><a href="javascript:" id=""></a></li>
+			<li class="username"><p></p></li>
+		</ul>
+	</div>
+</div>
+<link rel="stylesheet" type="text/css" href="css/top.css"/>
+<script src="js/md5.js"></script>
+<script src="js/jquery.json-2.2.js"></script>
+<script type="text/javascript">
+	$(function(){
+		// qrcode
+		//letDivCenter('Form-login');
+		function getCookie(name){
+			var arr =document.cookie.match(new RegExp("(^|)"+name+"=([^;]*)(;|$)"));
+			if(arr != null) 
+			return unescape(arr[2]);
+			return null;
+		}
+		function delCookie(name){
+		    var exp = new Date();
+		    exp.setTime(exp.getTime() - 1);
+		    var cval=getCookie(name);
+		    if(cval!=null)
+	        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+		}
+		$('div.top_con li.weixin_qrcode a').unbind('click').bind('click',function(){
+			if($(this).parent().find('div.qrcode').is(':hidden')){
+				$(this).parent().find('div.qrcode').stop(false,true).slideDown();
+				$(this).parent().addClass('qrcode_show');
+				$(this).find('img').attr('src','img/up_img.png')
+			}else{
+				$(this).parent().find('div.qrcode').stop(false,true).slideUp();
+				$(this).parent().removeClass('qrcode_show');
+				$(this).find('img').attr('src','img/down_img.png')
+			}
+		});
+		// 收藏本站
+		$('li.collectWeb a').click(function(){
+		addFavorite(this);
+		})
+		function addFavorite(obj, opts){
+		    var _t, _u;
+		    if(typeof opts != 'object'){
+		        _t = document.title;
+		        _u = location.href;
+		    }else{
+		        _t = opts.title || document.title;
+		        _u = opts.url || location.href;
+		    }
+		    try{
+		        window.external.addFavorite(_u, _t);
+		    }catch(e){
+		        if(window.sidebar){
+		            obj.href = _u;
+		            obj.title = _t;
+		            obj.rel = 'sidebar';
+		        }else{
+		            alert('抱歉，您所使用的浏览器无法完成此操作。\n\n请使用 Ctrl + D 将本页加入收藏夹！');
+		        }
+		    }
+		}  
+	
+
+  
+		// 我的订单  login
+		if(document.cookie.indexOf('customerId=')!=-1){
+			var username=mall.getCookie('username');
+			var customerId=mall.getCookie('customerId');
+			$('li.username p').html(username).attr('id',customerId);
+			$('li.login a').html('退出');
+			$("li.regist").hide();
+			$('li.login a').unbind('click').bind('click',function(){
+				$.ajax({
+	            url : "/ycbmall-uc-ws/ws/0.1/logout",
+	            contentType : "application/json;charset=utf-8",
+	            dataType : "json",
+	            type : "GET",
+	            success : function(data) {
+	            	delCookie('username');
+	            	delCookie('customerId');
+	                window.location = "index.html"
+	            },
+	            error: function(xhr){
+	                var status = xhr.status;
+	                if (status == 200) {
+	                	delCookie('username');
+		            	delCookie('customerId');
+	                    window.location = "index.html"
+	                }
+	            }
+	        	});
+			})
+		}else{
+			$('li.login a').html('请登录');
+			$('li.username p').html('')
+		}
+		$('li.myOrders a').click(function(){
+			if(document.cookie.indexOf('customerId=')!=-1){
+				$(this).attr('href','historyOrder.html');
+			}else{
+				$('div.Form-login').show();
+				$('div.login-dialog-overlay').show();
+				$('li.login a').html('请登录');
+				$('li.username p').html('');
+			}
+		});
+		// login
+		// var ycbmall_config={};
+		// if(ycbmall_config.userName){
+		// 	var username=getCookie('username');
+		// 	var customerId=getCookie('customerId');
+		// 	$('li.username p').html(ycbmall_config.username).attr('id',customerId);
+		// 	$('li.login a').html('退出');
+		// 	$('li.login a').unbind('click').bind('click',function(){
+		// 		$.get('/ycbmall-uc-ws/ws/0.1/logout',function(){
+		// 			location.replace(location.href)
+		// 		})
+		// 	})
+		// }else{
+		// 	$('li.login a').html('请登录')
+		// }
+		if($('li.login a').text()=='请登录'){
+			$('li.login a').click(function(){
+				$('div.Form-login').show();
+				$('div.login-dialog-overlay').show();
+			})
+		}
+		
+
+		// function setCookie(name,value){
+		// 	var exp=new Date();
+		// 	// exp.setTime(exp.getTime()+60*60*1000);
+		// 	document.cookie=name+'='+escape(value)
+		// 	// +';expires='+exp.toGMTString()
+		// 	// location.href='classifyResult.html'
+		// }
+		// function getCookie(name){
+		// 	var arr =document.cookie.match(new RegExp("(^|)"+name+"=([^;]*)(;|$)"));
+		// 	if(arr != null) 
+		// 	return unescape(arr[2]); 
+		// 	return null;
+		// }
+		// function delCookie(name){
+		//     var exp = new Date();
+		//     exp.setTime(exp.getTime() - 1);
+		//     var cval=getCookie(name);
+		//     if(cval!=null)
+	 //        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+		// }
+		$("#save").click(function(){
+			Addme();
+		});
+		$('div.top').on('click','span.dialog-login',function(){
+			//window.location.href="index.html";
+			//return;
+			if($('input[name="username"]').val()!=''&&$('input[name="password"]').val()!=''){
+				var postData={};
+				postData.username=$('input[name="username"]').val();
+				postData.password=hex_md5($('input[name="password"]').val());
+				$.ajax({
+					type:'post',
+					url:'/ycbmall-uc-ws/ws/0.1/login?username='+postData.username+'&password='+postData.password,
+					// data:$.toJSON(postData),
+					// dataType:'json',
+					content:'application/json;charset=utf-8',
+					success:function(data){
+						mall.setCookie('customerId',data.customerId);
+						mall.setCookie('username',data.username);
+						mall.setCookie('provinceId',data.provinceId);
+						mall.setCookie('areaCodeId',data.areaCodeId);
+						mall.setCookie('areaCodeName',data.areaName);
+						mall.setCookie('areaName',data.areaName);
+						mall.setCookie('isPrivilege',data.isPrivilege);  //是否有专享权限0否1是
+						mall.setCookie('isExclusive',data.isExclusive);  //是否有专供权限0否1是
+						$('form.form-login-detail p.ui-note').html('');
+						
+						$('div.Form-login').hide();
+						$('div.login-dialog-overlay').hide();
+						$('li.username p').html(data.username).attr('id',data.customerId);
+						$('li.login a').html('退出');
+//						location.replace(location.href);
+						window.location.href = "index.html";
+						//---------------------
+						$('li.login a').unbind('click').bind('click',function(){
+							$.ajax({
+				            url : "/ycbmall-uc-ws/ws/0.1/logout",
+				            contentType : "application/json;charset=utf-8",
+				            dataType : "json",
+				            type : "GET",
+				            success : function(data) {
+				            	delCookie('username');
+				            	delCookie('customerId');
+				                window.location = "index.html";
+				            },
+				            error: function(xhr){
+				                var status = xhr.status;
+				                if (status == 200) {
+				                	delCookie('username');
+					            	delCookie('customerId');
+				                    window.location = "index.html"
+				                }
+				            }
+				        	});
+						})
+						
+						//----------------
+					},
+					error:function(xhr){
+						var error=eval('('+xhr.responseText+')');
+						$('form.form-login-detail p.ui-note').html(error[0].message);
+					}
+				})
+			}
+			if($('input[name="username"]').val()==''){
+				$('form.form-login-detail p.ui-note').html('请填写账号')
+			}else if($('input[name="password"]').val()==''){
+				$('form.form-login-detail p.ui-note').html('请填写密码')
+			}
+			
+		});
+		$('div.top').on('click','img.dialog-close',function(){
+			//$('form.form-login-detail p.ui-note').html('施工中…8月31日开放登录');
+			$('div.Form-login').hide();
+			$('div.login-dialog-overlay').hide()
+		})
+//		$('#tuichu').unbind('click').bind('click',function(){
+//			$.ajax({
+//	            url : "/ycbmall-uc-ws/ws/0.1/logout",
+//	            contentType : "application/json;charset=utf-8",
+//	            dataType : "json",
+//	            type : "GET",
+//	            success : function(data) {
+//	            	delCookie('username');
+//	            	delCookie('customerId');
+//	                window.location = "index.html"
+//	            },
+//	            error: function(xhr){
+//	                var status = xhr.status;
+//	                if (status == 200) {
+//	                	delCookie('username');
+//		            	delCookie('customerId');
+//	                    window.location = "index.html"
+//	                }
+//	            }
+//	        });
+//		});
+	})
+</script>

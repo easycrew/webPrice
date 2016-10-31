@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>选择服务属性</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<script src="../js/commen.js"></script>
+	<link rel="stylesheet" href="../css/main.css">
+	<style>
+		div.carTip{
+			position: relative;
+			background-color: #FEF4CA;
+			font-size: 1.2rem;
+			border: 1px solid #F5A623;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			text-align: center;
+			margin: 1.5rem 1.5rem 0.2rem;
+		}
+		div.carTip p{
+			padding: 0.8rem 0;
+		}
+		div.carTip em{
+			position: absolute;
+			z-index: 100;
+			bottom: -6px;
+			left: 40px;
+			border-top: 8px solid #FEF4CA;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+		}
+		div.carTip span{
+			position: absolute;
+			z-index: 50;
+			bottom: -8px;
+			left: 40px;
+			border-top: 8px solid #F5A623;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+		}
+		div.model{
+			margin-top: 1rem;
+			background-color: #fff;
+			border-bottom: 1px solid #d9d9e2;
+			padding: 1.5rem;
+		}
+		p.modelName{
+			float: left;
+			font-size: 1.5rem;
+		}
+		p.editModel{
+			float: right;
+			font-size: 1.5rem;
+			color: #6EAADE;
+		}
+
+		span.rightArrow{
+			position: relative;
+		}
+		span.rightArrow::before,span.rightArrow::after{
+			position: absolute;
+			top: 2px;
+			width: 0;
+			height: 0;
+			content: '';
+			font-size: 0px;
+			border-top: 7px solid transparent;
+			border-bottom: 7px solid transparent;
+		}
+		span.rightArrow::before{
+			right: -4px;
+			border-left: 7px solid #a2a2a2;
+		}
+		span.rightArrow::after{
+			right: -3px;
+			border-left: 7px solid #fff;
+		}
+
+		span.editText{
+			margin-right: 0.7rem;
+		}
+		ul.carWashServs-ul{
+			margin-top: 4rem;
+			margin-bottom: 3rem;
+		}
+		ul.carWashServs-ul li{
+			position: relative;
+			float: left;
+			width: 30%;
+			margin-left: 2.5%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			text-align: center;
+			height: 49px;
+			/*padding: 1.45rem 0 1.4rem;*/
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
+		.unselected{
+			border: 1px solid #d9d9e2;
+			background-color: #fff;
+		}
+		.selectedServ{
+			border: 1px solid #f55d5d;
+			color: #f55d5d;
+			background: none;
+		}
+		ul.carWashServs-ul li span{
+			position: absolute;
+			background-color: #f55d5d;
+			color: #fff;
+			font-size: 1.1rem;
+			-webkit-border-radius: 2px;
+			-moz-border-radius: 2px;
+			border-radius: 2px;
+			padding: 2px 4px;
+			top: -1rem;
+			right: 0.7rem;
+		}
+
+		div.servDetail{
+			background-color: #fff;
+			border-top: 1px solid #d9d9e2;
+			border-bottom: 1px solid #d9d9e2;
+			padding: 1rem;
+		}
+		p.detailT{
+			padding-bottom: 1rem;
+			border-bottom: 1px solid #d9d9e2;
+			font-size: 1.5rem;
+			color: #f55d5d;
+		}
+		p.detailT span{
+			font-size: 1.2rem;
+			padding-left: 0.6rem;
+		}
+		div.detailCon{
+			padding-top: 1rem;
+			font-size: 1.3rem;
+			line-height: 1.8rem;
+		}
+		
+		div.title{
+			border-bottom: 1px solid #d9d9e2;
+			padding: 0.95rem 1rem 0.85rem 0.8rem;
+		}
+		div.title p{
+			font-size: 1.5rem;
+			padding-left: 0.5rem;
+			border-left: 2px solid #f55d5d;
+		}
+
+		article.goodsTips{
+			margin-top: 0.8rem;
+			background-color: #fff;
+			border-bottom: 1px solid #d9d9e2;
+		}
+		div.goodsTipsCon{
+			padding: 1.5rem;
+		}
+		p.tipTitle{
+			font-size: 1.3rem;
+			color: #6EAADE;
+		}
+		p.tipCon{
+			font-size: 1.3rem;
+		}
+		div.useRule{
+			padding-top: 0.8rem;
+		}
+		div.servInstruction div{
+			border-bottom: 1px solid #d9d9e2;
+			position: relative;
+			margin-top: 2.8rem;
+			margin-bottom: 9rem;
+			margin-left: 1rem;
+			margin-right: 1rem;
+		}
+		div.servInstruction p{
+			position: absolute;
+			top: -0.7rem;
+			display: inline-block;
+			width: 146px;
+			left: 50%;
+			margin-left: -73px;
+			font-size: 1.2rem;
+			color: #a2a2a2;
+			background-color: #f4f7f8;
+			text-align: center;
+		}
+		div.selectShopBtn{
+			position: fixed;
+			z-index: 100;
+			bottom: 1rem;
+			background-color: #f55d5d;
+			color: #fff;
+			text-align: center;
+			font-size: 1.8rem;
+			width: 95%;
+			padding: 0.8rem 0;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			margin-left: 2.5%;
+			margin-top: 5rem;
+		}
+		div.CityOrder{
+			background-color: #fff;
+			border-bottom: 1px solid #d9d9e2;
+		}
+		p.CityOrderL{
+			float: left;
+			width: 50%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			border-right: 1px solid #d9d9e2;
+			padding: 13.5px 15px 15px 15px;
+			font-size: 1.5rem;
+		}
+		p.CityOrderR{
+			float: right;
+			width: 50%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 13.5px 15px 15px 15px;
+			font-size: 1.5rem;
+		}
+		span.downArrow{
+			float: right;
+			position: relative;
+			top: 6px;
+		}
+		span.downArrow::before,span.downArrow::after{
+			position: absolute;
+			left: -14px;
+			width: 0;
+			height: 0;
+			font-size: 0px;
+			content: '';
+			border-left: 7px solid transparent;
+			border-right: 7px solid transparent;
+		}
+		span.downArrow::before{
+			top: 0;
+			border-top: 7px solid #6eaade;
+		}
+		span.downArrow::after{
+			top: -1px;
+			border-top: 7px solid #fff;
+		}
+	</style>
+</head>
+<body>
+	<article class="top">
+		<div class="CityOrder clearfix">
+			<p class="CityOrderL"><span class="city"></span><span class="downArrow"></span></p>
+			<p class="CityOrderR"><span class="myOrder">我的订单</span><span class="downArrow"></span></p>
+		</div>
+		<div class="car" style="display:none;">
+			<div class="carTip"><p>下单车类型与服务车类型不符，商家可能不提供服务</p><em></em><span></span></div>
+			<div class="model clearfix">
+				<p class="modelName"><span class="modelT">车系：</span><span class="modelCon"></span></p>
+				<p class="editModel"><span class="editText">修改</span><span class="rightArrow"></span></p>
+			</div>
+		</div>
+		<div class="carWashServs">
+			<div class="carWashServs-ulW">
+			</div>
+			<div class="servDetail">
+				<p class="detailT"></p>
+				<div class="detailCon"></div>
+			</div>
+		</div>
+	</article>
+	<article class="goodsTips" style="display:none;">
+		<div class="title"><p>用品说明</p></div>
+		<div class="goodsTipsCon">
+			<p class="tipCon"></p>
+		</div>
+	</article>
+	<div class="servInstruction">
+		<div><p>点击查看服务说明</p></div>
+	</div>
+	<div class="selectShopBtn">选择服务商家</div>
+</body>
+<script type="text/javascript">
+    var paramJson = {};
+	$(function(){
+		// 获取参数
+		var url = window.location.search;  
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    if(paramJson.companyNo){
+	    	store.clear();
+	    	store.set('customerId', paramJson.customerId);
+			store.set('userInfoId',paramJson.userInfoId);
+			store.set('companyNo', paramJson.companyNo);
+			store.set('mobile', paramJson.mobile);
+			store.set('lon', paramJson.lon);
+			store.set('lat', paramJson.lat);
+			store.set('areaName', decodeURI(decodeURI(paramJson.areaName)));
+			if(paramJson.serviceId){
+				store.set('serviceId', paramJson.serviceId);
+			}
+			store.set('bizType', paramJson.bizType);
+			store.set('cityLevel', paramJson.cityLevel);
+			if(paramJson.carInfoId){
+				store.set('carInfoId', paramJson.carInfoId);
+				store.set('modelId', paramJson.modelId);
+				store.set('modelName', decodeURI(decodeURI(paramJson.modelName)));
+			}
+	    }
+	    
+	    var userInfoId=store.get('userInfoId');
+	    var areaName=store.get('areaName');
+	    var modelId=store.get('modelId');
+	    var modelName=store.get('modelName');
+	    // 获取所在城市
+	    $('span.city').html(areaName);
+	    $.ajax({
+	    	url:'/yangchebao-app-ws/ws/0.1/standardservice/general?userInfoId='+userInfoId+'&serviceId='+store.get('serviceId')+'&'+new Date().getTime(),
+	    	type:'get',
+	    	dataType:'json',
+	    	contentType:'application/json;charset=utf-8',
+	    	success:function(data){
+			    paramJson.serviceName = data.serviceName;
+	    		if(data.isMatchCar){
+	    			$('div.car').show();
+	    			$('span.modelCon').html(data.modelName+'（'+data.carTypeName+'）').attr('data-id',data.modelId);
+	    		}else{
+	    			$('div.car').hide()
+	    		}
+	    		// 服务方式
+	    		var servStr='';
+				var services={};
+	    		data.attributes.forEach(function(key,i){
+	    			servStr+='<ul class="carWashServs-ul clearfix">'
+	    			key.options.forEach(function(_key,j){
+	    				var servJson={};
+	    				var servOptionId=_key.optionId;
+	    				servJson.optionName = _key.optionName;
+	    				servJson.recommendDesc = _key.recommendDesc;
+	    				servJson.recommendDetail = _key.recommendDetail;
+	    				servJson.brandDesc = _key.brandDesc;
+	    				servJson.descriptionUrl = _key.descriptionUrl;
+	    				services[servOptionId] = servJson;
+	    				if(_key.isRecommended){
+	    					servStr+='<li class="selectedServ" data-id="'+_key.optionId+'"><p>'+_key.optionName+'</p><span>'+_key.recommendTag+'</span></li>'
+	    				}else{
+	    					servStr+='<li class="unselected" data-id="'+_key.optionId+'"><p>'+_key.optionName+'</p></li>'
+	    				}
+	    			});
+	    			servStr+='</ul>'
+	    		});
+	    		$('div.carWashServs-ulW').html(servStr);
+	    		$('ul.carWashServs-ul li').each(function(){
+	    			var liH=$(this).outerHeight();
+	    			var pH=$(this).find('p').outerHeight();
+	    			var pConLen=$(this).find('p').text().length;
+	    			var pCon=$(this).find('p').text();
+	    			if(pConLen>10){
+	    				$(this).find('p').html(pCon.substring(0,9)+'…')
+	    			}
+
+	    			$(this).find('p').css({'position':'relative','top':'50%','margin-top':'-'+pH/2+'px'})
+	    		});
+
+
+	    		var nowId=$('li.selectedServ:eq(0)').attr('data-id');
+	    		$('p.detailT').html(services[nowId].optionName+'<span>'+services[nowId].recommendDesc+'</span>');
+    			$('div.detailCon').html(services[nowId].recommendDetail);
+    			if(services[nowId].brandDesc!=''){
+    				$('article.goodsTips').show();
+    				$('p.tipCon').html(services[nowId].brandDesc);
+    			}
+    			
+    			$('div.servInstruction p').unbind('click').bind('click',function(){
+    				window.location.href=services[nowId].descriptionUrl
+    			});
+
+	    		$('ul.carWashServs-ul li').on('click',function(){
+	    			var thisId=$(this).attr('data-id');
+	    			// 边框变化
+	    			$(this).parent().find('li.selectedServ').addClass('unselected').removeClass('selectedServ');
+	    			$(this).addClass('selectedServ').removeClass('unselected');
+	    			// 内容变化
+	    			$('p.detailT').html(services[thisId].optionName+'<span>'+services[thisId].recommendDesc+'</span>');
+	    			$('div.detailCon').html(services[thisId].recommendDetail);
+	    			if(services[thisId].brandDesc!=''){
+	    				$('article.goodsTips').show();
+	    				$('p.tipCon').html(services[thisId].brandDesc);
+	    			}else{
+	    				$('article.goodsTips').hide();
+	    			}
+	    			$('p.tipCon').html(services[thisId].brandDesc);
+	    			// 服务详情
+	    			$('div.servInstruction p').unbind('click').bind('click',function(){
+	    				window.location.href=services[thisId].descriptionUrl
+	    			})
+	    			
+	    		})
+	    	}
+	    });
+	    // 修改车系
+	    $('p.editModel').on('click',function(){
+	    	window.location.href="../brand.html"
+	    });
+	    // 修改城市
+	    $('p.CityOrderL').on('click',function(){
+	    	window.location.href="../city.html"
+	    });
+	    // 我的洗车订单
+	    $('p.CityOrderR').on('click',function(){
+	    	window.location.href="orderList.html"
+	    });
+	    // 选择服务商家
+	    $('div.selectShopBtn').on('click',function(){
+	    	var optionIds='';
+	    	var optionIdArr=[];
+	    	$('li.selectedServ').each(function(){
+	    		var thisId=$(this).attr('data-id');
+	    		optionIdArr.push(thisId)
+	    	});
+	    	optionIds=optionIdArr.join(',');
+	    	window.location.href="shopList.html?optionIds="+optionIds+"&serviceName="+paramJson.serviceName;
+	    })
+	});
+	window.onload = function(){
+		if(paramJson.serviceName=="洗车"){
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "//hm.baidu.com/hm.js?4e9e33a52ce975a9569a3646fae92f4c";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})(); 
+		}else if(paramJson.serviceName=="打蜡"){
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "//hm.baidu.com/hm.js?9de0559e0c1cd1129704184e5d1243bc";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();   
+		}else if(paramJson.serviceName=="内饰清洗"){
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "//hm.baidu.com/hm.js?94c5cd657620020bc5b236b51541e7a3";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();
+
+		
+		}
+	
+	
+	
+	}
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c8ab281430a0250a8afa2b494f8af641";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script> 
+</html>

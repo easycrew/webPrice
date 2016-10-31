@@ -1,0 +1,140 @@
+body{
+	background-color:#fff;
+	color:#1e1e1e;
+	font-family:'冬青黑体','黑体','HelveticaNeue-Light';
+	font-size:62.5%; 
+}
+a{
+	color:#00a0e9;
+	text-decoration: none;
+	cursor: pointer;
+}
+a:focus{
+	outline:none;
+}
+ul{
+	list-style:none;
+}
+img{
+	border:none;
+}
+*{
+	margin:0;
+	padding:0;
+	text-shadow:none;
+}
+header{
+	position: relative;
+	margin-bottom:3.9em;
+}
+header img{
+	width: 100%;
+	position: relative;
+}
+.service img{
+	width: 100%;
+}
+.button-wrap {  
+    width: 100%;
+}
+header .button-wrap { 
+    position: absolute;
+    bottom:-1.4em;
+}
+.btn {
+    background-color: #fb6362;
+    border-radius: 18px;
+    color: #fff;
+    display: block; 
+    font-size: 1.6em;
+    height: 2.3em;
+    line-height: 2.3em; 
+    text-align: center;
+    margin: 0 2.84em;
+}
+.btn.blue {
+    background-color: #09a7e9; 
+}
+.info{
+	font-size: 1.8em;
+    margin: 0 1.89em;
+}
+.info span{
+	color:#fb6362;
+}
+.info p{
+	line-height: 150%;
+}
+/*.showLink{ 
+	font-size: 2.13em;
+	text-align: right;
+ 	margin: 1.74em 2.11em 1.63em;
+}
+.showLink a{
+	color: #f7f403;
+}
+.title{
+	color: #423c60;
+	font-size: 1.78em;
+	background-color: #f7f403;
+	height: 1.96em;
+	line-height: 1.96em;
+	display: inline-block;
+	border-radius: 4px;
+	padding: 0 0.67em;
+	margin:0 0 0.56em -0.28em; 
+} 
+.tips-list {   
+    color:#afa6dd;
+    font-size: 1.425em;  
+    margin: 1.75em 0.98em 1.54em; 
+}
+.tips-list li{   
+	margin-bottom: 1.05em;
+}
+.steps-list{
+	color:#fff;
+    font-size:1.78em;  
+    margin:0 0.84em;  
+}
+.steps-list li{  
+    margin-bottom: 1.5em;  
+}
+.steps-list .icon{
+	width: 1.35em;
+	height: 1.35em;
+	background:url("active-step.png") no-repeat scroll 0 0 transparent;
+	display: inline-block; 
+	background-size:auto 1.35em;
+	vertical-align: middle;
+}
+.steps-list .tit{
+	display: inline-block; 
+	vertical-align: middle;
+}
+
+.steps-list > li:nth-of-type(2) .icon
+{
+   background-position: -1.4em 0;
+}
+.steps-list > li:nth-of-type(3) .icon
+{
+   background-position: -2.81em 0;
+}
+.steps-list > li:nth-of-type(4) .icon
+{
+   background-position: -4.15em 0;
+}
+.steps-list > li:nth-of-type(5) .icon
+{
+   background-position: -5.5em 0;
+}
+.steps-list .remark{
+	color: #afa6dd;
+	padding-left: 1.4em;
+	font-size: 0.8em;
+}
+.steps img{
+	width: 100%;
+	margin: 0.2em 0 1.4em;
+}*/

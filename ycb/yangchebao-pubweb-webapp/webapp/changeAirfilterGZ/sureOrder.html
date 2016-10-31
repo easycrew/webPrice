@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>订单确认</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		article{
+			background-color: #fff;
+		}
+		div.batteryInfo{
+			background-color: #FFA600;
+			padding: 1rem 1.6rem;
+		}
+		div.batteryInfo p{
+			color: #fff;
+		}
+		div.batteryInfo p:nth-of-type(1),div.batteryInfo p:nth-of-type(1) span{
+			font-size: 1.52rem;
+		}
+		div.batteryInfo p:nth-of-type(2),div.batteryInfo p:nth-of-type(2) span{
+			font-size: 1.92rem;
+		}
+		div.topRow{
+			padding: 0.96rem 0;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		p.topRow-left{
+			float: left;
+			display: inline-block;
+			padding: 0 1.92rem;
+		}
+		p.topRow-left img{
+			width: 1.92rem;
+		}
+		div.topRow-right{
+			margin-left: 5.76rem;
+			padding: 1rem 1.26rem;
+			border-left: 1px solid #D9D9E2;
+		}
+		div.topRow-right p{
+			font-size: 1.52rem;
+		}
+
+		article.middle{
+			margin-top: 1.26rem;
+		}
+		div.payStyleTitle{
+			padding: 0.5rem 1.26rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.payStyleTitle p{
+			font-size: 1.6rem;
+			border-left: 3px solid #FF6138;
+			padding-left: 0.48rem;
+		}
+		div.payStyleRow{
+			padding: 0.8rem 0;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		p.payStyleLeft{
+			float: left;
+			display: inline-block;
+			line-height: 3.2rem;
+		}
+		p.payStyleLeft img[alt="兑换码"]{
+			position: relative;
+			top: -6px;
+			width: 7.36rem;
+			margin: 0 1.6rem;
+		}
+		p.payStyleLeft img[alt="支付宝"]{
+			width: 7.36rem;
+			margin: 0 1.6rem;
+		}
+		p.payStyleLeft img[alt="微信支付"]{
+			width: 8rem;
+			margin: 0 1.26rem;
+		}
+		div.payStyleRight{
+			margin-left: 5.4rem;
+			line-height: 3.2rem;
+		}
+		div.payStyleRight span{
+			display: inline-block;
+			padding: 0rem 0rem 0rem 0.96rem;
+			border-left: 1px solid #D9D9E2;
+			color: #a2a2a2;
+			font-size: 1.26rem;
+			line-height: 3.2rem;
+		}
+		div.payStyleRight p img{
+			width: 2.08rem;
+		}
+		div.payStyleRight p{
+			float: right;
+			margin-right: 1.6rem;
+			line-height: 3.2rem;
+		}
+		article.bottom{
+			position: fixed;
+			width: 100%;
+			bottom: 0;
+			border-top: 1px solid #D9D9E2;
+			line-height: 4.8rem;
+		}
+		article.bottom p.bottom-left{
+			float: left;
+			width: 55%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding-left: 1.6rem;
+			font-size: 1.6rem;
+		}
+		article.bottom p.bottom-left span{
+			color: #FF6138;
+		}
+		article.bottom p.payBtn{
+			float: left;
+			width: 45%;
+			background-color: #FF6138;
+			color: #fff;
+			font-size: 1.952rem;
+			text-align: center;
+		}
+
+		.dialog,.dhmErrorW{
+		   position: fixed;
+		   width: 100%;
+		   height: 100%; 
+		   background-color: rgba(0,0,0,0.5);
+		   top:0;
+		   bottom: 0;
+		   z-index:100;
+		}
+		.dialog>div,.dhmErrorW>div{ 
+		   position: relative;
+		   margin: 100px 10px 0;
+		   background-color: #fff; 
+		   height: auto;
+		   overflow: auto;
+		   -webkit-border-radius: 5px;
+		   -moz-border-radius: 5px;
+		   border-radius: 5px;
+		}
+		p.errorText{
+			font-size: 1.5rem;
+			text-align: center;
+			padding: 4rem 0;
+		}
+		canvas#closeBtn{
+			position: absolute;
+			top: 0.8rem;
+			right: 1rem;
+		}
+		div.dialogTitle{
+			border-bottom: 1px solid #ff6138;
+		}
+		div.dialogTitle h3{
+			font-size: 1.6rem;
+			text-align: center;
+			line-height: 3.2rem;
+			font-weight: normal;
+		}
+		p.textItem{
+			width: 90%;
+			margin: 0 auto;
+			padding: 2rem 0;
+		}
+		p.textItem input{
+			width: 100%;
+			border: 1px solid #D9D9E2;
+			font-size: 1.6rem;
+			padding: 0.6rem 0;
+			text-align: center;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		p.dialogBtn,div.errorBtn{
+			width: 90%;
+			margin: 0 auto 0.6rem;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			color: #fff;
+			background-color: #FF6138;
+			text-align: center;
+			font-size: 1.8rem;
+			line-height: 3.5rem;
+		}
+		span.zhuanfa,span.zhuanfaMoney{
+			font-size: 1.4rem!important;
+		}
+		div.changeCodeTips{
+			width: 90%;
+			margin-left: 5%;
+			margin-bottom: 1.5rem;
+			font-size: 1.4rem;
+			color: #a2a2a2;
+		}
+		div.changeCodeTip span{
+			float: left;
+		}
+		div.changeCodeTip p{
+			margin-left: 1.6rem;
+		}
+	</style>
+</head>
+<body>
+	<p><input name="eventId" type="hidden" value="AirFilterPayPage"></p>
+	<section>
+		<article class="top">
+			<div class="batteryInfo">
+				<p>已选：<span class="serviceName"></span></p>
+				<p><span class="reservePrice"></span><span class="zhuanfa" style="display:none;">（参加微信转发活动实际支付¥<span class="zhuanfaMoney"></span>）</span></p>
+			</div>
+			<div class="topRow clearfix">
+				<p class="topRow-left"><img src="./img/contact_icon.png"></p>
+				<div class="topRow-right">
+					<p class="nickName"></p>
+					<p class="userMobile"></p>
+				</div>
+			</div>
+		</article>
+		<article class="middle">
+			<div class="payStyleTitle">
+				<p>支付方式</p>
+			</div>
+			<div class="payStyleDetail">
+				<div class="payStyleRow">
+					<p class="payStyleLeft"><img src="./img/dhm.png" alt="兑换码"></p>
+					<div class="payStyleRight">
+						<span>拥有兑换此服务的兑换码</span>
+						<p><img src="./img/payUnchecked_icon.png" class="isCheck dhmImg"></p>
+					</div>
+				</div>
+				<div class="payStyleRow" data-id="3">
+					<p class="payStyleLeft"><img src="./img/zfb_icon.png" alt="支付宝"></p>
+					<div class="payStyleRight realPay">
+						<span>需要拥有支付宝账号</span>
+						<p><img src="./img/payChecked_icon.png" class="isCheck"></p>
+					</div>
+				</div>
+				<div class="payStyleRow" data-id="1">
+					<p class="payStyleLeft"><img src="./img/wx_icon.png" alt="微信支付"></p>
+					<div class="payStyleRight realPay">
+						<span>推荐安装微信5.0版本以上</span>
+						<p><img src="./img/payUnchecked_icon.png"></p>
+					</div>
+				</div>
+			</div>
+		</article>
+		<article class="bottom clearfix">
+			<p class="bottom-left">需支付：<span></span></p>
+			<p class="payBtn">立即支付</p>
+		</article>
+	</section>
+	<div class="dialog" style="display:none;">
+		<div class="dialogWraper">
+			<div class="dialogTitle">
+				<h3>兑换码支付</h3>
+				<canvas id="closeBtn" width='15' height="15"></canvas>
+				<script type="text/javascript">
+					var canvas=document.getElementById('closeBtn');
+					var cxt=canvas.getContext('2d');
+					cxt.beginPath();
+					cxt.lineWidth=1.5;
+					cxt.strokeStyle="#ff6138";
+					cxt.moveTo(0,0);
+					cxt.lineTo(15,15);
+					cxt.stroke();
+					cxt.closePath();
+					cxt.beginPath();
+					cxt.lineWidth=1.5;
+					cxt.strokeStyle="#ff6138";
+					cxt.moveTo(15,0);
+					cxt.lineTo(0,15);
+					cxt.stroke();
+					cxt.closePath();
+				</script>
+			</div>
+			<div class="dialogCon">
+				<p class="textItem"><input type="number" placeholder="请输入兑换码" id="exchangeCode"></p>
+				<div class="changeCodeTips">
+					<div class="changeCodeTip"><span>1.</span><p>已购买兑换码的用户,输入“兑换码”，点击“下一步”即可兑换服务；</p></div>
+					<div class="changeCodeTip"><span>2.</span><p>没有兑换码的用户，请不要输入！</p></div>
+				</div>
+				<p class="dialogBtn">确定</p>
+			</div>
+		</div>
+	</div>
+	<div class="dhmErrorW dhmFailW" style="display:none;">
+		<div class="dhmError">
+			<p class="errorText">兑换码错误，请重新输入</p>
+			<div class="errorBtn">重新输入</div>
+		</div>
+	</div>
+	<div class="dhmErrorW dhmSucW" style="display:none;">
+		<div class="dhmError">
+			<p class="errorText">兑换成功</p>
+			<div class="errorBtn">确定</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    if(paramJson.timeSerie){
+	    	paramJson.timeSerie=decodeURI(decodeURI(paramJson.timeSerie))
+	    }
+	    if(paramJson.displacement){
+	    	paramJson.displacement=decodeURI(decodeURI(paramJson.displacement))
+	    }
+	    paramJson.district=decodeURI(decodeURI(paramJson.district));
+	    paramJson.location=decodeURI(decodeURI(paramJson.location));
+	    paramJson.address=decodeURI(decodeURI(paramJson.address));
+		
+		// 获取订单信息
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/orderservice/reserve/kongtiaolx?userInfoId='+paramJson.userId+'&externalStyleId='+paramJson.externalStyleId+'&businessSerRelId='+paramJson.businessSerRelId+'&timeSerie='+paramJson.timeSerie+'&displacement='+paramJson.displacement+'&district='+paramJson.district+'&location='+paramJson.location+'&address='+paramJson.address,
+			type:'get',
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				paramJson.sourceId=data.sourceId;
+				$('span.serviceName').html(data.serviceName);
+				$('span.reservePrice').html('￥'+data.reservePrice);
+				var _price=data.reservePrice-data.discount;
+				if(_price!=data.reservePrice){
+					$('span.zhuanfa').show();
+					$('span.zhuanfaMoney').html(_price)
+				}
+				$('p.bottom-left span').html('￥'+_price);
+				$('p.nickName').html(data.nickName);
+				$('p.userMobile').html(data.mobile);
+				// Info图片垂直居中
+				$('p.topRow-left').each(function(){
+					var rowH=$(this).next('div.topRow-right').outerHeight();
+					$(this).css('line-height',rowH+'px')
+				});
+				// 立即支付
+				$('p.payBtn').unbind('click').bind('click',function(){
+					var payChannel=$('div.realPay img.isCheck').parents('div.payStyleRow').attr('data-id');
+					if(!payChannel){
+						return false
+					}
+					var payLink=function(){
+						window.location.href="payResult.html"
+					}
+					window.location.href = 'http://w2l/?presentType=1&needLogin=1&androidName=29&iosName=MyWebViewController&sourceId='+data.sourceId+'&itemType='+data.itemType+'&fromChannel=kongTiaoLvXin&payChannel='+payChannel;
+					setTimeout(payLink,100)
+				})
+			},
+			error:function(xhr){
+				var error=eval('('+xhr.responseText+')');
+				errorLog(error[0].message)
+			}
+		});
+		// 选择支付方式
+		$('div.payStyleRight img').unbind('click').bind('click',function(){
+			if($(this).attr('src')=='./img/payUnchecked_icon.png'){
+				$('div.payStyleRight img').attr('src','./img/payUnchecked_icon.png').removeClass('isCheck');
+				$(this).attr('src','./img/payChecked_icon.png').addClass('isCheck')
+			}
+			if($(this).hasClass('dhmImg')){
+				$('div.dialog').show();
+				$('canvas#closeBtn').unbind('click').bind('click',function(){
+					$('div.dialog').hide()
+				});
+				$('p.dialogBtn').unbind('click').bind('click',function(){
+					var exchangeCode=$.trim($('input#exchangeCode').val());
+					if(!(/^[0-9]{8}$/.test(exchangeCode))){
+						errorLog('请输入8位数字的兑换码');
+						return false
+					}
+					var postData={};
+					postData.customerId=paramJson.customerId;
+					postData.sourceId=paramJson.sourceId;
+					postData.orderChannel='kongTiaoLvXin';
+					postData.exchangeCode=exchangeCode;
+					$.ajax({
+						url:'/yangchebao-app-ws/ws/0.1/orderservice/exchangecode/pay',
+						type:'post',
+						contentType:'application/json;charset=utf-8',
+						dataType:'json',
+						data:$.toJSON(postData),
+						success:function(data){
+							$('div.dhmSucW').show();
+							$('div.dhmSucW div.errorBtn').unbind('click').bind('click',function(){
+								$('div.dhmSucW').hide();
+								window.location.href="payResult.html"
+							})
+						},
+						error:function(xhr){
+							var error=eval('('+xhr.responseText+')');
+							$('div.dhmFailW').show();
+							$('div.dhmFailW p.errorText').html(error[0].message);
+							$('div.dhmFailW div.errorBtn').unbind('click').bind('click',function(){
+								$('div.dhmFailW').hide()
+							})
+						}
+					})
+				})
+			}
+		})
+	})
+</script>
+</html>

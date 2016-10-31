@@ -1,0 +1,379 @@
+@charset "utf-8";
+.link{
+	text-decoration: none;
+	color:#555;
+}
+.qrcode{
+	z-index: 2;
+	width:1025px;
+	margin:0 auto;
+}
+.qrcode div.qrcode_content{
+	z-index: 2;
+	position:absolute;
+	width:341px;
+	height:333px;
+	background:url(../img/cmcz.png) no-repeat;
+	margin-left: 684px;
+}
+.banner{
+	position:relative;
+	height:333px;
+    overflow:hidden;
+}
+.img_fy{
+	float:right;
+	cursor:pointer;
+}
+img.banner_wx{
+	z-index: 2;
+	position:absolute;
+	margin-left: 684px;
+	display:none;
+}
+.app_btn{
+	position:relative;
+	top:208px;
+	left:20px;
+}
+.banner ul.banner_img div{
+    position: relative;
+}
+.banner ul.banner_img a{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+.banner ul.banner_img img{
+    position: relative;
+    left: -50%;
+    top: 0;
+    *+top: -6px;
+}
+.banner ul.banner_id{
+    position:absolute;
+    bottom:13px;
+    left:50%;
+    width:66px;
+    margin-left:-33px;
+}
+.banner ul.banner_id li{
+	float:left;
+	margin-right:10px;
+	cursor:pointer;
+}
+
+.content h2 p{
+	display:none;
+}
+.content h2 a{
+	float: right;
+	position: relative;
+	top: 5px;
+	left: -20px;
+	text-decoration: none;
+	color: #525151;
+}
+/*第一版块*/
+.line_1{	
+	height:2px;
+	width:1025px;
+	margin:5px 0 30px 0;
+	background-color:#c3c9d2;
+	overflow:hidden;
+}
+.line_1 p{
+	background-color:#202122;
+	width:225px;
+	height:2px;
+}
+.content .one ul{
+	margin:0 40px;
+	overflow:hidden;
+	text-align:center;
+}
+.content .one ul li{
+    float:left;
+    margin-right:75px;
+    cursor:pointer;   
+}
+.content .one ul li .p_title{
+	margin-bottom:15px;
+	font-size:18px;
+	font-family:"微软雅黑";
+	color:#1d0e09;
+}
+.content .one ul li .p_img{
+	width:128px;
+	height:126px;
+}
+.content .one ul li .p_img,.content .one ul li .div_two{
+	cursor:pointer;
+}
+.content .one ul li#li_r{
+	margin-right:0;
+}
+.content .one ul li .div_two{
+	position:relative;
+	top:-10px;
+	width:128px;
+	height:126px;
+	color:#fff;
+}
+.content .one ul li .div_three{
+	position:absolute;
+	top:0;
+	left:15px;
+}
+.content .one ul li .div_two p{
+	margin-top:37px;
+}
+
+/*第二版块*/
+.content .two{
+	padding-top:30px;
+}
+.content .two .two_left{
+	float:left;
+	width:590px;
+	margin-right:27px;
+	overflow:hidden;
+}
+.line_2{	
+	height:2px;
+	width:590px;
+	margin:7px 0 18px 0;
+	background-color:#c3c9d2;
+	overflow:hidden;
+}
+.line_2 p{
+	background-color:#202122;
+	height:2px;
+}
+#p1{
+    width:78px;
+}
+#p2{
+    width:116px;
+}
+.two_left_one ul{
+	overflow:hidden;
+}
+.two_left_one ul li{
+    float:left;
+    color:#555;
+}
+.two_left_one ul li span{
+	position:relative;
+	top:1px;
+	left:5px;
+}
+.two_left_one .yzsj_ul_p2{              /*浮动后ie6/7中的下方多出约18px的空白？*/
+	margin:6px 0;
+	font-size:14px;
+	font-family:"微软雅黑";
+	font-weight:bold;
+}
+div.line{
+	height:1px;
+	width:182px;
+	margin:5px 0;
+	background-color:#dee0e4;
+	overflow:hidden;
+}
+.two_left_two{
+	margin-top:48px;
+}
+.two_left_two img.ycbdcz_img{
+	margin-top:45px;
+}
+.two_left_three{
+	margin-top:73px;
+}
+.two_left_three ul{
+	overflow:hidden;
+}
+.two_left_three ul li{
+	float:left;
+	width:260px;
+	
+}
+.two_left_three ul li p,.newOrder_body p{
+    font-size:14px;
+	font-family:"微软雅黑";
+	color:#666;
+}
+.two_left_three ul li p.cggs_p2{
+	height:30px;
+	line-height:30px;
+	margin:3px 0 13px 0;
+	background-color:#eff3f7;
+	font-weight:bold;
+	color:#444;
+	padding-left: 10px;
+}
+.two_right{
+	float:left;
+	width:407px;
+}
+.line_3{	
+	height:2px;
+	width:407px;
+	margin:7px 0 18px 0;
+	background-color:#c3c9d2;
+	overflow:hidden;
+}
+.line_3 p{
+	background-color:#d41f30;
+	height:2px;
+}
+.newOrder_head{
+	width: 400px;
+	height: 28px;
+	position: relative;
+	background-color:#e72f40;
+	margin-left: 4px;
+}
+.newOrder_head p, .newOrder_body p{
+	float: left;
+}
+.newOrder_body{
+	width: 400px;
+	height: 214px;
+	overflow: hidden;
+    margin-left: 4px;
+	position:relative;
+}
+.newOrder_body p{
+	overflow: hidden;
+}
+.newOrder_body div,.newOrder_body p{
+	height:32px;
+	line-height:32px;
+}
+.newOrder_line{
+	width: 400px;
+	background-color: #dee0e4;
+}
+.two_right_two{
+	height: 402px;
+	margin-top:40px;
+}
+.two_right_two h3{
+	position:relative;
+	top:3px;
+	margin:0 0 8px 0;
+	font-size:18px;
+	font-family:"微软雅黑";
+	color:#333;
+}
+.two_right_two .mtbd_img{
+	float:left;
+	margin:0 16px 0 10px;
+	display:inline;
+}
+.mtbd_p_one{
+	margin-right:6px;
+	font-family:"微软雅黑";
+	font-size:14px;
+	color:#555;
+}
+.two_right_two ul{
+	margin:0 8px;
+}
+.two_right_two ul li{
+	position:relative;
+	height:32px;
+	line-height:32px;
+	overflow:hidden;
+}
+.mediaTitle{
+    float:left;
+    max-width: 290px;
+    max-height: 21px;
+    overflow: hidden;
+}
+.two_right_two ul li p a:link,.two_right_two ul li p a:visited{
+	color:#555;
+	text-decoration:none;
+	font-size:14px;
+    font-family:"微软雅黑";
+}
+.two_right_two ul li p a:hover{
+	color:#2d519c;
+	text-decoration:underline;
+}
+.mediaSource{
+	float:right;
+	padding:0 5px;
+	max-width: 90px;
+	max-height: 21px;
+	overflow:hidden;
+	background-color:#bfc5ce;
+	color:#fff;
+	line-height:21px;
+}
+div.line4{
+	height:1px;
+	width:407px;
+	margin:17px 0 13px 0;
+	background-color:#dee0e4;
+	overflow:hidden;
+}
+div.two_right_three{
+	margin-top:41px;
+	+margin-top:28px;
+}
+div.connect{
+	margin-bottom:10px;
+}
+div.connect p{
+	margin:0 0 2px 5px;
+	font-size:14px;
+    font-family:"微软雅黑";
+    color:#333;
+}
+/*第三版块*/
+.three{
+	margin-top:25px;
+
+}
+#p_three{
+	width:77px;
+}
+img.lct{
+	margin:15px 0 23px 10px;
+	padding-bottom:40px;
+	border-bottom:1px dashed #aaa;
+}
+div.ljzc{
+	margin-bottom:30px;
+	text-align:center;
+}
+.greateBusiness-list li {
+	 width: 180px;
+	 margin-right: 10px;
+}
+.greateBusiness-list .business-info {
+	height: 70px;
+	overflow: hidden;
+}
+#greateBusiness .greateBusiness-list li p img {
+	width: 180px;
+	height: 135px;
+}
+#successStory .successStory-list li {
+	width: 260px;
+	margin-right: 32px;
+}
+#successStory .successStory-list li img {
+	width: 260px;
+	height: 195px;
+}
+#mediaReport .mediaReport-active {
+	overflow:hidden;zoom:1;
+}
+#mediaReport .mediaReport-active img {
+	width: 100px;
+	height: 100px;
+}

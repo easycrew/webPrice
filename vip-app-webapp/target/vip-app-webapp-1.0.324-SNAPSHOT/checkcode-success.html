@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>  
+<script type="text/javascript" src="js/index.js"></script> 
+<title>服务码验证成功</title>
+</head>
+<body>  
+	<section class="success-wrap"> 
+		<article>
+			<div class="codes-success-wrap">
+				<div class="left">
+					<div id="serviceName"></div>
+				</div>
+				<div class="right">
+					<div><strong class="price" id="price"></strong><br/>
+					<span id="paid"></span></div>
+				</div>
+			</div>
+			<div class="order-label-success"></div>
+			<ul class="order-wrap" id="orderList"> 
+			</ul>  
+		</article> 
+	</section> 
+	<div class="overlay-wrap"></div>
+	<script type="text/javascript">
+	$(document).ready(function(){    
+ 		function getOrderList(userInfoId,shopId,pageindex,pagesize){     
+			$.ajax({
+				url: '/vip-app-ws/ws/0.1/orders?userInfoId='+userInfoId+'&shopId='+shopId+'&orderListType='+1+'&pageindex='+pageindex+'&pagesize='+pagesize+'&sortname=serviceDate&sortorder=desc',
+				type: 'get',
+				async: false,
+				dataType: 'json',
+				success: function(data) {   
+					var total = data.totalCount;
+					var str = "";
+					var items = data.items;
+					$.each(items,function(i){
+						var item = items[i];
+						var num = total-i;
+						if(item.paid=="0"){ 
+							item.paid="当面支付"; 
+						}else if(item.paid=="1"){
+							item.paid="网上支付";
+						} 
+						str += '<li orderId="'+ item.orderId +'">' 
+							+'<div>'
+							+'<div class="user-info"> '
+							+'<span class="time">'+ item.serviceDate +'</span>'
+							+'<span class="name">'+ item.nicName +'</span> '
+							+'</div>'
+							+'<div class="order-info">'
+							+'<p class="serviceName">'+ item.serviceName +'</p>'
+							+'<div class="clearfix">'
+							+'<span class="left-span">第'+ num +'次光临本店,</span>'
+							+'<span class="right-span">'+item.paid+' ¥'+ item.reservePrice +'</span>'
+							+'</div>'
+							+'</div>'
+							+'</div>' 
+							+'</li> ';
+					});   
+					$("#orderList").html(str);    
+				},
+				error:function(xhr){
+
+				}
+			}); 
+	 	}
+	 	var path = getPath();
+	 	$(".order-wrap").on('click','li',function(){ 
+	 		//$(".order-wrap .selected").removeClass('selected');
+	 		//$(this).addClass('selected');
+	 		//订单详情页面 | fun 
+	 		var orderId = $(this).attr("orderId");  
+	 		window.location.href = "http://w2nw?"+path+"/order-detail.html?orderId="+orderId;
+		 }); 
+		index.init = function(userInfo,bridge) {   
+		 	var url =decodeURI(window.location.href);  
+			var paramsArr = (url.split("?")[1]).split("&");
+			var data = {};
+			$.each(paramsArr,function(i){
+				var item = paramsArr[i].split("=");
+				data[item[0]] = item[1];
+			});  
+			if(data.paid=="0"){ 
+				data.paid="需当面支付";
+				$(".codes-success-wrap .right").addClass("org");
+			}else if(data.paid=="1"){
+				data.paid="网上已支付";
+			} 
+			$(".codes-success-wrap #serviceName").html(data.serviceName);
+			$(".codes-success-wrap #price").html("¥"+data.servicePrice);
+			$(".codes-success-wrap #paid").html(data.paid); 
+			getOrderList(data.userInfoId,data.shopId,0,3);
+			return "0"
+		 };  
+		});  
+ 
+	</script>  
+</body> 
+</html>
+

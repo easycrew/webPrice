@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="js/jquery.json-2.2.js"></script> 
+<script type="text/javascript" src="js/index.js"></script> 
+<title>待服务订单</title>
+<body>
+	<section class="main-wrap"> 
+		<article>
+			<div class="tab-wrap two-tab">
+				 <div><span class="selected tab" sortname="orderDate" sortorder="desc">按下单时间排序</span></div>
+				 <div><span class="tab" sortname="reserveDate" sortorder="asc">按预约时间排序</span></div>
+			</div>
+			<!-- <div class="order-label gray">  -->
+			<div class="order-label"> 
+				<div>
+					<span class="shop-info"><span id="shopName"></span>（待服务<span id="orderNum"></span>单）</span>
+					<div  class="shop-icon"><span></span></div>
+				</div>
+				<ul class="shop-select" id="shopSelect"></ul>
+			</div> 
+			<div class="overlay-containter">
+				<ul class="order-wrap reserve-wrap" id="orderList">
+					 <!--
+					<li class="phone">
+						<div>
+							<div class="user-info"> 
+								<span class="time">2014.09.12 15:20</span>
+								<span class="name">三少爷的剑的</span> 
+							</div>
+							<div class="order-info">
+								<p class="serviceName">洗车－电脑-电脑精洗－电脑精洗－sss大车...</p>
+								<div class="clearfix">
+									<span class="left-span">车型:丰田86</span>
+									<span class="right-span org">当面支付 ¥89</span>
+								</div>
+							</div>
+							<div class="phone-info clearfix">
+								<div class="left"><span>预约时间：09-12 15:30</span></div>
+								<div class="right"><span>拨打电话（2次）</span></div>
+							</div> 
+						</div>
+					</li>  -->
+				</ul> 
+				<p class="loadingBar" style="display:none;"><img src="css/images/waiting.gif"></p>
+				<div class="overlay-wrap"></div>
+			</div> 
+		</article> 
+	</section>  
+	<script type="text/javascript">  
+	$(document).ready(function(){
+		var response = "1",page = 0,pagesize=10,shopId="-1",sortname="orderDate",sortorder="desc";    
+		function getBranchShopList(userInfo){  
+			$.ajax({
+				url: '/vip-app-ws/ws/0.1/shopAccount/getBranchShopList?shopAccountId='+userInfo.shopAccountId+'&hasmain=true',
+				type: 'get',
+				async: false,
+				dataType: 'json',
+				success: function(data) {   
+					var str = "";
+					$("#shopName").html(data[0].shopName);
+					$.each(data,function(i){
+						var item = data[i];
+						str += '<li shopAccountId="'+item.shopAccountId+'">'+ item.shopName+'</li>';
+					});
+				 	$("#shopSelect").html(str);
+				},
+				error:function(xhr){
+					alertRe("获取数据失败！");
+				}
+			}); 
+	 	}  
+ 		function getOrderList(shopId,owraper,bridge){   
+			$.ajax({
+				url: '/vip-app-ws/ws/0.1/orders?shopId='+shopId+'&orderListType=0&pageindex='+page+'&pagesize='+pagesize+'&sortname='+sortname+'&sortorder='+sortorder,
+				type: 'get',
+				async: false,
+				dataType: 'json',
+				success: function(data) {
+					$(".loadingBar").hide();
+					page++; 
+					var str = "";
+					var items = data.items;
+					$.each(items,function(i){
+						var item = items[i];
+						var time = item.orderDate; 
+						if(item.paid=="0"){ 
+							item.paid="当面支付"; 
+						}else{
+							item.paid="网上支付";
+						}  
+						if(item.reserveDate!=""){
+							var reserveDate = item.reserveDate;
+							var arr = (reserveDate.split("-")[1]+"-"+reserveDate.split("-")[2]).split(":");
+							item.reserveDate = arr[0]+":"+arr[1];
+						}else{
+							item.reserveDate = "请电话确认";
+						}
+						var call ="";
+						if(item.userMobile!=""){
+							call = '<div class="phone-info clearfix">'
+								+'<div class="left"><span class="call">预约时间：'+item.reserveDate+'</span></div>'
+								+'<a href="tel:'+ item.userMobile +'?'+item.orderId+'" class="right call">'
+								+'<span class="call">拨打电话（'+ item.callCount+'次）</span>'
+								+'</a>'
+								+'</div>';
+						} 
+						var className = "";
+						if(item.callCount=="0"){
+							className = "phone";
+						}
+						str += '<li orderId="'+ item.orderId +'" class="'+className+'">' 
+							+'<div>'
+							+'<div class="user-info"> '
+							+'<span class="time">'+ time +'</span>'
+							+'<span class="name">'+ item.nicName +'</span> '
+							+'</div>'
+							+'<div class="order-info">'
+							+'<p class="serviceName">'+ item.serviceName +'</p>'
+							+'<div class="clearfix">'
+							+'<span class="left-span">车型:'+ item.model +'</span>'
+							+'<span class="right-span">'+item.paid+' ¥'+ item.reservePrice +'</span>'
+							+'</div>'
+							+'</div>'
+							+call
+							+'</div>' 
+							+'</li> ';
+					});  
+					if(owraper!=undefined&&owraper!=""){ 
+						$('.null-tip').remove();
+						$("#orderList").html(str); 
+						$("#orderNum").html(data.totalCount);
+						if(str==""){
+							$("#orderList").after('<p class="null-tip">您还没有待服务订单</p>'); 
+						}
+					}else{
+						$("#orderList").append(str);
+					}   
+					if(data.page == data.totalPages-1){
+						response = "0";
+					} else{
+						response = "1";
+					} 
+					if(bIsAndroid()){
+						$(".overlay-containter").css("min-height",($(window).height()-94));  
+					}else{
+						$(".overlay-containter").css("min-height",$(window).height()-45);  
+					} 
+					if(bridge!=undefined){
+			 			mobileCallBack.apply(this,[response,bridge]); 
+			 		}
+				},
+				error:function(xhr){
+					$(".loadingBar").remove();
+				}
+			}); 
+	 	} 
+	 	index.init = function(userInfo,bridge) { 
+	 		shopId = userInfo.shopAccountId; 
+	 		var bridge = bridge||""; 
+	   		function tabTouch (event){
+			    'number' == typeof this.timeout && (window.clearTimeout(this.timeout), delete this.timeout);
+		 		$("#orderList").html(""); 
+		 	 	$(".loadingBar").show();
+			 	$('.shop-icon').removeClass("open");
+			 	$(".shop-select").slideUp(400);  
+		 		$(".selected").removeClass("selected");
+		 		$(this).addClass("selected"); 
+		 		$('.overlay-wrap').slideUp(400); 
+		 		sortname = $(this).attr("sortname");
+		 		sortorder = $(this).attr("sortorder"); 
+		 		page = 0;
+		 		this.timeout = window.setTimeout(function(){
+		 			getOrderList(shopId,"html",bridge); 
+		 		}, 500);
+		 	}
+		 	$(".tab-wrap span").on('click',tabTouch);
+
+			// document.addEventListener('touchstart',tabTouch, false); 
+	  //  		document.addEventListener('touchend',tabTouch, false);
+		  
+		 	$(".shop-icon").on('click',function(){
+		 		if($(this).hasClass("open")){ 
+			 		$(this).removeClass("open");
+			 		$(".shop-select").slideUp(400); 
+			 		$('.overlay-wrap').slideUp(400);
+			 	}else{ 
+			 		$(this).addClass("open");
+			 		$(".shop-select").slideDown(400); 
+			 		$('.overlay-wrap').slideDown(400);
+			 	}
+		 	});
+		 	$(".shop-select").on('click','li',function(){ 
+		 		shopId = $(this).attr("shopAccountId");  
+		 		$("#shopName").html($(this).html());
+		 		page = 0;
+		 		getOrderList(shopId,"html",bridge);   
+		 		$(".shop-select .selected").removeClass('selected');
+		 		$(this).addClass('selected'); 
+			 	$('.shop-icon').removeClass("open");
+			 	$(".shop-select").slideUp(400); 
+			 	$('.overlay-wrap').slideUp(400);
+		 	});
+		 	$(".overlay-wrap").on('click',function(){   
+			 		$('.shop-icon').removeClass("open"); 
+			 		$(".shop-select").slideUp(400); 
+			 		$('.overlay-wrap').slideUp(400);
+		 	});  		 	
+		 	
+		 	/*$(".order-wrap").on('click','li',function(e){
+		 		var target = e.srcElement || e.target;
+		 		if(target.tagName.toLowerCase() == 'a' || $(target).hasClass('call')) {
+		 			return;
+		 		}
+		 		$(".order-wrap .selected").removeClass('selected');
+		 		$(this).addClass('selected');
+		 		//订单详情页面 | fun 
+		 		var orderId = $(this).attr("orderId");  
+		 		window.location.href = "http://w2nw?"+path+"/order-reserve.html?orderId="+orderId;
+		 	});*/
+		 	getBranchShopList(userInfo);
+			getOrderList(userInfo.shopAccountId,"html");
+			return response;
+		 
+	 	};
+	 	index.pullUpRefresh = function(bridge) {  
+				getOrderList(shopId,"");   
+				return response
+		}
+		var path = getPath();
+ 		$('#orderList').delegate('li','touchstart click',function(e){ 
+ 			var that = this;
+ 			var home = path;
+ 			var target = e.srcElement || e.target;
+ 			switch(e.type) {
+ 				case 'touchstart':
+ 					$("#orderList .selected").removeClass('selected');  
+ 					$(that).addClass('selected');
+ 					break;
+ 				case 'click':   
+			 		if(target.tagName.toLowerCase() == 'a' || $(target).hasClass('call')) {
+			 			return;
+			 		} 
+			 		//订单详情页面 | fun 
+			 		var orderId = $(that).attr("orderId");  
+			 		window.location.href = "http://w2nw?"+path+"/order-reserve.html?orderId="+orderId; 
+ 					break;
+ 			}
+ 		});
+
+		});  
+ 		
+ 		// //android 记录电话次数
+ 		function setCallCountFromClient(orderId){
+ 			 	var postData = {};
+		 		postData.orderId = orderId; 
+				$.ajax({
+					url: '/vip-app-ws/ws/0.1/orders/recordCallCount',
+					contentType : "application/json;charset=utf-8",
+					dataType : "json",
+					type : "POST",
+					data : $.toJSON(postData),
+					async : false,
+					success: function() {   
+					},
+					error:function(xhr){   
+					}
+				}); 
+ 		}
+
+	</script>  
+</body>
+
+</html>
+

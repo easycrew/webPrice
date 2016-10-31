@@ -1,0 +1,445 @@
+<div class="urlContentWraper" id="Wraper_exchange_code"> 
+	<div class="row-fluid ui-data-show"> 
+			<div class="hDiv">
+				 <h2 class="ui-tit"><strong>兑换码管理列表</strong><bottom class="all-work-info numb38">页面说明</bottom></h2>
+				 <table id="Table_exchange_code"></table>
+			</div> 
+			<div class="bDiv">
+				<br/>
+				 <h2 class="ui-tit"><strong>兑换码列表</strong></h2> 
+				<table id="Table_exchangeCode_list"></table>
+			</div> 
+    </div> 
+	
+    <div id="Form_exchange_code" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+		    <input name="shroffAccountId" type="hidden">  
+			<div class="row"> 
+				<label class="span3 grid-layout-label"> 
+					兑换码主题：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="exchangeCodeTopic" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label"> 
+					兑换码数量：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="totalNum" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			 <div class="row">
+				 <label class="span3 grid-layout-label">绑定服务：</label>
+				 <div class="span5 grid-layout-content fluid-wrap">
+					   <div name="zeroService" class="jrad-select-container service"></div>
+									</div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label"> 
+					有效期开始时间：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div class="jrad-dateinput-container" name="startTime">
+					</div>
+				</div>
+				<label class="span3 grid-layout-label"> 
+					有效期结束时间：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div class="jrad-dateinput-container" name="endTime">
+					</div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label fluid-wrap"> 
+					备注：
+				</label>
+				<div class="span13 grid-layout-content fluid-wrap">
+					<div name="remarks" class="jrad-textarea-container">
+					</div>
+				</div>
+			</div> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg38" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>创建对应服务的兑换码后，可以用此兑换码直接兑换此服务。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>现阶段APP已经停止了兑换码支付的功能，兑换码一般用于在“订单管理”创建订单后支付。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	var ExchangeCodeId = "";
+    var wraper = $('#Wraper_exchange_code');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	
+	var page_column_model_c = new Array(); 
+	var page_list_buttons_c = new Array();
+	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+    jRad.validators['zeroService'] = [{"msg":"绑定服务不能为空","type":"min","value":"1"}]; 
+	jRad.validators['businessInfoId'] = [{"msg":"商家id不能为空","type":"min","value":"1"},{msg:"商家id只能是数字",type:'regex',value:/^\d+$/}]; 
+	jRad.validators['remarks'] = [{"msg":"内容超长","type":"max","value":"2000"}];  
+	var fields_params = {};  
+	fields_params['zeroService'] = {
+		data:[{id:"",name:"请选择"},{id:"2",name:"美容"},
+			{id:"1",name:"洗车"},{id:"3",name:"保养"},{id:"4",name:"维修"}],
+		onchange: function(val){ 
+				getServiceSonNode("1",val,wraper);  
+		}
+	}; 
+	fields_params['accountHolder'] = {grid:14}; 
+	fields_params['startTime'] = { 
+	    	dateFmt:'yyyy-MM-dd HH:mm:ss' 
+	};
+	fields_params['endTime'] = { 
+	    	dateFmt:'yyyy-MM-dd HH:mm:ss'
+	};
+	 
+
+	 $('#Form_exchange_code').form({ 
+        grid: 20, 
+        fluid: true,
+      //  validators: jRad.validators,
+        fields_params: fields_params, 
+		type:'post'
+    });  
+
+	page_column_model.push({display: '兑换码主题', name : 'exchangeCodeTopic'}); 
+    page_column_model.push({display: '总数', name : 'totalNum'}); 
+    page_column_model.push({display: '绑定服务', name : 'serviceName'}); 
+    page_column_model.push({display: '已经使用', name : 'usedNum'}); 
+    page_column_model.push({display: '有效期开始', name : 'startTime', sortable:true}); 
+    page_column_model.push({display: '有效期结束', name : 'endTime', sortable:true}); 
+    page_column_model.push({display: '创建人', name : 'createPerson', sortable:true}); 
+    page_column_model.push({display: '创建时间', name : 'createTime', sortable:true}); 
+    page_column_model.push({display: '备注', name : 'remarks', sortable:true});  
+   
+   page_search_items.push({row:'1',type:'jrad-dateinput',display:'有效期开始时间',name:'startTime',params:{'dateFmt':'yyyy-MM-dd HH:mm:ss'}});
+   page_search_items.push({row:'1',type:'jrad-dateinput',display:'有效期结束时间',name:'endTime',params:{'dateFmt':'yyyy-MM-dd HH:mm:ss'}});
+   page_search_items.push({row:'2',type:'jrad-input',display:'兑换码主题',name:'exchangeCodeTopic'}); 
+   page_search_items.push({row:'2',type:'jrad-select',display:'绑定服务',name:'zeroService',params:{
+		data:[
+			{"id":"",name:"请选择"},{id:'1',name:'洗车'},{id:'2',name:'美容'},{id:'3',name:'保养'},{id:'4',name:'维修'}
+		],
+		onchange: function(val){  
+			getServiceSonNodeSearch("1",val,wraper);  
+		}
+	}
+	});   
+     
+   page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){ 
+			$("#Form_exchange_code .row:eq(2) .grid-layout-content #serviceNames").remove();
+			var readonlyFields = {};
+			readonlyFields['exchangeCodeTopic'] = false;
+			readonlyFields['totalNum'] = false;
+			readonlyFields['zeroService'] = false;
+			readonlyFields['remarks'] = false; 
+			$('#Form_exchange_code').form({
+                title: '创建兑换码',
+                validators: jRad.validators,
+                item:{}, 
+				readonlyFields:readonlyFields,
+                style:{height:'300px'}, 
+               	url:'/shopmanage-ws/ws/0.1/exchangeCodeTopicCms/addTopic',
+				before_submit:function(json){
+					var length = $("#Form_exchange_code .service").length;
+					var $select = $("#Form_exchange_code .service:last"); 
+					var serviceId = $select.select('val');
+					if(serviceId==""){
+						serviceId = $($("#Form_exchange_code .service")[length-2]).select('val');
+					} 
+					json.serviceId = serviceId;
+					json.createPerson = carsmart_config.operatorName;
+				},				
+				success_callback:function(){ 
+                            $('#Table_exchange_code').flexMessage('添加成功', 'success');
+                            $('#Table_exchange_code').flexReload();
+                        } 
+            }).form('open');  
+        }
+    }); 
+	
+	page_list_buttons.push({name:'edit',bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_exchange_code').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_exchange_code').getCheckedTrs();  
+			var json = $.jRadGet({url:'/shopmanage-ws/ws/0.1/exchangeCodeTopicCms/detailTopic?id='+checked[0].id}); 
+			var serviceId = json.serviceId;
+			$("#Form_exchange_code .row:eq(2) .grid-layout-content #serviceNames").remove();
+			$("#Form_exchange_code .row:eq(2) .grid-layout-content").append('<p id="serviceNames">已选择：'+json.serviceName+'</p>'); 
+			var readonlyFields = {};
+			readonlyFields['exchangeCodeTopic'] = true;
+			readonlyFields['totalNum'] = true;
+			readonlyFields['zeroService'] = true;
+			readonlyFields['remarks'] = true; 
+			$('#Form_exchange_code').form({
+                title: '编辑兑换码',
+                validators: jRad.validators, 
+                item:json,
+				readonlyFields:readonlyFields,
+                style:{height:'300px'}, 
+                url:'/shopmanage-ws/ws/0.1/exchangeCodeTopicCms/editTopic', 
+				before_submit:function(json){
+					if($("#Form_exchange_code .service:last").select('val')!=""){
+						json.serviceId = $("#Form_exchange_code .service:last").select('val'); 
+					}else{
+						console.log(serviceId);
+						json.serviceId = serviceId;
+					}
+				},
+				success_callback:function(){ 
+                            $('#Table_exchange_code').flexMessage('修改成功', 'success');
+                            $('#Table_exchange_code').flexReload();
+				} 
+            }).form('open'); 
+		}			
+	});   
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_exchange_code').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true, 
+            url:'/shopmanage-ws/ws/0.1/exchangeCodeTopicCms/queryTopics', 
+			onError:showError,
+			checkBoxType:'single',
+			trEvent:function(){		//监听行事件
+				var checked = $('#Table_exchange_code').getCheckedTrs();
+				ExchangeCodeId = checked[0].id;
+				$('#Table_exchangeCode_list').flexOptions({ 
+					url: '/shopmanage-ws/ws/0.1/exchangeCodeTopicCms/queryExchangeCodes',
+					extParam:{
+						topicId: checked[0].id
+					}
+				}).flexReload();
+			}
+    });  
+	page_column_model_c.push({display: '兑换码', name : 'exchangeCode'});	
+	page_column_model_c.push({display: '已使用', name : 'statusName', sortable:true});
+	page_column_model_c.push({display: '绑定用户手机', name : 'mobile'});
+	page_column_model_c.push({display: '绑定商家简称', name : 'businessRegName',diy:function(item,$div){
+	   var $a = $("<a>").html(item.businessRegName); 
+	   $div.html($a);
+	   $a.click(function(){
+		$(document).data("checkShopId",item.businessInfoId)
+		$.jRadOpenTab({'id':'3010','name':'商家信息管理','url':'shopManage/list2.html'},true);
+	   });
+	}});
+	page_column_model_c.push({display: '使用时间', name : 'usedTime', sortable:true});  
+	page_list_buttons_c.push({title: '导出',name:'export', bclass: 'export',onpress : function(){
+		  $ .jRadConfirm('确认导出吗？',1,function(){
+			 var checked = $('#Table_exchange_code').getCheckedTrs();
+			 var id = checked[0].id;
+			 window.open('/shopmanage-ws/ws/0.1/exchangeCodeTopicCms/exportExchangeCode?id='+id);
+		  });
+		}
+	});
+	
+	$('#Table_exchangeCode_list').flexigrid({
+			colModel : page_column_model_c,
+			buttons : page_list_buttons_c, 
+			pagedStyle: 'RAD',
+			checkBoxType:'single',
+			autoload: false,
+			method:'get',
+			pagedStyle: 'oc'
+	});
+
+	var pTable = $(".hDiv .searchContent",wraper); 
+	var addRow = $("<div>").addClass("row-fluid addRow");
+	var addRow2 = $("<div>").addClass("row-fluid addRow2");
+	pTable.append(addRow).append(addRow2);
+	$('span.ui-btn-icon:eq(1)').click(function(){
+	 	$(".searchContent div.addRow2",wraper).html('');
+	 });
+	$(".numb38").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg38").form({}).form('close');
+        $("#Form_explain_eg38").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+			submit:function(){
+            	var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg38 div[name='remark']").textarea("val")
+				$.jRadPost({
+				    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+				    data:postData,
+				    success:function(){
+						$("#Form_explain_eg38").form('close')
+      					$('.overcurtainDiv').hide();
+				   	}
+				});
+			}, 
+			cancel:function(){
+				$("#Form_explain_eg38").form('close')
+      			$('.overcurtainDiv').hide();
+			}
+        }).form('open')
+        $("#Form_explain_eg38 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	function getServiceSonNode(node,val,wraper){   
+		var label = "";
+		var serviceClass = "";
+		if(node==1){
+			label = "一级";
+			serviceClass = "firstService"; 
+			$("#Form_exchange_code .addService").parents(".row").remove();
+		}else if(node==2){
+			label = "二级";
+			serviceClass = "secondService"; 
+			$("#Form_exchange_code div[name='secondService']").parents(".row").remove();
+			$("#Form_exchange_code div[name='thirdService']").parents(".row").remove();
+		}else if(node==3){
+			label = "三级";
+			serviceClass = "thirdService"; 
+			$("#Form_exchange_code div[name='thirdService']").parents(".row").remove();
+		}else if(node==4){
+			label = "四级";
+			serviceClass = "fourService"; 
+			$("#Form_exchange_code div[name='fourService']").parents(".row").remove();
+		}
+		if(val!=""){
+			var item = $.jRadGetDataSources("/shopmanage-ws/ws/0.1/service/getSonServices?parentId="+val,"id","serviceName");
+			if(item.length>0){
+			item.unshift({id:'',name:'请选择'}); 
+			var row = '<div class="row">'
+						+'<label class="span3 grid-layout-label">'+label+'：</label>'
+						+'<div class="span5 grid-layout-content fluid-wrap">'
+						+'<div name="'+serviceClass+'" class="jrad-select-container service addService"></div>'
+						+'</div>'
+						+'</div>' 
+			if(node==1){
+			$("#Form_exchange_code .row:eq(2)",wraper).after(row);
+			}else if(node==2){
+			$("#Form_exchange_code .row:eq(3)",wraper).after(row);
+			}else if(node==3){
+			$("#Form_exchange_code .row:eq(4)",wraper).after(row);
+			}else if(node==4){
+			$("#Form_exchange_code .row:eq(5)",wraper).after(row);
+			}
+			node++; 
+			$('#Form_exchange_code div[name='+serviceClass+']').select({
+				data:item,
+				grid:5,
+				unshiftData: {id:'',name:'请选择'}, 
+				onchange: function(val){
+					getServiceSonNode(node,val,wraper); 
+				}
+			});
+			}
+		}
+    }
+	
+	function getServiceSonNodeSearch(node,val,wraper){    
+		var row = $(".hDiv .searchContent .addRow",wraper); 
+		var _row=$(".hDiv .searchContent .addRow2",wraper);
+		var label = "";
+		var serviceClass = "";
+		var sc = "";
+		if(node==1){
+			label = "一级服务";
+			serviceClass = "firstService"; 
+			sc = "frist";
+			row.html("");
+			_row.html("");
+		}else if(node==2){
+			label = "二级服务";
+			serviceClass = "secondService";
+			sc = "second";
+			$(".second",row).remove();
+			$(".third",_row).remove();
+			$(".four",_row).remove();
+		}else if(node==3){
+			label = "三级服务";
+			serviceClass = "thirdService";
+			sc = "second third";
+			$(".third",_row).remove();
+			$(".four",_row).remove();
+		}else if(node==4){
+			label = "四级服务";
+			serviceClass = "fourService";
+			sc = "second third four";
+			$(".four",_row).remove();
+		}
+		if(val!=""){ 
+			var item = $.jRadGetDataSources("/shopmanage-ws/ws/0.1/service/getSonServices?parentId="+val,"id","serviceName");
+			if(item.length>0){
+			item.unshift({id:'',name:'请选择'}); 
+			var $label = $("<label>").addClass('grid-layout-label span3').addClass(sc).html(label);
+			var $div = $("<div>").addClass('grid-layout-content span4 fluid-wrap').addClass(sc);
+			var $select = $("<div>").attr('name',serviceClass).addClass('jrad-select-container service addService');  
+			if(serviceClass=="thirdService"||serviceClass=="fourService"){
+				_row.append($label).append($div.append($select));
+			}else{   
+				row.append($label).append($div.append($select));
+			} 
+			node++; 
+			$select.select({
+				data:item,
+				unshiftData: {id:'',name:'请选择'}, 
+				grid:false,
+				onchange: function(val){
+					getServiceSonNodeSearch(node,val,wraper); 
+				}
+			});
+			} 
+			$('#Table_exchange_code').flexOptions({  
+					extParam:{
+						serviceId: val
+					}
+			});
+		}
+		
+	}
+});
+function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		} 
+</script>

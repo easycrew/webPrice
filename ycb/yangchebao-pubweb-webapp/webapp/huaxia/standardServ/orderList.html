@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>全部订单</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<script src="../js/commen.js"></script>
+	<link rel="stylesheet" href="../css/main.css">
+	<style>
+		ul.orderList-ul li{
+			background-color: #fff;
+			margin-top: 1rem;
+		}
+		div.liTop{
+			padding: 1rem;
+			font-size: 1.5rem;
+			border-bottom: 1px solid #d9d9e2;
+		}
+		span.rightArrow{
+			float:  right;
+			position: relative;
+		}
+		span.rightArrow::before,span.rightArrow::after{
+			position: absolute;
+			top: 1px;
+			width: 0;
+			height: 0;
+			content: '';
+			font-size: 0px;
+			border-top: 7px solid transparent;
+			border-bottom: 7px solid transparent;
+		}
+		span.rightArrow::before{
+			right: -4px;
+			border-left: 7px solid #a2a2a2;
+		}
+		span.rightArrow::after{
+			right: -3px;
+			border-left: 7px solid #fff;
+		}
+		div.liMi{
+			padding: 1.5rem;
+			border-bottom: 1px solid #d9d9e2;
+		}
+		div.liMiL{
+			float: left;
+		}
+		p.liMiLPic{
+			float: left;
+			margin-right: 1rem;
+		}
+		p.liMiLPic img{
+			width: 57px;
+		}
+		div.liMiLText{
+			float: left;
+		}
+		p.servName{
+			font-size: 1.4rem;
+		}
+		p.servCon{
+			font-size: 1.2rem;
+		}
+		div.liMiR{
+			float: right;
+			font-size: 1.8rem;
+			color: #f55d5d;
+		}
+		div.liBottom{
+			border-bottom: 1px solid #d9d9e2;
+		}
+		div.bL{
+			float: left;
+			padding: 1rem;
+		}
+		div.bLL{
+			float: left;
+			font-size: 1.2rem;
+		}
+		p.bLR{
+			float: left;
+			padding-left: 1rem;
+		}
+		p.bLR img{
+			width: 3rem;
+		}
+		div.bR{
+			float: right;
+			font-size: 1.8rem;
+			color: #fff;
+			text-align: center;
+		}
+		p.refundBtn{
+			padding: 1.5rem 2.6rem;
+			background-color: #f55d5d;
+		}
+		div.servInstruction div{
+			border-bottom: 1px solid #d9d9e2;
+			position: relative;
+			margin-top: 2.8rem;
+			margin-bottom: 2.8rem;
+			margin-left: 1rem;
+			margin-right: 1rem;
+		}
+		div.servInstruction p{
+			position: absolute;
+			top: -0.7rem;
+			display: inline-block;
+			width: 146px;
+			left: 50%;
+			margin-left: -73px;
+			font-size: 1.2rem;
+			color: #a2a2a2;
+			background-color: #f4f7f8;
+			text-align: center;
+		}
+		div.overLay{
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background: rgba(0,0,0,0.3);
+			z-index: 100;
+		}
+		div.codeBox{
+			position: fixed;
+			z-index: 200;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			background-color: #fff;
+			width: 90%;
+			margin-left: 5%;
+			top: 0;
+			padding: 1.5rem;
+		}
+		div.codeBox p.closeW img{
+			float: right;
+			width: 2rem;
+		}
+		div.codeBox p.codePicW{
+			margin-top: 2rem;
+			text-align: center;
+		}
+		div.codeBox img{
+			width: 17rem;
+		}
+		div.codeBox p.tipText{
+			margin-top: 1rem;
+			text-align: center;
+			color: #c2c2c6;
+			font-size: 1.3rem;
+		}
+		div.codeBox p.shopName{
+			font-size: 1.5rem;
+			text-align: center;
+			padding: 1rem 0;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<ul class="orderList-ul">
+		</ul>
+		<div class="servInstruction" style="display:none;">
+			<div><p>点击查看更多订单</p></div>
+		</div>
+		<div class="codeBox" style="display:none;">
+			<p class="closeW"><img src="./img/close.jpg" class="close"></p>
+			<p class="codePicW"></p>
+			<p class="tipText">请扫描二维码进行服务验证</p>
+			<p class="shopName">慧翔泽XXXXXXX慧翔泽西直门店...</p>
+		</div>
+		<div class="overLay" style="display:none;"></div>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		getOrderList(0);
+		
+		function getOrderList(page){
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/orderservice/order/page?customerId='+store.get('customerId')+'&pageindex='+page+'&pagesize=20',
+				type:'get',
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					var orderStr='';
+					if(data.items.length>0){
+						data.items.forEach(function(key,i){
+							orderStr+='<li class="order-li" data-id="'+key.orderId+'" data-number="'+key.orderNumber+'">'
+									 +'<div class="liTop"><span class="businessName">'+key.businessName+'</span><span class="rightArrow"></span></div>'
+									 +'<div class="liMi clearfix">'
+									 +'<div class="liMiL clearfix">'
+									 +'<p class="liMiLPic"><img src="'+key.servicePic+'"></p>'
+									 +'<div class="liMiLText">'
+									 +'<p class="servName">'+key.serviceName+'</p>'
+									 +'<p class="servCon">'+key.extraName+'</p>'
+									 +'</div>'
+									 +'</div>'
+									 +'<div class="liMiR">￥'+key.payment+'</div>'
+									 +'</div>'
+									 +'<div class="liBottom clearfix">'
+									 +'<div class="bL clearfix">'
+									 +'<div class="bLL">'
+									 +'<p class="status">状态：<span class="statusText">'+key.orderStatusName+'</span></p>'
+									 +'<p class="servNum">服务码：<span class="servNumText">'+key.serviceCode+'</span></p>'
+									 +'</div>'
+									 if(key.serviceCodeQRUrl!=null){
+									 	orderStr+='<p class="bLR"><img src="'+key.serviceCodeQRUrl+'"></p>'
+									 }
+									 orderStr+='</div>';
+									 if(key.orderOperate == 3){
+									 	orderStr+='<div class="bR"><p class="refundBtn">退款</p></div>'
+									 }
+									 orderStr+='</div>'
+											  +'</li>'
+									 
+						});
+						$('ul.orderList-ul').append(orderStr);
+						// 查看更多订单
+						var orderLen = $('ul.orderList-ul li').length;
+						if(orderLen<data.totalCount){
+							$('div.servInstruction').show();
+							$('div.servInstruction').unbind('click').bind('click',function(){
+								getOrderList(page+1)
+							})
+						}
+					}else{
+						$('ul.orderList-ul').html('<li style="text-align:center;font-size:1.4rem;padding:2rem 0;">暂无订单</li>')
+					}
+					// 查看订单详情
+					$('div.liTop').on('click',function(){
+						var orderNumber=$(this).closest('li').attr('data-number');
+						window.location.href="orderDetail.html?orderNumber="+orderNumber
+					});
+					// 退款
+					$('p.refundBtn').on('click',function(){
+						var orderId=$(this).closest('li').attr('data-id');
+						window.location.href="refundAccount.html?orderId="+orderId
+					});
+					// 查看二维码
+					$('p.bLR img').on('click',function(){
+						var thisSrc=$(this).attr('src');
+						var shopName=$(this).closest('li').find('span.businessName').html();
+						$('div.codeBox p.codePicW').html('<img src="'+thisSrc+'">');
+						$('div.codeBox p.shopName').html(shopName);
+						$('div.codeBox,div.overLay').show();
+						var codeBoxHeight=$('div.codeBox').outerHeight();
+						$('div.codeBox').css({'top':'50%','margin-top':'-'+(codeBoxHeight/2)+'px'});
+						// $(window).off("scroll");
+						$('img.close').unbind('click').bind('click',function(){
+							$('div.codeBox,div.overLay').hide()
+						});
+					})
+				}
+			})
+		}
+	})
+</script>
+</html>

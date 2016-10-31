@@ -1,0 +1,205 @@
+<div class="urlContentWraper" id="Wraper_brand_manage">
+    <div class="ui-info-layout">
+      <div class="qdiv">
+           <h2 class="ui-tit"><strong>品牌管理列表</strong></h2>
+           <!-- 列表显示 -->
+           <table id="Table_brand_manage"></table>
+      </div>
+    </div> 
+    <div id="Form_brand_manage" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+        <div class="row">
+             <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>品牌名称：</label>
+             <div class="span5 grid-layout-content fluid-wrap">
+                   <div name="name" class="jrad-input-container"></div>
+             </div>
+        </div>      
+        <div class="row">
+             <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>排序：</label>
+             <div class="span5 grid-layout-content fluid-wrap">
+                   <div name="sequence" class="jrad-input-container"></div>
+             </div>
+        </div>
+        <div class="row">
+             <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>是否进口：</label>
+             <div class="span5 grid-layout-content fluid-wrap">
+                   <div name="isImported" class="jrad-select-container"></div>
+             </div>
+        </div>
+        <div class="row">
+             <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>品牌logo：</label>
+             <div class="span5 grid-layout-content fluid-wrap">
+                   <div name="brandLogo" class="jrad-uploadimg-container"></div>
+             </div>
+        </div>
+        <div class="row">
+             <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>状态：</label>
+             <div class="span5 grid-layout-content fluid-wrap">
+                   <div name="status" class="jrad-select-container"></div>
+             </div>
+        </div>
+        <input type="hidden" name="accessoryBrandId">
+        <input type="hidden" name="picUrl">
+        <input type="hidden" name="middlePicUrl">
+        <input type="hidden" name="smallPicUrl">
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>    
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_brand_manage');
+    var page_column_model = new Array();
+    var page_list_buttons = new Array();
+	  var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+
+    jRad.validators['name']=[{msg:'请填写商品名称',type:'min',value:'1'}];
+    jRad.validators['sequence']=[{msg:'请填写排序号',type:'min',value:'1'},{msg:'请输入数字',type:'regex',value:/^\d*$/}];
+
+    var fields_params={};
+    var _form=$('#Form_brand_manage',wraper);
+    fields_params['status'] = {
+      data: [{id:'1',name:'上线'},{id:'0',name:'下线'},{id:'2',name:'删除'}] 
+    };
+    fields_params['isImported'] = {
+      data: [{id:'1',name:'是'},{id:'0',name:'否'}] 
+    };
+    fields_params['brandLogo'] = {
+      url:'/ycbmall-manager-ws/ws/0.1/file/uploadThree',
+      delFunc: function(item){
+         item.list.remove();
+         $("input[name='picUrl']",_form).val("");
+         $("input[name='middlePicUrl']",_form).val("");
+         $("input[name='smallPicUrl']",_form).val(""); 
+      },
+      fileName:"file",
+      note: '仅支持 JPG图片文件，图片尺寸建议500*500以上，长宽比例1:1左右，内存500k以下。',
+      show: false,
+      params: {type:""},
+      success: function(data){ 
+         if(data[0]&&data[0].code=="400"){
+           $.jRadMessage({level:'error',message:data[0].message});
+         }else{
+         $("input[name='picUrl']",_form).val(data.fileUrl);
+         $("input[name='middlePicUrl']",_form).val(data.middleUrl);
+         $("input[name='smallPicUrl']",_form).val(data.smallUrl); 
+         }
+      },
+       beforeSubmit: function(obj){
+        var re = /^.*\.(jpg|JPG)$/;
+        if(re.test(obj.val())){
+        return true;
+        }else{  
+        $.jRadAlert("只能上传jpg文件", "error");
+        $("div[name='brandLogo']",_form).find("input[type='file']").val('');
+        return false;
+        }
+      },
+      single: true,
+      showInfo:false,
+      prev:'smallUrl'
+    };
+    $('#Form_brand_manage').form({
+      grid:10,
+      validators:jRad.validators,
+      fields_params:fields_params,
+      fluid: true,
+      autobinding:true 
+    });
+    page_column_model.push({display: 'ID', name : 'accessoryBrandId'}); 
+	  page_column_model.push({display: '品牌名称', name : 'name'}); 
+  	page_column_model.push({display: '排序', name : 'sequence'}); 
+    page_column_model.push({display: '状态', name : 'statusName'});
+	
+    page_list_buttons.push({title:'创建',name:'Add',bclass: 'add',onpress : function(){
+          $('#Form_brand_manage').form({
+          title: '创建', 
+          item:{},
+          validators:jRad.validators,
+          fields_params:fields_params,
+          url:'/ycbmall-manager-ws/ws/0.1/accessoryBrandCms/addAccessoryBrand',
+          before_submit:function(json){
+            json.operator=carsmart_config.operatorName;
+            return json
+          },
+          success_callback:function(){ 
+            $('#Table_brand_manage').flexMessage('创建成功', 'success');
+            $('#Table_brand_manage').flexReloadCurrentPage();
+          }
+        }).form('open');
+        $('#Form_brand_manage div.span4',wraper).removeClass('span4');
+      }
+    });
+    page_list_buttons.push({title:'编辑',name:'Edit',bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_brand_manage').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+        var checked = $('#Table_brand_manage').getCheckedTrs();
+        if(checked[0]){
+          $('#Form_brand_manage').form({
+          title: '编辑', 
+          validators:jRad.validators,
+          fields_params:fields_params,
+          item:checked[0],
+          url:'/ycbmall-manager-ws/ws/0.1/accessoryBrandCms/editAccessoryBrand',
+          before_submit:function(json){
+            json.operator=carsmart_config.operatorName;
+            return json
+          },
+          success_callback:function(){ 
+            $('#Table_brand_manage').flexMessage('编辑成功', 'success');
+            $('#Table_brand_manage').flexReloadCurrentPage();
+          }
+        }).form('open');
+         var _ul = $("div[name='brandLogo']",wraper).children(".pic-show"); 
+         var src = checked[0].smallPicUrl;
+         if(src!=undefined&&src!=""){ 
+          var _li = '<li name="" class="brandPicBoxli"><div class="large-pic"><div class="pic-box"><div class="pic-content"><div class="pic-vc">'
+              +'<img src="'+src+'">'
+              +'</div></div><span name="small" class="del-btn"></span></div></div></li>'
+          _ul.html(_li); 
+          $(".brandPicBoxli .del-btn",wraper).click(function(){
+            var small = $(this).prev(".pic-content").find("img").attr("src");
+            $(this).parents(".brandPicBoxli").remove(); 
+              $("input[name='picUrl']",wraper).val("");
+              $("input[name='middlePicUrl']",wraper).val("");
+              $("input[name='smallPicUrl']",wraper).val("");  
+          });
+         }
+        } 
+      }
+    });
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_brand_manage').flexigrid({
+            reload:true,
+      			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :[],
+            pagination: {
+      				diaplay_pages: 5,
+      				align: 'bottom' 
+      			},
+      			showSearch:true,  
+            url:'/ycbmall-manager-ws/ws/0.1/accessoryBrandCms/queryAccessoryBrands', 
+      			onError:showError, 
+      			checkBoxType:'single'
+    });
+
+ 
+	
+	function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		}
+});
+
+
+ 
+ 
+</script>

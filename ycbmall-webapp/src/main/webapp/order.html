@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="养车宝，配件商城">
+	<meta name="description" content="养车宝配件商城，100%原厂品质，3M、威固、美孚、壳牌Ahell、普利司通、米其林等汽车配件，厂价直销！">
+	<title>全网正品汽车配件_养车宝配件商城！</title>
+	<link rel="icon" href="favicon.ico">
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script language="javascript" src="js/jquery.json-2.2.js"></script> 
+	<script src="js/common.js"></script>
+	<script src="js/jquery.urlParam.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/myShopcar.css">
+	<link rel="stylesheet" href="css/checkOrderInfo.css">
+	<link rel="stylesheet" href="css/selectCharge.css">
+	<link rel="stylesheet" href="css/login.css">
+	<style type="text/css">
+		select{
+			font: 14px;!important
+		}
+		.disabled{
+			background-color: #ccc!important;
+		}
+		span.thisName{
+			font-family: "微软雅黑";
+			font-size: 14px;
+			color: #333;
+			margin-left: 18px;
+		}
+		div.tipInfo{
+			border: 2px solid #FD6243;
+			padding: 30px;
+			margin-bottom: 30px;
+			background: #FFF0ED;
+		}
+		div.tipInfo p{
+			padding: 0!important;
+		}
+		div.tipInfo p.tipInfo_title{
+			font-family: "微软雅黑";
+			font-size: 18px;
+			color:#FD6243;
+		}
+		div.tipInfo p.tipInfo_con{
+			font-family: "微软雅黑";
+			font-size: 14px;
+			color: #000000;
+		}
+		#settle{display: inline-block;width: 145px;height:50px;line-height:50px;text-align: center;background-color:#FD6244;font-family: "microsoft yahei";font-size: 16px;color: #FFFFFF;cursor: pointer;}
+		div.goodsTfoot p.handOrder span.allPrice{padding-right: 15px;}		
+	</style>
+</head>
+<body>
+<div class="container">
+<div class="top"></div>
+<div class="main">
+	<div class="mainCommen"></div>
+	<div class="cheakOrderInfo">
+		<div class="myShopCar-con-topRight">
+			<ul>
+				<li>
+					<div class="li-top">
+						<p class="third-line-left line line-left"></p>
+						<p class="third-circle circle">3</p>
+						<p class="third-line-right line line-right"></p>
+					</div>
+					<div class="li-bottom">提交订单</div>
+				</li>
+				<li class="li-second">
+					<div class="li-top">
+						<p class="second-line-left line line-left thisP"></p>
+						<p class="second-circle circleTh">2</p>
+						<p class="second-line-right line line-right thisP"></p>
+					</div>
+					<div class="li-bottom thisBottom">填写核对订单信息</div>
+				</li>
+				<li class="li-first">
+					<div class="li-top">
+						<p class="first-line-left line line-left thisP"></p>
+						<p class="first-circle circleTh">1</p>
+						<p class="first-line-right line line-right thisP"></p>
+					</div>
+					<div class="li-bottom thisBottom">我的购物车</div>
+				</li>
+			</ul>
+		</div>
+		<div class="takePersonInfo">
+			<h2>收货人信息</h2>
+			<div class="takePersonInfo_detail">
+				<p class="takePersonInfo_detail_note" style="font-family:'microsoft yahei';color:#f00;font-size:14px;"></p>
+				<p>
+					<label class="contactPerson" for="contactPerson"><span class="required">*</span>联系人：</label>
+					<input type="text" name="consigneeName" id="contactPerson" placeholder="长度不超过25个字符">
+				</p>
+				<p>
+					<label class="tellephone" for="tellephone"><span class="required">*</span>联系电话：</label>
+					<input type="text" name="mobile" id="tellephone" placeholder="请输入您的常用号码">
+				</p>
+				<p>
+					<label class="area" for="area"><span class="required">*</span>所在地区：</label>
+					<select name="provinceId" id="">
+					</select>
+					<select name="areaCodeId" id="">
+					</select>
+					<select name="countyId" id="">
+					</select>
+				</p>
+				<p>
+					<label class="contactPerson" for="contactPerson"><span class="required">*</span>详细地址：</label>
+					<textarea name="postalAddress" id="contactPerson" placeholder="建议您如实填写详细收货地址，例如街道名称、门牌号码、楼层和房间号等信息。" rows='6' cols="75"></textarea>
+				</p>
+			</div>
+		</div>
+		<div class="chargeAndBring">
+			<!--<h2>支付和配送</h2>-->
+			<div class="chargeAndBring_detail">
+				<div class="chargeAndBring_type">
+					<!--<p class="charge_type"><label>支付方式：</label><span>线上支付</span></p>-->
+					<p class="bring_type"><label>配送方式：</label><span>养车宝配送</span></p>
+				</div>
+			</div>
+			<div class="chargeAndBring_goods">
+				<table cellspacing="0" cellpadding="0">
+					<thead>
+						<td>序号</td>
+						<td>商品信息</td>
+						<td>价格</td>
+						<td>数量</td>
+						<td>金额</td>
+					</thead>
+					
+					<tbody>
+						
+					</tbody>
+				</table>
+				<div class="buyerMessage">
+					<span>给卖家留言：</span><input type="text" name='userRemark' placeholder="选填，对本次交易的说明">
+				</div>
+				<div class="fapiaoInfo">
+					<h2>发票信息</h2>
+					<p class="invoiceType-p">
+						<span>发票类型：</span>
+						<select name="invoiceType">
+							<option value="0" checked='checked'>不需要</option>
+							<option value="1">个人</option>
+							<option value="2">公司</option>
+							<option value="3">增值税发票</option>
+						</select>
+						<span class="invoice-content" style="display: none;">
+							<span>发票内容：</span>
+							<select name="invoiceCon">
+								<option value="0" checked='checked'>明细</option>
+								<option value="1">汽车用品</option>
+								<option value="2">配件</option>
+							</select>
+						</span>
+					</p>
+					<p class="invoiceTitle-p" style="display: none;">
+						<span>发票抬头：</span><input type="text" name="invoiceTitle" vlaue="">
+						<span class="invoiceTitle-note" style="color:#f00;"></span>
+					</p>
+				</div>
+				<h2 class="balanceCount">余额使用 &nbsp;&nbsp;&nbsp;&nbsp;( 账户余额&yen;<span>500</span> )</h2>
+				<div class="balance">
+					<input type="hidden" name="isBalanceUse" value="1"/>
+					<span class="balanceUseOrUnuse balanceUse"></span>
+					<span>使用余额 （本订单可用余额：&yen;</span>
+					<span class="balanceNum">0</span>
+					<span>）</span>
+				</div>
+				<div class="tipInfo">
+					<P class="tipInfo_title">特别说明:</P>
+					<p class="tipInfo_con">
+						一：团购商品将在商品成团之后，再进行统一发货。如果未能成团，订单金额将在项目截止日起的5个工作日内退回您的支付账户，敬请知晓。<br>
+						二：如您需开具增值税发票，请于下单后的三个工作日内在个人中心提交增票资质相关材料，否则将按普通发票开取。（已提交并审核通过的用户不用再次提交）
+					</p>
+				</div>
+				<div class="goodsTfoot">
+					<p class="goodsAndPost"><span>商品总价：</span><span class="goodsPriceDetail">￥:200</span><span>快递费：</span><span class="postPriceDetail">￥0</span></p>
+					<p class="handOrder"><span class="allPriceText">实付款：</span><span class="allPrice"></span><a id="settle" target="_blank">提交订单</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="footer"></div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+if(!(document.cookie.indexOf('customerId')!=-1)){
+		location.href="index.html";
+	}
+	$(function(){
+		$('div.top').load('top.html');
+		$('div.mainCommen').load('searchAndNav.html');
+		$('div.footer').load('footer.html');
+		var username=mall.getCookie('username');
+		var customerId=mall.getCookie('customerId');
+		var areaCodeId=mall.getCookie('areaCodeId');
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		var groupPurchasingId=paramJson.groupPurchasingId;
+		var postData={};
+		if(groupPurchasingId!=undefined){
+			postData.groupPurchasingId=groupPurchasingId;
+			postData.from=3;//1:购物车2：商品详情3：团购4：礼包详情页
+		}else{
+			postData.from=1;
+		}
+		postData.userInfoId=customerId;
+		postData.areaCodeId=areaCodeId;
+		$.ajax({
+			type:'get',
+			url:mall.url('/user/sku/selected'),
+			data:postData,
+			dataType:'json',
+			contentType:'application/json;charset="utf-8"',
+			success:function(data){
+				var groupPurchaingId=data.groupPurchaingId;
+				var commodities=data.commodities;
+				var goodDetStr='';
+				$.each(commodities,function(i){
+					goodDetStr+='<tr>'
+							  +'<td class="checkboxTd">'+(i+1)+'</td>'
+							  +'<td class="goodsInfo_detail" style="text-align:left;padding-left:40px;">'
+							  +'<input type="hidden" name="'+this.skuId+'" />'
+							  +'<a href="goodsDetail.html?commodityId='+this.commodityId+'&skuId='+this.skuId+'" class="goods-img" target=_blank>'
+							  if(this.commodityType==2){
+				  				goodDetStr+='<i>专享</i>'
+					  		  }
+							  this.name=mall.strFormat(this.name,40);
+							  goodDetStr+='<img src="'+this.smallPicUrl+'" width="76" height="76">'
+							  +'</a>'
+							  +'<span class="thisName"><a href="goodsDetail.html?commodityId='+this.commodityId+'&skuId='+this.skuId+'" id="'+this.skuId+'" target=_blank>'+this.name+'</a></span>'
+							  +'</td>'
+							  +'<td class="perPrice_detail">'+this.sellingPrice+'</td>'
+							  +'<td class="skuNum_detail">'+this.skuNum+'</td>'
+							  +'<td class="allPrice_detail">￥'+this.price+'</td>'
+							  +'</tr>'
+				});
+			$('div.chargeAndBring_goods tbody').html(goodDetStr);
+			var calculatePostage=parseFloat(data.calculatePostage);//快递费
+			$("div.goodsTfoot span.postPriceDetail").html('￥ '+calculatePostage);
+			//用户账户余额
+			var availableBalance=0;
+			var originalPayment=data.originalPayment;//总金额
+			originalPayment=parseFloat(originalPayment);
+			availableBalance=parseFloat(data.availableBalance); //余额
+			$("h2.balanceCount span").html(availableBalance);
+			$(".balance span.balanceNum").html(availableBalance);
+			var settleAllPrice_=((originalPayment+calculatePostage)-availableBalance);
+			if(settleAllPrice_<0){
+				settleAllPrice_=0
+			}
+			originalPayment=originalPayment.toFixed(2);
+			settleAllPrice_=settleAllPrice_.toFixed(2);
+			$("div.goodsTfoot span.goodsPriceDetail").html('￥ '+originalPayment);
+			$("div.goodsTfoot span.allPrice").html('￥'+settleAllPrice_);
+			}
+//			error:function(xhr){
+//				var error =JSON.parse(xhr.responseText);
+//				mall.alertRe_(error[0].message,"");
+//			}
+		});
+		$('select[name="provinceId"]').html('<option value="">请选择省份</option>');
+		$('select[name="areaCodeId"]').html('<option value="">请选择城市</option>');
+		$('select[name="countyId"]').html('<option value="">请选择区县</option>');
+		var _url=mall.url('/user/delivery/detail');
+			_url+='?userInfoId='+customerId;
+			$.ajax({
+				type:"get",
+				url:_url+'&'+new Date().getTime(),
+				async:false,
+				dataType:'json',
+				contentType:"application/json;charset=utf-8",
+				success:function(json){
+//		$.get(mall.url('/user/delivery/detail'),{userInfoId:customerId},function(json){
+			$('input[name="consigneeName"]').val(json.consigneeName);
+			$('input[name="mobile"]').val(json.mobile);
+			if(json.provinceId!=undefined){
+				$('select[name="provinceId"]').val('<option value="'+json.provinceId+'" selected="true">'+json.provinceName+'</option>');
+			}
+			if(json.areaCodeId!=undefined){
+				$('select[name="areaCodeId"]').html('<option value="'+json.areaCodeId+'" selected="true">'+json.areaCodeName+'</option>');
+			}
+			if(json.countyId!=undefined){
+				$('select[name="countyId"]').html('<option value="'+json.countyId+'" selected="true">'+json.countyName+'</option>');
+			}
+			$('textarea[name="postalAddress"]').val(json.postalAddress);
+ 			$.get(mall.url('/areaCode/getOpeningProvicnes'),function(data){
+				var proStr='<option value="">请选择省份</option>'
+				$.each(data,function(){
+					if(this.id==json.provinceId){
+						proStr+='<option value="'+this.id+'" selected="true">'+this.provinceName+'</option>'
+					}else{
+						proStr+='<option value="'+this.id+'">'+this.provinceName+'</option>'
+					}
+				});
+				$('select[name="provinceId"]').html(proStr);
+			});
+
+			$.get(mall.url('/areaCode/getOpeningCities'),{provinceId:json.provinceId},function(data2){
+				var cityStr='<option value="">请选择城市</option>'
+				$.each(data2,function(){
+					if(this.id==json.areaCodeId){
+						cityStr+='<option value="'+this.id+'" selected="true">'+this.municipalityName+'</option>'
+					}else{
+						cityStr+='<option value="'+this.id+'">'+this.municipalityName+'</option>'
+					}
+				});
+				$('select[name="areaCodeId"]').html(cityStr);
+				//areaCodeId=$('select[name="areaCodeId"]').val();
+			});
+				
+			$.get(mall.url('/areaCode/countries'),{cityId:json.areaCodeId},function(data3){
+				var countyStr='<option value="">请选择区县</option>';
+				$.each(data3,function(){
+					if(this.id==json.countyId){
+						countyStr+='<option value="'+this.id+'" selected="true">'+this.countyName+'</option>'
+					}else{
+						countyStr+='<option value="'+this.id+'">'+this.countyName+'</option>'
+					}
+				});
+				$('select[name="countyId"]').html(countyStr)
+			});
+			
+			$('select[name="provinceId"]').change(function(){
+				$('select[name="areaCodeId"]').html('<option value="">请选择城市</option>');
+				$('select[name="countyId"]').html('<option value="">请选择区县</option>');
+				 var provinceId=$(this).val();
+				$.get(mall.url('/areaCode/getOpeningCities'),{provinceId:provinceId},function(data2){
+					var cityStr='<option value="">请选择城市</option>'
+					$.each(data2,function(){
+						cityStr+='<option value="'+this.id+'">'+this.municipalityName+'</option>'
+					});
+					$('select[name="areaCodeId"]').html(cityStr);
+				});
+			});
+			$('select[name="areaCodeId"]').change(function(){
+				$('select[name="countyId"]').html('<option value="">请选择区县</option>');
+				var areaCodeId=$(this).val();
+				var countyStr='<option value="">请选择区县</option>'
+				$.get(mall.url('/areaCode/countries'),{cityId:areaCodeId},function(data3){
+					$.each(data3,function(){
+						countyStr+='<option value="'+this.id+'">'+this.countyName+'</option>'
+					});
+					$('select[name="countyId"]').html(countyStr)
+				})
+			});
+	 			
+			$('div.fapiaoInfo select[name="invoiceType"]').change(function(){
+				$('span.invoiceTitle-note').html('');
+				if($(this).val()=="0"){
+					$(".invoiceTitle-p").hide();
+					$(".invoice-content").hide();
+				}else{
+					$(".invoiceTitle-p").show();
+					$(".invoice-content").show();
+				}
+				$('input[name="invoiceTitle"]').val("");
+			});
+			}
+		});
+		
+		//选择是否使用余额
+		$("div.balance span.balanceUseOrUnuse").click(function(){
+				if($(this).hasClass('balanceUse')){
+					$(this).removeClass('balanceUse').addClass('balanceUnuse');
+					$(this).parents('.balance').find("input[name='isBalanceUse']").val(0);
+					var goodsPriceDetail=parseFloat($(".goodsTfoot span.goodsPriceDetail").html().split('￥')[1]);//商品总价
+					var postPriceDetail=parseFloat($(".goodsTfoot span.postPriceDetail").html().split('￥')[1]);//快递费
+					var settleAllPrice=(goodsPriceDetail-postPriceDetail).toFixed(2);
+					$(".goodsTfoot span.allPrice").html('￥'+settleAllPrice);
+				}else{
+					$(this).removeClass('balanceUnuse').addClass('balanceUse');
+					$(this).parents('.balance').find("input[name='isBalanceUse']").val(1);
+					var availableBalance=parseFloat($(this).siblings('.balanceNum').html());
+					var settleAllPrice=$(".goodsTfoot span.allPrice").html();
+					settleAllPrice=settleAllPrice.split("￥")[1];
+					settleAllPrice=parseFloat(settleAllPrice);
+					settleAllPrice=(settleAllPrice-availableBalance);
+					if(settleAllPrice<0){
+						settleAllPrice=0
+					};
+					settleAllPrice=settleAllPrice.toFixed(2);
+					$(".goodsTfoot span.allPrice").html('￥'+settleAllPrice);
+				}
+			});
+		//单击提交订单
+		$('#settle').bind('click',function(){
+			var postData={};
+			if(groupPurchasingId!=undefined){
+				postData.groupPurchasingId=groupPurchasingId;
+			}
+			postData.userInfoId=customerId;
+			postData.consigneeName=$.trim($('input[name="consigneeName"]').val());
+			postData.mobile=$.trim($('input[name="mobile"]').val());
+			postData.provinceId=$('select[name="provinceId"]').val();
+			postData.areaCodeId=$('select[name="areaCodeId"]').val();
+			postData.countyId=$('select[name="countyId"]').val();
+			postData.loginAreaCodeId=mall.getCookie('areaCodeId');
+			postData.postalAddress=$.trim($('textarea[name="postalAddress"]').val());
+			postData.skulist=[];
+			$('div.cheakOrderInfo tbody tr').each(function(){
+				var skulistJson={};
+				skulistJson.skuId=$(this).find('input[type="hidden"]').attr('name');
+				skulistJson.skuNum=$(this).find('td.skuNum_detail').text();
+				postData.skulist.push(skulistJson)
+			});
+			postData.invoiceType=$('select[name="invoiceType"]').val();
+			if(postData.invoiceType!=0&&postData.invoiceType!=undefined){
+				postData.invoiceDetail=$('select[name="invoiceCon"]').val();
+				postData.invoiceTitle=$.trim($('.fapiaoInfo input[name="invoiceTitle"]').val());
+			}
+			postData.userRemark=$('input[name="userRemark"]').val()
+			//postData.originalPayment=settleAllPrice;
+			postData.calculatePostage=0; 
+			postData.realPayment=$("div.goodsTfoot span.allPrice").html().split('￥')[1];
+			
+			//使用余额支付
+			if($("input[name='isBalanceUse']").val()==1){
+				postData.isUseBalance=1;
+			}else{
+				postData.isUseBalance=0;
+			}
+			
+			if(postData.consigneeName==''){
+				$('p.takePersonInfo_detail_note').html('联系人不能为空');
+				scroll(0,0);
+				return false
+			}
+			if(postData.mobile==''||!/^1[0-9]{10}$/.test(postData.mobile)){
+				$('p.takePersonInfo_detail_note').html('请填写正确格式的手机号');
+				scroll(0,0);
+				return false
+			}
+			if(postData.provinceId==''||postData.areaCodeId==''||postData.countyId==''){
+				$('p.takePersonInfo_detail_note').html('请选择所在省市区');
+				scroll(0,0);
+				return false
+			}
+			if(postData.postalAddress==''){
+				$('p.takePersonInfo_detail_note').html('请填写详细地址');
+				scroll(0,0);
+				return false
+			}
+			if(postData.postalAddress.length>200){
+				$('p.takePersonInfo_detail_note').html('街道地址过长');
+				scroll(0,0);
+				return false
+			}
+			if(postData.invoiceType!=0&&postData.invoiceTitle==''){
+				$('span.invoiceTitle-note').html('发票抬头不能为空');
+				return false
+			}
+			$.ajax({
+				type:'post',
+				url:mall.url('/userorder/submit'),
+				data:$.toJSON(postData),
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				async:false,
+				success:function(data){
+					var realPayment=data.realPayment;
+					if(data.isPayOK==1){
+						window.location.href='historyOrder.html';
+					}else{
+						window.location='playment.html?orderNumber='+data.orderNumber;
+					}
+				},
+				error:function(xhr){
+					var error =JSON.parse(xhr.responseText);
+					mall.alertRe(error[0].message,"");
+				}
+			});
+			var postDataAdd={};
+			postDataAdd.userInfoId=postData.userInfoId;
+			postDataAdd.consigneeName=postData.consigneeName;  //联系人名字
+			postDataAdd.mobile=postData.mobile;
+			postDataAdd.provinceId=postData.provinceId;
+			postDataAdd.areaCodeId=postData.areaCodeId;
+			postDataAdd.countyId=postData.countyId;
+			postDataAdd.postalAddress=postData.postalAddress;
+			$.ajax({
+				type:'post',
+				url:mall.url('/user/delivery/replace'),
+				data:$.toJSON(postDataAdd),
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					$('p.ui-note').html('');
+					$('div.Form-editEddrress').hide();
+					$('div.editAddress-dialog-overlay').hide()
+				},
+				error:function(xhr){
+					var error=eval('('+xhr.responseText+')');
+					$('div.Form-editEddrress-con p.ui-note').html(error[0].message)
+				}
+			})
+		});
+	})
+//function judgeStatus(skuId,entityId,commodityId){
+//	$.get(mall.url('/sku/getSkuById'),{skuId:skuId},function(data){
+//		if(data.status!=1){
+//			mall.alertRe("该商品已下架","");
+//			return false;
+//		}else{
+//			location.href='goodsDetail.html?groupPurchasingId='+entityId+'&skuId='+skuId+'&commodityId='+commodityId;
+//		}
+//	})
+//}
+</script>

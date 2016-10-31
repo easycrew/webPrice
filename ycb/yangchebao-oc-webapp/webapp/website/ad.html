@@ -1,0 +1,580 @@
+<div class="urlContentWraper" id="cms-ad-wrapper">
+	<div class="ui-info-layout">
+		<div class="ui-info-layout-subbox ">
+			<div class="jrad-table">
+				<h2 class="ui-tit"><strong></strong><bottom class="all-work-info numb191">页面说明</bottom></h2>
+				<table class="cms-table"></table>
+			</div>
+			<div class="details-box" style="display: none;">
+				<ul class="details-tab">
+					<li class="tab-cur tab-cur-first f-left"><span class="cms-title"></span></li>
+					<li><span class="return"></span></li>
+				</ul>
+				<div class="details-content">
+					<div class="details-scroll">
+						<div class="details-content-inner">
+							<div class="grid-layout ui-form cms-form">
+								<div class="jrad-form">
+									<div class="grid-layout-main">
+										<input name="id" type="hidden"> 
+										<input name="accessRealFileDataId" type="hidden"> 
+										<input name="accessRealUrl" type="hidden"> 
+										<input name="accessThumbnailFileDataId" type="hidden"> 
+										<input name="accessThumbnailUrl" type="hidden">
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"><span class="ui-form-required">*</span>标题：</label>
+											<div class="span5 grid-layout-content">
+												<div name="title" class="jrad-input-container"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"><span class="ui-form-required">*</span>广告位：</label>
+											<div class="span18 grid-layout-content">
+												<div name="position" class="jrad-select-container"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"><span class="ui-form-required">*</span>广告图： </label>
+											<div class="span15 grid-layout-content fluid-wrap">
+												<div name="adPicFile" class="jrad-uploadimg-container">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">广告跳转：</label>
+											<div class="span5 grid-layout-content">
+												<div name="jumpUrl" class="jrad-input-container"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"><span class="ui-form-required">*</span>显示开始时间：</label>
+											<div class="span3 grid-layout-content">
+												<div name="displayTime" class="jrad-dateinput-container"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"><span class="ui-form-required">*</span>状态：</label>
+											<div class="span5 grid-layout-content">
+												<div name="state" class="jrad-select-container"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="jrad-buttons-container ui-buttons-container">
+									<span class="jrad-btn-primary">确定</span> 
+									<span class="jrad-btn-normal">取消</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div id="Form_explain_eg191" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>官网上广告位图片，以及点击图片跳转的设置功能。</div>
+                    <div><strong>重要功能说明：</strong>创建： 标题：广告位的名称；
+                     广告位：“首页“为首页的通屏轮播广告，“商家入驻”为商家入驻页面中间的那个广告，“商家攻略”为商家攻略页面中间的那个广告，“APP下载”为下载页面的那个版本介绍的广告，“文章右侧”为所有文章右侧的广告。
+                     广告图：广告展示的图片；
+                     广告跳转：点击广告跳转的地址，非必填，不填时，点击不会跳转；
+                     显示开始时间：一个广告位有多个有效广告时，时间晚的优先显示；
+                     状态：有效的广告才会显示。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+		
+		var config = {
+			url: {
+				base: "/websitemanager-ws/ws/0.1",
+				cms: "/adCms"
+			},
+			model: {
+				displayName: "广告"
+			}
+		};
+		
+		var URL = {
+				"page": getUrl("/page"),
+				"add": getUrl("/add"),
+				"edit": getUrl("/edit"),
+				"detail": getUrl("/detail"),
+				"remove": getUrl("/remove"),
+				"changeState": getUrl("/change/state"),
+				"upload" : {
+					"pic2" : config.url.base + "/fileCms/upload/pic2"
+				}
+		};
+		
+		function getUrl(method) {
+			return config.url.base + config.url.cms + method;
+		}
+		
+		var wrapper = $("#cms-ad-wrapper");
+		var table = $(".cms-table", wrapper);
+		var submitForm = $(".cms-form", wrapper);
+		var title = $(".cms-title", wrapper);
+		
+		$(".jrad-table strong").html(config.model.displayName + "列表");
+		
+		var submitValidators = {
+			title: 		[{msg : "标题不能为空", type : "min", value : "1"}],
+			position:   [{msg : "广告位不能为空", type : "min", value : "1"}],
+			displayTime:[{msg : "广告显示时间不能为空", type : "min", value : "1"}],
+			accessRealFileDataId: [{msg : "广告图不能为空", type : "min", value : "1"}]
+		};
+		
+		var submitParams = {
+			title: 	{
+				grid : 4
+			},
+			position: {
+				data : [
+					{id : "1", name : "首页"}, 
+					{id : "2", name : "商家入驻"}, 
+					{id : "3", name : "商家攻略"}, 
+					{id : "4", name : "App下载"}, 
+					{id : "5", name : "文章右侧"}
+				]
+			},
+			adPicFile: {
+				url : URL.upload.pic2,
+				delFunc : function(item) {
+					item.list.remove();
+					$("input[name='accessRealFileDataId']", submitForm).val("");
+					$("input[name='accessRealUrl']", submitForm).val("");
+					$("input[name='accessThumbnailFileDataId']", submitForm).val("");
+					$("input[name='accessThumbnailUrl']", submitForm).val("");
+				},
+				fileName : "file",
+				note : '仅支持 JPG或PNG图片文件。',
+				show : false,
+				params : {
+					type : ""
+				},
+				success : function(data) {
+
+					if (data[0] && data[0].code == "400") {
+
+						$.jRadMessage({
+							level : 'error',
+							message : data[0].message
+						});
+					} else {
+						$("input[name='accessRealFileDataId']", submitForm).val(data.realPicFileDataId);
+						$("input[name='accessRealUrl']", submitForm).val(data.realPicUrl);
+						$("input[name='accessThumbnailFileDataId']", submitForm).val(data.thumbnailPicFileDataId);
+						$("input[name='accessThumbnailUrl']", submitForm).val(data.thumbnailPicUrl);
+					}
+				},
+				beforeSubmit : function(obj) {
+					var re = /^.*\.(jpg|JPG|png|PNG)$/;
+					if (re.test(obj.val())) {
+						return true;
+					} else {
+						$.jRadAlert("只能上传jpg或png文件", "error");
+						$("div[name='adPicFile']", submitForm).find("input[type='file']").val('');
+						return false;
+					}
+				},
+				single : true,
+				showInfo : false,
+				prev : 'thumbnailPicUrl'
+			},
+			jumpUrl: {
+				grid: 4
+			},
+			displayTime: {
+				grid : 4,
+				dateFmt : 'yyyy-MM-dd HH:mm:ss'
+			},
+			state: {
+				data : [
+					{id : "1", name : "有效"}, 
+					{id : "0", name : "无效"}
+				]
+			}
+		};
+		
+		var pageSearchItems = [
+   			{name : 'id', display : '广告ID', type : 'jrad-input', row : '1'}, 
+   			{name : 'title', display : '标题', type : 'jrad-input', row : '1'},
+   			{name : 'position', display : '广告位', type : 'jrad-select', row : '1', params : {data : [
+																				   						{id : "", name : "全部"}, 
+																				   						{id : "1",name : "首页"}, 
+																				   						{id : "2",name : "商家入驻"}, 
+																				   						{id : "3",name : "商家攻略"}, 
+																				   						{id : "4",name : "App下载"}, 
+																				   						{id : "5",name : "文章右侧"}
+																			   						]}}, 
+			{name : 'createTimeStart', display : '创建开始时间', type : 'jrad-dateinput', row : '2', params : {grid : 4, dateFmt : 'yyyy-MM-dd HH:mm:ss'}}, 
+			{name : 'createTimeStop', display : '创建结束时间', type : 'jrad-dateinput', row : '2', params : {grid : 4, dateFmt : 'yyyy-MM-dd HH:mm:ss'}}, 
+			{name : 'state', display : '状态', type : 'jrad-select', row : '2', params : {data : [
+																			   						{id : "", name : "全部"}, 
+																			   						{id : "1",name : "有效"},
+																			   						{id : "0",name : "无效"}
+																			   					]}}, 
+			{name : 'displayTimeStart', display : '显示开始时间', type : 'jrad-dateinput', row : '3', params : {grid : 4, dateFmt : 'yyyy-MM-dd HH:mm:ss'}}, 
+			{name : 'displayTimeStop', display : '显示结束时间', type : 'jrad-dateinput', row : '3', params : {grid : 4, dateFmt : 'yyyy-MM-dd HH:mm:ss'}}, 
+			{name : 'createOperator', display : '创建人', type : 'jrad-input', row : '3'}
+       	];
+		
+		var pageColumnModel = [
+			{name : 'id', display : 'ID', width : 50}, 
+			{name : 'title', display : '标题'},
+			{name : 'positionName', display : '广告位'}, 
+			{name : 'accessThumbnailUrl', display : '广告图', width : 80, diy : function($row, $div) {
+				var imgUrl = $row.accessThumbnailUrl;
+				if (!!imgUrl) {
+					var $img = $('<img width="50" height="50" src="' + imgUrl + '"/>');
+					$div.height(50);
+					$div.append($img);
+				}
+			}}, 
+			{name : 'createTime', display : '创建时间'}, 
+			{name : 'displayTime', display : '显示开始时间'}, 
+			{name : 'stateName', display : '状态'},
+			{name : 'createOperator', display : '创建人'}
+		];
+		
+		submitForm.form({
+			validators : submitValidators,
+			fields_params : submitParams,
+			layout : 'grid',
+			autobinding : false
+		});
+		
+		$(".ui-buttons-container .jrad-btn-normal", wrapper).button({
+			click : function() {
+				boxUp();
+			}
+		});
+
+		$(".ui-buttons-container .jrad-btn-primary", wrapper).button({
+			click : function() {
+				
+				if (!submitForm.form('validateAll')) {
+					return;
+				}
+
+				var json = submitForm.form('getValue');
+				if(!json.accessRealFileDataId){
+					$.jRadMessage({level:'error',message:"广告图不能为空"});
+					return;
+				}
+				json.createOperator = getOperator();
+
+				console.log(json);
+
+				delete json.adPicFile;
+				
+				$.jRadPost({
+					
+					url : title.html() == config.model.displayName + "添加" ? URL.add : URL.edit,
+					data : json,
+					success : function() {
+						boxUp();
+						table.flexMessage('创建成功','success');
+						table.flexReload();
+					},
+					error : onSubmitError
+				});
+			}
+		});
+
+		var pageListButtons = [];
+
+		pageListButtons.push({
+			title : '创建',
+			name : 'Add',
+			bclass : 'add',
+			onpress : function() {
+				
+				clearForm();
+				boxDown();
+				title.html(config.model.displayName + "添加");
+			}
+		});
+	
+		pageListButtons.push({
+			title : '修改',
+			name : 'Edit',
+			bclass : 'edit',
+			prefunc : function() {
+				return table.getCheckedTrs().length == 1;
+			},
+			onpress : function() {
+				var checked = table.getCheckedTrs();
+				if (checked[0]) {
+					var id = checked[0].id;
+					fillEditForm(id);
+				}
+			}
+		});
+
+		pageListButtons.push({
+			
+			name : 'delete',
+			bclass : 'delete',
+			prefunc : function() {
+				return table.getCheckedTrs().length != 0;
+			},
+			onpress : function() {
+				var checked = table.getCheckedTrs();
+				$.jRadConfirm('确认删除吗？', 1, function() {
+					var idArr = [];
+					$.each(checked, function() {
+						idArr.push(this.id);
+					});
+					idArr.join(",");
+					$.jRadAjax({
+						type : 'post',
+						url : URL.remove + "?idString="+ idArr,
+						success : function() {
+							table.flexMessage('删除成功!', 'success');
+							table.flexReload();
+						},
+						error : onTableError
+					});
+				});
+			}
+		});
+
+		pageListButtons.push({
+			displayname : "设为无效",
+			name : "unUse",
+			bclass : "unUse",
+			prefunc : function() {
+				return table.getCheckedTrs().length != 0;
+			},
+			onpress : function() {
+				var checked = table.getCheckedTrs();
+				$.jRadConfirm("确认设置为无效吗？", 1, function() {
+					var idArr = [];
+					$.each(checked, function() {
+						idArr.push(this.id);
+					});
+					idArr.join(",");
+					$.jRadAjax({
+						type : "post",
+						url : URL.changeState + "?idString=" + idArr + "&state=0",
+						success : function() {
+							table.flexMessage("操作成功!", "success");
+							table.flexReload();
+						},
+						error : onTableError
+					});
+				});
+			}
+		});
+
+		pageListButtons.push({
+			separator : true
+		});
+		
+		table.flexigrid({
+			reload : true,
+			method : "get",
+			colModel : pageColumnModel,
+			buttons : pageListButtons,
+			searchitems : pageSearchItems,
+			pagination : {
+				diaplay_pages : 5,
+				align : "bottom"
+			},
+			showSearch : true,
+			url : URL.page,
+			onError : showError,
+			overflow : true
+		});
+
+		$(".searchButtons .ui-btn-icon:first", wrapper).unbind("click");
+		$(".searchButtons .ui-btn-icon:first", wrapper).click(function() {
+			table.flexOptions({
+				url : URL.page
+			});
+			table.flexReloadSearch();
+		});
+		$(".searchButtons .ui-btn-icon:nth-child(2)", wrapper).unbind("click");
+		$(".searchButtons .ui-btn-icon:nth-child(2)", wrapper).click(function() {
+			
+			var sDiv = $(".searchContent", wrapper);
+			$(".jrad-select", sDiv).select("val", "");
+			$(".jrad-autocomplete", sDiv).autocomplete("val", "");
+			$(".jrad-input", sDiv).input("val","");
+			$(".jrad-dateinput", sDiv).dateinput("val", "");
+			$(".jrad-autocombo", sDiv).autocombo("val", "");
+			$(".jrad-checkbox", sDiv).checkbox("val", "");
+			table.flexOptions({
+				url : URL.page,
+				queryParam : {},
+				page : 0
+			});
+			table.flexReloadSearch();
+		});
+
+		$(".details-tab .return", wrapper).click(function() {
+			boxUp();
+		});
+	
+		function clearForm() {
+			
+			submitForm.form({
+				item : {}
+			});
+			
+			$("div[name='adPicFile']", wrapper).children(".pic-show").html("");
+			
+		}
+		
+		function fillEditForm(id) {
+			
+			var item = $.jRadGet({
+				url : URL.detail + "?id=" + id
+			});
+			title.html(config.model.displayName + "修改");
+			
+			clearForm();
+			boxDown();
+			
+			submitForm.form({
+				item : item
+			});
+			createThumbnailPreview(wrapper, item);
+		}
+		
+		function createThumbnailPreview(wrapper, item) {
+			
+			var picShow = $("div[name='adPicFile']", wrapper).children(".pic-show");
+			var src = item.accessThumbnailUrl;
+			if (src != undefined && src != "") {
+				var view = '<li name="" class="adPicBoxli"><div class="large-pic"><div class="pic-box"><div class="pic-content"><div class="pic-vc">'
+						+ '<img src="'+src+'">'
+						+ '</div></div><span name="small" class="del-btn"></span></div></div></li>'
+				picShow.html(view);
+						
+				$(".adPicBoxli .del-btn", wrapper).click(function() {
+					
+					$(this).parents(".adPicBoxli").remove();
+					
+					$("input[name='accessRealFileDataId']", submitForm).val("");
+					$("input[name='accessRealUrl']", submitForm).val("");
+					$("input[name='accessThumbnailFileDataId']", submitForm).val("");
+					$("input[name='accessThumbnailUrl']", submitForm).val("");
+				});
+			}
+		}
+
+		function showError(xhr) {
+			var msg = getErrorMessage(xhr);
+			var cDiv = $(".cDiv", wrapper);
+			$.jRadMessage({
+				level : "error",
+				message : msg,
+				selector : cDiv
+			});
+		}
+		
+		function onSubmitError(xhr) {
+			var msg = getErrorMessage(xhr);
+			if (!!msg) {
+				$.jRadMessage({
+					level : "error",
+					message : msg
+				});
+			}
+		}
+		
+		function onTableError(xhr) {
+			var msg = getErrorMessage(xhr);
+			if (!!msg) {
+				table.flexMessage(msg, "error");
+			}
+		}
+		
+		function getErrorMessage(xhr) {
+			var msg = eval("(" + xhr.responseText + ")");
+			return !!msg ? msg[0].message : null;
+		}
+		
+		function getOperator() {
+			var operator = carsmart_config.operatorName;
+			return operator;
+		}
+		
+		function boxUp() {
+			$(".details-box", wrapper).slideUp();
+			$(".jrad-table", wrapper).slideDown();
+			$(".scroll-up-btn").click();
+		}
+		
+		function boxDown() {
+			$(".jrad-table", wrapper).slideUp();
+			$(".details-box", wrapper).slideDown();
+			$(".scroll-up-btn").click();
+		}
+
+        //$(".numb191").unbind("click").bind("click",function(){
+        $(".numb191").click(function(){
+            $('.overcurtainDiv').hide();
+            var menuId = $(".tabs-selected").attr("menuId")
+            var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+            $("#Form_explain_eg191").form({}).form('close');
+            $("#Form_explain_eg191").form({
+                title:'页面说明',
+                item:data,
+                //url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                // before_submit:function(json){ 
+                //     json.operator = carsmart_config.operatorName;
+                //     json.menuName = $(".tabs-selected").attr("menuName");
+                //     json.menuId = $(".tabs-selected").attr("menuId");
+                //     return json;
+                // }
+                autobinding: true, //是否自动绑定 确定/取消 按钮
+				submit:function(){
+                	var postData = {};
+                    postData.operator = carsmart_config.operatorName;
+                    postData.menuName = $(".tabs-selected").attr("menuName");
+                    postData.menuId = $(".tabs-selected").attr("menuId");
+                    postData.remark = $("#Form_explain_eg191 div[name='remark']").textarea("val")
+					$.jRadPost({
+					    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+					    data:postData,
+					    success:function(){
+							$("#Form_explain_eg191").form('close')
+          					$('.overcurtainDiv').hide();
+					   	}
+					});
+				}, 
+				cancel:function(){
+					$("#Form_explain_eg191").form('close')
+          			$('.overcurtainDiv').hide();
+				}
+            }).form('open')
+            $("#Form_explain_eg191 .textarea-content").removeClass("span4").addClass("span12")
+            $('.overcurtainDiv').hide();
+            $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+        })
+	});
+
+</script>

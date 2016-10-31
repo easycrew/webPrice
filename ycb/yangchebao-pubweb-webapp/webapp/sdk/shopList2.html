@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+    <script type="text/javascript" src="js/index.js"></script> 
+	<title>商家列表</title>
+</head>
+<style type="text/css">
+body{
+	background-color:#f4f7f8;  
+	color:#1e1e1e;
+	font-family:'冬青黑体','黑体','HelveticaNeue-Light';
+	font-size:62.5%;
+} 
+a{
+	color:#00a0e9;
+	text-decoration: none;
+}
+a:focus{
+	outline:none;
+}
+ul{
+	list-style:none;
+}
+img{
+	border:none;
+}
+*{
+	margin:0;
+	padding:0;
+	text-shadow:none;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.list-module-pic h3 {
+    font-size: 1.4em; 
+    font-weight: normal; 
+    min-height: 1.67em;
+} 
+.list-module-pic .info {
+    color: #323232;
+    font-size: 1.2em;
+    line-height: 150%;
+    margin: 0; 
+}
+.list-module-pic .info:last-child{ 
+	border-top:1px solid #d9d9e2;
+	margin-top:8px;
+	padding-top:12px; 
+}
+.list-module-pic .info .fl{ 
+	float:left;
+}
+.list-module-pic .info .fr{ 
+	float:right;
+	margin-right:1em;
+	text-align:right; 
+}
+.list-module-pic .info .label{ 
+	color:#fb451f;
+	font-size:1.3em; 
+}
+.list-module-pic .info .label2{  
+	text-decoration:line-through;
+}
+.list-module-pic{
+	background-color:#f4f7f8;
+}
+.list-module-pic li {
+    border-bottom: 1px solid #c2c2c6;
+    padding:1em 0em 1em 1em;
+	background-color: #fff;
+    margin-top: 1em;
+    position: relative;
+} 
+.list-module-pic .pic {
+    float: left;
+    height: 6em; 
+    width: 8.2em;
+    position: relative;
+}
+.list-module-pic .pic img {
+    display: block;
+    height: 6em;
+    width: 8.2em;
+} 
+.list-module-pic .pic + div {
+    margin-left: 9.5em;
+}
+.distanceLabel {
+    background-color: #fb451f;
+    color: #fff;
+    display: inline-block;
+    float: right;
+    font-size: 1em;
+    height: 1.1em;
+    line-height: 1.1em; 
+    padding: 0 1em 0 0.6em;
+}
+.coupon-icon{
+	width: 27px;
+	height: 27px;
+	background-image: url("http://app.yangchebao.com.cn/group1/M00/0A/E8/ChUBl1VtUuGAZjfFAAAHbdITZFY198.png");
+	background-size: 27px auto;
+    background-repeat: no-repeat;
+	position: absolute;
+	left: 5px;
+	top:5px;
+	z-index: 1;
+}
+.grade-icon{
+	height: 15px; 
+	background-color: rgba(0,0,0,0.6);
+	width: 100%;
+	position: absolute;
+} 
+.grade-icon .icon {
+    background-image: url("http://app.yangchebao.com.cn/group1/M00/0A/E4/ChUBl1VsRlaAWP36AAAQ2kKWVRI237.png");
+    background-repeat: no-repeat;
+    background-size: 4.5em auto;
+    display: inline-block;
+    height: 1.5em;
+    margin-left: 0.313em;
+    vertical-align: middle;
+    width: 1.6em;
+}
+.grade-icon .icon-zf {
+    background-position: -3.2em 0;
+}
+.grade-icon .icon-hzsj {
+    background-position: -1.6em 0;
+}
+.fr {
+    float: right;
+}
+.title{
+	font-size: 1.5em;
+	height: 38px;
+	line-height: 38px;
+	background-color: #fff;
+	padding: 0 10px;
+	border-bottom: 1px solid #c2c2c6;
+	font-weight: normal;
+    position: relative;
+    z-index: 101;
+} 
+.title .arrow {
+    border-right: 2px solid #d9d9e2;
+    border-top: 2px solid #d9d9e2;
+    display: inline-block;
+    height: 8px;
+    right: 10px;
+    position: absolute;
+    top: 15px;
+    transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg); 
+    width: 8px;
+}  
+.model-list{
+    background-color: #fff;
+    height: 0;
+    overflow: auto;
+    position: absolute;
+    top: 8.4em;
+    transition: height 0.3s ease-out 0s;
+    width: 100%;
+    z-index: 101; 
+}
+.two-list{
+    width: 50%;
+    border-right: 1px solid #d9d9e2;
+    box-sizing: border-box;
+} 
+.two-list li{
+  background-color:#f1f3fc;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+} 
+.sub-wrap{ 
+    background-color: #fff;
+    height: 0;
+    overflow: auto; 
+    transition: height 0.3s ease-out 0s;
+    width: 50%;  
+    position: absolute;
+    top: 8.4em;
+    left: 50%;
+    z-index: 102;
+} 
+.sub-list{
+    display: none;
+}
+.sub-list.current{
+	display:block;
+}
+.model-list li,.sub-list li {
+    border-bottom: 1px solid #d9d9e2;
+    cursor: pointer;
+    font-size: 1.5em;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 10px;
+}  
+.model-list li.selected,.sub-list li.selected{
+	background-image: url("http://app.yangchebao.com.cn/group1/M00/0A/F5/ChUBl1VxCAyAHLr9AAACNlXa_ys717.png");
+    background-repeat: no-repeat;
+    background-size: 23px auto; 
+    background-position:right center;
+}
+.two-list li.selected{
+  background-color:#fff;
+  background-image:none;
+}
+.model-list.open {
+    height: 80%;
+}
+.sub-wrap.open {
+    height: 80%;
+}
+.overlay-wrap {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    display: none;
+    position: fixed;
+    top: 8.4em;
+    width: 100%;
+    z-index: 100;
+}
+.star{
+    background-image: url('http://app.yangchebao.com.cn/group1/M00/0A/E4/ChUBl1VsQAiAbOI4AAATdA8-PgQ921.png') ;
+    background-repeat: no-repeat;
+    background-size:85px auto;
+    display:inline-block;
+    height:12px;
+    width:85px;
+    margin-top: 4px;
+}
+.star-45{
+    background-position:0 -1.8em;
+}
+.star-40{
+    background-position:0 -3.55em;
+}
+.star-35{
+    background-position:0 -5.3em;
+}
+.star-30{
+    background-position:0 -7.04em;
+}
+.star-25{
+    background-position:0 -8.8em;
+}
+.star-20{
+    background-position:0 -10.56em;
+}
+.star-15{
+    background-position:0 -12.3em;
+}
+.star-10{
+    background-position:0 -14.04em;
+}
+.star-05{
+    background-position:0 -15.8em;
+}
+.star-00{
+    background-position:0 -17.6em;
+}
+.tip {
+    color: #a0a097;
+    cursor: pointer;
+    display: none;
+    font-size: 1.5em;
+    padding: 10px;
+    text-align: center;
+}
+.null-tip::before {
+    border-bottom: 1px solid #cfd1db;
+    content: "";
+    display: inline-block;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    width: 2.4em;
+}
+.null-tip::after {
+    border-bottom: 1px solid #cfd1db;
+    content: "";
+    display: inline-block;
+    margin-left: 0.5em;
+    vertical-align: middle;
+    width: 2.4em;
+}
+.null-tip {
+    color: #cfd1db;
+    font-size: 1.8em;
+    margin-top: 2.78em;
+    text-align: center;
+    display: none;
+}
+.over-hide{
+    height:100%;
+	overflow:hidden;
+}
+.loadingBar{
+	margin-top: 2.78em; 
+	width: 100%;
+	text-align: center;
+} 
+.loadingBar img{
+	margin: 0 auto;
+}
+/**错误提示**/
+.tasat-wrap{
+   position: fixed;
+   text-align: center;
+   bottom: 50%;
+   width: 100%; 
+}
+.tasat {
+    background-color: #000;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 20px;
+    opacity: 0.8;
+    padding: 10px;
+} 
+header{
+    height:44px;
+    line-height:44px;
+    border-bottom:1px solid #fb451f;
+    color:#fb451f;
+    font-size:1.5em;
+    padding:0 10px;
+    background-color:#fff;
+}
+header span{
+    display:inline-block;
+}
+header .left{
+	float:left;
+}
+header .right{
+	float:right;
+}
+header .arrow {
+	border-right: 1px solid #fb451f;
+	border-top: 1px solid #fb451f;
+	display: inline-block;
+	height: 8px;
+	left: 46px; 
+	top: 15px;
+	transform: rotate(135deg); 
+	-ms-transform:rotate(135deg);   
+	-moz-transform:rotate(135deg); 
+	-webkit-transform:rotate(135deg);  
+	-o-transform:rotate(135deg); 
+	width: 8px;
+	margin-left: 10px;
+}
+  /*选城市*/
+.vehicle-list{
+    position: absolute;
+    top: 0;
+    z-index: 200;
+    width: 100%;
+    background: #ebebeb;
+    height: 100%;
+    display:none;
+}
+.veh-info-list > li{
+    background-color: #ffffff;
+    border-style: solid;
+    border-color: #eaeaea;
+    font-size: 1.5em;
+    padding: 15px 18px;
+    position: relative;
+    cursor: pointer;
+	list-style:none;
+}
+.vehicle-list header{
+    text-align:center;
+    color:#1e1e1e;
+}
+.sorter{
+    background-color: #ffffff;
+    position: fixed;
+    right: 0;
+    top: 45px;
+    bottom:0;
+    width: 1.8em;
+    padding-top: 20px;
+    text-align: center;
+}
+.sorter li:hover {
+    cursor: pointer;
+}
+.sorter > li >span{
+    color: #a0a097;
+    cursor: pointer;
+    font-size: 1em;
+    height: 11px;
+    display: block;
+} 
+.modle-wrap ul{
+    margin-bottom: 4em;
+}
+.modle-wrap .veh-info-list > li{
+    border-width: 1px 0;
+    margin-bottom: 15px;
+}
+.vehicle-list .veh-info-list{
+    background-color: #ffffff;
+    padding:0 18px;
+}
+.vehicle-list .veh-info-list > li{
+    border-width: 0 0 0.5px;
+    padding-left: 0;
+}
+.vehicle-list .veh-info-list > li:last-child{
+    border-width: 0;
+    list-style: none;
+}
+.vehicle-list header > a{
+    color: #ffffff;
+}
+.vehicle-list header .close{
+    float: right;
+} 
+.sorted-list h2{
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #eaeaea;
+    color: #a0a097;
+    font-size: 1.6em;
+    font-weight: normal;
+    padding: 0 18px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #f5f6e6;
+    border-bottom:none;
+}
+.style-wrap .veh-info-list > li:before{
+    right: 0;
+} 
+.close {
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 28px;
+    z-index: 10;
+}  
+.close label {
+    display: inline-block;
+    margin-left: 10px;
+}
+.close label::before {
+    border-right: 1px solid #fc5d3c;
+    content: "";
+    display: inline-block;
+    height: 28px;
+    transform: rotate(45deg); 
+    -ms-transform:rotate(45deg);   
+    -moz-transform:rotate(45deg); 
+    -webkit-transform:rotate(45deg);  
+    -o-transform:rotate(45deg); 
+    width: 1px;
+}
+.close label::after {
+    border-left: 1px solid #fc5d3c;
+    content: "";
+    display: inline-block;
+    height: 28px;
+    transform: rotate(-45deg); 
+    -ms-transform:rotate(-45deg);   
+    -moz-transform:rotate(-45deg); 
+    -webkit-transform:rotate(-45deg);  
+    -o-transform:rotate(-45deg);  
+    width: 1px;
+}
+</style> 
+<body>   
+<header>
+<span class="left"><label id="city">北京</label><label class="arrow"></label></span>
+<span class="right">我的订单</span>
+</header>
+<h1 class="title"><span id="serviceName">选择服务</span><span class="arrow"></span></h1>
+<ul id="dropList" class="model-list">  
+</ul>
+<article class="sub-wrap"> 
+</article> 
+<div class="overlay-wrap"></div>
+<ul class="list-module-pic"> 
+</ul> 
+<p class="loadingBar" style="display:none;"><img src="http://app.yangchebao.com.cn/group1/M00/0B/15/ChUBl1V76SGALWzmAAAC2aQ2QYI317.gif"></p>
+<p class="null-tip">没有找到符合条件的商家</p> 
+<p class="tip">点击查看更多</p>
+<section class="vehicle-list">
+	<header>
+		城市列表<span class="close"><label></label></span>
+	</header>
+	<div class="sorted-list"> 
+
+	</div>
+	<ul class="sorter">
+			<li><span>A</span></li>
+			<li><span>B</span></li>
+			<li><span>C</span></li>
+			<li><span>D</span></li>
+			<li><span>E</span></li>
+			<li><span>F</span></li>
+			<li><span>G</span></li>
+			<li><span>H</span></li>
+			<li><span>I</span></li>
+			<li><span>J</span></li>
+			<li><span>K</span></li>
+			<li><span>L</span></li>
+			<li><span>M</span></li>
+			<li><span>N</span></li>
+			<li><span>O</span></li>
+			<li><span>P</span></li>
+			<li><span>Q</span></li>
+			<li><span>R</span></li>
+			<li><span>S</span></li>
+			<li><span>T</span></li>
+			<li><span>U</span></li>
+			<li><span>V</span></li>
+			<li><span>W</span></li>
+			<li><span>X</span></li>
+			<li><span>Y</span></li>
+			<li><span>Z</span></li>
+			<li><span>#</span></li>
+		</ul>
+</section> 
+<script type="text/javascript">
+	$(document).ready(function(){
+	var currentSubId = "",currentSubId=""; 
+    var paramJson = {}; 
+	var bridge;
+    index.init = function(userInfo,bri){   
+        paramJson = userInfo; 
+        bridge = bri;		
+        var pid = paramJson.service;  
+        if(pid=="1"){
+           document.title = "洗车";
+        }else if(pid=="2"){
+           document.title = "美容";
+        }else if(pid=="3"){
+           document.title = "保养";
+        }else if(pid=="4"){
+           document.title = "维修";
+        }  
+        paramJson.serviceId = paramJson.service;  
+		$("#city").html(paramJson.cityName); 
+		$("header .right").click(function(){
+		   window.location.href = "http://w2nw?"+getPath()+"orderList.html";
+		});
+		$("header .left").click(function(){
+		   $(".vehicle-list").fadeIn();
+		});  
+		$('.title').on('click',function(){
+		    $("body").addClass("over-hide");
+			$('.overlay-wrap').toggle();
+			$('#dropList').toggleClass('open');
+			//$('#dropList li').removeClass("selected");
+			//$('.sub-wrap li').removeClass("selected");
+            if($('#dropList').hasClass("two-list")){
+			    $('#dropList li').removeClass("selected");
+                $('.sub-wrap').toggleClass('open');
+				$("#left-"+currentId).addClass("selected");
+				$("#sub-"+currentId).show();
+				if(currentSubId==""){
+				  $("#sub-"+currentId).find("li:first-child").addClass("selected");
+				}else{
+				  $("#li-"+currentSubId).addClass("selected");
+				}
+				if(!$(".sub-wrap").hasClass('open')){
+					$(".sub-wrap ul").hide();
+				}
+            } 		
+		});
+		$('#dropList').on('click','li',function(){ 
+			if($('#dropList').hasClass("two-list")&&$("#sub-"+$(this).attr('serviceid')).length>0){ 
+                $(".sub-list").hide();
+                $("#sub-"+$(this).attr('serviceid')).show();
+				$("#sub-"+$(this).attr('serviceid')).children("li").removeClass("current");
+				$('#dropList li').removeClass("selected");
+			    $(this).addClass("selected");
+            }else{
+				$('#dropList li').removeClass("selected");
+			    $(this).addClass("selected");
+    			$('.overlay-wrap').hide();
+    			$('#dropList').removeClass('open');
+                $('.sub-wrap').removeClass('open');
+				$(".sub-wrap ul").hide(); 
+				$(".null-tip").hide();
+			    $(".tip").hide();
+				$("body").removeClass("over-hide");
+    			$("#serviceName").html($(this).html());
+				currentId = $(this).attr('serviceid')
+                paramJson.specialServiceId = $(this).attr('serviceid');
+                pageindex = 0;
+                $(".list-module-pic").html("");
+                getShopList();
+            }
+	  }); 
+      $(".sub-wrap").on("click",'li',function(){
+            $('.overlay-wrap').hide();
+            $('#dropList').removeClass('open');
+            $('.sub-wrap').removeClass('open');
+			$("body").removeClass("over-hide"); 
+            paramJson.specialServiceId = $(this).attr('serviceid');
+            pageindex = 0; 
+			$(".null-tip").hide();
+			$(".tip").hide();
+			$(".list-module-pic").html("");
+			$('.sub-list li').removeClass("selected");
+			$(this).addClass("selected"); 
+			currentId = $(this).attr('pid');
+			currentSubId = $(this).attr('serviceid'); 
+			 $("#serviceName").html($("#left-"+currentId).html());
+            getShopList();
+      });
+	  $('.overlay-wrap').click(function(){
+		    $('.overlay-wrap').hide();
+            $('#dropList').removeClass('open');
+            $('.sub-wrap').removeClass('open'); 
+			$(".sub-wrap ul").hide(); 
+			$("body").removeClass("over-hide");
+	  });
+    $(".tip").click(function(){
+        getShopList();
+    });
+    $(".list-module-pic").on("click","li",function(){   
+         var relid = $(this).attr("relid"); 
+         if(relid!="undefined"&&relid!=""){
+		    window.location.href = "http://w2nw?"+getPath()+"service.html?shopid="+$(this).attr("shopid")+"&busiServiceRelId="+relid;
+          } 
+      });
+      var pageindex = 0;
+      var currentSubId = "",currentSubId="",defaultService={};
+      getServiceList();  
+	  getShopList();
+      function getShopList(){  
+          $(".loadingBar").show();
+		  var url = '/yangchebao-app-ws/ws/0.1/shop/business/page/v2?areaName='+paramJson.cityName+'&modelId='+paramJson.modelId+'&service='+paramJson.serviceId+'&lon='+paramJson.lon+'&lat='+paramJson.lat+'&pagesize=10&pageindex='+pageindex;
+		  if(paramJson.specialServiceId!=undefined&&paramJson.specialServiceId!=""){
+			url += '&specialServiceId='+paramJson.specialServiceId;
+		  }
+          $.ajax({
+              url: url,
+              type: 'get', 
+              dataType: 'json',
+              success: function(data) {   
+                  $(".loadingBar").hide();
+                  if((data.page+1)<data.totalPages){
+                    $(".tip").show();
+                  } else{
+                    $(".tip").hide();
+                  } 
+                  pageindex++; 
+                  var items = data.items;
+                  if(items.length=="0"){
+                    $(".null-tip").show();
+                  }
+                  $.each(items,function(i){
+                    var item = items[i]; 
+                    var className = "";
+                    if(item.level!=undefined&&item.level!=""){
+                        var score = parseInt(item.level)/2*10;
+                        className = "star-"+score; 
+                    }else{
+                        className="start-00";
+                    }
+                    var _p = "",cooperationStr = "";
+                    if(item.cooperation=="2"||item.cooperation=="3"||item.cooperation=="4"){ 
+                        cooperationStr = '<span class="icon icon-sdrz fr"></span>'
+                                        +'<span class="icon icon-hzsj fr"></span>';
+                        if(data.cooperation=="2"){ 
+                        cooperationStr = '<span class="icon icon-hzsj fr"></span>';
+                        } 
+                    }else{
+                        cooperationStr = "";
+                    } 
+                    if(item.onlinePayStatus=="1"){//0. 不支持；1.支持；
+                         cooperationStr +='<span class="icon icon-zf fr"></span>';
+                    } 
+                    if(cooperationStr!=""){
+                        _p = '<p class="grade-icon">'
+                            +cooperationStr    
+                            +'</p>'; 
+                    }
+					var infoStr = "";
+                    if(paramJson.specialServiceId!=undefined&&paramJson.specialServiceId!=paramJson.serviceId){ 
+						if(item.shopPrice==undefined||item.shopPrice==""){
+							item.shopPrice = "";
+						}else{
+							item.shopPrice = "￥"+item.shopPrice;
+						}
+					   infoStr = '<p class="info"><span class="fl">「'+item.totalServiceName+'」<br>关注：'+item.attentionNumber+'&nbsp;&nbsp;&nbsp;&nbsp;好评率：'+item.totalGoodRatio+'</span><span class="fr"><label class="label">￥'+item.totalPrivilegePrice+'</label><br><label class="label2">'+item.shopPrice+'</label></span></p>';
+					} else{
+					   infoStr = '<p class="info">关注：'+item.attentionNumber+'&nbsp;&nbsp;&nbsp;&nbsp;好评率：'+item.totalGoodRatio+'</p>';
+					}
+                    var _li = '<li class="clearfix" shopid="'+item.id+'" relid="'+item.busiServiceRelId+'">'
+                           
+                            +'<div class="pic"> '
+                            +_p
+                            +'    <img src="'+item.logo+'"/> '
+                            +'    <span class="star '+className+'"></span>'
+                            +'</div>'
+                            +'<div>'
+                            +'<h3><span class="tit">'+item.name+'</span><span class="distanceLabel">'+item.distance+'</span></h3>'
+                            +'<p class="info">'+item.address+'</p>'
+                            +infoStr
+                            +'</div>'
+                        +'</li> ';
+                    $(".list-module-pic").append(_li);
+                  }); 
+              },error:function(xhr){  
+                $(".loadingBar").hide();
+              }
+          });  
+      }  
+      function getServiceList(){  
+          $.ajax({
+              url: '/yangchebao-app-ws/ws/0.1/shop/service/v3?id='+paramJson.serviceId+'&areaName='+paramJson.cityName,
+              type: 'get', 
+			  async:false,
+              dataType: 'json',
+              success: function(data) { 
+                var items = data.items;
+                var twoList = false;
+				if(items[1]){
+				defaultService.id = items[1].id;
+				defaultService.name = items[1].name; 
+				}
+                $.each(items,function(i){
+                    var item = items[i];
+					if(item.name!="全部"){  
+						var _li = '<li serviceid="'+item.id+'" id="left-'+item.id+'">'+item.name+'</li>'; 
+						if(item.id==paramJson.specialServiceId){
+						   _li = '<li serviceid="'+item.id+'" class="selected" id="left-'+item.id+'">'+item.name+'</li>'; 
+							$("#serviceName").html(item.name);
+						} 
+						$("#dropList").append(_li); 
+					}
+                    if(item.subService!=undefined){
+                        twoList = true;
+                        var subService = item.subService;
+                        var _ul = '<ul class="sub-list" id="sub-'+item.id+'">';
+						if(item.id==paramJson.specialServiceId){
+						   _ul = '<ul class="sub-list current" id="sub-'+item.id+'">';
+						   currentId = item.id;
+						} 
+                        $.each(subService,function(j){
+                            var sub = subService[j];
+                            _ul+='<li serviceid="'+sub.id+'" pid="'+item.id+'" id="li-'+sub.id+'">'+sub.name+'</li>';
+                        });
+                        _ul+="</ul>";
+                        $(".sub-wrap").append(_ul);
+                    }
+                });
+               if(twoList){
+                    $("#dropList").addClass("two-list");
+					$("#sub-"+defaultService.id).show();
+					$("#sub-"+defaultService.id+" li:first").addClass('selected');
+                } 
+				if(paramJson.subService!=undefined&&paramJson.subService!=""&&paramJson.subService!="(null)"){ 
+					paramJson.specialServiceId = paramJson.subService;
+				}else{  
+					paramJson.specialServiceId = defaultService.id; 
+					currentId = defaultService.id;
+					$("#serviceName").html(defaultService.name);
+				} 
+              },
+              error:function() {}
+          });
+      }
+      //城市切换
+      	function getCityList(){
+		$.ajax({
+			url: '/yangchebao-app-ws/ws/0.1/shop/area/list/v2',
+			dataType:'json',
+			async:true,
+			success: function(data){ 
+				var sorterList = $('.vehicle-list .sorted-list'); 
+				var htmlArray = [],htmlArray2 = []; 
+				var servicecity = data.servicecity;
+				var hotcity = data.hotcity;  
+				htmlArray.push('<h2>热门城市</h2><ul class="veh-info-list">');
+				htmlArray2.push('<h2>定位城市</h2><ul class="veh-info-list">');
+				$.each(hotcity, function(i){  
+					htmlArray.push('<li id="'+this.id+'" level="'+this.level+'" type="'+this.cityType+'">'+this.name+'</li>') ;   
+					if(this.name==paramJson.gpsCity){ 
+						htmlArray2[1] = '<li id="'+this.id+'" level="'+this.level+'" type="'+this.cityType+'">'+this.name+'</li>';
+					}
+				});
+				htmlArray.push('</ul>')
+				$.each(servicecity, function(key, value){
+					htmlArray.push('<h2>'+key+'</h2><ul class="veh-info-list">'); 
+					if (value.length > 0) {
+						$.each(value,function(index,value){
+							htmlArray.push('<li id="'+value.id+'" level="'+value.level+'" type="'+value.cityType+'">'+value.name+'</li>');
+							if(value.name==paramJson.gpsCity){ 
+							htmlArray2[1] = '<li id="'+value.id+'" level="'+value.level+'" type="'+value.cityType+'">'+value.name+'</li>';
+							}
+						})
+					};
+					htmlArray.push('</ul>')
+				}); 
+				if(htmlArray2.length==1){
+					htmlArray2[1] = '<li level="00">'+paramJson.gpsCity+'</li>';
+				}
+				sorterList.html("").append(htmlArray2.join('')).append(htmlArray.join(''));
+			}
+			});
+		 }  
+        getCityList();  		 
+		$('.sorter li').on('touchend click',function(){
+			var index = $(this).index();
+			var $parents = $(this).parents('.sorter').siblings('.sorted-list');
+			var $h2 = $('h2:contains('+$(this).text()+')');
+			$(document).scrollTop($h2.position().top)
+		});
+		$('.sorted-list').on('click', 'li', function(){
+			 var self = $(this); 
+			 $(".vehicle-list").fadeOut();  
+			 if($("#city").html()!=self.html()){   
+				  if(bIsAndroid()){   
+						window.AppJsParamsObj.saveCityInfo(self.attr("id"),self.html(), self.attr("level"), self.attr("type"));   	
+				  }else{
+						var json = {"cityName":$(this).html()};
+						bridge.send(json, function(responseData) {
+							log('JS got response', responseData)
+						});
+				  }    
+                  $("#city").html(self.html());
+				  paramJson.cityName = self.html();
+				  pageindex = 0;
+				  currentSubId="";
+				  $(".list-module-pic").html("");
+				  $("#dropList").removeClass(".two-list").html("");
+				  $(".sub-wrap").html("");
+				  $(".null-tip").hide();
+				  $(".tip").hide();
+				  getServiceList();
+				  getShopList();
+			 } 
+		});   
+		$('.vehicle-list .close').on('click', function(){ 
+			$(".vehicle-list").fadeOut(); 
+		});   	  
+    }	  
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,1076 @@
+<style>
+	.ycbadd, .ycbdel{font-size:22px;margin:5px 0 0 15px;cursor: pointer;}
+	.sheng{position:absolute;left:-140px;border: 1px solid #999;height: 30px;left: 0;line-height: 30px;padding: 0 5px;cursor: pointer;}
+	.sheng .delspan{float:none;}
+</style>
+<div class="urlContentWraper" id="Wraper_operationPages">
+	<div class="ui-info-layout">
+		<div class="ui-info-layout-subbox "> 
+			<div class="jrad-table">
+		        <h2 class="ui-tit"><strong>运营页面管理</strong><bottom class="all-work-info numb910">页面说明</bottom></h2>
+		        <!-- 列表显示 -->
+		        <table id="Table_operationPages"></table>
+		    </div>
+			<div class="details-box" style="display:none;">
+					<ul class="details-tab">
+						<li class="tab-cur tab-cur-first f-left"><span name="title">运营页面信息</span></li>
+						<li><span class="return"></span></li>
+					</ul>
+					<div class="details-content">
+						<div class="details-scroll">
+							<div class="details-content-inner">
+								<div class="grid-layout ui-form" id="Form_operationPages">
+									<div class="jrad-form">  
+										<div class="grid-layout-main">
+										<input name="id" type="hidden"> 
+										<input type="hidden" name="adPicId">
+										<input type="hidden" name="adPicAddress">
+										<input type="hidden" name="adPicMiddleAddress">
+										<input type="hidden" name="adPicSmallAddress">
+										<input type="hidden" name="serviceId"/>
+										<div name="brands"></div>
+										<div name="regions"></div>
+										<div class="row-fluid">
+										 <label class="span3 grid-layout-label">标题：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="title" class="jrad-input-container"></div>
+															</div>
+										</div> 
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 绑定地域： </label>
+											<div class="span14 grid-layout-content fluid-wrap">
+												<div class="jrad-buttons-container" name="area_check_btn">
+													<span id="jrad-button-area" class="jrad-primary">
+														点击选择 </span>
+												</div>
+												<div id="area_check_string" class="brand_page" style="margin: 10px 0;"></div>
+											</div>
+										</div>  
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 绑定车系： </label>
+											<div class="span14 grid-layout-content fluid-wrap">
+												<div class="jrad-buttons-container" name="brand_check_btn">
+													<span id="jrad-button-brand" class="jrad-primary">
+														点击选择 </span>
+												</div>
+												<p id="brand_check_string" style="margin: 10px 0;"></p>
+											</div>
+										</div>  
+										<div class="row-fluid">
+											 <label class="span3 grid-layout-label">内容：</label>
+											 <div class="span5 grid-layout-content">
+												   <div name="content" class="jrad-mediaarea-container" style="margin-left:0"></div>
+																</div>
+										</div> 
+										<div class="row-fluid">
+											 <label class="span3 grid-layout-label">状态：</label>
+											 <div class="span5 grid-layout-content">
+												   <div name="status" class="jrad-select-container"></div>
+											 </div>
+										</div> 
+										</div> 
+									</div>
+									<div class="jrad-buttons-container ui-buttons-container">
+										<span class="jrad-btn-primary">确定</span> 
+										<span class="jrad-btn-normal">取消</span>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+		     </div>
+		</div>
+	</div>
+	
+	<!--服务品牌-->
+	<div id="Form_service_brand" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			 <div class="jrad-tree" id="brandsTree">
+			 </div>
+			 <div class="jrad-checkbox-container" name="vendor" style="position:absolute;font-weight:bold;bottom:10px;"></div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div> 
+
+	<!-- 地区选择-->
+	<div id="Form_area" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			  <div class="row-fluid">
+				<label class="span3 grid-layout-label"> 省：</label>
+				<div class="span5 grid-layout-content">
+					<div class="jrad-select-container" name="provinceId">
+					</div>
+				</div> 
+				<label class="span3 grid-layout-label">	市：</label>
+				<div class="span5 grid-layout-content">
+					<div class="jrad-select-container" name="areaCodeId">
+					</div>
+				</div>
+			</div> 
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div> 
+	<div id="Form_share_page" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			<div class="row sharePage">
+				<label class="span4 grid-layout-label">分享页面title：</label>
+				<div class="span7 grid-layout-content fluid-wrap">
+					<div class="jrad-input-container" name="shareTitle">
+					</div>
+				</div>
+			</div> 
+			<div class="row sharePage">
+				<label class="span4 grid-layout-label">分享页面网址：</label>
+				<div class="span7 grid-layout-content fluid-wrap">
+					<div class="jrad-input-container" name="shareAddress">
+					</div>
+				</div>
+			</div>
+			<div class="row sharePage">
+				<label class="span4 grid-layout-label">分享logo图网址：</label>
+				<div class="span7 grid-layout-content fluid-wrap">
+					<div class="jrad-input-container" name="shareLogo">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div> 
+    <div id="Form_explain_eg910" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>H5页面的设置功能，所有的APP页面都可在此创建好。</div>
+                    <div><strong>重要功能说明：</strong>①创建：标题：页面的名称，不会再APP显示出来；
+                      绑定地域：一般选择全部就可以；
+                      绑定车系：一般选择全部就可以；
+                      内容：页面的具体内容；
+                      状态：什么状态都可在APP显示，只是一个标识的作用</div>
+                    <div><strong>注意事项：</strong>1、运营页面都是用富文本框编辑的，有页面需求最好找产品经理处理。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>		
+
+    <div id="Form_set_rule" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div class="row"> 
+				<label class="span4 grid-layout-label"> 
+					(第二天生效)预警天数：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="warnDay" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"> 
+					订单数不低于：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="orderMinCnt" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			 <div class="row">
+				 <label class="span4 grid-layout-label">手机标识重复度不低于：</label>
+				 <div class="span5 grid-layout-content fluid-wrap">
+					   <div name="imeiUuidRepaMinRate" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				<label class="span4 grid-layout-label"> 
+					支付重复度不低于：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div class="jrad-input-container" name="payRepaMinRate">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="span4 grid-layout-label"> 
+					余额支付比例不低于：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div class="jrad-input-container" name="balanceMinRate">
+					</div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label fluid-wrap"> 
+					老用户下单比例不低于：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="oldUserRate" class="jrad-input-container">
+					</div>
+				</div>
+			</div> 
+			<div class="row"> 
+				<label class="span4 grid-layout-label fluid-wrap"> 
+					城市异常订单数不低于：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="cityUnusualCnt" class="jrad-input-container">
+					</div>
+				</div>
+			</div> 
+			<div class="row"> 
+				<label class="span4 grid-layout-label fluid-wrap"> 
+					未开定位订单比例不低于：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="unLocationRate" class="jrad-input-container">
+					</div>
+				</div>
+			</div> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+
+    <div id="Form_jiedian_set" class="grid-layout ui-form" style="display:none;">
+	    <div class="grid-layout-main jrad-form allNode">
+		  	<div class="row">
+		       	<label class="span4 grid-layout-label"></label>
+		       	<div class="span10 grid-layout-content">
+		            <div>招募人数达到节点人数时，会给用户发放对应金额的奖金。</div>
+		       	</div>
+		  	</div>
+	    </div> 
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){ 
+    var wraper = $('#Wraper_operationPages');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	 	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+    jRad.validators['title'] = [{"msg":"标题不能为空","type":"min","value":"1"}];  
+	jRad.params['provinceCodeSearch'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll'
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var provinceCode = $('.searchContent div[name=provinceId]',wraper).select('val'); 
+			if(provinceCode==''){ 
+				$('.searchContent div[name=areaCodeId]',wraper).select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val:''});
+			}else{  
+				$('.searchContent div[name=areaCodeId]',wraper).select({ 
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+					},
+					unshiftData: {id:'',name:'请选择'}
+				}).select('val','');
+			}
+		}
+	}; 
+	jRad.params['areaCodeSearchId'] = {
+		data: [{id:'',name:'请选择'}]
+	};  
+
+	var fields_params = {}; 
+
+	fields_params['title'] = {grid: 9};  
+	fields_params['status'] ={ data:[ 
+		{"id":"1",name:"有效"},
+		{"id":"0",name:"无效"}
+	]};   
+	var _form = $("#Form_operationPages",wraper);
+
+	fields_params['content'] = {
+ 			theme:"Full",
+ 			resizing: false, 
+ 			grid: 18, 
+ 			height: 200 ,
+			uploadImg: { //上传图片参数
+			url: '/shopmanage-ws/ws/0.1/file/uploadThree',
+			filename: 'file', 
+			delFunc: function(item) { 
+				item.list.remove(); 
+			}, 
+			validator : [{
+				msg : "只能上传jpg文件",
+				type : "regex",
+				value : /^.*\.(jpg|JPG)$/
+			}], 
+			success: function(data){ 
+				   if(data[0]&&data[0].code=="400"){
+					 $.jRadMessage({level:'error',message:data[0].message});
+				   } 
+				},
+			note: '仅支持 JPG图片文件。',
+			show:true,
+			showLarge:true, 
+			prev:'fileUrl', 
+			params: {type:""}, 
+			single: true
+		},
+		CKOpt:{
+			fullPage:true,//是否使用完整的html编辑模式
+			basicEntities:false, //Whether to escape basic HTML entities in the document, including:  nbsp gt lt amp 
+			startupMode:'source' //载入时，以何种方式编辑 源码和所见即所得 "source"和"wysiwyg"
+		} 
+	};
+	page_column_model.push({display: '页面ID', name : 'id',width:50});
+    page_column_model.push({display: '标题', name : 'title'});
+    page_column_model.push({display: '绑定地域', name : 'region',width:200});  
+    page_column_model.push({display: '绑定车系', name : 'modelName'}); 
+    page_column_model.push({display: '创建人', name : 'createPerson',sortable : true});
+    page_column_model.push({display: 'URL', name : 'contentUrl',sortable : true});
+    page_column_model.push({display: '创建时间', name : 'createDate',sortable : true});
+   	page_column_model.push({display: '状态', name : 'statusName'});　
+   	page_column_model.push({display: '最后操作时间', name : 'updateDate'});　
+   	page_column_model.push({display: '最后操作人', name : 'operator'});　
+    
+	page_search_items.push({row:'1',type:'jrad-input',display:'ID',name:'id'});　　
+	page_search_items.push({row:'1',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']});
+	page_search_items.push({row:'1',type:'jrad-select',display:'市',name:'areaCodeId',params:jRad.params['areaCodeSearchId']});   
+	page_search_items.push({row:'2',type:'jrad-input',display:'车系',name:'modelName'}); 
+	 
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'创建时间开始',name:'startTime',params:{
+			grid:4,
+	    	dateFmt:'yyyy-MM-dd HH:mm:ss',
+	}});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'创建时间结束',name:'endTime',params:{
+			grid:4,
+	    	dateFmt:'yyyy-MM-dd HH:mm:ss',
+	}});
+	page_search_items.push({row:'3',type:'jrad-input',display:'标题',name:'title'});　
+	page_search_items.push({row:'3',type:'jrad-input',display:'创建人',name:'createPerson'});　
+	page_search_items.push({row:'3',type:'jrad-select',display:'状态',name:'status',params:{
+		data:[ 
+		{"id":"",name:"全部"},
+		{"id":"1",name:"有效"},
+		{"id":"0",name:"无效"}]
+	}});　 
+    $('#Form_operationPages .jrad-btn-normal',wraper).button({
+		click: function(){
+			$('.details-box',wraper).slideUp();
+			$('.jrad-table',wraper).slideDown(); 
+			$(".scroll-up-btn").click();
+		}
+	});  
+	$('#Form_operationPages .jrad-btn-primary',wraper).button({
+		click: function(){
+			var flag = $('#Form_operationPages',wraper).form('validateAll');
+			var json = $('#Form_operationPages',wraper).form('getValue'); 
+			var content = json.content; 
+			var remarkFlag = true; 
+		   	if($.trim(content).length==0){
+				$.jRadMessage({level:'error',message:"请填写运营页面详情。"});
+				remarkFlag = false;
+		   	} 
+			if(!flag) {
+			   	return;
+			}  
+			if(!remarkFlag){
+			   	return;
+			}  
+			json.location = json.location;
+			json.regions = []; 
+			var regions = $("div[name='regions']",wraper).data("areaList");
+			if(regions.length==0){
+			 	$.jRadMessage({level:'error',message:"请选择要绑定的地域。"});
+			 	return;
+			}else{
+				$.each(regions,function(){
+				  	var region = {};
+				  	region.provinceId = this.provinceId+""; 
+				  	var areaCodeId = [];
+				  	var areaList = this.areaList;
+				  	for(var i=0;i<areaList.length;i++){
+				  		areaCodeId.push(areaList[i].areaCodeId);
+				  	}
+				  	region.areaCodeId = areaCodeId.join(",");
+				  	json.regions.push(region);
+				});
+			}
+
+			if($(".over .areaSpan").length > 0){
+				$(".over .areaSpan").each(function(i){
+					var region = {}
+					region.provinceId = $(this).parent().attr("provinceid");
+					region.areaCodeId = $(this).attr("id")
+					json.regions.push(region);
+				})
+				json.regions.shift()
+			}
+
+			json.modelIds = [];
+			var modelIds = $("div[name='brands']",wraper).data("brandIds");  
+			if(modelIds!=undefined){
+				json.modelIds = modelIds;  
+			}   
+			if(json.modelIds.length==0){ 
+				$.jRadMessage({level:'error',message:"请选择要绑定的车系。"});
+			    return;
+			}		
+			json.createPerson = carsmart_config.operatorName;
+			if($(".details-box .details-tab",wraper).find("span[name='title']").html()=="运营页面添加"){
+				$.jRadPost({
+			    	url:'/shopmanage-ws/ws/0.1/operationPageCms/addOperationPage',
+			    	data:json,
+			    	success:function(){
+			    		$('.details-box',wraper).slideUp();
+						$('.jrad-table',wraper).slideDown();  
+						$(".scroll-up-btn").click();
+						$('#Table_operationPages').flexMessage('创建成功', 'success');
+						$('#Table_operationPages').flexReload();
+			    	},error:function(data){
+			    		var mes = eval('('+data.responseText+')');
+			    		 $.jRadMessage({
+			    			 level:'error', 
+		    				 message:mes[0].message 
+			    		 });
+			    	}
+			    });
+		 	}else{
+				$.jRadPost({
+			    	url:'/shopmanage-ws/ws/0.1/operationPageCms/editOperationPage',
+			    	data:json,
+			    	success:function(){
+			    		$('.details-box',wraper).slideUp();
+						$('.jrad-table',wraper).slideDown();  
+						$(".scroll-up-btn").click();
+						$('#Table_operationPages').flexMessage('修改成功', 'success');
+						$('#Table_operationPages').flexReload();
+			    	},error:function(data){
+			    		var mes = eval('('+data.responseText+')');
+			    		 $.jRadMessage({
+			    			 level:'error', 
+		    				 message:mes[0].message 
+			    		 });
+			    	}
+			    });
+			}
+		}	 
+	}); 
+
+	$('#Form_operationPages',wraper).form({
+		validators: jRad.validators,
+		fields_params:fields_params,
+		layout: 'grid', 
+		autobinding: false
+	});  
+
+	page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){
+			 initAdsInfo(wraper); 
+			 $('#Form_operationPages',wraper).form({item:{'adTurnType':'0'}}); 
+			 $(".details-box .details-tab",wraper).find("span[name='title']").html("运营页面添加");
+			 $('.jrad-table',wraper).slideUp();
+			 $('.details-box',wraper).slideDown();
+			 $(".scroll-up-btn").click();  
+        }
+    }); 
+	page_list_buttons.push({title: '修改',name:'Edit', bclass: 'edit',
+		prefunc:function(){
+            var checked = $('#Table_operationPages').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },
+        onpress : function(){
+            var checked = $('#Table_operationPages').getCheckedTrs(); 
+            if(checked[0]) {
+			     var id = checked[0].id;
+                 updateAdsView(id,wraper);
+            }
+        }
+    }); 
+  
+	page_list_buttons.push({name:'delete',bclass: 'delete',
+		prefunc:function(){
+            var checked = $('#Table_operationPages').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },
+        onpress : function(){
+	    	var checked = $('#Table_operationPages').getCheckedTrs();
+			$.jRadConfirm('确认删除吗？',1,function(){
+				var id =  checked[0].id; 
+				$.jRadAjax({
+				    type:'post',
+					url:'/shopmanage-ws/ws/0.1/operationPageCms/deleteOperationPage?id='+id, 
+					success: function(){
+						$('#Table_operationPages').flexMessage('删除成功!', 'success');
+           	    		$('#Table_operationPages').flexReload();
+					},
+					error:function(xhr){
+					    var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined) {
+							$('#Table_operationPages').flexMessage(errormsg[0].message, 'error');
+						}
+					}
+				});
+			});
+		}
+	});
+
+ 	page_list_buttons.push({title: '添加分享',displayname: '添加分享',name:'set', bclass: 'set',
+		prefunc:function(){
+            var checked = $('#Table_operationPages').getCheckedTrs();
+            if (checked.length == 0) {return false;}else{return true;}
+        },
+		onpress : function(){
+            var checked = $('#Table_operationPages').getCheckedTrs();
+			var pageIdList = [];
+	    	$.each(checked,function(i){
+	    		var ids = {}
+	    		var item = checked[i]
+	    		ids.operationPageId = item.id;
+	    		pageIdList.push(ids)
+	    	})
+			$('#Form_share_page').form({
+				title:'添加分享',
+			 	item:{},
+			 	url:'/shopmanage-ws/ws/0.1/operationPageCms/addShare',
+			 	before_submit:function(json){
+			 		json.pageIdList = pageIdList;
+                	return json
+                },
+                success_callback:function(data){ 
+					$('#Table_operationPages').flexMessage('分享成功', 'success');
+					$('#Table_operationPages').flexReload()
+				},
+				error:function(xhr){
+				    var errormsg = eval("(" + xhr.responseText + ")"); 
+					if (errormsg != undefined) {
+						$('#Table_operationPages').flexMessage(errormsg[0].message, 'error');
+					}
+				} 
+			}).form('open'); 
+			$(".sharePage .ui-input-content").removeClass("span4").addClass("span7");
+        }
+    }); 
+
+	page_list_buttons.push({title: '节点奖励设置',displayname:'节点奖励设置', bclass: 'set',
+		onpress : function(){
+			$('#Form_jiedian_set').form({
+			 	title:'节点奖励设置',
+			 	//item:{}
+			 	url:'/shopmanage-ws/ws/0.1/operationPageCms/checkAndSaveNodeSet',
+			 	before_submit:function(jsonarray){
+			 		var jsonarray = [];
+			 		$("#Form_jiedian_set .jdDiv").each(function(i){
+			 			var json = {};
+			 			var str = $("#Form_jiedian_set .jdDiv label").eq(i).html().substring(39)
+			 			json.nodeName = str;
+			 			json.code = $("#Form_jiedian_set .jdDiv .ycbadd").eq(i).attr("cnt");
+			 			json.personNum  = $("#Form_jiedian_set .jdDiv div[name='personNum']").eq(i).input("val");
+			 			json.money   = $("#Form_jiedian_set .jdDiv div[name='money']").eq(i).input("val");
+			 			jsonarray.push(json)
+			 		})
+                	return jsonarray
+                },
+                success_callback:function(data){ 
+					$('#Table_operationPages').flexMessage('节点设置成功', 'success');
+					$('#Table_operationPages').flexReload()
+				},
+				error:function(xhr){
+				    var errormsg = eval("(" + xhr.responseText + ")"); 
+					if (errormsg != undefined) {
+						$('#Table_operationPages').flexMessage(errormsg[0].message, 'error');
+					}
+				}
+			}).form('open'); 
+			var getNodeInfo = $.jRadGet({url:'/shopmanage-ws/ws/0.1/operationPageCms/getNodeInfo'})
+			$(".allNode .jdDiv").remove();
+			$.each(getNodeInfo,function(i){
+				var item = getNodeInfo[i];
+				if(getNodeInfo.length == 1){
+					var _row=$('<div class="row jdDiv"></div>');
+					var _label=$('<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>'+item.nodeName+'</label>')
+					var _div=$('<div></div>').addClass('span4 grid-layout-content');
+					var _input=$('<div name="personNum" placeholder="人数"></div>').addClass('jrad-input-container');
+					var _div2=$('<div style="margin-left:10px;"></div>').addClass('span4 grid-layout-content');
+					var _input2=$('<div name="money" placeholder="金额"></div>').addClass('jrad-input-container');
+					var _add=$('<span cnt="'+item.code+'"></span>').html("+").addClass("ycbadd");
+					//var _del=$('<span></span>').html("-").addClass("del");
+					_row.append(_label).append(_div.append(_input)).append(_div2.append(_input2)).append(_add)
+					_input.input({validator:[{msg:"请输入人数",type:"min",value:"1"}]});
+					_input2.input({validator:[{msg:"请输入金额",type:"min",value:"1"}]});
+					$('#Form_jiedian_set .row:last').before(_row);
+					$("#Form_jiedian_set div[name='personNum']").input("val",item.personNum)
+					$("#Form_jiedian_set div[name='money']").input("val",item.money)
+				}else{
+					var _row=$('<div class="row jdDiv"></div>');
+					var _label=$('<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>'+item.nodeName+'</label>')
+					var _div=$('<div></div>').addClass('span4 grid-layout-content');
+					var _input=$('<div name="personNum" placeholder="人数"></div>').addClass('jrad-input-container');
+					var _div2=$('<div style="margin-left:10px;"></div>').addClass('span4 grid-layout-content');
+					var _input2=$('<div name="money" placeholder="金额"></div>').addClass('jrad-input-container');
+					var _add=$('<span cnt="'+item.code+'"></span>').html("+").addClass("ycbadd");
+					var _del=$('<span></span>').html("-").addClass("ycbdel");
+					_row.append(_label).append(_div.append(_input)).append(_div2.append(_input2)).append(_add).append(_del);
+					//$(".jdDiv:last").append(_del)
+					_input.input({validator:[{msg:"请输入人数",type:"min",value:"1"}]});
+					_input2.input({validator:[{msg:"请输入金额",type:"min",value:"1"}]});
+					$('#Form_jiedian_set .row:last').before(_row);
+					$("#Form_jiedian_set div[name='personNum']").eq(i).input("val",item.personNum)
+					$("#Form_jiedian_set div[name='money']").eq(i).input("val",item.money)
+				}
+
+			})
+
+			$(".ycbdel").eq(0).remove();
+
+			$('#Form_jiedian_set').undelegate('.ycbadd','click').delegate('.ycbadd','click',function(){
+				//$('#Form_jiedian_set').on('click','.ycbadd',function(){
+				var cnting = parseFloat($(".ycbadd:last").attr("cnt"));
+				var lastCnt = $('#Form_jiedian_set .row:last')
+				var _row=$('<div class="row jdDiv"></div>');
+				var _label=$('<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>节点'+(cnting+1)+'</label>')
+				var _div=$('<div></div>').addClass('span4 grid-layout-content');
+				var _input=$('<div name="personNum" placeholder="人数"></div>').addClass('jrad-input-container');
+				var _div2=$('<div style="margin-left:10px;"></div>').addClass('span4 grid-layout-content');
+				var _input2=$('<div name="money" placeholder="金额"></div>').addClass('jrad-input-container');
+				var _add=$('<span cnt="'+(cnting+1)+'"></span>').html("+").addClass("ycbadd");
+				var _del=$('<span></span>').html("-").addClass("ycbdel");
+				_row.append(_label).append(_div.append(_input)).append(_div2.append(_input2)).append(_add).append(_del);
+				_input.input({validator:[{msg:"请输入人数",type:"min",value:"1"}]});
+				_input2.input({validator:[{msg:"请输入金额",type:"min",value:"1"}]});
+				$('#Form_jiedian_set .row:last').before(_row);
+			});
+
+			$('#Form_jiedian_set').on('click','.ycbdel',function(){
+				$(this).parent().remove();
+				$(".jdDiv").each(function(i){
+					$("#Form_jiedian_set .jdDiv label").eq(i).html('<span class="ui-form-required">*</span>节点'+(i+1));
+					$(".ycbadd").eq(i).attr('cnt',(i+1))
+				})
+			});
+        }
+    });
+
+    page_list_buttons.push({separator: true}); 
+	$('#Table_operationPages').flexigrid({
+			reload:true,
+			method:'get',
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true, 
+			url:'/shopmanage-ws/ws/0.1/operationPageCms/queryOperationPages',
+			onError:showAdsError,
+			overflow:true
+	});    
+
+	$(".details-tab .return",wraper).click(function(){
+		$('.details-box',wraper).slideUp();
+		$('.jrad-table',wraper).slideDown(); 
+		$(".scroll-up-btn").click();
+	});  
+	 
+	//服务品牌
+	$('#Form_service_brand',wraper).form({
+						title: '绑定车系选择', 
+						item: {},  
+						fields_params:{'vendor':{data: [{id:'全部',name:'全部'}]}},		
+						height: 500,
+						submit:function(){   
+						var vendor = $('#Form_service_brand div[name="vendor"]',wraper).checkbox('val');  
+						if(vendor.length==0||vendor[0]==""){
+						 var treeObj = getZtreeObj(wraper);
+						 var filter = function(node){
+							return (node.level == 1 && node.checked==true);
+						 }
+						 var nodes = treeObj.getNodesByFilter(filter); 
+						 var arr = [];
+						 var modelNameList = [];
+						 $.each(nodes,function(){
+						   var json = {};
+							   json.brandId = this.id;
+						   json.modelId = [];
+						   var modelFilter = function(node){ 
+							return (node.brandId ==json.brandId && node.level == 3 && node.checked==true);
+						   }
+							var modelNodes = treeObj.getNodesByFilter(modelFilter); 
+							$.each(modelNodes,function(i){
+							  json.modelId.push(modelNodes[i].id);
+							  modelNameList.push(modelNodes[i].name);
+							});
+							json.modelId = json.modelId.join(",");
+							arr.push(json);
+						 }); 
+						  $("#Form_operationPages",wraper).find("div[name='brand_check_btn']").next("#brand_check_string").html("已选择："+modelNameList.join(" , "));	
+						  $("div[name='brands']",wraper).data("brandIds",arr); 
+						}else{
+							 $("#Form_operationPages",wraper).find("div[name='brand_check_btn']").next("#brand_check_string").html("已选择：全部");	
+							  $("div[name='brands']",wraper).data("brandIds",[{"brandId":"", "modelId":"0"}]); 
+						}
+						$("#Form_service_brand",wraper).form('close'); 
+		}
+	}); 
+	$("#jrad-button-brand",wraper).button({
+		click : function() {
+		var brandIds = $("div[name='brands']",wraper).data("brandIds");
+		var data = {}
+		if(brandIds.length==1&&brandIds[0].modelId=="0"){
+		 data = {"vendor":"全部"};
+		}else{
+		var treeObj = getZtreeObj(wraper);
+		$.each(brandIds,function(i,json){   
+			var modelIds = json.modelId.split(",");
+			$.each(modelIds,function(i){ 
+				var modelId = modelIds[i];
+				var modelFilter = function(node){  
+					return (node.brandId ==json.brandId && node.level == 3 && node.id == modelId);
+				} 
+				var modelNode = treeObj.getNodesByFilter(modelFilter,true);  
+				treeObj.checkNode(modelNode, true, true);  
+			}); 
+		}); 
+		}  		
+			$('#Form_service_brand',wraper).form({
+			item:data
+			}).form('open');
+		}
+	});  
+
+	//地区选择
+    var area_fields_params = {};	
+	area_fields_params['provinceId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll' 
+		},
+		unshiftData: {id:'0',name:'全部'},
+		onchange: function(){
+			var provinceCode = $('#Form_area div[name=provinceId]',wraper).select('val');
+			if(provinceCode=='0'){
+				$('#Form_area div[name=areaCodeId]',wraper).select({data:[{id:'0',name:'全部'}]});
+			}else{
+			$('#Form_area div[name=areaCodeId]',wraper).select("val","0");
+			$('#Form_area div[name=areaCodeId]',wraper).select({
+				urlData:{
+					url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+				},
+				unshiftData: {id:'0',name:'全部'}
+			});
+			}
+		}
+	}
+	area_fields_params['areaCodeId'] = {
+		data: [{id:'0',name:'全部'}]
+	};
+	$('#Form_area',wraper).form({
+        title:"地区", 
+		fields_params:area_fields_params,
+		item:{"provinceId":"0","areaCodeId":"0"},
+		submit:function(){  
+			var json = {};
+			json.provinceId = $("#Form_area div[name='provinceId']",wraper).select('val');
+			json.provinceName = $("#Form_area div[name='provinceId']",wraper).select('text');
+			json.areaList = [];
+			json.areaList[0] = {};
+			json.areaList[0].areaCodeId = $("#Form_area div[name='areaCodeId']",wraper).select('val');
+			json.areaList[0].areaCodeName = $("#Form_area div[name='areaCodeId']",wraper).select('text');  
+			var array = $("div[name='regions']",wraper).data("areaList");
+			var pId = json.provinceId; 
+			var aId = json.areaList[0].areaCodeId;
+			if(pId=="0"){
+				array = []; 
+				array.push(json);
+			}else{
+			    if(array.length==1&&array[0].provinceId=="0"){
+					array = []; 
+					array.push(json);
+				}else{
+					var flag = true;
+					$.each(array,function(){
+						if(this.provinceId == pId){
+						  	flag = false;
+						  	var areaList = this.areaList;
+						  	if(aId=="0"){
+								this.areaList = json.areaList;
+						  	}else{ 
+								var areaflag = true;
+								for(var i=0;i<areaList.length;i++){
+									if(areaList[i].areaCodeId==0){
+										areaflag = false;
+										this.areaList = json.areaList;
+										break;
+									}
+									if(areaList[i].areaCodeId==aId){ 
+										areaflag = false;
+										$.jRadMessage({level:'error',message:"该地区已经选择",selector:$("#Form_area",wraper)});
+										return;
+									}
+								}
+								if(areaflag){
+									this.areaList.push(json.areaList[0]);
+								}
+							}
+						}
+					});
+					if(flag){  
+					  array.push(json);
+					}  
+				}
+			}
+			addAreaList(array,wraper); 
+
+			var _allSpan = $('<span class="ycbOpen" style="margin:6px 10px;display:inline-block;cursor:pointer;">展开全部城市(用于地区返选)</span>')
+
+			if($(".areaSpan").html().substring(0,2) == "全部"){
+				$(".brand_page").append(_allSpan)
+			}
+
+			$(".ycbOpen").click(function(){
+				$(".brand_page div").eq(0).hide();
+				$(".ycbOpen").hide();
+				var arrproid = [];
+				var arrarea = [];
+				var postdata = $.jRadGet({url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll'})
+				$.each(postdata,function(i){
+					var item = postdata[i];
+					arrproid.push(item.id);
+					arrarea.push(item.name);
+				})
+				$.each(arrproid,function(i){
+					var areaArr = $.jRadGet({url:'/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId='+arrproid[i]})
+					var areaid = [];
+					var _da2 = $("<div style='overflow:hidden;position:relative;padding-left:140px;' class='over' areaName='"+arrarea[i]+"' provinceId='"+arrproid[i]+"'><div class='sheng'>"+arrarea[i]+"<span class='delspan delArea3' style='float:none;'>X</span></div></div>");
+					$.each(areaArr,function(k){
+						var item = areaArr[k];
+						var ycb_div = $('<div id="'+item.id+'" name="'+item.name+'" class="areaSpan">'+item.name+'<span class="delspan delArea2" title="移除">X</span></div>')
+						$(".brand_page").append(_da2.append(ycb_div))
+					})
+				})
+				$(".delArea2").click(function(){
+					$(this).parent('.areaSpan').remove();
+				})
+				$(".delArea3").click(function(){
+					$(this).parent().parent().remove();
+				})
+			})
+
+			$("div[name='regions']",wraper).data("areaList",array);
+			//$("#Form_area div[name='areaCodeId']",wraper).select('destroy');
+			$("#Form_area",wraper).form("close");
+		}
+	});
+	$("#jrad-button-area",wraper).button({
+		click : function() {  
+			$('#Form_area',wraper).form({ 
+			fields_params:area_fields_params,
+			item:{"provinceId":"0","areaCodeId":"0"},
+			}).form('open');
+		}
+	});
+	//删除地区
+	$("#area_check_string .delArea",wraper).live('click',function(){
+		var info = $(this).data('info'); 
+		var arr = $("div[name='regions']",wraper).data("areaList");
+		$.each(arr,function(i){
+			var json = this;
+			if(json.provinceId==info.provinceId){
+				if(info.areaId=="0"){
+					arr.splice(i,1);
+				}else if(json.areaList.length==1){
+					arr.splice(i,1);
+				}else{
+					$.each(json.areaList,function(j){
+					var area = this;
+					if(area.areaCodeId==info.areaId){ 
+					json.areaList.splice(j,1); 
+					}
+					});
+				}
+			}
+		}); 
+		$(this).parent('.areaSpan').remove();
+	}); 
+
+function showMessageError(xhr){
+	var errormsg = eval("(" + xhr.responseText + ")");
+	var cDiv = $("#Wraper_operationPages .cDiv");
+	$.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+}
+
+function initAdsInfo(wraper){ 
+	   //服务品牌 
+	   $("#Form_operationPages",wraper).find("div[name='brand_check_btn']").next("#brand_check_string").html(""); 
+	   $("div[name='brands']",wraper).data("brandIds",[]); 
+		try{
+		$("#Form_service_brand .jrad-tree",wraper).tree('destroy');   
+		}catch(e) {
+		} 
+	   var treeOption = setBrandTree(wraper); 
+	   $("#Form_service_brand .jrad-tree",wraper).tree(treeOption);  
+	  //地区
+	   $("#Form_operationPages div[name='regions']",wraper).data("areaList",[]); 
+	   $("#Form_operationPages #area_check_string",wraper).html("");
+	   //广告跳转ID 
+	   $("#Form_operationPages .nameTips",wraper).html(""); 
+	   getNameTips();	   
+}
+//修改时赋值
+function Form_operationPagesVal(wraper,item){  
+     //车系ids   
+	if(item.modelIds.length==1&&item.modelIds[0].modelId =="0"){
+	}else{
+		$.each(item.modelIds,function(i,json){    
+			var node = $("#brandsTree",wraper).tree('getNodeByParam','id',json.brandId); 
+			var pNode = node.getParentNode();
+			$("#brandsTree",wraper).tree('open',pNode,true); 
+			$("#brandsTree",wraper).tree('open',node,true);  
+		});  
+    }	
+	$("div[name='brands']",wraper).data("brandIds",item.modelIds);
+    //车系名字显示
+	var brandCheckString = [];
+	if(item.modelNames!=undefined&&item.modelNames.length > 0){
+	    $.each(item.modelNames,function(i){ 
+		    if(item.modelNames[i].modelName!=undefined&&item.modelNames[i].modelName!=""){
+			    $.merge(brandCheckString,item.modelNames[i].modelName.split(",")); 
+		    }else{
+			    brandCheckString.push(item.modelNames[i].brandName);
+		    }
+	    }); 
+	}  
+	$.unique(brandCheckString); 
+	$("#brand_check_string",wraper).html("已选择："+brandCheckString.join(",")); 	
+   //地区
+    var areaList = item.regions; 
+    $.each(areaList,function(i){
+        if(areaList[i].areaList.length==0){
+	        areaList[i].areaList=[{"areaCodeId":"0"}];
+	    }
+    });
+    $("#Form_operationPages div[name='regions']",wraper).data('areaList',areaList); 
+    addAreaList(areaList,wraper); 
+}
+
+function updateAdsView(id,wraper){ 
+	 var item = $.jRadGet({url : '/shopmanage-ws/ws/0.1/operationPageCms/detailOperationPage?id='+id}); 	 
+	 $(".details-box .details-tab",wraper).find("span[name='title']").html("运营页面修改"); 
+	 initAdsInfo(wraper);  
+	 $('.jrad-table',wraper).slideUp();
+	 $('.details-box',wraper).slideDown(); 
+	 $(".scroll-up-btn").click();  
+	 $('#Form_operationPages',wraper).form({item: item});  
+	 item.id = id; 
+	 item.location = item.location;
+	 $('#Form_operationPages',wraper).form({item: item});   
+	 Form_operationPagesVal(wraper,item); 
+} 
+
+function getNameTips(){ 
+		var wraper = $("#Wraper_operationPages");
+		$("#Form_operationPages .nameTips",wraper).html("");
+		$("#Form_operationPages div[name='entityId']",wraper).focusout(function(){ 
+			var flag = $("#Form_operationPages div[name='entityId']",wraper).input('validate',[{msg:"id只能是数字",type:'regex',value:/^\d+$/}]);
+			if($("#Form_operationPages div[name='entityId']",wraper).input('val')==""){
+			flag=false;
+			}
+			if(flag){
+				var id = $(this).input("val");
+				var _tip = $(this).parent().children(".nameTips");
+				var adTurnType = $("#Form_operationPages div[name='adTurnType']",wraper).select('val'); 
+				if(adTurnType=="1"){ 
+					$.jRadGet({
+					url:'/shopmanage-ws/ws/0.1/shopmanage/shop/name?id='+id,
+					success: function(data){  
+						_tip.html(data.businessName).css("color","#1F2228"); 
+					},
+					error:function(){ 
+						_tip.html("查询商家不存在！").css("color","#BB4B47"); 
+					}
+					});
+				}else if(adTurnType=="2"){
+					$.jRadGet({
+					url:'/shopmanage-ws/ws/0.1/informationCms/detailInformation?id='+id,
+					success: function(data){  
+						_tip.html(data.title).css("color","#1F2228"); 
+					},
+					error:function(){ 
+						_tip.html("查询资讯不存在！").css("color","#BB4B47"); 
+					}
+					});
+				}  
+			}else{
+				$(this).parent().children(".nameTips").html("");
+			}
+		}); 
+}
+
+function showAdsError(xhr){
+ 	var errormsg = eval("(" + xhr.responseText + ")");
+  	var cDiv = $("#Wraper_operationPages .cDiv");
+  	$.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+} 
+
+$(".numb910").click(function(){
+    $('.overcurtainDiv').hide();
+    var menuId = $(".tabs-selected").attr("menuId")
+    var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+    $("#Form_explain_eg910").form({}).form('close');
+    $("#Form_explain_eg910").form({
+        title:'页面说明',
+        item:data,
+        autobinding: true, 
+        submit:function(){
+            var postData = {};
+            postData.operator = carsmart_config.operatorName;
+            postData.menuName = $(".tabs-selected").attr("menuName");
+            postData.menuId = $(".tabs-selected").attr("menuId");
+            postData.remark = $("#Form_explain_eg910 div[name='remark']").textarea("val")
+            $.jRadPost({
+                url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                data:postData,
+                success:function(){
+                    $("#Form_explain_eg910").form('close')
+                    $('.overcurtainDiv').hide();
+                }
+            });
+        }, 
+        cancel:function(){
+            $("#Form_explain_eg910").form('close')
+            $('.overcurtainDiv').hide();
+        }
+    }).form('open')
+    $("#Form_explain_eg910 .textarea-content").removeClass("span4").addClass("span12")
+    $('.overcurtainDiv').hide();
+    $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+})
+
+}); 
+
+
+</script>

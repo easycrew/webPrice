@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+	<title>申请成功</title>
+	<script language="javascript" src="./js/jquery-1.10.1.min.js"></script> 
+	<style>
+		body{
+			font-family:'华文细黑','HelveticaNeue-Light';
+			font-weight:normal;
+			font-style:normal;
+			line-height:normal;
+			font-size:62.5%;
+			color:#1e1e1e;
+			padding-bottom: 3em;
+			-webkit-box-sizing:border-box;
+			box-sizing:border-box;
+		}
+		body,html{
+			min-height:100%;
+		}
+		a{
+			text-decoration:none;
+		}
+		ul{
+			list-style:none;
+		}
+		img{
+			border:none;
+		}
+		*{
+			margin:0;
+			padding:0;
+		}
+		.clearfix {
+		   *zoom: 1;
+		}
+		.clearfix:before,
+		.clearfix:after {
+		   display: table;
+		   line-height: 0;
+		   content: "";
+		}
+		.clearfix:after {
+		  clear: both;
+		}
+		
+		.y_btn{
+			background-color: #FF825F; 
+		    /*box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5); */
+			-webkit-border-radius:5px;
+			-moz-border-radius:5px;
+			border-radius:5px;	
+			color: #fff;
+			font-size: 2.3em;
+			display: block;
+			text-align: center;
+			height: 2.11em;
+			line-height: 2.11em;
+			padding: 0 1em;
+			margin:0 0em 0.56em;
+			cursor: pointer;
+		}  
+		div.share{
+			background-color: #34CC89; 
+		}
+		.content-wrap{
+			padding: 1em 1.4em 0;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+		.success-wrap{
+			color:#009b53;
+			text-align: center;
+			position: absolute;
+			top: 50%;
+			width: 100%;
+			margin-top: -8.8em;
+		}
+		.success-wrap h1{
+			font-size: 3.6em;
+			margin-bottom: 1em;
+		}
+		.activity_comment{  
+		    margin: 3em 0; 
+		    padding: 1em 0em;
+		    text-align: left; 
+			color: #36545F;   
+		}
+		.activity_comment div{
+			margin-bottom: 0.2rem;
+		}
+		.activity_comment span{
+			float: left;
+			display: inline-block;
+			width: 1.2rem;
+			font-size: 1.6em;
+		   line-height: 150%;
+		   color: #A2A2A2;
+		}
+		.activity_comment p{ 
+		   -webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+		   box-sizing: border-box;
+		   margin-left: 1.2rem;
+		   font-size: 1.6em;
+		   line-height: 150%;
+		   color: #A2A2A2;
+		}
+		.success_pic img {
+		    display: block;
+		    margin: 0 auto 3em;
+		    max-width: 286px;
+		    padding-left:30px;
+		    width: 100%;
+		}
+
+		.dialog {
+		    background-color: #fff;
+		    border: 1px solid #ceba7d;
+		    color: #707c92;
+		    left: 6.25%;
+		    position: absolute;
+		    top: 20%;
+		    width: 87.5%;
+		    z-index: 1000;
+		}
+		.dialog-content {
+		    border-bottom: 2px solid #f3f3f5;
+		    display: table;
+		    width: 100%;
+		}
+		.dialog p {
+		    display: table-cell;
+		    font-size: 1.4em;
+		    padding: 0.86em;
+		    vertical-align: middle;
+		}
+		.dialog-overlay {
+		    background-color: rgba(0, 0, 0, 0.8);
+		    bottom: 0;
+		    position: fixed;
+		    top: 0;
+		    width: 100%;
+		    z-index: 900;
+		} 
+
+		#sharecover {
+		    background-color: rgba(0, 0, 0, 0.5);
+		    bottom: 0; 
+		    height: 100%;
+		    left: 0;
+		    position: fixed;
+		    right: 0;
+		    text-align: left;
+		    top: 0;
+		    width: 100%;
+		    z-index:9;
+		}
+		#sharecover img{
+		    width:100%;
+		}
+	</style>
+</head>
+<body>
+	<p><input name="eventId" type="hidden" value="InspectingApplySuccessPage"></p>
+	<div class="content-wrap success_wrap">
+        <div class="success_pic">
+            <img src="img/success.png" alt="恭喜申请成功"> 
+        </div>  
+        <div class="y_btn share" style="font-size:1.8em;">
+            立即分享小伙伴
+        </div> 
+        <div class="activity_comment">
+            <div><span>1. </span><p>养车宝客服将于2个工作日内与您电话联系，确认检测预约时间、地点及车辆信息；</p></div>
+            <div><span>2. </span><p>完成检测后，检测技师将为您的爱车出据1份检测报告，并标明问题建议；</p></div>
+            <div><span>3. </span><p>您关注养车宝微信公众号或下载养车宝客户端，可以收到爱车电子版检测报告，还能分享到朋友圈，提醒好友注意行车安全；</p></div>
+            <div><span>4. </span><p>检测当天请您保持电话畅通，如超过预约时间仍无法与您取得联系，本次检测将被取消；</p></div> 
+			<div><span>5. </span><p>北京车盈科技有限公司享有活动最终解释权。</div> 
+        </div>  
+    </div> 
+    <div id="sharecover" style="display: none;">
+        <img src="http://app.yangchebao.com.cn/group1/M00/05/00/ChUBl1SOrkCAV_1UAABSgg_DsAY434.png">
+    </div> 
+</body>
+<script type="text/javascript">
+	$(function(){
+		var paramJson = {};
+		var url = window.location.search; 
+	     var paramsArr = (url.split("?")[1]).split("&"); 
+	     $.each(paramsArr,function(i){
+	       var item = paramsArr[i].split("=");
+	           paramJson[item[0]] = item[1];
+	     });  
+	     $('#sharecover').click(function(e){
+	        $("#sharecover").hide(); 
+	     });
+	     $(".share").unbind('click').bind('click',function(){
+		   if(is_weixin()||(paramJson.channel!=undefined&&paramJson.channel!=""&&paramJson.channel!=139)){
+			  $("#sharecover").show();
+			}else{ 
+	          window.location.href =  "http://w2l/?shareType=1&shareTitle=养车宝全车检测！&shareContent=我在这免费领取200元上门全车检测啦，再也不用担心4S店保养欺诈！&shareUrl=http://weixin.yangchebao.com.cn/yangchebao-weixin-ws/index.html?"+paramJson.share_serl_num+"&shareImageUrl=http://weixin.yangchebao.com.cn/yangchebao-weixin-ws/img/crayz.png";
+			}
+	    });
+
+		alertDialog("服务时间以确认后的时间为准");
+		function alertDialog(m){
+			var dialog = $("<div>").addClass("dialog");
+			var content = $("<div>").addClass("dialog-content").html("<p>"+m+"</p>");
+			var overlay = $("<div>").addClass("dialog-overlay");
+			$("body").append(dialog.append(content)).append(overlay); 
+			setTimeout(function(){
+				dialog.remove();
+				overlay.remove()
+			},2000)
+		}
+		function  is_weixin(){
+		    var flag = false;
+			var ua = navigator.userAgent.toLowerCase();
+			if(ua.match(/MicroMessenger/i)=="micromessenger") {
+				flag = true; 
+			} 
+			return flag;
+		}
+
+	})
+</script>
+</html>

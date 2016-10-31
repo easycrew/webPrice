@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<script src="js/jquery-1.9.1.min.js"></script>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<title>套餐说明</title>
+<script type="text/javascript" name="baidu-tc-cerfication" src="http://apps.bdimg.com/cloudaapi/lightapp.js#b549b101949af1d41b82fbaf396396a0"></script>
+<script type="text/javascript">window.bd && bd._qdc && bd._qdc.init({app_id: 'e1cf9f344f8bd8fbe6f3eb8b'});</script> 
+</head>
+<body>
+	<section class="package-explain">
+		<header>
+			<a href="#" class="back" id="goDinnerList"></a>套餐说明
+		</header>
+		<article style="margin-bottom:5.4em;">
+			<div class="price-wrap">
+				<p id="dinnerName">漆面养护套餐：洗车，手工上蜡,玻离滑水镀膜，臭氧负离子消毒</p>
+				<p class="original-price" id="reservePrice">￥120</p>
+				<p class="discount-price"><span id="attentionNumber">关注：341</span><span id="shopPrice">￥150</span><span id="saveAmount">省 ¥30 </span></p>
+			</div>
+			<div class="explain-wrap">
+				<h2>预约须知</h2>
+				<div class="item">
+					<h3>使用时间</h3>
+					<p id="workTime">信息内容</p>
+				</div>
+				<div class="item">
+					<h3>预约信息</h3>
+					<p id="reserveInfoContent"></p>
+				</div>
+				<div class="item">
+					<h3>使用规则</h3>
+					<p id="useRule">信息内容信息内容信息内容信息内容信息内容信息内容信息内容信息内容信息内容信息内容</p>
+				</div>
+			</div>
+			<div class="explain-wrap">
+				<h2>服务说明</h2>
+				<iframe id="serviceInfo" src="" scrolling='no' width='100%' frameBorder="0"></iframe>  
+			</div>
+			<div class="explain-wrap package-list">
+				<h2>本店其他套餐</h2>
+				<ul id="otherDinners">
+					<li>
+						<div>
+							<p class="intro">漆面养护套餐：洗车，手工玻离滑水镀膜，臭氧负离</p>
+						</div>
+						<div>
+							<p class="discount-price">¥5536</p>
+							<p class="original-price">¥5536</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<p class="intro">漆面养护套餐</p>
+						</div>
+						<div>
+							<p class="discount-price">¥5536</p>
+							<p class="original-price">¥5536</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		</article>
+		<!--footer class="button-wrap clearfix two-col">
+			<div class="left-wrap"><a href="#" class="btn btn-blue">电话咨询</a></div>
+			<div class="right-wrap"><a href="#" class="btn">免费预约</a></div>
+		</footer-->
+		<footer class="button-wrap clearfix">
+			<a href="javascript:void(0);" class="btn btn-blue" id="phone">电话咨询</a> 
+		</footer>
+	</section>
+	<footer class="button-wrap clearfix call-wrap" style="display:none;"> 
+		<a class="btn btn-pink" href="javascript:void(0);">取消</a> 
+	</footer>
+	<div class="overlay-wrap-phone" style="display:none;"></div> 
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var url =window.location.href; 
+			var urlParams = (url.split("?")[1]).split("&");
+			var paramJson = {};
+			$.each(urlParams,function(i){
+				var item = urlParams[i].split("=");
+				paramJson[item[0]] = item[1];
+			}); 
+			document.title = "套餐说明-"+decodeURI(paramJson.title);
+			$("#goDinnerList").attr("href","dinnerList.html?businessInfoId="+paramJson.businessInfoId);
+			$("#otherDinners").on('click','li',function(){ 
+				var id = $(this).attr('id');
+				window.location.href = "dinner.html?busiDinnerRelId="+id+"&businessInfoId="+paramJson.businessInfoId+"&title="+paramJson.title;
+			});
+			$("#phone").on('click',function(){ 
+				$(".overlay-wrap-phone").show();
+				$(".call-wrap").show();
+			});
+			$(".btn-pink").on('click',function(){ 
+				$(".overlay-wrap-phone").hide();
+				$(".call-wrap").hide();
+			});
+			var iframe = document.getElementById("serviceInfo");
+			var callback = function(){
+				try{ 
+					var doc = this.contentDocument || this.contentWindow.document;
+					var bHeight = doc.body.scrollHeight;
+					var dHeight = doc.documentElement.scrollHeight;
+					var height = Math.max(bHeight, dHeight);
+					this.height =  height;
+				}catch (ex){}
+			};
+			iframe.onload = function() {
+				var that = this;
+				window.setTimeout(function(){
+					callback.apply(that);
+				},300);
+			}; 
+			function getDinnerDetail(id){ 
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/dinner/detail?busiDinnerRelId='+id,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {   
+						 $("#dinnerName").html(data.dinnerName); 
+						 if(data.reservePrice!="暂无"){
+							$("#reservePrice").html("¥"+data.reservePrice);
+						}else{
+							$("#reservePrice").html("暂无");
+						} 
+						if(data.shopPrice!="暂无"){
+							$("#shopPrice").html("¥"+data.shopPrice);
+						}else{
+							$("#shopPrice").html("暂无");
+						}	
+						if(data.saveAmount!=undefined&&data.saveAmount!=""){
+							$("#saveAmount").html("&nbsp;&nbsp;&nbsp;&nbsp;省¥"+data.saveAmount);
+						}else{
+							$("#saveAmount").html("");
+						}   
+						 $("#attentionNumber").html("关注："+data.attentionNumber);
+						 $("#workTime").html(data.startTime + " 至 "+ data.endTime);
+						 $("#reserveInfoContent").html(data.reserveInfoContent);
+						 $("#useRule").html(data.useRule);
+						 var dinnerUl = ""; 
+						 var items = data.items;
+						 if(items.length>0){
+						 $.each(items,function(i){ 
+						 	var item = items[i];
+					 		var li ='<li id="'+ item.busiDinnerRelId +'">'
+								+'<div>'
+								+'<p class="intro">'+ item.dinnerName+'</p>'
+								+'</div>'
+								+'<div>'
+								+'<p class="discount-price">'+ item.reservePrice +'</p>'
+								+'<p class="original-price">'+ item.shopPrice +'</p>'
+								+'</div>'
+								+'</li>';  
+							dinnerUl += li;
+						 });
+						 $("#otherDinners").html(dinnerUl);
+						}else{
+						 $("#otherDinners").parents(".package-list").hide();
+						}
+						if(data.illustrateUrl!=undefined&&data.illustrateUrl!=""){ 
+							$("#serviceInfo").attr('src',"/group1"+(data.illustrateUrl).split("group1")[1]);  
+						}else{
+							$("#serviceInfo").parents(".explain-wrap").hide();  
+						}
+					}
+				});
+			}
+			function getShopInfo(id){ 
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/shop/business/detail/v2?id='+id,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) { 
+						var phones = data.serviceTel;
+						var phoneStr = "";
+						$.each(phones,function(i){
+							phoneStr += '<a href="tel:'+phones[i]+'"><p>'+phones[i]+'</p></a>'; 
+						});   
+						$(".call-wrap").prepend(phoneStr); 
+					},error:function(xhr){
+						window.location.href = "http://www.yangchebao.com.cn";
+					}
+				});
+			}  
+			getDinnerDetail(paramJson.busiDinnerRelId);  
+			getShopInfo(paramJson.businessInfoId);
+		}); 
+	</script>
+	<div class="baiduCount">
+	<script>//baidu 统计
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?36befafd9d601c669f9856c43f3ab457";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script> 
+	</div>
+</body> 
+</html>

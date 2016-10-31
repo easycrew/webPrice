@@ -1,0 +1,1278 @@
+<style>
+	.tip{
+		margin-top:30px;
+		text-align:center;
+		font-size:20px;
+	}
+	p.p_one{
+		display:inline-block;color:#0099FF;
+	}
+	p.p_one{
+		*display:inline;
+	}
+	p.p_two{
+		display:inline-block;color:#0099FF;position:relative;top:32px;left: 0;
+	}
+	p.p_two{
+		*display:inline;
+	}
+	#syncAllBtn{
+		margin-left: 20px;
+	}
+
+	.cDiv table tr td, .cDiv table tr th{text-align:center;}
+</style>
+<div class="urlContentWraper" id="Wraper_shop_service" style="position:relative;min-width:1000px;min-width:900px;"> 
+<div class="grid-row-fluid" style="background:#fff;padding:45px 0 20px 20px;margin-bottom:0;"> 
+	<label class="span2 grid-layout-label">
+		<span class="ui-form-required">*</span>分店：</label>
+	<div class="span5 grid-layout-content fluid-wrap">
+		<div class="jrad-select-container" id="branchShopId">
+		</div>
+	</div>  
+</div>
+<div class="grid-row-fluid" style="background:#fff;padding:0px 0 35px 20px;margin-bottom:0;">  
+	<label class="span2 grid-layout-label"></label>
+	<button class="btn btn-small btn-primary" id="syncBtn">同步服务到分店</button> 
+	<button class="btn btn-small btn-primary" id="syncAllBtn">同步服务到所有分店</button>
+</div> 
+<div style="color:red;position:absolute;top:45px;left:38%;font-size:12px;">
+	说明：<br>
+	1、同步服务到分店：同步总店（即本店）对应服务到选择的分店；<br>
+	<span style="visibility:hidden;">1、</span>例如：分店选择“1号分店”，下面选择“美容”，点击“同步服务到分店”，即可把总店美容服务同步到“1号分店”；<br>
+	2、同步服务到所有分店：同步总店（即本店）对应服务到所有分店；<br>
+	<span style="visibility:hidden;">2、</span>例如：下面选择“美容”，点击“同步服务到所有分店”，即可把总店美容服务同步到所有分店。
+</div>
+<div id="serviceTabs" style="margin-top:30px;">  
+	<ul>
+		<li>
+			<a href="#carwash">洗车</a>
+		</li>
+		<li>
+			<a href="#beautify">美容</a>
+		</li>
+		<li>
+			<a href="#upkeep">保养</a>
+		</li>
+		<li>
+			<a href="#repair">维修</a>
+		</li>
+		<li>
+			<a href="#smallUpkeep">小保养</a>
+		</li>
+	</ul>  
+	<div id="carwash" style="height:800px;background:#fff;">
+		<table id="Table_carwash_list"></table> 
+	</div>
+	<div id="beautify" style="height:800px;background:#fff;">
+		<table id="Table_beautify_list"></table> 
+	</div>
+	<div id="upkeep" style="height:800px;background:#fff;">
+		<table id="Table_upkeep_list"></table> 
+	</div>
+	<div id="repair" style="height:800px;background:#fff;">
+		<table id="Table_repair_list"></table> 
+	</div> 
+	<div id="smallUpkeep" style="height:800px;background:#fff;">
+		<table id="Table_smallUpkeep_list"></table>
+	</div>
+</div>  
+<div id="Form_service_carwash" class="grid-layout ui-form" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		 <input name="serviceId" type="hidden"/>  
+		 <div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>一级：</label>
+			 <div class="span8 grid-layout-content">
+				   <div name="firstService" class="jrad-select-container service"></div>
+			       <a class="serviceResponse" href="javascript:">服务选项中没有您提供的服务,点击此处.</a>
+			 </div>
+		</div>
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>门市价：</label>
+			 <div class="span8 grid-layout-content">
+				   <div name="shopPrice" class="jrad-input-container"></div>
+				   	<p class="ui-note">用户直接上门购买需要付出的价格</p>
+				   </div>
+				
+		</div> 
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>预订价：</label>
+			 <div class="span8 grid-layout-content">
+				   <div name="reservePrice" class="jrad-input-container"></div>
+				    <p class="ui-note">用户在养车宝购买实际支付的优惠价，一般需要低于门市价。养车宝默认按照预定价与商户结算。</p>
+				   </div>
+				  
+		</div>  
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label">闲时优惠价：</label>
+			 <div class="span8 grid-layout-content">
+				   <div name="idlePrivilegePrice" class="jrad-input-container"></div>
+				    <p class="ui-note">您可选择客流量不多的时间给出闲时优惠价，闲时优惠价必须小于预订价。</p>
+				   </div>
+				  
+		</div> 
+		<div class="grid-row-fluid date">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>
+			 使用开始时间：</label>
+			 <div class="span8 grid-layout-content">
+				   <div name="useStartTime" class="jrad-dateinput-container"></div>
+								</div>
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>
+			 使用结束时间：</label>
+			 <div class="span8 grid-layout-content">
+				   <div name="useEndTime" class="jrad-dateinput-container"></div>
+								</div>
+		</div>
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>
+			 预约信息：</label>
+			 <div class="span20 grid-layout-content">
+				   <div name="reserveInfo" class="jrad-select-container"></div>
+								</div>
+		</div>  
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>
+			 使用规则：</label>
+			 <div class="span20 grid-layout-content">
+				   <div name="useRule" class="jrad-textarea-container"></div>
+								</div>
+		</div> 
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>服务说明：</label>
+			 <div class="span18 grid-layout-content">
+				   <div name="illustrate" class="jrad-mediaarea-container"></div>
+				    <p class="ui-note" style="float:left;">当前是此服务的默认说明，你可以在此基础上重新编辑。</p> 
+			 </div>
+		</div>  
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		 <button class="jrad-btn-primary btn btn-small btn-primary">
+            确定
+        </button>
+        <button class="jrad-btn-normal btn btn-small btn-default">
+            取消
+        </button>
+	</div>
+</div>
+<!-- smallUpkeep -->
+<div id="Form_service_smallUpkeep" class="grid-layout ui-form"  style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		 <input name="serviceId" type="hidden">  
+		 <div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>一级：</label>
+			 <div class="span10 grid-layout-content">
+				   <div name="firstService" class="jrad-select-container service"></div>
+								</div>
+		</div>
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>机油门市价：</label>
+			 <div class="span10 grid-layout-content">
+				   <div name="shopPrice" class="jrad-input-container"></div>
+				   </div>
+				
+		</div> 
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>机油预订价：</label>
+			 <div class="span10 grid-layout-content">
+				   <div name="reservePrice" class="jrad-input-container"></div>
+				   </div>
+				  
+		</div>
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>
+			 预约信息：</label>
+			 <div class="span20 grid-layout-content">
+				   <div name="reserveInfo" class="jrad-select-container"></div>
+								</div>
+		</div>  
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>
+			 使用规则：</label>
+			 <div class="span20 grid-layout-content">
+				   <div name="useRule" class="jrad-textarea-container" placeholder="您可以参照以下格式：预约电话：010-84245292 010-84245293（北京地区统一预约电话）；营业时间：早8:30-晚17:30；注意事项：本服务仅用于5座车型。"></div>
+								</div>
+		</div>   
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>服务说明：</label>
+			 <div class="span18 grid-layout-content">
+				   <div name="illustrate" class="jrad-mediaarea-container"></div>
+				    <p class="ui-note" style="float:left;">当前是此服务的默认说明，你可以在此基础上重新编辑。</p> 
+			 </div>
+		</div>  
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		 <button class="jrad-btn-primary btn btn-small btn-primary">
+            确定
+        </button>
+        <button class="jrad-btn-normal btn btn-small btn-default">
+            取消
+        </button>
+	</div>
+</div>
+<div id="service_check_reason" style="display:none;">
+		<p class="reason">	</p>
+</div>
+<div id="Form_service_response" class="grid-layout ui-form" style="display:none;">
+	<div class="grid-layout-main jrad-form">  
+		<div class="grid-row-fluid">  
+			 <input type="hidden" name="shopAccountId"/>
+			 <div class="span18 grid-layout-content">
+				<p class="ui-note">为了防止不同商户对同一商品的名称命名不同,服务列表由养车宝运营统一添加,请填写您需要添加的服务名称,我们会在服务添加后短信通知您.</p>
+				<div name="remarks" class="jrad-textarea-container"></div> 
+			 </div>
+		</div>  
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		 <button class="jrad-btn-primary btn btn-small btn-primary">
+            确定
+        </button>
+        <button class="jrad-btn-normal btn btn-small btn-default">
+            取消
+        </button>
+	</div>
+</div> 
+<div id="Form_discount_time" class="grid-layout ui-form" style="display:none;">
+	<div class="grid-layout-main jrad-form">  
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label">闲时优惠时间：</label>
+			 <div class="span8 grid-layout-content">
+				   <div name="idlePrivilegePeriod" class="jrad-radio-container"></div>
+			 </div>
+				
+		</div>
+		<div class="grid-row-fluid" name="idlePrivilegeTimeOne">
+			<label class="span4 grid-layout-label"></label>
+			<div class="span6 grid-layout-content fluid-wrap">
+				<div class="ui-date">	
+					<div class="input-append date" id="startTime_one">
+						<div class="input-wrap">
+							<input type="text" name="startTime_one"/>
+						</div>
+						<span class="add-on"><i class="icon-calendar"></i></span>
+					</div>
+				</div>
+			</div> 
+			<div class="span1 grid-layout-content fluid-wrap">--</div>
+			<div class="span6 grid-layout-content fluid-wrap">
+				<div class="ui-date">	
+					<div class="input-append date" id="endTime_one">
+						<div class="input-wrap">
+							<input type="text" name="endTime_one"/>
+						</div>
+						<span class="add-on"><i class="icon-calendar"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="grid-row-fluid" name="idlePrivilegeTimeTwo">
+			<label class="span4 grid-layout-label"></label>
+				<div class="span6 grid-layout-content fluid-wrap">
+					<div class="ui-date">	
+						<div class="input-append date" id="startTime_two">
+							<div class="input-wrap">
+								<input type="text" name="startTime_two"/>
+							</div>
+							<span class="add-on"><i class="icon-calendar"></i></span>
+						</div>
+					</div>
+				</div> 
+				<div class="span1 grid-layout-content fluid-wrap">--</div>
+				<div class="span6 grid-layout-content fluid-wrap">
+					<div class="ui-date">	
+						<div class="input-append date" id="endTime_two">
+							<div class="input-wrap">
+								<input type="text" name="endTime_two"/>
+							</div>
+							<span class="add-on"><i class="icon-calendar"></i></span>
+						</div>
+					</div>
+				</div>
+		</div>  
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		 <button class="jrad-btn-primary btn btn-small btn-primary">
+            确定
+        </button>
+        <button class="jrad-btn-normal btn btn-small btn-default">
+            取消
+        </button>
+	</div>
+</div>
+<!-- 机滤价格/工时费设置 -->
+<div id="Form_FilterWork_install" class="grid-layout ui-form" style="display:none;">
+	<div class="grid-layout-main jrad-form">  
+		<div class="grid-row-fluid filter">
+			 <label class="span4 grid-layout-label">
+			   机滤门市价：</label>
+			 <div class="span10 grid-layout-content">
+				   <div name="filterShopPrice" class="jrad-input-container"></div>
+			 </div>
+		</div> 
+		<div class="grid-row-fluid filter">
+			 <label class="span4 grid-layout-label">
+			   机滤预定价：</label>
+			 <div class="span10 grid-layout-content">
+				   <div name="filterReservePrice" class="jrad-input-container"></div>
+			 </div>
+		</div> 
+		<div class="grid-row-fluid work">
+			 <label class="span4 grid-layout-label">
+			   工时费门市价：</label>
+			 <div class="span10 grid-layout-content">
+				   <div name="workShopPrice" class="jrad-input-container"></div>
+			 </div>
+		</div> 
+		<div class="grid-row-fluid work">
+			 <label class="span4 grid-layout-label">
+			   工时费预定价：</label>
+			 <div class="span10 grid-layout-content">
+				   <div name="workReservePrice" class="jrad-input-container"></div>
+			 </div>
+		</div>
+		<div class="grid-row-fluid">
+			 <label class="span4 grid-layout-label"></label>
+			 <div class="span10 grid-layout-content">
+				 <p style="color:#f00;">填写价格时，门市价、预订价必须同时填写！</p>
+			 </div>
+		</div>
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		 <button class="jrad-btn-primary btn btn-small btn-primary">
+            确定
+        </button>
+        <button class="jrad-btn-normal btn btn-small btn-default">
+            取消
+        </button>
+	</div>
+</div>
+</div> 
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		var loadFlag = false;
+		var SHOPID = "";
+		var businessId="";
+		var wraper = $('#Wraper_shop_service'); 
+		var branchShopList = $.jRadGet({
+			 url : '/vip-ws/ws/0.1/shopAccountBack/getBranchShopList?shopAccountId='+carsmart_config.shopId+'&hasmain=false',
+		}); 
+		var branchSelect = [];
+		var branchSelectApprove = {};
+		$.each(branchShopList,function(i){
+			var item = branchShopList[i];
+			var shop = {};
+			shop.id = item.shopAccountId;
+			shop.name = item.shopName; 
+			branchSelect.push(shop);
+			branchSelectApprove[item.shopAccountId] = item.businessInfoId||"";
+		}); 
+		branchSelect.unshift({id:'',name:'请选择要管理的分店'}); 
+
+		$("#branchShopId",wraper).select({
+			data: branchSelect,
+			onchange: function(val){ 
+				if(val!=""&&branchSelectApprove[val]==""){
+					$.jRadAlert("该分店还没有通过审核,编辑无效。","error","",-1);
+					val = "";
+				};
+				SHOPID = val;
+				businessId=branchSelectApprove[val];
+				var number=$('li[aria-selected="true"]').index()+1;
+				var tabNum=$('li[aria-selected="true"]').index();
+				var tabValue=$('li[aria-selected="true"]').attr('aria-controls');
+				$("#serviceTabs ul li:eq("+tabNum+") a").click(); 
+				getServiceInfo(number,tabValue,SHOPID,businessId);   
+				
+			}
+		});
+		$("#syncBtn",wraper).click(function(){ 
+		    if(SHOPID==""){
+				$.jRadAlert("请先选择分店。","error","",-1); 
+				return false;
+			}
+			$.jRadConfirm("确认同步服务信息吗?", 1,
+			function() {
+				var json = {};
+				var number=$('li[aria-selected="true"]').index()+1;
+				var tabNum=$('li[aria-selected="true"]').index();
+				var tabValue=$('li[aria-selected="true"]').attr('aria-controls');
+				json.shopAccountId = SHOPID;
+				json.offerServiceId = number;
+				businessId=branchSelectApprove[SHOPID];
+				$.jRadPost({url:'/vip-ws/ws/0.1/business/syn',
+						   data:json,
+						   success:function(){
+							$.jRadMessage({
+								level:'success',
+								message: '服务信息已经同步。',
+								type: 'success',
+								duration:3
+							}); 
+							$("#serviceTabs ul li:eq("+tabNum+") a").click(); 
+							getServiceInfo(number,tabValue,SHOPID,businessId);  
+						   },error:function(xhr){
+								var errormsg = eval("(" + xhr.responseText + ")");
+								$.jRadAlert(errormsg[0].message,"error","",-1); 
+						   }});
+			}); 
+		});
+		$("#syncAllBtn",wraper).click(function(){ 
+			$.jRadConfirm("确认同步服务信息到所有分店吗?", 1,
+			function() {
+				var json = {};
+				var number=$('li[aria-selected="true"]').index()+1;
+				var tabNum=$('li[aria-selected="true"]').index();
+				var tabValue=$('li[aria-selected="true"]').attr('aria-controls');
+				json.shopAccountId = carsmart_config.shopId;
+				json.offerServiceId = number;
+				businessId=branchSelectApprove[SHOPID];
+				$.jRadPost({url:'/vip-ws/ws/0.1/business/synAll',
+						   data:json,
+						   success:function(){
+							$.jRadMessage({
+								level:'success',
+								message: '服务信息已经同步。',
+								type: 'success',
+								duration:3
+							}); 
+							$("#serviceTabs ul li:eq("+tabNum+") a").click(); 
+							getServiceInfo(number,tabValue,SHOPID,businessId);  
+						   },error:function(xhr){
+								var errormsg = eval("(" + xhr.responseText + ")");
+								$.jRadAlert(errormsg[0].message,"error","",-1); 
+						   }});
+			}); 
+		});
+		$("#Form_service_response").form({
+					title: '服务反馈',
+					url:'/vip-ws/ws/0.1/business/addFeedback',
+					validators:{'remarks':[{msg:"请填写反馈内容。",type:'min',value:'1'}]}
+			});		
+		$(".serviceResponse").click(function(){ 
+			$("#Form_service_response").form({ 
+					item:{'shopAccountId':SHOPID}
+			});	
+			$("#Form_service_response textarea").popover({
+					 		'rel':"popover",
+					 		'placement':"top", 
+					 		'trigger':'focus',
+							'content':"创建服务填写示例：美容-贴膜-3M-恒色系列 魅力沙龙"
+					 	});
+			$("#Form_service_response").form('open');		
+		});  
+		var serviceJson = {};
+		serviceJson.carwash = "1";
+		serviceJson.beautify = "2";
+		serviceJson.upkeep = "3";
+		serviceJson.repair = "4";
+		serviceJson.smallUpkeep = "5";
+		$('#serviceTabs').tabs({
+			heightStyle: 'auto', 
+			beforeLoad: function( event, ui ) {// 加载前操作
+				  ui.jqXHR.error(function() {
+				  ui.panel.html("无法加载页面" );
+				});
+			},
+			select:function(event, ui){
+				var panel = ui.panel; 
+				var typeName = $(panel).attr('id'); 
+				var type = serviceJson[typeName];  
+				getServiceInfo(type,typeName,SHOPID,businessId);//1.洗车 2.美容 3.保养 4.维修 5.小保养
+			}
+		});
+		getServiceInfo("1","carwash",SHOPID,businessId);
+		$("#service_check_reason",wraper).dialog(  
+				{
+					title: '驳回原因',
+					grid: 15, 
+					buttons: false
+		});
+		if($(document).data("account_branchShopId")!=undefined&&$(document).data("account_branchShopId")!=""){
+				var account_branchShopId = $(document).data("account_branchShopId");
+				$(document).removeData("account_branchShopId");
+				$("#branchShopId",wraper).select('val',account_branchShopId);
+		}
+		
+	});
+	
+function getServiceInfo(type,typeName,shopId,businessId){ 
+	var shopId = shopId; 
+	var wraper = $('#Wraper_shop_service'); 
+	$("#"+typeName).html('<table id="Table_'+typeName+'_list"></table>');
+	var _table = 'Table_'+typeName+'_list';
+    var page_column_model = new Array();
+    var page_column_model_b = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+    var page_list_buttons_b = new Array(); 
+	 //1.洗车  2.美容 3.保养 4.维修	5.小保养
+	var entityModel = {};  
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	// jRad.validators['firstService'] = [{msg:"请选择一级服务",type:'min',value:'1'}];
+	// jRad.validators['secondService'] = [{msg:"请选择二级服务",type:'min',value:'1'}];
+	// jRad.validators['thirdService'] = [{msg:"请选择三级服务",type:'min',value:'1'}];
+	// jRad.validators['fourService'] = [{msg:"请选择四级服务",type:'min',value:'1'}];
+	jRad.validators['shopPrice'] = [{msg:"请填写门市价",type:'min',value:'1'},{msg:"请填写非负整数",type:'regex',value:/^[0-9]+$/}];
+	jRad.validators['reservePrice'] = [{msg:"请填写预订价",type:'min',value:'1'},{msg:"请填写非负整数",type:'regex',value:/^[0-9]+$/}];
+	jRad.validators['illustrate'] = [{msg:"请填写服务说明",type:'min',value:'1'}]; 
+	jRad.validators['useRule'] = [{"msg":'最多200个字符','type':'max',value:'200'}];
+	jRad.validators['idlePrivilegePrice'] = [{"msg":'请填写非负整数',type:'regex',value:/^[0-9]+$/}];
+
+	jRad.validators['filterShopPrice'] = [{msg:"请填写正整数",type:'regex',value:/^[0-9]*[1-9][0-9]*$/}];
+	jRad.validators['filterReservePrice'] = [{msg:"请填写正整数",type:'regex',value:/^[0-9]*[1-9][0-9]*$/}];
+	jRad.validators['workShopPrice'] = [{msg:"请填写正整数",type:'regex',value:/^[0-9]*[1-9][0-9]*$/}]; 
+	jRad.validators['workReservePrice'] = [{"msg":'请填写正整数',type:'regex',value:/^[0-9]*[1-9][0-9]*$/}];
+
+	var fields = {};  
+	fields['firstService'] = {
+		urlData: {
+				url:'/vip-ws/ws/0.1/business/getSonServices?parentId='+type,
+				id: 'id',
+				name: 'serviceName',
+				type: 'get',
+				dataType: 'json'
+			}, 
+		unshiftData:{id:'',name:'请选择'}, 
+		onchange: function(val){ 
+				$('#Form_service_carwash div[name="illustrate"]').mediaarea('val',"");
+				getServiceSonNode("2",val,wraper);  
+		}
+	}; 
+	//fields['illustrate'] = {grid:22,height:160};
+	fields['illustrate'] = {
+ 			theme:"Full",
+ 			resizing: false, 
+ 			grid: 24, 
+ 			height: 200,
+			uploadImg: { //上传图片参数 
+				url :'/vip-ws/ws/0.1/file/upload', 
+				filename:"file",
+				params: {type:""},
+				note: '仅支持 JPG图片文件，且建议大小小于20M,宽高不能小于180*135。',
+				beforeSubmit: function(obj){
+					  var re = /^.*\.(jpg|JPG)$/;
+					  if(re.test(obj.val())){
+						return true;
+					  }else{  
+						$.jRadAlert("只能上传jpg文件", "error");
+						return false;
+					  }
+				},
+				validator : [{
+					msg : "请选择要上传的文件",
+					type : "min",
+					value : "1"
+				}],
+				error:function(data){
+					 $.jRadAlert(data,"error"); 
+				},
+				show:true,
+				showLarge:true,
+				single:true,
+				prev:'large'	
+			}
+ 	};
+ 	var reserveInfoSelect = $.jRadGetDataSources('/vip-ws/ws/0.1/datadictionary/dictionarylist?type=reserve_info','id','name'); 
+	fields['reserveInfo'] = {
+		data:reserveInfoSelect
+	};
+	fields['idlePrivilegePeriod'] = {
+		data:[{id:'0',name:'无'},{id:'1',name:'全周'},{id:'2',name:'工作日'}]
+	};
+	$('#privilege_date_range').datetimerange();
+	$('#Form_FilterWork_install input',wraper).keydown(function(){
+		$(this).parents('div.span10').find('div.ui-field-error').hide()
+	});
+	$('#Form_service_carwash').form({ 
+		fields: fields,
+		grid:20,
+		validators: jRad.validators,
+		fluid:false
+	}); 
+	$('#Form_service_smallUpkeep',wraper).form({ 
+		fields: fields,
+		grid:20,
+		validators: jRad.validators,
+		fluid:false
+	});
+	$('#Form_FilterWork_install',wraper).form({ 
+		grid:20,
+		validators: jRad.validators,
+		fluid:false
+	});
+	$('#Form_discount_time').form({ 
+		fields: fields,
+		grid:20,
+		validators: jRad.validators,
+		fluid:false
+	}); 
+	var todyDate = moment().add('days').format('YYYY-MM-DD');
+	$('#Form_discount_time .date').datetimepickerBS({
+		format: 'hh:ii', 
+	    autoclose: 1, 
+		startDate:todyDate,
+		startView: 1,
+		maxView: 1,
+		pickerPosition:'bottom-left', 
+	    language: "zh-CN"
+	});
+	page_column_model.push({display: '服务', name : 'serviceNames'});
+    page_column_model.push({display: '门市价', name : 'shopPrice',width:100,diy:function(item,$div){
+    	$div.html('<p style="text-align:center;">'+item.shopPrice+'</p>')
+    }});
+    page_column_model.push({display: '预订价', name : 'reservePrice',width:100,diy:function(item,$div){
+    	$div.html('<p style="text-align:center;">'+item.reservePrice+'</p>')
+    }});
+    page_column_model.push({display: '闲时优惠价', name : 'idlePrivilegePrice',width:100,diy:function(item,$div){
+    	if(item.idlePrivilegePrice == '' || item.idlePrivilegePrice == undefined){
+    	    $div.html('<p style="text-align:center;">--</p>')
+    	}else{
+    		$div.html('<p style="text-align:center;">'+item.idlePrivilegePrice+'</p>')
+    	}
+    }}); 
+    // page_column_model.push({display: '使用开始时间', name : 'useStartTime'});
+    // page_column_model.push({display: '使用结束时间', name : 'useEndTime'});
+    page_column_model.push({display: '预约信息', name : 'reserveInfo'});   
+    page_column_model.push({display: '审核状态', name : 'auditStatusDesc',width:200,diy:function(item,$div){
+		if(item.auditStatus=='3'){
+			var $reason = $("<a>").addClass('flexOperate').html("点击查看原因");
+			$div.html(item.auditStatusDesc+"&nbsp;&nbsp;&nbsp;&nbsp;").append($reason);
+			$reason.click(function(){ 
+				$("#service_check_reason .reason",wraper).html(item.auditDesc);
+				$("#service_check_reason",wraper).dialog('open'); 
+			});
+		}else {
+			$div.html(item.auditStatusDesc);
+		}
+	}});   
+    page_column_model.push({display: '操作', name : 'operate',width:200 ,diy:function(item,$div){
+		var $edit = $("<a>").addClass('flexOperate').html("编辑"); 
+		var $del = $("<a>").addClass('flexOperate').html("删除");
+		if(item.illustrateUrl==undefined||item.illustrateUrl==""){
+			$div.append($edit).append("<span class='ui-note' title='暂没有服务说明'>预览服务说明 &nbsp;</span>").append($del);  
+		}else{
+			$div.append($edit).append("<a class='flexOperate' href='"+item.illustrateUrl+"' target='_blank'>预览服务说明</a>").append($del);  
+		}
+	 
+		$del.click(function(e){
+			$.jRadConfirm('确认删除吗？',1,function(){
+				// var businessServiceRelId = item.businessServiceRelId?item.businessServiceRelId:""; 
+				// var modifyId = item.modifyId?item.modifyId:"";   
+				// var param = "";
+				// if(businessServiceRelId!=""){
+				// 	param+="?businessServiceRelId="+businessServiceRelId;
+				// } 
+				// if(modifyId!=""){
+				// 	if(param==""){
+				// 		param+="?modifyId="+modifyId;
+				// 	}else{
+				// 		param+="&modifyId="+modifyId;
+				// 	}
+				// } 
+				var businessServiceRelId = item.businessServiceRelId?item.businessServiceRelId:""; 
+				var modifyId = item.modifyId?item.modifyId:"";   
+				var serviceId = item.serviceId?item.serviceId:"";
+				var param = "";
+				if(businessServiceRelId!=""){
+					param+="?businessServiceRelId="+businessServiceRelId;
+				} 
+				if(modifyId!=""){
+					if(param==""){
+						param+="?modifyId="+modifyId;
+					}else{
+						param+="&modifyId="+modifyId;
+					}
+				} 
+				if(param==""){
+					param+="?serviceId="+serviceId;
+			    }else{
+					param+="&serviceId="+serviceId;
+			    }
+				param+="&businessInfoId="+carsmart_config.businessInfoId;
+				$.jRadPost({  
+					url:'/vip-ws/ws/0.1/business/deleteServiceInfo'+param,
+					success: function(data){ 
+						$('#'+_table).flexMessage('删除成功!', 'success');
+           	    		$('#'+_table).flexReload();
+					},
+					error:function(xhr){ 
+					    var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined) {
+							$('#'+_table).flexMessage(errormsg[0].message, 'error');
+						}
+					}
+				});
+			}); 
+		}); 
+		$edit.click(function(){
+			  $("#Form_service_carwash .addService").parents(".row").remove();
+				  $("#Form_service_carwash .grid-row-fluid:first .grid-layout-content #serviceNames").remove(); 
+				  var businessServiceRelId = item.businessServiceRelId?item.businessServiceRelId:""; 
+				  var modifyId = item.modifyId?item.modifyId:""; 
+				  var param = "";
+				  if(businessServiceRelId!=""){
+					param+="?businessServiceRelId="+businessServiceRelId;
+				  } 
+				  if(modifyId!=""){
+					if(param==""){
+					param+="?modifyId="+modifyId;
+					}else{
+					param+="&modifyId="+modifyId;
+					}
+				  }
+				  var infos = $.jRadGet({url:'/vip-ws/ws/0.1/business/getServiceInfo'+param}); 
+				  $("#Form_service_carwash .grid-row-fluid:first .grid-layout-content").append('<p id="serviceNames">已选择：'+infos.serviceNames+'</p>'); 
+				  $('#Form_service_carwash').form({
+					title: '修改',  
+					// validators:[],
+					item:infos,  
+					url: '/vip-ws/ws/0.1/business/editServiceInfo',
+					preSubmit:function(json){ 
+						json.shopAccountId = shopId; 
+						var serviceId = $("#Form_service_carwash .service:last").select('val'); 
+						if(serviceId!=""){
+						  json.serviceId = serviceId;
+						}
+						json.businessServiceRelId = businessServiceRelId;
+						json.modifyId = modifyId; 
+						return json;
+					},
+					success:function(){ 
+						$('#'+_table).flexMessage('修改成功', 'success');
+						$('#'+_table).flexReload();
+						}
+					}).form('open');
+				  	$("#Form_service_carwash div[name='firstService']").select('readonly',true)
+				  	$('#Form_service_carwash .date').hide();
+		});
+	}});
+
+	page_column_model_b.push({display: '服务', name : 'serviceNames'});
+    page_column_model_b.push({display: '门市价/升', name : 'shopPrice',width:100});
+    page_column_model_b.push({display: '预订价/升', name : 'reservePrice',width:100}); 
+    page_column_model_b.push({display: '预约信息', name : 'reserveInfo'});   
+    page_column_model_b.push({display: '审核状态', name : 'auditStatusDesc',width:200,diy:function(item,$div){
+		if(item.auditStatus=='3'){
+			var $reason = $("<a>").addClass('flexOperate').html("点击查看原因");
+			$div.html(item.auditStatusDesc+"&nbsp;&nbsp;&nbsp;&nbsp;").append($reason);
+			$reason.click(function(){ 
+				$("#service_check_reason .reason",wraper).html(item.auditDesc);
+				$("#service_check_reason",wraper).dialog('open'); 
+			});
+		}else {
+			$div.html(item.auditStatusDesc);
+		}
+	}}); 
+	 
+    page_column_model_b.push({display: '操作', name : 'operate',width:200 ,diy:function(item,$div){
+		var $edit = $("<a>").addClass('flexOperate').html("编辑"); 
+		var $del = $("<a>").addClass('flexOperate').html("删除");
+		if(item.illustrateUrl==undefined||item.illustrateUrl==""){
+			$div.append($edit).append("<span class='ui-note' title='暂没有服务说明'>预览服务说明 &nbsp;</span>").append($del);  
+		}else{
+			$div.append($edit).append("<a class='flexOperate' href='"+item.illustrateUrl+"' target='_blank'>预览服务说明</a>").append($del);  
+		}
+		$del.click(function(e){
+			$.jRadConfirm('确认删除吗？',1,function(){
+				var businessServiceRelId = item.businessServiceRelId?item.businessServiceRelId:""; 
+				var modifyId = item.modifyId?item.modifyId:"";   
+				var param = "";
+				if(businessServiceRelId!=""){
+					param+="?businessServiceRelId="+businessServiceRelId;
+				} 
+				if(modifyId!=""){
+					if(param==""){
+						param+="?modifyId="+modifyId;
+					}else{
+						param+="&modifyId="+modifyId;
+					}
+				} 
+				$.jRadPost({  
+					url:'/vip-ws/ws/0.1/business/deleteServiceInfo'+param,
+					success: function(data){ 
+						$('#'+_table).flexMessage('删除成功!', 'success');
+           	    		$('#'+_table).flexReload();
+					},
+					error:function(xhr){ 
+					    var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined) {
+							$('#'+_table).flexMessage(errormsg[0].message, 'error');
+						}
+					}
+				});
+			}); 
+		});
+		$edit.click(function(){
+			 	  $("#Form_service_smallUpkeep .addService").parents(".row").remove();
+				  $("#Form_service_smallUpkeep .grid-row-fluid:first .grid-layout-content #serviceNames").remove(); 
+				  var businessServiceRelId = item.businessServiceRelId?item.businessServiceRelId:""; 
+				  var modifyId = item.modifyId?item.modifyId:""; 
+				  var param = "";
+				  if(businessServiceRelId!=""){
+					param+="?businessServiceRelId="+businessServiceRelId;
+				  } 
+				  if(modifyId!=""){
+					if(param==""){
+					param+="?modifyId="+modifyId;
+					}else{
+					param+="&modifyId="+modifyId;
+					}
+				  }
+				  var infos = $.jRadGet({url:'/vip-ws/ws/0.1/business/getServiceInfo'+param}); 
+				  $("#Form_service_smallUpkeep .grid-row-fluid:first .grid-layout-content div[name='firstService']").after('<p id="serviceNames">已选择：'+infos.serviceNames+'</p>');
+				  $('#Form_service_smallUpkeep').form({
+					title: '修改', 
+					item:infos,  
+					url: '/vip-ws/ws/0.1/business/editServiceInfo',
+					preSubmit:function(json){
+						json.shopAccountId = shopId; 
+						var serviceId = $("#Form_service_smallUpkeep .service:last").select('val'); 
+						if(serviceId!=""){
+						  json.serviceId = serviceId;
+						}
+						json.businessServiceRelId = businessServiceRelId;
+						json.modifyId = modifyId; 
+						return json;
+					},
+					success:function(){ 
+						$('#'+_table).flexMessage('修改成功', 'success');
+						$('#'+_table).flexReload();
+						}
+					}).form('open');
+            		$("#Form_service_smallUpkeep div[name='firstService']").select('readonly',true)
+				  	var _p='<p class="ui-note jiyouTip">注：以下设置的机油价格都为每升机油的单价！<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户购买时，需要支付的价格为：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户车型需要的机油升数乘以下面的预订价！</p>';
+		            $('#Form_service_smallUpkeep p.jiyouTip').remove();
+		            $('#Form_service_smallUpkeep div[name="firstService"]').after(_p);
+		});
+	}});
+
+
+	page_list_buttons.push({title: '创建',displayname:'创建',bclass: 'icon-plus',onpress : function(){
+            $("#Form_service_carwash .addService").parents(".grid-row-fluid").remove();
+			$("#Form_service_carwash .grid-row-fluid:first .grid-layout-content #serviceNames").remove();
+			$.jRadGet({
+				url:'/vip-ws/ws/0.1/business/getIdlePrivilegePeriod?businessInfoId='+businessId,
+				success:function(){
+					$('#Form_service_carwash').form({
+		                title: '创建',  
+		                url: '/vip-ws/ws/0.1/business/addServiceInfo', 
+						
+						item:{},
+						preSubmit:function(json){ 
+							json.shopAccountId = shopId; 
+							json.serviceId = $("#Form_service_carwash .service:last").select('val'); 
+							return json;
+						},
+						success:function(){ 
+							$('#'+_table).flexMessage('创建成功', 'success');
+							$('#'+_table).flexReload();
+						}
+		            }).form('open');
+            		$("#Form_service_carwash div[name='firstService']").select('readonly',false)
+		            $('#Form_service_carwash .date').hide();
+				},
+				error:function(){
+					$('#'+_table).flexMessage('请选择分店', 'error');
+				}
+			})
+			
+        }
+    });   
+    page_list_buttons.push({title: '闲时优惠时间设置',displayname:'闲时优惠时间设置',bclass: 'icon-plus',onpress : function(){
+	    	$.jRadGet({
+	    		url:'/vip-ws/ws/0.1/business/getIdlePrivilegePeriod?businessInfoId='+businessId,
+	    		success:function(data){
+	    			var item=$.jRadGet({url:'/vip-ws/ws/0.1/business/getIdlePrivilegePeriod?businessInfoId='+businessId});
+	    			$('#Form_discount_time').form({
+		                title: '闲时优惠时间设置', 
+						displayname:'闲时优惠时间设置', 
+		                url: '/vip-ws/ws/0.1/business/setIdlePrivilegePeriod', 
+						item:item,
+						preSubmit:function(json){
+							json.businessInfoId = businessId;
+							json.idlePrivilegeTimeOne=$('#Form_discount_time input[name="startTime_one"]').val()+'-'+$('#Form_discount_time input[name="endTime_one"]').val();
+							json.idlePrivilegeTimeTwo=$('#Form_discount_time input[name="startTime_two"]').val()+'-'+$('#Form_discount_time input[name="endTime_two"]').val();   
+							return json;
+						},
+						success:function(){ 
+							$('#'+_table).flexMessage('设置成功', 'success');
+							$('#'+_table).flexReload();
+						}
+		            }).form('open');
+		            var TimeOne=item.idlePrivilegeTimeOne;
+		            var TimeTwo=item.idlePrivilegeTimeTwo;
+		            if(TimeOne!=null){
+		            	var TimeOne_start=TimeOne.substr(0,5);
+		            	var TimeOne_end=TimeOne.substr(6,5);
+		            	$('#Form_discount_time input[name="startTime_one"]').val(TimeOne_start);
+		            	$('#Form_discount_time input[name="endTime_one"]').val(TimeOne_end);
+		            }
+		            if(TimeTwo!=null){
+		            	var TimeTwo_start=TimeTwo.substr(0,5);
+		            	var TimeTwo_end=TimeTwo.substr(6,5);
+		            	$('#Form_discount_time input[name="startTime_two"]').val(TimeTwo_start);
+		            	$('#Form_discount_time input[name="endTime_two"]').val(TimeTwo_end);
+		            }
+		            if($('#Form_discount_time div[name="idlePrivilegePeriod"]').radio('val')==""){
+		            	$('#Form_discount_time div[name="idlePrivilegePeriod"]').radio('val',0);
+		            	$('#Form_discount_time div[name="idlePrivilegeTimeOne"]').hide();
+		    			$('#Form_discount_time div[name="idlePrivilegeTimeTwo"]').hide();
+		            }
+		            if($('#Form_discount_time div[name="idlePrivilegePeriod"]').radio('val')=="0"){
+		            	$('#Form_discount_time div[name="idlePrivilegeTimeOne"]').hide();
+		    			$('#Form_discount_time div[name="idlePrivilegeTimeTwo"]').hide();
+		            }else{
+		            	$('#Form_discount_time div[name="idlePrivilegeTimeOne"]').show();
+		    			$('#Form_discount_time div[name="idlePrivilegeTimeTwo"]').show();
+		            }
+		            $('#Form_discount_time div[name="idlePrivilegePeriod"]').radio({
+		            	onclick:function(){
+		            		if($('#Form_discount_time div[name="idlePrivilegePeriod"]').radio('val')==0){
+		            			$('#Form_discount_time div[name="idlePrivilegeTimeOne"]').hide();
+		            			$('#Form_discount_time div[name="idlePrivilegeTimeTwo"]').hide();
+			            	}else{
+			            		$('#Form_discount_time div[name="idlePrivilegeTimeOne"]').show();
+		            			$('#Form_discount_time div[name="idlePrivilegeTimeTwo"]').show();
+			            	}
+			            }
+		            })
+	    		},error:function(){
+								$('#'+_table).flexMessage('请选择分店', 'error');
+						   }
+	    	});
+			
+        }
+    }); 
+
+page_list_buttons_b.push({title: '创建',displayname:'创建',bclass: 'icon-plus',onpress : function(){
+            $("#Form_service_smallUpkeep .addService").parents(".grid-row-fluid").remove();
+			$("#Form_service_smallUpkeep .grid-row-fluid:first .grid-layout-content #serviceNames").remove();
+			$.jRadGet({
+    			url:'/vip-ws/ws/0.1/business/detailBusinessServiceMidRel?shopAccountId='+shopId+'&offerServiceId=5',
+    			success:function(){
+    				$('#Form_service_smallUpkeep').form({
+		                title: '创建', 
+						displayname:'创建', 
+		                url: '/vip-ws/ws/0.1/business/addServiceInfo', 
+						item:{},
+						preSubmit:function(json){
+							json.shopAccountId = shopId; 
+							json.serviceId = $("#Form_service_smallUpkeep .service:last").select('val'); 
+							return json;
+						},
+						success:function(){ 
+							$('#'+_table).flexMessage('创建成功', 'success');
+							$('#'+_table).flexReload();
+						}
+		            }).form('open');
+            		$("#Form_service_smallUpkeep div[name='firstService']").select('readonly',false)
+		            var _p='<p class="ui-note jiyouTip">注：以下设置的机油价格都为每升机油的单价！<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户购买时，需要支付的价格为：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户车型需要的机油升数乘以下面的预订价！</p>';
+		            $('#Form_service_smallUpkeep p.jiyouTip').remove();
+		            $('#Form_service_smallUpkeep div[name="firstService"]').after(_p);
+    			},
+    			error:function(){
+    				$('#'+_table).flexMessage('请选择分店', 'error');
+    			}
+    		})
+			
+        }
+    });
+    page_list_buttons_b.push({title: '机滤价格设置',displayname:'机滤价格设置',bclass: 'icon-plus',onpress : function(){
+    	$.jRadGet({
+    		url:'/vip-ws/ws/0.1/business/detailBusinessServiceMidRel?shopAccountId='+shopId+'&offerServiceId=5',
+    		success:function(){
+    			var _item=$.jRadGet({url:'/vip-ws/ws/0.1/business/detailBusinessServiceMidRel?shopAccountId='+shopId+'&offerServiceId=5'});
+				$('#Form_FilterWork_install').form({
+	                title: '机滤价格设置', 
+					displayname:'机滤价格设置', 
+	                url: '/vip-ws/ws/0.1/business/setBusinessServiceMidRel', 
+					item:_item,
+					preSubmit:function(json){
+						json.shopAccountId = shopId; 
+						json.offerServiceId = 5; 
+						json.type = 1;
+						json.modifyPerson = carsmart_config.operatorName;
+						return json
+					},
+					success:function(){ 
+						$('#'+_table).flexMessage('创建成功', 'success');
+						$('#'+_table).flexReload();
+						var _item=$.jRadGet({url:'/vip-ws/ws/0.1/business/detailBusinessServiceMidRel?shopAccountId='+shopId+'&offerServiceId=5'});
+				    	var _str='';
+					        _str+='<span class="ReservePrice" style="padding-left:1%;color:#fff;">当前机滤预订价：'+_item.filterReservePrice+'</span>'
+					             +'<span class="ReservePrice" style="padding-left:2%;color:#fff;">当前工时费预订价：'+_item.workReservePrice+'</span>';
+			            $('#smallUpkeep .mDiv-inner .ReservePrice').remove();
+				    	$('#smallUpkeep .mDiv-inner').append(_str)
+					}
+	            }).form('open');
+	            $('#Form_FilterWork_install .work').hide();
+	            $('#Form_FilterWork_install .filter').show()
+    		},
+    		error:function(){
+    			$('#'+_table).flexMessage('请选择分店', 'error')
+    		}
+    	})
+        }
+    });
+    page_list_buttons_b.push({title: '工时费设置',displayname:'工时费设置',bclass: 'icon-plus',onpress : function(){
+    	$.jRadGet({
+    		url:'/vip-ws/ws/0.1/business/detailBusinessServiceMidRel?shopAccountId='+shopId+'&offerServiceId=5',
+    		success:function(){
+    			var _item=$.jRadGet({url:'/vip-ws/ws/0.1/business/detailBusinessServiceMidRel?shopAccountId='+shopId+'&offerServiceId=5'});
+				$('#Form_FilterWork_install').form({
+	                title: '工时费设置', 
+					displayname:'工时费设置', 
+	                url: '/vip-ws/ws/0.1/business/setBusinessServiceMidRel', 
+					item:_item,
+					preSubmit:function(json){
+						json.shopAccountId = shopId; 
+						json.offerServiceId = 5; 
+						json.type = 2;
+						json.modifyPerson = carsmart_config.operatorName;
+						return json
+					},
+					success:function(){ 
+						$('#'+_table).flexMessage('创建成功', 'success');
+						$('#'+_table).flexReload();
+						var _item=$.jRadGet({url:'/vip-ws/ws/0.1/business/detailBusinessServiceMidRel?shopAccountId='+shopId+'&offerServiceId=5'});
+				    	var _str='';
+					        _str+='<span class="ReservePrice" style="padding-left:1%;color:#fff;">当前机滤预订价：'+_item.filterReservePrice+'</span>'
+					             +'<span class="ReservePrice" style="padding-left:2%;color:#fff;">当前工时费预订价：'+_item.workReservePrice+'</span>';
+			            $('#smallUpkeep .mDiv-inner .ReservePrice').remove();
+				    	$('#smallUpkeep .mDiv-inner').append(_str)
+					}
+	            }).form('open');
+	            $('#Form_FilterWork_install .work').show();
+	            $('#Form_FilterWork_install .filter').hide()
+    		},
+    		error:function(){
+    			$('#'+_table).flexMessage('请选择分店', 'error')
+    		}
+    	})
+        }
+    }); 
+	if(type == 5){
+    	$('#'+_table).flexigrid({
+            reload:true,
+			method:'get',
+			showCheckbox: false,
+            colModel : page_column_model_b,
+            buttons : page_list_buttons_b,
+            searchitems :page_search_items,
+            pagedStyle: 'oc',
+			checkBoxType:'single',
+			showSearch:true,
+			//onError:showCategoryError,
+			overflow:true 
+	    });
+	    if(shopId!=""){
+	    	var _item=$.jRadGet({url:'/vip-ws/ws/0.1/business/detailBusinessServiceMidRel?shopAccountId='+shopId+'&offerServiceId=5'});
+	    	var _str='';
+		        _str+='<span class="ReservePrice" style="padding-left:1%;color:#fff;">当前机滤预订价：'+_item.filterReservePrice+'</span>'
+		             +'<span class="ReservePrice" style="padding-left:2%;color:#fff;">当前工时费预订价：'+_item.workReservePrice+'</span>';
+	        $('#smallUpkeep .mDiv-inner span.ReservePrice').remove();
+	    	$('#smallUpkeep .mDiv-inner').append(_str);
+	    	$('div#smallUpkeep button[title="刷新"]',wraper).click(function(){
+	    		var _item2=$.jRadGet({url:'/vip-ws/ws/0.1/business/detailBusinessServiceMidRel?shopAccountId='+shopId+'&offerServiceId=5'});
+		    	var _str2='';
+			        _str2+='<span class="ReservePrice" style="padding-left:1%;color:#fff;">当前机滤预订价：'+_item2.filterReservePrice+'</span>'
+			             +'<span class="ReservePrice" style="padding-left:2%;color:#fff;">当前工时费预订价：'+_item2.workReservePrice+'</span>';
+		        $('#smallUpkeep .mDiv-inner span.ReservePrice').remove();
+		    	$('#smallUpkeep .mDiv-inner').append(_str2)
+	    	});
+	    	var img_div='<div style="margin-top:15px;"><img src="img/smallUpkeep.png" style="border:1px solid #999;width:210px;"><p class="p_one"><————</p><p class="p_two">此服务在客户端展示的价格为<br>“机油价格X用户使用机油升数+机滤价格+工时费”！<br>例：用户需要5L机油，机油价格80元/L,机滤价格设置为30元，工时费设置为50元<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户最终需要支付80x5+30+50=480（元）</p></div>';
+			$('#serviceTabs').find('.bbit-grid').append(img_div)
+	    }
+    }else{
+	    $('#'+_table).flexigrid({
+	            reload:true,
+				method:'get',
+				showCheckbox:false,
+	            colModel : page_column_model,
+	            buttons : page_list_buttons,
+	            searchitems :page_search_items,
+	            pagedStyle: 'oc',
+				checkBoxType:'single', 
+				showSearch:true, 
+				overflow:true 
+	    })
+    }  
+	$(".pic-show",wraper).parent().css("margin-top","30px"); 
+	$('.hDiv',wraper).css('overflow','hidden');
+    $('.bDiv',wraper).css('overflow-x','scroll');
+	if(shopId!=""){
+		$('#'+_table).flexOptions({ 
+			url: '/vip-ws/ws/0.1/business/queryServiceInfo?offerServiceId='+type+"&shopAccountId="+shopId
+		}).flexReload();;  
+	};
+	if($("#branchShopId",wraper).select('val')==""){
+		var add_div=$('<div>').html('请在上方选择要管理的分店。').addClass('tip');
+		$('#serviceTabs').find('.bbit-grid').append(add_div)
+	} 
+}
+
+function getServiceSonNode(node,val,wraper){     
+	var label = "";
+	var serviceClass = "";
+	var _a='<a class="serviceResponse" href="javascript:">服务选项中没有您提供的服务,点击此处.</a>';
+	var _p='<p class="ui-note jiyouTip">注：以下设置的机油价格都为每升机油的单价！<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户购买时，需要支付的价格为：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户车型需要的机油升数乘以下面的预订价！</p>';
+	if(node==2){
+		label = "二级";
+		serviceClass = "secondService"; 
+		$("#Form_service_carwash div[name='secondService']").parents(".grid-row-fluid").remove();
+		$("#Form_service_carwash div[name='thirdService']").parents(".grid-row-fluid").remove();
+		$("#Form_service_carwash div[name='fourService']").parents(".grid-row-fluid").remove();
+		$("#Form_service_smallUpkeep div[name='secondService']").parents(".grid-row-fluid").remove();
+		$("#Form_service_smallUpkeep div[name='thirdService']").parents(".grid-row-fluid").remove();
+		$("#Form_service_smallUpkeep div[name='fourService']").parents(".grid-row-fluid").remove();
+	}else if(node==3){
+		label = "三级";
+		serviceClass = "thirdService";
+		$('#Form_service_carwash div[name='+serviceClass+']').parents(".grid-row-fluid").remove();
+		$("#Form_service_carwash div[name='fourService']").parents(".grid-row-fluid").remove();
+		$('#Form_service_smallUpkeep div[name='+serviceClass+']').parents(".grid-row-fluid").remove();
+		$("#Form_service_smallUpkeep div[name='fourService']").parents(".grid-row-fluid").remove();
+	}else if(node==4){
+		label = "四级";
+		serviceClass = "fourService";
+		$('#Form_service_carwash div[name='+serviceClass+']').parents(".grid-row-fluid").remove();
+		$('#Form_service_smallUpkeep div[name='+serviceClass+']').parents(".grid-row-fluid").remove();
+	};
+	if(val!=""){
+		var item = $.jRadGetDataSources("/vip-ws/ws/0.1/business/getSonServices?parentId="+val,"id","serviceName");
+		if(item.length>0){
+		item.unshift({id:'',name:'请选择'}); 
+		var row = '<div class="grid-row-fluid">'
+					+'<label class="span4 grid-layout-label">'+label+'：</label>'
+					+'<div class="span10 grid-layout-content">'
+					+'<div name="'+serviceClass+'" class="jrad-select-container service addService"></div>'
+					+'</div>'
+					+'</div>' ; 
+		if(node==2){
+		$("#Form_service_carwash .grid-row-fluid:first",wraper).after(row);
+		$("#Form_service_smallUpkeep .grid-row-fluid:first",wraper).after(row);
+		$("a.serviceResponse").hide();
+		$("p.jiyouTip").remove();
+		$("#Form_service_carwash .grid-layout-content:eq(1)",wraper).append(_a);
+		$("#Form_service_smallUpkeep .grid-layout-content:eq(1)",wraper).append(_p);
+		$(".serviceResponse").bind("click",function(){ 
+			$("#Form_service_response").form({ 
+					item:{'shopAccountId':carsmart_config.shopId}
+			});	
+			$("#Form_service_response textarea").popover({
+					 		'rel':"popover",
+					 		'placement':"top", 
+					 		'trigger':'focus',
+							'content':"新增服务填写示例：美容-贴膜-3M-恒色系列 魅力沙龙"
+					 	});
+			$("#Form_service_response").form('open');
+			var _first=$("div[name='firstService']").select('text');
+			var str1=_first+"-";
+			$("div[name='remarks']").textarea('val',str1);		
+		});
+		}else if(node==3){
+		$("#Form_service_carwash .grid-row-fluid:eq(1)",wraper).after(row);
+		$("#Form_service_smallUpkeep .grid-row-fluid:eq(1)",wraper).after(row);
+		$("a.serviceResponse").hide();
+		$("p.jiyouTip").remove();
+		$("#Form_service_carwash .grid-layout-content:eq(2)",wraper).append(_a);
+		$("#Form_service_smallUpkeep .grid-layout-content:eq(2)",wraper).append(_p);
+		$(".serviceResponse").bind("click",function(){ 
+			$("#Form_service_response").form({ 
+					item:{'shopAccountId':carsmart_config.shopId}
+			});	
+			$("#Form_service_response textarea").popover({
+					 		'rel':"popover",
+					 		'placement':"top", 
+					 		'trigger':'focus',
+							'content':"新增服务填写示例：美容-贴膜-3M-恒色系列 魅力沙龙"
+					 	});
+			$("#Form_service_response").form('open');
+			var _first=$("div[name='firstService']").select('text');
+			var _second=$("div[name='secondService']").select('text');
+			var str2=_first+"-"+_second+"-";
+			$("div[name='remarks']").textarea('val',str2);		
+		});
+		}else if(node==4){
+		$("#Form_service_carwash .grid-row-fluid:eq(2)",wraper).after(row);
+		$("#Form_service_smallUpkeep .grid-row-fluid:eq(2)",wraper).after(row);
+		$("a.serviceResponse").hide();
+		$("p.jiyouTip").remove();
+		$("#Form_service_carwash .grid-layout-content:eq(3)",wraper).append(_a);
+		$("#Form_service_smallUpkeep .grid-layout-content:eq(3)",wraper).append(_p);
+		$(".serviceResponse").bind("click",function(){ 
+			$("#Form_service_response").form({ 
+					item:{'shopAccountId':carsmart_config.shopId}
+			});	
+			$("#Form_service_response textarea").popover({
+					 		'rel':"popover",
+					 		'placement':"top", 
+					 		'trigger':'focus',
+							'content':"新增服务填写示例：美容-贴膜-3M-恒色系列 魅力沙龙"
+					 	});
+			$("#Form_service_response").form('open');
+			var _first=$("div[name='firstService']").select('text');
+			var _second=$("div[name='secondService']").select('text');
+			var _third=$("div[name='thirdService']").select('text');
+			var str3=_first+"-"+_second+"-"+_third+"-";
+			$("div[name='remarks']").textarea('val',str3);		
+		});
+		}
+		node++; 
+		$('#Form_service_carwash div[name='+serviceClass+']').select({
+			data:item,
+			unshiftData: {id:'',name:'请选择'}, 
+			onchange: function(val){ 
+				getServiceSonNode(node,val,wraper); 
+			}
+		});
+		$('#Form_service_smallUpkeep div[name='+serviceClass+']').select({
+			data:item,
+			unshiftData: {id:'',name:'请选择'}, 
+			onchange: function(val){ 
+				getServiceSonNode(node,val,wraper); 
+			}
+		});
+		}else{
+		   var des = $.jRadGet("/vip-ws/ws/0.1/business/getServiceDes?serviceId="+val);	 
+		   $('#Form_service_carwash div[name="illustrate"]').mediaarea('val',des.description?des.description:"");	
+		   $('#Form_service_smallUpkeep div[name="illustrate"]').mediaarea('val',des.description?des.description:"");	   
+		}
+	}else{
+		var num=$("#Form_service_carwash .serviceResponse",wraper).parent().length-2;
+		var num2=$("#Form_service_smallUpkeep .jiyouTip",wraper).parent().length-2;
+		$("a.serviceResponse").hide(); 
+		$("p.jiyouTip").hide(); 
+		$("#Form_service_carwash .grid-layout-content",wraper).eq(num).append(_a); 
+		$("#Form_service_smallUpkeep .grid-layout-content",wraper).eq(num).append(_p);
+		$(".serviceResponse").bind("click",function(){ 
+			$("#Form_service_response").form({ 
+					item:{'shopAccountId':carsmart_config.shopId}
+			});	
+			$("#Form_service_response textarea").popover({
+					 		'rel':"popover",
+					 		'placement':"top", 
+					 		'trigger':'focus',
+							'content':"新增服务填写示例：美容-贴膜-3M-恒色系列 魅力沙龙"
+					 	});
+			$("#Form_service_response").form('open');
+			var now_num=$("#Form_service_carwash .serviceResponse",wraper).parent().length-3;		
+			if(now_num==0){
+				var _first=$("div[name='firstService']").select('text');
+				var str1=_first+"-";
+				$("div[name='remarks']").textarea('val',str1);
+			}else if(now_num==1){
+				var _first=$("div[name='firstService']").select('text');
+				var _second=$("div[name='secondService']").select('text');
+				var str2=_first+"-"+_second+"-";
+				$("div[name='remarks']").textarea('val',str2);
+			}else if(now_num==2){
+				var _first=$("div[name='firstService']").select('text');
+				var _second=$("div[name='secondService']").select('text');
+				var _third=$("div[name='thirdService']").select('text');
+				var str3=_first+"-"+_second+"-"+_third+"-";
+				$("div[name='remarks']").textarea('val',str3);
+			}		
+		});
+	}  
+}
+</script>

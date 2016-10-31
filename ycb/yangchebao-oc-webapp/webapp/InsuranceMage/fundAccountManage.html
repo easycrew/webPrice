@@ -1,0 +1,213 @@
+<style type="text/css">
+    .sDiv{
+    	min-width: 770px;
+    }
+</style>
+<div class="urlContentWraper" id="Wraper_fund_accountManage">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>基金账户管理</strong></h2>
+        <div class="pic-grid">
+			<table id="Table_fund_accountManage"></table>
+		</div>
+    </div>
+    <div id="Form_fund_accountManage" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <input name="id" type="hidden"> 
+            <div class="row">
+                <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>用户手机：</label>
+                <div class="span6 grid-layout-content">
+                    <div name="mobile" class="jrad-input-container"></div>
+				</div> 
+            </div>  
+			<div class="row">
+                <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>增减值：</label>
+                <div class="span6 grid-layout-content">
+                    <div name="changeMoney" class="jrad-input-container"></div>
+					    <p class="ui-note">请输入整数，负数代表减少余额。</p>
+					</div> 
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>变动原因</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="changeReason" class="jrad-select-container"></div>
+                 </div>
+            </div>
+            <div class="row">
+                <label class="span3 grid-layout-label">是否续保兑换保险金</label>
+                <div class="span5 grid-layout-content">
+                    <div name="isRenewal" class="jrad-select-container"></div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>备注：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="remark" class="jrad-textarea-container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg210" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>用户的账户管理功能。</div>
+                    <div><strong>重要功能说明：</strong>手动增减余额时，“余额专属商家ID”设置成功后，此余额只能在此商家使用。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_fund_accountManage');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();   
+
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+
+	jRad.validators['mobile'] = [{"msg":"用户手机不能为空","type":"min","value":"1"}];
+	jRad.validators['changeMoney'] = [{"msg":"增减余额不能为空","type":"min","value":"1"},{msg:"请输入整数",type:'regex',value:/^[ ]*[-]{0,1}\d+[ ]*$/}];
+	//jRad.validators['changeReason'] = [{"msg":"变动原因不能为空","type":"min","value":"1"}];
+	jRad.validators['remark'] = [{"msg":"备注不能为空","type":"min","value":"1"}];
+    
+	var fields_params = {};     
+    var categoryList = [];
+    var categoryList2 = [];
+    var _result = $.jRadGet({url: '/shopmanage-ws/ws/0.1/insuredOrder/getReasonList'});
+    $.each(_result,function(index, vo){
+      var __id = vo['reasonCode'];
+      var __name = vo['reasonName'];
+      var __tm = {'id':__id,'name': __name};
+      categoryList.push(__tm);
+      categoryList2.push(__tm);
+    });
+    categoryList.unshift({id:'',name:'全部'})
+
+    fields_params['changeReason'] = {data: categoryList2};
+
+    jRad.params['changeReason'] = {data: categoryList};
+
+	//fields_params['changeReason'] = {data: [{id:'1',name:'新用户注册赠送'},{id:'2',name:'购买服务后抽奖'},{id:'3',name:'驾驶排名奖励'},{id:'4',name:'车险返利'},{id:'5',name:'续保后自动兑换成可提现余额'},{id:'6',name:'续保后手动兑换成可提现余额'}]};
+    fields_params['isRenewal'] = {data: [{id:'1',name:'否'},{id:'2',name:'是'}]};
+
+	//jRad.params['changeReason'] = {data: [{id:'',name:'全部'},{id:'1',name:'新用户注册赠送'},{id:'2',name:'购买服务后抽奖'},{id:'3',name:'驾驶排名奖励'},{id:'4',name:'车险返利'},{id:'5',name:'续保后自动兑换成可提现余额'},{id:'6',name:'续保后手动兑换成可提现余额'}]};
+
+    page_column_model.push({display: '时间', name : 'createDate'});
+    page_column_model.push({display: '用户ID', name : 'userInfoId'});
+    page_column_model.push({display: '账户余额', name : 'totalFund'});
+    //page_column_model.push({display: '余额变动', name : 'changeFund'});
+    page_column_model.push({display: '余额变动', name : 'changeFund',diy:function(item,$div){
+       var score = item.changeFund;
+       if(score > 0){
+         $div.html("+"+score); 
+       }else{
+         $div.html(score); 
+       }
+    }});
+    page_column_model.push({display: '变动原因', name : 'reasonName'});
+	page_column_model.push({display: '备注', name : 'remark'});
+	page_column_model.push({display: '操作人', name : 'operator'});
+
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'备注',name:'remark'}); 
+	page_search_items.push({row:'1',type:'jrad-select',display:'变动原因',name:'changeReason',params:jRad.params['changeReason']});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'开始时间',name:'startDate'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'结束时间',name:'endDate'});
+	page_search_items.push({row:'2',type:'jrad-input',display:'用户手机',name:'mobile'});
+	   
+    page_list_buttons.push({displayname: '增减余额',name:'AddOrMinus', bclass: 'AddOrMinus',
+        onpress : function(){ 
+		    $('#Form_fund_accountManage').form({
+                title: '增减车险基金余额',
+                validators: jRad.validators,
+                fields_params:fields_params,
+                item:{}, 
+                url:'/shopmanage-ws/ws/0.1/insuredOrder/changeAutoGainAccount',
+                before_submit:function(json){
+                    json.operator = carsmart_config.operatorName;
+                },
+                success_callback:function(){ 
+                    $('#Table_fund_accountManage').flexMessage('操作成功', 'success');
+                    $('#Table_fund_accountManage').flexReload();
+                }
+            }).form('open'); 
+        }
+    }); 
+    page_list_buttons.push({separator: true});
+
+	$('#Table_fund_accountManage').flexigrid({
+		reload:true,
+		method:'get', 
+		colModel : page_column_model,
+		buttons : page_list_buttons,
+		searchitems :page_search_items,
+		showSearch:true,
+		pagination: {
+			diaplay_pages: 5,
+			align: 'bottom' 
+		},
+		overflow:true,
+		url:'/shopmanage-ws/ws/0.1/insuredOrder/getAutoGainAccountList',
+		onError:showIntegralsError,
+		checkBoxType:'single'
+	});  
+  
+    $(".numb210").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg210").form({}).form('close');
+        $("#Form_explain_eg210").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg210 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg210").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg210").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg210 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+function showIntegralsError(xhr){
+    var errormsg = eval("(" + xhr.responseText + ")");
+    var cDiv = $("#Wraper_fund_accountManage .cDiv");
+    $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+}
+</script>

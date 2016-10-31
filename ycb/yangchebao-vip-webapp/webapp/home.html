@@ -1,0 +1,1307 @@
+
+<style>
+	/* 新首页 */
+	.look-code-history{text-align: center;}
+	.look-code-history a{font-size:14px;color:#fff;text-decoration:underline;}
+	.look-code-history a:hover{color:#3586f5;text-decoration:underline;}
+	#wrapbox .ybs{width:46px;float:left;padding:0 6px;}
+	#submit{background:#2e83f8 !important;}
+	#submit:hover{background: #2879e7 !important;}
+	.two-search{margin:10px auto 0;text-align:left;height:40px;}
+	.search-top-left, .search-top-right{float:left;width:50%;margin:0 0 0 -11px;}
+	.search-top-left input, .search-top-right input{width:95%;border:none;height:32px;background:#fff;line-height:36px;padding:2px 10px;outline:none;}
+	.search-top-left button, .search-top-right button{cursor:pointer;position:absolute;right:0;top:2px;width:100px;height:36px;background:#9eb2ce;border:none;padding:2px;color:#fff;}
+	.search-top-left button:hover, .search-top-right button:hover{background:#97aac4;}
+	.innerLeft, .innerRight{margin:0 0 0 11px;background-color:#9eb2ce;}
+	.search-top-middle{float:left;width:20px;background-color:#dfe4ec;}
+	.inner {padding:2px;height:36px;}
+	.yc:focus{outline:none;}
+	
+	.openOrder-ul table{border:none;}
+	.openOrder-ul table tr td {border:none;}
+	.openOrder-ul{background: #fff;padding:52px 0 45px 0;}
+	.openOrder-ul li{height: 142px;width:140px;float:left;/*margin:0 5%;*/cursor: pointer;}
+	.openOrder-ul a{display:block;width:112px;height:112px;margin-left:14px;background: url(css/images/operorder-bg.png) center 0 no-repeat;margin: 0 auto;}
+	.openOrder-ul .openLi-1{background-position: center 0;}
+	.openOrder-ul .openLi-2{background-position: center -112px;}
+	.openOrder-ul .openLi-3{background-position: center -224px;}
+	.openOrder-ul .openLi-4{background-position: center -336px;}
+	.openOrder-ul .openLi-5{background-position: center -448px;}
+	.openOrder-ul p{width:140px;height:40px;background: url(css/images/openorder-btn.png) 0 0 no-repeat;margin:-10px auto 0;font-size:16px;color: #fff;line-height:40px;text-align: center;}
+
+	.todyOrder{margin-top:20px;background: #fff;}
+	.todyOrder-top{height:70px;line-height:70px;border-bottom:1px solid #dfe4ec;padding:0 30px;}
+	.todyOrder-top h3{color:#1e2c47;font-size:18px;float:left;margin:0;height:70px;line-height:70px;}
+	.todyOrder-top span{color:#9eb2ce;font-size:14px;float:right;}
+	.todyOrder-top span i{font-style: normal;}
+
+	.stauts-ul{padding:30px;}
+	.stauts-ul li{float:left;cursor: pointer;}
+	.stauts-ul .tb-style-li{float:right;}
+	.stauts-ul .style-li{width:100px;height:130px;background: url(css/images/stauts-bg.png) 0 0 no-repeat;}
+	.stauts-ul .style-li:hover{width:100px;height:130px;background: url(css/images/stauts-bg.png) 0 -130px no-repeat;}
+	.stauts-ul li span{display:block;height:50px;line-height:50px;text-align: center;font-size:18px;color:#fff;}
+	.stauts-ul li a{display:block;height:80px;line-height:80px;text-align: center;font-size:34px;color:#1e2c47;}
+	.stauts-ul .style-li-right{width:11px;height:20px;background: url(css/images/stauts-right-ico.png) 0 0 no-repeat;margin:75px 25px 0;}
+	.open-order-wraper{margin-top:10px;}
+	.open-order-head{height:50px;line-height:50px;background:#9eb1cf;padding:0 29px;}
+	.open-order-head span{float:left;width:108px;height:35px;background:url(css/images/open-btn-bg.png) 0 0 no-repeat;line-height:35px;text-align: center;margin:8px 8px 0 0;color:#2e83f8;font-size:14px;cursor: pointer;}
+	.open-order-head a{float:right;color: #fff;font-size:14px;cursor: pointer;}
+	.open-order-head a i{display:inline-block;width:8px;height:13px;background:url(css/images/reture-bg.png) 0 0 no-repeat;margin-left:7px;vertical-align: middle;}
+	.open-order-content{padding:30px 62px;background:#fff;}
+	.open-service-choose{float:left;width:37%;}
+	.open-service-readchoose{float:left;width:61%;margin-left:2%;}
+	.info-input-left, .info-input-left tr, .info-input-left td{border:none;}
+	.info-input-left input{height: 30px;line-height:30px;border:none;background:#f4f7fc;width:195px;}
+	.open-service-title{height:30px;margin:40px 0 10px 0;height:30px;}
+	.open-service-title span{float:left;font-family:STHeitiSC-Light;font-size:14px;color:#1e1e1e;margin-top:8px;}
+	.open-service-title a{float:left;font-family:STHeitiSC-Light;font-size:14px;color:#2e83f8;margin:8px 0 0 20px;}
+	.open-service-title div{float:right;border:1px solid #dfe3ec;width:143px;height:28px;position:relative;}
+	.open-service-title div input{border:none;width:135px;height:26px;line-height:26px;padding:0 3px;}
+	.open-service-title div .i-search{background:url(css/images/open-search-bg.png) 0 0 no-repeat;position:absolute;right:5px;top:6px;width:16px;height:17px;}
+
+	.Table_workOrder_info{margin-top:10px;}
+	.open-service-choose .bbit-grid .sDiv{background-color: none;border:none;padding:0;}
+	.open-service-choose .sDiv .searchContent{position:relative;}
+	.open-service-choose .searchContent .grid-layout-content{position: absolute;right:42px;top:-40px;width: 135px;}
+	.open-service-choose .searchContent .grid-layout-btn{position: absolute;right:0;top:-40px;}
+	.open-service-choose .searchContent .grid-row-fluid {margin-bottom: 0px;}
+	.open-service-choose .hDiv table thead th{background:#dfe3ec;height:50px;font-size:12px;color:#1e1e1e;border-right:1px solid #c3ddfe;}
+	.open-service-choose .bbit-grid .bDiv tr{height:50px;}
+	#Table_workOrder_info tr th, #Table_workOrder_info tr td {border:none;border-right:1px solid #c3ddfe;}
+	.open-service-choose .hDiv{border:1px solid #c3ddfe;border-bottom:none;border-right:none;}
+	.open-service-choose .bDiv{border:1px solid #c3ddfe;border-top:none;border-right:none;}
+	.open-service-choose .table-footer{border:none;background: #fff;}
+
+	#Table_workOrder_readchoose tr{height:50px;}
+	#Table_workOrder_readchoose tr th, #Table_workOrder_readchoose tr td{border:none;text-align: left;}
+	#Table_workOrder_readchoose thead tr th{background: #dfe3ec;color:#1e1e1e;}
+	#Table_workOrder_readchoose thead{font-size:12px;border:1px solid #c3ddfe;border-bottom:none;border-right:none;}
+	#Table_workOrder_readchoose tbody{border:1px solid #c3ddfe;border-top:none;border-right:none;}
+	#Table_workOrder_readchoose thead tr th, #Table_workOrder_readchoose tbody tr td{border-right:1px solid #c3ddfe;padding:0 8px;}
+	.one{background:#f4f7fc;}  
+	.two{background:#fff;}  
+	.four{background:#f1f1f1;}  
+	#Table_workOrder_readchoose .list-tbody tr td{border-right:none;}
+
+	/* 选择车辆 */
+	/*.choose-car{width:720px;margin:150px auto;}
+	.plus-title{background:#2e83f8;height:40px;line-height:40px;}*/
+	#part-table{border:1px solid #d6d7d7;}
+	#part-table tr{height:40px;}
+	#part-table tr th{background:#dfe3ec;font-size:14px;}
+	#part-table tr th, #part-table tr td{text-align: center;color:#1e1e1e;}
+	/* 车辆选择 */
+
+	/* 车系 */
+	    .ul-letters { float: left;}
+	    .uperCase{ border: 1px solid #bfbfbf;color: #505050;cursor: pointer;height: 20px;line-height: 20px;margin: 1px 6px 3px 0px;text-align: center;width: 20px;float: left;}
+	    .ul-letters .active {border: 2px solid #3ea5f4;height: 16px;line-height: 16px;width: 16px;}
+	    .brand-letter {overflow: hidden;padding: 5px 0 5px;}
+	    .car-list{overflow:hidden;margin-left:14px;}
+	    .car-list li{float:left;padding:5px 15px;margin:8px 5px 5px 5px;margin-right:18px;display:inline;text-align:center;height:28px;line-height:28px;border:1px solid #ccc;cursor:pointer;}
+	    .last{display:none;float:left;border:1px solid #ccc;padding:5px;overflow:hidden;}
+	    .last span{float:left;margin-top:1px;}
+	    .last a{ border: none;color: #fff;cursor: pointer;background:#2f8ac8;float: left;height: 20px;line-height: 20px;margin: 1px 3px 3px 3px;text-align: center;width:20px;}
+	    .last a:hover{text-decoration:underline;}
+    /* 车系 */
+</style>
+<link rel="stylesheet" type="text/css" href="css/new_index2.css">
+<script src="js/input.js"></script>
+<div class="urlContentWraper" id="Wraper_promCode">
+    <div class="ui-info-layout">
+    	<div class="left-wraper" style="margin-left:-250px;float:left;width:100%;">
+		    <div class="left" style="min-width:830px;margin-top:0px;margin-left:250px;float:none;width:auto">
+				<div class="clearfix two-search">
+				    <div class="search-top-left">
+						<div class="innerLeft inner" style="position:relative;">
+							<input type="text" class="yc" placeholder="服务名称" style="outline:none;">
+							<button type="">服务报价</button>
+						</div>
+					</div>
+					<div class="search-top-middle">
+						<div class="inner">
+						</div>
+					</div>
+					<div class="search-top-right">
+						<div class="innerRight inner" style="position:relative;">
+							<input type="text" placeholder="商品名称">
+							<button type="">库存查询</button>
+						</div>
+					</div>
+				</div>
+		        <div class="wraper" style="margin-top:20px;">
+		        	<div class="serviceCode">
+			        	<div class="serv_one">
+			        		<div id="promoCode_v_form" class="grid-layout ui-form">
+								<div class="grid-layout-main"> 
+						        	<div class="row-fluid" style="position:relative;left:50%;margin-left:-400px;overflow:hidden;width:810px;">
+							        	<div class="wrap-input" style="width:487px;float:left;">
+							        		<div class="inline-box" id="wrapbox">
+										        <input name="yes2" class="yes input1 ybs" placeholder="—" type="text" size="1" maxlength="1" style=""  onkeyup="toNext(this,1)" onkeypress="return IsNum(event)" id="id1" />
+										       <input name="yes2" class="ybs" placeholder="—"  type="text"   size="1"   maxlength="1"   id="id2"  onkeyup="toNext(this,1)" onkeypress="return IsNum(event)" onkeydown="if(event.keyCode==8 && this.value==''){id1.focus();}">
+										        <input name="yes2" class="ybs" placeholder="—" type="text"   size="1"   maxlength="1"   onkeyup="toNext(this,1);" onkeypress="return IsNum(event)"  id="id3"  onkeydown="if(event.keyCode==8 && this.value==''){id2.focus();}">
+										        <input name="yes2" class="ybs" placeholder="—" type="text"   size="1"   maxlength="1"   onkeyup="toNext(this,1)" onkeypress="return IsNum(event)"  id="id4"  onkeydown="if(event.keyCode==8 && this.value==''){id3.focus();}">
+										        <input name="yes2" class="ybs" placeholder="—" type="text"   size="1"   maxlength="1"   onkeyup="toNext(this,1)" onkeypress="return IsNum(event)"  id="id5"  onkeydown="if(event.keyCode==8 && this.value==''){id4.focus();}">
+										        <input name="yes2" class="ybs" placeholder="—" type="text"   size="1"   maxlength="1"   onkeyup="toNext(this,1)" onkeypress="return IsNum(event)"  id="id6"  onkeydown="if(event.keyCode==8 && this.value==''){id5.focus();}">
+										        <input name="yes2" class="ybs" placeholder="—" type="text"   size="1"   maxlength="1"   onkeyup="toNext(this,1)" onkeypress="return IsNum(event)"  id="id7"  onkeydown="if(event.keyCode==8 && this.value==''){id6.focus();}">
+										        <input name="yes2" class="ybs" placeholder="—" type="text" size="1" maxlength="1"  onkeypress="return IsNum(event)"   onkeydown="if(event.keyCode==8 && this.value==''){id7.focus();}">
+									        </div>
+					        				<div class="temp" style="display:none;position:absolute;top:70px;">请输入服务码</div>
+						        		</div>
+						        		<button class="btn btn-big btn-primary" style="width:262px;margin-left:15px;border:5px solid #2e83f8;" id="submit">验证服务码</button>
+					        		</div>
+				        		</div>
+			        		</div>
+			        		<div class="look-code-history" style="text-align:center;"><a href="javascript:void">查看验证历史&nbsp;&gt;</a></div>
+		        		</div>
+			        </div>
+		        </div>
+		        <div class="openOrder-ul">
+			        <table>
+			        	<tbody>
+			        		<tr>
+			        			<td><a class="openLi-1"></a><p>洗车开单</p></td>
+			        			<td><a class="openLi-2"></a><p>普通开单</p></td>
+			        			<td><a class="openLi-3"></a><p>精品/配件开单</p></td>
+			        			<td><a class="openLi-4"></a><p>购买车险</p></td>
+			        			<td><a class="openLi-5"></a><p>办理车主卡</p></td>
+			        		</tr>
+			        	</tbody>
+			        </table>
+		        </div>
+		        <div class="todyOrder">
+		        	<div class="todyOrder-top">
+		        		<h3>今日工单</h3>
+		        		<span>今日营业额：<i>0</i></span>
+		        	</div>
+		        	<ul class="clearfix stauts-ul">
+		        		<li class="moveli style-li">
+		        			<span>已预约</span>
+		        			<a href="javascript:void">10</a>
+		        		</li>
+		        		<li class="style-li-right">
+		        			<i></i>
+		        		</li>
+		        		<li class="moveli style-li">
+		        			<span>待派单</span>
+		        			<a href="javascript:void">10</a>
+		        		</li>
+		        		<li class="style-li-right">
+		        			<i></i>
+		        		</li>
+		        		<li class="moveli style-li">
+		        			<span>施工中</span>
+		        			<a href="javascript:void">10</a>
+		        		</li>
+		        		<li class="style-li-right">
+		        			<i></i>
+		        		</li>
+		        		<li class="moveli style-li">
+		        			<span>待结算</span>
+		        			<a href="javascript:void">10</a>
+		        		</li>
+		        		<li class="moveli style-li tb-style-li">
+		        			<span>已结算</span>
+		        			<a href="javascript:void">10</a>
+		        		</li>
+		        	</ul>
+		        	<ul class="clearfix stauts-ul">
+		        		<li class="moveli style-li">
+		        			<span>待派单</span>
+		        			<a href="javascript:void">10</a>
+		        		</li>
+		        		<li class="style-li-right">
+		        			<i></i>
+		        		</li>
+		        		<li class="moveli style-li">
+		        			<span>待结算</span>
+		        			<a href="javascript:void">10</a>
+		        		</li>
+		        		<li class="moveli style-li tb-style-li">
+		        			<span>已结算</span>
+		        			<a href="javascript:void">10</a>
+		        		</li>
+		        	</ul>
+		        </div>
+		    </div>
+	    </div>
+	    <div class="right right-wraper" style="margin-top:0;width:230px;">
+	    	<div class="lcBox-container" style="margin-top:10px;">
+				<div class="lcBox-nav">
+					<h1>乐乘盒子统计</h1>
+				</div>
+				<div class="lcBox-total">
+					<div class="circle" id="circle1">
+						<div class="pie_left"><div class="lcBox-left"></div></div>
+						<div class="pie_right"><div class="lcBox-right"></div></div>
+						<div class="mask"><span style="dispaly:none;" name="installAmount"></span></div>
+					</div>
+				</div>
+				<div class="total-tips">
+					<div>乐乘盒子共计：</div><span name="totalAmount">100,000</span>
+					<div>已使用：</div><span name="installAmount">20,000</span>
+				</div>
+				<div class="lcBox-total">
+					<div class="circle" id="circle2">
+						<div class="pie_left"><div class="lcBox-left"></div></div>
+						<div class="pie_right"><div class="lcBox-right"></div></div>
+						<div class="mask"><span style="dispaly:none;" name="useMoney"></span></div>
+					</div>
+				</div>
+				<div class="total-tips">
+					<div>盒子补贴总额：</div><span name="totalMoney">8,000,000</span>
+					<div>已使用：</div><span name="useMoney">6,000,000</span>
+				</div>
+				<div class="lcBox-content">
+					<ul>
+						<li id="lcBoxrepairRecall">
+							<a class="tips-title">保养到期提醒</a>
+							<a class="tips-number  lcBoxrepairRecall"></a>
+						</li>
+						<li id="lcBoxfeedRemind">
+							<a class="tips-title">电瓶低电压提醒</a>
+							<a class="tips-number lcBoxfeedRemind"></a>
+						</li>
+						<li id="lcBoxremindRecall">
+							<a class="tips-title">消费提醒</a>
+							<a class="tips-number lcBoxremindRecall"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+	    </div>
+	    <div class="open-order-wraper" style="display:none">
+	    	<div class="clearfix open-order-head">
+    			<span>派单</span>
+    			<span>保存</span>
+    			<a>返回<i></i></a>
+	    	</div>
+	    	<div class="clearfix open-order-content">
+	    		<div class="open-service-choose">
+	    			<table class="info-input-left">
+	    				<tbody class="yesWash">
+	    					<tr>
+	    						<td><span class="ui-form-required">*</span>手机号</td>
+	    						<td><input type="text" name="mobile" placeholder="输入手机号回车可搜索"></td>
+	    						 <!-- disabled="true" readonly="true"  -->
+	    						<td><span class="ui-form-required">*</span>客户姓名</td>
+	    						<td><input type="text" name="userName"></td>
+	    					</tr>
+	    					<tr style="height:10px;"></tr>
+	    					<tr>
+	    						<td><span class="ui-form-required">*</span>车牌号</td>
+	    						<td><input type="text" name="plateNumber"></td>
+	    						<td><span class="ui-form-required">*</span>车架号</td>
+	    						<td><input type="text" name="vinNumber"></td>
+	    					</tr>
+	    				</tbody>
+	    				<tbody class="noWash">
+	    					<tr>
+	    						<td><span class="ui-form-required">*</span>车牌号</td>
+	    						<td><input type="text" name="plateNumber"></td>
+	    						<td><span class="ui-form-required">*</span>客户姓名</td>
+	    						<td><input type="text" name="userName"></td>
+	    					</tr>
+	    					<tr style="height:10px;"></tr>
+	    				</tbody>
+	    			</table>
+	    			<div class="clearfix open-service-title">
+	    				<span>选择服务</span>
+	    				<a href="javascript:void">自定义服务</a>
+	    				<!-- <div><input type="text" class="serviceName" placeholder="服务搜索"><i class="i-search"></i> </div> -->
+	    			</div>
+	    			<table id="Table_workOrder_info"></table>
+	    		</div>
+	    		<div class="open-service-readchoose">
+	    			<table class="info-input-left">
+	    				<tbody class="yesWash">
+	    					<tr>
+	    						<td><span class="ui-form-required">*</span>品牌型号</td>
+	    						<td><input type="text" placeholder="点击选择" name="seriesId"></td>
+	    					</tr>
+	    					<tr style="height:10px;"></tr>
+	    					<tr>
+	    						<td><span class="ui-form-required">*</span>里程数</td>
+	    						<td><input type="text" placeholder="公里" name="carKm"></td>
+	    						<td><span class="ui-form-required">*</span>颜色</td>
+	    						<td><input type="text" name="color"></td>
+	    					</tr>
+	    				</tbody>
+	    				<tbody class="noWash">
+	    					<tr>
+	    						<td><span class="ui-form-required">*</span>手机号</td>
+	    						<td><input type="text" name="mobile"></td>
+	    					</tr>
+	    					<tr style="height:10px;"></tr>
+	    				</tbody>
+	    			</table>
+	    			<div class="clearfix open-service-title">
+	    				<span>已选服务列表</span>
+	    			</div>
+	    			<table id="Table_workOrder_readchoose">
+	    				<thead>
+	    					<tr>
+	    						<th>序号</th>
+	    						<th>服务名称</th>
+	    						<th>单价(预订价)</th>
+	    						<th>商家优惠</th>
+	    						<th>实收</th>
+	    						<th>施工人员</th>
+	    						<th>操作</th>
+	    					</tr>
+	    				</thead>
+	    				<tbody>
+	    				</tbody>
+	    				<tbody class="list-tbody">
+	    					<tr>
+	    						<td rowspan="2">总计</td>
+	    						<td rowspan="2"></td>
+	    						<td rowspan="2">2000</td>
+	    						<td rowspan="2">5</td>
+	    						<td rowspan="2">5222</td>
+	    						<td colspan="2" rowspan="2" style="border-left:1px solid #c3ddfe;border-right:1px solid #c3ddfe;">小明sfsdf</td>
+	    					</tr>
+	    					<tr>
+	    					</tr>
+	    				</tbody>
+	    			</table>
+	    		</div>
+	    	</div>
+	    </div>
+    </div>
+</div>
+
+<!-- 选择车辆 -->
+<div class="Form-choose-car" style="display:none">
+	<div class="plus-title">
+		<span>客户有多辆车，请选择其中1辆车</span>
+		<i></i>
+	</div>
+	<div class="plus-content">
+		<table>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>手机号</th>
+					<th>车牌号</th>
+					<th>车主姓名</th>
+					<th>车系</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- 选择车辆 -->
+<div id="Form-choose-car" class="grid-layout ui-form" style="display:none;">
+    <div class="grid-layout-main jrad-form">
+        <div class="grid-row-fluid">  
+            <div class="carList">
+                <table id="part-table" border="1">
+                    <thead>
+                        <tr>
+							<th>序号</th>
+							<th>手机号</th>
+							<th>车牌号</th>
+							<th>车主姓名</th>
+							<th>车系</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>                       
+        </div>
+    </div>
+</div>
+
+<!-- 选择车系 -->
+<div id="Form_choose_serviceId" class="grid-layout ui-form" style="display:none;">
+    <div class="grid-layout-main jrad-form">
+        <div class="grid-row-fluid">
+            <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>车系：</label>
+            <div class="span14">
+                <div class="searchBox" id="searchBox">
+                    <div class="brand" id="brand_show">
+                        <div class="brand-letter">
+                            <span class="condition-title">按字母查找</span>
+                            <ul class="ul-letters">
+                            </ul>
+                            <div class="last"></div>
+                        </div>
+                        <ul class="car-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>  
+
+<div class="drag" style="display:none"><div>
+
+<script type="text/javascript">
+	$(function(){
+    	var wraper = $('#Wraper_promCode'); 
+		var page_search_items = new Array();
+	
+		$(".openOrder-ul td").mousemove(function(){
+			$(this).find("a").css("background","url(css/images/operorder-bg-hover.png) center 0 no-repeat")
+			$(".openOrder-ul .openLi-1").css("background-position","center 0")
+			$(".openOrder-ul .openLi-2").css("background-position","center -112px")
+			$(".openOrder-ul .openLi-3").css("background-position","center -224px")
+			$(".openOrder-ul .openLi-4").css("background-position","center -336px")
+			$(".openOrder-ul .openLi-5").css("background-position","center -448px")
+			$(this).find("p").css("background","url(css/images/openorder-btn-hover.png) center 0 no-repeat")
+		})
+		$(".openOrder-ul td").mouseout(function(){
+			$(this).find("a").css("background","url(css/images/operorder-bg.png) center 0 no-repeat")
+			$(".openOrder-ul .openLi-1").css("background-position","center 0")
+			$(".openOrder-ul .openLi-2").css("background-position","center -112px")
+			$(".openOrder-ul .openLi-3").css("background-position","center -224px")
+			$(".openOrder-ul .openLi-4").css("background-position","center -336px")
+			$(".openOrder-ul .openLi-5").css("background-position","center -448px")
+			$(this).find("p").css("background","url(css/images/openorder-btn.png) center 0 no-repeat")
+		})
+
+		//右侧乐乘盒子
+		$.jRadGet({
+                		url: '/vip-ws/ws/0.1/busiMaintenceRecall/getCardUseInfo?businessInfoId='+carsmart_config.businessInfoId,
+		            success:function(data){
+		                    $("span[name=totalAmount]").html(data.totalAmount);
+		                    $("span[name=installAmount]").html(data.installAmount);
+		            }
+        		})
+
+		$.jRadGet({
+                		url: '/vip-ws/ws/0.1/busiMaintenceRecall/getCardMoneyInfo?businessInfoId='+carsmart_config.businessInfoId,
+		            success:function(data){
+		                    $("span[name=totalMoney]").html(data.totalMoney);
+		                    $("span[name=useMoney]").html(data.useMoney);
+		            }
+        		})
+
+		$('#circle1').each(function(index, el) {
+			var num = $(this).find('span').text() * 1.8;
+			if (num<=180){
+				$(this).find('.lcBox-right').css('transform', "rotate(" + num + "deg)");
+			} else {
+				$(this).find('.lcBox-right').css('transform', "rotate(180deg)");
+				$(this).find('.lcBox-left').css('transform', "rotate(" + (num - 180) + "deg)");
+			};
+		});
+		$('#circle2').each(function(index, el) {
+			// var num = $(this).find('span').text()* 3.6;
+			// if (num<=180){
+			// 	$(this).find('.lcBox-right').css('transform', "rotate(" + num + "deg)");
+			// } else {
+			// 	$(this).find('.lcBox-right').css('transform', "rotate(180deg)");
+			// 	$(this).find('.lcBox-left').css('transform', "rotate(" + (num - 180) + "deg)");
+			// };
+			  var alluse=Number($(".total-tips").eq(1).find("span").eq(0).html());
+		                    var use=Number($(".total-tips").eq(1).find("span").eq(1).html());
+		                    var nouse=alluse-use;
+		                    if(use>nouse){
+		                        var bili=use/nouse;
+		                        var numberz=360/bili;
+		                         $(this).find('.lcBox-right').css('transform', "rotate(180deg)");
+				$(this).find('.lcBox-left').css('transform', "rotate(" + (numberz - 180) + "deg)");
+		                    }else if(use<nouse){
+		                        var bili=nouse/use;
+		                        var numberz=360/bili;
+		                        $(this).find('.lcBox-right').css('transform', "rotate("+ numberz+"deg)");
+		                       
+		                    }else{
+		                        var bili=2;
+		                    }
+		});
+
+
+		$("#lcBoxrepairRecall").click(function(){
+		        	$.jRadOpen({'url':'accountRecall/repairRecall.html'});
+		    	});
+		$("#lcBoxfeedRemind").click(function(){
+		        	$.jRadOpen({'url':'accountRecall/feedRemind.html'});
+		    	});
+		$("#lcBoxremindRecall").click(function(){
+		        	$.jRadOpen({'url':'accountRecall/remindRecall.html'});
+		    	});
+
+		// 可召回客户数
+		$.jRadGet({
+                		url: '/vip-ws/ws/0.1/busiMaintenceRecall/activityListByDay?businessInfoId='+carsmart_config.businessInfoId+'&recallType='+1,
+		            success:function(data){
+		            	if(data.count == 0){
+		                    		$(".lcBoxrepairRecall").html(data.count);
+		            	}else{
+		            		$(".lcBoxrepairRecall").html(data.items[0].recallNumber);
+		            	}
+		            }
+        		})
+		$.jRadGet({
+                		url: '/vip-ws/ws/0.1/busiMaintenceRecall/activityListByDay?businessInfoId='+carsmart_config.businessInfoId+'&recallType='+3,
+		            success:function(data){
+		            	if(data.count == 0){
+		            		$(".lcBoxfeedRemind").html(data.count);
+		            	}else{
+			                    $(".lcBoxfeedRemind").html(data.items[0].recallNumber);
+			            }
+		            }
+        		})
+		$.jRadGet({
+                		url: '/vip-ws/ws/0.1/busiMaintenceRecall/activityListByDay?businessInfoId='+carsmart_config.businessInfoId+'&recallType='+2,
+		            success:function(data){
+	            	if(data.count == 0){
+	            		$(".lcBoxremindRecall").html(data.count);
+	            	}else{
+		                    $(".lcBoxremindRecall").html(data.items[0].recallNumber);
+		                    }
+		            }
+        		})
+        	url: '/vip-ws/ws/0.1/busiMaintenceRecall/activityListByDay?businessInfoId='+carsmart_config.businessInfoId+'&recallType='+2,
+            success:function(data){
+	        	if(data.count == 0){
+	        		$(".lcBoxremindRecall").html(data.count);
+	        	}else{
+	                $(".lcBoxremindRecall").html(data.items[0].recallNumber);
+	            }
+            }
+		})
+
+		$.jRadGet({
+        	url: '/vip-ws/ws/0.1/busiMaintenceRecall/getCardUseInfo?businessInfoId='+carsmart_config.businessInfoId,
+            success:function(data){
+                $("span[name=totalAmount]").html(data.totalAmount);
+                $("span[name=installAmount]").html(data.installAmount);
+            }
+		})
+
+		$.jRadGet({
+        	url: '/vip-ws/ws/0.1/busiMaintenceRecall/getCardMoneyInfo?businessInfoId='+carsmart_config.businessInfoId,
+            success:function(data){
+	            $("span[name=totalMoney]").html(data.totalMoney);
+	            $("span[name=useMoney]").html(data.useMoney);
+            }
+		})
+
+
+		$('h2').css('padding-left','15px');
+		$('html, body').animate({scrollTop:0});
+		var data = $.jRadGet({url:'/vip-ws/ws/0.1/business/queryBasicInfo?shopAccountId='+carsmart_config.shopId}) //是否ERP
+		$(".todyOrder-top span i").html(data.totalAmount)
+		if(data.isUseErpsystem == 1){
+			$(".stauts-ul").eq(0).hide();
+			$(".stauts-ul").eq(1).show();
+		}else if(data.isUseErpsystem == 2){
+			$(".stauts-ul").eq(0).show();
+			$(".stauts-ul").eq(1).hide();
+		}
+
+		$('#Form_detail_info div[name="offerType"]').radio({
+	        data:[{id:'1',name:'洗车'},{id:'2',name:'美容'},{id:'3',name:'保养'},{id:'4',name:'维修'},{id:'5',name:'施工部位'},{id:'6',name:'其他项目'},{id:'7',name:'已有订单'}],
+	        onclick:function(){
+	            var key = $('#Form_detail_info div[name="offerType"]',wraper).radio('val');
+	            if(key == 5){
+	                $(".act").show();
+	                $(".ser").hide();
+	                $(".other-service").hide();
+	                $(".number-service").hide();
+	                var s1 = $.jRadGet({url : '/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/detailCarQuestion'});
+	                var arr = [];
+	                $.each(s1,function(i){
+	                    var a = s1[i];
+	                    var vk = {};
+	                    vk.id = a.answerItemIdId;
+	                    vk.name = a.answerItemName;
+	                    arr.push(vk);
+	                });
+	                arr.unshift({id:'',name:'请选择'});
+	                $(".answerList1 div[name='s1']",wraper).select({
+	                    data : arr, 
+	                    onchange:function(val){
+	                        var s2 = $(".answerList2 div[name='s2']",wraper);
+	                        var s3 = $(".answerList3 div[name='s3']",wraper);
+	                        if(val!=""){ 
+	                        s2.select({
+	                            urlData:{url:'/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/getCarOwernAnswerByPId?parentId='+val,
+	                                id:'answerItemId',
+	                                name:'answerItemIdName'
+	                            },
+	                            unshiftData:{id:'',name:'请选择'},
+	                            val:''
+	                        });
+	                        }else{
+	                            s2.select({ 
+	                                urlData:{url:''},
+	                                data:[{id:'',name:'请选择'}],
+	                                val:''
+	                            }); 
+	                        }
+	                        s3.select({ 
+	                            urlData:{url:''},
+	                            data:[{id:'',name:'请选择'}],
+	                            val:''
+	                        }); 
+	                    }
+	                });
+	                $(".answerList2 div[name='s2']",wraper).select({
+	                    data : [{"id":"","name":"请选择"}],
+	                    onchange:function(val){
+	                        var s3 = $(".answerList3 div[name='s3']",wraper);
+	                        if(val!=""){ 
+	                        s3.select({
+	                            urlData:{url:'/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/getCarOwernAnswerByPId?parentId='+val,
+	                                id:'answerItemId',
+	                                name:'answerItemIdName'
+	                            },
+	                            unshiftData:{id:'',name:'请选择'},
+	                            val:''
+	                        });
+	                        
+	                        }else{
+	                            s3.select({ 
+	                                urlData:{url:''},
+	                                data:[{id:'',name:'请选择'}],
+	                                val:''
+	                            });
+	                        } 
+	                    }
+	                }); 
+	                $(".answerList3 div[name='s3']",wraper).select({
+	                    data : [{"id":"","name":"请选择"}],
+	                    onclick:function(data){
+	                        $(".hideserid").attr("serviceId",data.id)
+	                    }
+	                });
+	            }else if(key ==6){
+	                $(".other-service").show();
+	                $(".number-service").hide();
+	                $(".ser").hide();
+	                $(".act").hide();
+	            }else if(key == 7){
+	                $(".other-service").hide();
+	                $(".number-service").show();
+	                $(".ser").hide();
+	                $(".act").hide();
+	            }else{
+	                $(".ser").show();
+	                $(".act").hide();
+	                $(".other-service").hide();  
+	                $(".number-service").hide();
+	                $('#Form_detail_info div[name="serviceId"]',wraper).select('val','')
+	                $('#Form_detail_info div[name="serviceId"]',wraper).select({
+	                    urlData:{
+	                        url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+key+'&businessInfoId='+carsmart_config.businessInfoId,
+	                        id: 'id',
+	                        name: 'serviceName',
+	                        type: 'get',
+	                        dataType: 'json',
+	                        val: '',
+	                        selectedItems:true
+	                    }, 
+	                    unshiftData:{id:'',name:'请选择'},
+	                    onclick:function(data){
+	                        var jsonParm = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+key+'&businessInfoId='+carsmart_config.businessInfoId})
+	                        var price;
+	                        var workHour;
+	                        var serviceId;
+	                        if(data.id == ''){
+	                            $(".hideserid").html("");
+	                        }else{
+	                            $.each(jsonParm,function(i){
+	                                var item = jsonParm[i];
+	                                if(item.id == data.id){
+	                                    price = item.reservePrice;
+	                                    workHour = item.workHour
+	                                    serviceId = item.id
+	                                }
+	                            })
+	                            $(".hideserid").attr({workHour:workHour,price:price,serviceId:serviceId});
+	                        }
+	                    }
+	                })                
+	            }
+	        }
+	    });
+
+	    $('#Form_workOrder .carComeTime').datetimepickerBS({
+	        format: 'yyyy-mm-dd hh:ii',
+	        autoclose: 1, 
+	        startView: 2,
+	        maxView: 1,
+	        todayHighlight:true,
+	        pickerPosition:'bottom-left', 
+	        language: "zh-CN"
+	    });    
+	    $('#Form_workOrder .expectCarTime').datetimepickerBS({
+	        format: 'yyyy-mm-dd hh:ii',
+	        autoclose: 1, 
+	        startView: 2,
+	        maxView: 1,
+	        todayHighlight:true,
+	        pickerPosition:'bottom-left', 
+	        language: "zh-CN"
+	    });
+
+		var fields={};
+		$('#promoCode_v_form').form({
+			layout: 'grid', 
+			type:'get',
+			fields: fields, 
+			autobinding: false 
+		});
+
+	    //服务码验证
+		$('#submit').click(function(){
+			var flag=$('#promoCode_v_form').form('validateAll');
+			if(!flag){
+				return false;
+			}
+			var txt = $('#wrapbox').find(':text'); 
+			var strValue = "";
+			txt.each(function(){
+				strValue += $(this).val();
+			});
+			if(strValue == ''){
+				$('.temp').show();
+				$('.yes').focus().attr("placeholder","");
+				return false;
+			}else{
+				$('.temp').hide();
+			}
+			$('.span1').val('')
+
+			var json = {};
+			json.serviceCode = strValue
+			json.shopAccountId=carsmart_config.shopId;
+			$.jRadPost({
+				url:'/vip-ws/ws/0.1/serviceCode/checkCode',
+				data:json,
+				success:function(data){
+					$('.yes').focus().attr("placeholder","");
+					var str="";
+					if(data.remark.indexOf('：系统中无此服务码，请检查后输入！')>0||data.remark.indexOf('：已经使用过，请重新确认')>0||data.remark.indexOf('不是在本店或者旗下分店下单生成')>0){
+							$.jRadAlert(data.remark,'error')
+							$('.yes').focus().attr("placeholder","");					}
+					else if(data.returnCode == 400){
+						$.jRadAlert(data.remark,'error')
+						$('.yes').focus().attr("placeholder","");
+					}else if(data.isWashService == 0){ 
+						$(".left-wraper").slideUp();
+						$(".right-wraper").slideUp(); //隐藏
+						$(".open-order-wraper").slideDown();//显示
+						$(".info-input-left .yesWash").show();
+						$(".info-input-left .noWash").hide();
+						$(".open-order-content input[name='mobile']").val(data.mobile)
+						//$(".open-order-head span").eq(0).attr("isWash",0);
+						$(".open-order-head span").eq(0).attr({isWash:0,workorderId:data.workOrderId,userInfoId:data.userInfoId});
+						payOrder(data.mobile)
+						addopattion(data.workOrderId)
+								$("#Table_workOrder_info tr").click(function(){
+									var workOrderId = $(".open-order-head span").eq(0).attr("workOrderId")
+									console.log("123")
+									var json = {};
+									json.workOrderId = workOrderId;
+									json.businessInfoId = carsmart_config.businessInfoId
+									json.id = $(this).find("td div").eq(0).html()
+									json.userInfoId = $(".open-order-head span").eq(0).attr("userInfoId")
+									json.workOrderId = $(".open-order-head span").eq(0).attr("workOrderId")
+									json.offerType = $(this).find("td div").eq(1).html()
+									json.serviceId = $(this).find("td div").eq(2).html()
+									json.carInfoId = $(".open-order-content input[name='seriesId']").attr("carInfoId")
+									$.jRadPost({
+										url:'/vip-ws/ws/0.1/busiWorkOrder/addAppointmentOrder',
+										data:json,
+										success:function(){
+											// var firstVal = $("#Table_workOrder_readchoose tr:last").find("td").eq(0).html()
+											// var _tr = $('<tr><td>"'+(firstVal+1)+'"</td><td>"'+data.serviceName+'"</td><td>"'+data.clearPrice+'"</td><td>"'+data.realAmount+'"</td><td>"'+data.shopEmployeeName+'"</td><td></td></tr>')
+											// $("#Table_workOrder_readchoose tbody").append(_tr)
+											addopattion(workOrderId)
+										},
+										error:function(){}
+									})
+								})
+					}else{
+						$(".left-wraper").slideUp();
+						$(".right-wraper").slideUp();
+						$(".open-order-wraper").slideDown();
+						$(".open-order-head span").eq(1).hide();
+						$(".info-input-left .yesWash").hide();
+						$(".info-input-left .noWash").show();
+						$(".open-order-content input[name='mobile']").val(data.mobile)
+						//$(".open-order-head span").eq(0).attr("isWash",1);
+						$(".open-order-head span").eq(0).attr({isWash:1,workorderId:data.workOrderId,userInfoId:data.userInfoId});
+						payOrder(data.mobile)
+						addopattion(data.workOrderId)
+					}
+				},
+				error:showPvError
+			})
+		});
+
+		$('#cancel').click(function(){
+			$('#promoCode_v_form div[name="serviceCode"]').input('val','')
+		})
+
+		function payOrder(mobile){ //根据手机号选择车辆和服务列表
+			var page_column_model_b = new Array();
+			var page_search_items_b = new Array();
+	    	page_search_items_b.push({row:'1',type:'jrad-input',display:'',name:'serviceNameParam'});
+	    	page_column_model_b.push({display: 'ID', name : 'id',hidden:true});
+	    	page_column_model_b.push({display: '服务类型', name : 'offerType',hidden:true});
+	    	page_column_model_b.push({display: '服务ID', name : 'serviceId'});
+	    	page_column_model_b.push({display: '服务名称', name : 'serviceName'});
+	    	page_column_model_b.push({display: '单价(预订价)', name : 'reservePrice'});
+		    var isWash;  //0 不是洗车  1 是洗车
+		    if( $(".open-order-head span").eq(0).attr("isWash") == 1){isWash = 1}else{isWash = ''}
+	    	$('#Table_workOrder_info').flexigrid({
+		 		rp: 5,
+		 		autoload: true,
+		 		width: 'auto',
+		        pagination: {diaplay_pages: 5,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+		        colModel: page_column_model_b,
+		        searchitems: page_search_items_b,
+		        pagedStyle: 'oc',
+				method:'get',
+				showSearch:true,
+		        showCheckbox: false, 
+		        checkBoxType:'single',
+		        url:'/vip-ws/ws/0.1/busiWorkOrder/getServiceListByName?businessInfoId='+carsmart_config.businessInfoId+'&serviceType='+isWash,
+		    });
+	    	$(".open-service-choose .hDiv th").eq(0).hide()
+	    	$(".open-service-choose .hDiv th").eq(1).hide()
+	    	$(".open-service-choose .mDiv").hide();
+	    	$(".open-service-choose .searchButtons .btn").eq(1).hide()
+	    	$("#Form-choose-car").form({
+	    		titlt:'请选择1辆车',
+	    	}).form('open')
+
+			$(".open-order-content input[name='mobile']").val(mobile)
+            $.jRadGet({ // 根据手机号判断 选择车辆
+                url:'/vip-ws/ws/0.1/userManager/checkMobileForWorkOrder?mobile='+mobile+'&businessInfoId='+carsmart_config.businessInfoId,
+                success:function(data){
+                    var carList = data.carList;
+                    var _tr = '';
+                	if(carList.length>1){
+                        $('#Form-choose-car').form({
+                            title: '选择车辆',
+                            autobinding: false
+                        }).form('open');
+                		$.each(carList,function(i){
+                			var item = carList[i]
+            				_tr += '<tr>'
+	            					+'<td carInfoId="'+item.carInfoId+'" vinNumber="'+item.vinNumber+'" color="'+item.color+'">'+(1+i)+'</td>'
+		                            +'<td>'+item.mobile+'</td>'
+		                            +'<td>'+item.plateNumber+'</td>'
+		                            +'<td>'+item.userName+'</td>'
+		                            +'<td>'+item.seriesId+'</td>'
+	                            +'</tr>'
+                		})
+                		$("#part-table tbody").append(_tr)
+                		$("#Form-choose-car tbody tr").mouseover(function(){  
+					        $(this).addClass("four");  
+					    })  
+					    $("#Form-choose-car tbody tr").mouseout(function(){  
+					        $(this).removeClass("four");  
+					    }) 
+                		$("#Form-choose-car tbody tr").click(function(){ 
+                			$('#Form-choose-car').form({}).form('close')
+	                		$(".open-order-content input[name='mobile']").val(userName)
+					        var carInfoId = $(this).find("td").eq(0).attr("carInfoId")
+					        var vinNumber = $(this).find("td").eq(0).attr("vinNumber")
+					        var color = $(this).find("td").eq(0).attr("color")
+					        var plateNumber = $(this).find("td").eq(2).html()
+					        var userName = $(this).find("td").eq(3).html()
+					        var seriesId = $(this).find("td").eq(4).html()
+	                		$(".open-order-content input[name='userName']").val(userName)
+	                		$(".open-order-content input[name='seriesId']").val(seriesId).attr("carInfoId",carInfoId)
+	                		$(".open-order-content input[name='plateNumber']").val(plateNumber)
+	                		$(".open-order-content input[name='vinNumber']").val(carList.vinNumber)
+	                		$(".open-order-content input[name='color']").val(color)
+					    })  
+
+                	}else{
+                		$(".open-order-content input[name='userName']").val(carList.userName)
+                		$(".open-order-content input[name='plateNumber']").val(carList.plateNumber)
+                		$(".open-order-content input[name='vinNumber']").val(carList.vinNumber)
+                		$(".open-order-content input[name='seriesId']").val(carList.seriesId)
+                		$(".open-order-content input[name='color']").val(carList.color)
+                	}
+
+
+                    //if(data.code == 1){
+                    //     $('#Form_customer_add_userCar').form({}).form('close')
+                    //     $('#Form_customer_add').form({
+                    //         title: '创建客户',
+                    //         item:{mobile:str},
+                    //         submit:function(){
+                    //             var flag = $('#Form_customer_add',wraper).form('validateAll');
+                    //             if(flag){
+                    //                 var json = $('#Form_customer_add',wraper).form('getValue'); 
+                    //                 json.businessInfoId = carsmart_config.businessInfoId; 
+                    //                 $.jRadPost({
+                    //                     url:'/vip-ws/ws/0.1/userManager/addUser',
+                    //                     data:json,
+                    //                     success:function(data){ 
+                    //                         $('#Form_customer_add').form('close');
+                    //                         $('#Form_customer_add_userCar').form({
+                    //                             title: '创建车辆',
+                    //                             fields:field_params,
+                    //                             item:{mobile:str},
+                    //                             url:'/vip-ws/ws/0.1/userManager/addCarInfoForWorkOrder',
+                    //                             preSubmit:function(json){
+                    //                                 json.businessInfoId = carsmart_config.businessInfoId;
+                    //                                 json.userInfoId = data.userInfoId;
+                    //                                 json.ownerName = data.ownerName;
+                    //                                 json.seriesId = $('.last span').attr("id");
+                    //                                 json.buyDate = $('#startDate').val()
+                    //                                 return json;
+                    //                             },
+                    //                             success: function(data) {
+                    //                                 $('#Table_car_info').flexMessage('创建成功', 'success','3');
+                    //                                 $('#Table_car_info').flexReload();
+                    //                                 $(".car-style").val(data.seriesId);
+                    //                                 $(".car-plateNumber").val(data.plateNumber);
+                    //                                 $(".car-vinNumber").val(data.vinNumber);
+                    //                                 $(".car-machineNumber").val(data.machineNumber);
+                    //                                 $(".carInfoId").attr("carInfoId",data.carInfoid)
+                    //                             }
+                    //                         }).form('open');
+                    //                         $('#startDate').val("");
+                    //                         $(".car-mobile").attr("userInfoId",data.userInfoId)
+                    //                         $(".car-name").val(data.ownerName);
+                    //                         $("#Form_customer_add_userCar input[name='plateNumber']").attr("maxlength","10")
+                    //                         $("#Form_customer_add_userCar input[name='machineNumber']").attr("maxlength","30")
+                    //                         $("#Form_customer_add_userCar input[name='vinNumber']").attr("maxlength","30")
+                    //                         $("#Form_customer_add_userCar input[name='chassisNumber']").attr("maxlength","30")
+                    //                         $('.last').hide()
+                    //                         $('.ul-letters').show();
+                    //                         $('.condition-title').show();
+                    //                         brandFn()
+                    //                         $('.car-list').show().html('');
+                    //                         $("#Form_customer_add_userCar .pop-up-close").click(function(){
+                    //                             $(".car-mobile").val("");
+                    //                         })
+                    //                     },
+                    //                     error:function(data){
+                    //                         var mes = eval('('+data.responseText+')');
+                    //                         $.jRadMessage({level:'error', message:mes[0].message,selector:$("#Form_customer_add .pop-up-middle",wraper)});
+                    //                         return false
+                    //                     }
+                    //                 });
+                    //             }    
+                    //         }
+                    //     }).form('open');
+                    //     $("#Form_customer_add div[name='mobile']").input('readonly',true)
+                    //     $("#Form_customer_add .pop-up-close").click(function(){
+                    //         $(".car-mobile").val("");
+                    //     })
+                    // }
+                    // else if(data.code == 2){
+                    //     //var carList = data.carList;
+                    //     $(".car-mobile").attr("userInfoId",data.userInfoId);
+                    //     $('#Form_select_car',wraper).form({
+                    //         title: '选择车辆',
+                    //         grid:10,
+                    //         autobinding: false
+                    //     }).form('open');
+                    //     $(".ycb-div4").html("")
+                    //     var carList = data.carList;
+                    //     $.each(carList,function(i,v){
+                    //         var item = carList[i]
+                    //         var _span = $('<span style="display:block;margin:15px 0;"></span>')
+                    //         var _input = $('<input type="radion"  name="ycb" class="ipt-hide"/>')
+                    //         var _strong = $('<strong class="checkbox" vinNumber="'+item.vinNumber+'" machineNumber="'+item.machineNumber+'" userName="'+item.userName+'" carInfoId="'+item.carInfoId+'"></strong>')
+                    //         var _em = $('<em></em>').html(item.seriesId+'&nbsp;&nbsp;'+item.plateNumber)
+                    //         $(".ycb-div4").append(_span.append(_input).append(_strong).append(_em))
+                    //     })
+                    //     $(".ycb-div4").append($("<span style='display:block;'></span>").append($("<input type='radion'  name='ycb' class='ipt-hide'/>")).append($("<strong class='checkbox'></strong")).append($("<em>其他车辆</em>")))
+                    //     $(".ycb-div4 span strong").eq(0).addClass("cur");
+                    //     $('.ycb-div4 .checkbox').on('click',function(){
+                    //         $('.ycb-div4 .checkbox').removeClass('cur');
+                    //         $(this).siblings("input[type='radion']").removeAttr('checked')
+                    //         $(this).addClass('cur');
+                    //     })
+                    //     $("#Form_select_car .pop-up-close").click(function(){
+                    //         $(".car-mobile").val("");
+                    //     })
+                    //     $("#Form_select_car .jrad-btn-primary").click(function(){
+                    //         if($(".ycb-div4 span strong").last().hasClass("cur")){ 
+                    //             $('#Form_select_car').form({}).form("close");         
+                    //             $('#Form_customer_add_userCar').form({
+                    //                 title: '创建车辆',
+                    //                 fields:field_params,
+                    //                 item:{},
+                    //                 url:'/vip-ws/ws/0.1/userManager/addCarInfoForWorkOrder',
+                    //                 preSubmit:function(json){
+                    //                     json.businessInfoId = carsmart_config.businessInfoId;
+                    //                     json.userInfoId = data.userInfoId;
+                    //                     json.ownerName = data.ownerName;
+                    //                     json.seriesId = $('.last span').attr("id");
+                    //                     json.buyDate = $('#startDate').val()
+                    //                     return json;
+                    //                 },
+                    //                 success: function(data){
+                    //                     $('#Table_car_info').flexMessage('创建成功', 'success');
+                    //                     $('#Table_car_info').flexReload();
+                    //                     $(".car-name").val(data.userName);
+                    //                     $(".car-style").val(data.seriesId);
+                    //                     $(".car-plateNumber").val(data.plateNumber);
+                    //                     $(".car-vinNumber").val(data.vinNumber);
+                    //                     $(".car-machineNumber").val(data.machineNumber);
+                    //                     $(".carInfoId").attr("carInfoId",data.carInfoid)
+                    //                 }
+                    //             }).form('open');
+                    //             $('#startDate').val("");
+                    //             $("#Form_customer_add_userCar input[name='plateNumber']").attr("maxlength","10")
+                    //             $("#Form_customer_add_userCar input[name='machineNumber']").attr("maxlength","30")
+                    //             $("#Form_customer_add_userCar input[name='vinNumber']").attr("maxlength","30")
+                    //             $("#Form_customer_add_userCar input[name='chassisNumber']").attr("maxlength","30")
+                    //             $('.last').hide()
+                    //             $('.ul-letters').show();
+                    //             $('.condition-title').show();
+                    //             brandFn()
+                    //             $('.car-list').show().html('');
+                    //             $(".carInfoId").attr("carInfoId",data.carInfoId)
+                    //             $("#Form_customer_add_userCar .pop-up-close").click(function(){
+                    //                 $(".car-mobile").val("");
+                    //             })
+                    //         }else{ 
+                    //             var content1 = $(".ycb-div4 span .cur").next().html().split("&nbsp;&nbsp;")[0]
+                    //             var content2 = $(".ycb-div4 span .cur").next().html().split("&nbsp;&nbsp;")[1]
+                    //             var userName = $(".ycb-div4 span .cur").attr("userName")
+                    //             var carInfoId = $(".ycb-div4 span .cur").attr("carInfoId")
+                    //             var vinNumber = $(".ycb-div4 span .cur").attr("vinNumber")
+                    //             var machineNumber = $(".ycb-div4 span .cur").attr("machineNumber")
+                    //             $(".car-name").val(userName);
+                    //             $(".car-style").val(content1);
+                    //             $(".car-plateNumber").val(content2);
+                    //             $(".car-vinNumber").attr("vinNumber",vinNumber)
+                    //             $(".car-machineNumber").attr("machineNumber",machineNumber)
+                    //             $(".car-vinNumber").val(vinNumber)
+                    //             $(".car-machineNumber").val(machineNumber)
+                    //             $(".carInfoId").attr("carInfoId",carInfoId)
+                    //             $('#Form_select_car').form({}).form("close");  
+                    //         }
+                    //     })
+                    // }else{
+                    //     $(".car-mobile").attr("userInfoId",data.userInfoId);
+                    //     $('#Form_customer_add_userCar').form({
+                    //         title: '创建车辆',
+                    //         fields:field_params,
+                    //         item:{},
+                    //         url:'/vip-ws/ws/0.1/userManager/addCarInfoForWorkOrder',
+                    //         preSubmit:function(json){
+                    //             json.businessInfoId = carsmart_config.businessInfoId;
+                    //             json.userInfoId = data.userInfoId;
+                    //             json.ownerName = data.ownerName;
+                    //             json.seriesId = $('.last span').attr("id");
+                    //             json.buyDate = $('#startDate').val()
+                    //             return json;
+                    //         },
+                    //         success: function(data) {
+                    //             $('#Table_car_info').flexMessage('创建成功', 'success','3');
+                    //             $('#Table_car_info').flexReload();
+                    //             $(".car-name").val(data.userName);
+                    //             $(".car-style").val(data.seriesId);
+                    //             $(".car-plateNumber").val(data.plateNumber);
+                    //             $(".car-vinNumber").val(data.vinNumber); 
+                    //             $(".car-machineNumber").val(data.machineNumber);
+                    //             $(".carInfoId").attr("carInfoId",data.carInfoId)
+                    //         }
+                    //     }).form('open');
+                    //     $('#startDate').val("");
+                    //     $("#Form_customer_add_userCar input[name='plateNumber']").attr("maxlength","10")
+                    //     $("#Form_customer_add_userCar input[name='machineNumber']").attr("maxlength","30")
+                    //     $("#Form_customer_add_userCar input[name='vinNumber']").attr("maxlength","30")
+                    //     $("#Form_customer_add_userCar input[name='chassisNumber']").attr("maxlength","30")
+                    //     $('.last').hide()
+                    //     $('.ul-letters').show();
+                    //     $('.condition-title').show();
+                    //     brandFn()
+                    //     $('.car-list').show().html('');
+                    //     $("#Form_customer_add_userCar .pop-up-close").click(function(){
+                    //         $(".car-mobile").val("");
+                    //     })
+                    // }
+                },
+                error:function(xhr){
+                    var errormsg = eval("(" + xhr.responseText + ")");
+                    if(errormsg[0].message == '手机号码不能为空'){
+                        $("#work_reason",wraper).form({
+                            grid:10
+                        }).form('open'); 
+                        $(".car-mobile").val("");
+                        $("#work_reason .reason").html("")
+                        $("#work_reason .reason").html("手机号码不能为空，请修改");
+                    }
+                    if(errormsg[0].message == '手机号格式录入不正确'){
+                        $("#work_reason",wraper).form({
+                            grid: 10
+                        }).form('open'); 
+                        $(".car-mobile").val("");
+                        $("#work_reason .reason").html("")
+                        $("#work_reason .reason").html("手机号格式录入不正确，请修改");
+                    }
+                }
+            })
+		}
+
+		function addopattion(workOrderId){
+			console.log("右边内容")
+			//var workOrderId = $(".open-order-head span").eq(0).attr("workOrderId")
+			$.jRadGet({
+				url:'/vip-ws/ws/0.1/busiWorkOrder/getWorkOrder?workOrderId='+workOrderId,
+				success:function(data){
+					var firstData = data.appointmentOrderList;
+					var _tr = '';
+					$.each(firstData,function(i){
+						var item = firstData[i];
+						_tr += '<tr>'
+	            					+'<td>'+(1+i)+'</td>'
+		                            +'<td>'+item.serviceName+'</td>'
+		                            +'<td>'+item.clearPrice+'</td>'
+		                            +'<td>'+item.busiPreferential+'</td>'
+		                            +'<td>'+item.realAmount+'</td>'
+		                            +'<td>'+item.employeeName+'</td>'
+	    							+'<td>'
+		    							+'<a href="javascript:void">记录配件</a>'
+		    							+'<a href="javascript:void">删除</a>'
+	    							+'</td>'
+	                            +'</tr>' 
+					})
+					$("#Table_workOrder_readchoose tbody").eq(0).append(_tr)
+				    $("#Table_workOrder_readchoose tbody tr:even").addClass("one");  
+				    $("#Table_workOrder_readchoose tbody tr:odd").addClass("two");
+			    	$("#Table_workOrder_readchoose tbody tr").mouseover(function(){  
+				        $(this).addClass("four");  
+				    })  
+				    $("#Table_workOrder_readchoose tbody tr").mouseout(function(){  
+				        $(this).removeClass("four");  
+				    })  
+				}
+
+			})
+		}
+
+		$("#Table_workOrder_info tr").click(function(){
+			var workOrderId = $(".open-order-head span").eq(0).attr("workOrderId")
+			console.log("123")
+			var json = {};
+			json.workOrderId = workOrderId;
+			json.businessInfoId = carsmart_config.businessInfoId
+			json.userInfoId = $(".open-order-head span").eq(0).attr("userInfoId")
+			json.workOrderId = $(".open-order-head span").eq(0).attr("workOrderId")
+			json.offerType = 1
+			json.serviceId = $(this).find("td div").html()
+			json.carInfoId = $(".open-order-content input[name='seriesId']").attr("carInfoId")
+			$.jRadPost({
+				url:'/vip-ws/ws/0.1/busiWorkOrder/addAppointmentOrder',
+				data:json,
+				success:function(){
+					// var firstVal = $("#Table_workOrder_readchoose tr:last").find("td").eq(0).html()
+					// var _tr = $('<tr><td>"'+(firstVal+1)+'"</td><td>"'+data.serviceName+'"</td><td>"'+data.clearPrice+'"</td><td>"'+data.realAmount+'"</td><td>"'+data.shopEmployeeName+'"</td><td></td></tr>')
+					// $("#Table_workOrder_readchoose tbody").append(_tr)
+					addopattion(workOrderId)
+				},
+				error:function(){}
+			})
+		})
+
+		$(".open-order-content input[name='seriesId']").focus(function(){
+			console.log("123")
+			$("#Form_choose_serviceId").form({
+				title:'选择车系'
+			}).form('open')
+
+	        $('.last').html("").hide()
+	        $('.ul-letters').show();
+	        $('.condition-title').show();
+	        brandFn()
+	        $('.car-list').show().html('');
+		})
+
+		//选择车系
+		function brandFn(){
+		    var brandList = $.ajax({url:"/shopmanage-ws/ws/0.1/support/brand/list",async:false});
+		    var msg = eval("(" + brandList.responseText + ")");
+		    var A_Z="";
+		    for(var i=65;i<91;i++){
+		        if(i == 69 || i== 73 || i == 85 || i == 86){
+		            A_Z+="";
+		        }else{  
+		            A_Z+="<li  class='uperCase uperCasess' data-num="+i+">"+String.fromCharCode(i)+"</li>";
+		        }
+		    };
+		    $("#searchBox .ul-letters").html(A_Z);
+
+		    $('.ul-letters li').on('click',function(){
+		        var str = $(this).html();
+		        var data = eval('msg.'+str)
+		        var _li = '';
+		        $('.car-list').html("");
+		        $.each(data,function(i){
+		            var item = data[i]
+		            _li += '<li data-id='+item.id+'>'+item.name+'</li>'
+		        })
+		        $('.car-list').append(_li);
+
+		        $('.car-list li').on('click',function(){
+		            var str = $(this).attr("data-id")
+		            var modelList = $.ajax({url:'/shopmanage-ws/ws/0.1/support/model/list?brandId='+str,async:false})
+		            var data2 = eval("(" + modelList.responseText + ")");
+		            $('.car-list').html("");
+		            var _li2 = '';
+		            $.each(data2,function(i){
+		                var item2 = data2[i]
+		                _li2 += '<li data-id='+item2.id+'>'+item2.name+'</li>'
+		            })
+		            $('.car-list').append(_li2);
+
+		            $('.car-list li').on('click',function(){
+		                $('.car-list').html("");
+		                var str = $(this).attr("data-id")
+		                var modelList2 = $.ajax({url:'/shopmanage-ws/ws/0.1/modelCms/model/list?factoryId='+str,async:false})
+		                var data3 = eval("(" + modelList2.responseText + ")");
+		                $('.car-list').html("");
+		                var _li3 = '';
+		                $.each(data3,function(i){
+		                    var item3 = data3[i]
+		                    _li3 += '<li data-id='+item3.modelId+'>'+item3.modelName+'</li>'
+		                })
+		                $('.car-list').append(_li3);
+		                
+		                $('.car-list li').on('click',function(){
+		                    var str = $(this).attr("data-id")
+		                    $('.ul-letters').hide();
+		                    $('.car-list').hide();
+		                    $('.condition-title').hide();
+		                    $('.last').show().html('<span id='+str+'>'+$(this).html()+'</span><a href="javascript:void(0)">X</a>');
+		                    $("#Form_choose_serviceId").form({
+								title:'选择车系'
+							}).form('close')
+							$(".open-order-content input[name='seriesId']").val($(this).html())
+		                    $('.last a').on('click',function(){
+		                        $('.last').hide();
+		                        $('.ul-letters').show();
+		                        $('.condition-title').show();
+		                        $('.uperCase').removeClass("active");
+		                        $('.car-list').show().html('');
+		                    })
+		                })
+
+		            })
+
+		            
+		        })
+		    });
+
+		    $("body").on("click","#searchBox .uperCasess", function(){
+		        $(this).siblings(".uperCase").removeClass("active").end().addClass("active");
+		    })
+		}
+	})
+</script>
+

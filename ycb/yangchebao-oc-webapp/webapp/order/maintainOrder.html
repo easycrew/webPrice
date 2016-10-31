@@ -1,0 +1,213 @@
+ <div class="urlContentWraper" id="Wraper_maintainOrder_manage">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>上门保养订单</strong><bottom class="all-work-info numb52">页面说明</bottom></h2>
+        <!-- 列表显示 --> 
+		<div class="pic-grid">
+		<table id="Table_maintainOrder_manage"></table> 
+		</div>
+    </div> 
+    <div id="Form_explain_eg52" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>外接的第三方的上门保养订单列表。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>  
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_maintainOrder_manage');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	var payChannels = [];
+	var _result = $.jRadGet({
+		url: '/shopmanage-ws/ws/0.1/orders/payChannels'
+	});
+	$.each(_result.payChannels,
+	function(index, vo) {
+		var __id = vo['payChannelId'];
+		var __name = vo['payChannelName'];
+		var __tm = {
+			'id': __id,
+			'name': __name
+		};
+		payChannels.push(__tm);
+	});
+	payChannels.unshift({'id':'','name':'全部'}); 
+	page_column_model.push({display: '订单ID', name : 'maintainOrderId'});
+    page_column_model.push({display: '订单编号', name : 'orderNumber'});
+ //    page_column_model.push({display: '项目 : 配件 : 价格',name : 'categoryName',width:300,diy:function(item,$div){ 
+	// 	if(item.items.length>0){
+	// 		var arr = item.items;
+	// 		var str = "";
+	// 		$.each(arr,function(i){
+	// 			var info = arr[i];
+	// 			var categoryName = info.categoryName?info.categoryName:"-";
+	// 			var productName = info.productName?info.productName:"-";
+	// 			var productPrice = info.productPrice?info.productPrice:"-"; 
+	// 			var htmlstr = categoryName +' ：'+ productName +' ：'+productPrice;
+	// 			str +='<p title="'+htmlstr+'">'+ htmlstr +'</p>'; 
+	// 		});
+	// 		$div.html(str);
+	// 	}else{
+	// 		$div.html("");
+	// 	}
+	// }});
+	page_column_model.push({display: '配件 : 价格',name : 'categoryName',width:300,diy:function(item,$div){ 
+		if(item.items.length>0){
+			var arr = item.items;
+			var str = "";
+			$.each(arr,function(i){
+				var info = arr[i];
+				//var categoryName = info.categoryName?info.categoryName:"-";
+				var productName = info.productName?info.productName:"-";
+				var productPrice = info.productPrice?info.productPrice:"-"; 
+				var htmlstr = productName +' ：'+productPrice;
+				str +='<p title="'+htmlstr+'">'+ htmlstr +'</p>'; 
+			});
+			$div.html(str);
+		}else{
+			$div.html("");
+		}
+	}});
+    page_column_model.push({display: '上门服务费', name : 'servicePrice'});
+    page_column_model.push({display: '订单总额', name : 'sumPrice'});
+    page_column_model.push({display: '用户信息',diy:function(item,$div){  
+			var str = '<p>用户ID：'+item.userInfoId?item.userInfoId:""+'</p>'
+					+ '<p>用户昵称：'+item.nicName?item.nicName:""+'</p>'
+					+ '<p>手机号：'+item.mobile?item.mobile:""+'</p>';
+			$div.html(str); 
+	}});
+	page_column_model.push({display: '车辆信息', name : 'carInfo'});
+	page_column_model.push({display: '付款状态', name : 'isPayName'});
+	page_column_model.push({display: '支付渠道', name : 'payChannelName'});
+	page_column_model.push({display: '用户预订地址', name : 'address'});
+	page_column_model.push({display: '预约时间', name : 'reserveDate'});
+	page_column_model.push({display: '订单状态', name : 'orderStatusName'});
+	page_column_model.push({display: '服务状态', name : 'serviceStatus'});
+	page_column_model.push({display: '创建时间', name : 'createDate'}); 
+
+	page_search_items.push({row:'1',type:'jrad-input',display:'订单编号',name:'orderNumber'}); 
+	page_search_items.push({row:'1',type:'jrad-input',display:'用户昵称',name:'nicName'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'用户手机号',name:'mobile'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'付款状态',name:'isPay',params:{
+	  data:[  
+			{"id":"",name:"全部"},
+			{"id":"0",name:"未付款"},
+			{"id":"1",name:"已付款(线上付款)"},
+			{"id":"2",name:"已付款(线下付款)"}
+		  ]
+	}});  
+	page_search_items.push({row:'2',type:'jrad-select',display:'订单状态',name:'orderStatus',params:{
+	  data:[  
+			{"id":"",name:"全部"},
+			{"id":"0",name:"待支付"},
+			{"id":"1",name:"等待"},
+			{"id":"2",name:"处理"},
+			{"id":"3",name:"取消"},
+			{"id":"4",name:"完成"}
+		  ]
+	}}); 
+	page_search_items.push({row:'2',type:'jrad-select',display:'服务状态',name:'serviceStatus',params:{
+	  data:[  
+			{"id":"",name:"全部"},
+			{"id":"1",name:"提交"},
+			{"id":"2",name:"接单"},
+			{"id":"3",name:"服务"},
+			{"id":"4",name:"完成"}
+		  ]
+	}}); 
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'预约时间开始',name:'reserveStartDate',params:{
+		dateFmt: 'yyyy-MM-dd HH:mm'
+	}});
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'预约时间结束',name:'reserveEndDate',params:{
+		dateFmt: 'yyyy-MM-dd HH:mm'
+	}});
+	page_search_items.push({row:'3',type:'jrad-select',display:'支付渠道',name:'payChannelId',params:{
+	 data:payChannels
+	}});
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'创建时间开始',name:'createStartDate',params:{
+		dateFmt: 'yyyy-MM-dd HH:mm:ss'
+	}});
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'创建时间结束',name:'createEndDate',params:{
+		dateFmt: 'yyyy-MM-dd HH:mm:ss'
+	}});
+    page_list_buttons.push({separator: true});
+
+	$('#Table_maintainOrder_manage').flexigrid({
+			reload:true,
+			method:'get',  
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			rp:10,
+			url:'/shopmanage-ws/ws/0.1/maintainOrder/queryMaintainOrders', 
+			checkBoxType:'single',
+			overflow:true,
+			onError:showError,
+	});   
+	function showError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_maintainOrder_manage .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+	$(".numb52").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg52").form({}).form('close');
+        $("#Form_explain_eg52").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+			submit:function(){
+            	var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg52 div[name='remark']").textarea("val")
+				$.jRadPost({
+				    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+				    data:postData,
+				    success:function(){
+						$("#Form_explain_eg52").form('close')
+      					$('.overcurtainDiv').hide();
+				   	}
+				});
+			}, 
+			cancel:function(){
+				$("#Form_explain_eg52").form('close')
+      			$('.overcurtainDiv').hide();
+			}
+        }).form('open')
+        $("#Form_explain_eg52 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+
+</script>

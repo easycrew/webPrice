@@ -1,0 +1,420 @@
+<style>
+    #Wraper_settle_account #balanceCash{
+        margin-right:2.7%;
+    }
+    #Wraper_settle_account #cash{
+        margin-bottom:50px;
+    }
+    #Wraper_settle_account #cash p.p_one{
+        margin-left:2%;
+        margin-top:20px;
+        margin-bottom:30px;
+        font-size:1.6em;
+    }
+    #Wraper_settle_account #cash div{
+        margin-left:5%;
+    }
+    #Wraper_settle_account #cash div button{
+        font-size: 1.5em;
+    }
+    #Wraper_settle_account #cash div #cashDetail{
+        margin-left:2%;
+    }
+    #Wraper_settle_account #cash div .ui-note{
+        display:inline-block;
+        padding-left:3%;
+        position:relative;
+        top:5px;
+        left:0;
+        color:red;
+        font-size: 14px;
+    }
+</style>
+<div class="urlContentWraper" id="Wraper_settle_account">
+    <div id="Form_settle_applyCash" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid container span5" style="text-align:center;"> 
+                <ul>
+                    <li class="canWithDrawalAmount">确认提现现金<span class=""></span>元到以下账户吗？</li>
+                    <li class="bank"></li>
+                    <li class="accountHolder"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container detailHide">
+            <button class="jrad-btn-primary btn btn-small btn-primary">
+                确定
+            </button>
+            <button class="jrad-btn-normal btn btn-small btn-default">
+                取消
+            </button>
+        </div>
+    </div>
+    <div id="cash">
+        <p class="p_one">
+            <span id="balanceCash">余额：<span class="balanceCash"></span>元</span>
+            <span id="remainTimes">今天剩余提现次数：<span class="remainTimes"></span></span>
+        </p>
+        <div>
+            <button class="btn btn-big btn-primary" id="applyCash" style="width:160px;">申请提现</button>
+            <button class="btn btn-big btn-primary" id="cashDetail" style="width:160px;">提现详情</button>
+            <p class="ui-note">说明：1、申请提现后3个工作日内到账；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、每次主动提现会收取2%的手续费，最多收取50元;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、按合同约定结算周期自动结算的无需支付手续费！<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4、申请提现金额动向请查看提现详情。</p>
+        </div>
+    </div>
+    <div id="settleAccountTabs">
+        <ul>
+            <li><a href="#orderSettle">订单结算列表</a></li>
+            <li><a href="#cardSettle">车主卡结算列表</a></li>
+            <li><a href="#cardDecutSettle">车主卡提成结算列表</a></li>
+        </ul>
+        <div id="orderSettle" style="height:1280px;">
+            <div class="ui-info-layout">
+                <div class="vdiv">
+                    <h2 class="header smaller lighter blue"><i class="icon-table"></i>结算报表</h2>
+                    <table id="Table_orderSettle_account"></table>
+                </div>
+                <div class="udiv" style="margin-top:10px;">
+                   <h2 class="header smaller lighter blue">报表详情</h2>
+                   <table id="Table_orderSettle_accountDetails"></table>
+                </div>
+            </div>
+        </div>
+        <div id="cardSettle" style="height:1280px;">
+            <div class="ui-info-layout">
+                <div class="vdiv">
+                    <h2 class="header smaller lighter blue"><i class="icon-table"></i>结算报表</h2>
+                    <table id="Table_cardSettle_account"></table>
+                </div>
+                <div class="udiv" style="margin-top:10px;">
+                   <h2 class="header smaller lighter blue">报表详情</h2>
+                   <table id="Table_cardSettle_accountDetails"></table>
+                </div>
+            </div>
+        </div>
+        <div id="cardDecutSettle" style="height:1280px;">
+            <div class="ui-info-layout">
+                <div class="vdiv">
+                    <h2 class="header smaller lighter blue"><i class="icon-table"></i>结算报表</h2>
+                    <table id="Table_cardDecutSettle_account"></table>
+                </div>
+                <div class="udiv" style="margin-top:10px;">
+                   <h2 class="header smaller lighter blue">报表详情</h2>
+                   <table id="Table_cardDecutSettle_accountDetails"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var wraper = $('#Wraper_settle_account');
+	var parentId = carsmart_config.shopId;
+    var item_cashDetail=$.jRadGet({url:'/vip-ws/ws/0.1/withdraw/detail?shopAccountId='+parentId});
+    $('#Form_settle_applyCash',wraper).form({
+        title:'申请提现'
+    });
+    $('#balanceCash span',wraper).html(item_cashDetail.canWithDrawalAmount);
+    if((item_cashDetail.remainTimes=="" && typeof(item_cashDetail.remainTimes)=='string')||item_cashDetail.remainTimes==undefined){
+        $('#remainTimes span',wraper).html('无限制')
+    }else if(item_cashDetail.remainTimes > 0 || item_cashDetail.remainTimes == 0){
+        $('#remainTimes span',wraper).html(item_cashDetail.remainTimes+'次')
+    }else if(item_cashDetail.remainTimes < 0){
+        $('#remainTimes span',wraper).html('0次')
+    }
+    $('#applyCash',wraper).click(function(){
+        var postData={};
+        postData.shopAccountId=parentId;
+        if(item_cashDetail.bankAccount==""||item_cashDetail.bankAccount==undefined){
+            $('#Form_settle_applyCash',wraper).form('open');
+            $('#Form_settle_applyCash .detailHide',wraper).hide();
+            $('#Form_settle_applyCash div.container',wraper).html('<h1>收款帐号未设置，请联系养车宝客服01058377979</h1>');
+        }else if((item_cashDetail.remainTimes==0 && typeof(item_cashDetail.remainTimes)=='number') || item_cashDetail.remainTimes < 0){
+            $('#Form_settle_applyCash',wraper).form('open');
+            $('#Form_settle_applyCash .detailHide',wraper).hide();
+            $('#Form_settle_applyCash div.container',wraper).html('<h1>今天提现次数已用完！</h1>');
+        }
+        else if(item_cashDetail.canWithDrawalAmount==""||item_cashDetail.canWithDrawalAmount==undefined||item_cashDetail.canWithDrawalAmount==0){
+            $('#Form_settle_applyCash',wraper).form('open');
+            $('#Form_settle_applyCash .detailHide',wraper).hide();
+            $('#Form_settle_applyCash div.container',wraper).html('<h1>请输入正确的提现金额！</h1>');
+        }
+        else{
+             $('#Form_settle_applyCash',wraper).form({
+                url:'/vip-ws/ws/0.1/withdraw/apply',
+                data:postData,
+                sumbit:false,
+                preSubmit:function(json){
+                    json.shopAccountId = parentId;
+                    return json
+                },
+                success:function(){
+                    $.jRadGet({
+                        url:'/vip-ws/ws/0.1/withdraw/detail?shopAccountId='+parentId,
+                        success:function(json){
+                            $('#balanceCash span',wraper).html(json.canWithDrawalAmount);
+                            if((json.remainTimes=="" && typeof(json.remainTimes)=="string")||json.remainTimes==undefined){
+                                $('#remainTimes span',wraper).html('无限制')
+                            }else{
+                                $('#remainTimes span',wraper).html(json.remainTimes+'次')
+                            }
+                        }
+                    })
+                }
+             }).form('open');
+             $('#Form_settle_applyCash .detailHide',wraper).show();
+             var proName =$.jRadGet({
+                 url : "/vip-ws/ws/0.1/area/provinceAll",
+                 async:false
+             });
+             var provinceName='';
+             $.each(proName,function(i){
+                 if(proName[i].id==item_cashDetail.provinceId){
+                     provinceName=proName[i].name
+                 }
+             });
+ 
+             var citName =$.jRadGet({
+                  url : "/vip-ws/ws/0.1/area/municipalities?provinceId="+item_cashDetail.provinceId,
+                  async:false
+             });
+             var areaCodeName="";
+             $.each(citName,function(i){
+                 if(citName[i].id==item_cashDetail.areaCodeId){
+                     areaCodeName=citName[i].name
+                 }
+             });
+             var _bankAccount=item_cashDetail.bankAccount;
+             var x=_bankAccount.length;
+             var y=x-4;
+             _bankAccount=_bankAccount.substring(0,4)+'******'+_bankAccount.substring(y,x);
+             var str="";
+             str+="<ul>"
+                 +"<li><h1 style='margin:0;'>确认提现现金<span style='color:red;'>"+item_cashDetail.canWithDrawalAmount+"</span>元到以下账户吗？</h1><p style='color:red;position:relative;left:-43px;top:-9px;'>主动提现会扣除2%手续费，最多收取50元;</p></li>"
+                 +"<li><h2>"+provinceName+areaCodeName+item_cashDetail.bankName+item_cashDetail.bankBranch+"</h2></li>"
+                 +"<li><h3>"+item_cashDetail.accountHolder+'&nbsp;&nbsp;&nbsp;&nbsp;'+_bankAccount+"</h3></li>"
+                 // +"<li>"+item_cashDetail.canWithDrawalAmount+"</li>"
+                 +"</ul>";
+             $('#Form_settle_applyCash div.container',wraper).html(str);
+
+        }
+    });
+    $('#cashDetail',wraper).click(function(){
+        $.jRadOpen({
+            'url':'account/cashDetail.html'
+        })
+    });
+    var settleJson = {};
+        settleJson.cardSettle = "2";
+        settleJson.orderSettle = "1";
+        settleJson.cardDecutSettle = "0";
+        $('#settleAccountTabs').tabs({
+            heightStyle: 'auto', 
+            beforeLoad: function( event, ui ) {// 加载前操作
+                  ui.jqXHR.error(function() {
+                  ui.panel.html("无法加载页面" );
+                });
+            },
+            select:function(event, ui){
+                var panel = ui.panel; 
+                var typeName = $(panel).attr('id'); 
+                var type = settleJson[typeName]; 
+                window.setTimeout(function(){
+                    getSettleInfo(type,typeName,parentId);//1.订单结算 0.车主卡结算
+                },300);
+            }
+        });
+        getSettleInfo("1","orderSettle",parentId);
+        function getSettleInfo(type,typeName,parentId){
+            var table='#Table_'+typeName+'_account';
+            var tableDetails='#Table_'+typeName+'_accountDetails';
+            var page_column_model = new Array();
+            var page_column_model_c = new Array();
+            var page_column_model_d = new Array();
+            var page_column_model_e = new Array();
+            var page_search_items = new Array();
+            var page_list_buttons = new Array(); 
+            
+            var branchShopList = $.jRadGet({
+                     url : '/vip-ws/ws/0.1/shopAccountBack/getBranchShopList?shopAccountId='+carsmart_config.shopId,
+                }); 
+                var branchShopName = [];
+                $.each(branchShopList,function(i){
+                    var item = branchShopList[i];
+                    var shop = {};
+                    shop.id = item.businessInfoId;
+                    shop.name = item.shopName; 
+                    branchShopName.push(shop);
+                }); 
+                branchShopName.unshift({id:'',name:'全部'}); 
+            if(branchShopName.length!==2){
+                page_column_model.push({display: '结算分店', name : 'branchShopName'});
+                page_search_items.push({row:'1',type:'jrad-select',display:'结算分店',name:'businessInfoId',params:{
+                data:branchShopName
+            }});
+            }
+            page_search_items.push({row:'1',type:'jrad-daterange',display:'结算时间',name:'transferDate'});
+
+
+            page_column_model.push({display: '开户行', name : 'bankName'});
+            page_column_model.push({display: '开户名', name : 'cardName'}); 
+            page_column_model.push({display: '银行账户', name : 'cardNo'});
+            page_column_model.push({display: '审核状态', name : 'transStatusDesc'});
+            page_column_model.push({display: '实际收入金额（元）', name : 'transferAmount',diy:function(item,$div){
+                $div.html(item.transferAmount)
+            }}); 
+            page_column_model.push({display: '收款日期', name : 'transferTime'});
+            
+
+            if(typeName == 'cardDecutSettle'){
+                $(table).flexigrid({
+                    reload: true,
+                    grid:40,
+                    pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+                    colModel: page_column_model,
+                    buttons: page_list_buttons,
+                    searchitems: page_search_items,
+                    pagedStyle: 'oc',
+                    method:'get',
+                    showSearch:true,
+                    showCheckbox: false, 
+                    overflow:true,
+                    checkBoxType:'single',
+                    url:'/vip-ws/ws/0.1/orders/cardSaleCommBillStatList?shopAccountId='+carsmart_config.shopId,   
+                    trEvent:function(){     //监听行事件 
+                            var checked = $(table).getCheckedTrs();  
+                            $(tableDetails).flexOptions({ 
+                                extParam:{
+                                    busiSaleCommStaticId: checked[0].busiSaleCommStaticId
+                                }
+                            }).flexReload();
+                        }
+                })
+            }else if(typeName == 'orderSettle'){
+                $(table).flexigrid({
+                    reload: true,
+                    grid:40,
+                    pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+                    colModel: page_column_model,
+                    buttons: page_list_buttons,
+                    searchitems: page_search_items,
+                    pagedStyle: 'oc',
+                    method:'get',
+                    showSearch:true,
+                    showCheckbox: false, 
+                    overflow:true,
+                    checkBoxType:'single',
+                    url:'/vip-ws/ws/0.1/orders/getBillingStaticList?shopAccountId='+carsmart_config.shopId,   
+                    trEvent:function(){     //监听行事件 
+                            var checked = $(table).getCheckedTrs();  
+                            $(tableDetails).flexOptions({ 
+                                extParam:{
+                                    busiOrderBillingStaticId: checked[0].busiOrderBillingStaticId
+                                }
+                            }).flexReload();
+                        }
+                })
+            }else{
+                $(table).flexigrid({
+                    reload: true,
+                    grid:40,
+                    pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+                    colModel: page_column_model,
+                    buttons: page_list_buttons,
+                    searchitems: page_search_items,
+                    pagedStyle: 'oc',
+                    method:'get',
+                    showSearch:true,
+                    showCheckbox: false, 
+                    overflow:true,
+                    checkBoxType:'single',
+                    url:'/vip-ws/ws/0.1/orders/wholeCardBillStatList?shopAccountId='+carsmart_config.shopId,   
+                    trEvent:function(){     //监听行事件 
+                            var checked = $(table).getCheckedTrs();  
+                            $(tableDetails).flexOptions({ 
+                                extParam:{
+                                    busiSaleCommStaticId: checked[0].busiSaleCommStaticId
+                                }
+                            }).flexReload();
+                            $('div.udiv:eq(1) th:eq(3) div',wraper).html('实际收入金额（合计：'+checked[0].transferAmount+'）')
+                        }
+                })
+            }
+             
+            $('div[name="transferDate"]').parent().removeClass('span4').addClass('span8');
+            page_column_model_c.push({display: '订单编号', name : 'orderNumber'});
+            page_column_model_c.push({display: '订单生成时间', name : 'orderDate'}); 
+            page_column_model_c.push({display: '交易完成时间', name : 'orderServiceDate'});
+            page_column_model_c.push({display: '订单金额（元）', name : 'orderClearingPrice'}); 
+            page_column_model_c.push({display: '代金券金额（元）', name : 'shopVoucherAmount'});
+            page_column_model_c.push({display: '补贴金额（元）', name : 'subsidyAmount',diy:function(item,$div){
+                if(item.subsidyAmount==""){
+                    $div.html('0')
+                }else{
+                    $div.html(item.subsidyAmount)
+                }
+            }});
+            page_column_model_c.push({display: '实际收入金额（元）', name : 'transferAmount'});
+            page_column_model_c.push({display: '收款日期', name : 'transferTime'});
+
+            page_column_model_d.push({display: '车主卡名称', name : 'cardName'});
+            page_column_model_d.push({display: '售价', name : 'salePrice'}); 
+            page_column_model_d.push({display: '提成金额', name : 'saleCommission'});
+            page_column_model_d.push({display: '激活时间', name : 'userActiveTime'}); 
+            page_column_model_d.push({display: '验证时间', name : 'busiVerifyTime'});
+
+            page_column_model_e.push({display: '车主卡名称', name : 'cardName'});
+            page_column_model_e.push({display: '售价', name : 'salePrice'}); 
+            page_column_model_e.push({display: '转账时状态', name : 'billingCardStatusDesc'});
+            page_column_model_e.push({display: '实际收入金额', name : 'transferAmount'}); 
+            page_column_model_e.push({display: '车主卡购买时间', name : 'buyTime'});
+            page_column_model_e.push({display: '收款日期', name : 'transferTime'});
+
+            if(typeName == 'cardDecutSettle'){
+                $(tableDetails).flexigrid({
+                    reload:true,
+                    autoload: false,
+                    showCheckbox: false,
+                    method:'get',
+                    pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+                    colModel : page_column_model_d,
+                    dataType: 'json',  
+                    url:'/vip-ws/ws/0.1/orders/getCardSaleCommDetailList',  
+                    pagedStyle: 'oc'
+                })
+            }else if(typeName == 'orderSettle'){
+                $(tableDetails).flexigrid({
+                    reload:true,
+                    autoload: false,
+                    showCheckbox: false,
+                    method:'get',
+                    pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+                    colModel : page_column_model_c,
+                    dataType: 'json',  
+                    url:'/vip-ws/ws/0.1/orders/getBillingDetailList',  
+                    pagedStyle: 'oc'
+                })
+            }else{
+                $(tableDetails).flexigrid({
+                    reload:true,
+                    autoload: false,
+                    showCheckbox: false,
+                    method:'get',
+                    pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+                    colModel : page_column_model_e,
+                    dataType: 'json',  
+                    url:'/vip-ws/ws/0.1/orders/getWholeCardBillingDetailList',  
+                    pagedStyle: 'oc'
+                })
+            }
+            
+
+            $('.hDiv',wraper).css('overflow','hidden');
+            $('.bDiv',wraper).css('overflow-x','scroll');
+            $('.mDiv:eq(1)',wraper).html('<h2 style="margin:0;">结算订单列表</h2>');
+            $('.mDiv:eq(3)',wraper).html('<h2 style="margin:0;">车主卡列表</h2>');
+            $('.mDiv:eq(5)',wraper).html('<h2 style="margin:0;">提成列表</h2>')
+        }
+    
+    
+});
+</script>

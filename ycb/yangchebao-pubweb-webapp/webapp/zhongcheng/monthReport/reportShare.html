@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<script src="../../js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="js/countUp.min.js"></script>
+<link rel="stylesheet" href="../css/main.css">
+<script src="../js/commen.js"></script>
+<title>众诚奖励</title>
+<style type="text/css"> 
+body{
+	background-color: #fff;
+	font-family:'华文细黑','HelveticaNeue-Light'; 
+	color:#1e1e1e;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;	
+}
+body,html{
+	min-height:100%;
+}
+ol{
+	list-style: none;
+}
+img{
+	border:none;
+}
+.clearfix {
+   *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+   display: table;
+   line-height: 0;
+   content: "";
+}
+.clearfix:after {
+  clear: both;
+} 
+a{
+	text-decoration: none;
+}  
+header,.mainWrap{
+    max-width: 64rem;
+	margin: 0 auto;
+}
+header{
+	background-color: #57CFA6;
+}
+header .link{
+	text-align: right;
+}
+header a{
+	color: #fff;
+	font-size: 1.5rem; 
+	display: inline-block;
+	padding: 1rem 1.5rem 0 0;
+}
+header img{
+	width: 100%;
+	display: block;
+	padding: 0 11%;
+	box-sizing:border-box;
+}
+header .date{
+	text-align: center;
+	margin: 4rem 0 1rem;
+}
+header .date span{
+	display: inline-block;
+    font-size: 2.6rem;
+    background-color: #299B6C;
+    margin-right: 0.4rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    color: #fff;
+
+}
+header .date label{
+	display: inline-block;
+    font-size: 2.2rem;
+    color: #373744;
+    margin: 0 0.5rem;
+}
+.intro{
+	font-size: 1.2rem;
+	color: #57CFA6;
+	background-color: #D4F2E8;
+	border:1px solid #57CFA6;
+	padding: 0.8rem;
+	margin: 0.5rem 2.4rem 5rem; 
+}
+.mainWrap article{
+    position: relative;
+}
+h1.title{
+	text-align: center;
+	font-weight: normal;
+	margin-top: 1rem;
+}
+h1.title span{
+	font-size:1.8rem;
+	color: #fff;
+	display: inline-block;
+	background-color: #57CFA6;
+	padding: 0 1.5rem;
+	border-radius: 12px;  
+}
+.text img{
+	display: block;
+	margin: 0 auto;
+}
+.text1 img{
+	width: 20rem; 
+	margin: 1.5rem auto 0.5rem;
+}
+.money{
+	width: 23rem;
+	margin: 0 auto;
+	display: block;
+}
+.num{
+	position: absolute;
+	bottom:1rem; 
+	width: 100%;
+	text-align: center; 
+	font-size: 5.6rem;
+	color: #FFFF00;
+	font-weight: bold;
+	padding-left: 4.5rem;
+    box-sizing:border-box;
+}
+h1.king{
+	margin-top: 6.4rem;
+}
+.king img{
+	position: absolute;
+	top:-25px;
+	left: 50%; 
+	width: 3.3rem;
+	margin-left:-1.6rem;
+	
+} 
+.gradeWrap{
+	background-image: url("images/cup.png");
+	background-repeat: no-repeat;
+	background-position: left 3rem;
+	background-size: 11rem auto;
+	margin: 0 5%;
+	padding: 5rem 2rem 5rem 0;
+}
+.two-text{
+	white-space: nowrap;
+} 
+.two-text img{
+	display: inline-block;
+	height: 1.7rem;
+	vertical-align: middle;
+}
+.two-text span{
+	color: #F53857;
+	font-size: 3.6rem;
+	display: inline-block;
+	margin: 0 0.5rem;
+	line-height: 100%;
+	vertical-align: middle;
+}
+.text2,.text3,.text4{
+	text-align: right;
+}
+.text4{
+	margin-top: 0.5rem;
+} 
+.text4 span,.text5 span,.text6 span{
+	font-size: 3rem;
+} 
+h1.bend{
+	text-align: left;
+	background-image: url("images/bend.png");
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-size: 4.6rem auto;
+	padding: 4.2rem 0 0 4.6rem;  
+	margin-top: -1.5rem;
+}
+h1.bend span{
+	border-radius: 0 12px 12px 0;
+	height: 2.4rem;
+	line-height: 2.4rem;
+}
+.legend{
+	width: 22.1rem;
+	display: block;
+	margin: 1.5rem auto 0.5rem;
+}
+.text5,.text6{
+	text-align: center;
+}
+.car{
+	width: 11.8rem;
+	position: absolute;
+	bottom: 2rem;
+	right: 6.4%;
+	z-index: -1;
+}
+.text7,.text9{
+	margin-top: 3.5rem;
+}
+.text8{
+	padding-bottom: 4.6rem;
+}
+.text7,.text8,.text9,.text10,.text11{
+	margin-left: 5%;
+	padding-left: 1.5rem;
+}
+.text11{
+	margin-bottom: 2.6rem;
+}
+.splitSpan span{
+	margin-right: 0.8rem;
+}
+.mountain{
+	width: 11.8rem;
+	position: absolute;
+	top:-7.4rem;
+	right: 6.4%;
+	z-index: -1;
+}
+.arrow-text{
+	margin:0 5%; 
+	padding: 0 1.5rem;
+	position: relative;
+}
+.arrow-up {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent; /* 左边框的宽 */
+	border-right: 10px solid transparent; /* 右边框的宽 */
+	border-bottom: 10px solid #F53857; /* 下边框的长度|高,以及背景色 */
+	font-size: 0;
+	line-height: 0;
+	position: absolute;
+	left: 5rem;
+	top: -10px; 
+}
+.arrow-text p{
+	background-color: #F53857;
+	color: #fff;
+	font-size: 1.4rem;
+	padding: 1rem;
+	border-radius: 8px; 
+}
+.text11 + .arrow-text{
+	margin-bottom: 3.8rem;
+}
+.girl{
+	width: 12rem;
+	display: block; 
+	margin:3.5rem 5% 0; 
+	padding: 0 1.5rem;
+}
+.text12{  
+    margin:-4.5rem 5% 0 10%;  
+    padding: 0 1.5rem;
+}  
+.text13{  
+    margin:-4.5rem 12% 0 5%;  
+    padding: 0 1.5rem;
+}  
+.text12 p,.text13 p{ 
+    width: 100%; 
+    box-sizing:border-box;
+    background-color: #d4f2e8;
+    border-radius: 15px;
+    padding: 0 2rem 0 45%; 
+    height: 3.3rem; 
+}
+.text13 p{
+	padding: 0 45% 0 2rem; 
+}
+.text12 label,.text13 label{
+	font-size: 5.5rem; 
+	color: #f53857;
+    display: inline-block; 
+    margin: 0 0.5rem; 
+	line-height: 0;
+}
+.text12 img,.text13 img{
+	margin-top: 0.8rem;
+	vertical-align:baseline; 
+}
+.text12 + .arrow-text,.text13 + .arrow-text{
+	margin-top: 1.8rem;
+} 
+.text13 + .arrow-text p{
+	width:auto;
+	float:left;
+}
+.speed{
+	height: auto;
+	overflow: auto;
+	margin-top: 3.5rem;
+}
+.speed img{
+	width: 14.1rem;
+	display: block;
+	margin-top: 3.5rem;
+	margin:0 5%; 
+	padding: 0 1.5rem;	
+	float: right;
+}  
+.lastWrap {
+	padding-bottom:1.5rem;
+	margin-bottom:3rem; 
+} 
+.end{
+	width: 15.3rem;
+	display: block;
+	margin: 0 auto;
+}
+.continue{
+	position: absolute;
+	font-size: 1.5rem;
+	color: #169A5C;  
+    background-color: #fff;
+    padding: 0 0.9rem; 
+    left:4.8rem;
+    top: 0;
+}
+.top{
+	position: absolute;
+	width: 90%; 	
+	border: 3px dotted #57CFA6; 
+	z-index:-1; 
+	left: 5%;
+	border-top: none;
+	border-right: none;
+	border-radius: 0 0 0 4px;  
+	top: 0;
+}
+.bottom{
+	position: absolute;
+	width: 90%; 
+	border: 3px dotted #57CFA6; 
+	z-index:-1; 
+	left: 5%;
+	border-top: none;
+	border-left: none;
+	border-radius: 0 4px 4px 0;  
+	margin-left: 2px;
+	bottom: 0;
+}
+.line{
+    height: 3rem;  
+    top: -1.9rem;
+}
+.line2{
+    height: 17.8rem;  
+    bottom:5rem;
+}
+.line3{
+    height: 13rem;  
+    top: -11.8rem;
+}
+.line4{
+    height: 21.8rem;  
+    bottom:0;
+}
+.line5{
+    height: 0.5rem;  
+    top: 4.8rem;
+}
+.line6{
+    height:26.1rem;  
+    bottom:-5rem;  
+}
+.line7{
+	height:16.5rem;  
+    bottom:0rem;  
+    border-right: 0;
+    border-left: 3px dotted #57CFA6; 
+    border-radius: 4px 0 0 4px;
+}
+.line8{
+	height: 2.3rem;
+	top:-1.2rem;
+	/*border-radius:0 0 4px 0;*/
+	padding-right: 2px; 
+}
+.top.line9{
+	border-bottom:none;
+	height:100%;
+	padding-bottom:3.5rem;
+	top:1.3rem;
+	border-radius:0; 
+}
+.line10{
+	height: 100%;    
+	left:3px;
+	margin: 0 5%; 
+	top: 1rem;
+	border-top:3px dotted #57CFA6;
+	border-bottom:none;
+}
+.line11{
+    width:45%; 
+	height:3rem;
+	border-top:3px dotted #57CFA6;
+	border-left:3px dotted #57CFA6;
+	border-bottom:none;
+	border-right:none;
+	margin: 0 5%; 
+	right:-3px;
+	left:auto;
+	bottom:-4.3rem;
+	margin-left:3px;
+	border-radius:4px 0 0 0;
+}
+.text4 em{
+    color: #f53857;
+    display: inline-block;
+    font-size: 3rem;
+    line-height: 100%;
+    margin: 0 0.5rem 0 0;
+    vertical-align: middle;
+}
+.btn{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	background-color: #FB451F;
+	font-size:1.8rem;
+	color: #fff;
+	text-align: center;
+	height: 4.4rem;
+	line-height: 4.4rem;
+	left: 0;
+	z-index: 2;
+}
+</style>
+<body> 
+	<header>
+		<p class="link "><a href="javascript(0);" class="toHistory">查看历史奖励></a></p>
+		<p class="date"><span>2</span><span>0</span><span>1</span><span>6</span><label>年</label><span>0</span><span>5</span><label>月</label></p>
+		<img src="images/monthHeader.png"/> 
+	</header> 
+   <section class="mainWrap">
+    	<article>
+    		<p class="top line"></p>
+    		<h1 class="title"><span class="numOneText">从您的月奖励开始</span></h1>
+    		<p class="text text1"><img src="images/text.png"></p>
+    		<img src="images/moneyBg.png" class="money"/>
+    		<span class="num" id="monthlyAward">0</span>
+    		<p class="bottom line2"></p>
+    	</article>
+    	<article>
+    	    <p class="top line3"></p>
+    		<h1 class="title king"><img src="images/king.png"><span>本月驾驶排名</span></h1>
+    		<div class="gradeWrap">
+    			<p class="two-text text2"><img src="images/text2-left.png"><span id="secondClassTimes">0</span><img src="images/dw.png"></p>
+    			<p class="two-text text3"><img src="images/text3-left.png"><span id="firstClassTimes">0</span><img src="images/dw.png"></p>
+    			<p class="two-text text4"><img src="images/text4-left.png"><span id="overUser">0</span><em>%</em><img src="images/text4-right.png"></p> 
+    		</div>
+    		<p class="bottom line4"></p>
+    	</article>
+    	<article style="margin-bottom:3.5rem;">
+    	    <p class="top line5"></p>
+    		<p class="continue">继续前行看行车记录</p>
+    		<h1 class="title bend"><span>我的里程</span></h1>
+    		<img src="images/legend.png" class="legend"/> 
+			<p class="two-text text5"><img src="images/text5-left.png"><span id="distance">0</span><img src="images/text5-right.png"></p>
+			<p class="two-text text6"><img src="images/text6-left.png"><span id="marathon">0</span><img src="images/text6-right.png"></p>  
+			<p class="bottom line6"></p>
+    	</article>
+    	<article>  
+    		<h1 class="title"><span>行驶次数</span></h1>
+    		<img src="images/car.png" class="car"/> 
+			<p class="two-text text7"><img src="images/text7-left.png"><span id="travelTimes">0</span><img src="images/dw.png"></p>
+			<p class="two-text text8"><img src="images/text8-left.png"><span id="aveTravelTimes">0</span><img src="images/text8-right.png"></p> 
+			<p class="bottom line7"></p> 
+    	</article>
+    	<article>  
+    		<h1 class="title splitSpan"><span>急刹</span><span>急加</span><span>急转</span></h1> 
+			<p class="two-text text9"><img src="images/text9-left.png"><span id="suddenBrake">0</span><img src="images/dw.png"></p>
+			<p class="two-text text10"><img src="images/text10-left.png"><span id="suddenAccelerate">0</span><img src="images/dw.png"></p> 
+			<p class="two-text text11"><img src="images/text11-left.png"><span id="suddenTurn">0</span><img src="images/dw.png"></p> 
+			<div class="arrow-text">
+				<span class="arrow-up">向上的箭头</span>
+				<p>增加与前车距离，减慢车速，让自己视野与心情更加开阔</p>
+				<img src="images/mountain.png" class="mountain"/> 
+			</div>
+			<p class="bottom line8"></p> 
+			<p class="top line9"></p> 
+    	</article>
+    	<article class="lastWrap"> 
+    		<h1 class="title"><span>疲劳与超速</span></h1> 
+			<img src="images/girl.png" class="girl"/>  
+			<div class="two-text text12"><p><label id="fatigueDriving">0</label><img src="images/text12-right.png"></p></div> 
+			<div class="arrow-text">
+				<span class="arrow-up">向上的箭头</span>
+				<p>开车时间别太久，累了就靠路边停车逛逛养车宝，放松自己，珍惜爱车。</p> 
+			</div>  
+			<div  class="speed">
+				<img src="images/speed.png"/> 
+			</div> 
+			<div class="two-text text13"><p><label id="overspeedFrequency">0</label><img src="images/text13-right.png"></p></div> 
+			<div class="arrow-text">
+				<span class="arrow-up">向上的箭头</span>
+				<p>速度不一定是激情哦～～～</p> 
+			</div>
+			<p class="bottom line10"></p> 
+			<p class="bottom line11"></p> 
+			<p style="clear:both;"></p>
+    	</article>
+    	<img src="images/end.png" class="end"/>
+   </section>
+   <article class="intro">
+   	<p>奖励现金在账户余额中查询，可以提现也可以购买任意服务。基金在保险续保时可以进行提现领取。</p>
+   	<p style="text-indent: 2em;">月报奖励时日排行榜奖励之外的额外奖励。</p>
+   </article> 
+    <a class="btn download-btn" href="javascript:void(0);">下载养车宝，开车赚钱</a>
+<script type="text/javascript">
+	var paramJson = {};
+	$(document).ready(function(){ 
+		var url = window.location.search; 
+		var paramsArr = (url.split("?")[1]).split("&"); 
+		$.each(paramsArr,function(i){
+		var item = paramsArr[i].split("=");
+		paramJson[item[0]] = item[1];
+		}); 
+		var month = getCurrentDate();
+		var arr = month.split("");
+		$.each($(".date span"),function(i){ 
+			$(this).html(arr[i]);
+		});
+		$(".toHistory").css("visibility","hidden");
+		//$(".toHistory").attr("href","http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/zhongcheng/monthReport/monthTable.html");
+		getReport();
+        is_weixin();		
+	}); 
+	function getReport(){    
+	    var month = getCurrentDate();
+		$.ajax({
+			  url: '/yangchebao-app-ws/ws/0.1/tripMonthly/getReport?userInfoId='+paramJson.userId+'&month='+month+"&"+new Date().getTime(),
+			  type: 'get',  
+			  async:false,
+			  dataType: 'json',
+			  success: function(data) {   
+			  	    if(data.code==201){
+			  	    	$(".numOneText").html("从冠军的月奖励开始");
+			  	    	$(".text1 img").attr("src","images/numOne.png"); 
+			  	    }
+				    var item = data.data; 
+					$("#monthlyAward").html(item.monthlyAward);
+					$("#firstClassTimes").html(item.firstClassTimes);
+					$("#secondClassTimes").html(item.secondClassTimes);
+					$("#overUser").html(item.overUser);
+					$("#dailyAwardTotle").html(item.dailyAwardTotle);
+					$("#distance").html(item.distance);
+					$("#marathon").html(item.marathon);
+					$("#travelTimes").html(item.travelTimes);
+					$("#aveTravelTimes").html(item.aveTravelTimes);
+					$("#suddenBrake").html(item.suddenBrake);
+					$("#suddenAccelerate").html(item.suddenAccelerate);
+					$("#suddenTurn").html(item.suddenTurn);
+					$("#fatigueDriving").html(item.fatigueDriving);
+					$("#overspeedFrequency").html(item.overspeedFrequency); 
+					var options = {
+						useEasing : true, 
+						useGrouping : true, 
+						separator : ',', 
+						decimal : '.', 
+						prefix : '', 
+						suffix : '' 
+					};
+					var objs = $(".date span,.num,.two-text span,.two-text label"); 
+					var objs2 = [];
+					var demoArr = [];
+					$.each(objs,function(i){
+					    var tagId = $(this).attr("id"); 
+					    if($(this).html()=="0"){
+						   return;
+						}
+						if(tagId==undefined||tagId==""){
+							$(this).attr("id","count"+i);
+							tagId = "count"+i;
+						}
+						var demo = new CountUp(tagId, 0, parseFloat($(this).html()), 0, 1, options);
+						var top = $(this).get(0).getBoundingClientRect().top //元素顶端到可见区域顶端的距离
+						var se = document.documentElement.clientHeight //浏览器可见区域高度。
+						if(se-top>20 ) {
+							demo.start();
+							return;
+						}  
+						objs2.push($(this));
+						demoArr.push(demo);
+					});  
+					$(window).scroll(function(event){  
+						$.each(objs2,function(i){
+								var top = $(this).get(0).getBoundingClientRect().top //元素顶端到可见区域顶端的距离
+								var se = document.documentElement.clientHeight //浏览器可见区域高度。
+								if(se-top>20 ) {
+								    demoArr[i].start();
+								}  
+							});  
+					});
+			  },
+			  error:function(xhr){ 
+					var error=eval('('+xhr.responseText+')');
+					errorLog(error[0].message)
+				}
+		 });
+	} 
+	function getCurrentDate(){
+		var year = (new Date()).getFullYear();
+		var month = (new Date()).getMonth(); 
+		if(month<10){
+		   month = "0"+month;
+		}
+		return year+""+month;
+	}
+	function  is_weixin(){
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i)=="micromessenger") {
+			$('.download-btn').attr('href','http://a.app.qq.com/o/simple.jsp?pkgname=com.carsmart.emaintain');
+		}else{
+			var sUserAgent = navigator.userAgent.toLowerCase(); 
+			var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+			var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+			var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+			var bIsAndroid = sUserAgent.match(/android/i) == "android"; 
+			if(bIsIpad || bIsIphone || bIsIphoneOs){
+				$('.download-btn').attr('href','https://itunes.apple.com/us/app/yang-che-bao/id736543893');
+			}else{   
+				if(paramJson.cid!=undefined && paramJson.cid!=null && paramJson.cid!=''){
+					$('.download-btn').attr('href','http://d.yangchebao.com.cn/down.myapp.com/'+paramJson.cid+'.apk')
+				}else{
+					$('.download-btn').attr('href','http://yangchebao.com.cn/website-ws/ws/0.1/app/download')
+				}
+			}
+		}
+	} 
+</script>
+</body> 
+</html>

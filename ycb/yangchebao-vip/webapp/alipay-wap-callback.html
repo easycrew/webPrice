@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>  
+<script type="text/javascript" src="js/jquery.json-2.2.js"></script>
+<script type="text/javascript" src="js/index.js"></script> 
+<style>
+body{font-size: 100%;}
+a{text-decoration: none;}
+.title{text-align:center;}
+.title div.head{color:#FF6E47;height: 9rem;line-height: 9rem; background-color: #FFFFFF; background-repeat: no-repeat;background-size: 48px auto;font-size:1.8em;font-weight:normal; text-align: center;border-bottom: 1px solid #E4E6F1;}
+.apply-success .title span.con{display: inline-block; background:url(img/paySuccess.png) no-repeat;background-size: 48px auto;;}
+.apply-error .title span.con{display: inline-block; background:url(img/payError.png) no-repeat;background-size: 48px auto;}
+.title .head span{display:inline-block; line-height:100%;font-size: 14px;color:#3F4968; padding-left: 56px;height:3rem;padding-top: 1.3rem;}
+.title .head span.span-bottom{padding-left: 0;padding-top: 0;}
+p.pay-after{text-align: center; margin-top: 1rem;}
+p.pay-after a{display: inline-block;padding: 0.5em 0;width: 90%;color: #fff;font-size: 1em;background-color: #FF8463;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;cursor: pointer;}
+</style>
+<title>支付成功</title> 
+<body style="height:100%;">  
+	<section class="apply-success"> 
+		<article> 
+			<div class="title">
+				<div class="head">
+					<span class="con">1188880000<span class="span-bottom">订单已支付成功</span></span>
+				</div>
+				<p class="pay-after"><a href="http://com.carsmart.emaintainshop/aliWapPayResult/orderReview" class="pay-look">查看订单</a></p>
+			</div> 
+		</article> 
+	</section>  
+	<script type="text/javascript">  
+		$(document).ready(function(){
+			var response = "1";
+			var url =decodeURI(window.location.href);  
+			var paramsArr = (url.split("?")[1]).split("&");
+			var data = {};
+			$.each(paramsArr,function(i){
+				var item = paramsArr[i].split("=");
+				data[item[0]] = item[1];
+			});
+			var orderNumber = data.out_trade_no;//获得订单号
+			$(".con").html(orderNumber+'<span class="span-bottom">订单已支付成功</span>');
+			index.init = function(userInfo,bridge) {
+				return response
+			}
+		 	index.pullUpRefresh = function(bridge) {  
+				return response;
+			}
+		}); 
+		
+	</script>  
+</body>
+
+</html>
+

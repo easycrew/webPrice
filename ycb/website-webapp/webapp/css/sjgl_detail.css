@@ -1,0 +1,31 @@
+@charset "utf-8";
+/*中间*/
+.middle{
+	float:left;
+	width:592px;
+	margin-top:16px;
+	margin-right:20px;
+}
+h2{
+	margin-left:5px;
+	font-size:18px;
+    font-family:"微软雅黑";
+    color:#333;
+}
+h2#h2_details{
+	text-align:center;
+	font-size:21px;
+	color:#471e53;
+}
+.line_1{	
+	height:1px;
+	width:592px;
+	margin:18px 0 20px 0;
+	background-color:#c3c9d2;
+	overflow:hidden;
+}
+p.mi_con{
+	font-size:14px;
+    font-family:"微软雅黑";
+    color:#555;
+}

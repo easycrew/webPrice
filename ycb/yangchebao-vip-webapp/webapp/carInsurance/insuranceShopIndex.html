@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>车险购买</title>
+	<script type="text/javascript" src='../extra/jquery-1.9.1.js'></script>
+	<script type="text/javascript" src="js/jquery.json-2.2.js"></script>
+	<script type="text/javascript" src="../js/md5.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #DFE4EC; 
+			font-family: '微软雅黑';
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+		input,textarea{
+			vertical-align: middle;
+			border: none;
+			-webkit-appearance: none;
+		}
+		.clearfix::before,.clearfix::after{
+			display: block;
+			content: '';
+			font-size: 0px;
+		}
+		.clearfix::after{
+			clear: both;
+		}
+
+		div.insuranceShop-con{
+			background-color: #fff;
+		}
+		div.conL{
+			float: left;
+			padding: 0 50px 0 50px;
+			margin: 15px 0;
+			border-right: 1px solid #DFE3EC;
+		}
+		div.conR{
+			float: left;
+			padding: 50px 0 50px 50px;
+		}
+		div.conRow{
+			margin-top: 10px;
+		}
+		div.conRow input{
+			border: 1px solid #C3DDFE;
+			padding: 10px 15px;
+			font-size: 18px;
+		}
+		#mobile{
+			width: 400px;
+		}
+		#code{
+			width: 207px;
+		}
+		span.getCode{
+			display: inline-block;
+			width: 110px;
+			color: #fff;
+			background-color: #9EB1CF;
+			text-align: center;
+			font-size: 16px;
+			line-height: 38px;
+			margin-left: 15px;
+			cursor: pointer;
+		}
+		p.buyBtn{
+			width: 144px;
+			background-color: #2E83F9;
+			color: #fff;
+			text-align: center;
+			margin-top: 25px;
+			line-height: 42px;
+			font-size: 16px;
+			margin-bottom: 20px;
+			margin-left: 64px;
+			cursor: pointer;
+		}
+		img.conR1{
+			margin-right: 20px;
+		}
+
+		div.recommend{
+			margin-top: 20px;
+			background-color: #fff;
+		}
+		div.recommend p.recommendT{
+			color: #5D6F8F;
+			font-size: 16px;
+			width: 135px;
+			text-align: center;
+			border-top: 5px solid #9EB1CF;
+			padding: 5px 0;
+		}
+		p.getStepsPic{
+			padding-left: 60px;
+			margin-top: 20px;
+		}
+		div.getStepsTips{
+			padding: 20px 0 50px 60px;
+		}
+		div.getStepsTips p{
+			color: #9EA6B4;
+			font-size: 12px;
+			line-height: 24px;
+		}
+		div.shopWelfareCon{
+			padding-left: 60px;
+		}
+		p.egText{
+			font-size: 14px;
+			color: #5D6F8F;
+			padding: 20px 0;
+		}
+		p.welfareTip{
+			color: #9EA6B4;
+			font-size: 12px;
+			padding: 20px 0;
+		}
+		div.carWelfareCon{
+			padding-left: 60px;
+			padding-bottom: 50px;
+		}
+		div.welfareItem{
+			padding-bottom: 4px;
+		}
+		span.itemT{
+			display: inline-block;
+			color: #ff6138;
+			font-size: 16px;
+			float: left;
+		}
+		p.itemC{
+			color: #5D6F8F;
+			font-size: 14px;
+			margin-left: 128px;
+		}
+		p.itemC span{
+			color: #ff6138;
+		}
+		
+		.dialog,.alertMsg{
+			background-color: rgba(0,0,0,0);
+		    bottom: 0;
+		    height: 100%;
+		    position: fixed;
+		    top: 0;
+		    width: 100%;
+		    z-index: 100;
+		    display: none;
+		}
+		.alertMsg{
+			text-align: center;
+		}
+		/*div.backG{
+			opacity: 0.5;
+			filter:Alpha(opacity=50%);
+		    bottom: 0;
+		    position: absolute;
+		    z-index: 200;
+		    top: 0;
+		    width: 100%;
+		    height: 100%;
+		}*/
+		.dialog div.dialogCon {
+			position: absolute;
+			z-index: 200;
+			left: 50%;
+		    background-color: #fff;
+		    height: auto;
+		    width: 600px;
+		    margin-left: -300px;
+		    margin-top: 20%;
+		    overflow: auto;
+		}
+		.alertMsg span{
+			display: inline-block;
+			background-color: #fff;
+		    margin: 20% 0 0;
+		    text-align: center;
+		    font-size: 16px;
+		    padding: 8px 15px;
+		    -webkit-border-radius: 5px;
+		    -moz-border-radius: 5px;
+		    border-radius: 5px;
+		    overflow: auto;
+		}
+		.dialog h1 {
+		    border-bottom: 1px solid #fb451f;
+		    color: #fb451f;
+		    font-size: 18px;
+		    font-weight: normal;
+		    height: 33px;
+		    line-height: 33px;
+		    text-align: center;
+		}
+		.dialog p {
+		    font-size: 16px;
+		    font-weight: normal;
+		    line-height: 150%;
+		    padding: 20px;
+		}
+		.dialog .btn-wrap > div {
+		    float: left;
+		    width: 50%;
+		}
+		.dialog .dialog-btn {
+		    background-color: #fb451f;
+		    color: #fff;
+		    cursor: pointer;
+		    display: block;
+		    font-size: 16px;
+		    height: 34px;
+		    line-height: 34px;
+		    text-align: center;
+		}
+		.dialog .left {
+		    margin: 0 9px 17px 27px;
+		}
+		.dialog .right {
+		    background-color: #c2c2c6;
+		    margin: 0 27px 17px 9px;
+		} 
+		.getCode.disabled{
+			background-color: #ccc;
+			color: #fff;
+			cursor: default;
+		}
+		div.backOverlay{
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			z-index: 100;
+			width: 100%;
+			height: 100%;
+			opacity: 0.5;
+			filter:Alpha(opacity=50);
+			background-color: #000;
+			display: none;
+		}
+		div.errorMsg{
+			position: absolute;
+			width: 100%;
+			top: 0;
+			background-color: #F39079;
+			color: #fff;
+			font-size: 14px;
+			padding: 15px 20px;
+			display: none;
+		}
+		/*div.errorMsgBack{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #F39079;
+			opacity: 63.853;
+			filter:Alpha(opacity=63.853);
+		}*/
+		span.errorText{
+			padding-left: 15px;
+		}
+		span.errorBtn{
+			cursor: pointer;
+		}
+		p.zhu{
+			color: #a2a2a2;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<div class="backOverlay"></div>
+	<div class="dialog">
+	  <div class="dialogCon">
+	    <h1>提示</h1>
+	    <p>您已经是养车宝用户，点击下一步继续。</p>
+	    <div class="btn-wrap">
+	        <div><div class="dialog-btn left">下一步</div></div>
+	        <div><div class="dialog-btn right">关闭</div></div>
+	    </div>
+	  </div>
+	</div>
+	<div class="alertMsg">
+		<span></span>
+	</div>
+	<div class="errorMsg"><span class="errorBtn"><img src="./img/errorBtn.jpg"></span><span class="errorText"></span></div>
+	<div class="insuranceShop-con clearfix">
+		<div class="conL">
+			<div class="conRow" style="margin-top:40px;"><label for="mobile" class="mobile">手机号：</label><input type="text" name="mobile" id="mobile" placeholder="请输入购险手机号"></div>
+			<div class="conRow"><label for="code" class="code">验证码：</label><input type="text" name="code" id="code" placeholder="请输入验证码"><span class="getCode">获取验证码</span></div>
+			<p class="buyBtn">点击购买</p>
+		</div>
+		<div class="conR">
+			<img src="./img/conR1.png" class="conR1">
+			<img src="./img/conR2.png" class="conR2">
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div class="getSteps recommend">
+    	<p class="recommendT">获取提成步骤</p>
+    	<div class="getStepsCon">
+    		<p class="getStepsPic"><img src="./img/getSteps.jpg" width="1000px"></p>
+    		<div class="getStepsTips">
+    			<p>1、订单生成后，可选择直接在线帮车主支付，让车主线下与您结算；也可选择让车主下载养车宝，进入“挣钱”页面，点击右上角的“保险订单”，自行支付；</p>
+    			<p>2、只要是您在此后台帮下的订单，无论以哪种方式支付，您都可获得补贴；</p>
+    			<p>3、由于各地政策差异，具体补贴方案，可咨询与您对接的BD经理，也可拨打客服电话01058377979咨询。</p>
+    		</div>
+    	</div>
+    </div>
+    <!-- <div class="shopWelfare recommend">
+    	<p class="recommendT">商家福利</p>
+    	<div class="shopWelfareCon">
+    		<p class="egText">以购买3000元商业险(10%提成)为例：</p>
+    		<p class="welfarePic"><img src="./img/welfare.jpg"></p>
+    		<p class="welfareTip">注：车主1095补贴、车主8%加油费只能在您店铺使用。</p>
+    	</div>
+    </div> -->
+    <!-- <div class="carWelfare recommend">
+    	<p class="recommendT">车主福利</p>
+    	<div class="carWelfareCon">
+    		<p class="egText">只要车主在您店铺购买保险，车主可获取以下福利：</p>
+    		<div class="welfareItems">
+    			<div class="welfareItem clearfix"><span class="itemT">车主福利（一）：</span><p class="itemC">在您店铺购买车险，支付价格仅为市场价的85%</p><div style="clear:both;"></div></div>
+    			<div class="welfareItem clearfix"><span class="itemT">车主福利（二）：</span><p class="itemC">购买保险成功后，将每天发放1元共180元养车宝车险补贴，此补贴将发放到车主的余额。</p><div style="clear:both;"></div></div>
+    			<div class="welfareItem clearfix"><span class="itemT">车主福利（三）：</span><p class="itemC">商业险满1000~1999元 送60元代金券+商业险8%加油费；<br/>商业险满2000~3999元 送120元代金券+商业险8%加油费；<br/>商业险满4000~5999元 送200元代金券+商业险8%加油费；<br/>商业险满6000~6999元 送240元代金券+商业险8%加油费；<br/>商业险满7000元以上&nbsp;&nbsp;&nbsp;&nbsp;送280元代金券+商业险8%加油费；<br/></p><div style="clear:both;"></div></div>
+    			<p class="zhu">注：太平洋保险只返3%加油费。</p>
+    		</div>
+    	</div>
+    </div> -->
+</body>
+<script type="text/javascript">
+	var titleR=window.parent.document.getElementById("titleR");
+	titleR.style.display='none';
+	var _url=function(){
+		if(window.location.href.indexOf('172.18.180.11')>-1){
+			return '123.57.7.50:8080'
+		}else{
+			return 'www.yibaoxian.com'
+		}
+	};
+	$(function(){
+		var waiter=30;
+		// 获取验证码
+		function timer(){
+			var $getCode=$('span.getCode');
+			if(waiter==0){
+				$getCode.html('获取验证码').removeClass('disabled');
+				$('span.getCode').on('click',codeClick)
+				waiter=30;
+				return false
+			}else{
+				$getCode.html(waiter+'S').addClass('disabled',true);
+				$('span.getCode').off('click')
+			}
+			waiter--;
+			setTimeout(function() {
+			timer();//循环调用
+			},
+			1000)
+		};
+		var alertMsg=function(msg){
+			$('div.errorMsg').show().find('span.errorText').html(msg);
+			$('div.errorMsg span.errorBtn').unbind('click').bind('click',function(){
+				$('div.errorMsg').hide();
+			});
+			setTimeout(function(){
+				$('div.errorMsg').hide();
+			},3000)
+			// $('div.backOverlay').show();
+			// $('div.alertMsg').show().find('span').html(msg);
+			// $('div.alertMsg').unbind('click').bind('click',function(){
+			// 	$('div.alertMsg').hide();
+			// 	$('div.backOverlay').hide();
+			// });
+			// setTimeout(function(){
+			// 	$('div.alertMsg').hide();
+			// 	$('div.backOverlay').hide();
+			// },3000)
+		};
+		$('p.buyBtn').unbind('click').bind('click',function(){
+			var code=$.trim($('input[name="code"]').val());
+			var mobile=$.trim($('input[name="mobile"]').val());
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/user/mobile/check?mobile='+mobile,
+				type:'get',
+				async:false,
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					if(data.isReg==0){
+						var postData={};
+						postData.fastRegStatus=1;
+						postData.alias=mobile;
+						postData.code=code;
+						if(code){
+							$.ajax({
+								url:'/yangchebao-uc/ws/0.1/registry/mobile',
+								type:'post',
+								dataType:'json',
+								data:$.toJSON(postData),
+								contentType:'application/json;charset=utf-8',
+								success:function(data3){
+									titleR.style.display='block';
+									window.location.href="http://"+_url()+"/iframe/yangchebao/baojia?from=yangchebao&uid="+data3.customerId+"&tbsn="+window.parent.busiId()
+								},
+								error:function(xhr){
+									var error=eval('('+xhr.responseText+')');
+									alertMsg(error[0].message)
+								}
+							})
+						}else{
+							alertMsg('验证码不能为空');
+							return false
+						}
+					}else{
+						$('div.dialog').show();
+						$('div.backOverlay').show();
+						// 跳转保险
+						$('div.dialog div.left').unbind('click').bind('click',function(){
+							titleR.style.display='block';
+							window.location.href="http://"+_url()+"/iframe/yangchebao/baojia?from=yangchebao&uid="+data.customerId+"&tbsn="+window.parent.busiId()
+						});
+						$('div.dialog div.right').unbind('click').bind('click',function(){
+							$('div.dialog').hide();
+							$('div.backOverlay').hide();
+						})
+					}
+				},
+				error:function(xhr){
+					var error=eval('('+xhr.responseText+')');
+					alertMsg(error[0].message)
+				}
+			})
+		});
+		function codeClick(){
+			if(!($(this).hasClass('disable'))){
+				var mobile=$.trim($('input[name="mobile"]').val());
+				$.ajax({
+					url:'/yangchebao-app-ws/ws/0.1/user/mobile/check?mobile='+mobile,
+					type:'get',
+					async:false,
+					dataType:'json',
+					contentType:'application/json;charset=utf-8',
+					success:function(data){
+						if(data.isReg==0){
+							timer();
+							// setInterval(timer(),1000);
+							$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/common/update/ycbkey',
+								async:false,
+								type:'get',
+								contentType:'application/json;charset=utf-8',
+								dataType:'json',
+								success:function(data2){
+									var timestamp=new Date().getTime();
+									var sign=hex_md5(mobile+data2.ycbkey+timestamp);
+									$.ajax({
+										url:'/yangchebao-uc/ws/0.1/registry/getcode/v2?user='+mobile+'&timestamp='+timestamp+'&sign='+sign,
+										type:'get',
+										async:false,
+										dataType:'json',
+										contentType:'application/json;charset=utf-8',
+										success:function(data3){
+
+										}
+									})
+								}
+							});
+							
+							// 点击确定
+							$('p.buyBtn').unbind('click').bind('click',function(){
+								var code=$.trim($('input[name="code"]').val());
+								var postData={};
+								postData.fastRegStatus=1;
+								postData.alias=mobile;
+								postData.code=code;
+								if(code){
+									$.ajax({
+										url:'/yangchebao-uc/ws/0.1/registry/mobile',
+										type:'post',
+										dataType:'json',
+										data:$.toJSON(postData),
+										contentType:'application/json;charset=utf-8',
+										success:function(data3){
+											titleR.style.display='block';
+											window.location.href="http://"+_url()+"/iframe/yangchebao/baojia?from=yangchebao&uid="+data3.customerId+"&tbsn="+window.parent.busiId()
+										},
+										error:function(xhr){
+											var error=eval('('+xhr.responseText+')');
+											alertMsg(error[0].message)
+										}
+									})
+								}
+							})
+						}else{
+							$('div.dialog').show();
+							$('div.backOverlay').show();
+							// 跳转保险
+							$('div.dialog div.left').unbind('click').bind('click',function(){
+								titleR.style.display='block';
+								window.location.href="http://"+_url()+"/iframe/yangchebao/baojia?from=yangchebao&uid="+data.customerId+"&tbsn="+window.parent.busiId()
+							});
+							$('div.dialog div.right').unbind('click').bind('click',function(){
+								$('div.dialog').hide();
+								$('div.backOverlay').hide();
+							})
+						}
+					},
+					error:function(xhr){
+						var error=eval('('+xhr.responseText+')');
+						alertMsg(error[0].message)
+					}
+				})
+			}
+		};
+		$('span.getCode').on('click',codeClick)
+	})
+</script>
+</html>

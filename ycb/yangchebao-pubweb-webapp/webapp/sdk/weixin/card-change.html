@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<script src="../js/jquery-1.9.1.min.js"></script>
+	<script src="../js/jquery.json-2.2.js"></script>
+	<script src="../js/index.js"></script>
+	<link href="../css/index.css" rel="stylesheet" type="text/css" />  
+	<title>我的车主卡</title>
+</head> 
+<body> 
+<article class="change-form">
+	<h1>永安保险用户</h1>
+	<div> 
+		<div class="input-wrap"><input type="text" placeholder="请输入保单号" id="num"/></div>
+		<a class="btn" href="javascript:void(0);" id="changeBtn">兑换</a>
+	</div>  
+</article> 
+<ol class="change-comment">
+	  <li>保险用户请输入保单号</li>
+	  <li>其他渠道的用户请输入您获得的兑换码</li>
+	  <li>说明</li>
+</ol>
+<!-- <article class="change-form">
+	<h1>永安保险用户</h1>
+	<div> 
+		<div class="input-wrap"><input type="text" placeholder="请输入保单号"/></div>
+		<a class="btn" href="javascript:void(0);">兑换</a>
+	</div>
+</article>  -->
+<section class="card-check" style="display:none;">
+	<article class="title">
+		<h1 class="ui-tit"><span>车主卡包含服务</span></h1>
+		<p class="gray-tip">您的车主卡包含以下服务，其中汽车小保养和漆面修护是2选1的服务，请您进行选择</p>
+	</article>
+	<article class="content">
+		<h1><span>车主卡2选1服务</span></h1>
+		<ul class="check-ul">
+			<!-- <li class="info">洗车 : 12次<span class="radio check"></span></li> -->
+			<!-- <li class="info">洗车 : 12次<span class="radio"></span></li> -->
+		</ul>
+		<h1 class="definte"><span>车主卡固定服务</span></h1>
+		<ul class="definteServices definte">
+			<!-- <li class="info" style="margin:0;">洗车 : 12次</li> -->
+		</ul>
+	</article>
+	<a href="javascript:void(0);" class="btn" id="submit">确定</a>
+</section>
+<div class="dialog">
+      <div>
+        <h1>提示</h1>
+        <p id="msg">恭喜车主卡兑换成功！</p>
+        <div class="btn-wrap">
+            <!--div><div class="left">取消</div></div--> 
+            <div><div class="right">确定</div></div> 
+        </div>
+      </div>
+   </div> 
+<script type="text/javascript"> 
+var userId = ""; 
+$(document).ready(function(){   
+	userId = getCookie("userInfoId");  
+    $(".check-ul").on("click","li",function(){
+ 		$(".check-ul .check").removeClass("check");
+ 		$(this).children(".radio").addClass("check");
+ 	});
+ 	$("#changeBtn").click(function(){
+ 		change();
+ 	});
+ 	$("#submit").click(function(){
+ 		chooseService();
+ 	});
+	$(".dialog .right").click(function(){
+      $(".dialog").hide();
+	  window.location.href = "card.html";
+	});
+ 	var change = function(){
+        var postData = {};
+        postData.documentNo = $.trim($("#num").val());
+        postData.userInfoId = userId;    
+        $.ajax({
+            url: '/yangchebao-app-ws/ws/0.1/biz/document/exchange',
+            type: 'post',
+            data: $.toJSON(postData),
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            success: function(data){ 
+            	if(data.status=="1"){
+				    $(".dialog").fadeIn(); 
+            	}else{
+            		$(".change-form").hide();
+            		$(".change-comment").hide(); 
+            		var definteServices = data.definteServices;
+					if(definteServices.length<1){
+					  $(".definte").hide();
+					}else{
+            		$.each(definteServices,function(i){
+            			var service = definteServices[i];
+            			var _li = '<li class="info" style="margin:0;">'+service.displayName+' : '+service.serviceTimes+'次</li>';
+            			$(".definteServices").append(_li);
+            		});
+					}
+            		var chooseServices = data.chooseServices;
+            		$.each(chooseServices,function(i){
+            			var service = chooseServices[i];
+            			var _li = '<li class="info" relid="'+service.serviceRelId+'">'+service.displayName+' : '+service.serviceTimes+'次<span class="radio"></span></li>';
+            			if(i==0){
+							_li = '<li class="info" relid="'+service.serviceRelId+'">'+service.displayName+' : '+service.serviceTimes+'次<span class="radio check"></span></li>';
+            			}
+            			
+            			$(".check-ul").append(_li);
+            		});
+            		$(".card-check").show();
+            	}
+            },error: function(xhr) {
+			   var mes = eval('('+xhr.responseText+')'); 
+			   alertTasat(mes[0].message);
+			}
+        });
+    };    
+    var chooseService = function(){
+        var checked = $(".check-ul .check");
+        var arr = [];
+        $.each(checked,function(){
+        	arr.push($(this).parent("li").attr("relid"));
+        });
+        var postData = {}; 
+        postData.documentNo = $.trim($("#num").val());
+        postData.userInfoId = userId;    
+        postData.chooseServiceRelIds = arr;
+        $.ajax({
+            url: '/yangchebao-app-ws/ws/0.1/biz/document/chooseService',
+            type: 'post',
+            data: $.toJSON(postData),
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            success: function(data){ 
+            	$(".dialog").fadeIn(); 
+            },error: function(xhr) {
+			   var mes = eval('('+xhr.responseText+')'); 
+			   alertTasat(mes[0].message);
+			}
+        });
+    };    
+});
+</script>
+</body>
+</html>

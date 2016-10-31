@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>上门保养</title>
+	<link rel="stylesheet" href="./css/nav.css">
+	<script src="./js/jquery-1.10.1.min.js"></script>
+	<script language="javascript" src="./js/jquery.json-2.2.js"></script> 
+	<link href="date/mobiscroll.custom-2.13.2.min.css" rel="stylesheet" type="text/css" />
+	<script src="date/mobiscroll.custom-2.13.2.min.js" type="text/javascript"></script>
+	<script src="./js/main.js"></script>
+	<!-- <script src="./js/index.js"></script> -->
+	<style>
+		article.topCarInfo{
+			background-color: #fff;
+			padding: 1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		article.topCarInfo p{
+			font-size: 1rem;
+		}
+		article.topCarInfo p:nth-child(1){
+			margin-bottom: 0.4rem;
+		}
+
+		div.tab-title{
+			border-bottom: 1.5px solid #D9D9E2; 
+			padding: 1.2rem 0;
+		}
+		div.tab-title ul li{
+			float: left;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			width: 29.33%;
+			background-color: #fff;
+			border: 1px solid #D9D9E2;
+			border-radius: 5px;
+			text-align: center;
+			padding: 0.5rem 0 0.3rem;
+			margin-left:3%;
+		}
+		p.servGrade{
+			font-size: 1rem;
+			margin-bottom: 0.2rem;
+		}
+		p.servGrade-price{
+			font-size: 0.8rem;
+		}
+		div.tab-title ul li:nth-child(3){
+			margin-right:3%;
+		}
+		.nowServLi{
+			border: 2px solid #FF6138!important;
+		}
+		.nowServLi p{
+			color: #FF6138!important;
+		}
+		.useVoucher{
+			font-size: 0.8rem;
+		}
+		div.tab-detail{
+			background-color: #fff;
+		}
+		div.tab-detail-title{
+			position: relative;
+			border-bottom: 1px solid #D9D9E2;
+			padding: 0.6rem 1rem;
+			font-size: 1rem;
+		}
+		div.tab-detail-title em
+        {
+            display: block;
+            border-width: 16px;
+            position: absolute;
+            bottom: 41px;
+            left: 105px;
+            border-style: dashed dashed solid;
+            border-color: transparent transparent #D9D9E2;
+            font-size: 0;
+            line-height: 0;
+        }
+        div.tab-detail-title span
+        {
+            display: block;
+            border-width: 21px;
+            position: absolute;
+            bottom: 34px;
+            left: 100px;
+            border-style: dashed dashed solid;
+            border-color: transparent transparent #FFF;
+            font-size: 0;
+            line-height: 0;
+        }
+		ul.tab-detail-ul li{
+			padding: 0.6rem 1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		ul.tab-detail-ul li div.li-left{
+			float: left;
+		}
+		ul.tab-detail-ul li div.li-right{
+			float: right;
+			margin-top: 1rem;
+		}
+		p.li-left-pOne,p.li-left-pTwo{
+			margin-bottom: 0.4rem;
+		}
+		span.li-number,span.partName{
+			font-size: 1rem;
+		}
+		span.li-none{
+			visibility: hidden;
+		}
+		span.partSortNum{
+			font-size: 0.8rem;
+			color: #C2C2C6;
+		}
+		span.partSortName{
+			font-size: 0.9rem;
+			color: #6EAADE;
+		}
+		div.liBottom-left,div.liBottom-middle{
+			float: left;
+			width: 20%;
+			margin-right: 5%;
+		}
+		div.liBottom-middle{
+			width: 65%;
+		}
+		div.liBottom-middle p.ktqxDetail{
+			font-size: 0.8rem;
+		}
+		div.liBottom-middle p.ktqxPrice{
+			margin-top: 0.2rem;
+			font-size: 1rem;
+			color: #FF6138;
+		}
+		div.liBottom-right{
+			float: right;
+			width: 6%;
+			margin-top: -3rem;
+		}
+
+		article.ableRedbag{
+			background-color: #fff;
+			margin-top: 0.8rem;
+		}
+		div.ableRedbag-title{
+			padding: 0.6rem 1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.ableRedbag-detail{
+			padding: 0.5rem 1rem;
+		}
+		div.ableRedbag-detail-left{
+			float: left;
+			width: 89%;
+			background-image: url(./img/ableRed_bg.png);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+		div.ableRedbag-detail-right{
+			float: right;
+			width: 6%;
+			margin-top: 8%;
+		}
+		div.ableRedbag-detail-left p{
+			margin-left: 14%;
+		}
+		div.ableRedbag-detail-left p span{
+			color: #FF6138;
+		}
+		div.ableRedbag-detail-left p:nth-child(1){
+			margin-top: 6%;
+		}
+		div.ableRedbag-detail-left p:nth-child(2){
+			margin-top: 1%;
+		}
+
+		article.userInfo{
+			background-color: #fff;
+			margin-top: 0.8rem;
+		}
+		article.userInfo div{
+			padding: 0.6rem 1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		article.userInfo div label{
+			font-size: 1rem;
+		}
+
+		article.mustInfo{
+			background-color: #fff;
+			margin-top: 0.8rem;
+		}
+		article.mustInfo div{
+			padding: 0.6rem 1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		article.mustInfo div label{
+			font-size: 1rem;
+		}
+
+		article.pay{
+			border-top: 1px solid #D9D9E2;
+			background-color: #fff;
+			margin-top: 2rem;
+			line-height: 3rem;
+		}
+		article.pay p{
+			float: left;
+		}
+		article.pay p.payMoney{
+			width: 60%;
+			font-size: 1rem;
+			padding-left: 1.1rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		article.pay p.payMoney span{
+			font-size: 1.1rem;
+			color: #FF6138;
+		}
+		article.pay p.payBtn{
+			font-size: 1.2rem;
+			color: #fff;
+			text-align: center;
+			background-color: #FF6138;
+			width: 40%;
+		}
+
+		div.partItems-close{
+			padding: 1rem 0.8rem;
+			text-align: right;
+		}
+		article.items-article{
+			background-color: #fff;
+		}
+		article.items-article div.item{
+			padding: 1rem 1.1rem 1rem 1rem;
+			border-bottom: 1px solid #D9D9E2;
+			position: relative;
+		}
+		article.items-article div.item p{
+			font-size: 1rem;
+			float: left;
+			width: 75%;
+		}
+		article.items-article div.item img{
+			float: right;
+			width: 1.1rem;
+			position: absolute;
+			top: 60%;
+			right: 1.1rem;
+			margin-top: -0.75rem;
+		}
+
+		div.dialog{
+			position: absolute;
+			top: 0;
+			z-index: 300;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0,0,0,0.5);
+		}
+		div.dialogWraper{
+			position: fixed;
+			z-index: 500;
+			width: 90%;
+			margin: 5rem 5%;
+			background-color: #fff;
+			border-radius: 8px;
+		}
+		div.dialogWraper div.payItem{
+			padding: 1rem 1rem 1rem 0.4rem;
+			border-bottom: 1px solid #D9D9E2;
+			overflow: hidden;
+		}
+		div.dialogWraper div.payItem p{
+			float: left;
+			width: 32%;
+			text-align: right;
+			margin-right: 2%;
+		}
+		div.dialogWraper div.payItem p img.zfbIcon{
+			width: 80%!important;
+		}
+		div.dialogWraper div.payItem p img.wxIcon{
+			width: 88%!important;
+		}
+		div.dialogWraper div.payItem span{
+			display: inline-block;
+			float: left;
+			width: 58%;
+			color: #C2C2C6;
+			font-size: 0.8rem;
+		}
+		div.dialogWraper div.payItem img.payCheck{
+			float: right;
+			width: 1.1rem;
+		}
+		div.dialogWraper div.payBtn{
+			padding: 1rem;
+			text-align: center;
+			font-size: 1rem;
+		}
+
+		div.errorLog{
+			position: fixed;
+			top: 0;
+			z-index: 500;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0,0,0,0);
+		}
+		div.errorLog p{
+			position: relative;
+			width: 90%;
+			margin: 6rem auto;
+			background-color: rgba(0,0,0,0.5);
+			font-size: 1rem;
+			color: #fff;
+			text-align: center;
+			padding: 0.6rem 0;
+			border-radius: 8px;
+		}
+
+		label{
+			float: left;
+			display: inline-block;
+			width: 5rem;
+		}
+		p.textWraper{
+			-webkit-box-sizing:border-box;
+			-moz-box-sizing:border-box;
+			box-sizing:border-box;
+			/*margin-left: 7em;*/
+			margin-left: 5.2em;
+		}
+		input#userTime,textarea#userAddress,input#plateNumber,input#vinNumber{
+			width: 100%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			font-size: 1rem!important;
+			padding: 0.3rem;
+			border: 1px solid #D9D9E2;
+			-moz-box-shadow: inset 0 0 5px #ddd;
+			-webkit-box-shadow: inset 0 0 5px #ddd;
+			box-shadow: inset 0 0 5px #ddd;
+		}
+		div.dwo{
+			position: fixed!important;
+		}
+		.note{
+			padding-left: 80px;
+			color: #a2a2a2;
+			font-size: 0.8rem;
+		}
+		div.tab-title ul li{
+			display: none;
+			height: 70px;
+		}
+	</style>
+</head>
+<body>
+	<p><input name="eventId" type="hidden" value="MaintainAccessorySelectPage"></p>
+	<section id="moneyType">
+		<header>
+			<nav>
+				<ul class="clearfix">
+					<li class="navLeft-li">
+						<span class="navLine-left"></span>
+						<p class="selectCarstyle navNow">确定车型</p>
+					</li>
+					<li class="navMiddle-li">
+						<span class="navLine-middle"></span>
+						<p class="selectService">选择服务</p>
+					</li>
+					<li class="navMiddle-li">
+						<span class="navLine-middle"></span>
+						<p class="selectParts">选择配件</p>
+					</li>
+					<li class="navRight-li">
+						<span class="navLine-Rmiddle"></span>
+						<p class="submitOrder">提交订单</p>
+						<span class="navLine-right"></span>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<article class="topCarInfo">
+			<p class="topCarInfo-model">奥迪A8</p>
+			<p class="topCarInfo-style">2014款 30 FSI 豪华型</p>
+		</article>
+		<article class="tabBox">
+			<div class="tab-title">
+				<ul class="clearfix">
+					<li class="nowServLi servGradeOne">
+						<div>
+							<p class="servGrade">经济型</p>
+							<p class="servGrade-price"></p>
+						</div>
+					</li>
+					<li class="servGradeTwo">
+						<div>
+							<p class="servGrade">高档型</p>
+							<p class="servGrade-price"></p>
+						</div>
+					</li>
+					<li class="servGradeThree">
+						<div>
+							<p class="servGrade">豪华型</p>
+							<p class="servGrade-price"></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="tab-detail">
+			<!-- <em></em><span></span> -->
+				<div class='tab-detail-title'><canvas width="26px" height="16px" id="canvasAngle" style="position:absolute;top:-15.5px;"></canvas>选择您需要的配件</div>
+				<script type="text/javascript">
+					var canvasAngle=document.getElementById('canvasAngle');
+					var cxtAngle=canvasAngle.getContext('2d');
+					cxtAngle.beginPath();
+					cxtAngle.lineWidth=2;
+					cxtAngle.strokeStyle="#c6c6c6";
+					cxtAngle.fillStyle="rgb(255,255,255)";
+					cxtAngle.moveTo(13,0);
+					cxtAngle.lineTo(26,16);
+					cxtAngle.lineTo(0,16);
+					cxtAngle.closePath();
+					cxtAngle.stroke();
+					cxtAngle.fill()
+				</script>
+				<ul class="tab-detail-ul">
+					<!-- <li class="clearfix">
+						<div class="li-left">
+							<p class="li-left-pOne"><span class="li-number">1.</span><span class="partName">机油</span><span class="partSortNum">(4种可选)</span></p>
+							<p class="li-left-pTwo"><span class="li-number li-none">1.</span><span class="partSortName">嘉实多 磁护 SN 5W-40</span></p>
+						</div>
+						<div class="li-right">
+							<span class="cd"></span>
+						</div>
+					</li>
+					<li class="clearfix">
+						<div class="li-left">
+							<p class="li-left-pOne"><span class="li-number">2.</span><span class="partName">机油</span><span class="partSortNum">(4种可选)</span></p>
+							<p class="li-left-pTwo"><span class="li-number li-none">2.</span><span class="partSortName">嘉实多 磁护 SN 5W-40</span></p>
+						</div>
+						<div class="li-right">
+							<span class="cd"></span>
+						</div>
+					</li>
+					<li>
+						<p class="li-left-pOne"><span class="li-number">3.</span><span class="partName">空调清洗</span><span class="partSortNum">(65%的用户选择此服务，额外收费)</span></p>
+						<div class="li-bottom clearfix">
+							<div class="liBottom-left"><img src="./img/ktqx_icon.png"></div>
+							<div class="liBottom-middle">
+								<p class="ktqxDetail">换季啦，清洗病菌、灰尘，更好 的保护自己和家人身体健康。</p>
+								<p class="ktqxPrice">￥98</p>
+							</div>
+							<div class="liBottom-right">
+								<img src="./img/ktqxUnchecked.png">
+							</div>
+						</div>
+					</li> -->
+				</ul>
+			</div>
+		</article>
+		<article class="ableRedbag">
+			<div class="ableRedbag-title">可用红包</div>
+			<div class="ableRedbag-detail clearfix">
+				<div class="ableRedbag-detail-left">
+					<p>1.<span>100元</span>保养代金券</p>
+					<p>2.安防神器“乐乘盒子”</p>
+				</div>
+				<div class="ableRedbag-detail-right">
+					<img src="./img/ktqxChecked.png" class="isChecked">
+				</div>
+			</div>
+		</article>
+		<article class="userInfo">
+			<div class="userTimeWraper">
+				<label for="userTime">预约时间：</label><p class="textWraper"><input type="text" name="userTime" id="userTime"></p>
+			</div>
+			<div class="userAddressWraper">
+				<label for="userAddress" style="vertical-align:top;">服务地址：</label><p class="textWraper"><textarea name="userAddress" id="userAddress"></textarea></p>
+			</div>
+		</article>
+		<article class="mustInfo">
+			<div class="plateNumberWraper">
+				<label for="plateNumber">车牌号：</label><p class="textWraper"><input type="text" name="plateNumber" id="plateNumber" placeholder="示例：京J12345"></p>
+			</div>
+			<div class="vinNumberWraper">
+				<label for="vinNumber" style="vertical-align:top;">识别码：</label><p class="textWraper"><input type="text" name="vinNumber" id="vinNumber" placeholder="车架号/VIN码(可不填)"></p>
+				<p class="note">为给您快速提供符合原厂标准的配件，避免配件出错浪费您的宝贵时间，请您在行驶证“车辆识别码（VIN）”一栏中查看并填写。</p>
+			</div>
+			
+		</article>
+		<article class="pay clearfix">
+			<p class="payMoney">合计：<span></span></p>
+			<p class="payBtn">立即支付</p>
+		</article>
+	</section>
+	<section id="partItems" style="display:none;">
+		<div class="partItems-close"><canvas width="22px" height="22px" id="canvas"></canvas></div>
+		<script type="text/javascript">
+			var canvas=document.getElementById('canvas');
+			var cxt=canvas.getContext('2d');
+			cxt.beginPath();
+			cxt.lineWidth=2;
+			cxt.strokeStyle="#ff6138";
+			cxt.moveTo(0,0);
+			cxt.lineTo(22,22);
+			cxt.stroke();
+			cxt.closePath();
+			cxt.beginPath();
+			cxt.lineWidth=2;
+			cxt.strokeStyle="#ff6138";
+			cxt.moveTo(22,0);
+			cxt.lineTo(0,22);
+			cxt.stroke();
+			cxt.closePath();
+		</script>
+		<article class="items-article">
+			<div class="item clearfix">
+				<p>PN90系列PN90系列系列PN90系</p>
+			</div>
+			<div class="item clearfix">
+				<p>PN90系列PN90系列系列PN90系 列系列PN90系列</p>
+				<img src="./img/payChecked_icon.png">
+			</div>
+			<div class="item clearfix">
+				<p>PN90系列PN9</p>
+			</div>
+		</article>
+	</section>
+	<div class="dialog" style="display:none;">
+		<div class="dialogWraper" id="dialogWraper">
+			<div class="zfb payItem checkPayItem" data-id="3">
+				<p><img src="./img/zfb_icon.png" alt="支付宝" class="zfbIcon"></p>
+				<span>需要拥有支付宝账号</span>
+				<img src="./img/payChecked_icon.png" class="payCheck">
+			</div>
+			<div class="wx payItem" data-id="1">
+				<p><img src="./img/wx_icon.png" alt="微信支付" class="wxIcon"></p>
+				<span>推荐安装微信5.0版本以上</span>
+				<img src="./img/payUnchecked_icon.png" class="payCheck">
+			</div>
+			<div class="payBtn">确定</div>
+		</div>
+	</div>
+	<div class="errorLog" style="display:none;">
+		<p></p>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    var postData={};
+	    postData.userInfoId=paramJson.userId;
+	    postData.styleId=getLocalStorage('styleId');
+	    postData.productArray=[];
+	    var productArrayJson={};
+		productArrayJson.products=[];
+		var productsJson={};
+		productsJson.products=[];
+		var ktqxJson={};
+		var voucherPrice=100;
+		var changePrice=0;
+		// 是否有代金券
+		var isHaveVoucher=0;
+		// 浏览器内核
+		if(navigator.userAgent.indexOf('Firefox')<0){
+			$('div.tab-detail-title em').css('bottom','39px');
+			$('div.tab-detail-title span').css('bottom','32px')
+		}
+		// nav
+		$('header nav p.selectParts').addClass('navNow').parent('li').siblings().find('p').removeClass('navNow');
+		$('header nav p.selectCarstyle').addClass('hasNav');
+		$('header nav p.selectService').addClass('hasNav');
+		// 车型信息
+		$('p.topCarInfo-model').html(getLocalStorage('modelName'));
+		$('p.topCarInfo-style').html(getLocalStorage('styleName'));
+		// 可用红包背景
+		var ableRedbagWidth=$('div.ableRedbag-detail-left').width();
+		$('div.ableRedbag-detail-left').height(0.2698*ableRedbagWidth);
+
+		// css箭头指向 
+		$('div.tab-detail-title canvas').css('left',0.14*$('div.tab-title').width());
+		// var emLeft=$('div.tab-detail-title canvas').position().left;
+		// $('div.tab-detail-title span').css('left',(emLeft-5)+'px');
+		
+		// 是否有红包
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/externmaintain/voucher/status?userInfoId='+paramJson.userId+'&'+new Date().getTime(),
+			type:'get',
+			async:false,
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				if(data.havaVoucher==1 && data.isUseVoucher==0){
+					isHaveVoucher = 1;
+					voucherPrice=data.voucherPrice;
+					// $('article.ableRedbag').show();
+					$('div.ableRedbag-detail-left span').html(data.voucherPrice+'元');
+					changePrice-=voucherPrice
+				}else{
+					$('article.ableRedbag').hide();
+				}
+			}
+		});
+		// 获取主车信息
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/user/carinfo/maincar?userId='+paramJson.userId+'&'+new Date().getTime(),
+			type:'get',
+			async:false,
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				paramJson.carInfoId=data.carInfoId;
+				if(data.plateNumber!=''){
+					$('input#plateNumber').val(data.plateNumber)
+				}
+				if(data.vinNumber!=''){
+					$('input#vinNumber').val(data.vinNumber)
+				}
+			}
+		});
+		// 配件列表
+		var servData=[];
+		var ktqxData={};
+		var servDataLen=servData.length;
+		var partsData=[];   //大保养 小保养的products
+		var maoneyType_parts=function(productId){
+			// if(productId){
+			// 是否代金券
+			if(isHaveVoucher==1){
+				$('article.ableRedbag').show();
+				if(productId == 'BY-001-001' || productId == 'BY-002-001'){
+					$('article.ableRedbag').hide()
+				}
+			}else{
+				$('article.ableRedbag').hide();
+			}
+			
+			if(!($('article.ableRedbag').is(':hidden'))&&($('div.ableRedbag-detail-right img.isChecked').attr('src')=='./img/ktqxChecked.png')){
+				changePrice=0;
+				changePrice-=voucherPrice
+			}else{
+				 // if(!($('article.ableRedbag').is(':hidden'))&&($('div.ableRedbag-detail-right img.isChecked').attr('src')!='./img/ktqxChecked.png'))
+				changePrice=0
+			}
+				var resultParts=[];   //经济型 高档型 豪华型的products
+				partsData.forEach(function(key,i){
+					if(key.productId==productId){
+						productsJson.productId=key.productId;
+						productsJson.productName=key.productName;
+						productsJson.price=key.price;
+						$('p.payMoney span').html('￥'+(key.price+changePrice));
+						resultParts=key.products
+					}
+				});
+				var resultParts_str='';
+				var resultParts_len=resultParts.length+1;
+				resultParts.forEach(function(key,i){
+					var j=i+1;
+					resultParts_str+='<li class="clearfix" id="'+key.productId+'">'
+									+'<div class="li-left">'
+									+'<p class="li-left-pOne"><span class="li-number">'+j+'.</span><span class="partName">'
+									+key.productName+'</span><span class="partSortNum">('+key.products.length+'种可选)</span></p>'
+									+'<p class="li-left-pTwo" id="'+key.products[0].productId+'"><span class="li-number li-none">'+j+'.</span><span class="partSortName">'
+									+key.products[0].productName+'</span></p>'
+									+'</div><div class="li-right"><span class="cd"></span></div>'
+									+'</li>'
+				});
+			// }
+			
+			resultParts_str+='<li id="'+ktqxData.productId+'" class="ktqxLi"><p class="li-left-pOne"><span class="li-number">'+resultParts_len
+							+'.</span><span class="partName">'+ktqxData.productName+'</span><span class="partSortNum">(65%的用户选择此服务，额外收费)</span></p>'
+							+'<div class="li-bottom clearfix ktqx_wraper" id="'+ktqxData.products[0].productId+'" data-name="'+ktqxData.products[0].productName+'">'
+							+'<div class="liBottom-left"><img src="./img/ktqx_icon.png"></div>'
+							+'<div class="liBottom-middle"><p class="ktqxDetail">换季啦，清洗病菌、灰尘，更好 的保护自己和家人身体健康。</p>'
+							+'<p class="ktqxPrice">￥'+ktqxData.products[0].price+'</p>'
+							+'</div><div class="liBottom-right"><img src="./img/ktqxUnchecked.png" class="isChecked"></div>'
+							+'</div></li>';
+			
+			$('ul.tab-detail-ul').html(resultParts_str);
+			ktqxJson.productId=ktqxData.productId;
+			ktqxJson.productName=ktqxData.productName;
+			ktqxJson.products=[];
+			var ktqxProductsJson={};
+			ktqxProductsJson.productId=ktqxData.products[0].productId;
+			ktqxProductsJson.productName=ktqxData.products[0].productName;
+			ktqxProductsJson.price=ktqxData.products[0].price;
+			ktqxJson.products.push(ktqxProductsJson);
+			// 选择配件类型
+			$('ul.tab-detail-ul li.clearfix').unbind('click').bind('click',function(){
+				var $liP=$(this).find('p.li-left-pTwo');
+				var liP_id=$liP.attr('id');
+				var thisPartId=$(this).attr('id');
+				$('section#partItems').show().siblings('section').hide();
+				var itemsStr='';
+				resultParts.forEach(function(key,i){
+					if(key.productId==thisPartId){
+						key.products.forEach(function(_key,j){
+							itemsStr+='<div class="item clearfix" id="'+_key.productId+'">'
+									 +'<p>'+_key.productName+'</p></div>'
+						})
+					}
+				});
+				$('section#partItems article.items-article').html(itemsStr);
+				$('section#partItems article.items-article div.item[id="'+liP_id+'"]').append('<img src="./img/payChecked_icon.png">');
+				// 关闭按钮
+				$('div.partItems-close canvas').unbind('click').bind('click',function(){
+					$('section#partItems').hide().siblings('section').show()
+				});
+				// 点击选择
+				$('section#partItems article.items-article div.item').unbind('click').bind('click',function(){
+					var partSortName=$(this).find('p').html();
+					$liP.attr('id',$(this).attr('id'));
+					$liP.find('span.partSortName').html(partSortName);
+					$(this).append('<img src="./img/payChecked_icon.png">').siblings().find('img').remove();
+					$('section#partItems').hide().siblings('section').show()
+				})
+			})
+		};
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/externmaintain/query/v3?userInfoId='+paramJson.userId+'&styleId='+getLocalStorage('styleId'),
+			type:'get',
+			async:false,
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				servData=data.data;
+				servDataLen=servData.length;
+				servData.forEach(function(key,i){
+					if((key.productName).indexOf('空调')!=-1){
+						ktqxData=key
+					}
+					if(key.productId==paramJson.productId){
+						productArrayJson.productId=key.productId;
+						productArrayJson.productName=key.productName;
+						partsData=key.products
+					}
+				});
+				// tab显示
+				partsData.forEach(function(key,i){
+					if(key.productName.indexOf('经济')!=-1){
+						$('li.servGradeOne').attr('id',key.productId);
+						$('li.servGradeOne p.servGrade-price').html('￥'+key.price);
+					}else if(key.productName.indexOf('高档')!=-1){
+						$('li.servGradeTwo').attr('id',key.productId);
+						$('li.servGradeTwo p.servGrade-price').html('￥'+key.price);
+						if(isHaveVoucher==1){
+							$('li.servGradeTwo p.servGrade-price').append('<p class="useVoucher">可用代金券</p>')
+						}
+					}else if(key.productName.indexOf('豪华')!=-1){
+						$('li.servGradeThree').attr('id',key.productId);
+						$('li.servGradeThree p.servGrade-price').html('￥'+key.price);
+						if(isHaveVoucher==1){
+							$('li.servGradeThree p.servGrade-price').append('<p class="useVoucher">可用代金券</p>')
+						}
+					}
+				});
+				$('div.tab-title ul li').each(function(){
+					if(!($(this).attr('id'))){
+						$(this).remove()
+					}else{
+						$(this).show()
+					}
+					var thisDivH=$(this).find('div').height();
+					$(this).find('div').css({'position':'relative','margin-top':-thisDivH/2+'px','top':'50%'})
+				});
+				
+				// 是否空调清洗
+				$('ul.tab-detail-ul').on('click','li.ktqxLi',function(){
+					var payMoneyData=getNum($('p.payMoney span').html());
+					var ktqxMoneyData=getNum($('p.ktqxPrice').html());
+					if($(this).find('img.isChecked').attr('src')=='./img/ktqxChecked.png'){
+						$(this).find('img.isChecked').attr('src','./img/ktqxUnchecked.png');
+						$('p.payMoney span').html('￥'+(payMoneyData-ktqxMoneyData))
+					}else{
+						$(this).find('img.isChecked').attr('src','./img/ktqxChecked.png');
+						$('p.payMoney span').html('￥'+(payMoneyData+ktqxMoneyData))
+					}
+				});
+				// 是否红包
+				$('div.ableRedbag-detail').unbind('click').bind('click',function(){
+					var payMoneyData=getNum($('p.payMoney span').html());
+					var redMoneyData=getNum($('div.ableRedbag-detail-left p span').html());
+					if($(this).find('img.isChecked').attr('src')=='./img/ktqxChecked.png'){
+						$(this).find('img.isChecked').attr('src','./img/ktqxUnchecked.png');
+						$('p.payMoney span').html('￥'+(payMoneyData+redMoneyData))
+					}else{
+						$(this).find('img.isChecked').attr('src','./img/ktqxChecked.png');
+						$('p.payMoney span').html('￥'+(payMoneyData-redMoneyData))
+					}
+				});
+				// tab初始化
+				$('div.tab-title ul li:first').removeClass('nowServLi').addClass('nowServLi').siblings().removeClass('nowServLi');
+				var gradeOneId=$('div.tab-title ul li:first').attr('id');
+				maoneyType_parts(gradeOneId);
+				// 点击tab
+				$('div.tab-title ul li').unbind('click').bind('click',function(){
+					var thisLi_id=$(this).attr('id');
+					$(this).removeClass('nowServLi').addClass('nowServLi').siblings().removeClass('nowServLi');
+					var theIndex=$(this).index();
+					if(theIndex==0){
+						$('div.tab-detail-title canvas').css('left',0.14*$('div.tab-title').width())
+					}else if(theIndex==1){
+						$('div.tab-detail-title canvas').css('left',0.48*$('div.tab-title').width())
+					}else if(theIndex==2){
+						$('div.tab-detail-title canvas').css('left',0.82*$('div.tab-title').width())
+					}
+					maoneyType_parts(thisLi_id)
+				})
+			},
+			error:function(xhr){
+				var error=eval('('+xhr.responseText+')');
+				alert(error[0].message)
+			}
+		});
+		
+		// 时间控件
+		var date = new Date();
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/common/server/time',
+			type:'get',
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				date= new Date(data.currentTimeFormat.replace(/-/g,'/'));
+				var nowHour=date.getHours();
+				if(nowHour>=12){
+					date.setDate(date.getDate()+2);	
+				}else{
+					date.setDate(date.getDate()+1);	
+				}
+				date.setHours("0");
+				date.setMinutes("0");
+				date.setSeconds("0");
+				var nowYear=date.getFullYear()+5;
+				$("#userTime").mobiscroll().date({
+			        theme: "bootstrap", 
+			        mode: "scroller",   
+			        display: "modal", 
+			        lang: "zh",       
+			        minDate:date, 
+			        dateFormat: 'yy-mm-dd', 
+			        // stepMinute: 5 
+			        endYear:nowYear 
+			    });
+			    $("#userTime").bind('click',function(){
+					var dwHeight=$('div.dw').outerHeight();
+					$('div.dw').css({'top':'50%','margin-top':'-'+(dwHeight/2)+'px'});
+					 $(window).off("scroll")
+			    });
+			}
+		});
+		// 获取字符串中数字
+		function getNum(text){
+			var value = text.replace(/[^0-9]/ig,""); 
+			return parseInt(value)
+		};
+		// 错误框
+		var errorLog=function(msg){
+			$('div.errorLog').show();
+			$('div.errorLog p').html(msg);
+			var errorHeight=$('div.errorLog p').outerHeight();
+			$('div.errorLog p').css({'top':'50%','margin-top':'-'+errorHeight/2+'px'});
+			$('div.errorLog').unbind('click').bind('click',function(){
+				$('div.errorLog').hide()
+			});
+			setTimeout(function(){
+				$('div.errorLog').hide()
+			},3000)
+		};
+		
+		
+		// 点击支付
+		$('p.payBtn').unbind('click').bind('click',function(){
+			if(paramJson.customerId==undefined||paramJson.customerId=='null'||paramJson.customerId==''||paramJson.customerId==null){
+					window.location.href='http://w2l?presentType=2&androidName=8&iosName=LoginViewController'
+			}else{
+				if($('input#userTime').val()==''){
+					errorLog('预约时间必填');
+					return false
+				}
+				if($.trim($('textarea').val())==''){
+					errorLog('服务地址必填');
+					return false
+				}
+
+				if($.trim($('input#plateNumber').val())==''){
+					errorLog('车牌号必填');
+					return false
+				}
+				/**if($.trim($('input#vinNumber').val())==''){
+					errorLog('识别码必填');
+					return false
+				}**/
+				if($.trim($('input#vinNumber').val())!=""&&$.trim($('input#vinNumber').val()).length!=17){
+					errorLog('请输入正确的识别码');
+					return false
+				}
+				var mustData={};
+				mustData.customerId=paramJson.customerId;
+				mustData.carInfoId=paramJson.carInfoId;
+				mustData.plateNumber=$.trim($('input#plateNumber').val());
+				mustData.vinNumber=$.trim($('input#vinNumber').val());
+				$.ajax({
+					url:'/yangchebao-app-ws/ws/0.1/user/complete/editCarInfo',
+					type:'post',
+					dataType:'json',
+					data:$.toJSON(mustData),
+					contentType:'application/json;charset=utf-8',
+					success:function(data){
+						postData.customerId=paramJson.customerId;
+						productsJson.products=[];
+						$('ul.tab-detail-ul li.clearfix').each(function(){
+							var theJson={};
+							theJson.productId=$(this).find('p.li-left-pTwo').attr('id');
+							theJson.productName=$(this).find('span.partSortName').html();
+							productsJson.products.push(theJson)
+						});
+						productArrayJson.products=[];
+						productArrayJson.products.push(productsJson);
+						postData.productArray=[];
+						postData.productArray.push(productArrayJson);
+						if($('div.ktqx_wraper img.isChecked').attr('src')=='./img/ktqxChecked.png'){
+							postData.productArray=[];
+							postData.productArray.push(productArrayJson);
+							postData.productArray.push(ktqxJson)
+						}
+						if((!($('article.ableRedbag').is(':hidden'))) && ($('div.ableRedbag-detail-right img.isChecked').attr('src')=='./img/ktqxChecked.png')){
+							postData.isUseVoucher=1
+						}else{
+							postData.isUseVoucher=0
+						}
+						postData.sumPrice=getNum($('p.payMoney span').html());
+						postData.reserveDate=$('input#userTime').val();
+						postData.address=$('textarea').val();
+						$.ajax({
+							url:'/yangchebao-app-ws/ws/0.1/externmaintain/order/v3',
+							type:'post',
+							dataType:'json',
+							data:$.toJSON(postData),
+							contentType:'application/json;charset=utf-8',
+							success:function(data){
+								var bodyHeight=$('body').height();
+								var windowHeight=window.screen.availHeight;
+								$('div.dialog').show();
+								if(bodyHeight>windowHeight){
+									$('div.dialog').height(bodyHeight)
+								}else{
+									$('div.dialog').height(windowHeight)
+								}
+								// 支付框居中
+								var dialogWraperHeight=$('div.dialogWraper').outerHeight();
+								$('div.dialog div.dialogWraper').css({'top':'50%','margin-top':'-'+dialogWraperHeight/2+'px'});
+								var payChannelKey='';
+								$('div.dialogWraper div.payItem').unbind('click').bind('click',function(){
+									var $payItem=$(this);
+									if($payItem.find('img.payCheck').attr('src')=='./img/payUnchecked_icon.png'){
+										$payItem.addClass('checkPayItem').siblings().removeClass('checkPayItem');
+										$payItem.find('img.payCheck').attr('src','./img/payChecked_icon.png');
+										$payItem.siblings().find('img.payCheck').attr('src','./img/payUnchecked_icon.png')
+									}
+								});
+								$('div.dialog').bind('click',function(e){
+									if($(e.target).closest('#dialogWraper').length==0){
+										$('div.dialog').hide();
+										history.go(0)
+									}
+								});
+								$('div.dialog div.payBtn').unbind('click').bind('click',function(){
+									$('div.dialog').hide();
+									var payChannel=$('div.dialog div.checkPayItem').attr('data-id');
+									var payLink=function(){
+										window.location.href="payResult.html"
+									}
+									window.location.href = 'http://w2l/?presentType=1&needLogin=1&androidName=29&iosName=MyWebViewController&sourceId='+data.sourceId+'&itemType=1&fromChannel='+data.orderChannel+'&payChannel='+payChannel;
+									setTimeout(payLink,100)
+								})
+							},
+							error:function(xhr){
+								var error=eval('('+xhr.responseText+')');
+								errorLog(error[0].message)
+							}
+						})
+					},
+					error:function(xhr){
+						var error=eval('('+xhr.responseText+')');
+						errorLog(error[0].message)
+					}
+				})
+				
+			}
+			
+		})
+		
+	})
+</script>
+</html>

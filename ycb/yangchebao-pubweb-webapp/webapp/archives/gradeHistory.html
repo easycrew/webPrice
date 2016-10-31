@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<script src="../js/jquery-1.9.1.min.js"></script> 
+<script src="js/index.js"></script> 
+<script src="js/commen.js"></script> 
+<link rel="stylesheet" href="./css/calender.css">
+<title>排行榜和奖品</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+html{
+	font-size:62.5%;
+}
+body{
+	background-color: #F4F7F8;
+	font-family:'华文细黑','HelveticaNeue-Light'; 
+	color:#1e1e1e;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+body,html{
+	min-height:100%;
+}
+ol{
+	list-style: none;
+}
+img{
+	border:none;
+}
+.clearfix {
+   *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+   display: table;
+   line-height: 0;
+   content: "";
+}
+.clearfix:after {
+  clear: both;
+} 
+a{
+	text-decoration: none;
+} 
+ul,ol{
+	list-style: none;
+}
+.tabs{
+	padding: 1.5rem 2rem;
+	height: 3.4rem;
+	line-height: 3.4rem;
+	text-align: center;
+	font-size: 1.4rem;
+}
+.tabs span{
+	display: block;
+	width: 50%;
+	float: left;
+	box-sizing:border-box;
+}
+
+.tabs span{ 
+	color:#FB451F;
+	background-color: #fff;
+	border:1px solid #FB451F; 
+}
+.tabs span.current{ 
+	color:#FFFFFF;
+	background-color: #FB451F; 
+}
+.tabs .ltab{  
+	border-radius: 18px 0 0 18px;
+}
+.tabs .ftab{  
+	border-radius: 0 18px 18px 0;
+} 
+.title{
+	font-size:1.2rem;
+	color:#A2A2A2; 
+	text-align:center;
+	padding: 0.5rem 0;
+} 
+.glist{
+	display: table;
+	width: 100%;
+	background-color: #fff;
+}
+.glist li{
+	display: table-row;  
+}
+.glist li>div{
+	display: table-cell;
+	vertical-align: middle; 
+	text-align: center;
+	border-bottom:1px solid #C2C2C6; 
+	padding:2rem 0; 
+}
+.glist li>div:first-child{ 
+	text-align: left;
+	padding-left: 1.5rem;
+	position: relative;
+} 
+.glist li>div:last-child{ 
+	padding-right: 1.5rem; 
+} 
+.glist .info{
+	font-size: 1.5rem;
+}
+.glist label{
+	font-size: 1.2rem; 
+    color:#C2C2C6; 
+    display: block;
+} 
+.glist li>div:first-child label{
+	padding-left: 30px; 
+} 
+.glist img{
+	left: 135px;
+    position: absolute;
+    top: 1.8rem;
+    width: 1.7rem;
+} 
+.idx {
+    display: inline-block;
+    width: 30px;
+}
+.date-wrap{
+	background-color: #fff;
+	text-align: center; 
+	padding: 1.8rem 1.5rem;
+	border-bottom:1px solid #C2C2C6;  
+	margin-bottom: 1rem;
+}
+.date-wrap h1{ 
+	color:#6EAADE; 
+	font-weight: normal;
+	font-size:1.4rem;
+	border-bottom: 1px solid #6EAADE; 
+	padding-bottom: 1.1rem;
+	margin-bottom: 1.1rem;
+	position: relative;  
+}
+.date-wrap h2{
+	font-size:10vw;   
+	font-weight: normal;
+	color: #FF6138;
+} 
+.date-wrap h3{
+	font-size:1.4rem;   
+	font-weight: normal;
+} 
+.arrow
+{  
+  display:block;  
+  height:0px;  
+  width:0px;  
+  position:absolute;  
+  font-size:0;   
+  top:6px;    /* 它的绝对值加上span的边框宽度等于div边框宽度的5倍 */  
+  left:50%;   /* 它来确定尖角的位置 */  
+  margin-left: 70px;
+  border-top:0px;  
+  border-top:6px solid #6EAADE;  /* 注意颜色的变化 */  
+  border-right:6px solid white;  
+  border-left:6px solid white;  
+} 
+.hlist{
+	 border-bottom: 1px solid #c2c2c6;
+	 background-color: #fff;
+	 margin-bottom: 1rem;
+	 font-size:1.2rem;  
+	 padding: 2rem 1.5rem 1.5rem;
+	 margin-bottom:5.4rem;
+}
+.hlist h1{ 
+	font-weight: normal;
+	font-size: 1.2rem;
+	border-bottom: 1px solid #c2c2c6;
+	padding: 0.7rem 0 0.7rem 2rem;
+	margin-bottom: 2rem;
+	background-image: url(images/dicon.png);
+	background-size: 1.5rem auto;
+	background-repeat: no-repeat;
+	background-position: left 0.7rem;  
+}
+.hlist p{  
+	line-height: 150%;
+}
+.hlist p span{  
+	color:#FF6138;  
+}
+.hlist p strong{  
+	font-weight: normal;
+	font-size: 1.4rem;
+}
+.dateHtml{
+    position:absolute;
+	width:100%;
+	left:0;
+	display:none;
+	z-index:200;
+	background-color:#fff;
+}
+.bottom-btn{
+    height:4.4rem;
+	text-align:center;
+	color:#fff;
+	width:100%;
+	display:block;
+	position:fixed;
+	bottom:0;
+	background-color:#FF6138;
+	line-height:4.4rem;
+	font-size:1.6rem;
+}
+header{
+	font-size: 1.2rem; 
+	padding: 0 3rem; 
+	border-bottom:1px solid #d9d9e2;
+	margin-bottom: 1rem;
+	background-color: #fff;
+}
+header .box-wrap{ 
+	border-bottom:1px solid #C2C2C6; 
+	height: auto;
+	overflow: auto; 
+	padding: 3rem 0 2rem; 
+}
+header .left{
+	float: left;
+	width: 13rem; 
+}
+header .left img{
+	display: block;
+	width: 10.5rem;
+	margin-left: 0.5rem;
+}
+header .right{
+	margin-left: 7.6rem;
+	padding-top: 0.9rem;
+} 
+header .right h1{ 
+	font-size:1.8rem;
+	color:#FF6138; 
+	font-weight: normal;
+} 
+header h2{  
+	font-size:1.5rem; 
+	text-align:center;
+	font-weight: normal;
+	padding: 1.4rem 0;
+} 
+header .btn-wrap{  
+	font-size:1.5rem; 
+	text-align:center;
+	font-weight: normal;
+	padding: 0 1.1rem 2rem;
+	height: auto;
+	overflow: auto; 
+} 
+header .two-btn>div{  
+	 width: 50%;
+	 float: left;
+}
+header .btn-wrap a{  
+	font-size:1.4rem;
+	color:#FF6138;
+	line-height:3rem;
+	text-align:center;
+	display: block;
+	height: 3rem;
+	border: 1px solid #FF6138;
+	border-radius: 3px;
+} 
+header .two-btn .lbtn{  
+	margin-right: 1rem;
+} 
+header .two-btn .rbtn{  
+	margin-left: 1rem;
+}
+.date-wrap .secondDate{
+	padding-top:1.1rem;
+	margin:0;
+}
+.date-wrap2 .arrow{
+	margin-left:90px;
+	top:1.6rem;
+}
+.date-wrap2{
+	/**background-color:#F4F7F8; **/
+	border:none;
+	padding:0;
+}
+
+.null-tip::before {
+    border-bottom: 1px solid #cfd1db;
+    content: "";
+    display: inline-block;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    width: 2.4em;
+}
+.null-tip::after {
+    border-bottom: 1px solid #cfd1db;
+    content: "";
+    display: inline-block;
+    margin-left: 0.5em;
+    vertical-align: middle;
+    width: 2.4em;
+}
+.null-tip {
+    color: #cfd1db;
+    display: none;
+    font-size: 1.5rem;
+    margin-top: 4rem;
+    text-align: center;
+} 
+.tip {
+    color: #a0a097;
+    cursor: pointer;
+    display: none;
+    font-size: 1.5em;
+    padding: 10px;
+    text-align: center;
+}
+/**错误提示**/
+.tasat-wrap{
+   position: fixed;
+   text-align: center;
+   bottom: 50%;
+   width: 100%; 
+}
+.tasat {
+	background-color: #000;
+	border-radius: 8px;
+	color: #fff;
+	display: inline-block;
+	font-size: 14px;
+	margin: 0 20px;
+	opacity: 0.8;
+	padding: 10px;
+}   
+.hasData {
+    background-color: #fff;
+    border-radius: 100%;
+    color: #a2a2a2 !important;
+    padding: 0 8.5px;
+}
+</style>
+<body>
+	<p><input name="eventId" type="hidden" value="FileDrivingRewardPage"></p>
+	<p><input name="rightNavBtnInfo" type="hidden" value="奖励说明" /> 
+	<input name="rightNavBtnInfo" type="hidden" value="http://app.yangchebao.com.cn/yangchebao-pubweb/archives/comment.html" /> 
+	<input name="rightNavBtnInfo" type="hidden" value="0" /></p>
+    <script type="text/javascript">
+		function getBasePageInfos(){
+         var btnTxt = $("input[name='rightNavBtnInfo']:eq(0)").val();
+         var actionUrl = $("input[name='rightNavBtnInfo']:eq(1)").val();
+         var isNeedLogin = $("input[name='rightNavBtnInfo']:eq(2)").val();
+         var infoJson={};
+         infoJson.titleBtnActions=[];
+         var btnJson={};
+         btnJson.btnTxt=btnTxt;
+         btnJson.actionUrl=actionUrl;
+         btnJson.isNeedLogin=isNeedLogin;
+         infoJson.titleBtnActions.push(btnJson);
+         var infoJsonStr=JSON.stringify(infoJson);
+         window.shareInfos.getBasePageInfos(infoJsonStr);
+        }
+	</script>
+	<div class="tabs" style="display:none;">
+		<span class="ltab current" tab="glist">排行榜</span>
+		<span class="ftab" tab="hlist">获奖历史</span>
+	</div>
+	<header style="display:none;"> 
+        <div class="box-wrap">
+    	<div class="left"><img src="images/box.png"></div>
+    	<div class="right">
+    		<h1>装安防神器</h1>
+    		<p>随时随地掌握车辆状况</p>  
+    	</div>
+    	</div>
+    	<h2>矫正驾驶行为，赢取养车大礼</h2>
+    	<div class="btn-wrap"> 
+    		<div>
+    			<a class="rbtn" id="lechengLink" href="javascript:void(0);">获得安防神器</a>
+    		</div> 
+    	</div> 
+    </header> 
+	<section class="glist-wrap">
+		<article class="date-wrap">
+			<h1 class="date firstDate" style="display:none;"><label>2014年10月27日</label><span class="arrow"></span></h1>
+			<h1 class="date secondDate" style="display:none;">车主排名&nbsp;&nbsp;<label>2014年10月27日</label><span class="arrow"></span></h1>
+			<div class="dateHtml">
+				<article class="calender-top">
+					<div class="dateWraper">
+						<span class="arrowL Arrow" style="color: #fff;">1</span>
+						<span class="theDate"><span class="year"></span>年<span class="month"></span>月</span>
+						<span class="arrowR Arrow" style="color: #fff;">1</span>
+					</div>
+				</article>
+				<article class="calender-bottom">
+					<table class="Table-date" border="0" cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th>日</th>
+								<th>一</th>
+								<th>二</th>
+								<th>三</th>
+								<th>四</th>
+								<th>五</th>
+								<th>六</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</article>
+			</div>
+			<h2 class="gradeNum" style="display:none;">--</h2>
+			<h3 class="gradeLabel" style="display:none;">我的排名</h3>
+		</article>  
+		<ul class="glist">
+		<!-- 	<li>
+				<div>
+					<p class="info"><span class="idx">1.</span><span class="phone">130****5083</span></p>
+					<label>奥迪A3</label>
+					<img src="images/flower.png"/>
+				</div> 
+				<div>
+					<p class="info">89</p>
+					<label>驾驶平均分</label>
+				</div>
+				<div>
+					<p class="info">672</p>
+					<label>行驶里程</label>
+				</div> 
+			</li>  -->
+		</ul>
+		<p class="glist-null null-tip">排行榜暂时无数据</p>
+		<p class="tip gtip">点击查看更多</p>  
+	</section>
+	<section class="hlist-wrap"  style="display:none;">
+		<ul class="hlist">
+			<!-- <li>
+				<h1>2015年10月05日</h1>
+				<p>保险金奖励：<span>+5元</span></p>
+				<p>服务奖励：<span><strong>30</strong>元洗车券</span></p>
+			</li>  --> 
+		</ul> 
+		<a class="bottom-btn" href="http://w2l/?presentType=1&needLogin=0&androidName=17&iosName=MyVoucherViewController">
+		   查看服务代金券
+		</a>
+		<p class="hlist-null null-tip">您还没有获奖记录</p> 
+		<p class="tip htip">点击查看更多</p>
+	</section>    
+	<p style="height: 10px;margin: 20px 0px;font-size: 13px;text-align:center;color:#666;display:none;" id="iosInfo">本次活动与Apple Inc.无关</p>
+<script type="text/javascript">
+var paramJson = {}; 
+var pageindex = 0;
+var pageindex2 = 0;
+var gNum = 0;
+$(document).ready(function(){    
+	var url = window.location.search; 
+	var paramsArr = (url.split("?")[1]).split("&"); 
+	$.each(paramsArr,function(i){
+	var item = paramsArr[i].split("=");
+	paramJson[item[0]] = item[1];
+	}); 
+	var sUserAgent = navigator.userAgent.toLowerCase(); 
+    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+    var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+    var bIsAndroid = sUserAgent.match(/android/i) == "android"; 
+    if(bIsIpad || bIsIphone || bIsIphoneOs){
+	$("#iosInfo").show();
+    } 
+	if(paramJson.box=="1"){
+		$(".tabs").show();
+		$(".gradeNum").show();
+		$(".gradeLabel").show();
+		$(".firstDate").show();
+	}else{
+	    $("header").show(); 
+		$(".secondDate").show();
+		$(".date-wrap").addClass("date-wrap2"); 
+	}
+	$(".tabs span").click(function(){
+		$(".current").removeClass("current");
+		var tab = $(this).attr("tab"); 
+		$(this).addClass("current");
+		if(tab=="glist"){
+			$(".glist-wrap").show();
+			$(".date-wrap").show();
+			$(".hlist-wrap").hide();  
+		}else{
+			$(".glist-wrap").hide(); 
+			$(".hlist-wrap").show();  
+		}
+	});   
+	$(".date-wrap .date").click(function(){
+		if($(".dateHtml").css("display")=="none"){
+			$(".dateHtml").show(); 
+			$(".glist").hide();
+		}else{
+			$(".dateHtml").hide(); 
+			$(".glist").show();
+		}
+	});
+	var dd = new Date(); 
+	dd.setDate(dd.getDate()-1);//获取AddDayCount天后的日期
+	var y = dd.getFullYear();
+	var m = dd.getMonth()+1;//获取当前月份的日期
+	var d = dd.getDate(); 
+	if(m<10){
+	   m = "0"+m;
+	}
+	if(d<10){
+	   d = "0"+d;
+	}
+	var dateNum = y+"-"+m+"-"+d;   
+	$(".date label").html(y+"年"+m+"月"+d+"日");
+	calender(paramJson.userId,y,m);
+	paramJson.dateNum = dateNum;
+	getSequence();
+	getGradeList();
+	getHistoryList();
+	$(".dateHtml tbody").on('click',"span",function(event){  
+	    var day = $(event.target).html();
+		if(day<10){
+			day = "0"+day;
+		}
+		dateNum = $(".dateHtml .year").html()+"-"+$(".dateHtml .month").html()+"-"+day;
+		var dateStr = $(".dateHtml .year").html()+"年"+$(".dateHtml .month").html()+"月"+day+"日";
+		var old = $(".date label").html();
+		if(dateStr!=old){
+		   $(".date label").html(dateStr);
+			pageindex = 0; 
+			paramJson.dateNum = dateNum;
+			gNum = 0;
+			$(".glist-null").hide(); 
+			getSequence();
+			getGradeList();  
+			
+		}
+		$(".dateHtml").hide(); 
+		$(".glist").show();
+	}); 
+	$(".gtip").click(function(){
+		getGradeList();
+	});
+	$(".htip").click(function(){
+		getHistoryList();
+	}); 
+	$("#commentLink").click(function(){ 
+		window.location.href = "comment.html"; 
+	});
+	$("#lechengLink").click(function(){ 
+	    var url = "http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/carEarn/boxIntro.html";
+		isLogin(url); 
+	});
+		
+});
+function getSequence(dateNum){   
+	$.ajax({
+	      url: '/yangchebao-app-ws/ws/0.1/driving/getSequence?userInfoId='+paramJson.userId+'&dateNum='+paramJson.dateNum,
+	      type: 'get',  
+	      async:false,
+	      dataType: 'json',
+	      success: function(data) { 
+	      	$(".gradeNum").html(data.sequence);
+	      }
+	 });
+}
+function getGradeList(){  
+	$.ajax({
+	      url: '/yangchebao-app-ws/ws/0.1/driving/getFirst100UserRankList?userInfoId='+paramJson.userId+'&dateNum='+paramJson.dateNum+'&pageindex='+pageindex+'&pagesize=10',
+	      type: 'get',  
+	      async:false,
+	      dataType: 'json',
+	      success: function(data) {  
+		      if(pageindex==0){
+				$(".glist").html("");
+			  }
+              if((data.page+1)<data.totalPages){
+                $(".gtip").show();
+              } else{
+                $(".gtip").hide();
+              }  
+              pageindex++;  
+              var items = data.items;
+              if(items.length>0){ 
+              $.each(items,function(i){
+                var item = items[i];  
+                var flower = "";
+				gNum++;
+                var mobile = item.mobile.substring(0,3)+"****"+item.mobile.substring(7,11);
+                if(item.awardStatus=="Y"){
+                	flower = '<img src="images/flower.png"/>';
+                }
+                var _li = '<li>'
+			    	+'	<div>'
+			    	+'		<p class="info"><span class="idx">'+gNum+'.</span><span class="phone">'+mobile+'</span></p>'
+			    	+'		<label>'+item.modelName+'</label>'
+			    	+ flower
+			    	+'	</div>'
+			    	+'	<div>'
+			    	+'		<p class="info">'+item.avgScore+'</p>'
+			    	+'		<label>驾驶平均分</label>'
+			    	+'	</div>'
+			    	+'	<div>'
+			    	+'		<p class="info">'+item.dateMileage+'</p>'
+			    	+'		<label>行驶里程</label>'
+			    	+'	</div> '
+			    	+'</li>';
+                $(".glist").append(_li);
+              });
+            }else{ 
+               $(".glist-null").show();
+            }
+	      }
+	 });
+}
+function getHistoryList(){   
+	$.ajax({
+	      url: '/yangchebao-app-ws/ws/0.1/driving/getUserAwardList?userInfoId='+paramJson.userId+'&pageindex='+pageindex2+'&pagesize=10',
+	      type: 'get',  
+	      async:false,
+	      dataType: 'json',
+	      success: function(data) {   
+		      if(pageindex2==0){
+				$(".hlist").html("");
+			  }
+              if((data.page+1)<data.totalPages){
+                $(".htip").show();
+              } else{
+                $(".htip").hide();
+              }  
+              pageindex2++;  
+              var items = data.items; 
+              if(items.length>0){
+              $.each(items,function(i){
+                var item = items[i];   
+                var _li = '<li>'
+			    	+'	<h1>'+item.dateNum+'</h1>'
+			    	+'	<p>代金券奖励：<span>'+item.awardName+'</span></p>';
+			    	+'</li> ';
+                $(".hlist").append(_li);
+              });
+            }else{
+               $(".hlist-null").show();
+			   $(".hlist").hide();
+            }
+	      }
+	 });
+} 	 
+</script> 
+</body>
+
+</html>
+

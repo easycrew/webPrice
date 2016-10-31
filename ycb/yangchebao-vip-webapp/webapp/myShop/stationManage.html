@@ -1,0 +1,181 @@
+
+<div class="urlContentWraper" id="Wraper_station_manage">
+    <div class="ui-info-layout">
+    	<div class="vdiv">
+            <table id="Table_station_list"></table>
+        </div>
+	</div>
+    <div id="Form_station_add" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid"> 
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>工位名称：</label>
+                <div class="span12 grid-layout-content fluid-wrap" placeholder="例：一号保养位">
+                    <div name="stationName" class="jrad-input-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>工位类型：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="stationType" class="jrad-select-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">设备：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="equipment" class="jrad-textarea-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>状态：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="status" class="jrad-select-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <button class="jrad-btn-primary btn btn-small btn-primary">确定</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div>  
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var wraper = $('#Wraper_station_manage');
+	var parentId = carsmart_config.shopId;
+    var page_column_model = new Array();
+    var page_list_buttons = new Array(); 
+
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    var field_params={};  
+    field_params['status']={data:[{id:'1',name:'有效'},{id:'0',name:'无效'}]};
+    var work_station_type = 'work_station_type'
+    field_params["stationType"]={
+       urlData: {
+           url: '/vip-ws/ws/0.1/shopBaseInfo/getDataList?type='+work_station_type,// 动态数据源请求url
+           id: 'code',// 隐含值
+           name: 'name',// 展示值
+           type: 'get',// 请求方式
+           dataType: 'json'// 返回数据类型
+       },
+       val: '',
+       unshiftData: {id:' ',name:'请选择'}
+    }
+    var insert = "insert";
+    var update = "update";
+    page_column_model.push({display: '工位ID', name : 'stationId',hidden:true});
+    page_column_model.push({display: '工位名称', name : 'stationName'});
+    page_column_model.push({display: '工位类型', name : 'stationTypeName'});
+    page_column_model.push({display: '设备', name : 'equipment'});  
+    page_column_model.push({display: '状态', name : 'status',diy:function(item,$div){
+        if(item.status == 1){
+            $div.html("有效")
+        }else{
+            $div.html("无效")
+        }
+    }});
+    page_column_model.push({display: '操作', name : 'operate',width:200 ,diy:function(item,$div){
+        var $edit = $("<a>").addClass('flexOperate').html("修改"); 
+        var $del = $("<a>").addClass('flexOperate').html("删除");
+        $div.append($edit).append($del)
+        
+        $edit.click(function(e){
+            var stationName = item.stationName?item.stationName:""; 
+            var stationType = item.stationType?item.stationType:"";   
+            var equipment = item.equipment?item.equipment:"";  
+            var status = item.status?item.status:"";  
+            var stationId = item.stationId?item.stationId:""; 
+            var param ={stationName:stationName,stationType:stationType,equipment:equipment,status:status}
+             
+            $('#Form_station_add').form({
+                title: '修改', 
+                fields:field_params,
+                item: param,  
+                url: '/vip-ws/ws/0.1/shopBaseInfo/saveStation',
+                preSubmit:function(json){ 
+                    json.businessInfoId = carsmart_config.businessInfoId;
+                    json.saveType = update;
+                    json.userId = carsmart_config.userId;
+                    json.stationId = stationId
+                    return json;
+                },
+                success:function(){ 
+                    $('#Table_station_list').flexMessage('修改成功', 'success');
+                    $('#Table_station_list').flexReload();
+                }
+            }).form('open');
+        });
+
+        $del.click(function(e){
+            $.jRadConfirm('确认删除'+item.stationName+'工位？',1,function(){
+                var stationId = item.stationId?item.stationId:""; 
+                var postData = {};
+                postData.stationId = stationId;
+                $.jRadPost({  
+                    url:'/vip-ws/ws/0.1/shopBaseInfo/deleteStation',
+                    data:postData, 
+                    success: function(data){ 
+                        $('#Table_station_list').flexMessage('删除成功!', 'success');
+                        $('#Table_station_list').flexReload();
+                    },
+                    error:function(xhr){ 
+                        var errormsg = eval("(" + xhr.responseText + ")"); 
+                        if (errormsg != undefined) {
+                            $('#Table_station_list').flexMessage(errormsg[0].message, 'error');
+                        }
+                    }
+                });
+            }); 
+        });
+    }});
+
+    page_list_buttons.push({title: '创建',displayname:'创建',bclass: 'icon-plus',
+        onpress: function() { 
+            $('#Form_station_add').form({
+                title: '创建',
+                fields:field_params,
+                item:{},
+                url:'/vip-ws/ws/0.1/shopBaseInfo/saveStation',
+                preSubmit:function(json){
+                    json.businessInfoId = carsmart_config.businessInfoId;
+                    json.saveType = insert
+                    json.userId = carsmart_config.userId;
+                    return json;
+                },
+                success: function() {
+                    $('#Table_station_list').flexMessage('创建成功', 'success');
+                    $('#Table_station_list').flexReload();
+                }
+            }).form('open');
+            $("#Form_station_add input[name='stationName']").attr("maxlength","60")
+        }
+    });
+
+    $('#Table_station_list').flexigrid({
+        reload: true,
+        pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model,
+        buttons : page_list_buttons,
+        pagedStyle: 'oc',
+		method:'get',
+		showSearch:true,
+        showCheckbox: false, 
+        overflow:true,
+        checkBoxType:'single',
+        url:'/vip-ws/ws/0.1/shopBaseInfo/getStationList?businessInfoId='+carsmart_config.businessInfoId
+    });
+
+    $('.vdiv .hDiv tr th').eq(0).attr("style","display:none;")
+
+    $('.hDiv',wraper).css('overflow','hidden');
+    $('.bDiv',wraper).css('overflow-x','scroll');
+
+});
+</script>

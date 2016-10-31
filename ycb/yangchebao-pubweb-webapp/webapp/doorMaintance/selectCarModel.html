@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/md50000000000000000000000000000.js"></script>
+    <script src="./js/main.js"></script>
+	<title>选择车系</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+		div.container{
+			background-color: #fff;
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+
+
+
+		ul.allModels-ul li{
+			border-bottom: 1px solid #C3C4C4;
+		}
+		ul.allModels-ul li div.carModel-title{
+			background-color: #F2F3F4;
+			border-bottom: 1px solid #C3C4C4;
+			color: #999;
+			font-size: 1.2rem;
+			line-height: 2rem;
+			padding: 0 1.5rem;
+		}
+		ul.allModels-ul li div.carModel-detail{
+			padding-left: 3.2rem;
+		}
+		ul.allModels-ul li div.carModel-detail p{
+			color: #323434;
+			font-size: 1rem;
+			line-height: 3.8rem;
+			border-bottom: 1px solid #C3C4C4;
+			cursor: pointer;
+		}
+		ul.allModels-ul li div.carModel-detail p:last-child{
+			border-bottom: none!important;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<ul class="allModels-ul">
+			<!-- <li> -->
+				<!-- <div class="carModel-title">一汽-大众奥迪</div> -->
+				<!-- <div class="carModel-detail"> -->
+					<!-- <p>奥迪A3</p>
+					<p>奥迪A3</p>
+					<p>奥迪A3</p>
+					<p>奥迪A3</p> -->
+				<!-- </div>
+			</li> -->
+			<!-- <li>
+				<div class="carModel-title">一汽-大众奥迪</div>
+				<div class="carModel-detail">
+					<p>奥迪A3</p>
+					<p>奥迪A3</p>
+					<p>奥迪A3</p>
+					<p>奥迪A3</p>
+				</div>
+			</li>
+			<li>
+				<div class="carModel-title">一汽-大众奥迪</div>
+				<div class="carModel-detail">
+					<p>奥迪A3</p>
+					<p>奥迪A3</p>
+					<p>奥迪A3</p>
+					<p>奥迪A3</p>
+				</div>
+			</li> -->
+		</ul>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		
+		// 初始化车系列表
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/support/model/list?brandId='+paramJson.brandId,
+			type:'get',
+			dataType:'json',
+			async:false,
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				var modelStr='';
+				data.forEach(function(key,i){
+					// modelStr+='<p>'+key+'</p>'
+					modelStr+='<li>'
+							 +'<div class="carModel-title" id="'+key.id+'">'+key.name+'</div>'
+							 +'<div class="carModel-detail">'
+					key.models.forEach(function(key2,j){
+						modelStr+='<p id="'+key2.id+'">'+key2.name+'</p>'
+					});
+					modelStr+='</div></li>'
+				});
+				$('ul.allModels-ul').html(modelStr);
+				$('ul.allModels-ul li div.carModel-detail p').unbind('click').bind('click',function(){
+					window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/doorMaintance/step1.html?_modelId="+$(this).attr('id')+'&modelName='+$(this).html()
+				})
+			}
+		})
+	})
+</script>
+</html>

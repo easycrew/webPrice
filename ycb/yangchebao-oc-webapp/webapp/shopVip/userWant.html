@@ -1,0 +1,675 @@
+﻿<div class="urlContentWraper" id="Wraper_shopvip_userWant">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>我要管理</strong><bottom class="all-work-info numb155">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <table id="Table_shopvip_userWant"></table>
+    </div>
+    <div id="Form_shopvip_userWant" style="display:none;width:1380px;">
+        <div class="grid-layout-main jrad-form" style="float:left;width:400px;height:310px;" id="formone"> 
+            <div class="row">
+                 <label class="span3 grid-layout-label">
+				 问题类型：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div name="title"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">
+				 问题内容：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+						<div name="detail"></div>
+				 </div>
+            </div>
+			<div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 回答内容：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+						<div class="jrad-textarea-container" name="content"></div>
+				 </div>
+            </div>
+			<div class="row">
+                 <label class="span3 grid-layout-label">
+				 推荐商家：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="businessInfoId"></div>
+                       <p class="nameTips"></p>
+
+                 </div>
+            </div>
+            <div class="row defaultHide">
+                 <label class="span3 grid-layout-label">
+				 推荐服务：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div name="zeroService" class="jrad-select-container service"></div>
+                       <p id="serviceNames"></p>
+                 </div>
+            </div> 
+            <input type="hidden" name="userWantId"/> 
+            <input type="hidden" name="userWantFeedbackId"/> 
+            <input type="hidden" name="serviceId"/> 
+        </div>
+        <div class="grid-layout-main jrad-form" style="width:440px;position:absolute;right:410px;top:40px;">
+            <div class="row" style="display:inline-block;width:440px;float:left;">
+            	<div style="width:440px;height:300px;border:#ccc solid 1px;" id="dituContent"></div>
+            </div>
+        </div>
+        <div class="grid-layout-main jrad-form" id="map_service" style="width:390px;position:absolute;right:0;top:40px;">
+            <div style="display:inline-block;width:390px;" class="select-wraper">
+	        	<div class="row">
+	                 <label class="span3 grid-layout-label">
+					 推荐服务：</label>
+	                 <div class="span6 grid-layout-content fluid-wrap">
+	                       <div name="zeroService2" class="jrad-select-container service"></div>
+	                       <p id="serviceNames2"></p>
+	                 </div>
+	            </div>
+	        </div>
+	        <div style="text-align:right;padding:0px 30px 0 0;"><a href="javascript:" id="_search">搜索</a></div>
+	    </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_userWantCheck" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			<input type="hidden" name="id"/>
+			<div class="row"> 
+				 <div class="span5 grid-layout-content">
+					   <div name="auditRemark" class="jrad-textarea-container"></div>
+									</div>
+			</div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container">
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+    <div id="Form_explain_eg155" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>此功能已停用。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_shopvip_userWant');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	//var jRad = $.jRad('/radsample-ws','ent','Menu');	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	
+	jRad.params['provinceCodeSearch'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll'
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var provinceCode = $('.searchContent div[name=provinceId]',wraper).select('val'); 
+			if(provinceCode==''){ 
+				$('.searchContent div[name=areaCodeId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}]});
+			}else{   
+			$('.searchContent div[name=areaCodeId]',wraper).select({ 
+				urlData:{
+					url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+				},
+				unshiftData: {id:'',name:'请选择'}
+			}).select('val','');
+			}
+		}
+	};
+	jRad.params['roleList'] = {
+		urlData:{
+			url:'/vip-euc-ws/ws/0.1/role/all?pagable=false'
+		},
+		unshiftData: {id:'',name:'请选择'} 
+	};
+	var citySelect = $.jRadGet({url:'/shopmanage-ws/ws/0.1/userInfoCms/municipalityList'});
+		 
+	jRad.params['cityIdSearch'] = {
+		data: [{id:'',name:'请选择'}] 
+	}; 
+	jRad.params['status'] = {
+		data: [{id:'',name:'全部'},{id:'0',name:'未解决'},{id:'1',name:'已解决'},{id:'2',name:'已删除'}] 
+	}; 
+	jRad.params['auditStatus'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'审核中'},{id:'2',name:'审核通过'},{id:'3',name:'审核驳回'}] 
+	}; 
+    jRad.params['showMobileName'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'是'},{id:'0',name:'否'}] 
+	};
+	var fields_params = {}; 
+	fields_params['provinceId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll' 
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var provinceCode = $('#Form_shopvip_userWant div[name=provinceId]').select('val'); 
+			if(provinceCode==''){ 
+				$('#Form_shopvip_userWant div[name=areaCodeId]').select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}]});
+			}else{ 
+			$('#Form_shopvip_userWant div[name=areaCodeId]').select({
+				urlData:{
+					url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+				},
+				unshiftData: {id:'',name:'请选择'} 
+			});
+			}
+			$('#Form_shopvip_userWant div[name=areaCodeId]').select('val',''); 			
+		}
+	};
+
+	fields_params['areaCodeId'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){ 
+			var cityId = $('#Form_shopvip_userWant div[name=areaCodeId]').select('val');
+			console.log(cityId);
+			if(cityId==''){
+				$('#Form_shopvip_userWant div[name=countyId]').select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}]});
+			}else{
+				$('#Form_shopvip_userWant div[name=countyId]').select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/userInfoCms/countries?areaCodeId=' + cityId
+					},
+					unshiftData: {id:'',name:'请选择'} 
+				});
+			}
+			$('#Form_shopvip_userWant div[name=countyId]').select('val','');
+		}
+	}; 
+	fields_params['status'] = {
+			data: [{id:'1',name:'有效'},{id:'0',name:'无效'}] 
+		};
+	fields_params['auditStatus'] = {
+		data: [{id:'1',name:'审核中'},{id:'2',name:'审核通过'},{id:'3',name:'审核驳回'}] ,
+	};  
+	//;//1.洗车  2.美容 3.保养 4.维修 
+	fields_params['zeroService2'] = {
+		data: [{id:'',name:'请选择'},{id:'1',name:'洗车'},{id:'2',name:'美容'},{id:'3',name:'保养'},{id:'4',name:'维修'}] ,
+		onchange:function(val){
+			getServiceSonNode2(1,val,wraper);
+		}
+	};  
+			
+	
+   $('#Form_shopvip_userWant').form({
+		title: '编辑', 
+		fluid: true,
+		validators: jRad.validators,  
+		fields_params: fields_params,
+		autobinding:false
+	}); 
+   $('#Form_userWantCheck').form({ 
+		fields_params:{'auditRemark':{grid:14}},
+		validators: {'auditRemark':[{"msg":"请填写驳回原因","type":"min","value":"1"}]} 
+	});
+
+	page_column_model.push({display: '问题ID', name : 'userWantId'}); 
+    page_column_model.push({display: '问题类型', name : 'title'});
+    page_column_model.push({display: '问题内容', name : 'detail',width:150});
+	page_column_model.push({display: '用户ID', name : 'userInfoId'});
+	page_column_model.push({display: '应答商户ID', name : 'businessInfoId'});
+	page_column_model.push({display: '提问时间', name : 'createTime'});
+    page_column_model.push({display: '回答时间', name : 'finishedTime'});
+    page_column_model.push({display: '允许显示手机', name : 'showMobileName'});
+    page_column_model.push({display: '解决耗时(H)', name : 'elapsedTime',sortable:true});
+    page_column_model.push({display: '审核', name : 'auditStatusName'});	
+	page_column_model.push({display: '状态', name : 'statusName',width:150});
+	page_column_model.push({display: '驳回原因', name : 'auditRemark',width:150});
+	
+    
+   page_search_items.push({row:'1',type:'jrad-input',display:'问题ID',name:'userWantId'}); 
+   page_search_items.push({row:'1',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']}); 
+   page_search_items.push({row:'1',type:'jrad-select',display:'市',name:'areaCodeId',params:jRad.params['areaCodeId']}); 
+   page_search_items.push({row:'2',type:'jrad-input',display:'车系',name:'modelName'});  
+   page_search_items.push({row:'2',type:'jrad-dateinput',display:'提问时间开始',name:'createDateBottom',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}}); 
+   page_search_items.push({row:'2',type:'jrad-dateinput',display:'提问时间结束',name:'createDateTop',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}}); 
+   page_search_items.push({row:'3',type:'jrad-input',display:'解决耗时大于(H)',name:'elapsedTime'}); 
+   page_search_items.push({row:'3',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+   page_search_items.push({row:'3',type:'jrad-input',display:'商家ID',name:'businessInfoId'});
+   page_search_items.push({row:'4',type:'jrad-select',display:'审核',name:'auditStatus',params:jRad.params['auditStatus']}); 
+   page_search_items.push({row:'4',type:'jrad-select',display:'状态',name:'status',params:jRad.params['status']});
+   page_search_items.push({row:'4',type:'jrad-select',display:'允许显示手机',name:'showMobile',params:jRad.params['showMobileName']});
+   var myIcon = new BMap.Icon("shopVip/shop_icon.png", new BMap.Size(21, 28), {  
+           // offset: new BMap.Size(10, 25), // 指定定位位置  
+          //  imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移  
+        });  
+   page_list_buttons.push({title: '修改',name:'Edit', bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_shopvip_userWant').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+        	$.ajaxSetup({cache:false});
+	    	var checked = $('#Table_shopvip_userWant').getCheckedTrs(); 
+			var userWantId = checked[0].userWantId; 
+			var _item = $ .jRadGet({url : '/shopmanage-ws/ws/0.1/userWantCms/getFeedback?userWantId='+userWantId});
+			
+			_item.userWantId = userWantId;
+			if(checked[0]) {
+				var _form = $('#Form_shopvip_userWant',wraper);
+				_form.form({ 
+	                item:_item  
+            	}).form('open');
+				$("div[name='title']",_form).html(checked[0].title);
+				$("div[name='detail']",_form).html(checked[0].detail); 
+				$("#serviceNames",_form).html("");
+				if(_item.serviceName!=""){
+					$("#serviceNames",_form).html(_item.serviceName);
+				}  
+				$(".defaultHide",wraper).hide();  
+				$("div[name='businessInfoId']",wraper).focusout();
+				 
+				map.clearOverlays(); 
+				if(_item.longtitude!=""&&_item.latitude!=""){
+					var pt = new BMap.Point(_item.longtitude,_item.latitude);
+					var marker_b = new BMap.Marker(pt);  // 创建标注
+				 	map.addOverlay(marker_b);
+				 	//map.setFitView([marker_b]);
+				 	window.setTimeout(function(){
+				    	map.panTo(pt);
+				 	},200);
+				}
+				
+				var lonlat = "&lon="+_item.longtitude+"&lat="+_item.latitude;
+				$("#_search").unbind('click').click(function(){ 
+					//var _item = $ .jRadGet({url : '/shopmanage-ws/ws/0.1/userWantCms/getFeedback?userWantId='+userWantId});
+					map.clearOverlays();
+			        if(_item.longtitude!=""&&_item.latitude!=""){
+					var pt = new BMap.Point(_item.longtitude,_item.latitude);
+					var marker_b = new BMap.Marker(pt);  // 创建标注
+				 	map.addOverlay(marker_b);
+				   };
+					var _service = $("#map_service div[name='zeroService2']").select("val");
+					var service2=$("#map_service div[name='firstService2']").select("val");
+					var _url='';
+					if(_service!=''&&service2!=''){
+						_url='/yangchebao-app-ws/ws/0.1/shop/business/page/v2?areaName='+_item.cityName+"&modelId="+_item.modelId+"&service="+_service+"&specialServiceId="+service2+lonlat;
+					}else if(_service!=''&&service2==''){
+						_url='/yangchebao-app-ws/ws/0.1/shop/business/page/v2?areaName='+_item.cityName+"&modelId="+_item.modelId+"&service="+_service+lonlat;
+					}
+					var json=$.jRadGet({url:_url});
+					var shop_items = json.items;
+					$.each(shop_items,function(i){
+						var shop_item = shop_items[i];
+						var shop_pt = new BMap.Point(shop_item.baidulon,shop_item.baidulat);
+						var shop_marker = new BMap.Marker(shop_pt,{icon:myIcon});
+						map.addOverlay(shop_marker);
+						var label = new BMap.Label(shop_item.name+"id:"+shop_item.id,{offset:new BMap.Size(20,-10)});
+						label.setStyle({
+							 color : "blue",
+							 fontSize : "12px",
+							 height : "20px",
+							 lineHeight : "20px",
+							 fontFamily:"微软雅黑"
+						});
+						shop_marker.setLabel(label);
+				})
+				})
+			}
+		}
+	}); 
+	$("#Form_shopvip_userWant .jrad-btn-primary").click(function(){ 
+		var flag = $('#Form_shopvip_userWant',wraper).form('validateAll'); 
+		if(flag){  
+			var json = $('#Form_shopvip_userWant').form('getValue'); 
+			var saveFeedBack = function(){  
+	        	$.jRadPost({
+							url:'/shopmanage-ws/ws/0.1/userWantCms/editFeedback',
+							data:json,
+							success:function(data){  
+								  $("#Form_shopvip_userWant").form('close');
+								  $('#Table_shopvip_userWant').flexMessage('答复成功', 'success','3');
+	                        	  $('#Table_shopvip_userWant').flexReloadCurrentPage();
+							},error:function(data){ 
+								var mes = eval('('+data.responseText+')'); 
+								$.jRadAlert(mes[0].message,"error"); 
+							}
+				});
+    		}; 
+			json.auditPerson = carsmart_config.operatorName; 
+			if($("#formone input[name='serviceId']").val()!=""){
+				saveFeedBack();
+			}else{
+				json.serviceId = $($('#formone .service:last')[0]).select('val');      
+	            if(json.zeroService!=""&&json.serviceId==""){   
+	        	   $.jRadConfirm('服务必须选到最底层才能推荐服务,确认保存？', 1,
+		            function() { 
+		            	saveFeedBack();
+			        }); 
+	        	}else{   
+	        		saveFeedBack();
+	        	}
+         }
+    	}  
+	});
+  $("#Form_shopvip_userWant .jrad-btn-normal").click(function(){ 
+    		 $("#Form_shopvip_userWant").form('close');
+    });
+ 
+	page_list_buttons.push({displayname: '审核通过',name:'pass',bclass: 'pass',prefunc:function(){
+            var checked = $('#Table_shopvip_userWant').getCheckedTrs();
+            if (checked.length > 0) {return true;}else{return false;}
+        },onpress : function(){
+	    	var checked = $('#Table_shopvip_userWant').getCheckedTrs();
+			$ .jRadConfirm('确认审核通过吗？',1,function(){
+				var ids = []; 
+				$.each(checked,function(i){
+					ids.push(checked[i].userWantId);
+				});  
+				var postData = {};
+				postData.userWantIds = ids.join(",");
+				postData.auditPerson = carsmart_config.operatorName;
+				$.jRadPost({
+					url:'/shopmanage-ws/ws/0.1/userWantCms/auditPass', 
+					data:postData,
+					success: function(){
+						$('#Table_shopvip_userWant').flexMessage('操作成功!', 'success');
+           	    		$('#Table_shopvip_userWant').flexReloadCurrentPage();
+					},
+					error:function(xhr){
+					  var errormsg = eval("(" + xhr.responseText + ")"); 
+					  $.jRadAlert(errormsg[0].message,"error");
+					}
+				});
+			});
+		}
+	}); 
+	page_list_buttons.push({displayname: '审核驳回',name:'unable',bclass: 'unable',prefunc:function(){
+            var checked = $('#Table_shopvip_userWant').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_shopvip_userWant').getCheckedTrs();
+			$ .jRadConfirm('确认驳回吗？',1,function(){
+				var id =  checked[0].userWantId; 
+				$('#Form_userWantCheck').form({
+					title:'驳回原因',
+					item:{},
+					url:'/shopmanage-ws/ws/0.1/userWantCms/auditReject',
+					before_submit:function(json){
+						json.auditPerson = carsmart_config.operatorName;
+						json.userWantId = id;
+					},
+					success_callback: function(){
+						$('#Table_shopvip_userWant').flexMessage('操作成功!', 'success');
+           	    		$('#Table_shopvip_userWant').flexReloadCurrentPage();
+					}  
+				}).form('open'); 
+			});
+		}
+	}); 
+	page_list_buttons.push({name:'delete',bclass: 'delete',prefunc:function(){
+            var checked = $('#Table_shopvip_userWant').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_shopvip_userWant').getCheckedTrs();
+			$ .jRadConfirm('确认删除吗？',1,function(){ 
+				$.jRadPost({
+							url:'/shopmanage-ws/ws/0.1/userWantCms/deleteUserWant?userWantId='+checked[0].userWantId, 
+							success: function(data){  
+								$('#Table_shopvip_userWant').flexMessage('删除成功!', 'success');
+		           	    		$('#Table_shopvip_userWant').flexReloadCurrentPage();
+							}, error:function(xhr){
+								var errormsg = eval("(" + xhr.responseText + ")");
+								 $('#Table_shopvip_userWant').flexMessage(errormsg, 'error');
+							}
+				}); 
+			});
+		}
+	}); 
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_shopvip_userWant').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true,  
+            url:'/shopmanage-ws/ws/0.1/userWantCms/queryUserWants?type=1', //此时userId为当前登录用户的ID 
+			onError:showUserError, 
+			overflow:true
+    });
+
+    $(".numb155").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg155").form({}).form('close');
+        $("#Form_explain_eg155").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg155 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg155").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg155").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg155 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+    getNameTips();
+	function getNameTips(){  
+			$("#Form_shopvip_userWant div[name='businessInfoId']").focusout(function(){ 
+				 var flag = $("#Form_shopvip_userWant div[name='businessInfoId']").input('validate',jRad.validators["parentId"]);
+				 if(flag){
+				   var id = $(this).input("val"); 
+				   var _tip = $(this).parent().children(".nameTips");
+				   if(id==""){
+					 _tip.html("");
+					 return false;
+				   }
+				   var json = $.jRadGet({
+							url:'/shopmanage-ws/ws/0.1/shopmanage/shop/name?id='+id, 
+							success: function(data){ 
+								_tip.html(data.businessName).css("color","#1F2228"); 
+								var selectList = $.jRadGetDataSources("/shopmanage-ws/ws/0.1/businessServiceRel/getSonServicesByBusiId?parentId=-1&level=0&businessInfoId="+id,"serviceId","serviceName");
+								selectList.unshift({'id':'','name':'请选择'});
+								$("div[name='zeroService']",wraper).select(
+									{data:selectList,
+									 val:'',
+									 onchange:function(val){ 
+									 	getServiceSonNode(1,val,wraper,id);
+									},
+									onclick:function(item){ 
+											$("#serviceNames",wraper).html("");
+											$("input[name='serviceId']",wraper).val(""); 
+									}});
+								$(".defaultHide",wraper).show();
+
+							},
+							error:function(){ 
+								_tip.html("查询商家不存在！").css("color","#BB4B47"); 
+								$(".defaultHide",wraper).hide();
+							}
+						});
+				   
+				 }else{
+				   $(this).parent().children(".nameTips").html("");
+				 }
+			});  
+	}  
+	function getServiceSonNode(node,val,wraper,businessId){    
+		var label = "";
+		var serviceClass = "";
+		if(node==1){
+			label = "一级";
+			serviceClass = "firstService"; 
+			$("#formone .addService").parents(".row").remove();
+		}else if(node==2){
+			label = "二级";
+			serviceClass = "secondService"; 
+			$("#formone div[name='secondService']").parents(".row").remove();
+			$("#formone div[name='thirdService']").parents(".row").remove();
+		}else if(node==3){
+			label = "三级";
+			serviceClass = "thirdService";
+			$("#formone div[name='thirdService']").parents(".row").remove();
+		}else if(node==4){
+			label = "四级";
+			serviceClass = "fourService";
+			$("#formone div[name='fourService']").parents(".row").remove();
+		}
+		if(val!=""){
+			var item = $.jRadGetDataSources("/shopmanage-ws/ws/0.1/businessServiceRel/getSonServicesByBusiId?parentId="+val+"&level="+node+"&businessInfoId="+businessId,"serviceId","serviceName");
+			if(item.length>0){
+				item.unshift({id:'',name:'请选择'}); 
+				var row = '<div class="row">'
+							+'<label class="span3 grid-layout-label">'+label+'：</label>'
+							+'<div class="span6 grid-layout-content">'
+							+'<div name="'+serviceClass+'" class="jrad-select-container service addService"></div>'
+							+'</div>'
+							+'</div>' 
+				if(node==1){
+				$("#Form_shopvip_userWant .row:eq(4)",wraper).after(row);
+				}else if(node==2){
+				$("#Form_shopvip_userWant .row:eq(5)",wraper).after(row);
+				}else if(node==3){
+				$("#Form_shopvip_userWant .row:eq(6)",wraper).after(row);
+				}else if(node==4){
+				$("#Form_shopvip_userWant .row:eq(7)",wraper).after(row);
+				}
+				node++; 
+				$('#formone div[name='+serviceClass+']').select({
+					data:item,
+					unshiftData: {id:'',name:'请选择'}, 
+					onchange: function(val){ 
+						getServiceSonNode(node,val,wraper,businessId); 
+					} 
+				});
+			}
+		}
+	} 
+	
+	function showUserError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")");
+		  var cDiv = $("#Wraper_shopvip_userWant .cDiv");
+		  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+	}
+	function getServiceSonNode2(node,val,wraper){    
+		var label = "";
+		var serviceClass = "";
+		if(node==1){
+			label = "一级";
+			serviceClass = "firstService2"; 
+			$("#map_service .addService").parents(".row").remove();
+		}
+		if(val!=""){
+			var item = $.jRadGetDataSources("/shopmanage-ws/ws/0.1/service/getSonServices?parentId="+val,"id","serviceName");
+			if(item.length>0){
+				item.unshift({id:'',name:'请选择'}); 
+				var row = '<div class="row">'
+							+'<label class="span3 grid-layout-label">'+label+'：</label>'
+							+'<div class="span6 grid-layout-content">'
+							+'<div name="'+serviceClass+'" class="jrad-select-container service addService"></div>'
+							+'</div>'
+							+'</div>' 
+				if(node==1){
+				$("#map_service .select-wraper .row:eq(0)",wraper).after(row);
+				}
+				node++; 
+				$('#map_service div[name='+serviceClass+']').select({
+					data:item,
+					unshiftData: {id:'',name:'请选择'}, 
+					onchange: function(val){ 
+						getServiceSonNode2(node,val,wraper); 
+					} 
+				});
+			}
+		}
+	} 
+});
+
+
+ 
+ 
+</script>
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    var map;
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+    }
+    
+    //创建地图函数：
+    function createMap(){
+    	
+        map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        //var point = new BMap.Point(_posi.longtitude,_posi.latitude);
+        var point = new BMap.Point(116.267151,39.923346); 
+        //定义一个中心点坐标
+        map.centerAndZoom(point,13);//设定地图的中心点和坐标并将地图显示在地图容器中
+       
+    }
+    
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+    }
+    
+    //地图控件添加函数：
+    function addMapControl(){
+        //向地图中添加缩放控件
+	// var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+	// map.addControl(ctrl_nav);
+        //向地图中添加缩略图控件
+	// var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+	// map.addControl(ctrl_ove);
+        //向地图中添加比例尺控件
+	// var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+	// map.addControl(ctrl_sca);
+    }
+    
+    
+    initMap();//创建和初始化地图
+</script>

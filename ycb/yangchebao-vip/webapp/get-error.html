@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>  
+<script type="text/javascript" src="js/jquery.json-2.2.js"></script>
+<script type="text/javascript" src="js/index.js"></script> 
+<title>领取结果</title>
+<style>
+.fail_pic{margin-top: 2rem;}
+.fail_pic img {
+    display: block;
+    margin: 0 auto 3em;
+    max-width: 286px;
+    /*padding-left:42px;*/
+    width: 85%;
+}
+p.btn{
+	font-size: 1.6rem;
+	color: #fff;
+	text-align: center;
+	background-color: #ff6138;
+	line-height: 3.5rem;
+	width: 80%;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	margin: 0 auto;
+}
+.activity_comment{  
+    margin: 1.5rem 1rem; 
+    padding: 1rem 0.6rem;
+    text-align: left; 
+	color: #3F4968;
+	border-top: 1px solid #ff6138;   
+	border-bottom: 1px solid #ff6138;   
+}
+.activity_comment p{ 
+   font-size: 1rem;
+   line-height: 150%;
+   font-family:"STHeitiSC-Light";
+	color:#3F4968;
+}
+p.coTitle{
+	font-size: 1.3rem;
+	color: #ff6138;
+}
+.have-get{text-align: center;font-size:1.5rem;color:#ff6138;}
+</style>
+</head>
+<body>
+	<div class="fail_pic">
+        <img src="css/images/get-error.png" alt="领取失败"> 
+        <!-- <img src="css/images/get-success.png" alt="领取成功！">  -->
+    </div> 
+    <p class="have-get">已经领取，不能重复领取</p>
+    <div class="activity_comment">
+    	<p class="coTitle">提示：</p>
+        <p>1. 每个用户只能领取一次；</br>
+           2. 下载客户端后，购买服务时，会自动提示购买代金券；</br>
+        </p> 
+    </div>
+</body>
+<script type="text/javascript">
+	// 获取参数
+	// var url = window.location.search; 
+ //    var paramJson = {};
+ //    if(url!=''){
+ //    	var paramsArr = (url.split("?")[1]).split("&");
+	//     $.each(paramsArr,function(i){
+	//         var item = paramsArr[i].split("=");
+	//         paramJson[item[0]] = item[1]
+	//     });
+ //    }
+
+ //    $('p.btn').unbind('click').bind('click',function(){
+ //    	window.location="http://d.yangchebao.com.cn"
+ //    });
+    // 分享
+	// var sharedata={};
+	// sharedata.title="五折车险限时抢购！";
+	// sharedata.shareUrl="http://"+urlIp()+'/yangchebao-weixin-ws/renbao/index.html';
+	// sharedata.headImgUrl="http://"+urlIp()+'/yangchebao-weixin-ws/renbao/img/logo.png';
+	// share(sharedata);
+
+</script>
+</html>
+

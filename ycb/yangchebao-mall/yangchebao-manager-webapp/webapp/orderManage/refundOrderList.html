@@ -1,0 +1,237 @@
+<script type="text/javascript" src="orderManage/refundOrderList.js"></script>
+<style>
+	#Wraper_refundOrder_manage div#Form_refund_order div.grid-layout-content{
+		line-height: 24px;
+	}
+</style>
+<div class="urlContentWraper" id="Wraper_refundOrder_manage">
+<div class="ui-info-layout">
+<div class="ui-info-layout-subbox "> 
+	<div class="jrad-table">
+        <h2 class="ui-tit"><strong>订单退款管理</strong></h2>
+        <!-- 列表显示 -->
+        <table id="Table_refundOrder_list"></table>
+    </div>
+	</div>
+	</div>
+	<!-- 微信和支付宝余额退款form -->
+	<div id="Form_refund_order" style="display:none;">
+	<form id="refundForm" action='/ycbmall-manager-ws/ws/0.1/userOrderCms/refundOrder' method="post" target="_blank">
+	<input type="hidden" name="id"/>
+	<input type="hidden" name="operator"/>
+	<input type="hidden" name="refundWay"/>
+	<div class="grid-layout-main jrad-form"> 
+	
+		 
+		   <h3>退款方式</h3>
+		  <div class="row">
+		   <label class="span2 grid-layout-label"></label>
+			<div class="span6 grid-layout-content">
+				<div name="refundWayRadio" class="jrad-radio-container"></div>
+			</div>  
+		</div> 
+		 
+		  <h3>商家信息</h3>
+		  <div class="row">
+			<label class="span3 grid-layout-label"> 商家店名：</label>
+			<div class="span5 grid-layout-content">
+				<div name="shopName"></div>
+			</div>  
+		</div> 
+		
+		<h3>退款金额</h3>
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 订单金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="realPayment"></div>
+			</div>
+		</div> 
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 差异扣款：</label>
+			<div class="span5 grid-layout-content">
+				<div name="deductions"></div>
+			</div>
+		</div>
+				  <div class="row">
+			<label class="span3 grid-layout-label"> 退余额金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="yue"></div>
+			</div> 
+			<label class="span3 grid-layout-label"> 退第三方金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="thirdPartyPayment"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span3 grid-layout-label"> 合计退款：</label>
+			<div class="span5 grid-layout-content">
+				<div name="refundMoney"></div>
+			</div>
+		</div>
+		<div class="row">
+			<label class="span3 grid-layout-label"> 扣款说明：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-textarea-container" name="deductionsNote"></div>
+			</div>  
+		</div>   
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 退款备注：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-textarea-container" name="refundNote"></div>
+			</div>  
+		</div> 
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary" id="btn">确定</span>  
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+	</form>
+	</div>
+	<!-- 线下转账退款form -->
+	<div id="Form_face_refund" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		   <h3>退款方式</h3>
+		  <div class="row">
+		   <label class="span2 grid-layout-label"></label>
+			<div class="span6 grid-layout-content">
+				<div name="refundWayRadio" class="jrad-radio-container"></div>
+			</div>  
+		</div> 
+		 
+		  <h3>商家信息</h3>
+		  <div class="row">
+			<label class="span3 grid-layout-label"> 商家店名：</label>
+			<div class="span5 grid-layout-content">
+				<div name="shopName"></div>
+			</div>  
+		</div> 
+		
+		<h3>退款金额</h3>
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 订单金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="realPayment"></div>
+			</div>
+		</div> 
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 差异扣款：</label>
+			<div class="span5 grid-layout-content">
+				<div name="deductions"></div>
+			</div>
+		</div>
+		<div class="row">
+			<label class="span3 grid-layout-label"> 退余额金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="yue"></div>
+			</div> 
+			<label class="span3 grid-layout-label"> 转账退款金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="thirdPartyPayment"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span3 grid-layout-label"> 合计退款：</label>
+			<div class="span5 grid-layout-content">
+				<div name="refundMoney"></div>
+			</div>
+		</div>
+		<div class="row">
+			<label class="span3 grid-layout-label"> 扣款说明：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-textarea-container" name="deductionsNote"></div>
+			</div>  
+		</div>   
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 退款备注：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-textarea-container" name="refundNote"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span3 grid-layout-label">转账退款记录</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-uploadimg-container" name="refundProve"></div>
+				<font color="#FF0000" id="picShowErro"></font>
+			</div> 
+		</div>   
+	</div>   
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary" id="btn">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div> 	
+</div>	
+
+<!-- 退款详情Form -->
+	<div id="Form_refund_detail" style="display:none;height:500px">
+	<div class="grid-layout-main jrad-form"> 
+		   <h3>退款方式</h3>
+		  <div class="row">
+		   <label class="span2 grid-layout-label"></label>
+			<div class="span6 grid-layout-content">
+				<div name="refundWayRadio" class="jrad-radio-container"></div>
+			</div>  
+		</div> 
+		 
+		  <h3>商家信息</h3>
+		  <div class="row">
+			<label class="span3 grid-layout-label"> 商家店名：</label>
+			<div class="span5 grid-layout-content">
+				<div name="shopName"></div>
+			</div>  
+		</div> 
+		
+		<h3>退款金额</h3>
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 订单金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="realPayment"></div>
+			</div>
+		</div> 
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 差异扣款：</label>
+			<div class="span5 grid-layout-content">
+				<div name="deductions"></div>
+			</div>
+		</div>
+				  <div class="row">
+			<label class="span3 grid-layout-label"> 退余额金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="yue"></div>
+			</div> 
+			<label class="span3 grid-layout-label"> 退第三方金额：</label>
+			<div class="span5 grid-layout-content">
+				<div name="thirdPartyPayment"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span3 grid-layout-label"> 合计退款：</label>
+			<div class="span5 grid-layout-content">
+				<div name="refundMoney"></div>
+			</div>
+		</div>
+		<div class="row">
+			<label class="span3 grid-layout-label"> 扣款说明：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-textarea-container" name="deductionsNote"></div>
+			</div>  
+		</div>   
+		 <div class="row">
+			<label class="span3 grid-layout-label"> 退款备注：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-textarea-container" name="refundNote"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span3 grid-layout-label">转账退款记录：</label>
+				<div class="span8 grid-layout-content">
+					<div name="refundProve">
+					<ul class="pic-show"></ul>
+				</div>
+			</div>
+		</div>
+	</div>   
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-normal">取消</span>
+	</div> 	
+</div>
+</div>							

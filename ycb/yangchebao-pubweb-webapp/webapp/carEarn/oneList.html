@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+	<meta name="format-detection" content="telephone=no" />
+	<title>成员列表</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+	<script src="js/qh.js" type="text/javascript"></script>
+	<script src="js/commen.js"></script>
+	<style type="text/css">
+		html {
+			font-size: 62.5%;
+		}
+		body {
+			font-family:"MicrosoftYaHei","HelveticaNeue-Light";
+			font-weight: normal;
+			font-style: normal;
+			line-height: normal;
+			width: 100%;
+			margin: 0 auto;
+		}
+		i, em {
+			font-style: normal;
+		}
+		a {
+			text-decoration: none;
+		}
+		ul {
+			list-style: none;
+		}
+		li{ list-style-type:none;}
+		img {
+			border: none;
+		}
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.clearfix {
+			*zoom: 1;
+		}
+		.clearfix:before, .clearfix:after {
+			display: table;
+			line-height: 0;
+			content: "";
+		}
+		.clearfix:after {
+			clear: both;
+		}
+		section{ width:100%; position: relative;}
+		.qh{ width:100%; display:block; margin:0 auto; height:3.8rem;}
+		.qh span{ width:50%; display:block; float:left; text-align:center; height:3.8rem; box-sizing:border-box;}
+		.qh span em{ font-size:1.7rem; height:1.85rem; width:100%; display:block; box-sizing:border-box; margin-top:1rem;}
+		.qh span em.em1{ border-right:1px solid #d9d9e2;}
+		.qh span em i{ font-size:1.4rem; margin-bottom:2px; color:#ff6138; position:relative; bottom:3px; margin-left:2px;}
+		.qh span.select{ border-bottom:2px solid #ff6138;}
+		.box{ width:100%; height:auto; display:block; background:#f4f7f8; padding-top:2%; position: relative;}
+		.box div:first-of-type{ margin-top:0;}
+		.box_1{ width:100%; display:block; background:#fff; margin-top:2%;}
+		.box_01{ width:100%; height:3.8rem; display:block; background:#e1f3f2; padding:1.15rem 1rem; box-sizing:border-box; line-height:3.8rem;}
+		.box_01 span,.box_01 i,.box_01 em{ float:left; display:block; line-height:1.55rem;}
+		.box_01 span{ font-size:1.5rem;}
+		.box_01 i{ font-size:1.2rem;}
+		.box_01 em{color:#ff6138; font-size:1.6rem; float:right;}
+		.box_1 ul{ display:block; width:90%; margin:0 auto;}
+		.box_1 ul li{ box-sizing:border-box; border-bottom:1px solid #d9d9e2; display:block; height:3.5rem;}
+		.box_1 ul li span,.box_1 ul li i,.box_1 ul li em{line-height:3.5rem; display:block; float:left;}
+		.box_1 ul li i{ color:#a2a2a2; margin-left:1%;}
+		.box_1 ul li span,.box_1 ul li em{ font-size:1.4rem;}
+		.box_1 ul li i{ font-size:1.2rem;}
+		.box_1 ul li em{ float:right;}
+		.box3{ display:none; width:100%; border-bottom:1px solid #c2c2c6; background-color:#fff;}
+		.box3 p{ margin-top:2.9rem; font-size:1.5rem; text-align: center;}
+		.box3 img{ display:block; width:9.85rem; margin: 0 auto;}
+		.Clickmore1{ width:100%; line-height:35px; text-align:center; display:none; color:#a2a2a2; background-color:#fff; border-bottom:1px solid #c2c2c6;}
+		.Clickmore2{ width:100%; line-height:35px; text-align:center; display:none; color:#a2a2a2; background-color:#fff; border-bottom:1px solid #c2c2c6;}
+	
+		.tasat-wrap{
+			position: fixed;
+			text-align: center;
+			bottom: 50%;
+			width: 100%;
+		}
+		.G{
+			z-index: 1001;
+		}
+		.tasat{
+			background-color: #000;
+			border-radius: 8px;
+			color: #fff;
+			font-size: 1.6rem;
+			opacity: 0.8;
+			padding: 0.5em;
+			display: inline-block;
+			margin: 0 20px;
+		}
+	</style>
+</head>
+
+<body>
+<section id="Tab3">
+	<article class="qh clearfix"><div><span class="select" id="One"><em class="em1">一线成员<i class="yixian"></i></em></span><span id="Two"><em>二线成员<i class="erxian"></i></em></span></div></article>
+	<article class="box yx_box">
+		<!--<div class="box_1">-->
+		<!--<p class="box_01"><span>疯狂的爪子</span><i>（186xxxx8996）</i><em>＋9980.78元</em></p>-->
+		<!--<ul>-->
+		<!--<li><span>加入一线成员</span><i>2016.02.26</i><em>+3元</em></li>-->
+		<!--<li><span>购买保险服务</span><i>2016.02.29</i><em>+60元</em></li>-->
+		<!--<li><span>购买服务购买服务购买...</span><i>2016.02.29</i><em>+66.78元</em></li>-->
+		<!--<li><span>购买车内空气净化套餐</span><i>2016.02.29</i><em>+14.4元</em></li>-->
+		<!--</ul>-->
+		<!--</div>-->
+		<!--<div class="box_1">-->
+		<!--<p class="box_01"><span>疯狂的爪子</span><i>（186xxxx8996）</i><em>＋9980.78元</em></p>-->
+		<!--<ul>-->
+		<!--<li><span>加入一线成员</span><i>2016.02.26</i><em>+3元</em></li>-->
+		<!--<li><span>购买保险服务</span><i>2016.02.29</i><em>+60元</em></li>-->
+		<!--</ul>-->
+		<!--</div>-->
+		<!--<div class="box_1">-->
+		<!--<p class="box_01"><span>疯狂的爪子</span><i>（186xxxx8996）</i><em>＋9980.78元</em></p>-->
+		<!--<ul>-->
+		<!--<li><span>加入一线成员</span><i>2016.02.26</i><em>+3元</em></li>-->
+		<!--</ul>-->
+		<!--</div>-->
+		<div class="box3" id="Onex">
+			<img src="img/hezi.png" />
+			<p>暂无成员列表信息～</p>
+		</div>
+
+	</article>
+	<article class="box ex_box" style="display:none;">
+		<!--<div class="box_1">-->
+		<!--<p class="box_01"><span>疯狂的爪子</span><i>（186xxxx8996）</i><em>＋9980.78元</em></p>-->
+		<!--<ul>-->
+		<!--<li><span>加入一线成员1</span><i>2016.02.26</i><em>+3元</em></li>-->
+		<!--<li><span>购买保险服务</span><i>2016.02.29</i><em>+60元</em></li>-->
+		<!--<li><span>购买服务购买服务购买...</span><i>2016.02.29</i><em>+66.78元</em></li>-->
+		<!--<li><span>购买车内空气净化套餐</span><i>2016.02.29</i><em>+14.4元</em></li>-->
+		<!--</ul>-->
+		<!--</div>-->
+		<!--<div class="box_1">-->
+		<!--<p class="box_01"><span>疯狂的爪子</span><i>（186xxxx8996）</i><em>＋9980.78元</em></p>-->
+		<!--<ul>-->
+		<!--<li><span>加入一线成员</span><i>2016.02.26</i><em>+3元</em></li>-->
+		<!--<li><span>购买保险服务</span><i>2016.02.29</i><em>+60元</em></li>-->
+		<!--</ul>-->
+		<!--</div>-->
+		<!--<div class="box_1">-->
+		<!--<p class="box_01"><span>疯狂的爪子</span><i>（186xxxx8996）</i><em>＋9980.78元</em></p>-->
+		<!--<ul>-->
+		<!--<li><span>加入一线成员</span><i>2016.02.26</i><em>+3元</em></li>-->
+		<!--</ul>-->
+		<!--</div>-->
+		<div class="box3" id="Twox">
+			<img src="img/hezi.png" />
+			<p>暂无成员列表信息～</p>
+		</div>
+
+	</article>
+</section>
+<script>tab("Tab3","qh","span","box","onmouseover");</script>
+<p class="Clickmore1">点击加载更多</p>
+<p class="Clickmore2">点击加载更多</p>
+</body>
+<script type="text/javascript">
+	var paramJson = {};
+	var pageindex = 0;
+	var pagesize = 20;
+	$(function(){
+		var url = window.location.search;
+		var paramsArr = (url.split("?")[1]).split("&");
+		$.each(paramsArr,function(i){
+			var item = paramsArr[i].split("=");
+			paramJson[item[0]] = item[1];
+		});
+		/*$('#Two').on('click',function(){
+		 window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/carEarn/twoList.html";
+		 })*/
+
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/autogain/member/count?userInfoId=' + paramJson.userId+'&'+(new Date()).getTime(),
+			type:'get',
+			async:false,
+			dataType:'json',
+			success:function(data){
+				var firstLevelMemberCount = data.firstLevelMemberCount;
+				var secondLevelMemberCount = data.secondLevelMemberCount;
+				$('.yixian').html(firstLevelMemberCount);
+				$('.erxian').html(secondLevelMemberCount);
+			},
+			error:function(xhr){
+				var mes = eval('('+xhr.responseText+')');
+				alertTasat(mes[0].message);
+			}
+		})
+
+
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/autogain/member/list?userInfoId=' + paramJson.userId+'&memberLevel=1'+'&pageindex='+pageindex+'&pagesize='+pagesize+'&'+(new Date()).getTime(),
+			type:'get',
+			async:false,
+			dataType:'json',
+			success:function(data){
+				var items = data.items;
+				var str='';
+				$.each(items,function(){
+					var mobile = this.mobile.substring(0,3)+"****"+this.mobile.substring(7,11);
+					str += '<div class="box_1">'
+					+'<p class="box_01" incomeSourceId="'+this.incomeSourceId+'">'+'<span>'+this.nickName+'</span>'+'<i>（'+this.mobile+'）</i>'+'<em>＋'+this.totalIncome+'元</em>'+'</p>'
+					+'<ul class="ul_box"></ul>'
+					+'</div>';
+				})
+				if(items.length==0){
+					$('#Onex').show();
+					$('.Clickmore1').hide();
+					$('.Clickmore2').hide();
+				}else if(items.length<20){
+					$('#Onex').hide();
+					$('.Clickmore1').hide();
+					$('.Clickmore2').hide();
+					$('.yx_box').append(str);
+				}else{
+					$('#Onex').hide();
+					$('.Clickmore1').show();
+					$('.Clickmore2').hide();
+					$('.yx_box').append(str);
+				}
+			},
+			error:function(xhr){
+				var mes = eval('('+xhr.responseText+')');
+				alertTasat(mes[0].message);
+			}
+		})
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/autogain/member/list?userInfoId=' + paramJson.userId+'&memberLevel=2'+'&pageindex='+pageindex+'&pagesize='+pagesize+'&'+(new Date()).getTime(),
+			type:'get',
+			async:false,
+			dataType:'json',
+			success:function(data){
+				var items = data.items;
+				var str='';
+				$.each(items,function(){
+					var mobile = this.mobile.substring(0,3)+"****"+this.mobile.substring(7,11);
+					str += '<div class="box_1">'
+					+'<p class="box_01" incomeSourceId="'+this.incomeSourceId+'">'+'<span>'+this.nickName+'</span>'+'<i>（'+this.mobile+'）</i>'+'<em>＋'+this.totalIncome+'元</em>'+'</p>'
+					+'<ul class="ul_box"></ul>'
+					+'</div>';
+				})
+
+				if(items.length==0){
+					$('#Twox').show();
+					$('.Clickmore2').hide();
+					$('.Clickmore1').hide();
+				}else if(items.length<20){
+					$('#Twox').hide();
+					$('.Clickmore1').hide();
+					$('.Clickmore2').hide();
+					$('.ex_box').append(str);
+				}else{
+					$('#Twox').hide();
+					$('.Clickmore1').hide();
+					$('.Clickmore2').show();
+					$('.ex_box').append(str);
+				}
+			},
+			error:function(xhr){
+				var mes = eval('('+xhr.responseText+')');
+				alertTasat(mes[0].message);
+			}
+		})
+
+		$('.box_01').on("click",function(){
+
+			var incomeSourceId = $(this).attr('incomeSourceId');
+
+			var boxul='';
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/autogain/member/award/list/user?userInfoId='+paramJson.userId+'&incomeSourceId='+incomeSourceId+'&pageindex=0&pagesize='+pagesize+'&'+(new Date()).getTime(),
+				type:'get',
+				async:false,
+				dataType:'json',
+				success:function(data){
+
+					var items = data.items;
+
+					$.each(items,function(){
+						boxul += '<li><span>'+this.remark+'</span><i>'+this.createDate+'</i><em>+'+this.changeIncome+'元</em></li>';
+
+					})
+
+					if(items.length==0){
+						$(this).next('ul').append(boxul);
+					}else{
+						$(this).next('ul').html('');
+					}
+				},
+				error:function(xhr){
+					var mes = eval('('+xhr.responseText+')');
+					alertTasat(mes[0].message);
+				}
+			});
+			if($(this).next('ul').find('li').length==0) {
+
+				$(this).next('ul').append(boxul);
+			}else{
+
+				$(this).next('ul').html('');
+			}
+
+		});
+		$('.Clickmore1').on("click",function(){
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/autogain/member/list?userInfoId=' + paramJson.userId+'&memberLevel=1'+'&pageindex='+(pageindex+1)+'&pagesize='+pagesize+'&'+(new Date()).getTime(),
+				type:'get',
+				async:false,
+				dataType:'json',
+				success:function(data){
+					pageindex++;
+					var items = data.items;
+					var str='';
+					$.each(items,function(){
+						var mobile = this.mobile.substring(0,3)+"****"+this.mobile.substring(7,11);
+						str += '<div class="box_1">'
+						+'<p class="box_01" incomeSourceId="'+this.incomeSourceId+'">'+'<span>'+this.nickName+'</span>'+'<i>（'+this.mobile+'）</i>'+'<em>＋'+this.totalIncome+'元</em>'+'</p>'
+						+'<ul class="ul_box"></ul>'
+						+'</div>';
+					})
+					$('.yx_box').append(str);
+
+				},
+				error:function(xhr){
+					var mes = eval('('+xhr.responseText+')');
+					alertTasat(mes[0].message);
+				}
+			})
+		})
+		$('.Clickmore2').on("click",function(){
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/autogain/member/list?userInfoId=' + paramJson.userId+'&memberLevel=2'+'&pageindex='+(pageindex+1)+'&pagesize='+pagesize+'&'+(new Date()).getTime(),
+				type:'get',
+				async:false,
+				dataType:'json',
+				success:function(data){
+					pageindex++;
+					var items = data.items;
+					var str='';
+					$.each(items,function(){
+						var mobile = this.mobile.substring(0,3)+"****"+this.mobile.substring(7,11);
+						str += '<div class="box_1">'
+						+'<p class="box_01" incomeSourceId="'+this.incomeSourceId+'">'+'<span>'+this.nickName+'</span>'+'<i>（'+this.mobile+'）</i>'+'<em>＋'+this.totalIncome+'元</em>'+'</p>'
+						+'<ul class="ul_box"></ul>'
+						+'</div>';
+					})
+					$('.yx_box').append(str);
+
+				},
+				error:function(xhr){
+					var mes = eval('('+xhr.responseText+')');
+					alertTasat(mes[0].message);
+				}
+			})
+		})
+	})
+</script>
+</html>

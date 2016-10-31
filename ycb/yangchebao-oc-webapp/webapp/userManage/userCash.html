@@ -1,0 +1,385 @@
+<style type="text/css">
+	.warDiv{width:32px;height:32px;background:#fff;position:fixed;z-index: 99999;left:50%;top:50%;margin-top:-16px;margin-left:-16px;display:block;}
+	.drag{position:fixed;width:100%;height:100%;left:0;top:0;background: #000;z-index:99990;filter:alpha(opacity=70);-moz-opacity:0.7; opacity: 0.7;display:block;}
+	.ycbMail{border:1px solid #b7bcc7;/*background:#fff;*/height:24px;line-height:20px;padding:0 15px;cursor:pointer;color:#666;}
+</style>
+<div class="urlContentWraper" id="Wraper_userCash_Manage">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>用户提现列表</strong></h2>
+        <!-- 列表显示 -->
+		<div class="pic-grid">
+			<table id="Table_userCash_Manage"></table>
+		</div>
+    </div> 
+
+	<div id="Form_userCash_Manage" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			<input type="hidden" name="id"/>
+			<div class="row"> 
+				<div class="span5 grid-layout-content">
+					<div name="auditDesc" class="jrad-textarea-container"></div>
+				</div>
+			</div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container">
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+	<div id="Form_set_status" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			<div class="row"> 
+				<label class="span3 grid-layout-label">修改状态为：</label>
+				<div class="span8 grid-layout-content">
+					<div name="status" class="jrad-select-container"></div>
+				</div>
+			</div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container">
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+
+	<div id="Form_account_detail" style="display:none;">
+	  	<div class="grid-layout-main jrad-form">
+		    <table id="Table_accountdetail">
+		    	<tr>
+		    		<th>状态变更</th>
+		    		<th>变更时间</th>
+		    		<th>操作人</th>
+		    	</tr>
+		    </table>
+	  	</div>
+	</div>
+
+	<div id="Form_explain_eg82" style="display:none;">
+	    <div class="grid-layout-main jrad-form"> 
+	        <div class="row">
+	            <label class="span3 grid-layout-label">业务说明：</label>
+	            <div class="span12 grid-layout-content">
+	                <div><strong>功能简介：</strong>商家在商家后台创建、修改服务信息后，需要在此审核后，才能生效。</div>
+	                <div><strong>重要功能说明：</strong>无。</div>
+	                <div><strong>注意事项：</strong>无。</div>
+	            </div> 
+	        </div> 
+	        <div class="row">
+	            <label class="span3 grid-layout-label">备注：</label>
+	            <div class="span12 grid-layout-content">
+	                <div class="jrad-textarea-container" name="remark">
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="jrad-buttons-container ui-buttons-container"> 
+	        <span class="jrad-btn-primary">确定</span> 
+	        <span class="jrad-btn-normal">取消</span>
+	    </div>
+	</div>
+
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_userCash_Manage');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+
+   	var fields_params = {}; 
+    fields_params['status'] ={data:[{"id":"0",name:"未转账"},{"id":"4",name:"转账成功"},{"id":"5",name:"转账失败"}]};
+  
+    page_column_model.push({display: '申请记录Id', name : 'userCashApplyId',hidden:true});
+    page_column_model.push({display: '用户ID', name : 'userId'});
+    page_column_model.push({display: '支付宝姓名', name : 'userName'});
+    page_column_model.push({display: '支付宝账号', name : 'receiveAccount'});
+	page_column_model.push({display: '提现金额', name : 'posAmount'}); 
+	page_column_model.push({display: '提现时间', name : 'applyDate'});
+	page_column_model.push({display: '金额来源', name : 'cashSource'}); 
+	page_column_model.push({display: '状态', name : 'status'});
+	page_column_model.push({display: '操作日志', diy:function(item,$div){
+    	var account_detail=$('<a>').css('href','javascript:').addClass('account_detail').html('详情');
+    	$div.html(account_detail);
+    	$div.find('a').unbind('click').bind('click',function(){
+    		$.jRadGet({
+    			url:'/shopmanage-ws/ws/0.1/userTakeCashApply/getHistory?userCashApplyId='+item.userCashApplyId,
+    			success:function(data){
+    				$("#Form_account_detail").form({
+    					title:"日志",
+    					success_callback:function(){
+    						$('#Table_account_manage').flexReload();
+    					}
+    				}).form('open');
+    				var tr_len=$("#Table_accountdetail",wraper).find("tr").length;
+    				for(var cur=0;cur<tr_len;cur++){
+    				  	if(cur!==0){
+    				    	$("#Table_accountdetail",wraper).find("tr").eq(cur).hide();
+    				  	}
+    				};
+    				var str = "";
+    				$.each(data,function(i){
+    					var _item=data[i];
+    					str+="<tr>"
+    					    +"<td>"+_item.statusChange+"</td>"
+    					    +"<td>"+_item.operateDate+"<br>"
+    					    +"<td>"+_item.operator+"</td>"
+    					    +"</tr>";
+    				});
+    				$("#Table_accountdetail",wraper).append(str);
+    			},
+			  	error:function(xhr){
+			  		var errormsg = eval("(" + xhr.responseText + ")"); 
+					if (errormsg != undefined) {
+						$('#Table_userCash_Manage').flexMessage(errormsg[0].message, 'error');
+					} 
+			  	}
+    		})
+    	});
+    }}); ;
+
+	page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userId'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'手机号',name:'mobile'});
+	page_search_items.push({row:'1',type:'jrad-select',display:'状态',name:'status',params:{
+		data:[
+			{id:'',name:'全部'},
+			{id:'0',name:'未转账'},
+			{id:'1',name:'审核通过'},
+			{id:'2',name:'提现处理中'},
+			{id:'3',name:'转账中'},
+			{id:'4',name:'转账成功'},
+			{id:'5',name:'转账失败'},
+			{id:'6',name:'申请被拒绝'},
+			{id:'7',name:'申请已取消'},
+			{id:'99',name:'无效状态'}
+		]}
+	});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'提现时间始',name:'applyStartDate'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'提现时间终',name:'applyEndDate'});
+
+	page_list_buttons.push({displayname: '申请驳回',name:'reject',bclass: 'reject',
+		prefunc:function(){
+            var checked = $('#Table_userCash_Manage').getCheckedTrs();
+            if (checked.length == 0 || checked[0].status == "提现处理中" || checked[0].status == "转账中" || checked[0].status == "审核通过" || checked[0].status == "转账成功" || checked[0].status == "转账失败" || checked[0].status == "申请被拒绝" || checked[0].status == "申请已取消" || checked[0].status == "无效状态")  {return false;}else{return true;}
+        },
+        onpress : function(){
+	    	var checked = $('#Table_userCash_Manage').getCheckedTrs(); 
+	    	var userCashApplyList = [];
+	    	$.each(checked,function(i){
+	    		var post = {};
+	    		var item = checked[i];
+	    		post.userCashApplyId  = item.userCashApplyId;
+	    		userCashApplyList.push(post)
+	    	})
+			$.jRadConfirm('确认驳回申请吗？',1,function(){
+				var postData = {};
+				postData.operator = carsmart_config.operatorName; 
+				postData.userCashApplyList = userCashApplyList;
+				$.jRadAjax({
+				    type:'post',
+					data:postData,
+					url:'/shopmanage-ws/ws/0.1/userTakeCashApply/rejectApply', 
+					success: function(){
+						$('#Table_userCash_Manage').flexMessage('审核驳回成功!', 'success');
+           	    		$('#Table_userCash_Manage').flexReloadSearch();
+					},
+					error:function(xhr){
+					    var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined) {
+							$('#Table_userCash_Manage').flexMessage(errormsg[0].message, 'error');
+						}
+					}
+				});
+			}); 
+		}
+	});
+	// page_list_buttons.push({displayname: '邮件转账',name:'pass',bclass: 'pass',
+	// 	 prefunc:function(){
+	// 	 	var aaa;
+	// 	 	if($(".searchContent div[name='status']",wraper).select("val") == 0){
+
+	// 	 		aaa = 0;
+	// 	 		console.log(aaa)
+	// 	 	}else{
+	// 	 		aaa = 1;
+	// 	 		console.log(aaa)
+	// 	 	}
+ //  		//  			//  var checked = $('#Table_userCash_Manage').getCheckedTrs();
+	// 		//return false;
+	// 		if(aaa == 1) {return false;}else{return true;}
+ //  		}
+	// 	// onpress : function(){
+	// 	// 	var param = {};
+	// 	// 	var userId = $.trim($(".searchContent div[name='userId']",wraper).input('val'));
+	// 	// 	if(userId!=""){
+	// 	// 		param.userId = userId;
+	// 	// 	};
+	// 	// 	var mobile = $.trim($(".searchContent div[name='mobile']",wraper).input('val'));
+	// 	// 	if(mobile!=""){
+	// 	// 		param.mobile = mobile;
+	// 	// 	};
+	// 	// 	var status = $.trim($(".searchContent div[name='status']",wraper).select('val'));
+	// 	// 	if(status !="" && status == 0){
+	// 	// 		param.status = 0;
+	// 	// 	}
+	// 	// 	var applyStartDate = $.trim($(".searchContent div[name='applyStartDate']",wraper).dateinput('val'));
+	// 	// 	if(applyStartDate!=""){
+	// 	// 		param.applyStartDate = applyStartDate;
+	// 	// 	};
+	// 	// 	var applyEndDate = $.trim($(".searchContent div[name='applyEndDate']",wraper).dateinput('val'));
+	// 	// 	if(applyEndDate!=""){
+	// 	// 		param.applyEndDate= applyEndDate;
+	// 	// 	};
+	// 	// 	param.operator = carsmart_config.operatorName;
+
+	// 	// 	$(".tDiv2 .fbutton").eq(2).click(function(){
+	// 	// 		alert("132")
+	// 	// 		$.jRadConfirm('确认发送邮件到财务转账吗？',1,function(){
+	// 	// 			$(".layout-body-container").append($('<div class="warDiv" style="width:32px;height:32px;background:#fff;position:fixed;z-index: 99999;left:50%;top:50%;margin-top:-16px;margin-left:-16px;"></div>').html('<img src="ycb-loading.gif" />')).append($('<div class="drag"></div>'))
+	// 	// 			$.jRadAjax({
+	// 	// 			    type:'post',
+	// 	// 				data:param,
+	// 	// 				url:'/shopmanage-ws/ws/0.1/userTakeCashApply/sendMailToTransfer', 
+	// 	// 				success: function(){
+	// 	// 					$(".warDiv").hide();
+	// 	// 					$(".drag").hide();
+	// 	// 					$('#Table_userCash_Manage').flexMessage('转账成功!', 'success');
+	//  //           	    		$('#Table_userCash_Manage').flexReloadSearch();
+	// 	// 				},
+	// 	// 				error:function(xhr){
+	// 	// 					$(".warDiv").hide();
+	// 	// 					$(".drag").hide();
+	// 	// 				    var errormsg = eval("(" + xhr.responseText + ")"); 
+	// 	// 					if (errormsg != undefined) {
+	// 	// 						$('#Table_userCash_Manage').flexMessage(errormsg[0].message, 'error');
+	// 	// 					}
+	// 	// 				}
+	// 	// 			});
+	// 	// 		});
+	// 	// 	})		
+	// 	// }
+	// }); 
+
+	page_list_buttons.push({displayname: '修改状态',name:'upprice',bclass: 'upprice',
+		prefunc:function(){
+            var checked = $('#Table_userCash_Manage').getCheckedTrs();
+            if (checked.length == 0 || checked[0].status == "未转账" || checked[0].status == "审核通过" || checked[0].status == "转账成功" || checked[0].status == "转账失败" || checked[0].status == "申请被拒绝" || checked[0].status == "申请已取消" || checked[0].status == "无效状态"){return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_userCash_Manage').getCheckedTrs();
+	    	var userCashApplyList = [];
+	    	$.each(checked,function(i){
+	    		var post = {};
+	    		var item = checked[i];
+	    		post.userCashApplyId  = item.userCashApplyId;
+	    		userCashApplyList.push(post)
+	    	}) 
+			$('#Form_set_status').form({  
+				title:'修改状态',
+				fields_params: fields_params,
+				url:'/shopmanage-ws/ws/0.1/userTakeCashApply/changeAuditStatus',
+				before_submit:function(json){
+					json.userCashApplyList = userCashApplyList;
+					json.operator = carsmart_config.operatorName; 
+                	return json
+                },
+				success_callback: function(data){
+					$('#Table_userCash_Manage').flexMessage('修改成功!', 'success');
+       	    		$('#Table_userCash_Manage').flexReloadSearch();
+				},
+				error_callback:function(xhr){
+				    var errormsg = eval("(" + xhr.responseText + ")"); 
+					if (errormsg != undefined) {
+						$('#Table_userCash_Manage').flexMessage(errormsg[0].message, 'error');
+					}
+				}
+			}).form('open');  
+		}
+	});
+    page_list_buttons.push({separator: true});
+
+    $('#Table_userCash_Manage').flexigrid({
+        reload:true,
+		method:'get',
+        colModel : page_column_model,
+        buttons : page_list_buttons,
+        searchitems :page_search_items,
+		showSearch:true,
+        pagination: {
+			diaplay_pages: 5,
+			align: 'bottom' 
+		},
+		overflow:true,
+		checkBoxType:'single',
+        url:'/shopmanage-ws/ws/0.1/userTakeCashApply/getApplyList', 
+		onError:showServiceCheckError
+    });  
+
+	console.log("1")
+    var _input = $('<div class="fbutton icon-btn16 disabled ycbMa"><div><span class="icon16 upprice"></span><span class="icon-summary">邮件转账</span></div></div>')
+	$("#Wraper_userCash_Manage .tDiv .fbutton").eq(2).after(_input)
+	console.log("2")
+	$(".searchContent div[name='status']").select({
+		onclick:function(item){
+			console.log("aa")
+			if(item.id == 0 && item.name == "未转账"){
+				console.log("465")
+				$(".ycbMa").removeClass("disabled");
+				var param = {};
+				var userId = $.trim($(".searchContent div[name='userId']",wraper).input('val'));
+				if(userId!=""){
+					param.userId = userId;
+				};
+				var mobile = $.trim($(".searchContent div[name='mobile']",wraper).input('val'));
+				if(mobile!=""){
+					param.mobile = mobile;
+				};
+				var status = $.trim($(".searchContent div[name='status']",wraper).select('val'));
+				if(status !="" && status == 0){
+					param.status = 0;
+				}
+				var applyStartDate = $.trim($(".searchContent div[name='applyStartDate']",wraper).dateinput('val'));
+				if(applyStartDate!=""){
+					param.applyStartDate = applyStartDate;
+				};
+				var applyEndDate = $.trim($(".searchContent div[name='applyEndDate']",wraper).dateinput('val'));
+				if(applyEndDate!=""){
+					param.applyEndDate= applyEndDate;
+				};
+				param.operator = carsmart_config.operatorName;
+				$(".tDiv .ycbMa").unbind('click').bind('click',function(){
+					$(".jrad-dialog-confirm").hide();
+					$(".overcurtainDiv").hide();
+					$.jRadConfirm('确认发送邮件到财务转账吗？',1,function(){
+						$.jRadAjax({
+						    type:'post',
+							data:param,
+							url:'/shopmanage-ws/ws/0.1/userTakeCashApply/sendMailToTransfer', 
+							success: function(){
+								$('#Table_userCash_Manage').flexMessage('转账成功!', 'success');
+		           	    		$('#Table_userCash_Manage').flexReloadSearch();
+							},
+							error:function(xhr){
+							    var errormsg = eval("(" + xhr.responseText + ")"); 
+								if (errormsg != undefined) {
+									$('#Table_userCash_Manage').flexMessage(errormsg[0].message, 'error');
+								}
+							}
+						});
+					});
+				})
+			}else{
+				$(".ycbMa").attr("class","fbutton icon-btn16 disabled ycbMa");
+			}
+		}
+	})
+	$(".searchButtons .ui-btn-icon").eq(1).click(function(){
+		$(".ycbMa").attr("class","fbutton icon-btn16 disabled ycbMa");
+	})
+});
+function showServiceCheckError(xhr){
+ 	var errormsg = eval("(" + xhr.responseText + ")");
+  	var cDiv = $("#Wraper_userCash_Manage .cDiv");
+  	$.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+}
+ 
+</script>

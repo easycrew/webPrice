@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta name="keywords" content="养车宝，汽车保养，洗车美容">
+<meta name="description" content="养车宝为车主提供汽车保养，汽车美容，汽车维修，免费电话救援等服务，简易流程让您养车省心，交易透明让您养车安心，专业服务让您养车不用担心！">
+<title>养车宝_汽车保养美容专家！</title>
+<link rel="icon" href="img/icon.png" type="image/png" >
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/smallnav.css">
+<link rel="stylesheet" href="css/yzsj.css">
+</head>
+<body>
+	<div class="container">
+		<div class="top">
+			<div id="navi"></div>
+			<div class="smallnav">
+				<p><span><a href="index.html">养车宝</a></span><span>></span><span><a href="index.html">优质商家</a></span><span>></span><span class="question">正在加载...</span></p>
+			</div>
+		</div>
+		<div class="content">
+			<div class="left">
+			    <div class="service">
+				    <h2>全部服务</h2>
+				    <div class="line_1"><p></p></div>
+				    <ul>正在加载...</ul>
+				</div>
+				<div class="intro">
+					<h2>商家简介</h2>
+					<div class="line_1"><p></p></div>
+					<div class="jj">正在加载...</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="smallbanner">
+					<ul class="smallbanner_img">
+						<li><a href="javascript:void(0);"><img src="img/loading.jpg" width="334" height="251"></a></li>
+					</ul>
+					<ul class="smallbanner_id"></ul>
+				</div>
+				<div class="shop_info">
+					<h2>门店信息</h2>
+					<div class="line_2"><p></p></div>
+					<div id="businessInfo">正在加载...</div>
+				</div>
+				<div id="map_info" style="width: 335px; height: 300px;"></div>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div class="footer"></div>
+</body>
+<!--[if IE 6.0]>
+	<script src="js/DD_belatedPNG.js"></script>
+	<script>
+        DD_belatedPNG.fix("img");
+	</script>
+<![endif]-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff924926d1eaf998748c11fd77a92f7ca' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript" src="http://apis.mapabc.com/webapi/auth.json?t=javascriptmap&v=3.1.1&key=5071fc9c68b7bcee54573a9b0f9453530189067a8bb056068ef54ceb786ac0f6d3d4249bd7b2a873"></script>   
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3&ak=2d5********2cb"></script> 
+<script src="js/jquery-1.7.min.js"></script>
+<script src="js/jquery.urlParam.js"></script>
+<script src="js/main.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#navi").load("head.html");
+		Car.footer();
+		
+		$.get(Car.url("/greateBusinessWeb/getDetailBusinessInfo"), {
+			businessInfoId: $.getQuery("businessInfoId")
+		}, function (data) {
+			if (data) {
+				var html = "";
+				for (var i = 0; i < data.offerServices.length; i++) {
+					switch (data.offerServices[i]) {
+					case 1: html += "<li><a href='javascript:void(0);'><p><img src='img/xcfw.png'></p><p>洗车服务</p></a></li>"; break;
+					case 2: html += "<li><a href='javascript:void(0);'><p><img src='img/mrfw.png'></p><p>美容服务</p></a></li>"; break;
+					case 3: html += "<li><a href='javascript:void(0);'><p><img src='img/qcby.png'></p><p>汽车保养</p></a></li>"; break;
+					case 4: html += "<li><a href='javascript:void(0);'><p><img src='img/clwx.png'></p><p>车辆维修</p></a></li>"; break;
+					default: html += "<li><a href='javascript:void(0);'><p><img src='img/clgz.png'></p><p>车辆改装</p></a></li>"; break;
+					}
+				}
+				// 服务
+				$(".service ul").html(html);
+				// 正文
+				$(".jj").html(data.introduction);
+				
+				// 轮播图片
+				var businessPicsLen = data.businessPics.length, smallbanner_img = "", smallbanner_id="";
+				if (businessPicsLen == 0) {
+					smallbanner_img += "<li><a href='javascript:void(0);'><img src='img/loading.jpg' width='334' height='251'></a></li>";
+				} else {
+					for (var i = 0; i < businessPicsLen; i++) {
+						smallbanner_img += "<li><a href='javascript:void(0);'><img src='" + data.businessPics[i].address + "' width='334' height='251'></a></li>";
+						if (businessPicsLen > 1) {
+							smallbanner_id += (i == 0 ? "<li><img src='img/banner_id1.png'></li>" : "<li><img src='img/banner_id2.png'></li>");
+						}
+					}
+				}
+				$(".smallbanner_img").html(smallbanner_img);
+				$(".smallbanner_id").html(smallbanner_id);
+				
+				// banner轮播
+				if (businessPicsLen > 1) {
+					var j = 0;
+					$("ul.smallbanner_id li").hover(function() {
+						clearTimeout(auto);
+						var index = $(this).index();
+						$("ul.smallbanner_img li").eq(index).fadeIn("1000").siblings().fadeOut("1000");
+						$(this).find("img").attr({
+							src : "img/banner_id1.png"
+						});
+						$(this).siblings().find("img").attr({
+							src : "img/banner_id2.png"
+						});
+					});
+					function player() {
+						$("ul.smallbanner_img li").eq(j).fadeIn("1000").siblings().fadeOut("1000");
+						$("ul.smallbanner_id li").eq(j).find("img").attr({
+							src : "img/banner_id1.png"
+						});
+						$("ul.smallbanner_id li").eq(j).siblings().find("img").attr({
+							src : "img/banner_id2.png"
+						});
+						j++;
+						j = j > ($("ul.smallbanner_id li").length - 1) ? 0 : j;
+						auto = setTimeout(player, 3000);
+					}
+					$("ul.smallbanner_img li").hover(function() {
+						clearTimeout(auto);
+					}, function() {
+						j = $(this).index() + 1;
+						auto = setTimeout(player, 3000);
+					});
+					player();
+				}
+				
+				// 门店信息
+				html = "";  
+				if (data.businessName && data.businessName != "null") {
+					document.title = data.businessName + "_汽车保养美容专家！";
+					html += "<p>商家名称：" + data.businessName + "</p>"; 
+					$(".question").html(data.businessName);
+				}
+				if (data.address && data.address != "null") {
+					html += "<p>商家地址：" + data.address + "</p>";
+				}
+				if (data.mobile && data.mobile != "null") {
+					html += "<p>联系方式：" + data.mobile + "</p>";
+				}
+				$("#businessInfo").html(html);
+				
+				// 地图
+				if (data.baiduLongtitude && data.baiduLatitude) {
+					var map = new BMap.Map("map_info");
+					var point = new BMap.Point(data.baiduLongtitude, data.baiduLatitude);
+					map.centerAndZoom(point, 14);
+					map.addControl(new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM}));
+					map.addOverlay(new BMap.Marker(point));
+				}
+			}
+		});
+	});
+</script>
+</html>

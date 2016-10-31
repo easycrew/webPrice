@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="养车宝，配件商城">
+	<meta name="description" content="养车宝配件商城，100%原厂品质，3M、威固、美孚、壳牌Ahell、普利司通、米其林等汽车配件，厂价直销！">
+	<title>全网正品汽车配件_养车宝配件商城！</title>
+	<link rel="icon" href="favicon.ico">
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script language="javascript" src="js/jquery.json-2.2.js"></script> 
+	<script src="js/common.js"></script>
+	<script src="js/jquery.urlParam.js"></script>
+	<script src="js/jquery.pagination.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/product.css">
+	<link rel="stylesheet" href="css/login.css">
+	<link rel="stylesheet" href="css/historyOrder.css">
+	<style type="text/css">
+		.biaoji{
+			border: 5px solid #0000FF;
+		}
+		.point{color: #D70000;}
+		.dialogAddress{position: absolute;top: 276px;}
+		.dialog-con p span.counterFee{
+			color: #FD6244;
+			font-size: 14px;
+			font-family: "microsoft yahei";
+		}
+	</style>
+</head>
+<body>
+	<div class="deleteAlert dialog" style="display: none;z-index: 1505;">
+		<div class="dialog-title"><h3></h3><img src="img/alertRe_close.png" class="dialog-close"></div>
+		<div class="dialog-con">
+			<p>团购订单与项目截至日期之前的7天内取消，将扣除您<span>5%</span>的手续费，是否确定取消？</p>
+			<span class="dialog-sure">确定</span>
+			<span class="dialog-no">取消</span>
+		</div>
+	</div> 
+	<div class="dialog-overlay" style="display:none;"></div>
+	<div class="Form-editEddrress dialog dialogAddress" style="display:none;">
+		<div class="dialog-title"><h3></h3><img src="img/alertRe_close.png" class="dialog-close"></div>
+		<div class="Form-editEddrress-con">
+			<p class="ui-note" style="color:#f00;font-family:'microsoft yahei';font-size:14px;"></p>
+			<p>
+				<span>所在地区：</span>
+				<select name="provinceId" id=""><option value="">请选择省份</option></select>
+				<select name="areaCodeId" id=""><option value="">请选择城市</option></select>
+				<select name="countyId" id=""><option value="">请选择区县</option></select>
+			</p>
+			<p>
+				<span>详细地址：</span>
+				<textarea name="postalAddress" id="postalAddress" cols="74" rows="7" placeholder="建议您如实填写详细收货地址，例如街道名称、门牌号码、楼层和房间号等信息。" style="font-family: '微软雅黑';"></textarea>
+			</p>
+			<p>
+				<span>联系人：</span>
+				<input type="text" placeholder="长度不超过25个字符" name="consigneeName">
+			</p>
+			<p>
+				<span>联系电话：</span>
+				<input type="text" placeholder="请输入您的常用号码" name="mobile">
+			</p>
+			<span class="Form-editEddrress-save">保存</span>
+		</div>
+	</div>
+	<div class="editAddress-dialog-overlay" style="display: none;"></div>
+	<div class="container">
+		<div class="top"></div>
+		<div class="main">
+			<div class="mainCommen"></div>
+			<div class="historyOrder-con">
+				<div class="historyOrder-left">
+					<div class="titleCon">我的养车宝</div>
+					<div class="selfPictur">
+						<p class="pictureDetail"><img src="img/Avatar.jpg" width="150"height="150" /></p>
+						<p class="selfName"><span>测试用户名</span></p>
+					</div>
+					<div class="orderList">
+						<p>订单中心</p>
+						<a title="我的订单" class="allOrder checked"><p class="selfOrder"><span>我的订单</span></p></a>
+						<a title="团购订单" class="groupOrder"><p class="groupPurchaseOrder"><span>团购订单</span></p></a>
+					</div>
+					<div class="AccountCentral">
+						<p>账户中心</p>
+						<a title="" class="valueAddedInvoices" href="invoice.html"><p class="valueAddedInvoices"><span>增票资质管理</span></p></a>
+					</div>
+					<div class="edit">
+						<p>设置</p>
+						<a title="" class="editAddress"><p class="editAddress"><span>收货地址</span></p></a>
+					</div>
+					<!-- <div class="selfAccount">
+						<p class="accoutDetail"></p>
+						<p class="safeQuit"><span>安全退出</span></p>
+					</div>
+					<div class="receiveAddress">
+						<p>收货地址：</p>
+						<p class="receiveAddressDetail"></p>
+						<p class='editAddress'><span>修改地址</span></p>
+					</div> -->
+				</div>
+				<div class="historyOrder-right">
+					<h2>我的订单</h2>
+					<div class="line_h2"><p></p></div>
+					<div class="historyOrder-detail">
+						<table class="Table-historyOrder-detail" cellpadding="0" cellspacing="0">
+							<thead>
+								<td class="goodsName">商品名称</td>
+								<!--<td>型号规格</td>-->
+								<td></td>
+								<td style="padding-right: 10px;">数量</td>
+								<td>价格</td>
+								<td>订单金额（元）</td>
+								<td>状态</td>
+								<td class="operate">操作</td>
+							</thead>
+							<tbody>
+								<tr class="tr-detailCon-first">
+									<td class="td-goodsname" style="text-align:left;padding-left:40px;">
+										<a href="javascript:" class="goodsImg" onclick="judgeStatus(137,undefined,126)">
+											<i>专享</i>
+											<img src="http://app.yangchebao.com.cn/group1/M00/00/6F/ChoCK1XNrm2AVregAAAJoZmReVk416.jpg" width="78" height="78">
+										</a>
+										<span class="goodsNameDetail">
+											<span>宣顶雪种 R134A 250g 200g/罐 铁罐</span>
+										</span>
+									</td>
+									<td>×1</td>
+									<td class="td-goodsPrice">10.89</td>
+									<td class="td-realCharge">
+										<p class="totalFee">商品总价：&yen;<span>500</span></p>
+										<p class="expressFee">快递费：&yen;<span>0</span></p>
+										<p class="balanceFee">余额支付：&yen;<span>8</span></p>
+										<p class="lastFee">实付款：&yen;<span>498</span></p>
+									</td>
+									<td class="td-status" id="1">待付款</td>
+									<td class="td-operate">
+										<p class="td-operate-status">
+											<a href="javascript:" onclick="aplayment(201601051045417,11356,230)">
+												<span class="instant">立即付款</span>
+											</a>
+										</p>
+										<p class="td-operate-operate">
+											<span class="operate" onclick="changeStateOk('',11356,201601051045417,1)">取消订单</span>
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="pagination"></div>
+				</div>
+			</div>
+			<div id="logis-wrap" style="display:none">
+			<div class="header"><a href="javascript:"><img src="img/alertRe_close.png" class="dialog-close logis-close"></a></div>
+			<div class="logis-cont">
+				<div class="con-tit">
+					<a class="bag1">包裹</a>
+					<a class="bag2" style="display: none;">包裹2</a>
+				</div>
+				<div class="logis-main-first">
+				<div class="con-ydxx">
+					<h2 style="font-weight: bold;">运单信息</h2>
+					<p class="conCompany"><!--物流公司：  申通快递--></p>
+                    <p class="conNum"><!--运单号码：  9873458494537439457384--></p>
+				</div>
+				<div class="con-wldt">
+					<h2 style="font-weight: bold;">物流动态</h2>
+					<div class="flowCon">
+					   <p><span class="date"></span><span class="time"></span><span class="address">正在配送</span></p>
+					</div>
+				</div>
+				<div class="con-bot">
+					<p>
+				</div>
+			    </div>
+			</div>			
+				<div class="logis-main-cecond" style="display: none;">
+				<div class="con-ydxx">
+					<h2>运单信息</h2>
+					<p class="conCompany">物流公司：  申通快递</p>
+                    <p class="conNum">运单号码：  9873458494537439457384</p>
+				</div>
+				<div class="con-wldt">
+					<h2>物流动态</h2>
+					<div class="flowCon">
+					</div>
+				</div>
+				<div class="con-bot">
+					<p>
+				</div>
+			    </div>
+			</div>			
+		</div>
+		
+		<div class="footer"></div>
+	</div>
+</body>
+<script type="text/javascript">
+if(!(document.cookie.indexOf('customerId')!=-1)){
+ 	location.href="index.html";
+}
+//订单支付
+function aplayment(orderNumber,userInfoId,areaCodeId,isThrough){
+	if(isThrough==false){
+		mall.alertRe('您的汇款正在确认中，请勿进行二次付款','');
+		return
+	}
+	userInfoId=userInfoId;
+	orderNumber=orderNumber;
+	var _url=mall.url('/user/shoppingcard/checkOrderSku');
+	_url+='?userInfoId='+userInfoId+'&orderNumber='+orderNumber+'&areaCodeId='+areaCodeId;
+	$.ajax({
+		type:"get",
+		url:_url+'&'+new Date().getTime(),
+		async:false,
+//		data:{userInfoId:userInfoId,orderNumber:orderNumber,areaCodeId:areaCodeId},
+		dataType:"json",
+		contentType:"application/json;charset=utf-8",
+		success:function(){
+			window.location='playment.html?orderNumber='+orderNumber;
+		},
+		error:function(xhr){
+			var error=eval('('+xhr.responseText+')');
+			mall.alertRe(error[0].message,"");
+		}
+	});
+	
+}
+//更改订单状态
+function changeState(customerId,orderNumber,orderStatus){
+	var postData={};
+	postData.userInfoId=customerId;
+	postData.orderNumber=orderNumber;
+	postData.orderStatus=orderStatus;
+		$.ajax({
+		type:'post',
+		url:mall.url('/userorder/status/replace'),
+		dataType:'json',
+		data:$.toJSON(postData),
+		contentType:'application/json;charset=utf-8',
+		success:function(){
+			if(orderStatus==8){
+				mall.alertRe('订单取消成功！','取消订单');
+			}else if(orderStatus==6){
+				mall.alertRe('确认收货成功','确认收货');
+			}
+		}						
+		});
+}
+//取消订单
+function changeStateOk(entityId,customerId,orderNumber,orderStatus){
+	$(".deleteAlert").show();
+	$(".dialog-overlay").show();
+	var alertTitleStr='';
+	if(entityId!=undefined){
+		var groupPurchasingId=entityId;
+		$.ajax({
+		type:'get',
+		url:mall.url('/groupPurchasing/getGpInfo'),
+		async:false,
+		dataType:'json',
+		data:{groupPurchasingId:groupPurchasingId},
+		contentType:'application/json;charset=utf-8',
+		success:function(data){
+			var _timeRemaining=data.timeRemaining;
+			var timeRemaining=_timeRemaining/3600/24;
+			if(orderStatus==1){
+				alertTitleStr='是否确定取消？'
+			}else{
+				if(timeRemaining>3){
+					alertTitleStr='是否确定取消？'
+				}else{
+					if(data.liquidatedDamageRatio=="0%"){
+						alertTitleStr='是否确定取消？'
+					}else{
+						alertTitleStr='团购订单于项目截至日期之前的7天内取消，将扣除您<span class="counterFee">'+data.liquidatedDamageRatio+'</span>的手续费，是否确定取消？'
+					}
+				}
+				if(data.timeRemaining==0){
+					if(data.liquidatedDamageRatio=="0%"){
+						alertTitleStr='是否确定取消？'
+					}else{
+						alertTitleStr='团购活动已结束,取消订单将扣除您<span class="counterFee">'+data.liquidatedDamageRatio+'</span>的手续费，是否确定取消？'
+					}
+				}
+			}
+			$("div.deleteAlert div.dialog-con p").html(alertTitleStr);
+		}						
+		});
+	}else{
+		alertTitleStr='是否确定取消？';
+		$("div.deleteAlert div.dialog-con p").html(alertTitleStr);
+	}
+	$(".dialog-sure").click(function(){
+		$(".dialog-overlay").hide();
+		$(".deleteAlert").hide();
+		changeState(customerId,orderNumber,8);
+	})
+}
+//查看物流
+function searchFlow(orderNumber){
+	var initPagination = false;
+		$("#logis-wrap").show();
+		$('.dialog-overlay').show();
+		$.get(mall.url('/userorder/express/detail'),{orderNumber:orderNumber},function(data){
+				$.each(data.parcelList, function(i) {
+					if(i==0){
+						$("div.logis-main-first div.con-ydxx p.conCompany").html('物流公司:'+this.expressWayName);
+						$("div.logis-main-first div.con-ydxx p.conNum").html('运单号码:'+this.expressNumber);
+						$('div.logis-main-first div.flowCon p').html("正在配送");
+						$('div.logis-main-first div.con-bot p').html("<span class='customerAdd'>收货信息:</span>"+this.postalAddress);
+					}else{
+						$("div.logis-main-second div.con-ydxx p.conCompany").html('物流公司:'+this.expressWayName);
+						$("div.logis-main-second div.con-ydxx p.conNum").html('运单号码:'+this.expressNumber);
+						$('div.logis-main-second div.flowCon p').html("正在配送");
+						$('div.logis-main-first div.con-bot p').html("<span class='customerAdd'>收货信息:</span>"+this.postalAddress);
+						}
+					
+				});
+			});
+	}
+function judgeStatus(skuId,entityId,commodityId){
+	$.get(mall.url('/sku/getSkuById'),{skuId:skuId},function(data){
+		if(data.status!=1){
+			mall.alertRe("该商品已下架","");
+			return false;
+		}else{
+			location.href='goodsDetail.html?groupPurchasingId='+entityId+'&skuId='+skuId+'&commodityId='+commodityId;
+		}
+	})
+}
+$(function(){
+		$('div.top').load('top.html');
+		$('div.mainCommen').load('searchAndNav.html');
+		$('div.footer').load('footer.html');
+		var username=mall.getCookie('username');
+		var customerId=mall.getCookie('customerId');
+		var userInfoId=mall.getCookie('customerId');
+		var areaCodeId=mall.getCookie('areaCodeId');
+		var provinceId="";		//省份ID
+		var areaCodeId="";		//城市ID
+		var countyId="";		//区县ID
+		var provinceName="";	//省份名称
+		var areaCodeName="";	//城市名称
+		var countyName="";		//区县名称
+		var postalAddress="";	//收货详细地址
+		var consigneeName="";	//联系人名字
+		var mobile="";
+		$('p.accoutDetail').html('账号：'+username);
+		$("p.selfName span").html(username);
+		
+		//订单类型点击
+		$("div.orderList a.allOrder").click(function(){
+			$(this).addClass("checked").siblings().removeClass("checked");
+			initPagination=false;
+			historyOrderPage(0);
+		});
+		$("div.orderList a.groupOrder").click(function(){
+			$(this).addClass("checked").siblings().removeClass("checked");
+			initPagination=false;
+			historyOrderPage(0,2);
+		})
+		//物流详情关闭按钮
+		$(".logis-close").on('click',function(){
+			$("#logis-wrap").hide();
+		})
+		//加载页面判断是团购订单还是普通订单
+		var URLtitle=$.getQuery('title');
+		if(URLtitle=='团购订单'){
+			$("div.orderList a.groupOrder").trigger('click');
+		}else{
+			$(this).addClass("checked").siblings().removeClass("checked");
+			initPagination=false;
+			historyOrderPage(0);
+		}
+		//设置收货地址
+		$('div.edit a.editAddress').unbind('click').bind('click',function(){
+			var _url=mall.url('/user/delivery/detail');
+			_url+='?userInfoId='+userInfoId;
+			$.ajax({
+				type:"get",
+				url:_url+'&'+new Date().getTime(),
+				async:false,
+				dataType:'json',
+				contentType:"application/json;charset=utf-8",
+				success:function(data){
+					provinceId=data.provinceId;
+					provinceName=data.provinceName;
+					areaCodeId=data.areaCodeId;
+					areaCodeName=data.areaCodeName;
+					countyId=data.countyId;
+					countyName=data.countyName;
+					postalAddress=data.postalAddress;
+					consigneeName=data.consigneeName;
+					mobile=data.mobile;
+					$('div.Form-editEddrress').show();
+					$('.dialog-overlay').show();
+		 			$.get(mall.url('/areaCode/getOpeningProvicnes'),function(data){
+						var proStr='<option value="">请选择省份</option>'
+						$.each(data,function(){
+							if(this.id==provinceId){
+								proStr+='<option value="'+this.id+'" selected="true">'+this.provinceName+'</option>'
+							}else{
+								proStr+='<option value="'+this.id+'">'+this.provinceName+'</option>'
+							}
+						});
+						$('select[name="provinceId"]').html(proStr);
+						provinceId=$('select[name="provinceId"]').val();
+					});
+								
+				$.get(mall.url('/areaCode/getOpeningCities'),{provinceId:provinceId},function(data2){
+					var cityStr='<option value="">请选择城市</option>'
+					$.each(data2,function(){
+						if(this.id==areaCodeId){
+							cityStr+='<option value="'+this.id+'" selected="true">'+this.municipalityName+'</option>'
+						}else{
+							cityStr+='<option value="'+this.id+'">'+this.municipalityName+'</option>'
+						}
+					});
+					$('select[name="areaCodeId"]').html(cityStr);
+					areaCodeId=$('select[name="areaCodeId"]').val();
+				});
+				
+				$.get(mall.url('/areaCode/countries'),{cityId:areaCodeId},function(data3){
+					var countyStr='<option value="">请选择区县</option>';
+					$.each(data3,function(){
+						if(this.id==countyId){
+							countyStr+='<option value="'+this.id+'" selected="true">'+this.countyName+'</option>'
+						}else{
+							countyStr+='<option value="'+this.id+'">'+this.countyName+'</option>'
+						}
+					});
+					$('select[name="countyId"]').html(countyStr)
+				});
+				$('select[name="provinceId"]').change(function(){
+					$('select[name="areaCodeId"]').html('<option value="">请选择城市</option>');
+					$('select[name="countyId"]').html('<option value="">请选择区县</option>');
+					provinceId=$(this).val();
+					$.get(mall.url('/areaCode/getOpeningCities'),{provinceId:provinceId},function(data2){
+						var cityStr='<option value="">请选择城市</option>'
+						$.each(data2,function(){
+							cityStr+='<option value="'+this.id+'">'+this.municipalityName+'</option>'
+						});
+						$('select[name="areaCodeId"]').html(cityStr);
+					});
+				});
+				$('select[name="areaCodeId"]').change(function(){
+					$('select[name="countyId"]').html('<option value="">请选择区县</option>');
+					areaCodeId=$(this).val();
+					$.get(mall.url('/areaCode/countries'),{cityId:areaCodeId},function(data3){
+						var countyStr='<option value="">请选择区县</option>';
+						$.each(data3,function(){
+							countyStr+='<option value="'+this.id+'">'+this.countyName+'</option>'
+						});
+						$('select[name="countyId"]').html(countyStr)
+					});
+				});
+				$('textarea[name="postalAddress"]').val(postalAddress);
+				$('input[name="consigneeName"]').val(consigneeName);
+				$('input[name="mobile"]').val(mobile);
+				$('span.Form-editEddrress-save').unbind('click').bind('click',function(){
+					var postData={};
+					postData.userInfoId=userInfoId;
+					postData.consigneeName=$('input[name="consigneeName"]').val();
+					postData.mobile=$('input[name="mobile"]').val();
+					postData.provinceId=$('select[name="provinceId"]').val();
+					postData.areaCodeId=$('select[name="areaCodeId"]').val();
+					postData.countyId=$('select[name="countyId"]').val();
+					postData.postalAddress=$('textarea[name="postalAddress"]').val();
+					if(postData.provinceId==''||postData.areaCodeId==''||postData.countyId==''){
+						$('div.Form-editEddrress-con p.ui-note').html('请选择所在省市区');
+						return false
+					}
+					$.ajax({
+						type:'post',
+						url:mall.url('/user/delivery/replace'),
+						data:$.toJSON(postData),
+						dataType:'json',
+						contentType:'application/json;charset=utf-8',
+						success:function(data){
+							$('p.ui-note').html('');
+							$('div.Form-editEddrress').hide();
+							$('div.dialog-overlay').hide();
+						},
+						error:function(xhr){
+							var error=eval('('+xhr.responseText+')');
+							$('div.Form-editEddrress-con p.ui-note').html(error[0].message)
+						}
+					})
+				});
+				$('div.Form-editEddrress img.dialog-close').unbind('click').bind('click',function(){
+					$('p.ui-note').html('');
+					$('div.Form-editEddrress').hide();
+					$('div.dialog-overlay').hide()
+				})
+				}
+			});
+		});
+		$('p.safeQuit span').unbind('click').bind('click',function(){
+			$.ajax({
+	            url : "/ycbmall-uc-ws/ws/0.1/logout",
+	            contentType : "application/json;charset=utf-8",
+	            dataType : "json",
+	            type : "GET",
+	            success : function(data) {
+	            	delCookie('username');
+	            	delCookie('customerId');
+	                window.location = "index.html"
+	            },
+	            error: function(xhr){
+	                var status = xhr.status;
+	                if (status == 200) {
+	                	delCookie('username');
+		            	delCookie('customerId');
+	                    window.location = "index.html"
+	                }
+	            }
+	        });
+		});
+
+
+		function historyOrderPage(page,orderType){
+			var _url=mall.url('/userorder/page');
+			_url+='?userInfoId='+userInfoId+'&pageindex='+page+'&pagesize=5'
+			if(orderType==undefined){
+				//普通订单
+			}else{
+				_url+='&orderType='+orderType
+			}
+			$.ajax({
+				type:"get",
+				url:_url+'&'+new Date().getTime(),
+				async:false,
+				dataType:"json",
+				contentType:"application/json;charset=utf-8",
+				success:function(data){
+					var orderNumber;
+					var areaCodeId;
+					var ordersStr='';
+					var cancelType=0;
+					$.each(data.items,function(i){
+						var originalPayment=this.originalPayment;//商品总金额
+						var calculatePostage=this.calculatePostage//邮费金额
+						var balancePayment=this.balancePayment//余额已经支付金额
+						var cashPayment=this.cashPayment//实付款--还需支付金额
+						cancelType=this.cancelType;
+						if(this.orderType=="1"){
+							ordersStr+='<tr class="tr-null"><td colspan="7" height="10px"></td></tr>'
+								  +'<tr class="tr-top">'
+								  +'<td colspan="7">'
+								  +'<p class="td-top-left">'
+								  +'<span class="orderDate">'+this.orderDate+'</span>'
+								  +'<span class="orderNumber" id="'+this.userOrderId+'">订单号：'+this.orderNumber+'</span>'
+								  +'</p>'
+								  +'<p class="td-top-right"><a href="orderDetail.html?orderNumber='+this.orderNumber+'" class="checkOrderDetail">查看订单详情</a></p>'
+								  +'</td>'
+								  +'</tr>';
+						}
+						if(this.orderType=="2"){
+							var entityId=this.entityId;
+							ordersStr+='<tr class="tr-null"><td colspan="7" height="10px"></td></tr>'
+								  +'<tr class="tr-top">'
+								  +'<td colspan="7">'
+								  +'<p class="td-top-left">'
+								  +'<span class="orderDate">'+this.orderDate+'</span>'
+								  +'<span class="orderNumber" id="'+this.userOrderId+'">订单号：'+this.orderNumber+'</span>'
+								//团购商品订单标识
+								  +'<span class="groupDetailsmark"></span>'
+								  +'</p>'
+								  +'<p class="td-top-right"><a href="orderDetail.html?orderNumber='+this.orderNumber+'" class="checkOrderDetail">查看订单详情</a></p>'
+								  +'</td>'
+								  +'</tr>';
+						}
+						orderNumber=this.orderNumber;
+						areaCodeId=this.areaCodeId;
+						var realPayment=this.realPayment;
+					    var skulist=this.skulist;
+						$.each(skulist,function(j){
+							var commodityType=this.commodityType;
+							//订单第一项
+							if(j==0){
+								ordersStr+='<tr class="tr-detailCon-first">'
+									  +'<td class="td-goodsname" style="text-align:left;padding-left:40px;width=100px;">'
+									 // +'<a href=" .html?commodityId='+this.commodityId+'&skuId='+this.skuId+'" class="goodsImg"><img src="'+this.smallPicUrl+'" width="78" height="78"></a>'
+									  +'<a href="javascript:" class="goodsImg" onclick="judgeStatus('+this.skuId+','+entityId+','+this.commodityId+')">'
+								  	if(commodityType==2){
+									  ordersStr+='<i>专享</i>'
+								  	}
+							    ordersStr+='<img src="'+this.smallPicUrl+'" width="78" height="78">'
+									  +'</a>'
+									  +'</td><td style="text-align:left;width:350px;">'
+									   var item_name=this.skuName;
+									  if(item_name.length>51){
+										item_name=item_name.substring(0,50)+'…'
+									  }
+								ordersStr+='<span class="goodsNameDetail"><span>'+item_name+'</span></span>'
+									  +'</td>'
+									  +'<td>×'+this.skuNum+'</td>'
+									  +'<td class="td-goodsPrice">'+this.skuPrice+'</td>'
+									  +'<td class="td-realCharge">'
+									  +'<p class="totalFee"><span class="L">商品总价：</span><span class="R"><span>&yen;</span><span>'+originalPayment+'</span></span></p>'
+									  +'<p class="expressFee"><span class="L">快递费：</span><span classs="R"><span>&yen;</span><span>'+calculatePostage+'</span></span></p>'
+									  +'<p class="balanceFee"><span class="L">余额支付：</span><span class="R"><span>&yen;</span><span>'+balancePayment+'</span></span></p>'
+									  +'<p class="lastFee"><span class="L">实付款：</span><span class="R"><span>&yen;</span><span>'+cashPayment+'</span></span></p>'
+									  +'</td>'
+								if(cancelType==4){
+							  		ordersStr+='<td class="td-status" id="'+data.items[i].orderStatus+'">未成团<br>订单取消</td>'
+										 +'<td class="td-operate">'
+			    				 		 +'<p class="td-operate-operate"></p>'
+								}else{
+									switch(data.items[i].orderStatus){
+										case "1":
+								    	  	if(data.items[i].remitAuditStatus=='1'){
+								    	  		ordersStr+='<td class="td-status" id="'+data.items[i].orderStatus+'" style="color:#FD6244;">汇款确认中...</td>'
+								    	  			 +'<td class="td-operate">'
+													 +'<p class="td-operate-status"><a href="javascript:" onclick="aplayment('+orderNumber+','+customerId+','+areaCodeId+','+false+')"><span class="instant">立即付款</span></a></p>'
+								    	  	}else{
+								    	  		ordersStr+='<td class="td-status" id="'+data.items[i].orderStatus+'">待付款</td>'
+													 +'<td class="td-operate">'
+													 +'<p class="td-operate-status"><a href="javascript:" onclick="aplayment('+orderNumber+','+customerId+','+areaCodeId+','+true+')"><span class="instant">立即付款</span></a></p>'
+								    	  	}
+							    	  	 		ordersStr+='<p class="td-operate-operate"><span class="operate" onclick="changeStateOk('+entityId+','+customerId+','+orderNumber+','+data.items[i].orderStatus+')">取消订单</span></p>'
+											break;
+										case "2":
+										case "3":
+										case "4":
+											ordersStr+='<td class="td-status" id="'+data.items[i].orderStatus+'">待发货</td>'
+													 +'<td class="td-operate">'
+													 +'<p class="td-operate-operate"><span class="operate" onclick="changeStateOk('+entityId+','+customerId+','+orderNumber+',8'+')">取消订单</span></p>'
+											break;
+										case "5":
+											ordersStr+='<td class="td-status" id="'+data.items[i].orderStatus+'">待收货</td>'
+													 +'<td class="td-operate">'
+													 +'<p class="td-operate-status"><span class="instant" onclick="changeState('+customerId+','+orderNumber+',6'+')">确认收货</span></p>'
+						   					 		 +'<p class="td-operate-operate"><span class="operate" onclick="searchFlow('+orderNumber+')">查看物流</span></p>'
+											break;
+										case "6":
+											ordersStr+='<td class="td-status" id="'+data.items[i].orderStatus+'">已完成</td>'
+													 +'<td class="td-operate">'
+													 +'<p class="td-operate-status"><span class="instant">商品评价</span></p>'
+						    				 		 +'<p class="td-operate-operate"><span class="operate application">申请售后</span></p>'
+											break;
+										case "7":
+											ordersStr+='<td class="td-status" id="'+data.items[i].orderStatus+'">已评价</td>'
+													 +'<td class="td-operate">'
+						    				 		 +'<p class="td-operate-operate"><span class="operate" onclick="searchFlow('+orderNumber+')">查看物流</span></p>'
+											break;
+										case "8":
+											ordersStr+='<td class="td-status" id="'+data.items[i].orderStatus+'">取消</td>'
+													 +'<td class="td-operate">'
+						    				 		 +'<p class="td-operate-operate"></p>'
+											break;
+										default:
+											break;
+									}
+								}
+						    	ordersStr+='</td>'
+								      +'</tr>'
+							}else if(j==skulist.length-1){
+								//订单最后一项
+								ordersStr+='<tr class="tr-detailCon-first">'
+									  +'<td class="td-goodsname" style="text-align:left;padding-left:40px;width:100px;">'
+									 // +'<a href="goodsDetail.html?commodityId='+this.commodityId+'&skuId='+this.sku Id+'" class="goodsImg"><img src="'+this.smallPicUrl+'" width="78" height="78"></a>'
+									  +'<a href="javascript:" class="goodsImg" onclick="judgeStatus('+this.skuId+','+entityId+','+this.commodityId+')">'
+									  if(commodityType==2){
+									    ordersStr+='<i>专享</i>'
+									  }
+								ordersStr+='<img src="'+this.smallPicUrl+'" width="78" height="78">'
+									  +'</a>'
+									  +'</td><td style="text-align:left;width:350px;">'
+									  var item_name=this.skuName;
+									  if(item_name.length>51){
+										item_name=item_name.substring(0,50)+'…'
+									  }
+								ordersStr+='<span class="goodsNameDetail"><span>'+item_name+'</span></span>'
+									  +'</td>'
+									  +'<td>×'+this.skuNum+'</td>'
+									  +'<td class="td-goodsPrice">'+this.skuPrice+'</td>'
+									  +'<td class="td-realCharge"></td>'
+									  +'<td class="td-status"></td>'
+									  +'<td class="td-operate"></td>'
+									  +'</tr>'
+									  +'</td>'
+									  +'</tr>'
+							}else{
+								//订单中其余项
+								ordersStr+='<tr class="tr-detailCon">'
+									  +'<td class="td-goodsname" style="text-align:left;padding-left:40px;">'
+									  +'<a href="javascript:" class="goodsImg" onclick="judgeStatus('+this.skuId+','+entityId+','+this.commodityId+')">'
+									  if(commodityType==2){
+									    ordersStr+='<i>专享</i>'
+									  }
+							    ordersStr+='<img src="'+this.smallPicUrl+'" width="78" height="78"></a>'
+									  +'</td><td style="text-align:left;width:350px;">'
+									   var item_name=this.skuName;
+									  if(item_name.length>51){
+										item_name=item_name.substring(0,50)+'…'
+									  }
+								ordersStr+='<span class="goodsNameDetail"><span>'+item_name+'</span></span>'
+									  +'</td>'
+									  +'<td>×'+this.skuNum+'</td>'
+									  +'<td class="td-goodsPrice">'+this.skuPrice+'</td>'
+									  +'<td class="td-realCharge"></td>'
+									  +'<td class="td-status"></td>'
+									  +'<td class="td-operate"></td>'
+									  +'</tr>'
+									  +'</td>'
+									  +'</tr>'
+							}
+						});
+				
+					});
+					if(ordersStr==''){
+						ordersStr+='<td colspan=7><div class="myShopCar-con-bottom"><a href="index.html">暂无订单，去首页看看 ></a></div></td>'
+					}
+					$('table.Table-historyOrder-detail tbody').html(ordersStr);
+					if(!initPagination){
+						$("div.pagination").pagination(data.totalCount, {
+							items_per_page: 5,
+							num_display_entries: 6,
+							num_edge_entries: 1,
+							link_to: "javascript:void(0);",
+							prev_text: "< 上一页",
+							next_text: "下一页 >",
+							callback: function(page_index){
+								var title=$("div.orderList a.checked").attr("title");
+								if(initPagination){
+									if(title=="团购订单"){
+										historyOrderPage(page_index,2);
+									}else{
+										historyOrderPage(page_index);
+									}
+								}
+							}
+						});
+						initPagination = true
+					}
+				
+				}
+			})
+		}
+		$('table.Table-historyOrder-detail tbody ').on('click','td.td-operate span.application',function(){
+			mall.alertRe('如果您的订单需要退换货，请拨打电话010-58377979','申请售后');
+		})
+		$(".dialog-close").click(function(){
+			$(".dialog").hide();
+			$(".dialog-overlay").hide();
+		});
+		$(".dialog-no").click(function(){
+			$(".dialog").hide();
+			$(".dialog-overlay").hide();
+		});
+	})
+
+</script>
+</html>

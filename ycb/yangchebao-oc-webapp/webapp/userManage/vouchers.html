@@ -1,0 +1,186 @@
+
+<div class="urlContentWraper" id="Wraper_user_vouchers">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>抵用券列表</strong><bottom class="all-work-info numb214">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_user_vouchers"></table>
+		</div>
+    </div>
+    <div id="Form_user_vouchers" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <input name="id" type="hidden">
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>用户ID：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="userInfoId" class="jrad-input-container"></div>
+					   </div>
+					 
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>增减值：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="changeCoupon" class="jrad-input-container"></div>
+						</div> 
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>变动原因：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="reason" class="jrad-select-container"></div>  
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>备注：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="remarks" class="jrad-textarea-container"></div>  
+                 </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg214" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>四川宜宾的专属功能，现已停用。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_user_vouchers');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	//var jRad = $.jRad('/radsample-ws','ent','Menu');	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    var changeReason=$.jRadGet({url:'/shopmanage-ws/ws/0.1/datadictionary/dictionarylist?type=coupon_vary_reason'});
+    jRad.params['reason'] = {data:changeReason};  
+     
+    jRad.validators['userInfoId'] = [{"msg":"用户ID不能为空","type":"min","value":"1"},{msg:"用户ID只能是数字",type:'regex',value:/^\d+$/}];
+	jRad.validators['changeCoupon'] = [{"msg":"增减值不能为空","type":"min","value":"1"},{msg:"增减值只能是非0整数",type:'regex',value:/^(-){0,1}[0-9]*[1-9][0-9]*$/}];
+	jRad.validators['remarks'] = [{"msg":"备注不能为空","type":"min","value":"1"},{"msg":"最多100个汉字","type":"max","value":"100"}];
+	
+    
+    page_column_model.push({display: '用户ID', name : 'userInfoId'});
+    page_column_model.push({display: '抵用券余额', name : 'coupon'});
+    page_column_model.push({display: '抵用券变动', name : 'changeCoupon',diy:function(item,$div){
+    	if(item.changeCoupon>0){
+    		$div.html('+'+item.changeCoupon)
+    	}else{
+    		$div.html(item.changeCoupon)
+    	}
+    	
+    }});
+    page_column_model.push({display: '原因', name : 'reason',datasource:jRad.params['reason'].data});
+	page_column_model.push({display: '备注', name : 'remarks'});
+	page_column_model.push({display: '时间', name : 'createDate'});
+	page_column_model.push({display: '操作人', name : 'modifyPerson'});
+    
+    var AllchangeReason=$.merge([{id:'',name:'全部'}],changeReason);
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'备注',name:'remarks'});
+	page_search_items.push({row:'1',type:'jrad-select',display:'变动原因',name:'reason',params:{
+	  data:AllchangeReason
+	}});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'开始时间',name:'startDateString'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'结束时间',name:'endDateString'});
+	 
+   $('#Form_user_vouchers').form({
+		title: '增减抵用券',
+		validators: jRad.validators,
+		fields_params:jRad.params,
+		item:{}, 
+		url:'/shopmanage-ws/ws/0.1/userCoupon/adjustUserCoupon',
+		before_submit:function(json){
+			json.modifyPerson=carsmart_config.operatorName
+		},
+		success_callback:function(){ 
+			$('#Table_user_vouchers').flexMessage('增减抵用券成功', 'success');
+			$('#Table_user_vouchers').flexReload()
+		}
+	}); 
+	 
+    page_list_buttons.push({title: '增减抵用券',displayname:'增减抵用券',name:'changeVoucherNum', bclass: 'changeVoucherNum',onpress : function(){ 
+		   $('#Form_user_vouchers').form({item:{}}).form('open')
+        }
+    });
+    page_list_buttons.push({separator: true});
+
+	$('#Table_user_vouchers').flexigrid({
+			reload:true,
+			method:'get', 
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			url:'/shopmanage-ws/ws/0.1/userCoupon/queryUserCoupons',
+			onError:showRemarkError,
+			checkBoxType:'single'
+	})
+    
+    $(".numb214").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg214").form({}).form('close');
+        $("#Form_explain_eg214").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg214 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg214").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg214").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg214 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	
+});
+function showRemarkError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_user_vouchers .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+</script>

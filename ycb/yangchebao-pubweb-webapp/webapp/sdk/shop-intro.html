@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<script src="js/jquery-1.9.1.min.js"></script>
+<title>商家详细介绍</title>
+</head>
+<body>
+	<section class="package-explain" style="background-color:#fff;"> 
+		<article>
+		 	<p id="introduce"></p>
+		</article> 
+	</section>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			var url =window.location.href; 
+			var urlParams = (url.split("?")[1]).split("&");
+			var paramJson = {};
+			$.each(urlParams,function(i){
+				var item = urlParams[i].split("=");
+				paramJson[item[0]] = item[1];
+			});  
+		 	function getIntroduce(id){ 
+					$.ajax({
+					url: '/shopmanage-ws/ws/0.1/shop/business/introduce?id='+id,
+					type: 'get',
+					async: false,
+					dataType: 'text',
+					success: function(data) { 
+						$("#introduce").html(data);
+					}
+					});	
+			} 
+			getIntroduce(paramJson.businessInfoId);
+		}); 
+	</script> 
+</body> 
+</html>

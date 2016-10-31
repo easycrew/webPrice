@@ -1,0 +1,602 @@
+<style type="text/css">
+	#Wraper_dinner .ui-checkbox{
+		display: block;
+	}
+</style>
+<div class="urlContentWraper" id="Wraper_dinner"> 
+	<div class="row-fluid ui-data-show"> 
+			<div class="hDiv">
+				 <h2 class="ui-tit"><strong>套餐管理列表</strong><bottom class="all-work-info numb98">页面说明</bottom></h2> 
+				 <table id="Table_dinner"></table>
+			</div> 
+			<div class="bDiv">
+				<br/>
+				 <h2 class="ui-tit"><strong>商家列表</strong></h2> 
+				<table id="Table_dinner_shoplist"></table>
+			</div> 
+    </div> 
+	
+    <div id="Form_dinner" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+		    <input name="dinnerId" type="hidden"/>  
+			<div class="row" old=""> 
+				<label class="span3 grid-layout-label"> 
+					<span class="ui-form-required">*</span>
+					绑定商家ID：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="businessInfoId" class="jrad-input-container">
+					</div>
+					<p class="nameTips"></p> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label"> 
+					分店是否通用：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="isCommon" class="jrad-select-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row branchShopDiv" style="display:none;"> 
+				<label class="span3 grid-layout-label"> 
+					选择分店：
+				</label>
+				<div class="span8 grid-layout-content fluid-wrap">
+					<div name="busiIds" class="jrad-checkbox-container">
+					</div> 
+				</div>
+			</div>
+			 <div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>套餐主题：</label>
+				 <div class="span5 grid-layout-content fluid-wrap">
+					   <div name="name" class="jrad-textarea-container"></div>
+									</div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>门市价：</label>
+				 <div class="span5 grid-layout-content fluid-wrap">
+					   <div name="shopPrice" class="jrad-input-container"></div>
+									</div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>预订价：</label>
+				 <div class="span5 grid-layout-content fluid-wrap">
+					   <div name="reservePrice" class="jrad-input-container"></div>
+									</div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>结算价：</label>
+				 <div class="span5 grid-layout-content fluid-wrap">
+					   <div name="clearingPrice" class="jrad-input-container"></div>
+									</div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>套餐分类：</label>
+				 <div class="span5 grid-layout-content fluid-wrap">
+					   <div name="offerServiceId" class="jrad-select-container"></div>
+									</div>
+			</div> 
+			<div class="row">
+				<label class="span3 grid-layout-label"> 
+					<span class="ui-form-required">*</span>使用开始时间：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div class="jrad-dateinput-container" name="startTime">
+					</div>
+				</div>
+				<label class="span3 grid-layout-label"> 
+					<span class="ui-form-required">*</span>使用结束时间：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div class="jrad-dateinput-container" name="endTime">
+					</div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label fluid-wrap"> 
+					<span class="ui-form-required">*</span>预约信息：
+				</label>
+				<div class="span13 grid-layout-content fluid-wrap">
+					<div name="reserveInfo" class="jrad-select-container">
+					</div>
+				</div>
+			</div> 
+
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>使用规则：</label>
+				 <div class="span13 grid-layout-content fluid-wrap">
+					   <div name="useRole" class="jrad-textarea-container"></div>
+									</div>
+			</div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label fluid-wrap"> 
+					<span class="ui-form-required">*</span>服务说明：
+				</label>
+				<div class="span13 grid-layout-content fluid-wrap">
+					<div name="illustrate" class="jrad-mediaarea-container">
+					</div>
+				</div>
+			</div> 
+			<div class="row"> 
+				<label class="span3 grid-layout-label fluid-wrap"> 
+					<span class="ui-form-required">*</span>状态：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div name="status" class="jrad-select-container">
+					</div>
+				</div>
+			</div> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg98" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>商家的套餐服务的创建浏览功能。</div>
+                    <div><strong>重要功能说明：</strong>①创建：绑定商家ID：可以输入多个商家ID，多个商家ID用英文逗号隔开；
+                      分店是否通用：选择“是”后，可以选择通用的分店；
+                      套餐主题：对套餐的介绍，这些介绍会显示在APP；
+                      门市价/预订价/结算价：门市价为套餐原价，预订价为客户需要支付的价格，结算价为我们给商家结算的价格；
+                      套餐分类：给套餐分下类，以便做数据统计；
+                      使用开始时间：即套餐生效时间，不在此时间内，是不能使用的；
+                      预约信息：此信息将显示在客户端；
+                      使用规则：此信息将显示在客户端；
+                      服务说明：服务步骤的说明，主要写入服务包含哪些线下的流程，将显示在客户端；
+                      状态：只有有效的套餐才会显示在客户端。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	var ExchangeCodeId = "";
+    var wraper = $('#Wraper_dinner');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	
+	var page_column_model_c = new Array(); 
+	var page_list_buttons_c = new Array();
+	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	jRad.validators['businessInfoId'] = [{"msg":"商家id不能为空","type":"min","value":"1"},{msg:"商家id只能是数字",type:'regex',value:/^\d+$/}]; 
+	jRad.validators['name'] = [{"msg":"请填写","type":"min","value":"1"}]; 
+	jRad.validators['shopPrice'] = [{"msg":"请填写","type":"min","value":"1"},{msg:"价格只能是正整数",type:'regex',value:/^\d+$/}]; 
+	jRad.validators['reservePrice'] = [{"msg":"请填写","type":"min","value":"1"},{msg:"价格只能是正整数",type:'regex',value:/^\d+$/}]; 
+	jRad.validators['clearingPrice'] = [{"msg":"请填写","type":"min","value":"1"},{msg:"价格只能是正整数",type:'regex',value:/^\d+$/}]; 
+	jRad.validators['offerServiceId'] = [{"msg":"请选择","type":"min","value":"1"}]; 
+    jRad.validators['startTime'] = [{"msg":"请选择","type":"min","value":"1"}]; 
+    jRad.validators['endTime'] = [{"msg":"请选择","type":"min","value":"1"}]; 
+    jRad.validators['namreserveInfoe'] = [{"msg":"请填写","type":"min","value":"1"}]; 
+    jRad.validators['useRole'] = [{"msg":"请填写","type":"min","value":"1"}]; 
+    jRad.validators['illustrate'] = [{"msg":"请填写","type":"min","value":"1"}]; 
+	jRad.validators['status'] = [{"msg":"请选择","type":"min","value":"1"}]; 
+
+
+	//省市区select值
+	jRad.params['provinceCodeSearch'] = {
+			urlData:{
+				url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll'
+			},
+			unshiftData: {id:'',name:'请选择'},
+			onchange: function(){
+				var provinceCode = $('.searchContent div[name=provinceId]').select('val');
+				if(provinceCode==''){
+					$('.searchContent div[name=areaCodeId]').select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val: ''});
+				}else{
+				$('.searchContent div[name=areaCodeId]').select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+				} 
+				$('.searchContent div[name=countyId]').select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val: ''});
+			}
+		};
+	jRad.params['cityIdSearch'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){
+			var cityId = $('.searchContent div[name=areaCodeId]').select('val');
+			if(cityId==''){
+				$('.searchContent div[name=countyId]').select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],val: ''});
+			}else{
+				$('.searchContent div[name=countyId]').select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/userInfoCms/countries?areaCodeId=' + cityId
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+			}
+		}
+	};
+	
+	jRad.params['countyIdSearch'] = {
+			data: [{id:'',name:'请选择'}]
+		};
+	var fields_params = {};  
+	fields_params['isCommon'] = {
+		data:[{id:"0",name:"否"},{id:"1",name:"是"}] ,
+		onchange: function(val){ 
+				if(val=='1'){
+					var bDiv = $("#Form_dinner div[name='businessInfoId']",wraper);
+					var businessInfoId = bDiv.input('val');
+					var nameTips = bDiv.next(".nameTips").html();
+					if(businessInfoId!=""&& nameTips!=""){
+						var branchShopList =$.jRadGetDataSources('/shopmanage-ws/ws/0.1/shopmanage/shop/branchBusiInfos?businessInfoId='+businessInfoId,'busiId','busiRegName');
+						if(branchShopList.length==0){
+							$.jRadMessage({level:'error',message:'该商家没有分店',selector:$("#Form_dinner .jrad-form",wraper)});
+							$("#Form_dinner div[name='isCommon']",wraper).select('val','0'); 
+							$("#Form_dinner .branchShopDiv",wraper).hide();
+						}else{
+							$("#Form_dinner .branchShopDiv",wraper).show();
+							$("#Form_dinner div[name='busiIds']",wraper).checkbox({
+								data: branchShopList,
+								selectAll: true
+							});  
+						}
+					}else{
+						$.jRadMessage({level:'error',message:'请先填写正确的绑定商家ID',selector:$("#Form_dinner .jrad-form",wraper)});
+						$("#Form_dinner div[name='isCommon']",wraper).select('val','0'); 
+						$("#Form_dinner .branchShopDiv",wraper).hide();
+					}
+				}else{
+						$("#Form_dinner .branchShopDiv",wraper).hide(); 
+					} 
+				 
+		}
+	};
+	fields_params['status'] = {
+		data:[{id:"1",name:"有效"},{id:"0",name:"无效"},{id:"2",name:"删除"}] 
+	}; 
+	fields_params['offerServiceId'] = {
+		data:[{id:'1',name:'洗车'},{id:'2',name:'美容'},{id:'3',name:'保养'},{id:'4',name:'维修'}] 
+	}; 
+	fields_params['startTime'] = { 
+	    	dateFmt:'yyyy-MM-dd' 
+	};
+	fields_params['endTime'] = { 
+	    	dateFmt:'yyyy-MM-dd'
+	}; 
+	var reserveInfoSelect = $.jRadGetDataSources('/shopmanage-ws/ws/0.1/datadictionary/dictionarylist?type=reserve_info','id','name'); 
+	fields_params['reserveInfo'] = {
+		data:reserveInfoSelect
+	}; 
+
+	 $('#Form_dinner').form({ 
+        grid: 20, 
+        fluid: true,
+        validators: jRad.validators,
+        fields_params: fields_params, 
+		type:'post'
+    });  
+
+	page_column_model.push({display: 'ID', name : 'dinnerId'}); 
+	page_column_model.push({display: '套餐主题', name : 'name'}); 
+    page_column_model.push({display: '套餐分类', name : 'offerServiceName'}); 
+    page_column_model.push({display: '门市价', name : 'shopPrice'}); 
+    page_column_model.push({display: '预订价', name : 'reservePrice'}); 
+    page_column_model.push({display: '结算价', name : 'clearingPrice'}); 
+    page_column_model.push({display: '使用开始时间', name : 'startTime'}); 
+    page_column_model.push({display: '使用结束时间', name : 'endTime'}); 
+    page_column_model.push({display: '创建时间', name : 'createDate'}); 
+    page_column_model.push({display: '预约信息', name : 'reserveInfo'});   
+    page_column_model.push({display: '状态', name : 'statusName'});  
+    page_column_model.push({display: '最后操作人', name : 'auditPerson'});  
+   
+	page_search_items.push({row:'1',type:'jrad-input',display:'商家简称',name:'businessRegName'}); 
+	page_search_items.push({row:'1',type:'jrad-input',display:'套餐主题',name:'name'}); 
+	page_search_items.push({row:'1',type:'jrad-select',display:'套餐分类',name:'offerServiceId',params:{
+		data:[
+			{"id":"",name:"请选择"},{id:'1',name:'洗车'},{id:'2',name:'美容'},{id:'3',name:'保养'},{id:'4',name:'维修'}
+		]}
+	});    
+	page_search_items.push({row:'2',type:'jrad-input',display:'门市价起',name:'shopPriceBottom'}); 
+	page_search_items.push({row:'2',type:'jrad-input',display:'门市价终',name:'shopPriceTop'}); 
+	page_search_items.push({row:'2',type:'jrad-input',display:'最后操作人',name:'auditPerson'}); 
+	page_search_items.push({row:'3',type:'jrad-input',display:'预订价起',name:'reservePriceBottom'}); 
+	page_search_items.push({row:'3',type:'jrad-input',display:'预订价终',name:'reservePriceTop'}); 
+	page_search_items.push({row:'3',type:'jrad-select',display:'状态',name:'status',params:{
+		data:[
+			{id:'',name:'未删除'},{"id":"-1",name:"全部"},{id:'0',name:'无效'},{id:'1',name:'有效'},{id:'2',name:'删除'}
+		]}
+	}); 
+	page_search_items.push({row:'4',type:'jrad-input',display:'结算价起',name:'clearingPriceBottom'}); 
+	page_search_items.push({row:'4',type:'jrad-input',display:'结算价终',name:'clearingPriceTop'}); 
+	
+   page_search_items.push({row:'4',type:'jrad-dateinput',display:'使用开始时间',name:'startTime',params:{'dateFmt':'yyyy-MM-dd'}});
+   page_search_items.push({row:'5',type:'jrad-dateinput',display:'使用结束时间',name:'endTime',params:{'dateFmt':'yyyy-MM-dd'}}); 
+   page_search_items.push({row:'5',type:'jrad-dateinput',display:'创建开始时间',name:'createDateBottom',params:{'dateFmt':'yyyy-MM-dd HH:mm:ss'}});
+   page_search_items.push({row:'5',type:'jrad-dateinput',display:'创建结束时间',name:'createDateTop',params:{'dateFmt':'yyyy-MM-dd HH:mm:ss'}});
+   page_search_items.push({row:'6',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']});
+	page_search_items.push({row:'6',type:'jrad-select',display:'市',name:'areaCodeId',params:jRad.params['cityIdSearch']});
+	page_search_items.push({row:'6',type:'jrad-select',display:'县',name:'countyId',params:jRad.params['countyIdSearch']}); 
+      
+     
+   page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){  
+			$('#Form_dinner').form({
+                title: '创建套餐',
+                validators: jRad.validators,
+                item:{},  
+                style:{height:'300px'}, 
+               	url:'/shopmanage-ws/ws/0.1/dinnerCms/addDinner',
+				before_submit:function(json){ 
+					json.auditPerson = carsmart_config.operatorName;
+					json.busiIds = json.busiIds.join(",");
+					return json;
+				},				
+				success_callback:function(){ 
+                            $('#Table_dinner').flexMessage('添加成功', 'success');
+                            $('#Table_dinner').flexReload();
+                        } 
+            }).form('open'); 
+            getNameTips(); 
+        }
+    });
+	page_list_buttons.push({name:'edit',bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_dinner').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_dinner').getCheckedTrs();   
+            $("#Form_dinner div[name='businessInfoId']").parents(".row").attr('old','');
+			getNameTips();  
+			var json = $.jRadGet({url:'/shopmanage-ws/ws/0.1/dinnerCms/getDinnerById?dinnerId='+checked[0].dinnerId});   
+			var binput = $("#Form_dinner div[name='businessInfoId']",wraper);
+			binput.input('val',json.businessInfoId); 
+			binput.focus().focusout();  			 
+			$('#Form_dinner').form({
+                title: '编辑套餐',
+                validators: jRad.validators, 
+                item:json, 
+                style:{height:'300px'}, 
+                url:'/shopmanage-ws/ws/0.1/dinnerCms/editDinner', 
+				before_submit:function(json){
+				 	json.auditPerson = carsmart_config.operatorName;
+				 	json.busiIds = json.busiIds.join(",");
+				 	return json;
+				},
+				success_callback:function(){ 
+                            $('#Table_dinner').flexMessage('编辑成功', 'success');
+                            $('#Table_dinner').flexReloadCurrentPage()
+				} 
+            }).form('open');  
+            $("#Form_dinner div[name='busiIds']",wraper).checkbox('val',json.busiIds.split(','));
+		}			
+	}); 
+	page_list_buttons.push({name:'delete',bclass: 'delete',prefunc:function(){ 
+            var checked = $('#Table_dinner').getCheckedTrs();
+            if (checked.length != 1) {return false;} 
+        },onpress : function(){
+	    	var checked = $('#Table_dinner').getCheckedTrs();   
+			$ .jRadConfirm('确认删除吗？',1,function(){ 
+				var postData = {};
+				postData.status = '2';  // -1.未删除 0. 无效；1. 有效；2.删除 
+				postData.dinnerId = checked[0]. dinnerId; 
+				$.jRadPost({
+					url:'/shopmanage-ws/ws/0.1/dinnerCms/updateStatus',
+					data:postData,
+					success:function(){ 
+						$('#Table_dinner').flexMessage('已删除', 'success');
+	                    $('#Table_dinner').flexReload();
+					} 
+				});   
+			});  
+		}
+	});  
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_dinner').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true, 
+            url:'/shopmanage-ws/ws/0.1/dinnerCms/queryDinners',
+			onError:showError,
+			checkBoxType:'single',
+			trEvent:function(){		//监听行事件
+				var checked = $('#Table_dinner').getCheckedTrs();
+				ExchangeCodeId = checked[0].id;
+				$('#Table_dinner_shoplist').flexOptions({ 
+					extParam:{
+						dinnerId: checked[0].dinnerId
+					}
+				}).flexReload();
+			}
+    });  
+ 
+	page_column_model_c.push({display: '商家ID', name : 'businessInfoId'});	
+	page_column_model_c.push({display: '绑定ID', name : 'busiDinnerRelId'});
+	page_column_model_c.push({display: '商家简称', name : 'businessRegName'});
+	page_column_model_c.push({display: '城市', name : 'proviceAreadCodeName'});
+	page_column_model_c.push({display: '商家地址', name : 'address'});
+	page_column_model_c.push({display: '合作等级', name : 'isCooperation'});    
+	page_column_model_c.push({display: '是否置顶', name : 'isTopName'});    
+		// ,params:{
+		// data:[
+		// 	{"id":"1",name:"普通商家"},{id:'2',name:'认证商家'},{id:'3',name:'合作商家'},{id:'4',name:'VIP商家'}
+		// ]}
+	page_list_buttons_c.push({displayname: '置顶',name:'top',bclass: 'top',prefunc:function(){
+            var checked = $('#Table_dinner_shoplist').getCheckedTrs();
+            if (checked.length != 1) {return false;}
+            else{
+            	if(checked[0].isTop=='1'){
+            		return false;
+            	}else{
+            		return true;
+            	}
+            }
+        },onpress : function(){
+	    	var checked = $('#Table_dinner_shoplist').getCheckedTrs();   
+			var item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/dinnerCms/checkDinnerTopsByBusiId?businessInfoId='+checked[0].businessInfoId});   
+			var str = "已有的置顶套餐：" 
+			if(item.dinnerNames==""){
+				str += "无 。"
+			}else{
+				str += item.num+"个"+item.dinnerNames+"。";    
+			} 
+			$.jRadConfirm(str+'确认置顶吗？',1,function(){
+				var postData = {};
+				postData.busiDinnerRelId = checked[0].busiDinnerRelId;
+				postData.isTop = '1';
+				$.jRadPost({
+					url:'/shopmanage-ws/ws/0.1/dinnerCms/setIsTop',
+					data:postData,
+					success:function(){ 
+						$('#Table_dinner_shoplist').flexMessage('已置顶', 'success');
+	                    $('#Table_dinner_shoplist').flexReload();
+					} 
+				});   
+			});  
+		}
+	});   
+	page_list_buttons_c.push({displayname: '取消置顶',name:'notTop',bclass: 'notTop',prefunc:function(){ 
+            var checked = $('#Table_dinner_shoplist').getCheckedTrs();
+            if (checked.length != 1) {return false;}
+            else{
+            	if(checked[0].isTop=='0'){
+            		return false;
+            	}else{
+            		return true;
+            	}
+            }
+        },onpress : function(){
+	    	var checked = $('#Table_dinner_shoplist').getCheckedTrs();   
+			$ .jRadConfirm('确认取消置顶吗？',1,function(){
+				var postData = {};
+				postData.busiDinnerRelId = checked[0].busiDinnerRelId;
+				postData.isTop = '0';
+				$.jRadPost({
+					url:'/shopmanage-ws/ws/0.1/dinnerCms/setIsTop',
+					data:postData,
+					success:function(){ 
+						$('#Table_dinner_shoplist').flexMessage('已取消置顶', 'success');
+	                    $('#Table_dinner_shoplist').flexReload();
+					} 
+				});   
+			});  
+		}
+	}); 
+	$('#Table_dinner_shoplist').flexigrid({
+			reload: true,
+			autoload: false,
+			method:'get',
+			dataType: 'json',
+			url: '/shopmanage-ws/ws/0.1/dinnerCms/queryBusiDinnerRels',
+			searchitems: [], 
+			colModel : page_column_model_c,
+			buttons : page_list_buttons_c,
+			checkBoxType: 'single',
+			pagedStyle: 'oc'
+	});
+	var pTable = $(".hDiv .searchContent",wraper); 
+	var addRow = $("<div>").addClass("row-fluid addRow");
+	pTable.append(addRow);  
+    function getNameTips(){
+			$("#Form_dinner .nameTips").html("");
+			$("#Form_dinner div[name='businessInfoId']").focusout(function(){ 
+				 var flag = $("#Form_dinner div[name='businessInfoId']").input('validate',jRad.validators["businessInfoId"]);
+				 if(flag){ 
+				   var id = $(this).input("val");
+				   var old = $(this).parents(".row").attr('old'); 
+				   var _tip = $(this).parent().children(".nameTips");
+				   var json = $.jRadGet({
+							url:'/shopmanage-ws/ws/0.1/shopmanage/shop/name?id='+id, 
+							success: function(data){ 
+								_tip.html(data.businessName).css("color","#1F2228");  
+								if (id!=old){
+							       $("#Form_dinner div[name='businessInfoId']").parents(".row").attr('old',id);
+							   	   $("#Form_dinner div[name='isCommon']").select('val','0'); 
+							    } 
+
+							},
+							error:function(){ 
+								_tip.html("查询商家不存在！").css("color","#BB4B47"); 
+							}
+						});
+				   
+				 }else{
+				   $(this).parent().children(".nameTips").html("");
+				   $("#Form_dinner div[name='busiIds']",wraper).checkbox('destroy');
+				   $("#Form_dinner div[name='isCommon']",wraper).select('val','0'); 
+				   $("#Form_dinner .branchShopDiv",wraper).hide();
+				 }
+			});  
+	} 
+    $(".numb98").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg98").form({}).form('close');
+        $("#Form_explain_eg98").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg98 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg98").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg98").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg98 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	
+});
+function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		} 
+</script>
+

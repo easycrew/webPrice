@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<meta name="format-detection" content="telephone=no" />
+	<title>保养检测</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<script src="./js/commen.js"></script>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			-webkit-tap-highlight-color:rgba(0,0,0,0);
+		}
+		html,body{
+			min-height: 100%;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+		input,textarea{
+			border: none;
+			-webkit-appearance: none;
+		}
+		.clearfix::before,.clearfix::after{
+			display: block;
+			content: '';
+			font-size: 0px;
+		}
+		.clearfix::after{
+			clear: both;
+		}
+
+		.editArrow{
+			position: relative;
+		}
+		.editArrow::after,.editArrow::before{
+			position: absolute;
+			content: '';
+			font-size: 0;
+			width: 0;
+			height: 0;
+			border-top: 0.4rem solid transparent;
+			border-bottom: 0.4rem solid transparent;
+			top: 0.05rem;
+		}
+		.editArrow::before{
+			border-left: 0.4rem solid #6EAADE;
+			right: -0.12rem;
+		}
+		.editArrow::after{
+			right: 0px;
+			border-left: 0.4rem solid #fff;
+		}
+		div.errorLog{
+			position: fixed;
+			top: 0;
+			z-index: 500;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0,0,0,0);
+			text-align: center;
+		}
+		div.errorLog p{
+			position: relative;
+			display: inline-block;
+			margin: 6rem auto;
+			background-color: rgba(0,0,0,0.5);
+			font-size: 1rem;
+			color: #fff;
+			padding: 0.6rem 0;
+			border-radius: 8px;
+		}
+
+		article{
+			background-color: #fff;
+		}
+		div.editCourse{
+			padding: 0.4rem 0.8rem;
+		}
+		p.editCourseL{
+			float: left;
+			line-height: 2rem;
+		}
+		img.courseIcon{
+			width: 1.4rem;
+			margin-top: -0.2rem;
+		}
+		span.courseText{
+			font-size: 0.9rem;
+		}
+		span.courseTime{
+			font-size: 0.7rem;
+			color: #C2C2C6;
+		}
+		p.editCourseR{
+			float: right;
+			font-size: 0.8rem;
+			color: #6EAADE;
+			line-height: 2rem;
+		}
+		span.editText{
+			margin-right: 0.6rem;
+		}
+		div.courseData{
+			text-align: center;
+			color: #ff6138;
+			font-size: 0.9rem;
+			margin: 0 0.8rem 0 0.8rem;
+			padding-bottom: 1.1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		span.course{
+			font-size: 1.9rem;
+		}
+		div.prevKeep{
+			text-align: center;
+			margin: 1rem 0;
+			font-size: 0.8rem;
+		}
+		span.prevCourse{
+			margin-right: 0.6rem;
+		}
+		div.nextKeep{
+			padding: 0 0rem 0.6rem;
+			text-align: center;
+		}
+		div.remainTimeW{
+			display: inline-block;
+			border: 1px solid #FF8464;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			padding: 0.5rem 1rem 0.8rem;
+			text-align: left;
+			margin-right: 1rem;
+			background: url(http://app.yangchebao.com.cn/group1/M00/02/93/ChoCK1ZqQ56ALo1WAAAOcQ-sndw075.png) no-repeat 88% 80%;
+			background-size: 34%;
+		}
+		p.remainTimeT{
+			font-size: 0.82rem;
+			color: #FF8464;
+			padding-bottom: 0.5rem;
+		}
+		p.remainTimeP{
+			font-size: 0.8rem;
+			color: #FF8464;
+		}
+		span.remainTime{
+			display: inline-block;
+			font-size: 1.6rem;
+			line-height: 30px;
+		}
+		div.remainCourseW{
+			display: inline-block;
+			border: 1px solid #6EAADE;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			padding: 0.5rem 1rem 0.8rem;
+			text-align: left;
+			background: url(http://app.yangchebao.com.cn/group1/M00/02/8E/ChoCK1ZpMjqAAj2mAAANACFhLNU304.png) no-repeat 88% 80%;
+			background-size: 34%;
+		}
+		p.remainCourseT{
+			font-size: 0.82rem;
+			color: #6EAADE;
+			padding-bottom: 0.5rem;
+		}
+		p.remainCourseP{
+			font-size: 0.8rem;
+			color: #6EAADE;
+		}
+		span.remainCourse{
+			font-size: 1.6rem;
+		}
+		div.keepTip{
+			text-align: center;
+			font-size: 0.8rem;
+			color: #c2c2c6;
+			padding-bottom: 0.8rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.keepTip a{
+			color: #6EAADE;
+		}
+		article.fixedItems{
+			margin-top: 0.8rem;
+		}
+		div.itemWraper{
+			padding: 0 0.8rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.itemWraper img{
+			float: left;
+			width: 1.6rem;
+			margin-top: 0.26rem;
+		}
+		div.items{
+			margin-left: 2.2rem;
+			-webkit-box-sizing:border-box;
+			-moz-box-sizing:border-box;
+			box-sizing:border-box;
+		}
+		div.items p{
+			padding: 0.6rem 0;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.items p:last-child{
+			border-bottom: none!important;
+		}
+		span.itemTitleO{
+			font-size: 0.86rem;
+		}
+		span.itemTitleT{
+			font-size: 0.8rem;
+			color: #C2C2C6;
+		}
+		p.item{
+			font-size: 0.96rem;
+		}
+		article.shop{
+			margin-top: 0.8rem;
+		}
+		div.shopTitle{
+			padding: 0.5rem 0.8rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.shopTitle p{
+			font-size: 0.96rem;
+			padding-left: 0.4rem;
+			border-left: 2px solid #FB451F;
+			line-height: 1rem;
+		}
+		div.shopDetail{
+			padding: 0.8rem 0 0.8rem 0.8rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.shopDetail img{
+			float: left;
+			width: 5.6rem;
+		}
+		div.shopDetail div.shopInfo{
+			margin-left: 6rem;
+			-webkit-box-sizing:border-box;
+			-moz-box-sizing:border-box;
+			box-sizing:border-box;
+		}
+		div.shopDetail div.shopInfo span.shopName{
+			font-size: 1rem;
+		}
+		div.shopDetail div.shopInfo span.shopDistance{
+			float: right;
+			background-color: #FB451F;
+			color: #fff;
+			font-size: 0.8rem;
+			margin-top: 0.2rem;
+		}
+		p.shopAddr{
+			margin-top: 0.6rem;
+			font-size: 0.8rem;
+			padding-right: 0.6rem;
+		}
+		div.voucher{
+			padding: 0 0.8rem;
+			border-bottom: 1px solid #D9D9E2;
+			font-size: 0.96rem;
+			line-height: 2.4rem;
+		}
+		span.quan{
+			color: #FF6E47;
+			font-size: 0.95rem;
+			padding: 0.1rem 0.2rem;
+			font-weight: bold;
+			border: 1px solid #FF6E47;
+			-webkit-border-radius: 1.1rem;
+			-moz-border-radius: 1.1rem;
+			border-radius: 1.1rem;
+			margin-right: 0.2rem;
+		}
+		span.voucherM{
+			font-size: 1.1rem;
+			color: #FB451F;
+		}
+		span.voucherTip{
+			font-size: 0.8rem;
+			color: #C2C2C6;
+		}
+		p.chargeTip{
+			padding: 0.6rem 1rem 4.6rem;
+			color: #A2A2A2;
+			font-size: 0.8rem;
+		}
+		p.otherBtn,p.applyBtn{
+			float: left;
+			width: 50%;
+			text-align: center;
+			line-height: 2.6rem;
+			font-size: 1rem;
+		}
+		div.btns{
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+		}
+		p.otherBtn{
+			color: #FF6E47;
+			background-color: #fff;
+		}
+		p.applyBtn{
+			color: #fff;
+			background-color: #FF6E47;
+		}
+		.unkonw2{
+			display: inline-block;
+			border: 1px solid #6EAADE;
+			border-radius: 15px;
+			padding: 0 7px;
+			font-size: 1.6rem;
+			line-height: 28px;
+		}
+		.unkonw1{
+			display: inline-block;
+			border: 1px solid #FF8464;
+			border-radius: 15px;
+			padding: 0 7px;
+			font-size: 1.6rem;
+			line-height: 28px;
+		}
+	</style>
+</head>
+<body>
+	<section id="keepUpTest">
+		<article class="courseTop">
+			<div class="editCourse clearfix">
+				<p class="editCourseL">
+					<img src="http://app.yangchebao.com.cn/group1/M00/02/93/ChoCK1ZqQzeAL8odAAALYaY5QfQ063.png" class="courseIcon">
+					<span class="courseText">车辆总里程</span> 
+					<span class="courseTime"></span>
+				</p>
+				<p class="editCourseR"><span class="editText">修改</span><span class="editArrow"></span></p>
+			</div>
+			<div class="courseData"><span class="course"></span> km</div>
+			<div class="prevKeep">上次保养：<span class="prevCourse"></span><span class="prevTime"></span></div>
+			<div class="nextKeep clearfix">
+				<div class="remainTimeW">
+					<p class="remainTimeT"></p>
+					<p class="remainTimeP"><span class="remainTime"></span>天</p>
+				</div>
+				<div class="remainCourseW">
+					<p class="remainCourseT"></p>
+					<p class="remainCourseP"><span class="remainCourse"></span>公里</p>
+				</div>
+			</div>
+			<div class="keepTip">建议您每<span class="mileageInterval"></span>Km或每<span class="periodInterval"></span>个月进行保养。<a href="javascript:" class="keepUpDetail">保养提醒说明</a></div>
+		</article>
+		<article class="fixedItems">
+			<div class="itemWraper clearfix">
+				<img src="http://app.yangchebao.com.cn/group1/M00/02/93/ChoCK1ZqQ2OANZckAAALvhWiSWY525.png">
+				<div class="items changeItems">
+					<p class="itemTitle"><span class="itemTitleO">需要更换项目</span><span class="itemTitleT">保证车辆的正常使用</span></p>
+					<p class="item"></p>
+				</div>
+			</div>
+			<div class="itemWraper clearfix">
+				<img src="http://app.yangchebao.com.cn/group1/M00/02/8E/ChoCK1ZpMg2AOEdWAAAKoe4s2uI094.png">
+				<div class="items checkItems">
+					<p class="itemTitle"><span class="itemTitleO">需要检查项目</span><span class="itemTitleT">检查耗损程度确定是否需更换</span></p>
+					<p class="item"></p>
+				</div>
+			</div>
+		</article>
+		<article class="shop" style="display:none;">
+			<div class="shopTitle"><p></p></div>
+			<div class="shopDetail clearfix">
+				<!-- <img src="http://app.yangchebao.com.cn/group1/M00/02/93/ChoCK1ZqQ4aAENzYAACwaAzztBU776.png"> -->
+				<div class="shopInfo">
+					<p class="shopTop"><span class="shopName"></span><span class="shopDistance"></span></p>
+					<p class="shopAddr"></p>
+				</div>
+			</div>
+			<div class="voucher">
+				<span class="quan">券</span>赠<span class="voucherM"></span>保养券<span class="voucherTip"></span>
+			</div>
+		</article>
+		<p class="chargeTip">仅提供机油，机滤更换服务，其他服务需要根据实际服 务情况付费。</p>
+		<div class="btns clearfix">
+			<p class="otherBtn"><span></span></p>
+			<p class="applyBtn"></p>
+		</div>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    if(paramJson.customerId=='null' || paramJson.customerId==null || paramJson.customerId=='' || paramJson.customerId==undefined){
+	    	if(getCustomerId(paramJson.userId)==-1){
+	    		window.location.href="http://w2l/?presentType=2&androidName=8&iosName=LoginViewController&needLogin=1"
+	    	}
+	    }
+	    // 修改
+	    $('p.editCourseR').unbind('click').bind('click',function(){
+	    	window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/keepupRemind/carInfo.html"
+	    });
+	    // 保养提醒说明
+	    $('a.keepUpDetail').unbind('click').bind('click',function(){
+	    	window.location.href="http://"+urlIp()+"/yangchebao-pubweb/keepupRemind/keepUpInfo.html"
+	    });
+	    // 保养信息查询
+	    $.ajax({
+	    	url:'/yangchebao-app-ws/ws/0.1/maintenance/getMaintainMsg?userInfoId='+paramJson.userId+'&lon='+paramJson.lon+'&lat='+paramJson.lat+'&osInfo='+paramJson.osInfo+'&modelId='+paramJson.modelId,
+	    	type:'get',
+	    	contentType:'application/json;charset=utf-8',
+	    	success:function(data){
+	    		$('span.courseTime').html(' '+data.updateDate);
+	    		$('span.course').html(data.totalMileage);
+    			if(data.lastMaintainData){
+    				if((!data.lastMaintainData.lastMaintainMileage) && data.lastMaintainData.lastMaintainDate){
+    					$('span.prevTime').html(data.lastMaintainData.lastMaintainDate);
+    				}else if((!data.lastMaintainData.lastMaintainDate) && data.lastMaintainData.lastMaintainMileage){
+    					$('span.prevCourse').html(parseInt(data.lastMaintainData.lastMaintainMileage)+'km');
+    				}else{
+    					$('span.prevCourse').html(parseInt(data.lastMaintainData.lastMaintainMileage)+'km');
+	    				$('span.prevTime').html(data.lastMaintainData.lastMaintainDate);
+    				}
+    			}else{
+
+    				$('span.prevCourse').html('暂无');
+    			}
+	    		
+
+	    		$('span.mileageInterval').html(data.intervalData.mileageInterval);
+	    		$('span.periodInterval').html(data.intervalData.periodInterval);
+
+	    		// 距下次保养里程和时间
+	    		var maintainStatus=data.maintainRemindData.maintainStatus;
+	    		if(maintainStatus==1){
+	    			$('p.remainTimeT').html('距下次保养时间');
+	    			$('span.remainTime').html(data.maintainRemindData.maintainDate);
+	    			$('p.remainCourseT').html('距下次保养里程');
+	    			$('span.remainCourse').html(data.maintainRemindData.maintainMileage);
+	    		}else if(maintainStatus==2){
+	    			$('p.remainTimeT').html('距下次保养时间');
+	    			$('span.remainTime').html(data.maintainRemindData.maintainDate);
+	    			$('p.remainCourseT').html('超过保养里程');
+	    			$('span.remainCourse').html(data.maintainRemindData.maintainMileage);
+	    		}else if(maintainStatus==3){
+	    			$('p.remainTimeT').html('超过保养时间');
+	    			$('span.remainTime').html(data.maintainRemindData.maintainDate);
+	    			$('p.remainCourseT').html('距下次保养里程');
+	    			$('span.remainCourse').html(data.maintainRemindData.maintainMileage);
+	    		}else if(maintainStatus==4){
+	    			$('p.remainTimeT').html('超过保养时间');
+	    			$('span.remainTime').html(data.maintainRemindData.maintainDate);
+	    			$('p.remainCourseT').html('超过保养里程');
+	    			$('span.remainCourse').html(data.maintainRemindData.maintainMileage);
+	    		}else if(maintainStatus==5){
+	    			$('p.remainTimeT').html('距下次保养时间');
+	    			$('p.remainTimeP').html('<span class="unkonw1">?</span>');
+	    			$('p.remainCourseT').html('距下次保养里程');
+	    			$('span.remainCourse').html(data.maintainRemindData.maintainMileage);
+	    		}else if(maintainStatus==6){
+	    			$('p.remainTimeT').html('距下次保养时间');
+	    			$('p.remainTimeP').html('<span class="unkonw1">?</span>');
+	    			$('p.remainCourseT').html('超过保养里程');
+	    			$('span.remainCourse').html(data.maintainRemindData.maintainMileage);
+	    		}else if(maintainStatus==7){
+	    			$('p.remainTimeT').html('距下次保养时间');
+	    			$('span.remainTime').html(data.maintainRemindData.maintainDate);
+	    			$('p.remainCourseT').html('距下次保养里程');
+	    			$('p.remainCourseP').html('<span class="unkonw2">?</span>');
+	    		}else if(maintainStatus==8){
+	    			$('p.remainTimeT').html('超过保养时间');
+	    			$('span.remainTime').html(data.maintainRemindData.maintainDate);
+	    			$('p.remainCourseT').html('距下次保养里程');
+	    			$('p.remainCourseP').html('<span class="unkonw2">?</span>');
+	    		}else if(maintainStatus==9){
+	    			$('p.remainTimeT').html('距下次保养时间');
+	    			$('span.remainTime').html(data.maintainRemindData.maintainDate);
+	    			$('p.remainCourseT').html('距下次保养里程');
+	    			$('span.remainCourse').html(data.maintainRemindData.maintainMileage);
+	    		}else if(maintainStatus==10){
+	    			$('p.remainTimeT').html('距下次保养时间');
+	    			$('span.remainTime').html(data.maintainRemindData.maintainDate);
+	    			$('p.remainCourseT').html('距下次保养里程');
+	    			$('span.remainCourse').html(data.maintainRemindData.maintainMileage);
+	    		}
+	    		// 保养建议
+	    		if(data.maintainAdvice){
+	    			if(data.maintainAdvice.changeItems){
+	    				$('div.changeItems p.item').html(data.maintainAdvice.changeItems)
+	    			}else{
+	    				$('div.changeItems p.item').html('无')
+	    			}
+	    			if(data.maintainAdvice.checkItems){
+	    				$('div.checkItems p.item').html(data.maintainAdvice.checkItems)
+	    			}else{
+	    				$('div.checkItems p.item').html('无')
+	    			}
+	    		}else{
+	    			$('p.item').html('无')
+	    		}
+	    		// 是否加载商家
+	    		if(data.businessStatus==1){
+	    			$('article.shop').show();
+	    			$('article.shop').attr('data-id',data.businessInfo.businessInfoId);
+	    			if(data.businessInfo.money){
+	    				$('div.shopTitle p').html('老板特地为您准备了保养代金券');
+	    				$('span.voucherM').html('￥'+data.businessInfo.money);
+						$('span.voucherTip').html('满'+data.businessInfo.spendingBottomLimit+'元可用')
+	    			}else{
+	    				$('div.shopTitle p').html('最近商家');
+	    				$('div.voucher').hide()
+	    			}
+					$('div.shopDetail').prepend('<img src="'+data.businessInfo.picUrl+'">');
+					$('span.shopName').html(data.businessInfo.name);
+					$('span.shopDistance').html(data.businessInfo.distance);
+					$('p.shopAddr').html(data.businessInfo.address);
+					// 去推荐商家
+					$('div.shopDetail').unbind('click').bind('click',function(){
+						if(data.businessInfo.busiServiceRelId){
+							window.location.href='http://w2l/?presentType=1&needLogin=1&androidName=3&iosName=ShopDetailsViewController&shopid='+data.businessInfo.businessInfoId+'&surid='+data.businessInfo.busiServiceRelId
+						}else{
+							window.location.href='http://w2l/?presentType=1&needLogin=1&androidName=3&iosName=ShopDetailsViewController&shopid='+data.businessInfo.businessInfoId
+						}
+						
+					})
+	    		}
+	    		// 按钮
+	    		if(data.businessStatus==0){
+	    			$('p.otherBtn span').html('立即到店保养')
+	    		}else if(data.businessStatus==1){
+	    			$('p.otherBtn span').html('其他到店服务商家')
+	    		}
+	    		$('p.otherBtn span').unbind('click').bind('click',function(){
+    				window.location.href="http://w2l/?presentType=1&needLogin=0&androidName=6&iosName=ShopListViewController&service=5"
+    			});
+    			$('p.applyBtn').html('申请上门保养');
+    			$('p.applyBtn').unbind('click').bind('click',function(){
+    				if(decodeURI(decodeURI(paramJson.cityName))=='北京'){
+    					window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/doorMaintance/index.html"
+    				}else{
+    					window.location.href="nullPage.html"
+    				}
+    				
+    			})
+	    	},
+	    	error:function(xhr){
+	    		var error=eval('('+xhr.responseText+')');
+	    		errorLog(error[0].message)
+	    	}
+	    })
+	})
+</script>
+</html>

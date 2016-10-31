@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/md50000000000000000000000000000.js"></script>
+    <script src="js/swipe.js"></script>
+    <script language="javascript" src="./js/jquery.json-2.2.js"></script> 
+    <script src="js/commen.js"></script>
+    <link rel="stylesheet" href="css/commen.css">
+	<title>选择套餐</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+
+		div.container{
+			background-color: #fff;
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+		header{
+			padding-top: 0.8rem;
+			margin-bottom: 1.1rem;
+		}
+		header nav ul{
+			width: 95%;
+			margin: auto;
+			overflow: hidden;
+		}
+		header nav ul li{
+			float: left;
+		}
+		header nav ul li img{
+			width: 100%;
+		}
+		header nav ul li.carSafe_step1{
+			width: 34.76%;
+		}
+		header nav ul li.carSafe_step2{
+			width: 25.09%;
+		}
+		header nav ul li.carSafe_step3{
+			width: 25.09%;
+		}
+		header nav ul li.carSafe_step4{
+			width: 14.96%;
+		}
+		
+		section{
+			margin-top: 1.2rem;
+		}
+		div.prompt{
+			border-top: 1px solid #DCDCE4;
+			background-color: #F2F3F4;
+			color: #999;
+			font-size: 0.9rem;
+			line-height: 2rem;
+			padding: 0 1.2rem;
+		}
+		div.prompt img{
+			margin-right: 0.3rem;
+			width: 1.1rem;
+			margin-top: -0.1rem;
+		}
+		div.allDinners{
+			margin-top: 1rem;
+		}
+		ul.tab-title-ul{
+			overflow: hidden;
+		}
+		ul.tab-title-ul li{
+			float: left;
+			-webkit-box-sizing:border-box;
+			-moz-box-sizing:border-box;
+			box-sizing:border-box;
+			width: 25%;
+			border-bottom: 1px solid #DDDDE5;
+		}
+		ul.tab-title-ul li p{
+			background-color: #EEEEEE;
+			color: #aaa;
+			font-size: 0.9rem;
+			text-align: center;
+			line-height: 2.2rem; 
+			margin: 0 0.3rem 0.4rem;
+			-webkit-border-top-left-radius: 5px; 
+			-moz-border-top-left-radius: 5px; 
+			border-top-left-radius: 5px; 
+			-webkit-border-top-right-radius: 5px; 
+			-moz-border-top-right-radius: 5px; 
+			border-top-right-radius: 5px; 
+			-webkit-border-bottom-left-radius: 5px; 
+			-moz-border-bottom-left-radius: 5px; 
+			border-bottom-left-radius: 5px; 
+			-webkit-border-bottom-right-radius: 5px; 
+			-moz-border-bottom-right-radius: 5px; 
+			border-bottom-right-radius: 5px; 
+			border-top: 1px solid #EEEEEE;
+			cursor: pointer;
+		}
+		.tab-title-selectedLi{
+			border-bottom: none!important;
+			border-left: 1px solid #DDDDE5;
+			border-right: 1px solid #DDDDE5;
+			border-top: 1px solid #DDDDE5;
+			-webkit-border-top-left-radius: 5px; 
+			-moz-border-top-left-radius: 5px; 
+			border-top-left-radius: 5px; 
+			-webkit-border-top-right-radius: 5px; 
+			-moz-border-top-right-radius: 5px; 
+			border-top-right-radius: 5px; 
+		}
+		.tab-title-selectedP{
+			border-top:none!important;
+			background: none!important;
+			color: #fb5734!important;
+			cursor: default!important;
+		}
+		div.tab-detail{
+			margin-top: 0.9rem;
+		}
+		div.dinner-banner{
+			text-align: center;
+		}
+		div.dinner-banner p{
+			width: 96%;
+			margin: 0 auto;
+			/*height: 6rem;
+			background-color: #ccc;*/
+		}
+		div.dinner-banner p img{
+			width: 100%;
+		}
+		div.insurance-title{
+			position: relative;
+			color: #fff;
+			font-size: 1rem;
+			text-align: center;
+			line-height: 2.3rem;
+			background-color: #6eaade;
+		}
+		div.insurance-title img{
+			position: absolute;
+			top: 0.5rem;
+			right: 1.4rem;
+			width: 1.5rem;
+			cursor: pointer;
+		}
+		div.theDinners{
+			margin-top: 1rem;
+		}
+		ul.insurance-ul>li{
+			border-bottom: 1px solid #DDDDE5;
+			line-height: 2.3rem;
+			/*padding: 0 1.5rem;*/
+			background-color: #fff;
+			overflow: hidden;
+		}
+		ul.insurance-ul>li:last-child{
+			border-bottom: none;
+		}
+		p.insurance-li-left{
+			float: left;
+			color: #666;
+			font-size: 1rem;
+			padding-left: 1rem;
+		}
+		div.insurance-li-right{
+			float: right;
+			padding-right: 1rem;
+		}
+		span.insuranceItems{
+			display: inline-block;
+			cursor: pointer;
+		}
+		span.insuranceItems span{
+			color:#6eaade;
+			font-size: 1rem;
+		}
+		span.insuranceItems img{
+			width: 0.8rem;
+			margin-left: 0.4rem;
+			margin-top: -0.2rem;
+		}
+		img.details_icon{
+			width: 1.4rem;
+			margin-top: -0.3rem;
+			margin-left: 3rem;
+			cursor: pointer;
+		}
+		ul.addonFreeInsurance-ul{
+			overflow: hidden;
+			width: 90%;
+			margin: 1rem auto 1.2rem;
+		}
+		ul.addonFreeInsurance-ul li{
+			float: left;
+			width: 50%;
+			font-size: 1rem;
+			color: #666;
+			margin: 0.5rem 0;
+		}
+		ul.addonFreeInsurance-ul li span{
+			cursor: pointer;
+		}
+		ul.addonFreeInsurance-ul li img{
+			margin-right: 0.8rem;
+			width: 1.2rem;
+		}
+		div.getPrice{
+			border-top: 1px solid #DDDDE5;
+			background-color: #f4f7f8;
+			padding-top: 1.5rem;
+			padding-bottom: 1.5rem;
+			text-align: center;
+		}
+		div.getPrice p{
+			width: 90%;
+			background-color: #FF6138;
+			line-height: 3rem;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			color: #fff;
+			font-size: 1.3rem;
+			margin: 0 auto;
+			cursor: pointer;
+		}
+		div.details-con{
+			position: relative;
+			top: 0.8rem;
+		}
+
+		div.overLay{
+			position: absolute;
+			top: 0;
+			z-index: 100;
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+			opacity: 0.6;
+			filter:alpha(opacity=60);
+		}
+		div.select-items{
+			position: fixed;
+			top: 5rem;
+			z-index: 200;
+			/*margin: 0 5%;*/
+			/*width: 90%;*/
+			background-color: #f0f0f0;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			border-radius: 10px;
+			max-height: 12rem;
+			overflow: auto;
+		}
+		div.select-items p{
+			position: relative;
+			border-bottom: 1px solid #bababa;
+			padding: 0 1.5rem;
+			line-height: 2.2rem;
+			font-size: 1.1rem;
+			color: #666;
+			cursor:pointer;
+		}
+		div.select-items p:last-child{
+			border-bottom: none!important;
+		}
+		div.select-items img{
+			position: absolute;
+			top: 0.7rem;
+			right: 1.6rem;
+			width: 1.1rem;
+		}
+
+		span.disableCheck{
+			color: #D9D9E2!important;
+			cursor: default!important;
+		}
+
+		/*滑动图片*/
+		div.iframeCon{
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+		div.iframeMain{
+			background-color: #F2F3F4;
+			padding: 1.2rem 1.2rem 2.2rem;
+			margin-top: 2rem;
+		}
+		div.iframeTitle{
+			color: #6eaade;
+			font-size: 1.2rem;
+			border-bottom: 1px solid #6eaade;
+			padding-bottom: 0.3rem;
+		}
+		div.iframeText-detail p{
+			font-size: 1rem;
+			color: #999;
+			margin-top: 0.8rem;
+			line-height: 1.2rem;
+		}
+		article.iframePic{
+			margin-top: 1.2rem;
+		}
+		div.iframePic-title{
+			border-bottom: none!important;
+		}
+		.swipe {
+			overflow: hidden;
+			visibility: hidden;
+			position: relative;
+		}
+		.swipe-wrap {
+			overflow: hidden;
+			position: relative;
+		}
+		.swipe-wrap > figure {
+			float: left;
+			width: 100%;
+			position: relative;
+		}
+		div.iframePic-detail li.pic-wraper{
+			position: relative;
+			border: 1px solid #6eaade;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			float: left;
+		}
+		div.iframePic-detail li.pic-wraper img{
+			width: 100%;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+		}
+		p.picText{
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			color: #6eaade;
+			font-size: 1rem;
+			bottom: 0.1rem;
+			line-height: 1.2rem;
+		}
+		span.iframeAngle{
+			position: absolute;
+			top: -0.7rem;
+			right: 1.6rem;
+			width: 0;
+			height: 0;
+			border-left: 0.5rem solid transparent;
+			border-right: 0.5rem solid transparent;
+			border-bottom: 0.8rem solid #F2F3F4;
+		}
+		div.iframePic-detail{
+			position: relative;
+			width: 100%;
+			overflow: hidden;
+		}
+		/*div.scroll-pic{
+			position: absolute;
+			top:0;
+			left:0;
+		}*/
+		.prev img,.next img{
+			width: 100%;
+		}
+		@media screen and (min-width:570px){
+			.prev{
+				position: absolute;
+				z-index: 100;
+				top: 30%;
+				left: 0;
+			}
+			.next{
+				position: absolute;
+				z-index: 100;
+				top: 30%;
+				right: 0;
+			}
+
+		}
+		@media screen and (max-width:569px) and (min-width:440px){
+			.prev{
+				position: absolute;
+				display: inline-block;
+				z-index: 100;
+				width: 3.2rem;
+				top: 30%;
+				left: 0;
+			}
+			.next{
+				position: absolute;
+				display: inline-block;
+				z-index: 100;
+				width: 3.2rem;
+				top: 30%;
+				right: 0;
+			}
+
+		}
+		@media screen and (max-width:439px){
+			.prev{
+				position: absolute;
+				display: inline-block;
+				z-index: 100;
+				width: 2.6rem;
+				top: 30%;
+				left: 0;
+			}
+			.next{
+				position: absolute;
+				display: inline-block;
+				z-index: 100;
+				width: 2.6rem;
+				top: 30%;
+				right: 0;
+			}
+
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="container">
+		<div class="overLay" style="display:none;"></div>
+		<header>
+			<nav>
+				<ul>
+					<li class="carSafe_step1"><img src="img/carSafe_step1.png"></li>
+					<li class="carSafe_step2"><img src="img/carSafe_step2.png"></li>
+					<li class="carSafe_step3"><img src="img/carSafe_stepGray3.png"></li>
+					<li class="carSafe_step4"><img src="img/carSafe_stepGray4.png"></li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<div class="prompt"><img src="img/prompt_icon.png">投保的保额具体以保险公司报价明细为准</div>
+			<div class="allDinners">
+				<div class="tab-box">
+					<div class="tab-title">
+						<ul  class="tab-title-ul">
+							<li data-id="baseGuard"><p id="jcVersion">基础版</p></li>
+							<li data-id="hightGuard" class="tab-title-selectedLi"><p id="dzVersion" class="tab-title-selectedP">大众版</p></li>
+							<li data-id="fullGuard"><p id="hhVersion">豪华版</p></li>
+							<li data-id="customerGuard"><p id="zzVersion">自助版</p></li>
+						</ul>
+					</div>
+					<div class="tab-detail">
+						<div class="dinner-banner"><p><img src="img/dzBanner.jpg"></p></div>
+						<div class="theDinners jcVersion" style="display:none;">
+							<article class="mainInsurance">
+								<div class="insurance-title">主险</div>
+								<ul class="insurance-ul">
+									<li class="insurance-li" name="VehicleDemageIns">
+										<p class="insurance-li-left">车辆损失险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="VehicleDemageIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="ThirdPartyIns">
+										<p class="insurance-li-left">第三者责任险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="ThirdPartyIns" data-val="5:300000"><span>30万</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:50000">5万</p>
+											<p data-id="2:100000">10万</p>
+											<p data-id="3:150000">15万</p>
+											<p data-id="4:200000">20万</p>
+											<p data-id="5:300000">30万</p>
+											<p data-id="6:500000">50万</p>
+											<p data-id="7:1000000">100万</p>
+											<p data-id="8:1500000">150万</p>
+											<p data-id="9:2000000">200万</p>
+											<p data-id="10:2500000">250万</p>
+											<p data-id="11:3000000">300万</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="TheftIns">
+										<p class="insurance-li-left">全车盗抢险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="TheftIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="DriverIns">
+										<p class="insurance-li-left">司机责任险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="DriverIns" data-val='0:-1'><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:5000">5000</p>
+											<p data-id="2:10000">1万</p>
+											<p data-id="3:20000">2万</p>
+											<p data-id="4:30000">3万</p>
+											<p data-id="5:40000">4万</p>
+											<p data-id="6:50000">5万</p>
+											<p data-id="11:100000">10万</p>
+											<p data-id="12:90000">15万</p>
+											<p data-id="13:100000">20万</p>
+											<p data-id="14:100000">50万</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="PassengerIns">
+										<p class="insurance-li-left">乘客责任险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="PassengerIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:5000">5000/座</p>
+											<p data-id="2:10000">1万/座</p>
+											<p data-id="3:20000">2万/座</p>
+											<p data-id="4:30000">3万/座</p>
+											<p data-id="5:40000">4万/座</p>
+											<p data-id="6:50000">5万/座</p>
+											<!-- <p data-id="7:60000">6万/座</p>
+											<p data-id="8:70000">7万/座</p>
+											<p data-id="9:80000">8万/座</p>
+											<p data-id="10:90000">9万/座</p> -->
+											<p data-id="11:100000">10万/座</p>
+											<p data-id="12:90000">15万/座</p>
+											<p data-id="13:100000">20万/座</p>
+											<p data-id="14:100000">50万/座</p>
+										</div>
+										
+									</li>
+								</ul>
+							</article>
+							<article class="addonInsurance">
+								<div class="insurance-title">附加险</div>
+								<ul class="insurance-ul">
+									<li class="insurance-li" name='GlassIns'>
+										<p class="insurance-li-left">玻璃险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="GlassIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">国产玻璃</p>
+											<p data-id="2:-1">进口玻璃</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="CombustionIns">
+										<p class="insurance-li-left">自燃损失险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="CombustionIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="ScratchIns">
+										<p class="insurance-li-left">车身划痕险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="ScratchIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:2000">2000</p>
+											<p data-id="2:5000">5000</p>
+											<p data-id="3:10000">1万</p>
+											<p data-id="4:20000">2万</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="WadingIns">
+										<p class="insurance-li-left">涉水损失险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="WadingIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="SpecifyingPlantCla">
+										<p class="insurance-li-left">指定专修</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="SpecifyingPlantCla" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+								</ul>
+							</article>
+							<article class="addonFreeInsurance">
+								<div class="insurance-title">附加不计免赔险
+									<!-- <img src="img/borderDetail.png"> -->
+								</div>
+								<ul class="addonFreeInsurance-ul">
+									<li><span name="NcfVehicleDemageIns" id="NcfVehicleDemageIns" class="disableCheck"><img src="img/disableCheck.png">车辆损失险</span></li>
+									<li><span name="NcfThirdPartyIns" id="NcfThirdPartyIns"><img src="img/hasChecked.png">第三者责任险</span></li>
+									<li><span name="NcfTheftIns" id="NcfTheftIns" class="disableCheck"><img src="img/disableCheck.png">盗抢险</span></li>
+									<li><span name="NcfDriverIns" id="NcfDriverIns" class="disableCheck"><img src="img/disableCheck.png">司机责任险</span></li>
+									<li><span name="NcfPassengerIns" id="NcfPassengerIns" class="disableCheck"><img src="img/disableCheck.png">乘客责任险</span></li>
+									<li><span name="NcfCombustionIns" id="NcfCombustionIns" class="disableCheck"><img src="img/disableCheck.png">自燃险</span></li>
+									<li><span name="NcfScratchIns" id="NcfScratchIns" class="disableCheck"><img src="img/disableCheck.png">划痕险</span></li>
+									<li><span name="NcfWadingIns" id="NcfWadingIns" class="disableCheck"><img src="img/disableCheck.png">涉水险</span></li>
+								</ul>
+							</article>
+							<article class="lastInsurance">
+								<div class="insurance-title">交强险和车船税</div>
+								<ul class="insurance-ul">
+									<li class="insurance-li" name="VehicleCompulsoryIns">
+										<p class="insurance-li-left">交强险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="VehicleCompulsoryIns" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon" style="visibility:hidden;">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="VehicleTaxc">
+										<p class="insurance-li-left">车船险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="VehicleTax" data-val="1:-1"><span>代缴</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon" style="visibility:hidden;">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="1:-1">代缴</p>
+										</div>
+									</li>
+								</ul>
+							</article>
+						</div>
+						<div class="theDinners dzVersion">
+							<article class="mainInsurance">
+								<div class="insurance-title">主险</div>
+								<ul class="insurance-ul">
+									<li class="insurance-li" name="VehicleDemageIns">
+										<p class="insurance-li-left">车辆损失险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="VehicleDemageIns" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="ThirdPartyIns">
+										<p class="insurance-li-left">第三者责任险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="ThirdPartyIns" data-val="6:500000"><span>50万</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:50000">5万</p>
+											<p data-id="2:100000">10万</p>
+											<p data-id="3:150000">15万</p>
+											<p data-id="4:200000">20万</p>
+											<p data-id="5:300000">30万</p>
+											<p data-id="6:500000">50万</p>
+											<p data-id="7:1000000">100万</p>
+											<p data-id="8:1500000">150万</p>
+											<p data-id="9:2000000">200万</p>
+											<!-- <p data-id="10:2500000">250万</p> -->
+											<p data-id="11:3000000">300万</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="TheftIns">
+										<p class="insurance-li-left">全车盗抢险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="TheftIns" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="DriverIns">
+										<p class="insurance-li-left">司机责任险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="DriverIns" data-val='2:10000'><span>1万</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:5000">5000</p>
+											<p data-id="2:10000">1万</p>
+											<p data-id="3:20000">2万</p>
+											<p data-id="4:30000">3万</p>
+											<p data-id="5:40000">4万</p>
+											<p data-id="6:50000">5万</p>
+											<p data-id="11:100000">10万</p>
+											<p data-id="12:90000">15万</p>
+											<p data-id="13:100000">20万</p>
+											<p data-id="14:100000">50万</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="PassengerIns">
+										<p class="insurance-li-left">乘客责任险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="PassengerIns" data-val="2:10000"><span>1万/座</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:5000">5000/座</p>
+											<p data-id="2:10000">1万/座</p>
+											<p data-id="3:20000">2万/座</p>
+											<p data-id="4:30000">3万/座</p>
+											<p data-id="5:40000">4万/座</p>
+											<p data-id="6:50000">5万/座</p>
+											<p data-id="11:100000">10万/座</p>
+											<p data-id="12:90000">15万/座</p>
+											<p data-id="13:100000">20万/座</p>
+											<p data-id="14:100000">50万/座</p>
+										</div>
+										
+									</li>
+								</ul>
+							</article>
+							<article class="addonInsurance">
+								<div class="insurance-title">附加险</div>
+								<ul class="insurance-ul">
+									<li class="insurance-li" name='GlassIns'>
+										<p class="insurance-li-left">玻璃险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="GlassIns" data-val="1:-1"><span>国产玻璃</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">国产玻璃</p>
+											<p data-id="2:-1">进口玻璃</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="CombustionIns">
+										<p class="insurance-li-left">自燃损失险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="CombustionIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="ScratchIns">
+										<p class="insurance-li-left">车身划痕险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="ScratchIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:2000">2000</p>
+											<p data-id="2:5000">5000</p>
+											<p data-id="3:10000">1万</p>
+											<p data-id="4:20000">2万</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="WadingIns">
+										<p class="insurance-li-left">涉水损失险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="WadingIns" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="SpecifyingPlantCla">
+										<p class="insurance-li-left">指定专修</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="SpecifyingPlantCla" data-val="0:-1"><span>不投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+								</ul>
+							</article>
+							<article class="addonFreeInsurance">
+								<div class="insurance-title">附加不计免赔险</div>
+								<ul class="addonFreeInsurance-ul">
+									<li><span name="NcfVehicleDemageIns" id="NcfVehicleDemageIns"><img src="img/hasChecked.png">车辆损失险</span></li>
+									<li><span name="NcfThirdPartyIns" id="NcfThirdPartyIns"><img src="img/hasChecked.png">第三者责任险</span></li>
+									<li><span name="NcfTheftIns" id="NcfTheftIns"><img src="img/hasChecked.png">盗抢险</span></li>
+									<li><span name="NcfDriverIns" id="NcfDriverIns"><img src="img/hasChecked.png">司机责任险</span></li>
+									<li><span name="NcfPassengerIns" id="NcfPassengerIns"><img src="img/hasChecked.png">乘客责任险</span></li>
+									<li><span name="NcfCombustionIns" id="NcfCombustionIns" class="disableCheck"><img src="img/disableCheck.png">自燃险</span></li>
+									<li><span name="NcfScratchIns" id="NcfScratchIns" class="disableCheck"><img src="img/disableCheck.png">划痕险</span></li>
+									<li><span name="NcfWadingIns" id="NcfWadingIns" class="disableCheck"><img src="img/disableCheck.png">涉水险</span></li>
+								</ul>
+							</article>
+							<article class="lastInsurance">
+								<div class="insurance-title">交强险和车船税</div>
+								<ul class="insurance-ul">
+									<li class="insurance-li" name="VehicleCompulsoryIns">
+										<p class="insurance-li-left">交强险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="VehicleCompulsoryIns" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon" style="visibility:hidden;">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="VehicleTaxc">
+										<p class="insurance-li-left">车船险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="VehicleTax" data-val="1:-1"><span>代缴</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon" style="visibility:hidden;">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="1:-1">代缴</p>
+										</div>
+									</li>
+								</ul>
+							</article>
+						</div>
+						<div class="theDinners hhVersion" style="display:none;">
+							<article class="mainInsurance">
+								<div class="insurance-title">主险</div>
+								<ul class="insurance-ul">
+									<li class="insurance-li" name="VehicleDemageIns">
+										<p class="insurance-li-left">车辆损失险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="VehicleDemageIns" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="ThirdPartyIns">
+										<p class="insurance-li-left">第三者责任险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="ThirdPartyIns" data-val="7:1000000"><span>100万</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:50000">5万</p>
+											<p data-id="2:100000">10万</p>
+											<p data-id="3:150000">15万</p>
+											<p data-id="4:200000">20万</p>
+											<p data-id="5:300000">30万</p>
+											<p data-id="6:500000">50万</p>
+											<p data-id="7:1000000">100万</p>
+											<p data-id="8:1500000">150万</p>
+											<p data-id="9:2000000">200万</p>
+											<p data-id="11:3000000">300万</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="TheftIns">
+										<p class="insurance-li-left">全车盗抢险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="TheftIns" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="DriverIns">
+										<p class="insurance-li-left">司机责任险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="DriverIns" data-val='2:10000'><span>1万</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:5000">5000</p>
+											<p data-id="2:10000">1万</p>
+											<p data-id="3:20000">2万</p>
+											<p data-id="4:30000">3万</p>
+											<p data-id="5:40000">4万</p>
+											<p data-id="6:50000">5万</p>
+											<p data-id="11:100000">10万</p>
+											<p data-id="12:90000">15万</p>
+											<p data-id="13:100000">20万</p>
+											<p data-id="14:100000">50万</p>
+										</div>
+										
+									</li>
+									<li class="insurance-li" name="PassengerIns">
+										<p class="insurance-li-left">乘客责任险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="PassengerIns" data-val="2:10000"><span>1万/座</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:5000">5000/座</p>
+											<p data-id="2:10000">1万/座</p>
+											<p data-id="3:20000">2万/座</p>
+											<p data-id="4:30000">3万/座</p>
+											<p data-id="5:40000">4万/座</p>
+											<p data-id="6:50000">5万/座</p>
+											<p data-id="11:100000">10万/座</p>
+											<p data-id="12:90000">15万/座</p>
+											<p data-id="13:100000">20万/座</p>
+											<p data-id="14:100000">50万/座</p>
+										</div>
+										
+									</li>
+								</ul>
+							</article>
+							<article class="addonInsurance">
+								<div class="insurance-title">附加险</div>
+								<ul class="insurance-ul">
+									<li class="insurance-li" name='GlassIns'>
+										<p class="insurance-li-left">玻璃险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="GlassIns" data-val="1:-1"><span>国产玻璃</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">国产玻璃</p>
+											<p data-id="2:-1">进口玻璃</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="CombustionIns">
+										<p class="insurance-li-left">自燃损失险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="CombustionIns" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="ScratchIns">
+										<p class="insurance-li-left">车身划痕险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="ScratchIns" data-val="2:5000"><span>5000</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:2000">2000</p>
+											<p data-id="2:5000">5000</p>
+											<p data-id="3:10000">1万</p>
+											<p data-id="4:20000">2万</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="WadingIns">
+										<p class="insurance-li-left">涉水损失险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="WadingIns" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="SpecifyingPlantCla">
+										<p class="insurance-li-left">指定专修</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="SpecifyingPlantCla" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+								</ul>
+							</article>
+							<article class="addonFreeInsurance">
+								<div class="insurance-title">附加不计免赔险</div>
+								<ul class="addonFreeInsurance-ul">
+									<li><span name="NcfVehicleDemageIns" id="NcfVehicleDemageIns"><img src="img/hasChecked.png">车辆损失险</span></li>
+									<li><span name="NcfThirdPartyIns" id="NcfThirdPartyIns"><img src="img/hasChecked.png">第三者责任险</span></li>
+									<li><span name="NcfTheftIns" id="NcfTheftIns"><img src="img/hasChecked.png">盗抢险</span></li>
+									<li><span name="NcfDriverIns" id="NcfDriverIns"><img src="img/hasChecked.png">司机责任险</span></li>
+									<li><span name="NcfPassengerIns" id="NcfPassengerIns"><img src="img/hasChecked.png">乘客责任险</span></li>
+									<li><span name="NcfCombustionIns" id="NcfCombustionIns"><img src="img/hasChecked.png">自燃险</span></li>
+									<li><span name="NcfScratchIns" id="NcfScratchIns"><img src="img/hasChecked.png">划痕险</span></li>
+									<li><span name="NcfWadingIns" id="NcfWadingIns"><img src="img/hasChecked.png">涉水险</span></li>
+								</ul>
+							</article>
+							<article class="lastInsurance">
+								<div class="insurance-title">交强险和车船税</div>
+								<ul class="insurance-ul">
+									<li class="insurance-li" name="VehicleCompulsoryIns">
+										<p class="insurance-li-left">交强险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="VehicleCompulsoryIns" data-val="1:-1"><span>投保</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon" style="visibility:hidden;">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="0:-1">不投保</p>
+											<p data-id="1:-1">投保</p>
+										</div>
+									</li>
+									<li class="insurance-li" name="VehicleTaxc">
+										<p class="insurance-li-left">车船险</p>
+										<div class="insurance-li-right">
+											<span class="insuranceItems" data-for="VehicleTax" data-val="1:-1"><span>代缴</span><img src="img/down_icon.png"></span>
+											<img src="img/details_icon.png" class="details_icon" style="visibility:hidden;">
+										</div>
+										<div class="select-items" style="display:none;">
+											<p data-id="1:-1">代缴</p>
+										</div>
+									</li>
+								</ul>
+							</article>
+						</div>
+						<div class="theDinners zzVersion" style="display:none;"></div>
+					</div>
+				</div>
+			</div>
+			<div class="getPrice">
+				<p class="getPriceBtn">获取报价</p>
+			</div>
+		</section>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    };
+		// 遮罩层自适应高度
+		var bodyHeight=$('body').height();
+		var windowHeight=window.screen.availHeight;
+		if(bodyHeight>windowHeight){
+			$('div.overLay').css('height',bodyHeight)
+		}else{
+			$('div.overLay').css('height',windowHeight)
+		}
+		// tab切换
+		$('ul.tab-title-ul li p').unbind('click').bind('click',function(){
+			$(this).addClass('tab-title-selectedP').parents('li').addClass('tab-title-selectedLi');
+			$(this).parents('li').siblings().removeClass('tab-title-selectedLi').find('p').removeClass('tab-title-selectedP');
+			if($(this).attr('id')=='jcVersion'){
+				$('div.dinner-banner').find('img').attr('src','img/jcBanner.jpg');
+				$('div[class="theDinners jcVersion"]').show().siblings('div.theDinners').hide()
+			}else if($(this).attr('id')=='dzVersion'){
+				$('div.dinner-banner').find('img').attr('src','img/dzBanner.jpg');
+				$('div[class="theDinners dzVersion"]').show().siblings('div.theDinners').hide()
+			}else if($(this).attr('id')=='hhVersion'){
+				$('div.dinner-banner').find('img').attr('src','img/hhBanner.jpg');
+				$('div[class="theDinners hhVersion"]').show().siblings('div.theDinners').hide()
+			}else if($(this).attr('id')=='zzVersion'){
+				$('div.dinner-banner').find('img').attr('src','img/zzBanner.jpg');
+				var dinnerDetail='';
+				$('div.theDinners').each(function(){
+					if(!($(this).is(':hidden'))){
+						dinnerDetail=$(this).html()
+					}
+				})
+				$('div[class="theDinners zzVersion"]').html(dinnerDetail).show().siblings('div.theDinners').hide();
+				if($('div[class="theDinners zzVersion"] div.details-con').length>0){
+					$('div[class="theDinners zzVersion"] div.details-con div.scroll-pic').each(function(){
+						var $insuranceLi=$(this).closest('li.insurance-li');
+						var mySwiper=Swipe($insuranceLi.find('div.scroll-pic')[0],{});
+						var $wrapContainer = $insuranceLi.find('div.details-con');
+						$wrapContainer.on('click', 'a.prev', mySwiper.prev).on('click', 'a.next', mySwiper.next)
+					})
+					
+				}
+			}
+		});
+		// 获取滚动图中事件
+		var insuranceDesc={
+			VehicleDemageIns:{
+				title:'95%购买率',
+				discription:'<p>一种发生保险事故时，赔偿自己车辆损失的险种。</p><p>所有车主。特别是3年以内新车、新手或者女性车主、中高级车辆。</p>',
+				cases:[
+					{
+						imgSrc:'img/pics/u6_normal.png',
+						caseText:'被大风吹倒的树木砸中'
+					},
+					{
+						imgSrc:'img/pics/u8_normal.png',
+						caseText:'撞到别人的车'
+					},
+					{
+						imgSrc:'img/pics/u45_normal.png',
+						caseText:'车主撞到停车场墙柱'
+					},
+					{
+						imgSrc:'img/pics/u4_normal.png',
+						caseText:'车辆被刮蹭找不到肇事者'
+					}
+				]
+			},
+			ThirdPartyIns: {
+				title:'99%购买率',
+				discription:'<p>赔偿他人财产和人身伤亡的险种。</p><p>所有车主。撞到豪车伤不起，撞到人更是可能赔个全家荡产，必买险种。</p>',
+				cases:[
+					{
+						imgSrc:'img/pics/u2_normal.png',
+						caseText:'撞到别人的车'
+					},
+					{
+						imgSrc:'img/pics/u10_normal.png',
+						caseText:'撞到行人'
+					}
+				]
+            },
+            TheftIns: {
+            	title:'40%购买率',
+				discription:'<p>赔偿全车被盗、被抢后造成的全车或者部分损失。</p><p>无固定车库，一般停在露天停车场</p><p>经常在外出差，无固定停车地点</p><p>车辆停放区域治安不好</p>',
+				cases:[
+					{
+						imgSrc:'img/pics/u12_normal.png',
+						caseText:'停驶在室外被盗'
+					},
+					{
+						imgSrc:'img/pics/u25_normal.png',
+						caseText:'夜间行车被抢劫'
+					}
+				]
+            },
+            DriverIns: {
+            	title:'72%购买率',
+				discription:'<p>赔偿本车驾驶员伤亡费用的险种。</p><p>新手，经常开车或者经常借车给别人开，建议购买。</p>',
+				cases:[
+					{
+						imgSrc:'img/pics/u14_normal.png',
+						caseText:'下雨车辆侧翻，司机被划伤'
+					},
+					{
+						imgSrc:'img/pics/u16_normal.png',
+						caseText:'严重撞车造成司机死亡'
+					}
+				]
+            },
+            PassengerIns: {
+            	title:'63%购买率',
+				discription:'<p>赔偿本车乘客（非驾驶员）伤亡费用的险种。</p><p>经常开车带上家人或朋友，希望家人朋友的人身安全得到有效保障，建议购买。</p>',
+				cases:[
+					{
+						imgSrc:'img/pics/u18_normal.png',
+						caseText:'捎朋友回家，出事，朋友受伤'
+					},
+					{
+						imgSrc:'img/pics/u47_normal.png',
+						caseText:'带家人出游出事，家人被划伤'
+					}
+				]
+            },
+            GlassIns: {
+            	title:'41%购买率',
+				discription:'<p>赔偿挡风玻璃和车窗单独破碎的损失。（不含车灯车镜）</p><p>注：车损险是不保玻璃、车窗单独破碎的损失的。</p><p>经常走高速公路<br>经常停在露天停车场</p><p>车辆停放区域治安不好</p>',
+				cases:[
+					{
+						imgSrc:'img/pics/u31_normal.png',
+						caseText:'高速路上被飞石击碎车窗'
+					},
+					{
+						imgSrc:'img/pics/u33_normal.png',
+						caseText:'被高空坠物砸坏挡风玻璃'
+					}
+				]
+            },
+            CombustionIns: {
+            	title:'30%购买率',
+				discription:'<p>赔偿因本车自身原因起火造成的损失。</p><p>适合车主：</p><p>车辆使用超过3年或者行驶超过3万公里，或夏季高温地区，推荐购买。</p>',
+				cases:[
+					{
+						imgSrc:'img/pics/u35_normal.png',
+						caseText:'10年老车，线路老化起火'
+					},
+					{
+						imgSrc:'img/pics/u37_normal.png',
+						caseText:'高温地区，在停放时自燃'
+					}
+				]
+            },
+            ScratchIns: {
+            	title:'10%购买率',
+				discription:'<p>负责赔偿无碰撞痕迹的车身表面油漆单独划伤。</p><p>注：有碰撞痕迹属车损险赔偿范围。</p><p>适用于新车及新手。</p><p>若进行索赔可能会对第二年的保费产生影响，建议酌情购买。</p>',
+				cases:[
+					{
+						imgSrc:'img/pics/u39_normal.png',
+						caseText:'停在室外，被人恶意用小刀或螺丝钉划伤车身。'
+					}
+				]
+            },
+            WadingIns: {
+            	title:'5%购买率',
+				discription:'<p>又名发动机损失险，因遭水淹或因涉水行驶造成发动机损坏的赔偿。</p><p>经常暴雨、内涝，以及城市排水不好的地区，强烈推荐购买。</p>',
+				cases:[
+					{
+						imgSrc:'img/pics/u41_normal.png',
+						caseText:'夏季暴雨，停车场被淹，车辆被泡水。'
+					},
+					{
+						imgSrc:'img/pics/u43_normal.png',
+						caseText:'从积水的道路上行驶，发动机进水熄火。'
+					}
+				]
+            },
+            SpecifyingPlantCla:{
+            	title:'3%购买率',
+				discription:'',
+				cases:[]
+            }
+		}
+		function initInsuranceDesc(name){
+			if(!insuranceDesc[name]) return false;
+			if(name=='SpecifyingPlantCla'){
+				var html='<div class="details-con" id="desc_'+name+'">'
+						+'<div class="iframeCon">'
+						+'<span class="iframeAngle"></span>'
+						+'<div class="iframeMain">'
+						+'<article class="iframeText">'
+						+'<div class="iframeText-title iframeTitle">'+insuranceDesc[name].title+'</div>'
+						+'</article></div></div></div>'
+			}else{
+				var html='<div class="details-con" id="desc_'+name+'">'
+						+'<div class="iframeCon">'
+						+'<span class="iframeAngle"></span>'
+						+'<div class="iframeMain">'
+						+'<article class="iframeText">'
+						+'<div class="iframeText-title iframeTitle">'+insuranceDesc[name].title+'</div>'
+						+'<div class="iframeText-detail">'+insuranceDesc[name].discription+'</div>'
+						+'</article>'
+						+'<article class="iframePic">'
+						+'<div class="iframePic-title iframeTitle">典型案例</div>'
+						+'<div class="iframePic-detail">'
+						+'<a href="javascript:" class="prev"><img src="img/icon1.png"></a>'
+						+'<a href="javascript:" class="next"><img src="img/icon2.png"></a>'
+						+'<div class="scroll-pic swipe">'
+						+'<ul class="scroll-pic-ul swipe-wrap">';
+				insuranceDesc[name].cases.forEach(function(key,i){
+					html+='<li class="pic-wraper"><img src="'+key.imgSrc+'"><p class="picText">'+key.caseText+'</p></li>'
+				});
+				html+='</ul></div></article></div></div></div>'
+			}
+			return html
+		}
+		// 滚动图
+		$('div.theDinners').on('click','img.details_icon',function(){
+			var $insuranceLi=$(this).closest('li.insurance-li');
+			var fieldName=$insuranceLi.attr('name');
+			if($insuranceLi.find('div.details-con').length==0){
+				$insuranceLi.append(initInsuranceDesc(fieldName));
+				var mySwiper=Swipe($insuranceLi.find('div.scroll-pic')[0],{});
+				var $wrapContainer = $('#desc_' + fieldName);
+				$wrapContainer.on('click', 'a.prev', mySwiper.prev).on('click', 'a.next', mySwiper.next);
+			}else{
+				$insuranceLi.find('div.details-con').slideToggle();
+				$insuranceLi.find('div.details-con').remove()
+			}
+		});
+		// 预定义保险数据
+		// var preDefineInsuranceData={
+		// 		baseGuard: {
+  //                   ThirdPartyIns: {
+  //                       amount: 300000.0,
+  //                       ecode: "ThirdPartyIns",
+  //                       selIdx: 5
+  //                   },
+  //                   NcfThirdPartyIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfThirdPartyIns",
+  //                       selIdx: 1
+  //                   },
+  //                   VehicleCompulsoryIns: {
+  //                       amount: -1,
+  //                       ecode: "VehicleCompulsoryIns",
+  //                       selIdx: 1
+  //                   },
+  //                   VehicleTax: {
+  //                       amount: -1,
+  //                       ecode: "VehicleTax",
+  //                       selIdx: 1
+  //                   }
+  //               },
+  //               hightGuard: {
+  //                   VehicleDemageIns: {
+  //                       amount: -1,
+  //                       ecode: "VehicleDemageIns",
+  //                       caption:'投保',
+  //                       selIdx: 1
+  //                   },
+  //                   ThirdPartyIns: {
+  //                       amount: 500000.0,
+  //                       ecode: "ThirdPartyIns",
+  //                       caption:'5万',
+  //                       selIdx: 6
+  //                   },
+  //                   TheftIns: {
+  //                       amount: -1,
+  //                       ecode: "TheftIns",
+  //                       caption:'投保',
+  //                       selIdx: 1
+  //                   },
+  //                   DriverIns: {
+  //                       amount: 10000.0,
+  //                       ecode: "DriverIns",
+  //                       caption:'1万',
+  //                       selIdx: 2
+  //                   },
+  //                   PassengerIns: {
+  //                       amount: 10000.0,
+  //                       ecode: "PassengerIns",
+  //                       caption:'1万',
+  //                       selIdx: 2
+  //                   },
+  //                   GlassIns: {
+  //                       amount: -1,
+  //                       ecode: "GlassIns",
+  //                       caption:'国产玻璃',
+  //                       selIdx: 1
+  //                   },
+  //                   VehicleCompulsoryIns: {
+  //                       amount: -1,
+  //                       ecode: "VehicleCompulsoryIns",
+  //                       caption:'投保',
+  //                       selIdx: 1
+  //                   },
+  //                   VehicleTax: {
+  //                       amount: -1,
+  //                       ecode: "VehicleTax",
+  //                       caption:'代缴',
+  //                       selIdx: 1
+  //                   },
+  //                   NcfVehicleDemageIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfVehicleDemageIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfThirdPartyIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfThirdPartyIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfTheftIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfTheftIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfDriverIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfDriverIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfPassengerIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfPassengerIns",
+  //                       selIdx: 1
+  //                   }
+  //               },
+  //               fullGuard: {
+  //                   VehicleDemageIns: {
+  //                       amount: -1,
+  //                       ecode: "VehicleDemageIns",
+  //                       selIdx: 1
+  //                   },
+  //                   ThirdPartyIns: {
+  //                       amount: 1000000.0,
+  //                       ecode: "ThirdPartyIns",
+  //                       selIdx: 7
+  //                   },
+  //                   TheftIns: {
+  //                       amount: -1,
+  //                       ecode: "TheftIns",
+  //                       selIdx: 1
+  //                   },
+  //                   DriverIns: {
+  //                       amount: 10000.0,
+  //                       ecode: "DriverIns",
+  //                       selIdx: 2
+  //                   },
+  //                   PassengerIns: {
+  //                       amount: 10000.0,
+  //                       ecode: "PassengerIns",
+  //                       selIdx: 2
+  //                   },
+  //                   GlassIns: {
+  //                       amount: -1,
+  //                       ecode: "GlassIns",
+  //                       selIdx: 1
+  //                   },
+  //                   CombustionIns: {
+  //                       amount: -1,
+  //                       ecode: "CombustionIns",
+  //                       selIdx: 1
+  //                   },
+  //                   ScratchIns: {
+  //                       amount: 5000,
+  //                       ecode: "ScratchIns",
+  //                       selIdx: 2
+  //                   },
+  //                   WadingIns: {
+  //                       amount: -1,
+  //                       ecode: "WadingIns",
+  //                       selIdx: 1
+  //                   },
+  //                   SpecifyingPlantCla: {
+  //                       amount: -1,
+  //                       ecode: "SpecifyingPlantCla",
+  //                       selIdx: 1
+  //                   },
+  //                   VehicleCompulsoryIns: {
+  //                       amount: -1,
+  //                       ecode: "VehicleCompulsoryIns",
+  //                       selIdx: 1
+  //                   },
+  //                   VehicleTax: {
+  //                       amount: -1,
+  //                       ecode: "VehicleTax",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfVehicleDemageIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfVehicleDemageIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfThirdPartyIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfThirdPartyIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfTheftIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfTheftIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfDriverIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfDriverIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfPassengerIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfPassengerIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfCombustionIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfCombustionIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfScratchIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfScratchIns",
+  //                       selIdx: 1
+  //                   },
+  //                   NcfWadingIns: {
+  //                       amount: -1,
+  //                       ecode: "NcfWadingIns",
+  //                       selIdx: 1
+  //                   }
+  //               },
+  //               customerGuard: {} //自定义的数据
+  //           };
+
+		// 选项
+		$('div.theDinners').on('click','span.insuranceItems',function(){
+			var theInsuranceItems=$(this);
+			var thisSpan=theInsuranceItems.attr('data-val');
+			var selectItems=$(this).parent().next('div.select-items');
+			$('div.overLay').show();
+			selectItems.show();
+			selectItems.find('p[data-id="'+thisSpan+'"]').find('img').remove();
+			selectItems.find('p[data-id="'+thisSpan+'"]').append('<img src="img/checked_img.png" />').siblings().find('img').remove();
+			var itemWidth=($('div.container').outerWidth())*0.9;
+			var itemMargin=($('div.container').outerWidth())*0.05;
+			selectItems.css({'width':itemWidth,"margin-left":itemMargin,"margin-right":itemMargin});
+			selectItems.find('p').unbind('click').bind('click',function(){
+				if($(this).find('img').length==0){
+					var dinnerHtml=$(this).parents('div.theDinners').html();
+					var thisP=$(this);
+					var thisSpanDataFor=theInsuranceItems.attr('data-for');
+					// 判断点击的是否为自助页面
+					if($(this).parents('div.theDinners').index()!=4){
+						$('div.overLay').hide();
+						$('ul.tab-title-ul li:eq(3) p').click();
+						$('div[class="theDinners zzVersion"]').html(dinnerHtml);
+						$('div[class="theDinners zzVersion"] span[data-for="'+thisSpanDataFor+'"]').find('span').html(thisP.text());
+						$('div[class="theDinners zzVersion"] span[data-for="'+thisSpanDataFor+'"]').attr('data-val',thisP.attr('data-id'));
+						if(thisP.text()=='不投保'){
+							$('div[class="theDinners zzVersion"] article.addonFreeInsurance ul.addonFreeInsurance-ul li').each(function(){
+								var theItemId=$(this).find('span').attr('id');
+								if(theItemId.indexOf(thisSpanDataFor)>-1){
+									$(this).find('span').addClass('disableCheck').find('img').attr('src','img/disableCheck.png')
+								}
+							})
+						}else{
+							$('div[class="theDinners zzVersion"] article.addonFreeInsurance ul.addonFreeInsurance-ul li').each(function(){
+								var theItemId=$(this).find('span').attr('id');
+								if(theItemId.indexOf(thisSpanDataFor)>-1){
+									if($(this).find('span').hasClass('disableCheck')){
+										$(this).find('span').removeClass('disableCheck').find('img').attr('src','img/noChecked.png')
+									}
+								}
+							})
+						}
+						$('div.select-items').hide();
+						return false
+					}
+					$(this).append('<img src="img/checked_img.png" />');
+					$(this).siblings().find('img').remove();
+					// 改变相应的附加不计免赔险
+					if(thisP.text()=='不投保'){
+						$(this).parents('div.theDinners').find('article.addonFreeInsurance ul.addonFreeInsurance-ul li').each(function(){
+							var theItemId=$(this).find('span').attr('id');
+							if(theItemId.indexOf(thisSpanDataFor)>-1){
+								$(this).find('span').addClass('disableCheck').find('img').attr('src','img/disableCheck.png')
+							}
+						})
+					}else{
+						$(this).parents('div.theDinners').find('article.addonFreeInsurance ul.addonFreeInsurance-ul li').each(function(){
+							var theItemId=$(this).find('span').attr('id');
+							if(theItemId.indexOf(thisSpanDataFor)>-1){
+								if($(this).find('span').hasClass('disableCheck')){
+									$(this).find('span').removeClass('disableCheck').find('img').attr('src','img/noChecked.png')
+								}
+							}
+						})
+					}
+				}
+				theInsuranceItems.find('span').html($(this).text());
+				theInsuranceItems.attr('data-val',$(this).attr('data-id'));
+				$('div.overLay').hide();
+				selectItems.hide()
+			});
+			$('div.overLay').unbind('click').bind('click',function(){
+				$('div.overLay').hide();
+				selectItems.hide()
+			})
+		});
+		// 选择不计免赔险
+		$('div.theDinners').on('click','ul.addonFreeInsurance-ul li span',function(){
+			var imgSrc=$(this).find('img').attr('src');
+			var thisDinner=$(this).parents('div.theDinners');
+			var dinnerHtml=thisDinner.html();
+			var thisSpanId=$(this).attr('id');
+			if(imgSrc!='img/disableCheck.png'){
+				if(imgSrc=='img/hasChecked.png'){
+					// 判断点击的是否为自助页面
+					if(thisDinner.index()!=4){
+						$('ul.tab-title-ul li:eq(3) p').click();
+						$('div[class="theDinners zzVersion"]').html(dinnerHtml);
+						$('div[class="theDinners zzVersion"] article.addonFreeInsurance ul.addonFreeInsurance-ul li span[id="'+thisSpanId+'"] img').attr('src','img/noChecked.png');
+						return false
+					}
+					$(this).find('img').attr('src','img/noChecked.png')
+				}else{
+					if(thisDinner.index()!=4){
+						$('ul.tab-title-ul li:eq(3) p').click();
+						$('div[class="theDinners zzVersion"]').html(dinnerHtml);
+						$('div[class="theDinners zzVersion"] article.addonFreeInsurance ul.addonFreeInsurance-ul li span[id="'+thisSpanId+'"] img').attr('src','img/hasChecked.png');
+						return false
+					}
+					$(this).find('img').attr('src','img/hasChecked.png')
+				}
+			}
+			
+		});
+		// 获取自助险种详情
+		var GetPostInsuranceData=function GetPostInsuranceData(filter){
+			var $zzVersion=$('div.'+filter);
+
+			// var $VehicleDemageIns=$zzVersion.find('span[data-for="VehicleDemageIns"]');
+			// var $ThirdPartyIns=$zzVersion.find('span[data-for="ThirdPartyIns"]');
+			// var $TheftIns=$zzVersion.find('span[data-for="TheftIns"]');
+			// var $DriverIns=$zzVersion.find('span[data-for="DriverIns"]');
+
+			// var $GlassIns=$zzVersion.find('span[data-for="GlassIns"]');
+			// var $CombustionIns=$zzVersion.find('span[data-for="CombustionIns"]');
+			// var $ScratchIns=$zzVersion.find('span[data-for="ScratchIns"]');
+			// var $WadingIns=$zzVersion.find('span[data-for="WadingIns"]');
+			// var $SpecifyingPlantCla=$zzVersion.find('span[data-for="SpecifyingPlantCla"]');
+
+			// var $PassengerIns=$zzVersion.find('span[data-for="PassengerIns"]');
+			var itemsJson={};
+			
+			$zzVersion.find('ul.insurance-ul').each(function(){
+				$(this).find('li').each(function(){
+					var thisItemName=$(this).attr('name');
+					var selIdx=$(this).find('span.insuranceItems').attr('data-val').split(':')[0];
+					var amount=$(this).find('span.insuranceItems').attr('data-val').split(':')[1];
+					var caption=$(this).find('span.insuranceItems span').html();
+					if(selIdx!=0){
+						itemsJson[thisItemName]={
+							'ecode':thisItemName,
+							'selIdx':selIdx,
+							'amount':amount,
+							'caption':caption
+						}
+					}
+				})
+			});
+
+			$zzVersion.find('ul.addonFreeInsurance-ul li').each(function(){
+				if($(this).find('img').attr('src')!='img/disableCheck.png'){
+					var thisItemName=$(this).find('span').attr('name');
+					var amount=-1;
+					if($(this).find('img').attr('src')=='img/hasChecked.png'){
+						var selIdx=1;
+						var caption='投保';
+						itemsJson[thisItemName]={
+							'ecode':thisItemName,
+							'selIdx':selIdx,
+							'amount':amount,
+							'caption':caption
+						}
+					}
+				}
+				
+			});
+			return itemsJson
+		};
+		// 获取报价按钮
+		$('p.getPriceBtn').unbind('click').bind('click',function(){
+			var postData={};
+			var safeFilterName=$('ul.tab-title-ul li.tab-title-selectedLi p').attr('id');
+			postData={
+				'customerId':paramJson.customerId,
+				'dealOffer':{
+					'suite':{
+						'items':GetPostInsuranceData(safeFilterName)
+					}
+				}
+			};
+
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/insure/quote',
+				type:'post',
+				data:$.toJSON(postData),
+				dataType:'json',
+				async:false,
+				contentType:'application/json;charset=utf-8',
+				error:function(xhr){
+					var error=eval('('+xhr.responseText+')');
+					safeAlert(1,error[0].message,'确定','')
+				}
+			}).then(function(data){
+				if(window.localStorage){
+					if(getLocalStorage('safeCompanise')){
+						removeLocalStorage('safeCompanise')
+					}
+					
+					setLocalStorage('safeCompanise',data)
+				}else{
+					if(getCookie('safeCompanise')){
+						delCookie('safeCompanise')
+					}
+					
+					setCookie('safeCompanise',data)
+				}
+				
+				window.location.href="/yangchebao-pubweb/baoxian/companyPrice.html?customerId="+paramJson.customerId+'&userId='+paramJson.userId
+			})
+		})
+
+		
+		
+	})
+</script>
+</html>

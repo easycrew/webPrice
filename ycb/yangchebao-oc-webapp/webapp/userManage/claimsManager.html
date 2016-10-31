@@ -1,0 +1,581 @@
+<style>
+	.citybtn{ 
+		background-color: #508ae8;
+    	border-color: #4178d2;
+    	color: #ffffff;
+    	float: left;
+    	padding: 1px 8px;
+    	border-radius: 3px;
+    	cursor: pointer;
+	}
+	.citybtn:hover{
+		background-color: #508ae8;
+	}
+	.droplist{z-index:1000;}
+</style>
+<div class="urlContentWraper" id="Wraper_claims_Manager"> 
+	<div class="row-fluid ui-data-show"> 
+		<div class="hDiv">
+			 <h2 class="ui-tit"><strong>理赔员管理</strong><bottom class="all-work-info numb220">页面说明</bottom></h2>
+			 <table id="Table_claims_Manager"></table>
+		</div>
+    </div> 
+	
+    <div id="Form_claims_Manager" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div name="regions"></div>  
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>理赔员手机号：</label>
+				<div class="span5 grid-layout-content">
+					<div name="mobile" class="jrad-input-container"></div> 
+				</div>
+			</div>  
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>理赔员姓名：</label>
+				<div class="span5 grid-layout-content">
+					<div name="operatorName" class="jrad-input-container"></div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>所属保险公司：</label>
+				<div class="span5 grid-layout-content">
+					<div name="companyName" class="jrad-select-container"></div> 
+				</div>
+			</div> 
+
+			<div class="row">
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>所属城市：</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<span id="jrad-button-area" class="citybtn">点击选择 </span>
+				</div>
+				<div id="area_check_string" style="margin: 40px 0 10px 176px;"></div>
+			</div>
+
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>提成比例：</label>
+				<div class="span5 grid-layout-content">
+					<div name="percentage" class="jrad-input-container"></div>%
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>客户返现比例：</label>
+				<div class="span5 grid-layout-content">
+					<div name="userPercentage" class="jrad-input-container"></div>%
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>养车宝提成比例：</label>
+				<div class="span5 grid-layout-content">
+					<div name="ycbPercentage" class="jrad-input-container"></div>%
+					<div class="ui-note">以上三个比例之和必须为100!</div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>状态：</label>
+				<div class="span5 grid-layout-content">
+					<div name="status" class="jrad-select-container"></div> 
+				</div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+
+    <div id="Form_area" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			  <div class="row-fluid">
+				<label class="span3 grid-layout-label"> 省：</label>
+				<div class="span5 grid-layout-content">
+					<div class="jrad-select-container" name="provinceId">
+					</div>
+				</div> 
+				<label class="span3 grid-layout-label">	市：</label>
+				<div class="span5 grid-layout-content">
+					<div class="jrad-select-container" name="areaCodeId">
+					</div>
+				</div>
+			</div> 
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div> 
+    <div id="Form_explain_eg220" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>永安理赔的功能，在此创建理赔员信息，创建完成后，对应的手机号登陆养车宝APP，会出现理赔员的页面。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>1、创建的理赔员手机号，必须先注册为养车宝账号（否则创建不成功）；2、所属城市必须选择单个市（否则理赔员在登陆APP时显示会出错）。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_claims_Manager');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+	var fields_params = {};  
+	fields_params['companyName'] = {data:[{id:"永安保险",name:"永安保险"},{id:"其他",name:"其他"}]};
+	fields_params['status'] = {data:[{id:"1",name:"有效"},{id:"0",name:"无效"},{id:"2",name:"删除"}]};
+
+	page_column_model.push({display: '理赔员匹配Id', name : 'claimPersonId',hidden:true}); 
+	page_column_model.push({display: '用户ID', name : 'userInfoId'}); 
+    page_column_model.push({display: '用户手机', name : 'mobile'}); 
+    page_column_model.push({display: '理赔员姓名', name : 'operatorName'});
+    page_column_model.push({display: '所属保险公司', name : 'companyName'}); 
+    page_column_model.push({display: '城市', name : 'cityName'}); 
+    page_column_model.push({display: '完成理赔单/个', name : 'finishClaimOrder',sortable:true}); 
+    page_column_model.push({display: '理赔单金额/元', name : 'claimOrderAmount',sortable:true}); 
+    page_column_model.push({display: '提成金额/元', name : 'sumClaimsRebate',sortable:true});
+    page_column_model.push({display: '提成比例/%', name : 'percentage'}); 
+    page_column_model.push({display: '状态', name : 'status'});  
+    page_column_model.push({display: '最后操作时间', name : 'updateDate'});  
+    page_column_model.push({display: '最后操作人', name : 'operator'});  
+   
+    page_search_items.push({row:'1',type:'jrad-input',display:'理赔员ID',name:'userInfoId'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'理赔员手机',name:'mobile'});
+    page_search_items.push({row:'1',type:'jrad-select',display:'所属保险公司',name:'companyName',params:{
+		data:[{id:' ',name:'全部'},{id:'永安保险',name:'永安保险'}]}
+	});        
+    page_search_items.push({row:'2',type:'jrad-input',display:'城市',name:'city'}) 
+    page_search_items.push({row:'2',type:'jrad-dateinput',display:'最后操作时间始',name:'zeroService'}) 
+    page_search_items.push({row:'2',type:'jrad-dateinput',display:'最后操作时间终',name:'zeroService'})
+    page_search_items.push({row:'3',type:'jrad-select',display:'状态',name:'status',params:{
+		data:[{"id":"2",name:"未删除"},{id:' ',name:'全部'},{id:'1',name:'有效'},{id:'0',name:'无效'}]}
+	});   
+     
+    page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',
+    	onpress : function(){
+    		initAdsInfo(wraper);  
+			$('#Form_claims_Manager').form({
+                title: '创建',
+				fields_params:fields_params,
+				item:{percentage:0,userPercentage:0,ycbPercentage:0},
+               	url:'/shopmanage-ws/ws/0.1/claimOperator/addOperator',
+				before_submit:function(json){
+					json.operator = carsmart_config.operatorName;
+			        json.city = []; 
+			        var city = $("div[name='regions']",wraper).data("areaList");
+			        if(city.length==0){
+			          	$.jRadMessage({level:'error',message:"请选择要绑定的城市。"});
+			          	return;
+			        }
+			        else{
+			          	$.each(city,function(){
+			            	var region = {};
+			            	region.provinceId = this.provinceId+""; 
+			            	var areaCodeId = [];
+			            	var areaList = this.areaList;
+			            	for(var i=0;i<areaList.length;i++){
+			              		areaCodeId.push(areaList[i].areaCodeId);
+			            	}
+			            	region.areaCodeId = areaCodeId.join(",");
+			            	json.city.push(region)
+			          	});
+			        }
+			        //json.regions = JSON.stringify(json.regions)
+			        //json.city = json.regions
+					return json
+				},				
+				success_callback:function(){ 
+                    $('#Table_claims_Manager').flexMessage('添加成功', 'success');
+                    $('#Table_claims_Manager').flexReload();
+                } 
+            }).form('open');  
+            $('#Form_claims_Manager div[name="mobile"]').input('readonly',false);
+            deleteArea()
+        }
+    }); 
+	page_list_buttons.push({title: '修改',name:'edit', bclass: 'edit',  
+        prefunc:function(){
+            var checked = $('#Table_claims_Manager').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },
+    	onpress : function(){
+	    	$("#Form_claims_Manager div[name='regions']",wraper).data("areaList",[]); 
+    		var checked = $('#Table_claims_Manager').getCheckedTrs(); 
+            var sta ='';
+            if(checked[0].status == '删除'){sta = 2}else if(checked[0].status == '有效'){sta = 1}else{sta = 0}
+			$('#Form_claims_Manager').form({
+                title: '修改',
+                item:{
+                	mobile:checked[0].mobile,
+                	percentage:checked[0].percentage,
+                	userPercentage:checked[0].userPercentage,
+                	ycbPercentage:checked[0].ycbPercentage,
+                	operatorName:checked[0].operatorName,
+                	status:sta
+                },
+				fields_params:fields_params,
+               	url:'/shopmanage-ws/ws/0.1/claimOperator/updateOperator',
+				before_submit:function(json){
+					//var city = []; 
+					// var parentsjson = {};
+					json.city=[];
+			        var city = $("div[name='regions']",wraper).data("areaList");
+			        if($("#Form_claims_Manager #area_check_string",wraper).html() == ''){
+			        	return;
+			        }else{
+				        if(city.length==0){	        	
+					        json.userInfoId = checked[0].userInfoId;
+					        json.operator = carsmart_config.operatorName;
+					        json.provinceId = checked[0].provinceId;
+					        json.cityId = checked[0].cityId;
+				        }else{
+				        	$.each(city,function(){
+						        json.userInfoId = checked[0].userInfoId;
+						        json.operator = carsmart_config.operatorName;
+						        json.provinceId = city[0].provinceId;
+						        json.cityId = city[0].areaList[0].areaCodeId;
+				        	})
+				        }
+			        }	        
+			        // if(city.length==0){
+			        //   	$.jRadMessage({level:'error',message:"请选择要绑定的城市。"});
+			        //   	return;
+			        // }else{
+			        //   	$.each(city,function(){
+			        //     	var region = {};
+			        //     	region.provinceId = this.provinceId+""; 
+			        //     	var areaCodeId = [];
+			        //     	var areaList = this.areaList;
+			        //     	for(var i=0;i<areaList.length;i++){
+			        //       		areaCodeId.push(areaList[i].areaCodeId);
+			        //     	}
+			        //     	region.areaCodeId = areaCodeId.join(",");
+			        //     	json.city.push(region)
+			        //   	});
+			        // }
+			         
+			  //       parentsjson.provinceId = checked[0].provinceId;
+			  //       if(checked[0].cityId == ''){
+			  //       	parentsjson.areaCodeId = 0;
+			  //       }else{
+			  //       	parentsjson.areaCodeId = checked[0].cityId;
+			  //       }
+			  //       city.push(parentsjson)
+			        // json.userInfoId = checked[0].userInfoId;
+			        // json.operator = carsmart_config.operatorName;
+			        // json.provinceId = checked[0].provinceId;
+			        // json.cityId = checked[0].cityId;
+			        //json.cityName = checked[0].cityName;
+			        //json.city = city
+					return json
+				},				
+				success_callback:function(){ 
+                    $('#Table_claims_Manager').flexMessage('修改成功', 'success');
+                    $('#Table_claims_Manager').flexReload();
+                },
+                error_callback:function(xhr){ 
+					var errormsg = eval("(" + xhr.responseText + ")"); 
+					if (errormsg[0].message == "操作员不允许为空") {
+						$.jRadMessage({level:'error',message:"请选择要绑定的城市。",selector:$('#Form_claims_Manager .pop-up-middle')});
+					}else{
+						$.jRadMessage({level:'error',message:errormsg[0].message,selector:$('#Form_claims_Manager .pop-up-middle')});
+					}
+                }
+            }).form('open'); 
+            $('#Form_claims_Manager div[name="mobile"]').input('readonly',true);
+	    	$("#Form_claims_Manager #area_check_string",wraper).html("");   
+            var str = '';
+            if(checked[0].cityName){str = checked[0].cityName;
+            }else{str = '全部';}
+			$('#area_check_string').append($('<div class="areaSpan">').html(str).append($('<span class="delspan delArea">').html('X'))); 
+      		// var areaList = checked[0].city; 
+		    // $.each(areaList,function(i){
+		    //     if(areaList[i].areaList.length==0){
+			//   	areaList[i].areaList=[{"areaCodeId":"0"}];
+			// }
+		    // });
+		    // $("#Form_claims_Manager div[name='regions']",wraper).data('areaList',areaList); 
+		    // addAreaList(areaList,wraper);
+		    $('.delArea').click(function(){
+		    	$(this).parent('.areaSpan').remove();
+		    })
+        }
+    });
+	page_list_buttons.push({title: '删除',name:'delete', bclass: 'delete',
+        prefunc:function(){
+            var checked = $('#Table_claims_Manager').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },
+    	onpress : function(){ 
+            var checked = $('#Table_claims_Manager').getCheckedTrs();
+            var postData={};
+            postData.claimPersonId=checked[0].claimPersonId;
+            postData.operator= carsmart_config.operatorName;
+			$.jRadConfirm('确认删除吗？',1,function(){
+                var checked = $('#Table_claims_Manager').getCheckedTrs();
+                $.jRadPost({  
+                    url:'/shopmanage-ws/ws/0.1/claimOperator/deleteOperator',
+                    data:postData, 
+                    success: function(data){ 
+                        $('#Table_claims_Manager').flexMessage('删除成功!', 'success');
+                        $('#Table_claims_Manager').flexReload();
+                    },
+                    error:function(xhr){ 
+                        var errormsg = eval("(" + xhr.responseText + ")"); 
+                        if (errormsg != undefined) {
+                            $('#Table_claims_Manager').flexMessage(errormsg[0].message, 'error');
+                        }
+                    }
+                });
+            });   
+        }
+    }); 
+
+    page_list_buttons.push({displayname: '导出EXCEL',name:'excel', bclass: 'excel',onpress : function(){ 
+		$ .jRadConfirm('确认导出吗？',1,function(){
+			var param = {};
+			var userInfoId = $.trim($(".searchContent div[name='userInfoId']",wraper).input('val'));
+			if(userInfoId!=""){
+				param['userInfoId'] = userInfoId;
+			};
+			var companyName = $.trim($(".searchContent div[name='companyName']",wraper).select('val'));
+			if(companyName!=""){
+				param['companyName'] = companyName;
+			}; 
+			var mobile = $.trim($(".searchContent div[name='mobile']",wraper).input('val'));
+			if(mobile!=""){
+				param['mobile'] = mobile;
+			};
+			var city = $.trim($(".searchContent div[name='city']",wraper).input('val'));
+			if(city!=""){
+				param['city'] = city;
+			};
+			var status = $.trim($(".searchContent div[name='status']",wraper).select('val'));
+			if(status!=""){
+				param['status'] = status;
+			};
+			var paramUrl = "";
+			if(param!={}){   
+				paramUrl+="?"
+			 	$.each(param,function(k,v){ 
+					paramUrl+="&"+k+"="+v; 
+			 	});
+			}
+			window.open('/shopmanage-ws/ws/0.1/claimOperator/exportClaimOperatorList'+paramUrl);
+			}); 
+        }
+    });
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_claims_Manager').flexigrid({
+        reload:true,
+		method:'get',
+        colModel : page_column_model,
+        buttons : page_list_buttons,
+        searchitems :page_search_items,
+        pagination: {
+			diaplay_pages: 5,
+			align: 'bottom' 
+		},
+		showSearch:true, 
+		overflow:true,
+        queryParam: {'status':2},
+        url:'/shopmanage-ws/ws/0.1/claimOperator/getOperatorList', 
+		onError:showError,
+		checkBoxType:'single'
+    }); 
+
+    var area_fields_params = {};	
+	area_fields_params['provinceId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll' 
+		},
+		unshiftData: {id:'0',name:'全部'},
+		onchange: function(){
+			var provinceCode = $('#Form_area div[name=provinceId]',wraper).select('val');
+			if(provinceCode=='0'){
+				$('#Form_area div[name=areaCodeId]',wraper).select({data:[{id:'0',name:'全部'}]});
+			}else{
+			$('#Form_area div[name=areaCodeId]',wraper).select("val","0");
+			$('#Form_area div[name=areaCodeId]',wraper).select({
+				urlData:{
+					url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+				},
+				unshiftData: {id:'0',name:'全部'}
+			});
+			}
+		}
+	}
+	area_fields_params['areaCodeId'] = {
+		data: [{id:'0',name:'全部'}]
+	};
+
+	$('#Form_area',wraper).form({
+        title:"地区", 
+		fields_params:area_fields_params,
+		item:{"provinceId":"0","areaCodeId":"0"},
+		submit:function(){  
+			var json = {};
+			json.provinceId = $("#Form_area div[name='provinceId']",wraper).select('val');
+			json.provinceName = $("#Form_area div[name='provinceId']",wraper).select('text');
+			json.areaList = [];
+			json.areaList[0] = {};
+			json.areaList[0].areaCodeId = $("#Form_area div[name='areaCodeId']",wraper).select('val');
+			json.areaList[0].areaCodeName = $("#Form_area div[name='areaCodeId']",wraper).select('text');  
+			var array = $("div[name='regions']",wraper).data("areaList");
+			var pId = json.provinceId; 
+			var aId = json.areaList[0].areaCodeId;
+			if(pId=="0"){
+				array = []; 
+				array.push(json);
+			}else{
+			    if(array.length==1&&array[0].provinceId=="0"){
+					array = []; 
+					array.push(json);
+				}else{
+					var flag = true;
+					$.each(array,function(){
+						if(this.provinceId == pId){
+						    flag = false;
+						    var areaList = this.areaList;
+						    if(aId=="0"){
+								this.areaList = json.areaList;
+						    }else{ 
+								var areaflag = true;
+								for(var i=0;i<areaList.length;i++){
+									if(areaList[i].areaCodeId==0){
+										areaflag = false;
+										this.areaList = json.areaList;
+										break;
+									}
+									if(areaList[i].areaCodeId==aId){ 
+										areaflag = false;
+										$.jRadMessage({level:'error',message:"该地区已经选择",selector:$("#Form_area",wraper)});
+										return;
+									}
+								}
+								if(areaflag){
+									this.areaList.push(json.areaList[0]);
+								}
+						    }
+						}
+					});
+					if(flag){  
+					    array.push(json);
+					}  
+				}
+			}
+			addAreaList(array,wraper); 
+			$("div[name='regions']",wraper).data("areaList",array);
+			$("#Form_area div[name='areaCodeId']",wraper).select('destroy');
+			$("#Form_area").hide();
+			$('.overcurtainDiv').hide();
+			$('.overcurtainDiv').eq(0).show();
+		},
+		cancel: function(){
+			$("#Form_area div[name='areaCodeId']",wraper).select('destroy');
+			$("#Form_area").hide();
+			$('.overcurtainDiv').hide();
+			$('.overcurtainDiv').eq(0).show();
+		}
+	});
+
+	$("#jrad-button-area",wraper).button({
+		click : function() {  
+			$('#Form_area',wraper).form({ 
+				fields_params:area_fields_params,
+				item:{"provinceId":"0","areaCodeId":"0"},
+			}).form('open');
+		}
+	});
+
+	//删除地区
+	deleteArea()
+	function deleteArea(){
+		$("#area_check_string .delArea",wraper).live('click',function(){
+			var info = $(this).data('info'); 
+			var arr = $("div[name='regions']",wraper).data("areaList");
+			$.each(arr,function(i){
+				var json = this;
+				if(json.provinceId==info.provinceId){
+					if(info.areaId=="0"){
+						arr.splice(i,1);
+					}else if(json.areaList.length==1){
+						arr.splice(i,1);
+					}else{
+						$.each(json.areaList,function(j){
+						var area = this;
+						if(area.areaCodeId==info.areaId){ 
+						json.areaList.splice(j,1); 
+						}
+						});
+					}
+				}
+			}); 
+			$(this).parent('.areaSpan').remove();
+		});		
+	}
+
+	function initAdsInfo(wraper){   
+	    $("#Form_claims_Manager div[name='regions']",wraper).data("areaList",[]); 
+	    $("#Form_claims_Manager #area_check_string",wraper).html("");   
+	}
+
+	function showError(xhr){
+	    var errormsg = eval("(" + xhr.responseText + ")"); 
+	    $.jRadMessage({level:'error',message:errormsg[0].message});
+	}
+	
+    $(".numb220").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg220").form({}).form('close');
+        $("#Form_explain_eg220").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg220 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg220").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg220").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg220 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+
+});
+ 
+</script>

@@ -1,0 +1,103 @@
+.banner{
+	position: relative;
+	overflow: hidden;
+	background: #e0e0e0;
+	padding: 10px 11px;
+	margin-top: 25px;
+}
+.bannerImg{
+	float: left;
+	width: 584px;
+	height: 292px;
+}
+.banner-l{
+	margin-right: 5px;
+}
+.banner-r{
+	margin-left:5px ;
+}
+.rect-wrap{
+	margin-top: 5px;
+	overflow: hidden;
+}
+div.market{
+	position: relative;
+	overflow: hidden;
+	/*float: left;*/
+	margin-top: 20px;
+}
+div.image-big{
+	float: left;
+	position: relative;
+}
+.market i{
+	position: absolute;
+	overflow: hidden;
+	display: inline-block;
+	width: 120px;
+	height: 76px;
+	line-height: 76px;
+	text-align: center;
+	top: 0;
+	left: 0;
+	background: url(../img/pointbg.png) no-repeat;
+	font-family: "microsoft yahei";
+	font-size: 20px;
+	color: #FFFFFF;
+}
+.market span.moreBtn{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background: #000000;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+	padding: 10px 30px;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+div.market-list{
+	float: left;
+	border: 1px solid #e8e8e8;
+	border-left: 0;
+	position: relative;
+	overflow: hidden;
+	padding: 9px;
+	padding-left: 0;
+	padding-bottom: 8px;
+}
+.market-list ul{
+	float: left;
+}
+.market-list li{
+	float: left;
+	border-right: 1px solid #e8e8e8;
+	padding: 9px 19px;
+}
+li.li-last{
+	border-right:0;
+	padding-right: 18px;
+}
+.sub-title a{
+  	display: inline-block;
+  	width: 184px;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+  	text-overflow: ellipsis;
+  	overflow: hidden;
+  	white-space: nowrap;
+}
+.line-1{
+	margin-top: 15px;
+}
+.line-2{
+	margin-top: 0;
+}
+.line-2 span, .line-2 em{
+	font-family: "microsoft yahei";
+	font-size: 20px;
+	color: #fd6244;
+}
+

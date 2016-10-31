@@ -1,0 +1,307 @@
+@charset 'utf-8';
+div.cheakOrderInfo{
+	margin-top: 20px;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight{
+	overflow: hidden;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li{
+	float: right;
+	overflow: hidden;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li div.li-top{
+	overflow: hidden;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li div.li-bottom{
+	text-align: center;
+	font-family: "microsoft yahei";
+	font-size: 12px;
+	height: 16px;
+	line-height: 16px;
+	color: #D0D0D0;
+}	
+div.cheakOrderInfo div.myShopCar-con-topRight ul li p{
+	float: left;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li p{
+	float: left;
+	background-color: #E5E4E2;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li p.line{
+	width: 80px;
+	height: 4px;
+	border-radius: 2px;
+	position:relative;
+	top: 16px;
+	z-index: 1;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li p.line-left{
+	left: 5px;
+	+left: 10px;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li p.line-right{
+	right: 5px;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li p.circle{
+	background: url(../img/bannerLine01.png) no-repeat 2px;
+	width: 36px;
+	height: 36px;
+	line-height: 36px;
+	/*border-radius: 18px;*/
+	text-align: center;
+	font-family: "microsoft yahei";
+	font-size: 18px;
+	color: #fff;
+	position: relative;
+	z-index: 2;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li p.circleTh{
+	background: url(../img/bannerLine.png) no-repeat 2px;
+	width: 36px;
+	height: 36px;
+	line-height: 36px;
+	/*border-radius: 18px;*/
+	text-align: center;
+	font-family: "microsoft yahei";
+	font-size: 18px;
+	color: #fff;
+	position: relative;
+	z-index: 2;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li.li-second{
+	position: relative;
+	left: 12px;
+}
+div.cheakOrderInfo div.myShopCar-con-topRight ul li.li-first{
+	position: relative;
+	left: 24px;
+}
+
+div.takePersonInfo{
+	margin-top: 20px;
+}
+div.cheakOrderInfo h2{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+	background-color: #f7f7f7;
+	height: 16px;
+	line-height: 16px;
+	padding: 15px 30px;
+	border-top: 2px solid #E6E5E3;
+}
+div.takePersonInfo_detail{
+	margin: 20px 30px;
+}
+div.takePersonInfo_detail p{
+	margin: 8px 0;
+}
+div.takePersonInfo_detail p label{
+	display: inline-block;
+	width: 80px;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+}
+div.takePersonInfo_detail p label span.required{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #f00;
+}
+div.takePersonInfo_detail p input,div.takePersonInfo_detail p select{
+	width: 160px;
+	padding:10px 6px;
+	font-family: "microsoft yahei";
+	color: #333;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+}
+div.cheakOrderInfo textarea#contactPerson{
+	vertical-align: top;
+	padding: 8px;
+}
+
+div.cheakOrderInfo div.chargeAndBring_detail{
+	margin-top: 20px;
+	padding-top: 15px;
+	border-top: 1px dashed #CCCCCC;
+}
+div.cheakOrderInfo div.chargeAndBring_detail div.chargeAndBring_type{
+	margin: 0 30px 30px;
+}
+div.cheakOrderInfo div.chargeAndBring_detail div.chargeAndBring_type label{
+	display: inline-block;
+	width: 80px;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+}
+div.cheakOrderInfo div.chargeAndBring_detail div.chargeAndBring_type p{
+	margin-bottom: 5px;
+}
+div.cheakOrderInfo div.chargeAndBring_detail div.chargeAndBring_type p span{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+}
+div.cheakOrderInfo div.chargeAndBring_detail div.chargeAndBring_type p span.checkedcircle{
+	background: url(../img/checked-circle.png) no-repeat left center;
+	padding-left: 20px;
+}
+
+
+div.cheakOrderInfo div.chargeAndBring_goods table{
+	border-top: 2px solid #E5E4E2;
+	width: 100%;
+}
+div.cheakOrderInfo div.chargeAndBring_goods table thead{
+	background-color: #F7F7F7;
+}
+div.cheakOrderInfo div.chargeAndBring_goods table thead input{
+	vertical-align: middle;
+}
+div.cheakOrderInfo div.chargeAndBring_goods table thead td{
+	text-align: center;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+	height: 14px;
+	line-height: 14px;
+	padding: 14px 0;
+}
+div.cheakOrderInfo tbody td{
+	text-align: center;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+	padding: 15px 0;
+	border-bottom: 1px solid #E5E4E2;
+}
+div.cheakOrderInfo tbody td span a{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+}
+div.cheakOrderInfo td.goodsInfo_detail a.goods-img{
+	margin-right: 16px;
+}
+div.cheakOrderInfo td.goodsInfo_detail a.goods-img img{
+	border: 1px solid #E5E4E2!important;
+}
+div.cheakOrderInfo td.allPrice_detail{
+	color: #FD6244!important;
+}
+div.cheakOrderInfo div.buyerMessage{
+	padding:20px 30px 30px 30px;
+	border-top:1px dashed #E5E4E2;
+}
+div.cheakOrderInfo div.fapiaoInfo p{
+	padding: 0px 30px 30px 30px;
+}
+div.cheakOrderInfo div.fapiaoInfo p.invoiceType-p{
+	padding-top: 20px;
+}
+div.cheakOrderInfo div.buyerMessage span,div.cheakOrderInfo div.fapiaoInfo span,div.cheakOrderInfo div.balance span,h2 span{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+}
+div.cheakOrderInfo div.buyerMessage input,div.cheakOrderInfo div.fapiaoInfo input,div.cheakOrderInfo div.fapiaoInfo select{
+	vertical-align: middle;
+	font-family: "microsoft yahei";
+	color: #666;
+	padding: 8px;
+	border: 1px solid #E5E4E2;
+}
+div.cheakOrderInfo div.buyerMessage input{
+	width: 300px;
+}
+div.cheakOrderInfo div.fapiaoInfo input{
+	width: 120px;
+}
+div.cheakOrderInfo div.fapiaoInfo select{
+	margin-right: 50px;
+	width: 160px;
+}
+p.invoiceTitle-p span{
+	margin-right: 6px;
+}
+div.cheakOrderInfo div.fapiaoInfo p.invoiceTitle-p input{
+	width: 434px;
+}
+div.cheakOrderInfo div.balance{
+	padding: 20px 30px 50px 30px;
+}
+div.cheakOrderInfo div.balance span.balanceUse,div.cheakOrderInfo div.balance span.balanceUnuse{
+	display:block;
+	width: 20px;
+	height: 15px;
+	float: left;
+	margin-top: 4px;
+	*margin-top: 5px;
+	cursor: pointer;
+}
+div.cheakOrderInfo div.balance span.balanceUse{
+	background: url(../img/checked-circle.png) no-repeat left center;
+}
+div.cheakOrderInfo div.balance span.balanceUnuse{
+	background: url(../img/unchecked-circle.png) no-repeat left center;
+}
+div.cheakOrderInfo div.balance span.checked{
+	background: #FF6600;
+	color: #FFFFFF;
+}
+div.cheakOrderInfo div.goodsTfoot{
+	overflow: hidden;
+	background-color: #F7F7F7;
+	border-top: 2px solid #E5E4E2;
+}
+div.cheakOrderInfo div.goodsTfoot p.handOrder{
+	float: right;
+}
+div.cheakOrderInfo div.goodsTfoot p.goodsAndPost{
+	float: left;
+	padding-left: 40px;
+}
+div.cheakOrderInfo div.goodsTfoot p span{
+	display: inline-block;
+}
+div.cheakOrderInfo div.goodsTfoot p.goodsAndPost span{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+	height: 14px;
+	line-height: 14px;
+	margin: 14px 0 14px 0;
+}
+div.cheakOrderInfo div.goodsTfoot p.goodsAndPost span.goodsPriceDetail,div.cheakOrderInfo p.goodsAndPost span.postPriceDetail{
+	color: #FD6244!important;
+}
+div.cheakOrderInfo div.goodsTfoot p.goodsAndPost span.goodsPriceDetail{
+	margin-right: 50px;
+}
+div.cheakOrderInfo div.goodsTfoot p span.allPriceText{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+	height: 14px;
+	line-height: 14px;
+}
+div.cheakOrderInfo div.goodsTfoot p span.allPrice{
+	font-family: "microsoft yahei";
+	font-size: 20px;
+	color: #fd6244;
+	height: 20px;
+	line-height: 20px;
+}
+div.cheakOrderInfo div.goodsTfoot p span.settle{
+	font-family: "microsoft yahei";
+	font-size: 20px;
+	color: #fff;
+	height: 20px;
+	line-height: 20px;
+	padding: 11px 40px;
+	background-color: #fd6244;
+	margin-left: 20px;
+	cursor: pointer;
+}

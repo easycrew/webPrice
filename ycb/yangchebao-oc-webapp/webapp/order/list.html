@@ -1,0 +1,786 @@
+<div class="urlContentWraper" id="Wraper_order_manage">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>订单管理</strong><bottom class="all-work-info numb51">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_order_manage"></table>
+		</div>
+    </div>
+    <div id="Form_order_manage" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <input name="orderId" type="hidden"> 
+            <div class="row">
+	             <label class="span3 grid-layout-label">订单状态：</label>
+	             <div class="span5 grid-layout-content">
+	                   <div name="orderStatus" class="jrad-select-container"></div>
+	             </div>
+            </div>
+            <div class="row">
+	             <label class="span3 grid-layout-label">是否生成结算数据：</label>
+	             <div class="span5 grid-layout-content">
+	                   <div name="billingStatus" class="jrad-select-container"></div>
+	             </div>
+            </div>
+
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+    <div id="Form_order_create" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+        <div class="row">
+             <label class="span3 grid-layout-label">用户ID：</label>
+             <div class="span5 grid-layout-content">
+                   <div name="customerId" class="jrad-input-container"></div>
+             </div>
+             <label class="span3 grid-layout-label">用户手机号：</label>
+             <div class="span5 grid-layout-content">
+                   <div name="mobilePhone" class="jrad-input-container"></div>
+             </div>
+        </div>      
+        <div class="row">
+             <label class="span3 grid-layout-label">绑定ID：</label>
+             <div class="span5 grid-layout-content">
+                   <div name="serviceId" class="jrad-input-container"></div>
+             </div>
+        </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>    
+    <div id="Form_order_exchangeCodes" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+        <input type="hidden" name="customerId"/>
+        <div class="row">
+             <label class="span3 grid-layout-label">兑换码：</label>
+             <div class="span5 grid-layout-content">
+                   <div name="exchangeCodes" class="jrad-input-container"></div>
+                                </div>
+        </div>  
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_order_detail" style="display:none;">
+      <div class="grid-layout-main jrad-form">
+        <table id="Table_orderdetail">
+        	<tr>
+        		<th style="width:100px;">ID</th>
+        		<th>状态变更</th>
+        		<th>变更时间</th>
+        		<th>操作人</th>
+        		<th>备注</th>
+        	</tr>
+        </table>
+      </div>
+    </div> 
+    <div id="Form_explain_eg51" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>养车宝订单的管理列表。</div>
+                    <div><strong>重要功能说明：</strong>①修改：即修改订单的状态，已完成、待评价状态的不能修改；需要生成结算数据时，把“是否生成结算数据”选择为“是”；②创建订单：输入用户ID、商家服务的绑定ID即可生成未付费的订单；③兑换码支付：给未付费的订单支付，一般创建的订单，都通过此功能支付；④重发服务码：给用户重新发送此服务的服务码，现在一般不用此功能了，APP可以直接查看。</div>
+                    <div><strong>注意事项：</strong>订单状态详情及流转，可查看详细文档，文档找产品要。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_order_manage');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	//var jRad = $.jRad('/radsample-ws','ent','Menu');
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	var payChannels = [];
+	var _result = $.jRadGet({
+		url: '/shopmanage-ws/ws/0.1/orders/payChannels'
+	});
+	$.each(_result.payChannels,
+	function(index, vo) {
+		var __id = vo['payChannelId'];
+		var __name = vo['payChannelName'];
+		var __tm = {
+			'id': __id,
+			'name': __name
+		};
+		payChannels.push(__tm);
+	});
+	payChannels.unshift({'id':'','name':'全部'});
+	jRad.params['chooseStatus'] = {data:[  
+							{"id":"0",name:"正常"},
+							{"id":"1",name:"待选"},
+							{"id":"2",name:"已选择"}
+						  ]};
+
+    //省市区select值
+	jRad.params['provinceCodeSearch'] = {
+			urlData:{
+				url:'/euc/ws/0.1/user/provinces?userId='+carsmart_config.userId
+			},
+			unshiftData: {id:'',name:'请选择'},
+			onchange: function(){
+				var provinceCode = $('.searchContent div[name=provinceId]',wraper).select('val');
+				if(provinceCode==''){
+					$('.searchContent div[name=areaCodeId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val: ''});
+				}else{
+				$('.searchContent div[name=areaCodeId]',wraper).select({
+					urlData:{
+						url: '/euc/ws/0.1/user/cities?provinceId='+provinceCode+'&userId='+carsmart_config.userId
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+				} 
+				$('.searchContent div[name=countyId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val: ''});
+			}
+		};
+	jRad.params['cityIdSearch'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){
+			var cityId = $('.searchContent div[name=areaCodeId]',wraper).select('val');
+			if(cityId==''){
+				$('.searchContent div[name=countyId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],val: ''});
+			}else{
+				$('.searchContent div[name=countyId]',wraper).select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/userInfoCms/countries?areaCodeId=' + cityId
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+			}
+		}
+	};
+	
+	jRad.params['countyIdSearch'] = {
+			data: [{id:'',name:'请选择'}]
+		};
+
+   var fields_params = {};
+   fields_params['orderStatus']= {
+	   	data:[  
+				{"id":"0","name":"未付款"},
+				{"id":"1","name":"待服务"},
+				{"id":"2","name":"待评价"},
+				{"id":"3","name":"完成"},
+				{"id":"4","name":"退款审核(过期退款)"},
+				{"id":"5","name":"已退款(过期退款)"},
+				{"id":"6","name":"删除"},
+				{"id":"7","name":"取消"},
+				{"id":"8","name":"退款审核(主动退款)"},
+				{"id":"9","name":"已退款(主动退款)"},
+				{"id":"10","name":"退款审核通过(过期退款)"},
+				{"id":"11","name":"过期"},
+				{"id":"12","name":"退款审核通过(主动退款)"}
+			],
+		onchange:function(item){
+			if(item == 2 || item == 3){
+				$('#Form_order_manage div[name="billingStatus"]',wraper).select('readonly',false);
+			}else{
+				$('#Form_order_manage div[name="billingStatus"]',wraper).select('readonly',true);
+			}
+		}
+	};
+	fields_params['billingStatus']= {data:[{"id":"0","name":"否"},{"id":"1","name":"是"}]};
+    $('#Form_order_detail').form({
+		title: '操作日志', 
+		grid:30,
+		fluid: true,
+		autobinding:true  
+	});
+	////page_column_model.push({display: 'ID', name : 'id',hidden: true});
+    page_column_model.push({display: '订单编号', name : 'orderNumber'});
+	page_column_model.push({display: '手机号', name : 'userMobile'});
+    page_column_model.push({display: '商家简称', name : 'businessRegName'});
+    page_column_model.push({display: '服务名称', name : 'serviceName'});
+    page_column_model.push({display: '门市价', name : 'shopPrice',hidden: true});
+    page_column_model.push({display: '预订价', name : 'reservePrice'});
+	page_column_model.push({display: '结算价', name : 'clearingPrice'});
+	page_column_model.push({display: '抵用券金额', name : 'counponPrice',hidden: true});
+	page_column_model.push({display: '抵用券现金价', name : 'couponCashPrice',hidden: true});
+	page_column_model.push({display: '补贴金额', name : 'subsidyMoney',hidden: true,diy:function(item,$div){
+		if(item.subsidyMoney==null){
+			$div.html('0')
+		}else{
+			$div.html(item.subsidyMoney)
+		}
+	}});
+	page_column_model.push({display: '余额支付金额', name : 'balancePayAmount',hidden: true});
+	page_column_model.push({display: '代金券支付金额', name : 'voucherPayAmount',hidden: true});
+
+	page_column_model.push({display: '是否送乐乘盒子', name : 'isSendCheZhengBox',hidden: true,align:'left',diy:function(item,$div){
+		if(item.isSendCheZhengBox=="0"){
+			$div.html('否')
+		}else{
+			$div.html('是')
+		}
+	}});
+
+	page_column_model.push({display: '乐乘盒子价格', name : 'boxPaymoney',hidden: true});
+
+	page_column_model.push({display: '是否闲时优惠', name : 'idlePrivStatusDesc',hidden: true});
+	////page_column_model.push({display: '用户昵称', name : 'nicName'});
+	page_column_model.push({display: '车系', name : 'model',hidden: true});
+	page_column_model.push({display: '到店次数', name : 'callCnt',hidden: true});
+	page_column_model.push({display: '支付渠道', name : 'payChannelName',width:'110px',align:'center',diy:function(item,$div){
+		$div.html("线下当面支付");
+		if(item.payChannelName!==''){
+			$div.html(item.payChannelName);
+		}
+	}});
+	////page_column_model.push({display: '支付账户详情', name : 'payUserInfo'});
+	page_column_model.push({display: '是否已付款', name : 'paidDescr',hidden: true,align:'center',diy:function(item,$div){
+		if(item.paidDescr=="线上支付"){
+			$div.html('是')
+		}else{
+			$div.html('否')
+		}
+	}});
+	page_column_model.push({display: '预定时间', name : 'orderDate'});
+	page_column_model.push({display: '服务时间', name : 'serviceDate'});
+	////page_column_model.push({display: '订购方式', name : 'chooseStatus',datasource:jRad.params['chooseStatus'].data,align:'center'});
+	page_column_model.push({display: '订单状态', name : 'orderStatusDesc',align:'center'}); 
+    page_column_model.push({display: '操作日志', diy:function(item,$div){
+    	$div.html("<a href='javascript:' class='order_detail'>详情</a>").css('text-align','center');
+    	$('.order_detail',$div).unbind('click').bind('click',function(){
+    		$.jRadGet({
+    			url:'/shopmanage-ws/ws/0.1/orders/flowHistoryList?orderId='+item.orderId,
+    			success:function(data){
+    				$("#Form_order_detail").form({
+    					title:"操作日志",
+    					success_callback:function(){
+    						$('#Table_order_manage').flexReload();
+    					}
+    				}).form('open');
+    				var tr_len=$("#Table_orderdetail",wraper).find("tr").length;
+    				for(cur=0;cur<tr_len;cur++){
+    				  if(cur!==0){
+    				    $("#Table_orderdetail",wraper).find("tr").eq(cur).hide();
+    				  }
+    				};
+    				var str="";
+    				$.each(data,function(i){
+    					var _item=data[i];
+    					str+="<tr>"
+    					    +"<td>"+_item.id+"</td>"
+    					    +"<td>"+_item.statusChangeDesc+"</td>"
+    					    +"<td>"+_item.operateDate+"</td>"
+    					    +"<td>"+_item.operator+"</td>"
+    					    +"<td>"+_item.remark+"</td>"
+    					    +"</tr>";
+    				});
+    				$("#Table_orderdetail",wraper).append(str);
+    			},
+					  error:function(xhr){
+					  		var errormsg = eval("(" + xhr.responseText + ")"); 
+							if (errormsg != undefined) {
+								$('#Table_order_manage').flexMessage(errormsg[0].message, 'error');
+							} 
+					  }
+    		})
+    	})
+    }});
+    page_column_model.push({display: 'BD负责人', name : 'responsiblePersion',hidden: true});
+	page_column_model.push({display: '赠送商品', name : 'giftInfo',hidden: true});
+
+
+	page_search_items.push({row:'1',type:'jrad-input',display:'订单编号',name:'orderNumber'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'商家简称',name:'businessRegName'});
+	page_search_items.push({row:'2',type:'jrad-input',display:'用户昵称',name:'nicName'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'服务时间开始',name:'serviceStartDate'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'服务时间结束',name:'serviceEndDate'});
+	page_search_items.push({row:'3',type:'jrad-input',display:'用户手机号',name:'userMobile'});
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'预订时间开始',name:'orderStartDate'});
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'预订时间结束',name:'orderEndDate'});
+	page_search_items.push({row:'4',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']});
+	page_search_items.push({row:'4',type:'jrad-select',display:'市',name:'areaCodeId',params:jRad.params['cityIdSearch']});
+	page_search_items.push({row:'4',type:'jrad-select',display:'县',name:'countyId',params:jRad.params['countyIdSearch']});
+	page_search_items.push({row:'5',type:'jrad-input',display:'商家联系方式',name:'businessMobile'});
+	page_search_items.push({row:'5',type:'jrad-select',display:'订单状态',name:'orderStatus',params:{
+		 data:[  
+				{"id":"","name":"全部"},
+				{"id":"0","name":"未付款"},
+				{"id":"1","name":"待服务"},
+				{"id":"2","name":"待评价"},
+				{"id":"3","name":"完成"},
+				{"id":"4","name":"退款审核(过期退款)"},
+				{"id":"5","name":"已退款(过期退款)"},
+				{"id":"6","name":"删除"},
+				{"id":"7","name":"取消"},
+				{"id":"8","name":"退款审核(主动退款)"},
+				{"id":"9","name":"已退款(主动退款)"},
+				{"id":"10","name":"退款审核通过(过期退款)"},
+				{"id":"11","name":"过期"},
+				{"id":"12","name":"退款审核通过(主动退款)"},
+				{"id":"13","name":"过期未支付,已取消"}]
+		}});
+
+
+	page_search_items.push({row:'5',type:'jrad-select',display:'支付渠道',name:'payChannelId',params:{
+	 data:payChannels
+	}});
+	page_search_items.push({row:'6',type:'jrad-select',display:'订购方式',name:'chooseStatus',params:{
+	  data:[  
+			{"id":"",name:"全部"},
+			{"id":"0",name:"正常"},
+			{"id":"1",name:"待选"},
+			{"id":"2",name:"已选择"}
+		  ]
+	}}); 
+	page_search_items.push({row:'6',type:'jrad-select',display:'是否已付款',name:'onlinePaid',params:{
+		  data:[  
+				{"id":"",name:"全部"},
+				{"id":"1",name:"是"},
+				{"id":"0",name:"否"}
+			  ]
+		}});
+	page_search_items.push({row:'6',type:'jrad-select',display:'是否闲时优惠',name:'idlePrivStatus',params:{
+	  data:[  
+			{"id":"",name:"全部"},
+			{"id":"1",name:"是"},
+			{"id":"0",name:"否"}
+		  ]
+	}});  
+	page_search_items.push({row:'7',type:'jrad-input',display:'服务名称',name:'serviceName'});
+	page_search_items.push({row:'7',type:'jrad-select',display:'是否送乐乘盒子',name:'isSendCheZhengBox',params:{
+		  data:[ 
+		  		{"id":'2',name:'全部'},
+		  		{"id":'1',name:'是'},
+				{"id":"0",name:"否"}
+			  ]
+	}});
+	page_search_items.push({row:'7',type:'jrad-input',display:'BD负责人',name:'responsiblePersion'});
+	page_search_items.push({row:'8',type:'jrad-radio',display:'测试数据是否显示',name:'showTestData',params:{
+		  data:[ 
+		  		{"id":'',name:'不显示'},
+				{"id":"1",name:"显示"}
+			  ]
+	}});
+	page_search_items.push({row:'8',type:'jrad-select',display:'赠送商品',name:'giftInfo',params:{
+		  data:[ 
+		  		{"id":'',name:'全部'},
+				{"id":"0",name:"无"},
+				{"id":"1",name:"玻璃水"}
+			  ]
+	}});
+   $('#Form_order_manage').form({
+		title: '修改订单状态', 
+		fields_params:fields_params, 
+		height:280,
+		url:'/shopmanage-ws/ws/0.1/orders/statuses',
+		before_submit:function(json){
+			json.modifyPerson=carsmart_config.operatorName
+		},
+		success_callback:function(data){ 
+			// if(data.msg.indexOf("订单已经进入") > 0){
+			// 	$.jRadAlert(data.msg, 'success')
+			// }
+			$('#Table_order_manage').flexMessage(data.msg, 'success');
+			$('#Table_order_manage').flexReloadSearch();
+		},
+		error:function(xhr){
+			  var errormsg = eval("(" + xhr.responseText + ")"); 
+			  $('#Table_order_manage').flexMessage(errormsg[0].message, 'error');
+			}
+	});  
+    page_list_buttons.push({displayname: '修改订单状态',title:'修改订单状态',name:'Edit',bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_order_manage').getCheckedTrs();
+            if (checked.length != 1||carsmart_config.isAgentor!=0) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_order_manage').getCheckedTrs();
+	    	var json = $.jRadGet({url:'/shopmanage-ws/ws/0.1/orders/getStatuses?orderId='+checked[0].orderId})
+			 $('#Form_order_manage').form({
+			 	item:{'orderId':checked[0].orderId,'orderStatus':checked[0].orderStatus,'billingStatus':json.billingStatus}
+			 }).form('open');
+		}
+	});
+	$('#Form_order_create').form({
+		title: '创建订单',  
+		height:100,
+		url:'/yangchebao-app-ws/ws/0.1/orders/reserve',
+		validators:{ 'customerId':[{"msg":"请填写",type:'min',value:'1'},{"msg":"请输入正整数","type":"regex","value":/^\d{1,}$/}],'serviceId':[{"msg":"请填写",type:'min',value:'1'},{"msg":"请输入正整数","type":"regex","value":/^\d{1,}$/}]},
+
+		before_submit:function(json){
+			json.payChannelKey = "exchange.code";
+			json.sourceCode=2;
+			json.modifyPerson=carsmart_config.operatorName;
+			json.items = []; 
+			var item = {};
+			item.sourceId = json.serviceId;
+			item.itemType = '0';//正常
+			item.count = '1';
+			json.items.push(item);
+			delete json.serviceId;
+			return json;
+		},
+		success_callback:function(){ 
+			$('#Table_order_manage').flexMessage('创建订单成功', 'success');
+			$('#Table_order_manage').flexReloadSearch();
+		}
+	}); 
+	 
+    page_list_buttons.push({displayname: '创建订单',title:'创建订单',name:'creatOrder',bclass: 'creatOrder',
+    	prefunc:function(){
+    		if(carsmart_config.isAgentor!=0){return false;}else{return true}
+    	},
+    	onpress : function(){ 
+			$('#Form_order_create').form({item:{}}).form('open');
+			$('#Form_order_create div[name="customerId"]').input('readonly',false);
+			$('#Form_order_create div[name="mobilePhone"]').input('readonly',false);
+			$('#Form_order_create div[name="customerId"]').input({
+					listeners: 
+					[{type:'focus',hander:function(){
+						if($('#Form_order_create div[name="mobilePhone"]').input('val') == ''){
+
+							$('#Form_order_create div[name="mobilePhone"]').input('readonly',true);
+							$('#Form_order_create div[name="customerId"]').input('readonly',false);
+						}
+						else{
+							$('#Form_order_create div[name="customerId"]').input('readonly',true);
+							$('#Form_order_create div[name="mobilePhone"]').input('readonly',false);
+						}
+					}
+					}]
+			});
+			$('#Form_order_create div[name="mobilePhone"]').input({
+					listeners: 
+					[{type:'focus',hander:function(){
+						if($('#Form_order_create div[name="customerId"]').input('val') == ''){
+
+							$('#Form_order_create div[name="customerId"]').input('readonly',true);
+							$('#Form_order_create div[name="mobilePhone"]').input('readonly',false);
+						}
+						else{
+							$('#Form_order_create div[name="mobilePhone"]').input('readonly',true);
+							$('#Form_order_create div[name="customerId"]').input('readonly',false);
+						}
+					}
+					}]
+			})
+		}
+	}); 
+
+
+	$('#Form_order_exchangeCodes').form({
+		title: '兑换码支付',  
+		height:100, 
+		validators:{ 'exchangeCodes':[{"msg":"请填写",type:'min',value:'1'},{"msg":"请输入正整数","type":"regex","value":/^\d{1,}$/}]},
+		before_submit:function(json){
+			json.exchangeCodes = json.exchangeCodes.split(",") ; 
+			json.sourceCode=2;
+			json.modifyPerson=carsmart_config.operatorName;
+			return json;
+		},
+		success_callback:function(){ 
+			$('#Table_order_manage').flexMessage('兑换码支付成功', 'success');
+			$('#Table_order_manage').flexReloadSearch();
+		} 
+	}); 
+	page_list_buttons.push({displayname: '兑换码支付',title:'兑换码支付',name:'exchangeCodes',bclass: 'exchangeCodes',prefunc:function(){
+            var checked = $('#Table_order_manage').getCheckedTrs();
+            if (checked.length != 1||carsmart_config.isAgentor!=0) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_order_manage').getCheckedTrs();
+			 $('#Form_order_exchangeCodes').form({
+			 	url:'/yangchebao-app-ws/ws/0.1/orders/'+checked[0].orderId+'/exchangeCodes',
+			 	item:checked[0]
+			 }).form('open');
+		}
+	});
+	
+    var _testBusiIds= [146681,146682,146719,146720,146721,155044,155556].join(',');
+	page_list_buttons.push({displayname: '导出EXCEL',name:'excel', bclass: 'excel',onpress : function(){ 
+		 $ .jRadConfirm('确认导出吗？',1,function(){
+				 var param = {};
+				 var orderNumber = $.trim($(".searchContent div[name='orderNumber']",wraper).input('val'));
+				 if(orderNumber!=""){
+					param['orderNumber'] = orderNumber;
+				 }; 
+				 var orderStartDate = $.trim($(".searchContent div[name='orderStartDate']",wraper).dateinput('val'));
+				 if(orderStartDate!=""){
+					param['orderStartDate'] = orderStartDate;
+				 };
+				 var orderEndDate = $.trim($(".searchContent div[name='orderEndDate']",wraper).dateinput('val'));
+				 if(orderEndDate!=""){
+					param['orderEndDate'] = orderEndDate;
+				 }; 
+				 var nicName = $.trim($(".searchContent div[name='nicName']",wraper).input('val'));
+				 if(nicName!=""){
+					param['nicName'] = nicName;
+				 };
+				 var serviceStartDate = $.trim($(".searchContent div[name='serviceStartDate']",wraper).dateinput('val'));
+				 if(serviceStartDate!=""){
+					param['serviceStartDate'] = serviceStartDate;
+				 }; 
+				 var serviceEndDate = $.trim($(".searchContent div[name='serviceEndDate']",wraper).dateinput('val'));
+				 if(serviceEndDate!=""){
+					param['serviceEndDate'] = serviceEndDate;
+				 }; 
+				 var provinceId = $.trim($(".searchContent div[name='provinceId']",wraper).select('val'));
+				 if(provinceId!=""){
+					param['provinceId'] = provinceId;
+				 };
+				 var areaCodeId = $.trim($(".searchContent div[name='areaCodeId']",wraper).select('val'));
+				 if(areaCodeId!=""){
+					param['areaCodeId'] = areaCodeId;
+				 };
+				 var countyId = $.trim($(".searchContent div[name='countyId']",wraper).select('val'));
+				 if(countyId!=""){
+					param['countyId'] = countyId;
+				 }; 
+				 var onlinePaid = $.trim($(".searchContent div[name='onlinePaid']",wraper).select('val'));
+				 if(onlinePaid!=""){
+					param['onlinePaid'] = onlinePaid;
+				 }; 
+				 var userMobile = $.trim($(".searchContent div[name='userMobile']",wraper).input('val'));
+				 if(userMobile!=""){
+					param['userMobile'] = userMobile;
+				 };  
+				 var orderStatus = $.trim($(".searchContent div[name='orderStatus']",wraper).select('val'));
+				 if(orderStatus!=""){
+					param['orderStatus'] = orderStatus;
+				 };
+				 var businessRegName = $.trim($(".searchContent div[name='businessRegName']",wraper).input('val'));
+				 if(businessRegName!=""){
+					param['businessRegName'] = businessRegName;
+				 }; 
+				 var businessMobile = $.trim($(".searchContent div[name='businessMobile']",wraper).input('val'));
+				 if(businessMobile!=""){
+					param['businessMobile'] = businessMobile;
+				 }; 
+				 var payChannelId = $.trim($(".searchContent div[name='payChannelId']",wraper).select('val'));
+				 if(payChannelId!=""){
+					param['payChannelId'] = payChannelId;
+				 };
+				 var chooseStatus = $.trim($(".searchContent div[name='chooseStatus']",wraper).select('val'));
+				 if(chooseStatus!=""){
+					param['chooseStatus'] = chooseStatus;
+				 };
+				 var idlePrivStatus = $.trim($(".searchContent div[name='idlePrivStatus']",wraper).select('val'));
+				 if(idlePrivStatus!=""){
+					param['idlePrivStatus'] = idlePrivStatus;
+				 };
+				 var serviceName = $.trim($(".searchContent div[name='serviceName']",wraper).input('val'));
+				 if(serviceName!=""){
+					param['serviceName'] = serviceName;
+				 };
+				 var responsiblePersion = $.trim($(".searchContent div[name='responsiblePersion']",wraper).input('val'));
+				 if(responsiblePersion!=""){
+					param['responsiblePersion'] = responsiblePersion;
+				 };
+				 var isSendCheZhengBox = $.trim($(".searchContent div[name='isSendCheZhengBox']",wraper).select('val'));
+				 if(isSendCheZhengBox!=""){
+					param['isSendCheZhengBox'] = isSendCheZhengBox;
+				 };
+				 var showTestData = $.trim($(".searchContent div[name='showTestData']",wraper).radio('val'));
+				 if(showTestData!=""){
+					param['showTestData'] = showTestData;
+				 };
+				 var giftInfo = $.trim($(".searchContent div[name='giftInfo']",wraper).select('val'));
+				 if(giftInfo!=""){
+					param['giftInfo'] = giftInfo;
+				 };
+				 
+				 param['testBusiIds'] = _testBusiIds;
+				 var paramUrl = "";
+				 if(param!={}){   
+				 paramUrl+="?"
+				 $.each(param,function(k,v){ 
+						paramUrl+="&"+k+"="+v; 
+				 });
+				 }
+				 window.open('/shopmanage-ws/ws/0.1/orders/exportUserOrdersExcel'+paramUrl);
+			}); 
+        }
+    });
+  
+	page_list_buttons.push({displayname: '重发服务码',name:'send',bclass: 'send',prefunc:function(){
+            var checked = $('#Table_order_manage').getCheckedTrs();
+            if (checked.length != 1||carsmart_config.isAgentor!=0) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_order_manage').getCheckedTrs();
+			$ .jRadConfirm('确认重发验证码吗？',1,function(){
+				var orderId =  checked[0].orderId; 
+				var postData = {"orderId":orderId};
+				$.jRadPost({
+					url:'/shopmanage-ws/ws/0.1/orders/serviceCodes/messages', 
+					data:postData,
+					success: function(){
+						$('#Table_order_manage').flexMessage('发送成功!', 'success'); 
+					},
+					error:function(xhr){
+					  var errormsg = eval("(" + xhr.responseText + ")"); 
+					  $('#Table_order_manage').flexMessage(errormsg[0].message, 'error');
+					}
+				});
+			});
+		}
+	}); 
+    page_list_buttons.push({separator: true});
+    
+	var today='';
+	var date=new Date();
+	var newTime=date.getTime()-(7*24*60*60*1000);
+	date.setTime(newTime);
+	var year=date.getFullYear();
+	var month=date.getMonth()+1;
+	var day=date.getDate();
+	if(month<10){
+		month="0"+month
+	}
+	if(day<10){
+		day="0"+day
+	}
+	today=year+'-'+month+'-'+day; 
+     
+
+	$('#Table_order_manage').flexigrid({
+			reload:true,
+			method:'get',  
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			queryParam: {'orderStartDate':today},
+			rp:20,
+			filter: true,
+			url:'/shopmanage-ws/ws/0.1/orders/getOrderList?testBusiIds='+ _testBusiIds,
+			onError:showRemarkError,
+			checkBoxType:'single',
+			overflow:true 
+	});   
+	 $(".searchContent div[name='showTestData']",wraper).radio('val','');
+	 $('span.ui-btn-icon:eq(1)').click(function(){
+	 	$(".searchContent div[name='showTestData']",wraper).radio('val','');
+	 });
+
+	$('div.searchContent div[name="orderStartDate"]',wraper).dateinput('val',today);
+
+ 
+	var winHeight = $(window).height();
+	var headerHeight = $('.layout-header:visible').outerHeight() + $('.tabs-header:visible').outerHeight()+$('.sDiv',wraper).outerHeight()+$('.table-footer',wraper).outerHeight()+$('h2.ui-tit',wraper).outerHeight()+$('.mDiv',wraper).outerHeight()+80;
+	if($('.layout-level3-menu:visible').css('position') !== 'absolute') {
+	    headerHeight += $('.layout-level3-menu:visible').outerHeight();
+	}
+	var footerHeight = $('body > .layout-footer:visible').outerHeight();
+	$('div.bDiv',wraper).height(winHeight - headerHeight - footerHeight - 20).css('overflow-y','auto');
+
+	$('th:eq(20) div,th:eq(21) div,th:eq(22) div',wraper).css('text-align','center');
+	function getNameTips(){
+				$("#Form_order_manage .nameTips").html("");
+				$("#Form_order_manage div[name='businessId']").focusout(function(){ 
+					 var flag = $("#Form_order_manage div[name='businessId']").input('validate',jRad.validators["businessId"]);
+					 if(flag){
+					   var id = $(this).input("val");
+					   var _tip = $(this).parent().children(".nameTips");
+					   var json = $.jRadGet({
+								url:'/shopmanage-ws/ws/0.1/shopmanage/shop/name?id='+id, 
+								success: function(data){ 
+									_tip.html(data.businessName).css("color","#1F2228"); 
+								},
+								error:function(){ 
+									_tip.html("查询商家不存在！").css("color","#BB4B47"); 
+								}
+							});
+					   
+					 }else{
+					   $(this).parent().children(".nameTips").html("");
+					 }
+				}); 
+			$("#Form_order_manage div[name='userInfoId']").focusout(function(){ 
+					 var flag = $("#Form_order_manage div[name='userInfoId']").input('validate',jRad.validators["userInfoId"]);
+					 if(flag){
+					   var id = $(this).input("val");
+					   var _tip = $(this).parent().children(".nameTips");
+					   $.jRadGet({
+								url:'/shopmanage-ws/ws/0.1/user/getNameById?id='+id, 
+								success: function(data){
+									_tip.html(data.userName).css("color","#1F2228"); 
+								},
+								error:function(){ 
+									_tip.html("查询用户不存在！").css("color","#BB4B47"); 
+								}
+							});
+					   
+					 }else{
+					   $(this).parent().children(".nameTips").html("");
+					 }
+				});
+	}
+	function showRemarkError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_order_manage .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+	}
+	$(".numb51").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg51").form({}).form('close');
+        $("#Form_explain_eg51").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+			submit:function(){
+            	var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg51 div[name='remark']").textarea("val")
+				$.jRadPost({
+				    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+				    data:postData,
+				    success:function(){
+						$("#Form_explain_eg51").form('close')
+      					$('.overcurtainDiv').hide();
+				   	}
+				});
+			}, 
+			cancel:function(){
+				$("#Form_explain_eg51").form('close')
+      			$('.overcurtainDiv').hide();
+			}
+        }).form('open')
+        $("#Form_explain_eg51 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	
+});
+
+</script>

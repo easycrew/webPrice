@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+<title>选择城市</title>
+</head>
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+	text-shadow:none;
+}
+html {
+	font-size: 62.5%;
+	height: 100%;
+	-webkit-tap-highlight-color: transparent;
+}
+body{ 
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:1.6rem;
+	color:#39434e;
+	height: 100%;
+}
+ul{
+	list-style:none;
+}
+a{
+	color: #fb451f;
+	text-decoration: none;
+}  
+/*选城市*/
+.veh-info-list > li{
+	background-color: #ffffff;
+	border-style: solid;
+	border-color: #eaeaea;
+	font-size: 1.5rem;
+	padding: 1.5rem 1.8rem;
+	position: relative;
+	cursor: pointer;
+}
+
+.sorter{
+	background-color: #ffffff;
+	position: fixed;
+	right: 0;
+	top: 0;
+	bottom:0;
+	width: 1.8rem;
+	padding-top: 2rem;
+	text-align: center;
+}
+.sorter li:hover {
+	cursor: pointer;
+}
+.sorter > li >span{
+	color: #a0a097;
+	cursor: pointer;
+	font-size: 1.0rem;
+	height: 1.1rem;
+	display: block;
+}
+.vehicle-list, .model-wrap, .style-wrap {
+	position: absolute;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	background: #ebebeb;
+	height: 100%;
+}
+.modle-wrap ul{
+	margin-bottom: 4rem;
+}
+.modle-wrap .veh-info-list > li{
+	border-width: 1px 0;
+	margin-bottom: 1.5rem;
+}
+.vehicle-list .veh-info-list{
+	background-color: #ffffff;
+	padding:0 1.8rem;
+}
+.vehicle-list .veh-info-list > li{
+	border-width: 0 0 0.05rem;
+	padding-left: 0;
+}
+.vehicle-list .veh-info-list > li:last-child{
+	border-width: 0;
+}
+.vehicle-list header{
+	background-color: #373636;
+	height: 4.5rem;
+	line-height: 4.5rem;
+	padding: 0 1.8rem;
+}
+.vehicle-list header > a{
+	color: #ffffff;
+}
+.vehicle-list header .close{
+	float: right;
+}
+.sorted-list h2{
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: #eaeaea;
+	color: #a0a097;
+	font-size: 1.6rem;
+	font-weight: normal;
+	padding: 0 1.8rem;
+	height: 3rem;
+	line-height: 3rem;
+	background-color: #f5f6e6;
+	border-bottom:none;
+}
+.style-wrap .veh-info-list > li:before{
+	right: 0;
+} 
+.tasat-wrap{
+		position: fixed;
+		text-align: center;
+		bottom: 50%;
+		width: 100%; 
+	}
+.tasat {
+    background-color: #000;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 20px;
+    opacity: 0.8;
+    padding:10px;
+}
+</style>
+<body> 
+	<section class="brand-wrap vehicle-list" data-role="brand">
+		<div class="sorted-list"> 
+
+		</div>
+		<ul class="sorter">
+				<li><span>A</span></li>
+				<li><span>B</span></li>
+				<li><span>C</span></li>
+				<li><span>D</span></li>
+				<li><span>E</span></li>
+				<li><span>F</span></li>
+				<li><span>G</span></li>
+				<li><span>H</span></li>
+				<li><span>I</span></li>
+				<li><span>J</span></li>
+				<li><span>K</span></li>
+				<li><span>L</span></li>
+				<li><span>M</span></li>
+				<li><span>N</span></li>
+				<li><span>O</span></li>
+				<li><span>P</span></li>
+				<li><span>Q</span></li>
+				<li><span>R</span></li>
+				<li><span>S</span></li>
+				<li><span>T</span></li>
+				<li><span>U</span></li>
+				<li><span>V</span></li>
+				<li><span>W</span></li>
+				<li><span>X</span></li>
+				<li><span>Y</span></li>
+				<li><span>Z</span></li>
+				<li><span>#</span></li>
+			</ul>
+	</section> 
+	<script type="text/javascript">
+		$(document).ready(function(){  
+			var paramJson = {}; 
+			var url =window.location.search;  
+			if(url!=undefined&&url!=""){
+				var paramsArr = (url.split("?")[1]).split("&"); 
+				$.each(paramsArr,function(i){
+				 var item = paramsArr[i].split("=");
+				 paramJson[item[0]] = item[1];
+				});    
+			}  
+			var getCityList = function(){
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/shop/area/list/v2',
+					dataType:'json',
+					async:true,
+					success: function(data){
+						var sorterList = $('.brand-wrap .sorted-list'); 
+						var htmlArray = []; 
+						var servicecity = data.servicecity;
+						var hotcity = data.hotcity;
+						htmlArray.push('<h2>热门城市</h2><ul class="veh-info-list">');
+						$.each(hotcity, function(i){  
+							htmlArray.push('<li id="'+this.id+'">'+this.name+'</li>') ;  
+						});
+						htmlArray.push('</ul>')
+						$.each(servicecity, function(key, value){
+							htmlArray.push('<h2>'+key+'</h2><ul data-spell="'+ key +'" class="veh-info-list">'); 
+							if (value.length > 0) {
+								$.each(value,function(index,value){
+									htmlArray.push('<li id="'+value.id+'">'+value.name+'</li>')
+								})
+							};
+							htmlArray.push('</ul>')
+						});
+						sorterList.html(htmlArray.join(''));
+					}
+				})
+			};
+			getCityList();  
+			$('.sorter li').on('touchend click',function(){
+				var index = $(this).index();
+				var $parents = $(this).parents('.sorter').siblings('.sorted-list');
+				var $h2 = $('h2:contains('+$(this).text()+')');
+				$(document).scrollTop($h2.position().top)
+			});
+			var link = function(){
+				window.location.href = "index.html?pageCode="+paramJson.pageCode;
+			};
+			$('.sorted-list').on('click', 'li', function(){
+				var self = $(this);
+				$('li[data-role='+ role +']').text(self.text()).data('id',this.id); 
+                window.AppJsParamsObj.saveModelInfo(paramJson.brandid,paramJson.brandName,paramJson.modelId,paramJson.modelName);     
+				setTimeout(link, 100); 
+			});   
+		}); 
+      function alertTasat(msg){
+		var _html = $("<div>").addClass("tasat-wrap")
+		var _span = $("<span>").addClass("tasat").html(msg);
+		$("body").append(_html.append(_span));
+		_html.fadeIn();
+		window.setTimeout(function(){
+			_html.fadeOut(function(){
+				_html.remove();
+			});
+		}, 1500);   
+	}
+	</script> 
+</body> 
+</html>

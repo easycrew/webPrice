@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>洗车</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=RfF2Bd19VQ7GUxnwasyy38cQ"></script> -->
+	<script type="text/javascript" name="baidu-tc-cerfication" src="http://apps.bdimg.com/cloudaapi/lightapp.js#b549b101949af1d41b82fbaf396396a0"></script>
+	<script src="../js/commen.js"></script>
+	<link rel="stylesheet" href="../css/main.css">
+	<style>
+		div.searchItems{
+			background-color: #fff;
+			border-bottom: 1px solid #d9d9e2;
+		}
+		div.searchItems ul li{
+			float: left;
+			width: 33.33%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			text-align: center;
+			padding: 1rem 0;
+			font-size: 1.3rem;
+			border-right: 1px solid #d9d9e2;
+		}
+		div.searchItems ul li:last-child{
+			border-right: none!important;
+		}
+		img.imgshopLocation{
+			position: relative;
+			top: -2px;
+			width: 14px;
+			margin-right: 0.5rem;
+		}
+		img.shopPrice{
+			position: relative;
+			top: -2px;
+			width: 16px;
+			margin-right: 0.5rem;
+		}
+		img.unchecked{
+			position: relative;
+			top: -2px;
+			width: 12px;
+			margin-left: 0.5rem;
+		}
+
+		li.shop-li{
+			margin-top: 0.8rem;
+			background-color: #fff;
+		}
+		div.shopTop{
+			padding: 1.5rem 0.6rem 1.2rem 1.5rem;
+			border-bottom: 1px solid #d9d9e2;
+		}
+		div.miConL{
+			float: left;
+		}
+		div.miConR{
+			/*float: left;*/
+		}
+		img.shopImg{
+			width: 80px;
+			margin-right: 1.4rem;
+		}
+		span.shopName{
+			font-size: 1.6rem;
+			margin-bottom: 1rem;
+		}
+		span.distance{
+			float: right;
+			position: relative;
+			top: 2px;
+			display: inline-block;
+			font-size: 1.2rem;
+		}
+		p.address{
+			font-size: 1.2rem;
+			padding: 0.4rem 0 0.2rem;
+		}
+
+		div.shopBottom{
+			border-bottom: 1px solid #d9d9e2;
+		}
+		p.shopPrice{
+			float: left;
+			font-size: 1.5rem;
+			padding-left: 1.5rem;
+			line-height: 4.4rem;
+		}
+		p.shopBtns{
+			float: right;
+			font-size: 1.5rem;
+		}
+		span.shopDetailBtn{
+			margin: 0 1.5rem;
+			color: #f55d5d;
+		}
+		span.orderBtn{
+			color: #fff;
+			background-color: #f55d5d;
+			display: inline-block;
+			line-height: 4.4rem;
+			padding: 0 1.65rem;
+		}
+		div.servInstruction div{
+			border-bottom: 1px solid #d9d9e2;
+			position: relative;
+			margin-top: 2.8rem;
+			margin-bottom: 2.8rem;
+			margin-left: 1rem;
+			margin-right: 1rem;
+		}
+		div.servInstruction p{
+			position: absolute;
+			top: -0.7rem;
+			display: inline-block;
+			width: 146px;
+			left: 50%;
+			margin-left: -73px;
+			font-size: 1.2rem;
+			color: #a2a2a2;
+			background-color: #f4f7f8;
+			text-align: center;
+		}
+		article.noShop{
+			text-align: center;
+			font-size: 1.5rem;
+			color: #a2a2a2;
+		}
+		article.noShop p.noShopPic{
+			margin-top: 4rem;
+			text-align: center;
+		}
+		article.noShop p.noShopPic img{
+			width: 105px;
+		}
+		article.noShop p.noShopText{
+			margin-top: 2rem;
+		}
+
+		div.vipCarDialog,div.shopDetailW,div.gpsDialog{
+			position: fixed;
+			z-index: 100;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0,0,0,0.5);
+		}
+		div.dialogCon{
+			width: 90%;
+			margin-left: 5%;
+			margin-top: 10rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			background-color: #fff;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			padding: 1rem;
+		}
+		p.dialogText{
+			text-align: center;
+			font-size: 1.5rem;
+			padding: 2.8rem 1rem 2rem;
+		}
+		p.knowBtn,p.btn{
+			width: 100%;
+			text-align: center;
+			color: #fff;
+			background-color: #f55d5d;
+			font-size: 1.8rem;
+			padding: 8px 0;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+		}
+		
+		div.shopDetail{
+			position: absolute;
+			z-index: 200;
+			width: 100%;
+			bottom: 0;
+			left: 0;
+		}
+		p.shopDetailTitle{
+			background-color: #fff;
+			text-align: center;
+			position: relative;
+			font-size: 1.6rem;
+			padding: 1rem;
+		}
+		img.close{
+			position: absolute;
+			top: 1rem;
+			right: 1rem;
+			width: 1.9rem;
+		}
+		p.shopPic img{
+			width: 100%;
+		}
+		div.shopDetailConT{
+			position: relative;
+		}
+		p.shopTime{
+			position: absolute;
+			z-index: 200;
+			bottom: 0;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			background: rgba(0,0,0,0.6);
+			width: 100%;
+			padding: 0.7rem 1rem;
+			color: #fff;
+			font-size: 1.5rem;
+		}
+		p.detailAddress{
+			position: absolute;
+			z-index: 200;
+			bottom: 0;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			background: #FEF4CA;
+			width: 100%;
+			padding: 0.8rem 1rem;
+			color: #1e1e1e;
+			font-size: 1.2rem;
+		}
+
+		div.overlay{
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background: rgba(0,0,0,0.5);
+			z-index: 150;
+			display: none;
+		}
+		.bodyHide{
+			overflow: hidden;
+		}
+		.bodyScroll{
+			overflow: scroll;
+		}
+		img#mapUrl{
+			 height:225px;width:100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="vipCarDialog" style="display:none;">
+		<div class="dialogCon">
+			<p class="dialogText">养车修车不再是苦差事。高端车型专享服务店，高品质服务的同时，照顾到您方方面面的需求。</p>
+			<p class="knowBtn">我知道了</p>
+		</div>
+	</div>
+	<div class="gpsDialog" style="display:none;">
+		<div class="dialogCon">
+			<p class="dialogText">无法获取您的位置信息，根据你所在城市为您推荐。</p>
+			<p class="btn">确定</p>
+		</div>
+	</div>
+	<section>
+		<div class="searchItems">
+			<ul class="clearfix">
+				<li class="location" data-id="1"><img src="./img/shopLocation.png" class="imgshopLocation"><span>距离优先</span></li>
+				<li class="price" data-id="2"><img src="./img/shopPrice.png" class="shopPrice"><span>价格优先</span></li>
+				<li class="vipCar" data-id="0"><span>高端车专享</span><img src="./img/unchecked.png" class="unchecked"></li>
+			</ul>
+		</div>
+		<article class="shops" style="display:none;">
+			<ul class="shops-ul">
+				
+			</ul>
+			<div class="servInstruction" style="display:none;">
+				<div><p>点击查看更多商家</p></div>
+			</div>
+		</article>
+		<article class="noShop" style="display:none;">
+			<p class="noShopPic"><img src="./img/noShop.png"></p>
+			<p class="noShopText">暂无服务商家</p>
+		</article>
+	</section>
+	<div class="shopDetailW" style="display:none;">
+		<div class="shopDetail">
+			<p class="shopDetailTitle"><span></span><img src="./img/close.jpg" class="close"></p>
+			<div class="shopDetailCon">
+				<div class="shopDetailConT">
+					<p class="shopPic"><img src="" height="150px" width="100%"></p>
+					<p class="shopTime">营业时间：<span class="shopTimeText"></span></p>
+				</div>
+				<div class="shopMap" id="shopMap">
+					<img id="mapUrl" src="http://api.map.baidu.com/staticimage?width=640&height=238&zoom=16&markers=%E5%A4%A9%"/>
+				</div>
+				<p class="detailAddress"></p>
+			</div>
+		</div>
+	</div>
+	<div class="overlay"></div> 
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		if(paramJson.serviceName!=undefined&&paramJson.serviceName!=""){
+		   document.title = decodeURIComponent(paramJson.serviceName); 
+		}
+	    var userInfoId=store.get('userInfoId');
+	    var serviceId=store.get('serviceId');
+	    var areaName=store.get('areaName');
+	    var modelId=store.get('modelId');
+	    var lon=store.get('lon');
+	    var lat=store.get('lat'); 
+	    var optionIds=paramJson.optionIds; 
+	 	if(navigator.geolocation){   
+			navigator.geolocation.getCurrentPosition(function(position){   
+				var _lat = position.coords.latitude;
+				var lng = position.coords.longitude;   
+				$.ajax({
+					url:'/yangchebao-app-ws/ws/0.1/public/geocoder/location/city?lat='+_lat+'&lon='+lng+'&'+new Date().getTime(),
+					type:'get',
+					dataType:'json',
+					async:false,
+					contentType:'application/json;charset=utf-8',
+					success:function(data){
+						if(areaName == data.cityName){
+							lon=lng;
+							lat=_lat;
+						} 
+						shopPage(0,1,0);
+					},error:function(xhr){ 
+						var error=eval('('+xhr.responseText+')');
+						alert(error[0].message)
+					}
+				}); 
+			},function(error){ 
+			  if(error.code=="1"){
+			    $(".gpsDialog .dialogText").html("无法获取位置信息，请打开GPS定位。");
+				$(".gpsDialog").show();
+			  }else{
+				$(".gpsDialog").show();
+			  }
+			}, {enableHighAcuracy: true, timeout:1000,maximumAge: 0});
+		}else{ 
+            $(".gpsDialog").show();	 
+		}
+		$(".gpsDialog .btn").click(function(){ 
+			shopPage(0,1,0);
+			$(".gpsDialog").hide();		
+		});
+	    function shopPage(page,sort,isHighQuality){ 
+	    	$.ajax({
+		    	url:'/yangchebao-app-ws/ws/0.1/standardservice/business/page?serviceId='+serviceId+'&areaName='+areaName+'&modelId='+modelId+'&lon='+lon+'&lat='+lat+'&optionIds='+optionIds+'&pageindex='+page+'&pagesize=20'+'&sort='+sort+'&isHighQuality='+isHighQuality,
+		    	type:'get',
+		    	dataType:'json',
+		    	contentType:'application/json;charset=utf-8',
+		    	success:function(data){
+					var shopStr='';
+					if(data.items.length>0){
+						$('article.shops').show();
+						$('article.noShop').hide();
+						data.items.forEach(function(key,i){
+							shopStr+='<li class="shop-li" data-lon="'+key.lon+'" data-lat="'+key.lat+'" data-businessHours="'+key.businessHours+'" data-baidulon="'+key.baidulon+'" data-baidulat="'+key.baidulat+'" data-middlePicUrl="'+key.middlePicUrl+'" data-busiServiceRelId="'+key.busiServiceRelId+'">'
+									+'<div class="shopTop clearfix">'
+									+'<div class="miConL"><img src="'+key.logo+'" class="shopImg"></div>'
+									+'<div class="miConR">'
+									+'<p class="shopW"><span class="shopName">'+key.name+'</span><span class="distance">'+key.distance+'</span></p>'
+									+'<p class="address">'+key.address+'</p>'
+									+'</div></div>'
+									+'<div class="shopBottom clearfix">'
+									+'<p class="shopPrice">价格：<span class="price">'+key.reservePrice+'</span>元</p>'
+									+'<p class="shopBtns clearfix"><span class="shopDetailBtn">查看商家</span><span class="orderBtn">下单</span></p>'
+									+'</div></li>'
+						});
+						$('ul.shops-ul').append(shopStr);
+						var shopLen = $('ul.shops-ul li').length;
+						if(shopLen<data.totalCount){
+							$('div.servInstruction').show();
+							$('div.servInstruction').unbind('click').bind('click',function(){
+								shopPage(page+1,sort,isHighQuality)
+							})
+						}else{
+							$('div.servInstruction').hide();
+						}
+					}else{
+						// $('ul.shops-ul').html('<li style="text-align:center;font-size:1.4rem;padding:2rem 0;">暂无商家</li>');
+						$('article.shops').hide();
+						$('article.noShop').show();
+						$('div.servInstruction').hide();
+					}
+		    	}
+		    })
+	    };
+	    // 筛选
+	    var sort=1;
+	    var isHighQuality=0;
+	    // 距离优先
+	    $('li.location').on('click',function(){
+	    	sort=1;
+	    	$('ul.shops-ul').html('');
+	    	shopPage(0,sort,isHighQuality);
+	    });
+	    // 价格优先
+	    $('li.price').on('click',function(){
+	    	sort=2;
+	    	$('ul.shops-ul').html('');
+	    	shopPage(0,sort,isHighQuality);
+	    });
+	    // 高端车专享
+	    var n=0;
+	    $('li.vipCar').on('click',function(){
+	    	n++;
+	    	if(n==1){
+	    		$('div.vipCarDialog').show();
+	    		$('p.knowBtn').unbind('click').bind('click',function(){
+	    			$('div.vipCarDialog').hide();
+	    		})
+	    	}
+	    	if($(this).find('img').attr('src') == './img/unchecked.png'){
+	    		$(this).find('img').attr('src','./img/checked.png');
+	    		isHighQuality=1;
+	    		$('ul.shops-ul').html('');
+			    shopPage(0,sort,isHighQuality);
+	    	}else{
+	    		$(this).find('img').attr('src','./img/unchecked.png');
+	    		isHighQuality=0;
+	    		$('ul.shops-ul').html('');
+			    shopPage(0,sort,isHighQuality);
+	    	}
+	    });
+	    // 查看商家
+	    $('ul.shops-ul').on('click','span.shopDetailBtn',function(){
+	    	$('div.shopDetailW').show();
+	    	$('body').addClass('bodyHide').removeClass('bodyScroll');
+	    	// 消除手机端遮罩层滚动
+	    	$('div.shopDetailW').unbind('touchmove').bind('touchmove',function(e){
+	    		e.preventDefault()
+	    	});
+	    	// $('div.overlay').show();
+	    	var $li=$(this).closest('li');
+	    	var shopName=$li.find('span.shopName').html();
+	    	var middlePicUrl=$li.attr('data-middlePicUrl');
+	    	var businessHours=$li.attr('data-businessHours');
+	    	var address=$li.find('p.address').html();
+	    	var baidulon=$li.attr('data-baidulon');
+	    	var baidulat=$li.attr('data-baidulat');
+	    	var lon=$li.attr('data-lon');
+	    	var lat=$li.attr('data-lat');
+
+	    	$('div.shopDetail p.shopDetailTitle span').html(shopName);
+	    	$('div.shopDetail p.shopPic img').attr('src',middlePicUrl);
+	    	if(businessHours=='undefined'){
+	    		$('p.shopTime').hide()
+	    	}else{
+	    		$('p.shopTime').show();
+	    		$('span.shopTimeText').html(businessHours);
+	    	}
+
+	    	if(address==''){
+	    		$('p.detailAddress').hide()
+	    	}else{
+	    		$('p.detailAddress').show();
+	    		$('p.detailAddress').html(address);
+	    	}
+	    	
+
+	    	$('img.close').unbind('click').bind('click',function(){
+	    		$('body').addClass('bodyScroll').removeClass('bodyHide');
+	    		$('div.shopDetailW').hide();
+	    	});
+	    	$('div.shopDetailW').unbind('click').bind('click',function(e){
+	    		var $this=e.target;
+	    		if($this.closest('div.shopDetail')==null){
+	    			$('body').addClass('bodyScroll').removeClass('bodyHide');
+	    			$('div.shopDetailW').hide();
+	    			// $('div.overlay').hide();
+	    		}
+	    	});
+	    	// 获取商家位置
+	    	var mapUrl = "http://api.map.baidu.com/staticimage?width=640&height=225&zoom=16&markers="+lon+","+lat;
+			$("#mapUrl").attr("src",mapUrl);
+		 //    initMap();
+			// var pt=new BMap.Point(lon,lat);
+			// var mk = new BMap.Marker(pt);
+			// map.addOverlay(mk);
+			// map.panTo(pt)
+	    });
+	    // 下单
+	    $('ul.shops-ul').on('click','span.orderBtn',function(){
+	    	var $li=$(this).closest('li');
+	    	var busiServiceRelId=$li.attr('data-busiServiceRelId');
+	    	window.location.href="payOrder.html?sourceId="+busiServiceRelId
+	    })
+	});
+	var map;
+	function initMap(){
+		creatMap();
+		setMapEvent()
+	}
+	function creatMap(){
+		map=new BMap.Map('shopMap',{minZoom:14,maxZoom:14});
+		var point=new BMap.Point('116.267151','39.923346');
+		map.centerAndZoom(point,14)
+	}
+	function setMapEvent(){
+        map.disableDragging();//启用地图禁止拖拽事件
+        // map.enableScrollWheelZoom(false);//启用地图滚轮放大缩小
+        map.disableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        // map.enableKeyboard(false);//启用键盘上下左右键移动地图
+    }
+</script>
+</body>
+</html>

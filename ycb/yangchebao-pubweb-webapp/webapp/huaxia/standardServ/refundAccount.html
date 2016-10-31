@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>账户</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<script src="../js/commen.js"></script>
+	<link rel="stylesheet" href="../css/main.css">
+	<style>
+		input{
+			width: 100%;
+			border-bottom: 1px solid #d9d9e2;
+			padding: 17px 15px;
+			background-color: #fff;
+			font-size: 1.5rem;
+		}
+		div.sureBtn{
+			margin: 3rem 1rem;
+			background-color: #f55d5d;
+			text-align: center;
+			font-size: 1.8rem;
+			padding: 1.3rem 0;
+			color: #fff;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+		}
+
+		div.accountDialog{
+			position: fixed;
+			z-index: 100;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0,0,0,0.5);
+		}
+		div.dialogCon{
+			width: 90%;
+			margin-left: 5%;
+			margin-top: 10rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			background-color: #fff;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			padding: 1rem;
+		}
+		p.dialogText{
+			text-align: center;
+			font-size: 1.5rem;
+			padding: 2.8rem 1rem 2rem;
+		}
+		p.knowBtn,p.dialogSureBtn{
+			width: 100%;
+			text-align: center;
+			color: #fff;
+			background-color: #f55d5d;
+			font-size: 1.8rem;
+			padding: 8px 0;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+		}
+	</style>
+</head>
+<body>
+	<div class="accountDialog getCash" style="display:none;">
+		<div class="dialogCon">
+			<p class="dialogText">体现申请已提交,将在下1个工作日内完成转账，请留意支付宝钱包余额变动！</p>
+			<p class="knowBtn">我知道了</p>
+		</div>
+	</div>
+	<div class="accountDialog changeZfb" style="display:none;">
+		<div class="dialogCon">
+			<p class="dialogText">此账号已绑定其他用户，请更换支付宝账号！</p>
+			<p class="dialogSureBtn">确定</p>
+		</div>
+	</div>
+	<section>
+		<article class="accountIfo">
+			<div class="row">
+				<input type="text" placeholder="支付宝账户" name="zfbAccount" id="zfbAccount">
+			</div>
+			<div class="row">
+				<input type="text" placeholder="支付宝实名认证的姓名" name="zfbName" id="zfbName">
+			</div>
+		</article>
+		<div class="sureBtn">确定</div>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		var postData={};
+		$('div.sureBtn').on('click',function(){
+			var receiveAccount=$.trim($('input#zfbAccount').val());
+			var receiveUserName=$.trim($('input#zfbName').val());
+			if(receiveAccount==''){
+				errorLog('请填写支付宝账号');
+				return false
+			}
+			if(receiveUserName==''){
+				errorLog('请填写支付宝实名认证的姓名');
+				return false
+			}
+			postData.customerId=store.get('customerId');
+			postData.orderId=paramJson.orderId;
+			postData.receiveAccount=receiveAccount;
+			postData.receiveUserName=receiveUserName;
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/orderservice/order/refund/cash',
+				type:'post',
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				data:$.toJSON(postData),
+				success:function(data){
+					$('div.getCash').show();
+					$('div.getCash p.dialogText').html(data.message);
+					$('div.getCash p.knowBtn').on('click',function(){
+						$('div.getCash').hide()
+					})
+				},
+				error:function(xhr){
+					var error=eval('('+xhr.responseText+')');
+					$('div.changeZfb').show();
+					$('div.changeZfb p.dialogText').html(error[0].message);
+					$('div.changeZfb p.dialogSureBtn').on('click',function(){
+						$('div.changeZfb').hide()
+					})
+				}
+			})
+		})
+	})
+</script>
+</html>

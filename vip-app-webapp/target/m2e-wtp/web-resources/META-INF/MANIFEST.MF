@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Built-By: sangjianbo
+Build-Jdk: 1.8.0_11
+Specification-Title: vip-app-webapp
+Specification-Version: 1.0.324-SNAPSHOT
+Implementation-Title: vip-app-webapp
+Implementation-Version: 1.0.324-SNAPSHOT
+Implementation-Vendor-Id: cn.com.carsmart
+Build-Date: 
+Created-By: Maven Integration for Eclipse
+SCM-Revision: 
+

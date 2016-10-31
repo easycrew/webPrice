@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>上门保养</title>
+	<link rel="stylesheet" href="./css/nav.css">
+	<script src="./js/jquery-1.10.1.min.js"></script>
+	<script language="javascript" src="./js/jquery.json-2.2.js"></script> 
+	<script src="./js/main.js"></script>
+	<script src="../js/commen.js"></script>
+	<style>
+		ul.orderList-ul li{
+			background-color: #fff;
+			margin-top: 1rem;
+		}
+		ul.orderList-ul li div{
+			padding: 0.6rem 1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.orderNumber-wraper p,div.orderNumber-wraper span{
+			font-size: 0.8rem;
+		}
+		div.orderDetail p,div.orderDetail span{
+			font-size: 0.8rem;
+		}
+		div.orderNumber-wraper p.numberP{
+			float: left;
+		}
+		div.orderNumber-wraper p.cdP{
+			float: right;
+		}
+		p.orderStatusP{
+			float: left;
+			line-height: 1.6rem;
+			font-size: 0.8rem;
+		}
+		p.cancleBtn{
+			float: right;
+			color: #fff;
+			background-color: #f55d5d;
+			width: 30%;
+			text-align: center;
+			line-height: 1.6rem;
+			border-radius: 4px;
+			font-size: 0.8rem;
+		}
+		div.loadMore{
+			font-size:0.8rem;line-height:2rem;text-align:center;color:#a2a2a2;
+		}
+
+		div.dialog{
+			position: fixed;
+			top: 0;
+			z-index: 500;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0,0,0,0.5);
+		}
+		div.dialogWraper{
+			position: relative;
+			width: 90%;
+			margin: 5rem auto;
+			background-color: #fff;
+			border-radius: 8px;
+		}
+		div.dialogWraper div.payItem{
+			padding: 1rem 1rem 1rem 0.4rem;
+			border-bottom: 1px solid #D9D9E2;
+			overflow: hidden;
+		}
+		div.dialogWraper div.payItem p{
+			text-align: center;
+		}
+		div.dialogWraper div.payBtn{
+			padding: 1rem;
+			text-align: center;
+			font-size: 1rem;
+		}
+		div.cancleBtnTwo{
+			text-align: center;
+			overflow: hidden;
+		}
+		p.sureCancle{
+			font-size: 1rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 1rem;
+			float: left;
+			width: 50%;
+			border-right: 1px solid #D9D9E2;
+		}
+		p.notCancle{
+			font-size: 1rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 1rem;
+			float: left;
+			width: 50%;
+		}
+		div.toIndex{
+			position: fixed;
+			z-index: 100;
+			width: 100%;
+			bottom: 0;
+			text-align: center;
+			background-color: #f55d5d;
+			/*border-top: 1px solid #d9d9e2;*/
+			padding: 0.5rem 0;
+			color: #fff;
+			font-size: 1rem;
+			display: none;
+		}
+		article{
+			padding-bottom: 2.9rem;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<article>
+			<ul class="orderList-ul">
+				<!-- <li>
+					<div class="orderNumber-wraper clearfix">
+						<p class="numberP">订单号：<span class=="orderNumber">455436513248978</span></p>
+						<p class="cdP"><span class="cd"></span></p>
+					</div>
+					<div class="orderDetail">
+						<p>下单时间：<span>2014-11-02 12:00</span></p>
+						<p>预约时间：<span>2014-11-02 12:00-13:00</span></p>
+						<p>支付方式：<span>先服务后付款</span></p>
+					</div>
+					<div class="orderStatus-wraper clearfix">
+						<p class="orderStatusP">订单状态：<span class="orderStatus">已完成</span></p>
+					</div>
+				</li>
+				<li>
+					<div class="orderNumber-wraper clearfix">
+						<p class="numberP">订单号：<span class=="orderNumber">455436513248978</span></p>
+						<p class="cdP"><span class="cd"></span></p>
+					</div>
+					<div class="orderDetail">
+						<p>下单时间：<span>2014-11-02 12:00</span></p>
+						<p>预约时间：<span>2014-11-02 12:00-13:00</span></p>
+						<p>支付方式：<span>先服务后付款</span></p>
+					</div>
+					<div class="orderStatus-wraper clearfix">
+						<p class="orderStatusP">订单状态：<span class="orderStatus">待服务</span></p>
+						<p class="cancleBtn">取消订单</p>
+					</div>
+				</li> -->
+			</ul>
+			<div class="loadMore" style="display:none;">点击查看更多</div>
+		</article>
+	</section>
+	<div class="toIndex">查看服务介绍</div>
+	<div class="dialog" style="display:none;" id="phoneDialog">
+		<div class="dialogWraper" id="dialogWraper">
+			<div class="payItem"><p>请联系客服400-010-7877</p></div>
+			<div class="payBtn">确定</div>
+		</div>
+	</div>
+	<div class="dialog" style="display:none;" id="cancleDialog">
+		<div class="dialogWraper" id="dialogWraper-cancle">
+			<div class="payItem"><p>确认取消订单吗？</p></div>
+			<div class="cancleBtnTwo"><p class="sureCancle">确定</p><p class="notCancle">取消</p></div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    $('div.toIndex').show();
+	    // 查看服务介绍
+	    if(paramJson.userInfoId){
+			paramJson.userId=paramJson.userInfoId
+		}
+		$('div.toIndex').on('click',function(){
+			window.location.href="index.html?userInfoId="+paramJson.userId+'&customerId='+paramJson.customerId+'&areaName='+store.get('areaName')
+		});
+	    // 获取订单列表
+	    var nowPage=0;
+	    var loadOrder=function(page){
+	    	nowPage=page;
+	    	$.ajax({
+		    	url:'/yangchebao-app-ws/ws/0.1/externmaintain/order/page/v3?customerId='+paramJson.customerId+'&pagesize=10&pageindex='+page+'&'+new Date().getTime(),
+		    	type:'get',
+		    	async:false,
+		    	dataType:'json',
+		    	contentType:'application/json;charset=utf-8',
+		    	success:function(data){
+		   //  		<li>
+					// 	<div class="orderNumber-wraper clearfix">
+					// 		<p class="numberP">订单号：<span class=="orderNumber">455436513248978</span></p>
+					// 		<p class="cdP"><span class="cd"></span></p>
+					// 	</div>
+					// 	<div class="orderDetail">
+					// 		<p>下单时间：<span>2014-11-02 12:00</span></p>
+					// 		<p>预约时间：<span>2014-11-02 12:00-13:00</span></p>
+					// 		<p>支付方式：<span>先服务后付款</span></p>
+					// 	</div>
+					// 	<div class="orderStatus-wraper clearfix">
+					// 	<p class="orderStatusP">订单状态：<span class="orderStatus">待服务</span></p>
+					// 	<p class="cancleBtn">取消订单</p>
+					// </div>
+					// </li>
+					var orderStr='';
+					if(data.items!=''){
+						data.items.forEach(function(key,i){
+							orderStr+='<li data-id="'+key.maintainOrderId+'">'
+									 +'<div class="orderNumber-wraper clearfix">'
+									 +'<p class="numberP">订单号：<span class="orderNumber">'+key.orderNumber+'</span></p>'
+									 +'<p class="cdP"><span class="cd"></span></p>'
+									 +'</div>'
+									 +'<div class="orderDetail">'
+									 +'<p>下单时间：<span>'+key.orderDate+'</span></p>'
+									 +'<p>预约时间：<span>'+key.reserveDateStr+'</span></p>'
+									 +'<p>支付方式：<span>'+key.payChannelName+'</span></p>'
+									 +'</div>'
+									 +'<div class="orderStatus-wraper clearfix">'
+									 +'<p class="orderStatusP" data-id="'+key.status+'">订单状态：<span class="orderStatus">'+key.statusName+'</span></p>'
+							if(key.status!=3&&key.status!=4){
+								orderStr+='<p class="cancleBtn">取消订单</p>'
+							}
+							orderStr+='</div>'
+									 +'</li>'
+						});
+						$('ul.orderList-ul').append(orderStr)
+					}else{
+						orderStr+='<li style="text-align:center;background-color:#f4f7f8!important;color:#a2a2a2;">您暂时没有订单</li>';
+						$('ul.orderList-ul').html(orderStr)
+
+					}
+					
+					
+					if($('ul.orderList-ul li').length<data.totalCount){
+						$('div.loadMore').show();
+						$('div.loadMore').unbind('click').bind('click',function(){
+							loadOrder(page+1)
+						})
+					}else{
+						$('div.loadMore').hide()
+					}
+		    	}
+		    })
+	    };
+	    // 订单列表初始化
+	    loadOrder(0);
+	    // 查看订单详情
+	    $('ul.orderList-ul').on('click','div.orderNumber-wraper',function(){
+			var maintainOrderId=$(this).closest('li').attr('data-id');
+			var orderNumber=$(this).find('span.orderNumber').html();
+			window.location.href="orderDetail.html?maintainOrderId="+maintainOrderId+'&orderNumber='+orderNumber+"&userId="+paramJson.userId+'&customerId='+paramJson.customerId
+		});
+
+	    // 取消订单
+	    $('ul.orderList-ul').on('click','p.cancleBtn',function(){
+	    	var $p=$(this).closest('li').find('p.orderStatusP');
+	    	var statusId=$(this).closest('li').find('p.orderStatusP').attr('data-id');
+	    	var maintainOrderId=$(this).closest('li').attr('data-id');
+			var orderNumber=$(this).closest('li').find('span.orderNumber').html();
+			if(statusId!=0){
+				$('div#phoneDialog').show();
+				var dialogWraperHeight=$('div#phoneDialog div.dialogWraper').outerHeight();
+				$('div#phoneDialog div.dialogWraper').css({'top':'50%','margin-top':'-'+dialogWraperHeight/2+'px'});
+				$('div#phoneDialog').bind('click',function(e){
+					if($(e.target).closest('#dialogWraper').length==0){
+						$('div#phoneDialog').hide()
+					}
+				});
+				$('div#phoneDialog div.payBtn').unbind('click').bind('click',function(){
+					$('div#phoneDialog').hide()
+				})
+			}else{
+				$('div#cancleDialog').show();
+				var dialogWraperHeight=$('div#cancleDialog div.dialogWraper').outerHeight();
+				$('div#cancleDialog div.dialogWraper').css({'top':'50%','margin-top':'-'+dialogWraperHeight/2+'px'});
+				$('div#cancleDialog div.cancleBtnTwo p.notCancle').bind('click',function(e){
+					$('div#cancleDialog').hide()
+				});
+				$('div#cancleDialog div.cancleBtnTwo p.sureCancle').unbind('click').bind('click',function(){
+					var postData={};
+					postData.maintainOrderId=maintainOrderId;
+					postData.orderNumber=orderNumber;
+					postData.customerId=paramJson.customerId;
+					$.ajax({
+			    		url:'/yangchebao-app-ws/ws/0.1/externmaintain/order/cancel/v3',
+			    		type:'post',
+			    		dataType:'json',
+			    		data:$.toJSON(postData),
+			    		async:false,
+			    		contentType:'application/json;charset=utf-8',
+			    		success:function(data){
+		    				$p.attr('data-id',data.status);
+		    				$p.find('span.orderStatus').html(data.statusName);
+		    				$p.next('p.cancleBtn').remove();
+		    				$('div#cancleDialog').hide()
+			    		}
+			    	})
+				})
+				
+			}
+	    })
+
+	    
+	})
+</script>
+<script>
+//共用统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c8ab281430a0250a8afa2b494f8af641";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+//上门保养统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9c0ea29fb90061de1c1855b3aa85dbea";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+</script> 
+</html>

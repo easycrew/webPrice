@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>上门保养</title>
+	<link rel="stylesheet" href="./css/nav.css">
+	<script src="./js/jquery-1.10.1.min.js"></script>
+	<script src="./js/main.js"></script>
+	<style>
+		article.topCarInfo{
+			background-color: #fff;
+			padding: 1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		article.topCarInfo p{
+			font-size: 1rem;
+		}
+		article.topCarInfo p:nth-child(1){
+			margin-bottom: 0.4rem;
+		}
+		article.bottomServ{
+			background-color: #fff;
+			margin-top: 1rem;
+		}
+		article.bottomServ div.bottomServ-title{
+			font-size: 1rem;
+			padding: 0.6rem 1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		ul.bottomServ-ul li{
+			border-bottom: 1px solid #D9D9E2;
+			padding: 0.6rem 1rem;
+		}
+		ul.bottomServ-ul li div.imgWraper,ul.bottomServ-ul li div.servDetail{
+			float: left;
+		}
+		ul.bottomServ-ul li div.imgWraper{
+			width: 20%;
+			margin-right: 5%;
+		}
+		ul.bottomServ-ul li div.servDetail{
+			width: 67%;
+		}
+		div.servDetail p.servTitle{
+			font-size: 1rem;
+			margin-bottom: 0.4rem;
+		}
+		span.servName{
+			color: #1e1e1e!important;
+			font-size: 1rem!important;
+		}
+		div.servDetail p.servTitle span{
+			color: #FF6138;
+			font-size: 0.7rem;
+		}
+		div.servDetail p.servTitle span.price{
+			font-size: 1rem!important;
+		}
+		p.servText{
+			font-size: 0.8rem;
+		}
+		div.cdWraper{
+			float: right;
+			padding-top: 7%;
+		}
+	</style>
+</head>
+<body>
+	<p><input name="eventId" type="hidden" value="MaintainServiceSelectPage"></p>
+	<section>
+		<header>
+			<nav>
+				<ul class="clearfix">
+					<li class="navLeft-li">
+						<span class="navLine-left"></span>
+						<p class="selectCarstyle navNow">确定车型</p>
+					</li>
+					<li class="navMiddle-li">
+						<span class="navLine-middle"></span>
+						<p class="selectService">选择服务</p>
+					</li>
+					<li class="navMiddle-li">
+						<span class="navLine-middle"></span>
+						<p class="selectParts">选择配件</p>
+					</li>
+					<li class="navRight-li">
+						<span class="navLine-Rmiddle"></span>
+						<p class="submitOrder">提交订单</p>
+						<span class="navLine-right"></span>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<article class="topCarInfo">
+			<p class="topCarInfo-model">奥迪A8</p>
+			<p class="topCarInfo-style">2014款 30 FSI 豪华型</p>
+		</article>
+		<article class="bottomServ">
+			<div class="bottomServ-title">选择您需要的上门保养服务</div>
+			<ul class="bottomServ-ul">
+				<li class="clearfix dby">
+					<div class="imgWraper">
+						<img src="./img/bigServ.png" alt="大保养">
+					</div>
+					<div class="servDetail">
+						<p class="servTitle"><span class="servName"></span><span class="servPrice"><span id="bigServPrice" class="price"></span>起</span></p>
+						<p class="servText">更换机油，更换机油滤清器，更换空气滤清器</p>
+					</div>
+					<div class="cdWraper"><span class="cd"></span></div>
+				</li>
+				<li class="clearfix xby">
+					<div class="imgWraper">
+						<img src="./img/smallServ.png" alt="小保养">
+					</div>
+					<div class="servDetail">
+						<p class="servTitle"><span class="servName"></span><span class="servPrice"><span id="smallServPrice" class="price"></span>起</span></p>
+						<p class="servText">更换机油，更换机油滤清器</p>
+					</div>
+					<div class="cdWraper"><span class="cd"></span></div>
+				</li>
+			</ul>
+		</article>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		// nav
+		$('p.selectService').addClass('navNow').parent('li').siblings().find('p').removeClass('navNow');
+		$('p.selectCarstyle').addClass('hasNav');
+		// 获取车信息
+		$('p.topCarInfo-model').html(getLocalStorage('modelName'));
+		$('p.topCarInfo-style').html(getLocalStorage('styleName'));
+		// 获取服务信息
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/externmaintain/query/v3?userInfoId='+paramJson.userId+'&styleId='+getLocalStorage('styleId'),
+			type:'get',
+			async:false,
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				if(data.data==undefined){
+					$('ul.bottomServ-ul').html('您的车型暂无对应的保养服务')
+				}else{
+					data.data.forEach(function(key,i){
+						var minPrice=0;
+						var proArr=key.products;
+						if(key.productName!='小保养'&&key.productName!='大保养'){
+							
+						}else{
+							if(key.productName=='大保养'){
+								$('ul.bottomServ-ul li:first').find('span.servName').html(key.productName);
+								$('ul.bottomServ-ul li:first').attr('id',key.productId);
+								$('ul.bottomServ-ul li:first').find('span.price').html('￥'+proArr[0].price)
+							}else if(key.productName=='小保养'){
+								$('ul.bottomServ-ul li:last').find('span.servName').html(key.productName);
+								$('ul.bottomServ-ul li:last').attr('id',key.productId);
+								$('ul.bottomServ-ul li:last').find('span.price').html('￥'+proArr[0].price)
+							}
+						}
+					})
+				}
+				// 点击
+				$('ul.bottomServ-ul li').unbind('click').bind('click',function(){
+					window.location.href='http://w2nw?http://'+urlIp()+'/yangchebao-pubweb/doorMaintance/selectParts.html?productId='+$(this).attr('id')
+				})
+			},
+			error:function(xhr){
+				var error=eval('('+xhr.responseText+')');
+				alert(error[0].message)
+			}
+		});
+
+		// var servData=store.get('serviceData');
+		// servData.data.forEach(function(key,i){
+		// 	alert(key.productName);
+		// 	$('ul.bottomServ-ul li:eq('+i+')').find('span.servName').html(key.productName);
+		// 	$('ul.bottomServ-ul li:eq('+i+')').attr('id',key.productId);
+		// 	var minPrice=0;
+		// 	var proArr=key.products;
+		// 	alert(proArr[0].price);
+		// 	$('ul.bottomServ-ul li:eq('+i+')').find('span.price').html('￥'+proArr[0].price)
+		// });
+
+		// 点击
+		// $('ul.bottomServ-ul li').unbind('click').bind('click',function(){
+		// 	window.location.href='http://w2nw?http://'+urlIp()+'/yangchebao-pubweb/doorMaintance/selectParts.html?productId='+$(this).attr('id')
+		// });
+
+	})
+</script>
+</html>

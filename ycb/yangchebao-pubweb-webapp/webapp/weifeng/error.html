@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,inital-scale=1.0,maxinum-scale=1.0,mininum-scale=1.0,user-scalble=no" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js "></script>
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/md50000000000000000000000000000.js"></script>
+
+	<title>报名失败</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+
+		div.container{
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+
+		section{
+			background-color: #F2F3F4;
+		}
+		article{
+			background-color: #fff;
+		}
+		article.article-middle{
+			padding: 0 1.2rem;
+			border-bottom: 1px solid #DCDCE4;
+		}
+		article.article-charge{
+			overflow: hidden;
+			padding: 1.5rem;
+		}
+		article.article-charge p.chargeBtn{
+			width:90%;
+			line-height: 5.0rem;
+			color: #fff;
+			font-size: 2.4rem;
+			text-align: center;
+			background-color: #a30000;
+			padding: 0 1.8rem;
+			cursor: pointer;
+			border-radius: 8px;
+		}
+		article.article-charge p.chargeBtn a{
+			color:#fff;
+		}
+		/*ybs*/
+		.head-succ-err{
+			background:url('img/bg-header.jpg') no-repeat 0 0;
+			position: relative;
+			overflow: hidden;
+			height: 249px;
+		}
+		.success{
+			position:relative;
+		}
+		.success img{position:relative;left:50%;margin-left:-210px;}
+		.success p{font-size:1.5rem;color:#1e1e1e;line-height:40px;margin-bottom:5px;font-family: '微软雅黑';}
+		.success .start{border-top:1px solid #a30000;margin-top:30px;line-height:80px;}
+		.error p{color:#a30000;font-size:1.7rem;text-align: center;line-height:70px;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<section>
+			<article class="article-top">
+				<div class="head-succ-err"></div>
+			</article>
+			<article class="article-middle">
+				<div class="error">
+					<p>出错啦，报名失败！</p>
+				</div>
+			</article>
+		</section>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){  
+    		try{
+        var phoneWidth = parseInt(window.screen.width);
+        var phoneHeight = parseInt(window.screen.height); 
+        var phoneScale = phoneWidth / 640;
+        var ua = navigator.userAgent;
+        var sUserAgent = ua.toLowerCase(); 
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os"; 
+        if (/Android (\d+\.\d+)/.test(ua)) {
+            var version = parseFloat(RegExp.$1);
+            // andriod 2.3
+                $('[name="viewport"]').attr('content', 'width=640, initial-scale=' + phoneScale + ', minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi');
+            if (version >= 2.3) {
+                // andriod 2.3以上
+            } else {
+                $('[name="viewport"]').attr('content', 'width=640, initial-scale= 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable=no, target-densitydpi=device-dpi');
+            }
+        // 其他系统
+        } else if(bIsIpad || bIsIphoneOs || bIsIphone){   
+            var otherW = phoneWidth*2;
+            $(".content-wrap").css({
+                'width':otherW,
+                'min-width':otherW,
+                'min-width':otherW,
+                'margin-left': -phoneWidth
+            });
+            $('[name="viewport"]').attr('content', 'width='+otherW+', initial-scale= 0.5, minimum-scale = 0.5, maximum-scale = 0.5, user-scalable=no, target-densitydpi=device-dpi'); 
+        }else{
+             $('[name="viewport"]').attr('content', 'width=640, initial-scale= 0.5, minimum-scale = 0.5, maximum-scale = 0.5, user-scalable=no, target-densitydpi=device-dpi');
+        }
+       }catch(e){}
+
+			var url =window.location.search;  
+		    var paramJson = {};
+		    if(url!=undefined&&url!=""){
+		        var paramsArr = (url.split("?")[1]).split("&"); 
+		        $.each(paramsArr,function(i){
+		         var item = paramsArr[i].split("=");
+		         paramJson[item[0]] = item[1];
+		        });    
+		    } 
+
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+<meta name="format-detection" content="telephone=no" />
+<title>注册</title>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/md50000000000000000000000000000.js"></script>
+	<script type="text/javascript" src="js/commen.js"></script>
+<style>
+html {
+	font-size: 62.5%;
+}
+body {
+	font-family:"MicrosoftYaHei","HelveticaNeue-Light";
+	font-weight: normal;
+	font-style: normal;
+	line-height: normal;
+	width: 100%;
+	margin: 0 auto;
+	background:#f4f7f8;
+}
+i, em {
+	font-style: normal;
+}
+a {
+	text-decoration: none;
+}
+ul {
+	list-style: none;
+}
+li{ list-style-type:none;}
+img {
+	border: none;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+.clearfix {
+ *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+.clearfix:after {
+	clear: both;
+}
+section,article{ width:100%; display:block; background:#f4f7f8;}
+.box{ width:100%; display:block;}
+.box input{ width:100%; padding:1.1rem 0 1.1rem 2rem;  box-sizing:border-box; border-top: 0; border-left: 0; border-right: 0; border-bottom:1px solid #c2c2c6; background:#fff; font-size:1.6rem;}
+.box p{ width:100%; display:block;margin:0 auto; }
+.getQrcodeBtn.disabled{
+	background-color: #ccc;
+	color: #fff;
+	cursor: default;
+}
+.box .p1 input{ width:70%; display:block; float:left;}
+.box .p1 span{ width:30%; float:left; display:inline-block; background-color:#88b8e2; text-align:center; color:#fff; font-size:1.6rem;padding-top: 1.1rem;padding-bottom: 1.1rem;}
+.box .p3{ width:90%; display:block; margin:0 auto; border-radius:10px; line-height:5rem; text-align:center; background-color:#ff6138; font-size:2rem; color:#fff;}
+.box .p2{ font-size:1.6rem; color:#6eaade; width:90%; text-align:right; padding:20px 0px 50px 0;}
+.box .p4{ position:relative; z-index:10;}
+.box .p4 span{ color:#ff6138; display:block; position:absolute; z-index:100; font-size:1.6rem; right:20px; top:30%;}
+/*@media screen and (max-width:414px) {
+.box input{font-size:1.6rem;}
+.box .p1 span{ line-height:4.2rem; font-size:1.6rem;}
+.box .p2{ font-size:1.3rem; padding:1rem 0px 2.5rem 0;}
+.box .p4 span{ font-size:1.5rem; }
+.box .p3{line-height:4.4rem; font-size:1.8rem;}
+}*/
+div.errorLog{
+	position: fixed;
+	top: 0;
+	z-index: 500;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0);
+}
+div.errorLog p{
+	position: relative;
+	width: 90%;
+	margin: 10rem auto;
+	background-color: rgba(0,0,0,0.5);
+	font-size: 1.6rem;
+	color: #fff;
+	text-align: center;
+	padding: 1rem 0;
+	border-radius: 8px;
+}
+/*dialog*/
+.dialog {
+	background-color: rgba(0, 0, 0, 0.4);
+	bottom: 0;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 100;
+
+}
+.dialog > div {
+	background-color: #fff;
+	height: auto;
+	margin: 20% 10px 0;
+	overflow: auto;
+}
+.dialog h1 {
+	border-bottom: 1px solid #fb451f;
+	color: #fb451f;
+	font-size: 1.7em;
+	font-weight: normal;
+	height: 33px;
+	line-height: 33px;
+	text-align: center;
+}
+.dialog h1 {
+	border-bottom: 1px solid #fb451f;
+	color: #fb451f;
+	font-size: 1.7em;
+	font-weight: normal;
+	height: 33px;
+	line-height: 33px;
+	text-align: center;
+}
+.dialog p {
+	font-size: 1.6em;
+	font-weight: normal;
+	line-height: 150%;
+	padding: 20px;
+}
+.dialog .btn-wrap > div {
+	float: left;
+	width: 100%;
+}
+.dialog .dialog-btn {
+	background-color: #fb451f;
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	font-size: 1.6em;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+}
+.dialog .left {
+	margin: 0 9px 17px 27px;
+}
+.dialog .right {
+	background-color: #c2c2c6;
+	margin: 0 27px 17px 9px;
+}
+</style>
+</head>
+
+<body>
+<div class="backOverlay"></div>
+<div class="dialog" style="display: none;">
+	<div>
+		<h1>提示</h1>
+		<p>您已经是养车宝用户，可以邀请好友获取奖励哦~</p>
+		<div class="btn-wrap">
+			<!--<div><div class="dialog-btn left">点击登录</div></div>-->
+			<div><div class="dialog-btn right">关闭</div></div>
+		</div>
+	</div>
+</div>
+<section>
+	<article>
+    	<div class="box">
+        	<p class="p4"><input type="text" placeholder="请输入手机号码" class="inp01" name="mobileNo" id="mobileNo" /></p>
+
+			<p class="p4"><input type="password" placeholder="请输入6-16位字母数字下划线为密码" class="inp01" name="password" id="password" /></p>
+            <p class="p1"><input type="text" placeholder="请输入验证码" class="inp01" name="qrCode" id="qrCode" /><span class="getQrcodeBtn">获取验证码</span></p>
+             <p class="clearfix"></p>
+            <p class="p4"><input type="text" placeholder="推荐人ID(非必填)" class="inp01" name="memberNo" id="memberNo" /><span>输入可获5元代金券</span></p>
+            <p class="clearfix"></p>
+            <p class="p2">短信收不到？拨打400-678-3777</p>
+            <p class="p3">确认</p>
+        </div>
+    </article>
+</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search;
+		var paramJson = {};
+		if(url!=''){
+			var paramsArr = (url.split("?")[1]).split("&");
+			$.each(paramsArr,function(i){
+				var item = paramsArr[i].split("=");
+				paramJson[item[0]] = item[1]
+			});
+		}
+	$('#memberNo').val(paramJson.memberNo);
+		var waiter=30;
+		// 获取验证码
+		function timer(){
+			var $getQrcodeBtn=$('span.getQrcodeBtn');
+			if(waiter==0){
+				$getQrcodeBtn.html('获取验证码').removeClass('disabled');
+				$('span.getQrcodeBtn').on('click',codeClick)
+				waiter=30;
+				return false
+			}else{
+				$getQrcodeBtn.html(waiter+'S').addClass('disabled',true);
+				$('span.getQrcodeBtn').off('click')
+			}
+			waiter--;
+			setTimeout(function() {
+						timer();//循环调用
+					},
+					1000)
+		};
+		$('.p3').unbind('click').bind('click',function(){
+			var mobile=$.trim($('input[name="mobileNo"]').val());
+			var code=$.trim($('input[name="qrCode"]').val());
+			var passw = $.trim($('input[name="password"]').val());
+			var memberNo = $.trim($('input[name="memberNo"]').val())
+			if(mobile==''){
+				errorLog('手机号不能为空');
+				return false
+			}
+			if(!(/^1[0-9]{10}$/.test(mobile))){
+				errorLog('手机号格式不正确');
+				return false
+			}
+			if(passw==''){
+				errorLog('密码不能为空');
+				return false
+			}
+			if(!(/^[a-zA-Z0-9_]{6,16}$/.test(passw))){
+				errorLog('密码格式不正确');
+				return false
+			}
+			if(code==''){
+				errorLog('请输入验证码');
+				return false
+			}
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/user/mobile/check?mobile='+mobile,
+				type:'get',
+				async:false,
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					if(data.isReg==0){
+						if(code==''){
+							errorLog('请输入验证码');
+							return false
+						}
+						var postData={};
+						postData.fastRegStatus=0;
+						postData.alias=mobile;
+						postData.code=code;
+						postData.password=hex_md5(passw);
+						postData.memberNo=memberNo;
+						$.ajax({
+							url:'/yangchebao-uc/ws/0.1/registry/mobile',
+							type:'post',
+							dataType:'json',
+							data:$.toJSON(postData),
+							contentType:'application/json;charset=utf-8',
+							success:function(data3){
+								$.ajax({
+									url:'/yangchebao-app-ws/ws/0.1/user/carinfo/maincar?userId='+data3.userInfoId+'&'+new Date().getTime(),
+									type:'get',
+									async:false,
+									dataType:'json',
+									contentType:'application/json;charset=utf-8',
+									success:function(_data){
+										//alert('成功')
+										window.location.href="http://"+urlIp()+"/yangchebao-pubweb/carEarn/zhucOk.html";
+									}
+								})
+
+							},
+							error:function(xhr){
+								var error=eval('('+xhr.responseText+')');
+								errorLog(error[0].message)
+							}
+						})
+					}else{
+						$('div.dialog').show();
+						$('div.backOverlay').show();
+
+						$('div.dialog div.right').unbind('click').bind('click',function(){
+							$('div.dialog').hide();
+							$('div.backOverlay').hide();
+						})
+					}
+				},
+				error:function(xhr){
+					var error=eval('('+xhr.responseText+')');
+					errorLog(error[0].message)
+				}
+			})
+
+		})
+	function codeClick(){
+			if(!($(this).hasClass('disable'))){
+				var mobile=$.trim($('input[name="mobileNo"]').val());
+				if(mobile==''){
+					errorLog('手机号不能为空');
+					return false
+				}
+				if(!(/^1[0-9]{10}$/.test(mobile))){
+					errorLog('手机号格式不正确');
+					return false
+				}
+				$.ajax({
+					url:'/yangchebao-app-ws/ws/0.1/user/mobile/check?mobile='+mobile,
+					type:'get',
+					async:false,
+					dataType:'json',
+					contentType:'application/json;charset=utf-8',
+					success:function(data){
+						if(data.isReg==0){
+							timer();
+							// setInterval(timer(),1000);
+							$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/common/update/ycbkey',
+								async:false,
+								type:'get',
+								contentType:'application/json;charset=utf-8',
+								dataType:'json',
+								success:function(data2){
+									var timestamp=new Date().getTime();
+									var sign=hex_md5(mobile+data2.ycbkey+timestamp);
+									$.ajax({
+										url:'/yangchebao-uc/ws/0.1/registry/getcode/v2?user='+mobile+'&timestamp='+timestamp+'&sign='+sign,
+										type:'get',
+										async:false,
+										dataType:'json',
+										contentType:'application/json;charset=utf-8',
+										success:function(data3){
+
+										}
+									})
+								}
+							})
+						}else{
+							$('div.dialog').show();
+							$('div.backOverlay').show();
+
+							$('div.dialog div.right').unbind('click').bind('click',function(){
+								$('div.dialog').hide();
+								$('div.backOverlay').hide();
+							})
+						}
+
+					},
+					error:function(xhr){
+						var error=eval('('+xhr.responseText+')');
+						errorLog(error[0].message)
+					}
+				})
+			}
+		};
+		$('span.getQrcodeBtn').on('click',codeClick);
+		$('.left').unbind('click').bind('click',function(){
+			window.location.href="http://w2l/?shareType=1&shareTitle=要赚钱，抢红包！加入养车宝，月入万元&shareContent=我（ID：88978）邀请您来养车宝一起赚钱了，邀请朋友下载注册、消费、都可获得超高提成现金奖励&shareUrl=http://"+urlIp()+"/yangchebao-pubweb/carEarn/sharePage.html&shareImageUrl=http://app.yangchebao.com.cn/group1/M00/01/7E/ChoCK1YbbiqAO_QhAACG0hXOFOI469.jpg";
+		})
+	})
+</script>
+</html>

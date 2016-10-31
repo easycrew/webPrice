@@ -1,0 +1,932 @@
+<style>
+	.citybtn{ 
+		background-color: #508ae8;
+    	border-color: #4178d2;
+    	color: #ffffff;
+    	float: left;
+    	padding: 5px 8px;
+    	border-radius: 3px;
+    	cursor: pointer;
+	}
+	.citybtn:hover{
+		background-color: #508ae8;
+	}
+	.vouTable {border-collapse:collapse;margin:0 10px;width:98%;} 
+	.vouTable td{padding: 3px;}
+	.styleVou{background:#508ae8;color:#fff;padding:5px 0;text-align:center;border:none;border-radius: 5px;cursor: pointer;margin:0 10px;}
+    .ycb_vou_id em{display:block}
+</style>
+<div class="urlContentWraper" id="Wraper_insuranceChannel_recash">
+	<div class="row-fluid ui-data-show"> 
+		<div class="hDiv">
+			 <h2 class="ui-tit"><strong>推广渠道管理</strong></h2>
+			 <table id="Table_insuranceChannel_exten"></table>
+		</div> 
+		<div class="bDiv">
+			<br/>
+			 <h2 class="ui-tit"><strong>保险公司管理</strong></h2> 
+			<table id="Table_insuranceCompany"></table>
+		</div> 
+		<div class="yDiv">
+			<br/>
+			 <h2 class="ui-tit"><strong>保险返利管理</strong></h2> 
+			<table id="Table_insurance_reCash"></table>
+		</div> 
+    </div> 
+    <div id="Form_insuranceChannel_exten" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="row">
+                <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>渠道编码：</label>
+                <div class="span6 grid-layout-content">
+                    <div name="channelCode" class="jrad-input-container"></div>
+				</div>
+            </div>
+            <div class="row">
+                <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>渠道名称：</label>
+                <div class="span4 grid-layout-content">
+                    <div name="channelName" class="jrad-input-container"></div>  
+                </div>
+            </div>
+            <div class="row">
+                <label class="span3 grid-layout-label">渠道备注：</label>
+                <div class="span4 grid-layout-content">
+                    <div name="remarks" class="jrad-textarea-container"></div>  
+                </div>
+            </div>
+            <div class="row channelStaut">
+                <label class="span3 grid-layout-label">是否启用：</label>
+                <div class="span4 grid-layout-content">
+                    <div name="status" class="jrad-select-container"></div>  
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+    <div id="Form_insuranceCompany" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="row">
+                <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>保险公司编码：</label>
+                <div class="span6 grid-layout-content">
+                    <div name="comCode" class="jrad-input-container"></div>
+				</div>
+            </div>
+            <div class="row">
+                <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>保险公司名称：</label>
+                <div class="span4 grid-layout-content">
+                    <div name="companyName" class="jrad-input-container"></div>  
+                </div>
+            </div>
+            <div class="row">
+                <label class="span3 grid-layout-label">保险公司备注：</label>
+                <div class="span4 grid-layout-content">
+                    <div name="remarks" class="jrad-textarea-container"></div>  
+                </div>
+            </div>
+            <div class="row companycan">
+                <label class="span3 grid-layout-label">合作状态：</label>
+                <div class="span4 grid-layout-content">
+                    <div name="status" class="jrad-select-container"></div>  
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_insurance_reCash" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="row noshow">
+                <label class="span4 grid-layout-label">保险公司：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="insureCompanyId" class="jrad-select-container"></div>
+				</div>
+            </div>
+            <div class="row noshow">
+                <label class="span4 grid-layout-label">省：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="provCode" class="jrad-select-container"></div>  
+                </div>
+            </div>
+            <div class="row noshow">
+                <label class="span4 grid-layout-label">市：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="cityCode" class="jrad-select-container"></div>  
+                </div>
+            </div>
+            <div class="row noshow">
+                <label class="span4 grid-layout-label">渠道：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="insureChannelId" class="jrad-select-container"></div>  
+                </div>
+            </div>
+            <div class="row">
+                <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>提现比例：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="cashbackRatio" class="jrad-input-container"></div>  
+                </div>
+                <p class="span1 grid-layout-label" style="margin-left:-36px;width:10px">%</p>
+            </div>
+            <div class="row">
+                <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>单日养车基金补贴额度：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="daySubsidyCash" class="jrad-input-container"></div>  
+                </div>
+            </div>
+            <div class="row">
+                <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>补贴月数：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="subsidyMonths" class="jrad-input-container"></div>  
+                </div>
+            </div>
+            <div class="row">
+                <label class="span4 grid-layout-label">绑定代金券ID：</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<span id="jrad-button-area" class="citybtn">点击修改配置</span>
+				</div>
+				<div id="area_check_string" style="margin: 40px 0 10px 176px;"></div>
+            </div>
+            <div class="row">
+                <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>车险基金单日额：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="daySubsidyFund" class="jrad-input-container"></div>  
+                </div>
+            </div>
+            <div class="row">
+                <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>车险基金发放月数：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="subsidyFundMonths" class="jrad-input-container"></div>  
+                </div>
+            </div>
+            <div class="row isCan">
+                <label class="span4 grid-layout-label">是否有效：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="status" class="jrad-select-container"></div>  
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+
+    <div id="Form_voucher_fig" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="row">
+                <div class="span4 grid-layout-content">
+                    <div class="styleVou addCashBtn">增加保险价格区间</div>
+				</div>
+                <div class="span3 grid-layout-content">
+                    <div class="styleVou addIdBtn">增加代金券ID</div>
+				</div>
+            </div>
+            <div class="row">
+                <div class="grid-layout-content" style="overflow-x:auto;">
+                    <table border="1"  cellspacing="0" cellpadding="0" class="vouTable">
+                    	<thead>
+                    		<tr class="vouTr">
+                    			<th>保险价格起始</th>
+                    			<th>保险价格终止</th>
+                    			<th>代金券ID1</th>
+                    			<th>代金券ID1数量</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody class="vouTbody">
+                    		<tr>
+                    			<td><input type="text" class="minValue"></td>
+                    			<td><input type="text" class="maxValue"></td>
+                    			<td><input type="text" class="voucherId"></td>
+                    			<td><input type="text" class="voucherNum"></td>
+                    		</tr>
+                    	</tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_voucherId_datil" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="ycb_vou_id"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_insuranceChannel_recash');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+    var page_column_model_b = new Array();
+    var page_search_items_b = new Array();
+    var page_list_buttons_b = new Array();
+    var page_column_model_c = new Array();
+    var page_search_items_c = new Array();
+    var page_list_buttons_c = new Array();
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+
+    jRad.params['insureChannelId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/insureChannel/list',
+			id:'insureChannelId',
+			name:'channelName'
+		},
+		unshiftData: {id:'',name:'请选择'},
+	};
+    jRad.params['insureCompanyId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/insureCompany/list',
+			id:'insureCompanyId',
+			name:'companyName'
+		},
+		unshiftData: {id:'',name:'请选择'},
+	};
+	//省市
+	jRad.params['provCode'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll'
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var provinceCode = $('.searchContent div[name=provCode]',wraper).select('val'); 
+			if(provinceCode==''){ 
+				$('.searchContent div[name=cityCode]',wraper).select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val:''});
+			}else{  
+				$('.searchContent div[name=cityCode]',wraper).select({ 
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+					},
+					unshiftData: {id:'',name:'请选择'}
+				}).select('val','');
+			}
+		}
+	};
+	jRad.params['cityCode'] = {
+		data: [{id:'',name:'请选择'}] 
+	};
+
+	jRad.validators['cashbackRatio'] = [{"msg":'提现比例不能为空','type':'min',value:'1'},{"msg":'请填写非负整数',"type":"regex","value":/^[0-9]+$/}]; //提现比例
+	jRad.validators['daySubsidyCash'] = [{"msg":'单日补贴额度不能为空','type':'min',value:'1'},{"msg":'请填写非负数',"type":"regex","value":/^\d+(\.\d+)?$/}]; //单日补贴额度
+	jRad.validators['subsidyMonths'] = [{"msg":'补贴月数不能为空','type':'min',value:'1'},{"msg":'请填写非负整数',"type":"regex","value":/^[0-9]+$/}]; //补贴月数
+	jRad.validators['daySubsidyFund'] = [{"msg":'养车基金单日补贴额不能为空','type':'min',value:'1'},{"msg":'请填写非负数',"type":"regex","value":/^\d+(\.\d+)?$/}]; //单日补贴保险基金额度
+	jRad.validators['subsidyFundMonths'] = [{"msg":'养车基金补贴月数不能为空','type':'min',value:'1'},{"msg":'请填写非负整数',"type":"regex","value":/^[0-9]+$/}]; //基金补贴月数
+
+	jRad.validators['maxValue'] = [{"msg":'养车基金单日补贴额不能为空','type':'min',value:'1'},{"msg":'请填写非负数',"type":"regex","value":/^\d+(\.\d+)?$/}]; 
+	jRad.validators['minValue'] = [{"msg":'养车基金单日补贴额不能为空','type':'min',value:'1'},{"msg":'请填写非负数',"type":"regex","value":/^\d+(\.\d+)?$/}];
+	jRad.validators['voucherId'] = [{"msg":'养车基金补贴月数不能为空','type':'min',value:'1'},{"msg":'请填写非负整数',"type":"regex","value":/^[0-9]+$/}];
+	jRad.validators['voucherNum'] = [{"msg":'养车基金补贴月数不能为空','type':'min',value:'1'},{"msg":'请填写非负整数',"type":"regex","value":/^[0-9]+$/}];
+
+
+    var fields_params={}; 
+    fields_params['status'] = {data:[{id:'1',name:'启用'},{id:'0',name:'停用'}]};
+    var fields_params2 ={};
+    fields_params2['status'] = {data:[{id:'1',name:'合作中'},{id:'0',name:'暂停合作'}]};
+    var fields_params3 ={};
+    fields_params3['status'] = {data:[{id:'1',name:'有效'},{id:'0',name:'无效'}]};
+    fields_params3['insureCompanyId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/insureCompany/list',
+			id:'insureCompanyId',
+			name:'companyName'
+		},
+        unshiftData: {id:'0',name:'全部'}
+	};
+    fields_params3['insureChannelId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/insureChannel/list',
+			id:'insureChannelId',
+			name:'channelName'
+		}
+	};
+	fields_params3['provCode'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll'
+		},
+		unshiftData: {id:'0',name:'全部'},
+		onchange: function(){
+			var provinceCode = $('#Form_insurance_reCash div[name=provCode]').select('val'); 
+			if(provinceCode==''){ 
+				$('#Form_insurance_reCash div[name=cityCode]').select({
+					urlData:{url:''},
+					data:[{id:'0',name:'全部'}]});
+			}else{ 
+				$('#Form_insurance_reCash div[name=cityCode]').select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+					},
+					unshiftData: {id:'0',name:'全部'} 
+				});
+			} 			
+		}
+	};
+	fields_params3['cityCode'] = {
+		data: [{id:'0',name:'全部'}]
+	}; 
+        //乘
+    function numMulti(num1, num2) {
+        var baseNum = 0;
+        try {
+        baseNum += num1.toString().split(".")[1].length;
+        } catch (e) {
+        }
+        try {
+        baseNum += num2.toString().split(".")[1].length;
+        } catch (e) {
+        }
+        return Number(num1.toString().replace(".", "")) * Number(num2.toString().replace(".", "")) / Math.pow(10, baseNum);
+    };
+    //除
+    function numDiv(num1, num2) {
+        var baseNum1 = 0, baseNum2 = 0;
+        var baseNum3, baseNum4;
+        try {
+        baseNum1 = num1.toString().split(".")[1].length;
+        } catch (e) {
+        baseNum1 = 0;
+        }
+        try {
+        baseNum2 = num2.toString().split(".")[1].length;
+        } catch (e) {
+        baseNum2 = 0;
+        }
+        with (Math) {
+        baseNum3 = Number(num1.toString().replace(".", ""));
+        baseNum4 = Number(num2.toString().replace(".", ""));
+        return (baseNum3 / baseNum4) * pow(10, baseNum2 - baseNum1);
+        }
+    }; 
+    
+    page_column_model.push({display: '渠道ID', name : 'insureChannelId',hidden:true});
+    page_column_model.push({display: '渠道编码', name : 'channelCode'});
+    page_column_model.push({display: '渠道名称', name : 'channelName'});
+    page_column_model.push({display: '渠道备注', name : 'remarks'});
+    page_column_model.push({display: '渠道状态', name : 'statusName'});
+
+	page_column_model_b.push({display: '保险公司id', name : 'insureCompanyId',hidden:true});
+	page_column_model_b.push({display: '保险公司编码', name : 'comCode'});
+	page_column_model_b.push({display: '保险公司名称', name : 'companyName'});
+	page_column_model_b.push({display: '保险公司备注', name : 'remarks'});
+	page_column_model_b.push({display: '合作状态', name : 'statusName'});
+
+	page_column_model_c.push({display: 'ID', name : 'id',hidden:true});
+	page_column_model_c.push({display: '保险公司ID', name : 'insureCompanyId',hidden:true});
+	page_column_model_c.push({display: '保险渠道ID', name : 'insureChannelId',hidden:true});
+	page_column_model_c.push({display: '保险公司编码', name : 'comCode'});
+	page_column_model_c.push({display: '保险公司名称', name : 'companyName'});
+	page_column_model_c.push({display: '保险公司备注', name : 'companyRemarks'});
+	page_column_model_c.push({display: '渠道名称', name : 'channelName'});
+	page_column_model_c.push({display: '渠道备注', name : 'channelRemarks'});
+	page_column_model_c.push({display: '地点', name : 'cityName'});
+	page_column_model_c.push({display: '提现比例  ', name : 'cashbackRatio',diy:function(item,$div){
+		$div.html(numMulti(item.cashbackRatio, 100)+'%')
+	}});
+	page_column_model_c.push({display: '单日养车基金补贴额度', name : 'daySubsidyCash'});
+	page_column_model_c.push({display: '补贴月数', name : 'subsidyMonths'});
+	page_column_model_c.push({display: '绑定代金券ID', name : 'vouID',width:200,diy:function(item,$div){
+        var $a = $("<a href='javascript:' class='insurance_baodan' style='float:left;'>详情</a>");
+        var insuranceData = item.insurePremiumConfig;
+        $div.html("");
+        var str = "";
+        $.each(insuranceData,function(i){
+            var item = insuranceData[i];
+            twoStr = '';
+            $.each(item.insureVoucherRel,function(k){
+                var twoItem = item.insureVoucherRel[k];
+                twoStr += '<span>ID'+twoItem.voucherId+'<i>('+twoItem.voucherNum+')</i></span>'
+            })
+            str += '<em>'
+                    +'<span>'+item.minValue+'</span>-'
+                    +'<span>'+item.maxValue+'</span>：'
+                    +twoStr
+                +'</em>'
+        })
+        var $box = $("<div style='width:145px;float:left;height:28px;overflow:hidden'></div>")
+        $div.append($box.append(str))
+        if(insuranceData != ''){
+            $div.append($a)
+        }
+        $a.click(function(){
+            $("#Form_voucherId_datil").form({
+                title:'绑定代金券ID详情'
+            }).form('open')
+            $(".ycb_vou_id").html("")
+            $(".ycb_vou_id").append(str)
+        })
+        //$div.attr("title",str)
+    }});
+	page_column_model_c.push({display: '车险基金单日额', name : 'daySubsidyFund'});
+	page_column_model_c.push({display: '车险基金发放月数', name : 'subsidyFundMonths'});
+	page_column_model_c.push({display: '是否有效', name : 'statusName'});
+    
+    page_search_items_c.push({row:'1',type:'jrad-select',display:'保险公司',name:'insureCompanyId',params:jRad.params['insureCompanyId']}); 
+	page_search_items_c.push({row:'1',type:'jrad-select',display:'省',name:'provCode',params:jRad.params['provCode']}); 
+	page_search_items_c.push({row:'1',type:'jrad-select',display:'市',name:'cityCode',params:jRad.params['cityCode']});
+	page_search_items_c.push({row:'2',type:'jrad-select',display:'渠道',name:'insureChannelId',params:jRad.params['insureChannelId']}); 
+
+    page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',
+    	onpress : function(){ 
+    		$("#Form_insuranceChannel_exten").form({
+    			title:'渠道创建',
+    			url:'/shopmanage-ws/ws/0.1/insureChannel/add',
+    			grid: 10, 
+    			item:{},				
+				success_callback:function(){ 
+                    $('#Table_insuranceChannel_exten').flexMessage('创建成功', 'success');
+                    $('#Table_insuranceChannel_exten').flexReloadCurrentPage()
+                }
+    		}).form('open')
+    		$(".channelStaut").hide();
+        }
+    });    
+	page_list_buttons.push({title: '修改状态',displayname:'修改状态',name:'edit',bclass: 'edit',
+		prefunc:function(){
+            var checked = $('#Table_insuranceChannel_exten').getCheckedTrs();
+            if (checked.length == 0) {return false;}else{return true;}
+        },
+    	onpress : function(){ 
+            var checked = $('#Table_insuranceChannel_exten').getCheckedTrs();
+    		$("#Form_insuranceChannel_exten").form({
+    			title:'渠道修改',
+    			url:'/shopmanage-ws/ws/0.1/insureChannel/update',
+    			grid: 10, 
+    			fields_params:fields_params,
+    			item:{'channelCode':checked[0].channelCode,'channelName':checked[0].channelName,'remarks':checked[0].remarks,'status':checked[0].status},
+    			before_submit:function(json){
+    				json.insureChannelId = checked[0].insureChannelId;
+    				return json
+    			},				
+				success_callback:function(){ 
+                    $('#Table_insuranceChannel_exten').flexMessage('修改成功', 'success');
+                    $('#Table_insuranceChannel_exten').flexReloadCurrentPage()
+                }
+    		}).form('open')
+    		$(".channelStaut").show();
+        }
+    });
+
+    page_list_buttons_b.push({title: '创建',name:'Add', bclass: 'add',
+    	onpress : function(){ 
+    		$("#Form_insuranceCompany").form({
+    			title:'保险公司创建',
+    			url:'/shopmanage-ws/ws/0.1/insureCompany/add',
+    			grid: 10, 
+    			item:{},				
+				success_callback:function(){ 
+                    $('#Table_insuranceCompany').flexMessage('创建成功', 'success');
+                    $('#Table_insuranceCompany').flexReloadCurrentPage()
+                }
+    		}).form('open')
+    		$(".companycan").hide();
+        }
+    });    
+	page_list_buttons_b.push({title: '修改状态',displayname:'修改状态',name:'edit',bclass: 'edit',
+		prefunc:function(){
+            var checked = $('#Table_insuranceCompany').getCheckedTrs();
+            if (checked.length == 0) {return false;}else{return true;}
+        },
+    	onpress : function(){ 
+            var checked = $('#Table_insuranceCompany').getCheckedTrs();
+    		$("#Form_insuranceCompany").form({
+    			title:'保险公司修改',
+    			url:'/shopmanage-ws/ws/0.1/insureCompany/update',
+    			grid: 10, 
+    			fields_params:fields_params2,
+    			item:{'comCode':checked[0].comCode,'companyName':checked[0].companyName,'remarks':checked[0].remarks},
+    			before_submit:function(json){
+    				json.insureCompanyId = checked[0].insureCompanyId;
+    				return json
+    			},				
+				success_callback:function(){ 
+                    $('#Table_insuranceCompany').flexMessage('修改成功', 'success');
+                    $('#Table_insuranceCompany').flexReloadCurrentPage()
+                }
+    		}).form('open')
+    		$(".companycan").show();
+        }
+    });
+
+  	var theadcon = '<tr class="vouTr">'
+            			+'<th>保险价格起始</th>'
+            			+'<th>保险价格终止</th>'
+            			+'<th>代金券ID1</th>'
+            			+'<th>代金券ID1数量</th>'
+            		+'</tr>';
+    var tbodycon = '<tr>'
+            			+'<td><input type="text" class="minValue"></td>'
+            			+'<td><input type="text" class="maxValue"></td>'
+            			+'<td><input type="text" class="voucherId"></td>'
+            			+'<td><input type="text" class="voucherNum"></td>'
+            		+'</tr>'
+    page_list_buttons_c.push({title: '创建',name:'Add', bclass: 'add',
+    	onpress : function(){ 
+    		$("#Form_insurance_reCash").form({
+    			title:'创建',
+    			url:'/shopmanage-ws/ws/0.1/insureCashBack/add',
+    			fields_params:fields_params3,
+				validators:jRad.validators,
+    			item:{},
+    			before_submit:function(json){
+    				var empArr = [];
+    				//console.log($("#area_check_string").data('val'))
+    				if($("#area_check_string").data('val') == undefined || $("#area_check_string").data('val') == ''){
+	    				json.insurePremiumConfig = empArr;
+    				}else{
+	    				json.insurePremiumConfig = $("#area_check_string").data('val');
+    				}
+                    json.cashbackRatio = numDiv($("#Form_insurance_reCash div[name='cashbackRatio']",wraper).input('val'),100);
+    				return json;
+    			},				
+				success_callback:function(){ 
+                    $('#Table_insurance_reCash').flexMessage('创建成功', 'success');
+                    $('#Table_insurance_reCash').flexReloadCurrentPage()
+                }
+    		}).form('open')
+
+    		$("#area_check_string").data('val',"")
+    		$("#area_check_string").html("")
+
+    		$(".noshow").show();
+    		$(".isCan").hide();
+
+    		$("#Form_insurance_reCash .citybtn").unbind('click').bind('click',function(){
+    			//$("#Form_insurance_reCash .citybtn").click(function(){   
+	    		$("#Form_insurance_reCash").form('close')
+    			$("#Form_voucher_fig").form({
+    				title:'绑定代金券',
+    				grid:20,
+	    			autobinding: true,
+					validators:jRad.validators,
+	    			submit:function(){
+	    				var insurePremiumConfig = [];
+	    				$(".vouTable tbody tr").each(function(i){
+	    					var insurJson = {};
+	    					insurJson.minValue = $(".vouTable tbody tr").eq(i).find("input").eq(0).val();
+	    					insurJson.maxValue = $(".vouTable tbody tr").eq(i).find("input").eq(1).val();
+	    					var insureVoucherRel = [];
+	    					$(".vouTable tbody tr").eq(i).find("td").each(function(k){
+		    					var minjson = {}
+		    					if(k>=2){
+		    						if(k%2 == 0){
+		    							if($(this).find("input").val() == ''){
+		    								minjson.voucherId = 0;
+		    							}else{
+			    							minjson.voucherId = $(this).find("input").val();
+		    							}
+		    							if($(this).next().find("input").val() == ''){
+		    								minjson.voucherNum = 0;
+		    							}else{
+			    							minjson.voucherNum = $(this).next().find("input").val();
+		    							}
+			    						insureVoucherRel.push(minjson)
+		    						}
+		    					}
+		    				});
+	    					insurJson.insureVoucherRel = insureVoucherRel;
+	    					insurePremiumConfig.push(insurJson)
+	    				})
+
+	    				$(".vouTbody tr").each(function(i){
+	    					if($(".maxValue").eq(i).val() < $(".minValue").eq(i).val()){
+  								$.jRadMessage({level:'error',message:"保险终止价格不能大于开始价格",selector:$("#Form_voucher_fig")});
+  								return false;
+	    					}
+	    					var reg = /^\d+(\.\d+)?$/;
+	    					if(!reg.test($(".maxValue").val())){
+	    						$.jRadMessage({level:'error',message:"保险终止价格不能为负数",selector:$("#Form_voucher_fig")});
+	    						return false;
+	    					}
+	    					if(!reg.test($(".minValue").val())){
+	    						$.jRadMessage({level:'error',message:"保险起始价格不能为负数",selector:$("#Form_voucher_fig")});
+	    						return false;
+	    					}
+	    					var reg2 = /^[0-9]+$/;
+	    					if(!reg2.test($(".voucherId").val())){
+	    						$.jRadMessage({level:'error',message:"代金券ID为非负整数",selector:$("#Form_voucher_fig")});
+	    						return false;
+	    					}
+	    					if(!reg2.test($(".voucherNum").val())){
+	    						$.jRadMessage({level:'error',message:"代金卷数量为非负整数",selector:$("#Form_voucher_fig")});
+	    						return false;
+	    					}
+	    					else{
+			    				$("#Form_voucher_fig").hide();
+			    				$(".overcurtainDiv").eq(0).remove();
+			    				$("#Form_insurance_reCash").form('open')
+			    				$("#area_check_string").data('val',insurePremiumConfig).html("已绑定代金券ID")
+	    					}
+	    				})
+	    			},
+	    			cancel:function(){
+	    				$("#Form_voucher_fig").hide();
+	    				$(".overcurtainDiv").eq(0).remove();
+	    				$("#Form_insurance_reCash").form('open')
+	    			}
+    			}).form('open')
+
+    			var insuranceData = $("#area_check_string").data('val')
+    			//console.log(insuranceData)
+
+    			if(insuranceData == ""){
+    				$(".vouTable thead").html("");
+    				$(".vouTable thead").append(theadcon);
+    				$(".vouTable tbody").html("")
+    				$(".vouTable tbody").append(tbodycon);
+    			}else{
+    				$(".vouTbody").html("");
+    				var str = "";
+    				var thStr = "";
+    				var maxK = 0;
+    				$.each(insuranceData,function(i){
+    					var item = insuranceData[i];
+    					twoStr = '';
+    					$.each(item.insureVoucherRel,function(k){
+                    		var twoItem = item.insureVoucherRel[k];
+                    		maxK = (maxK<=k)?k:maxK;
+                    		twoStr += '<td><input type="text" class="voucherId" value="'+twoItem.voucherId+'"></td>'
+                    			+'<td><input type="text" class="voucherNum" value="'+twoItem.voucherNum+'"></td>'
+                    	})
+    					str += '<tr>'
+                    			+'<td><input type="text" class="minValue" value="'+item.minValue+'"></td>'
+                    			+'<td><input type="text" class="maxValue" value="'+item.maxValue+'"></td>'
+                    			+twoStr
+                    		+'</tr>'
+    				})
+    				//console.log(maxK)
+    				for(var i=0;i<=(maxK-10);i++){
+            			thStr += '<th>代金券ID'+(i+2)+'</th>'
+            				  +'<th>代金券ID'+(i+2)+'数量</th>'
+    				}
+    				//console.log(thStr)
+    				$(".vouTr").append(thStr)
+    				$(".vouTbody").append(str)
+    				$(".vouTbody input").each(function(i){
+    					if($(".vouTbody input").eq(i).val() == 0){
+    						$(".vouTbody input").eq(i).val("")
+    					}
+    				})
+    			}
+    			//$(".vouTbody input").val("")
+    			$("#Form_voucher_fig .addCashBtn").unbind('click').bind('click',function(){
+    				$(".vouTable tbody tr").last().clone().prependTo(".vouTbody");
+    				$(".vouTable tbody tr").last().find("input").val("")
+    			})
+    			$("#Form_voucher_fig .addIdBtn").unbind('click').bind('click',function(){
+    				addCol();
+    			})
+    		})
+        }
+    });
+
+    function addCol() {  
+    	var cnt = parseFloat($(".vouTable thead tr th:last").html().substring(5,6))
+        $col1 = $("<th>代金券ID"+(cnt+1)+"</th>");  
+        $col2 = $("<th>代金券ID"+(cnt+1)+"数量</th>"); 
+		$trCol1 = $('<td><input type="text" class="voucherId"></td>')
+		$trCol2 = $('<td><input type="text" class="voucherNum"></td>')
+        $(".vouTable thead tr").append($col1).append($col2);  
+        $(".vouTable tbody tr").append($trCol1).append($trCol2);  
+    } 
+
+	page_list_buttons_c.push({title: '修改状态',displayname:'修改状态',name:'edit',bclass: 'edit',
+		prefunc:function(){
+            var checked = $('#Table_insurance_reCash').getCheckedTrs();
+            if (checked.length == 0) {return false;}else{return true;}
+        },
+    	onpress : function(){ 
+            var checked = $('#Table_insurance_reCash').getCheckedTrs();
+    		$("#Form_insurance_reCash").form({
+    			title:'修改',
+    			url:'/shopmanage-ws/ws/0.1/insureCashBack/update',
+    			item:{'cashbackRatio':numMulti(checked[0].cashbackRatio, 100),'daySubsidyCash':checked[0].daySubsidyCash,'subsidyMonths':checked[0].subsidyMonths,'daySubsidyFund':checked[0].daySubsidyFund,'subsidyFundMonths':checked[0].subsidyFundMonths,'status':checked[0].status},
+    			fields_params:fields_params3,
+				validators:jRad.validators,
+    			before_submit:function(json){
+    				var empArr = [];
+    				json.id = checked[0].id;
+    				if($("#area_check_string").data('val') == undefined || $("#area_check_string").data('val') == ''){
+	    				json.insurePremiumConfig = empArr;
+    				}else{
+	    				json.insurePremiumConfig = $("#area_check_string").data('val');
+    				}
+                    json.cashbackRatio = numDiv($("#Form_insurance_reCash div[name='cashbackRatio']",wraper).input('val'),100);
+    				return json
+    			},				
+				success_callback:function(){ 
+                    $('#Table_insurance_reCash').flexMessage('修改成功', 'success');
+                    $('#Table_insurance_reCash').flexReloadCurrentPage()
+                }
+    		}).form('open')
+    		$(".noshow").hide();
+    		$(".isCan").show();
+
+
+    		if(checked[0].insurePremiumConfig.length != ''){
+    			$("#area_check_string").data("val",checked[0].insurePremiumConfig).html("已绑定代金券ID")
+    		}else{
+    			$("#area_check_string").data("val",'').html("")
+    		}  
+
+    		$("#Form_insurance_reCash .citybtn").unbind('click').bind('click',function(){
+	    		$("#Form_insurance_reCash").form('close')
+    			$("#Form_voucher_fig").form({
+    				title:'绑定代金券',
+    				grid:20,
+	    			autobinding: true,
+	    			submit:function(){
+	    				var insurePremiumConfig = [];
+	    				$(".vouTable tbody tr").each(function(i){
+	    					var insurJson = {};
+	    					insurJson.minValue = $(".vouTable tbody tr").eq(i).find("input").eq(0).val();
+	    					insurJson.maxValue = $(".vouTable tbody tr").eq(i).find("input").eq(1).val();
+	    					var insureVoucherRel = [];
+	    					$(".vouTable tbody tr").eq(i).find("td").each(function(k){
+		    					var minjson = {}
+		    					if(k>=2){
+		    						if(k%2 == 0){
+		    							if($(this).find("input").val() == ''){
+		    								minjson.voucherId = 0;
+		    							}else{
+			    							minjson.voucherId = $(this).find("input").val();
+		    							}
+		    							if($(this).next().find("input").val() == ''){
+		    								minjson.voucherNum = 0;
+		    							}else{
+			    							minjson.voucherNum = $(this).next().find("input").val();
+		    							}
+			    						insureVoucherRel.push(minjson)
+		    						}
+		    					}
+		    				});
+	    					insurJson.insureVoucherRel = insureVoucherRel;
+	    					insurePremiumConfig.push(insurJson)
+	    				})
+	    				$("#Form_voucher_fig").hide();
+	    				$(".overcurtainDiv").eq(0).remove();
+	    				$("#Form_insurance_reCash").form('open')
+	    				$("#area_check_string").data('val',insurePremiumConfig).html("已绑定代金券ID")    				
+	    			},
+	    			cancel:function(){
+	    				$("#Form_voucher_fig").hide();
+	    				$(".overcurtainDiv").eq(0).remove();
+	    				$("#Form_insurance_reCash").form('open')
+	    			}
+    			}).form('open')
+
+    			var saveData = $("#area_check_string").data("val")
+
+    			if(saveData == ""){
+    				$(".vouTable thead").html("");
+    				$(".vouTable thead").append(theadcon);
+    				$(".vouTable tbody").html("")
+    				$(".vouTable tbody").append(tbodycon);
+    			}else{
+    				$(".vouTbody").html("");
+    				var str = "";
+    				var thStr = "";
+    				var maxK = 0;
+    				$.each(saveData,function(i){
+    					var item = saveData[i];
+    					twoStr = '';
+    					$.each(item.insureVoucherRel,function(k){
+                    		var twoItem = item.insureVoucherRel[k];
+                    		maxK = (maxK<=k)?k:maxK;
+                    		twoStr += '<td><input type="text" class="voucherId" value="'+twoItem.voucherId+'"></td>'
+                    			+'<td><input type="text" class="voucherNum" value="'+twoItem.voucherNum+'"></td>'
+                    	})
+    					str += '<tr>'
+                    			+'<td><input type="text" class="minValue" value="'+item.minValue+'"></td>'
+                    			+'<td><input type="text" class="maxValue" value="'+item.maxValue+'"></td>'
+                    			+twoStr
+                    		+'</tr>'
+    				})
+    				for(var i=0;i<=(maxK-1);i++){
+            			thStr += '<th>代金券ID'+(i+2)+'</th>'
+            				  +'<th>代金券ID'+(i+2)+'数量</th>'
+    				}
+    				if(thStr != ''){
+    					$(".vouTr").html('<th>保险价格起始</th><th>保险价格终止</th><th>代金券ID1</th><th>代金券ID1数量</th>').append(thStr)
+    				}
+
+    				$(".vouTbody").append(str)
+    				// var tdIndex = $(".vouTbody tr").eq(0).find("td").length-1;
+    				// $(".vouTr th").each(function(i){
+    				// 	if(i>tdIndex){
+    				// 		$(".vouTr th").eq(i).remove();
+    				// 	}
+    				// })
+
+    				$(".vouTbody input").each(function(i){
+    					if($(".vouTbody input").eq(i).val() == 0){
+    						$(".vouTbody input").eq(i).val("")
+    					}
+    				})
+    			}
+
+    			$("#Form_voucher_fig .addCashBtn").unbind('click').bind('click',function(){
+    				$(".vouTable tbody tr").last().clone().prependTo(".vouTbody");
+    				$(".vouTable tbody tr").last().find("input").val("")
+    			})
+    			$("#Form_voucher_fig .addIdBtn").unbind('click').bind('click',function(){
+    				addCol();
+    			})
+    		})
+        }
+    });
+
+
+    page_list_buttons_c.push({title: '删除',name:'Delete', bclass: 'delete',
+    	prefunc:function(){
+            var checked = $('#Table_insurance_reCash').getCheckedTrs();
+            if (checked.length == 0) {return false;}else{return true;}
+        },
+        onpress : function(){
+        	var checked = $('#Table_insurance_reCash').getCheckedTrs();
+        	$.jRadConfirm('确认删除？',1,function(){
+        		//var postData={};
+        		//postData.id=checked[0].id;
+        		$.jRadAjax({
+        			url:'/shopmanage-ws/ws/0.1/insureCashBack/delete?id='+checked[0].id,
+        			//data:postData,
+        			success:function(){
+        				$('#Table_insurance_reCash').flexMessage('删除成功!', 'success');
+		           	    $('#Table_insurance_reCash').flexReloadSearch(); 
+        			},
+              		error:function(xhr){
+  					    var errormsg = eval("(" + xhr.responseText + ")"); 
+      					if (errormsg != undefined) {
+      						$('#Table_insurance_reCash').flexMessage(errormsg[0].message, 'error');
+      					}
+					}
+        	  	})
+        	})
+		}
+	});
+
+    page_list_buttons.push({separator: true});
+    page_list_buttons_b.push({separator: true});
+    page_list_buttons_c.push({separator: true});
+
+	$('#Table_insuranceChannel_exten').flexigrid({
+		reload:true,
+		method:'get', 
+		colModel : page_column_model,
+		buttons : page_list_buttons,
+		searchitems :page_search_items,
+		showSearch:true,
+		pagination: {
+			diaplay_pages: 5,
+			align: 'bottom' 
+		},
+		url:'/shopmanage-ws/ws/0.1/insureChannel/page',
+		onError:showRemarkError,
+		checkBoxType:'single'
+	})
+	$('#Table_insuranceCompany').flexigrid({
+		reload:true,
+		method:'get', 
+		colModel : page_column_model_b,
+		buttons : page_list_buttons_b,
+		searchitems :page_search_items,
+		showSearch:true,
+		pagination: {
+			diaplay_pages: 5,
+			align: 'bottom' 
+		},
+		url:'/shopmanage-ws/ws/0.1/insureCompany/page',
+		onError:showRemarkError,
+		checkBoxType:'single'
+	})
+	$('#Table_insurance_reCash').flexigrid({
+		reload:true,
+		method:'get', 
+		colModel : page_column_model_c,
+		buttons : page_list_buttons_c,
+		searchitems :page_search_items_c,
+		showSearch:true,
+		pagination: {
+			diaplay_pages: 5,
+			align: 'bottom' 
+		},
+		overflow:true,
+		url:'/shopmanage-ws/ws/0.1/insureCashBack/page',
+		onError:showRemarkError,
+		checkBoxType:'single'
+	})
+});
+function showRemarkError(xhr){
+ 	var errormsg = eval("(" + xhr.responseText + ")");
+  	var cDiv = $("#Wraper_insuranceChannel_recash .cDiv");
+  	$.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+}
+</script>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta name="format-detection" content="telephone=no" />
+<link href="css/query.css" rel="stylesheet" type="text/css" />
+<title>帮我砍保费</title>
+</head>  
+<style type="text/css">
+	.list li:first-child{
+		border: none;
+	}
+</style>
+<body>
+  <section>
+  <article class="price-wrap"> 
+  	<p class="info"><span class="sponsorNickname"></span> 在养车宝买车险可立减 <span id="maxThreshold"></span> 元<br>此优惠需好友助战获得 已减 <span id="assistInCash"></span> 元</p>
+  </article> 
+  <article class="play-wrap">
+  	<div class="text-pic"><img src="css/images/text.png"></div>
+  	<div class="play">
+	   <img src="css/images/bg.png">
+	   <div class="num-box">
+		  <div class="num"></div>
+		  <div class="mult"></div>
+		  <div class="num"></div>
+	   </div> 
+	</div>
+  	<div class="y-btn playBtn">砍一刀</div> 
+    <p class="label" style="display:none;">小手一拨，摇出<span id="remarks"></span>点！<br/>助好友增加余额<span id="remarknum"></span>元！</p>
+  	<div class="play-price">
+  	<h1><span class="sponsorNickname"></span>在养车宝查询的爱车报价：</h1> 
+  	<p><label>保险公司报价：&nbsp;&nbsp;</label><span id="marketAmount"></span></p>
+  	<p><label>养车宝报价：&nbsp;&nbsp;&nbsp;</label>
+  	   <span class="autoInsurancequote"></span> 保险公司报价85折
+  	</p>
+  	<p><label>好友助战还能减：</label><span id="restAmout"></span> 商业险部分<strong class="autoInsurancequote">2000</strong>×10%
+  	</p> 
+    </div> 
+	
+	<ul class="list"></ul>
+	<div class="btn" id="queryBtn">看看我能减免多少保费</div>
+  <p class="tip">查看更多</p>
+  </article>  
+ </section>
+<script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script>  
+<script type="text/javascript" src="../js/jquery.json-2.2.js"></script> 
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+<script type="text/javascript" src="js/commen.js"></script>  
+<script type="text/javascript" src="js/easing.js"></script>  
+<script type="text/javascript"> 
+   var paramJson = {},pageindex=0;
+   $(document).ready(function(){ 
+       try{
+        var phoneWidth = parseInt(window.screen.width);
+        var phoneHeight = parseInt(window.screen.height); 
+        var phoneScale = phoneWidth / 640;
+        var ua = navigator.userAgent;
+        var sUserAgent = ua.toLowerCase(); 
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os"; 
+        if (/Android (\d+\.\d+)/.test(ua)) {
+            var version = parseFloat(RegExp.$1);
+            // andriod 2.3
+                $('[name="viewport"]').attr('content', 'width=640, initial-scale=' + phoneScale + ', minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi');
+            if (version >= 2.3) {
+                // andriod 2.3以上
+            } else {
+                $('[name="viewport"]').attr('content', 'width=640, initial-scale= 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable=no, target-densitydpi=device-dpi');
+            }
+        // 其他系统
+        } else if(bIsIpad || bIsIphoneOs || bIsIphone){   
+            var otherW = phoneWidth*2;
+            $(".content-wrap").css({
+                'width':otherW,
+                'min-width':otherW,
+                'min-width':otherW,
+                'margin-left': -phoneWidth
+            });
+            $('[name="viewport"]').attr('content', 'width='+otherW+', initial-scale= 0.5, minimum-scale = 0.5, maximum-scale = 0.5, user-scalable=no, target-densitydpi=device-dpi'); 
+        }else{
+             $('[name="viewport"]').attr('content', 'width=640, initial-scale= 0.5, minimum-scale = 0.5, maximum-scale = 0.5, user-scalable=no, target-densitydpi=device-dpi');
+        }
+       }catch(e){}
+
+      var url =window.location.search;  
+      if(url!=undefined&&url!=""){
+        var paramsArr = (url.split("?")[1]).split("&"); 
+        $.each(paramsArr,function(i){
+         var item = paramsArr[i].split("=");
+         paramJson[item[0]] = item[1];
+        });    
+      }   
+     $("#queryBtn").click(function(){    
+         window.location.href = "index.html?openid="+paramJson.openid+"&nickname="+encodeURIComponent(paramJson.nickname)+"&headImgUrl="+paramJson.headImgUrl;
+     });
+     $(".playBtn").click(function(){  
+        $(".playBtn").fadeOut();
+  	    getDice(); 
+	});	 
+	 $(".tip").click(function(){
+        getList();
+    });  
+    getUserInfo(); 
+    getList();    
+    getShareInfo();
+});
+var isBegin = false;
+function play(result){
+      if(result.length<2){
+        return false;
+      }
+      if(isBegin) return false;
+      isBegin = true;
+      $(".num").css('backgroundPositionY',0); 
+      var u = 193;
+      var num_arr = result;
+      $(".num").each(function(index){
+        var _num = $(this);
+        if(num_arr[index]=="0.1"){
+          num_arr[index] = "10";
+        }
+        setTimeout(function(){
+          _num.animate({ 
+            backgroundPositionY: (u*55) - (u*num_arr[index])
+          },{
+            duration: 6000+index*3000,
+            easing: "easeInOutCirc",
+            complete: function(){
+              if(index==1) isBegin = false;
+            }
+          });
+        }, index * 100);
+      });
+      $(".mult").each(function(index){
+        var mult = $(this);
+        var u = 193;
+        setTimeout(function(){
+          mult.animate({ 
+            backgroundPositionY: (u*30) - (u*3)
+          },{
+            duration: 6000+2*3000,
+            easing: "easeInOutCirc",
+            complete: function(){ 
+              $(".label").fadeIn(); 
+              pageindex = 0; 
+              getList();  
+            }
+          });  
+        }, index * 100);
+      });
+}
+function getDice(){  
+      $.ajax({
+          url: '/yangchebao-weixin-ws/ws/0.1/qunabao/randomGetDice',
+          type: 'get', 
+          async:false,
+          dataType: 'json',
+          success: function(data) { 
+             var r = [] ;
+             if(data.firstPoint!=undefined&&data.firstPoint!=""){
+               r.push(data.firstPoint);
+               paramJson.firstPoint = data.firstPoint;
+             }
+              if(data.secondPoint!=undefined&&data.secondPoint!=""){
+               r.push(data.secondPoint);
+               paramJson.secondPoint = data.secondPoint;
+             } 
+             $("#remarks").html(paramJson.firstPoint+"×"+paramJson.secondPoint+"="+(parseFloat(paramJson.firstPoint)*parseFloat(paramJson.secondPoint)).toFixed(2));
+             $("#remarknum").html((parseFloat(paramJson.firstPoint)*parseFloat(paramJson.secondPoint)).toFixed(2));
+              addRecord(r);
+          },error:function(xhr){  
+            var mes = eval('('+xhr.responseText+')'); 
+            alertTasat(mes[0].message);
+          }
+      });  
+} 
+    //新增用户投保记录
+  function addRecord (r){
+        var result = r;
+        var postData = {};   
+        postData.sponsorId = paramJson.sponsorId; 
+        postData.friendId = paramJson.openid;  
+        postData.cash = (parseFloat(paramJson.firstPoint)*parseFloat(paramJson.secondPoint)).toFixed(2);  
+        postData.friendNickname = paramJson.nickname;  
+        postData.friendHeadImgUrl = paramJson.headImgUrl;  
+        postData.remark = paramJson.firstPoint+"×"+paramJson.secondPoint;  
+        postData.state = paramJson.state;  
+        $.ajax({
+          url:'/yangchebao-weixin-ws/ws/0.1/qunabao/addFriendAssistIn',
+          type:'post',
+          dataType:'json',
+          data:$.toJSON(postData),
+          async:false,
+          contentType:'application/json;charset=utf-8',
+          success:function(data){ 
+              if(data.statuCode=="200"){
+                play(result);
+              }else if(data.statuCode=="1001"){
+                alertTasat("页面异常。");
+              }else if(data.statuCode=="1002"){
+                alertTasat("每个好友只能助战一次！");
+              }else if(data.statuCode=="1003"){
+                alertTasat("页面异常。");
+              }else if(data.statuCode=="1004"){
+                alertTasat(data.sponsorNickname+"已经购买车险啦！无法助战了哦！");
+              }else if(data.statuCode=="1005"){
+                alertTasat(data.sponsorNickname+"已经获得最大10%优惠啦！无法助战啦！");
+              }else if(data.statuCode=="1006"){
+                alertTasat("不能给自己助战哦！");
+              }
+             
+        
+          }
+        }); 
+} 
+function getList(){  
+      $.ajax({
+          url: '/yangchebao-weixin-ws/ws/0.1/qunabao/getResult?openid='+paramJson.sponsorId+'&pagesize=10&pageindex='+pageindex+"&"+(new Date()).getTime(),
+          type: 'get', 
+          async:false,
+          dataType: 'json',
+          success: function(data) {   
+            $(".sponsorNickname").html(data.sponsorNickname);
+            $("#marketAmount").html("￥"+data.marketAmount);
+            $(".autoInsurancequote").html("￥"+data.autoInsurancequote);
+            $("#restAmout").html("￥"+data.restAmout);
+            $("#assistInCash").html(data.assistInCash);  
+            $("#maxThreshold").html(data.maxThreshold); 
+            if(pageindex=="0"){
+              $(".list").html("");
+            }
+          	var assistInList = data.assistInList;
+          	$("#friendNum").html(assistInList.totalCount); 
+      		  if((pageindex+1)<assistInList.totalPages){
+      				$(".tip").show();
+      			} else{
+      				$(".tip").hide();
+      			} 
+      		pageindex++;  	
+            var items = assistInList.items;  
+            $.each(items,function(i){
+              var item  = items[i]; 
+              var desc = getDesc(item.cash);  
+              var _li = '<li><div class="left"><img src="'+item.friendHeadImgUrl+'"></div>'
+						+'<p><span>'+item.friendNickname+'</span>'+desc+'<br> <span>摇出'+item.remark+'点，</span><br>'
+						+'助'+item.sponsorNickname+'获得<span>'+item.cash+'元</span>优惠！</p>'; 
+              $(".list").append(_li);
+            }); 
+          },error:function(xhr){  
+		        var mes = eval('('+xhr.responseText+')'); 
+		        alertTasat(mes[0].message);
+          }
+      });  
+ }    
+ //获取code获取助战者信息
+ function getUserInfo(){
+      $.ajax({
+            url: '/yangchebao-weixin-ws/ws/0.1/common/getWxUserBaseInfo?code='+paramJson.code+'&'+(new Date()).getTime(),
+            type: 'get',
+            async: false,
+            contentType:'application/json;charset=utf-8',
+            success:function(data){  
+              paramJson.openid = data.openid;   
+              paramJson.nickname = data.nickname;
+              paramJson.headImgUrl = data.headimgurl; 
+            },error:function(xhr){
+              alertTasat(mes[0].message);
+            }
+        });
+  }
+  
+ function getShareInfo(){  
+   //channel  1,查询车险报价页面；2，获取助战结果页面
+      $.ajax({
+          url: '/yangchebao-weixin-ws/ws/0.1/qunabao/genShareUrl?channel=2&sponsorId='+paramJson.sponsorId+'&'+(new Date()).getTime(),
+          type: 'get', 
+          async:false,
+          dataType: 'json',
+          success: function(data) {  
+             share(data);
+          },error:function(xhr){  
+          var mes = eval('('+xhr.responseText+')'); 
+          alertTasat(mes[0].message);
+          }
+      });  
+ }    
+ 
+</script>  
+</body>
+</html>

@@ -1,0 +1,99 @@
+@charset "utf-8";
+.right{
+	float:left;
+	width:829px;
+	margin-top:6px;
+}
+h2{
+	margin-left:5px;
+	font-size:18px;
+    font-family:"微软雅黑";
+    color:#333;
+}
+.line_1{	
+	height:2px;
+	width:830px;
+	margin:3px 0 30px 0;
+	background-color:#c3c9d2;
+	overflow:hidden;
+}
+.line_1 p{
+	background-color:#d41f30;
+	width:153px;
+	height:2px;
+}
+.wtss{
+	margin-left:10px;
+}
+.wtss span{
+	font-size:14px;
+    font-family:"微软雅黑";
+    color:#2d519c;
+	text-decoration:none;
+	cursor: pointer;
+}
+.wtss label,.wtss p,.wtss input{
+	font-size:14px;
+    font-family:"微软雅黑";
+    color:#555;
+}
+.wtss button{
+    font-size:14px;
+    font-family:"微软雅黑";
+    color:#fff;
+}
+#cy_que input{
+	height:26px;
+	width:160px;
+	margin:0 10px 0 4px;
+	line-height:26px;
+	vertical-align:middle;
+	border:1px solid #c3c9d2;
+	padding: 0 5px;
+}
+#cy_que button{
+	width:63px;
+	height:28px;
+	line-height:28px;
+	background:url(../img/cbs_ss.png) no-repeat;
+	border:none;
+	vertical-align:middle;
+	cursor: pointer;
+}
+.cy_que_s{
+	margin:20px 0;
+}
+.cy_que_s p{
+	margin-bottom:10px;
+}
+.cy_que_s p span{
+	display:inline-block;
+	width:98px;
+}
+.mi_line{	
+	height:1px;
+	width:830px;
+	background-color:#c3c9d2;
+	overflow:hidden;
+}
+.wt div{
+	padding:0 23px;
+	padding:10px 0;
+	border-bottom:1px dashed #cfcfcf;
+}
+.wt div p{
+	margin:3px 0 3px 31px;
+}
+.wt p a{
+	text-decoration: none;
+}
+.wt p span{
+	font-size:14px;
+	font-family:"微软雅黑";
+	color:#444;
+}
+.wt p img{
+	position:relative;
+	top:-3px;
+	margin-right:10px;
+}

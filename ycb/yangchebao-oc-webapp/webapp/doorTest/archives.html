@@ -1,0 +1,1085 @@
+<style type="text/css">
+	#Wraper_archives_manage h1{
+		font-size: 15px; 
+	}
+	.addInput{
+		border-left: none;
+		border-right: none;
+		border-top: none;
+	}
+</style>
+<div class="urlContentWraper" id="Wraper_archives_manage">
+<div class="ui-info-layout">
+<div class="ui-info-layout-subbox "> 
+	<div class="jrad-table">
+        <h2 class="ui-tit"><strong>档案管理</strong><bottom class="all-work-info numb182">页面说明</bottom></h2> 
+        <table id="Table_archives_manage"></table>
+    </div>
+	<div class="details-box" style="display:none;">
+			<ul class="details-tab">
+				<li class="tab-cur tab-cur-first f-left"><span name="title">档案信息</span></li>
+				<li><span class="return"></span></li>
+			</ul>
+			<div class="details-content">
+				<div class="details-scroll">
+					<div class="details-content-inner">
+						<div class="grid-layout ui-form" id="Form_archives_manage">
+							<div class="jrad-form">  
+								<div class="grid-layout-main"> 
+									<input name="inspectionHistoryId" type="hidden">  
+									<input name="workOrderId" type="hidden">  
+									<h1>1 基础信息</h1> 
+									<div class="row-fluid">
+										<label class="span3 grid-layout-label"> 
+										车辆ID：</label>
+										<div class="span5 grid-layout-content">
+											   <p name="wxCarInfoId"></p>
+										</div>
+									</div>
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">微信ID：</label>
+										 <div class="span5 grid-layout-content">
+											   <p name="wxUserInfoId"></p>
+															</div>
+									</div> 
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">品牌：</label>
+										 <div class="span5 grid-layout-content">
+											   <p name="brandName"></p>
+															</div>
+									</div> 
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">车厂：</label>
+										 <div class="span5 grid-layout-content">
+											   <p name="factoryName"></p>
+															</div>
+									</div> 
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">车系：</label>
+										 <div class="span5 grid-layout-content">
+											   <p name="modelName"></p>
+															</div>
+									</div>  
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">颜色：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="color" class="jrad-input-container"></div>
+															</div>
+									</div>  
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">车主姓名：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="realName" class="jrad-input-container"></div>
+															</div>
+									</div> 
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">车主性别：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="sex" class="jrad-radio-container"></div>
+															</div>
+									</div> 	
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">检测地址：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="address" class="jrad-input-container"></div>
+															</div>
+									</div> 	
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">投保公司：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="insuranceCompany" class="jrad-input-container"></div>
+															</div>
+									</div> 	
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">车架号：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="vinNumber" class="jrad-input-container"></div>
+															</div>
+									</div>  	
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">发动机编号：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="machineNumber" class="jrad-input-container"></div>
+															</div>
+									</div>  
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">车牌号：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="plateNumber" class="jrad-input-container"></div>
+															</div>
+									</div>  
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">购车日期：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="buyDate" class="jrad-dateinput-container"></div>
+															</div>
+									</div> 
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">购车价格：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="carPrices" class="jrad-input-container"></div> 万元
+															</div>
+									</div>
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>总里程数：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="totalMileage" class="jrad-input-container"></div> 公里
+															</div>
+									</div> 
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">上传保养里程：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="priorMileage" class="jrad-input-container"></div> 公里
+															</div>
+									</div> 
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">二手车价格评估：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="depreciationPrice" class="jrad-input-container"></div> 万元
+															</div>
+									</div> 
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>下次检测提醒时间：</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="nextInspectionDate" class="jrad-dateinput-container"></div>
+															</div>
+									</div>
+									<div class="modelWrap"></div> 
+									<div class="quesWrap">
+										<h1>车主问题描述：</h1> 
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">问题1：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">出现位置：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">车辆状态：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+										</div> 
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">问题2：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">出现位置：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">车辆状态：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">问题3：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">出现位置：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">车辆状态：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">问题4：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">出现位置：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">车辆状态：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">问题5：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">出现位置：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">车辆状态：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">问题6：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">出现位置：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">车辆状态：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">问题7：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">出现位置：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">车辆状态：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">问题8：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">出现位置：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">车辆状态：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">问题9：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">出现位置：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+											<label class="span2 grid-layout-label">车辆状态：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="ques"></div>
+											</div>
+										</div>
+									</div>
+									<div class="locationWrap">
+										<h1>解决建议：</h1>
+										<div class="row-fluid answerList">
+											<label class="span3 grid-layout-label">系统：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s1"></div>
+											</div>
+											<label class="span2 grid-layout-label">部件：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s2"></div>
+											</div>
+											<label class="span2 grid-layout-label">部位：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s3"></div>
+											</div>
+										</div>
+										<div class="row-fluid answerList">
+											<label class="span3 grid-layout-label">系统：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s1"></div>
+											</div>
+											<label class="span2 grid-layout-label">部件：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s2"></div>
+											</div>
+											<label class="span2 grid-layout-label">部位：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s3"></div>
+											</div>
+										</div>
+										<div class="row-fluid answerList">
+											<label class="span3 grid-layout-label">系统：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s1"></div>
+											</div>
+											<label class="span2 grid-layout-label">部件：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s2"></div>
+											</div>
+											<label class="span2 grid-layout-label">部位：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s3"></div>
+											</div>
+										</div>
+										<div class="row-fluid answerList">
+											<label class="span3 grid-layout-label">系统：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s1"></div>
+											</div>
+											<label class="span2 grid-layout-label">部件：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s2"></div>
+											</div>
+											<label class="span2 grid-layout-label">部位：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s3"></div>
+											</div>
+										</div>
+										<div class="row-fluid answerList">
+											<label class="span3 grid-layout-label">系统：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s1"></div>
+											</div>
+											<label class="span2 grid-layout-label">部件：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s2"></div>
+											</div>
+											<label class="span2 grid-layout-label">部位：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s3"></div>
+											</div>
+										</div>
+										<div class="row-fluid answerList">
+											<label class="span3 grid-layout-label">系统：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s1"></div>
+											</div>
+											<label class="span2 grid-layout-label">部件：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s2"></div>
+											</div>
+											<label class="span2 grid-layout-label">部位：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s3"></div>
+											</div>
+										</div>
+										<div class="row-fluid answerList">
+											<label class="span3 grid-layout-label">系统：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s1"></div>
+											</div>
+											<label class="span2 grid-layout-label">部件：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s2"></div>
+											</div>
+											<label class="span2 grid-layout-label">部位：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s3"></div>
+											</div>
+										</div>
+										<div class="row-fluid answerList">
+											<label class="span3 grid-layout-label">系统：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s1"></div>
+											</div>
+											<label class="span2 grid-layout-label">部件：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s2"></div>
+											</div>
+											<label class="span2 grid-layout-label">部位：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s3"></div>
+											</div>
+										</div>
+										<div class="row-fluid answerList">
+											<label class="span3 grid-layout-label">系统：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s1"></div>
+											</div>
+											<label class="span2 grid-layout-label">部件：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s2"></div>
+											</div>
+											<label class="span2 grid-layout-label">部位：</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="s3"></div>
+											</div>
+										</div>
+									</div> 
+							</div> 
+						</div>
+						<div class="jrad-buttons-container ui-buttons-container">
+							<span class="jrad-btn-primary">确定</span> 
+							<span class="jrad-btn-normal">取消</span>
+						</div>
+						</div>  
+					</div>
+					
+				</div>
+			</div>
+     </div>
+</div>
+</div>   
+ <div id="Form_step" style="display:none;">
+	<div class="grid-layout-main jrad-form">  
+		<div class="row"> 
+			<label class="span3 grid-layout-label">请先输入工单ID：</label>
+			<div class="span8 grid-layout-content">
+				<div name="workOrderId" class="jrad-input-container"></div>
+			</div>
+		</div> 
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container">
+		<span class="jrad-btn-primary">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div>
+    <div id="Form_explain_eg182" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>技师上门检测完成后，需要在这里完成档案，上传检测的结果。</div>
+                    <div><strong>重要功能说明：</strong>①创建：填入检测的工单ID，生成档案；
+              ②修改：即完善工单的基本信息，完善后，用户就可以在APP看到检测结果了。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+</div>
+<script type="text/javascript">
+$(document).ready(function(){ 
+    var wraper = $('#Wraper_archives_manage');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	 	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+    // jRad.params["nextInspectionDate"] = [{msg:'请填写',type:'min',value:1}]
+
+    // var validators={};
+    // validators['nextInspectionDate']=[{msg:'请填写',type:'min',value:1}];
+
+	jRad.params['provinceCodeSearch'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll'
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var provinceCode = $('.searchContent div[name=provinceId]',wraper).select('val');
+			if(provinceCode==''){
+				$('.searchContent div[name=cityId]',wraper).select({
+															urlData:{url:''},
+															data:[{id:'',name:'请选择'}],
+															val: ''});
+			}else{
+			$('.searchContent div[name=cityId]',wraper).select({
+				urlData:{
+					url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+				},
+				unshiftData: {id:'',name:'请选择'},
+				val:''
+			});
+			}  
+		}
+	};
+	jRad.params['cityIdSearch'] = {
+		data: [{id:'',name:'请选择'}] 
+	}; 
+	jRad.params['isDulyProArchive'] = {
+		data: [{id:'',name:'请选择'},{id:'1',name:'是'},{id:'0',name:'否'},] 
+	};
+	jRad.params['reserveServiceDateBegin'] = {  
+			dateFmt: 'yyyy-MM-dd HH:mm:ss'
+		}; 
+	jRad.params['reserveServiceDateEnd'] = {  
+			dateFmt: 'yyyy-MM-dd HH:mm:ss'
+		}; 
+	jRad.params['brandIdSearch'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/modelCms/brand/list',
+			id: 'brandId',
+			name: 'brandName'
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var brandId = $('.searchContent div[name=brandId]',wraper).select('val'); 
+			if(brandId==''){ 
+				$('.searchContent div[name=factoryId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val:''});
+				$('.searchContent div[name=modelId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val:''});
+			}else{  
+			$('.searchContent div[name=factoryId]',wraper).select({ 
+				urlData:{
+					url: '/shopmanage-ws/ws/0.1/modelCms/factory/list?brandId=' + brandId,
+					id: 'factoryId',
+					name: 'factoryName'
+				},
+				unshiftData: {id:'',name:'请选择'}
+			}).select('val','');
+			$('.searchContent div[name=modelId]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val: ''}); 
+			}
+		}
+	}; 
+	jRad.params['factoryIdSearch'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){
+			var factoryId = $('.searchContent div[name=factoryId]').select('val');
+			if(factoryId==''){
+				$('.searchContent div[name=modelId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val:''});
+			}else{
+				$('.searchContent div[name=modelId]').select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/modelCms/model/list?factoryId=' + factoryId,
+						id: 'modelId',
+					    name: 'modelName'
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:""
+				});
+			}
+		}
+	};
+	jRad.params['modelIdSearch'] = {
+			data: [{id:'',name:'请选择'}]
+		};
+
+	var fields_params = {};  
+	fields_params['accessoryStyle'] = {
+			data: [
+			{id:'1',name:'正常'},
+			{id:'2',name:'建议钣金喷漆'}
+			]
+		};
+	fields_params['featureType'] = { 
+			data: [
+			{id:'1',name:'完好'},
+			{id:'2',name:'凹陷'},
+			{id:'3',name:'划痕'},
+			{id:'4',name:'需养护'}
+			]
+		};	
+	fields_params['lifeType'] = {  
+			data: [
+			{id:'1',name:'完好'},
+			{id:'2',name:'建议修复'},
+			{id:'3',name:'建议更换'}
+			]
+		};
+	fields_params['electronType'] = {  
+			data: [
+			{id:'1',name:'有'},
+			{id:'2',name:'无'},
+			{id:'3',name:'建议更换'}
+			]
+		};
+	fields_params['configureType'] = {  
+			data: [
+			{id:'1',name:'改色'},
+			{id:'2',name:'尾翼'},
+			{id:'3',name:'影响'},
+			{id:'4',name:'其他'}
+			]
+		}; 
+	fields_params['sex'] = {  
+			data: [
+			{id:'0',name:'未知'},
+			{id:'1',name:'男'},
+			{id:'2',name:'女'} 
+			]
+		}; 	
+	fields_params['nextInspectionDate'] = {  
+			dateFmt: 'yyyy-MM-dd HH:mm:ss'
+		}; 
+	page_column_model.push({display: '档案ID', name : 'inspectionHistoryId'});
+	page_column_model.push({display: '工单ID', name : 'workOrderId'});
+	page_column_model.push({display: '是否当天生成报告', name : 'isDulyProArchive'});
+    page_column_model.push({display: '微信ID', name : 'wxUserInfoId'});
+    page_column_model.push({display: '车辆ID', name : 'wxCarInfoId'});
+    page_column_model.push({display: '预约时间', name : 'reserveServiceDate'});
+    page_column_model.push({display: '更新时间', name : 'updateDate'});
+    page_column_model.push({display: '最后编辑人', name : 'modifyPeople'});
+   
+	page_search_items.push({row:'1',type:'jrad-input',display:'工单ID',name:'workOrderId'}); 
+    page_search_items.push({row:'1',type:'jrad-input',display:'档案ID',name:'inspectionHistoryId'}); 
+    page_search_items.push({row:'1',type:'jrad-input',display:'微信ID',name:'wxUserInfoId'}); 
+    page_search_items.push({row:'2',type:'jrad-input',display:'车辆ID',name:'wxCarInfoId'});    
+	page_search_items.push({row:'2',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']});
+	page_search_items.push({row:'2',type:'jrad-select',display:'市',name:'cityId',params:jRad.params['cityIdSearch']}); 
+ 	
+ 	page_search_items.push({row:'3',type:'jrad-select',display:'品牌',name:'brandId',params:jRad.params['brandIdSearch']});
+	page_search_items.push({row:'3',type:'jrad-select',display:'车厂',name:'factoryId',params:jRad.params['factoryIdSearch']});  
+	page_search_items.push({row:'3',type:'jrad-select',display:'车系',name:'modelId',params:jRad.params['modelIdSearch']}); 
+ 	page_search_items.push({row:'4',type:'jrad-select',display:'是否当天生成报告',name:'isDulyProArchive',params:jRad.params['isDulyProArchive']});
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'预约时间开始',name:'reserveServiceDateBegin',params:jRad.params['reserveServiceDateBegin']});  
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'预约时间结束',name:'reserveServiceDateEnd',params:jRad.params['reserveServiceDateEnd']}); 
+
+	page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){   
+			 $("#Form_step",wraper).form({item:{}}).form('open'); 
+        }
+    }); 
+	$('#Form_step',wraper).form({ 
+		title:'填写工单ID',
+		validators: {"workOrderId":[{"msg":"请填写工单ID","type":"min","value":"1"},{"msg":"请输入正整数","type":"regex","value":/^[1-9][0-9]{0,}$/}]},
+		fields_params:{},
+		submit: function(){
+				var workOrderId = $("#Form_step div[name='workOrderId']").input('val');
+				 $.jRadGet({
+				 	url:'/shopmanage-ws/ws/0.1/inspectionHistoryCms/checkWorkOrderId?workOrderId='+workOrderId,
+				 	success:function(json){
+					 	var json=$.jRadGet({url : '/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/detailBasicInfoV2?workOrderId='+workOrderId});
+				 		 $('#Form_step',wraper).form('close'); 
+				 		  var _form = $("#Form_archives_manage");
+				 		  json.workOrderId = workOrderId; 
+						 $("p[name=wxCarInfoId]",_form).html(json.wxCarInfoId);
+						 $("p[name=wxUserInfoId]",_form).html(json.wxUserInfoId);
+						 $("p[name=brandName]",_form).html(json.brandName);
+						 $("p[name=factoryName]",_form).html(json.factoryName);
+						 $("p[name=modelName]",_form).html(json.modelName);  
+						 $('#Form_archives_manage',wraper).form({item:json}); 
+						 $('.jrad-table',wraper).slideUp();
+						 $('.details-box',wraper).slideDown();
+						 $(".scroll-up-btn").click();   
+						 addMoudle();  
+				 	},
+				 	error:function(data){
+				 		var mes = eval('('+data.responseText+')');
+						 $.jRadMessage({
+							 level:'error', 
+							 message:mes[0].message 
+						});
+						$('#Form_step',wraper).form('close');
+				 	} 
+				});  
+		} 
+	 });  
+	 $('#Form_archives_manage .jrad-btn-normal',wraper).button({
+		click: function(){
+			$('.details-box',wraper).slideUp();
+			$('.jrad-table',wraper).slideDown(); 
+			$(".scroll-up-btn").click();
+		}
+	});  
+	$('#Form_archives_manage .jrad-btn-primary',wraper).button({
+		click: function(){
+			var flag = $('#Form_archives_manage',wraper).form('validateAll');
+			if(flag){
+				var json = $('#Form_archives_manage',wraper).form('getValue');  
+				//json.sex = "1"; 
+				var items = []; 
+				var rowArr = $(".modelWrap .row-fluid",wraper);
+				$.each(rowArr,function(i){
+				   var _row = rowArr[i];
+				   var info = $(_row).data("info");
+				   var itemId = $(_row).data("itemId");
+				   var inputArr = $(".addInput",_row);
+				   if(inputArr.length>0){
+						$.each(inputArr,function(j){
+						   var _input = $(inputArr[j]);
+						   var text =$.trim(_input.input('val'));
+						   var inputid = _input.attr("inputid");
+						   if(text!=""){
+								$.each(info,function(){
+								   this.itemId = itemId;
+								   if(inputid==this.id){
+								     this.textAnswer = text;
+								   }
+								});
+						   }
+						});
+				   } 
+				   var checked = $(".addRadio",_row).radio('val'); 
+				   if(checked!=""){ 
+						$.each(info,function(){
+							       this.itemId = itemId;
+								   if(this.id==checked){
+								     this.checked = "1";
+								   }else{
+								      this.checked = "0";
+								   }
+						});
+				   }
+				   var checkArr = $(".addCheckbox",_row).checkbox('val');
+				   if(checkArr.length>0){ 
+						$.each(info,function(){
+						    var _this = this;
+							_this.itemId = itemId; 
+							_this.checked = "0";
+							$.each(checkArr,function(j){ 
+							   if(_this.id==checkArr[j]){
+								 _this.checked = "1";
+							   } 
+							});
+						}); 
+				   } 
+				   $.merge(items,info);
+				   
+				}); 
+				json.items = items;
+				json.modifyPeople=carsmart_config.operatorName;
+				var ansToqueArray = [];
+				var quesArr = $(".quesWrap .row-fluid");
+				var locaArr = $(".locationWrap .row-fluid");
+				$.each(quesArr,function(i){
+				    var ans = {}; 
+					var _this = $(this);
+					if(json.inspectionHistoryId!=undefined&&json.inspectionHistoryId!=""){
+					  ans.answerToQuestionId = _this.attr("answerToQuestionId");
+					  ans.carOwnerQuestionId = _this.attr("carOwnerQuestionId");
+					}
+					ans.question1 = $($("div[name='ques']",_this)[0]).input('val');
+					ans.question2 = $($("div[name='ques']",_this)[1]).input('val');
+					ans.question3 = $($("div[name='ques']",_this)[2]).input('val');
+					ans.questionLocation = i+1;
+					var loca = $(locaArr[i]);
+					ans.firstAnswerItemId =  $("div[name='s1']",loca).select('val');
+					ans.secondAnswerItemId = $("div[name='s2']",loca).select('val');
+					var _s3 = $("div[name='s3']",loca);
+					ans.answerItemId = _s3.select('val');
+					if(_s3.select('text')=="其他"){
+					 ans.isOrtherItem = "1";
+					 ans.answerText = $(".addInput",loca).input("val");
+					}else{
+					 if(ans.answerItemId==""){
+					   ans.isOrtherItem = "";
+					 }else{
+					   ans.isOrtherItem = "0";
+					 }
+					}
+					//ans.answerToQuestionId = json.answerToQuestionId;
+					//ans.carOwnerQuestionId = json.carOwnerQuestionId;
+					ansToqueArray.push(ans);  
+				}); 
+				json.ansToqueArray = ansToqueArray;
+				delete json.ques;
+				delete json.s1;
+				delete json.s2;
+				delete json.s3;
+				$.jRadPost({
+							url:'/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/editInspectionHistoryV2',
+							data:json,
+							success:function(data){ 
+								var msg = $(".details-box .details-tab",wraper).find("span[name='title']").html()+"成功！";
+								$.jRadMessage({ level:'success', 
+												message:msg 
+											}); 
+								$('.details-box',wraper).slideUp();
+								$('.jrad-table',wraper).slideDown(); 
+								$(".scroll-up-btn").click();
+								$('#Table_archives_manage').flexReload();  
+							},error:function(data){
+								var mes = eval('('+data.responseText+')');
+								 $.jRadMessage({
+									 level:'error', 
+									 message:mes[0].message 
+								 });
+							}
+						});
+			 
+			}	 
+		}
+	});   
+	$('#Form_archives_manage',wraper).form({
+		validators: jRad.validators,
+		fields_params:fields_params, 
+		layout: 'grid', 
+		autobinding: false
+	 });   
+	function addMoudle(inspectionHistoryId){ 
+		 var urlstr = '/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/detailInspectionHistoryV2Cms';
+		 $(".details-box .details-tab",wraper).find("span[name='title']").html("档案添加");
+		 var flag = (inspectionHistoryId!=undefined&&inspectionHistoryId!="");
+		 if(flag){ 
+		 	  urlstr = '/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/detailInspectionHistoryV2Cms?inspectionHistoryId='+inspectionHistoryId;
+		 	$(".details-box .details-tab",wraper).find("span[name='title']").html("档案编辑");
+		 }
+		 var data = $.jRadGet({url : urlstr});  
+		 var _moudle = $(".modelWrap",wraper);
+		 _moudle.html("");
+		 $.each(data,function(i){
+		 	var item = data[i]; 
+		 	var _h1= $("<h1>").html((i+2)+ item.name);
+		 	_moudle.append(_h1);
+		 	var arr = item.items; 
+		 	$.each(arr,function(j){
+		 		var info = arr[j]; 
+		 		var _row = $("<div>").addClass('row-fluid');
+				var _label = $("<label>").addClass("span3 grid-layout-label").html(info.itemName +'：');
+				var _div = $("<div>").addClass('span18 grid-layout-content'); 
+				var opt = []; 
+				var opt2 = [];
+				var value = "";
+				var value2 = [];
+				var _text = "";
+				var _input = "";
+				$.each(info.options,function(i){
+					var param = info.options[i];
+                    if(param.grabType=="1"){
+                    	var vk = {};
+                    	vk.id = param.id;
+                    	vk.name = param.name; 
+                    	opt.push(vk);
+                    	if(param.checked==1){
+                    		value = param.id;
+                    	} 
+                    	//console.log(opt)
+                    }else if(param.grabType=="2"){
+                    	var vk2 = {};
+                    	vk2.id = param.id;
+                    	vk2.name = param.name; 
+                    	opt2.push(vk2); 
+                    	if(param.checked==1){
+                    		value2.push(param.id);
+                    	} 
+                    }else{
+                    	_text = $("<label>").addClass("grid-layout-label").html(param.name +'：');
+                    	_input = $("<div>").addClass("addInput jrad-input-container").attr("inputid",param.id);
+                    	_input.input({grid:2}); 
+						if(param.textAnswer!=""){
+							_input.input('val',param.textAnswer)
+						}
+                    } 
+				}); 
+				var _radio = ""; 
+				if(opt.length>0){
+					_radio = $("<div>").addClass("addRadio jrad-radio-container");
+					_radio.radio({
+						data:opt
+					}); 
+					if(flag){ 
+						if(value!=""){
+							_radio.radio('val',value); 	
+						}
+					}
+              	}     
+              var _checkbox = ""; 
+			  if(opt2.length>0){
+					_checkbox = $("<div>").addClass("addCheckbox jrad-checkbox-container");
+					_checkbox.checkbox({
+						data:opt2
+					}); 
+					if(flag){ 
+						if(value2.length>0){
+							_checkbox.checkbox('val',value2); 	
+						}
+					}
+              }    
+                var bak = info.options;
+                _div.append(_radio).append(_checkbox).append(_text).append(_input); 
+				_row.append(_label).append(_div).data("info",bak).data("itemId",info.itemId); 
+				_moudle.append(_row);
+		 	});  
+		 });  
+		 
+		 var a1 = $.jRadGet({url : '/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/detailCarQuestion'});
+		 var arr = [];
+		 $.each(a1,function(i){
+			var a = a1[i];
+			var vk = {};
+			vk.id = a.answerItemIdId;
+			vk.name = a.answerItemName;
+			arr.push(vk);
+		 });
+		 arr.unshift({id:'',name:'请选择'});
+		 $(".answerList div[name='s1']",wraper).select({
+			data : arr, 
+			onchange:function(val,item,obj){
+				var _this = obj;
+				var s2 = _this.parents(".answerList").find("div[name='s2']");
+				var s3 = _this.parents(".answerList").find("div[name='s3']");
+				if(item.id!=""){ 
+				s2.select({
+							urlData:{url:'/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/getCarOwernAnswerByPId?parentId='+item.id,
+							id:'answerItemId',
+							name:'answerItemIdName'
+							},
+							unshiftData:{id:'',name:'请选择'},
+							val:''});
+				
+				}else{
+					s2.select({ 
+							urlData:{url:''},
+							data:[{id:'',name:'请选择'}],
+							val:''}); 
+				}
+				s3.select({ 
+							urlData:{url:''},
+							data:[{id:'',name:'请选择'}],
+							val:''}); 
+			}
+		 });
+		 $(".answerList div[name='s2']").select({
+			data : [{"id":"","name":"请选择"}],
+			onchange:function(val,item,obj){
+				var _this = obj;
+				var s3 = _this.parents(".answerList").find("div[name='s3']");
+				if(item.id!=""){ 
+				s3.select({
+							urlData:{url:'/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/getCarOwernAnswerByPId?parentId='+item.id,
+							id:'answerItemId',
+							name:'answerItemIdName'
+							},
+							unshiftData:{id:'',name:'请选择'},
+							val:''});
+				
+				}else{
+					s3.select({ 
+							urlData:{url:''},
+							data:[{id:'',name:'请选择'}],
+							val:''});
+				} 
+			}
+		 }); 
+		 $(".answerList div[name='s3']").select({
+			data : [{"id":"","name":"请选择"}],
+			onchange:function(val,item,obj){
+			  if(item.name=="其他"){
+				if(obj.parents(".answerList").find(".addInput").length==0){
+					var _div = $("<div>").addClass("span3 grid-layout-content");
+					var _input = $("<div>").addClass("addInput jrad-input-container");
+					_input.input({}); 
+					obj.parent(".grid-layout-content").after(_div.append(_input));
+				}else{
+					obj.parents(".answerList").find(".addInput").input("val","");
+				}
+			  }
+			}
+		 });
+	} 
+	page_list_buttons.push({title: '修改',name:'Edit', bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_archives_manage').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+            var checked = $('#Table_archives_manage').getCheckedTrs(); 
+            if(checked[0]) { 
+				 var workOrderId = checked[0].workOrderId;
+				 var inspectionHistoryId = checked[0].inspectionHistoryId;
+				 $.jRadGet({
+				 	url : '/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/detailBasicInfoV2?workOrderId='+workOrderId,
+				 	success:function(json){
+				 		 $('#Form_step',wraper).form('close'); 
+				 		  var _form = $("#Form_archives_manage");
+				 		  json.workOrderId = workOrderId;
+						 $("p[name=wxCarInfoId]",_form).html(json.wxCarInfoId);
+						 $("p[name=wxUserInfoId]",_form).html(json.wxUserInfoId);
+						 $("p[name=brandName]",_form).html(json.brandName);
+						 $("p[name=factoryName]",_form).html(json.factoryName);
+						 $("p[name=modelName]",_form).html(json.modelName);
+						 $('#Form_archives_manage',wraper).form({item:json}); 
+						 $(".details-box .details-tab",wraper).find("span[name='title']").html("活动添加"); 
+						 $('.jrad-table',wraper).slideUp();
+						 $('.details-box',wraper).slideDown();
+						 $(".scroll-up-btn").click();   
+						 addMoudle(inspectionHistoryId); 
+						 getQuestions(inspectionHistoryId);
+				 	} 
+				});  
+            }
+        }
+    });  
+    function getQuestions(inspectionHistoryId){    
+		var data = $.jRadGet({url : "/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/detailCarQuestion?inspectionHistoryId="+inspectionHistoryId});
+        var quesArr = $(".quesWrap .row-fluid");
+		var locaArr = $(".locationWrap .row-fluid");
+		$.each(data,function(i){
+			var item = data[i]; 
+			var index = item.questionLocation-1;
+			var _this = $(quesArr[index]);
+			_this.attr("answerToQuestionId",item.answerToQuestionId);
+			_this.attr("carOwnerQuestionId",item.carOwnerQuestionId);
+			$($("div[name='ques']",_this)[0]).input('val',item.question1);
+			$($("div[name='ques']",_this)[1]).input('val',item.question2);
+			$($("div[name='ques']",_this)[2]).input('val',item.question3); 
+			var loca = $(locaArr[index]);
+			$("div[name='s1']",loca).select('val',item.firstAnswerItemId);
+			$("div[name='s2']",loca).select('val',item.secondAnswerItemId);
+			var _s3 = $("div[name='s3']",loca);
+			_s3.select('val',item.answerItemId);
+			if(item.answerItemName=="其他"){ 
+			 $(".addInput",loca).input("val",item.answerText);
+			} 
+		}); 	
+	}
+    page_list_buttons.push({separator: true}); 
+	$('#Table_archives_manage').flexigrid({
+			reload:true,
+			method:'get',
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true, 
+			url:'/shopmanage-ws/ws/0.1/inspectionHistoryV2Cms/queryInspectionHistoriesV2',
+			onError:showError,
+			overflow:true
+	});     
+	$(".details-tab .return",wraper).click(function(){
+		$('.details-box',wraper).slideUp();
+		$('.jrad-table',wraper).slideDown(); 
+		$(".scroll-up-btn").click();
+	});  
+	
+    $(".numb182").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg182").form({}).form('close');
+        $("#Form_explain_eg182").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg182 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg182").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg182").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg182 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	function showError(xhr){
+	 var errormsg = eval("(" + xhr.responseText + ")");
+	  var cDiv = $("#Wraper_archives_manage .cDiv");
+	  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+	} 
+});  
+</script>

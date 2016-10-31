@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset=utf-8>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+	<link rel="stylesheet" href="http://app.yangchebao.com.cn/group1/M00/00/9F/swiper.min.0000000000000000000.css">
+	<link type="text/css" href="css/index.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="css/ycbmall/ycbmall.css"/>
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+	<script type="text/javascript" src="js/jquery.dotdotdot.min.js" ></script>
+	<script type="text/javascript" src="js/jquery.json-2.2.js"></script> 
+	<script type="text/javascript" src="js/index.js"></script>
+	<title>限量购</title>
+	<style>
+		html{
+			font-size: 62.5%;
+		}
+		.swiper-pagination-bullet{
+			opacity: 0.5;
+		}
+		.swiper-pagination-bullet-active{
+			opacity: 1;
+			background: #FF8463;
+		}
+	</style>
+	</head>
+	<body>
+		<section class="main-wrap main">
+			<!--轮播banner-->
+			<div class="swiper-container swiper1">
+				<div class="swiper-wrapper" id="mySwipe">
+					
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+		</section>
+		<section class="main-wrap">
+			<div class="limit-list">
+				<ul id="limitList">
+					<!--<li commodityId="commodityId">
+						<a href="#">
+							<div class="limit-item-l">
+								<img src="css/ycbmall/images/limitDetails.png"/>
+							</div>
+							<div class="limit-item-r">
+								<p class="item-name">美孚 金美孚1号全合成机油SN5424552553</p>
+								<p class="item-num">
+									剩余<span class="last-num">10</span><span class="unite">件</span><span class="item-old-price">&yen;<span>50.00</span></span>
+									<span class="item-price">&yen;<span class="item-rell-price">40.00</span></span>
+								</p>
+							</div>
+						</a>
+					</li>-->
+				</ul>
+				
+			</div>
+		</section>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/swiper.3.1.2.jquery.min.0000000.js"></script> 
+<script type="text/javascript">
+$(document).ready(function(){
+	var userInfo_={};
+	var isShowUnavailable=0,page=0,pagesize=10,response='1';
+	function bannerList(userInfo){
+		var postData={};
+		postData.areaCodeId=userInfo.areaCodeId;
+		postData.location=2;
+		postData.osInfo=userInfo.osInfo;
+		var length=0;
+		$.ajax({
+			type:"get",
+			url:"/ycbmall-app-ws/ws/0.1/advertising/getAdvertisings",
+			data:postData,
+			async:false,
+			dataType:'json',
+			success:function(data){
+				length=data.length;
+				var str="";
+				$.each(data, function(i) {
+					var URl=this.turnToUrl.split('//');
+					str+='<div class="swiper-slide">'
+					if(this.turnToUrl==''){
+						str+='<a><img class="img-responsive" src="'+this.adPicAddress+'" /></a>'
+					}else{
+						str+='<a href="'+this.turnToUrl+'"><img class="img-responsive" src="'+this.adPicAddress+'" /></a>'
+					}
+						str+='</div>';
+				});
+				$("#mySwipe").html(str);
+			}
+		});
+		if(length==1){
+			var swiper1 = new Swiper('.swiper-container', {});
+		}else{
+			var swiper1 = new Swiper('.swiper-container', {
+		        pagination: '.swiper-pagination',
+		        paginationClickable: true,
+		        loop:true,
+		        centeredSlides: true,
+		        autoplay: 3000,
+		        autoplayDisableOnInteraction: false
+		    });
+		}
+	}
+	
+	function getAllLimitGoodList(userInfo,owraper){
+		var path=getPath();
+		$.ajax({
+			type:"get",
+			url:'/ycbmall-app-ws/ws/0.1/limitedPurchasing/queryLimitedPurchasings?userInfoId='+userInfo.userId+'&areaCodeId='+userInfo.areaCodeId+'&isShowUnavailable='+isShowUnavailable+'&pageindex='+page+'&pagesize='+pagesize,
+			async:false,
+			dataType:'json',
+			success:function(data){
+				page++;
+				var str="";
+				var item=data.items;
+				$.each(item,function() {
+					str+='<li commodityId="'+this.commodityId+'" skuId="'+this.skuId+'">'
+						+'<div class="limit-item-l">'
+						+'<img src="'+this.picUrl+'"/>'
+						+'</div>'
+						+'<div class="limit-item-r">'
+						+'<p class="item-name Wraper">'+this.limitedPurchasingName+'</p>'
+						+'<p class="item-num">'
+						+'剩余<span class="last-num">'+this.canSellNum+'</span><span class="unite">'+this.salesUnit+'</span><span class="item-old-price">&yen;<span>'+this.marketPrice+'</span></span>'
+						+'<span class="item-price">&yen;<span class="item-rell-price">'+this.sellingPrice+'</span></span>'
+						+'<p></div></li>'
+				});
+				if(owraper!=undefined&&owraper!=""){
+					$("#limitList").next('.null-tip').remove();
+					if(str==""){
+						showEmpty("该地区暂无限量购商品");
+					}else{
+						$("#limitList").html(str);
+					}
+				}else{
+					$("#limitList").append(str);
+				}
+				if(data.page>=data.totalPages-1){
+					response="0";
+				}
+				if(bIsAndroid()){
+					$(".overlay-containter").css("min-height",$(window).height()-178);  
+				}else{
+					$(".overlay-containter").css("min-height",$(window).height()-130);  
+				}
+			},
+			error:function(xhr){
+				var error=eval('('+xhr.responseText+')');
+				window.location.href = encodeURI("http://w2l?"+path+"/checkcode-error.html?message="+mes[0].message);
+			}
+		});
+		$(".Wraper").dotdotdot();//多余字符省略号显示
+		return response;
+	}
+	
+	index.init=function(userInfo,bridge){
+		userInfo_=userInfo;
+		var path=getPath();
+		$("#limitList").delegate('li','touchstart click touched',function(e){
+			var that=this;
+			var home=path;
+			switch(e.type){
+				case 'touchstart': break;
+				case 'click':
+					var commodityId=$(that).attr("commodityId");
+					var skuId=$(that).attr("skuId");
+					//跳转到客户端商品详情页
+					window.location.href="http://w2l/?presentType=1&androidName=3&iosName=GoodsDetailViewController&commodityId="+commodityId+"&skuId="+skuId;
+					break;
+			}
+		});
+		getAllLimitGoodList(userInfo_,"html");
+		bannerList(userInfo_);
+		return response;
+	}
+//上拉加载更多
+index.pullUpRefresh=function(bridge){
+	getAllLimitGoodList(userInfo_,"");
+	return response;
+}
+});
+</script>
+	</body>
+</html>

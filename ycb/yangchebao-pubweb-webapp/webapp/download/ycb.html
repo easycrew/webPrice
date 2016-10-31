@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<script src="http://d.yangchebao.com.cn/js/jquery-1.9.1.js"></script>
+<script src="http://d.yangchebao.com.cn/js/swiper.min.js"></script> 
+<link type="text/css" href="css/index.css" rel="stylesheet"/> 
+<title>养车宝</title>
+</head> 
+<body>  
+<section class="swiper-container">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+		    <img src="css/images/logo.png" class="logo"> 
+			<img src="css/images/1.png" class="pic pic1">
+			<div class="foot">
+				<p><a href="javascript:void(0);" class="download-btn">点击下载</a></p>
+				<p class="tip">
+                <span>
+				<span class="arrow"></span>上拉查看详情
+			    </span>
+				<span class="right"> 
+				<span class="aboutus"></span>		 
+            	<span class="contactus"></span> 
+				</span></p>
+			</div>
+		</div>
+		<div class="swiper-slide"> 
+			<p class="title">可能是wéi一</p>
+			<img src="css/images/2.png" class="pic pic2">
+			<p class="text">3000+合作商户   &nbsp;&nbsp;重要服务项目<br>出现质量、施工导致的车辆问题</p>
+			<h1 class="text">按照消费价格3倍赔付</h1>
+			<div class="foot">
+				<p><a href="javascript:void(0);" class="download-btn">点击下载</a></p>
+				<p class="tip">
+                <span>
+				<span class="arrow"></span>上拉查看详情
+			    </span>
+				<span class="right"> 
+				<span class="aboutus"></span>		 
+            	<span class="contactus"></span> 
+				</span></p>
+			</div>
+		</div> 
+		<div class="swiper-slide"> 
+			<p class="title">可能是wéi一</p>
+			<img src="css/images/3.png" class="pic pic3">
+			<p class="text">购买100元以上服务  送“乐乘盒子”</p>
+			<h1 class="text">最先进的车辆安防神器</h1>
+			<p class="text">配合手机APP  精准查询车辆位置<br>记录行驶轨迹  异常震动随时报警</p>
+			<div class="foot">
+				<p><a href="javascript:void(0);" class="download-btn">点击下载</a></p>
+				<p class="tip">
+                <span>
+				<span class="arrow"></span>上拉查看详情
+			    </span>
+				<span class="right"> 
+				<span class="aboutus"></span>		 
+            	<span class="contactus"></span> 
+				</span></p>
+			</div>
+		</div> 
+		<div class="swiper-slide"> 
+			<p class="title">可能是wéi一</p>
+			<img src="css/images/4.png" class="pic pic4">
+			<p class="text">打通产业链  养车宝通过向配件、增值服务<br>供应商收取佣金的方式盈利</p>
+			<h1 class="text">让您不多花钱 享受更好的服务</h1> 
+			<div class="foot">
+				<p><a href="javascript:void(0);" class="download-btn">点击下载</a></p>
+				<p class="tip">
+				<span>
+				&nbsp;
+			    </span>				
+				<span class="right"> 
+				<span class="aboutus"></span>		 
+            	<span class="contactus"></span> 
+				</span></p>
+			</div>
+		</div> 
+	</div>
+</section> 
+<script type="text/javascript">   
+ 
+try{ 
+    var phoneWidth = parseInt(window.screen.width);
+    var phoneHeight = parseInt(window.screen.height);  
+    var phoneScale = phoneWidth / 640;
+    var ua = navigator.userAgent;
+    var sUserAgent = ua.toLowerCase(); 
+    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+    var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os"; 
+    if (/Android (\d+\.\d+)/.test(ua)) {
+        var version = parseFloat(RegExp.$1);
+        // andriod 2.3
+            $('[name="viewport"]').attr('content', 'width=640, initial-scale=' + phoneScale + ', minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi');
+        if (version >= 2.3) {
+            // andriod 2.3以上
+        } else {
+            $('[name="viewport"]').attr('content', 'width=640, initial-scale= 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable=no, target-densitydpi=device-dpi');
+        }
+    // 其他系统
+    }else {  
+        document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');  
+      }  
+   }catch(e){} 
+$(document).ready(function(){  
+	// 获取参数
+	var url = window.location.search; 
+	var paramJson = {};
+	if(url!=''){
+		var paramsArr = (url.split("?")[1]).split("&");
+	    $.each(paramsArr,function(i){
+	        var item = paramsArr[i].split("=");
+	        paramJson[item[0]] = item[1]
+	    });
+	}
+	function  is_weixin(){
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i)=="micromessenger") {
+			$('.download-btn').attr('href','http://a.app.qq.com/o/simple.jsp?pkgname=com.carsmart.emaintain');
+		}else{
+			var sUserAgent = navigator.userAgent.toLowerCase(); 
+			var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+			var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+			var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+			var bIsAndroid = sUserAgent.match(/android/i) == "android"; 
+			if(bIsIpad || bIsIphone || bIsIphoneOs){
+				$('.download-btn').attr('href','https://itunes.apple.com/us/app/yang-che-bao/id736543893');
+			}else{   
+				if(paramJson.cid!=undefined && paramJson.cid!=null && paramJson.cid!=''){
+					$('.download-btn').attr('href','http://d.yangchebao.com.cn/down.myapp.com/'+paramJson.cid+'.apk')
+				}else{
+					$('.download-btn').attr('href','http://yangchebao.com.cn/website-ws/ws/0.1/app/download')
+				}
+			}
+		}
+	} 
+   var mySwiper = new Swiper('.swiper-container',{
+		mode: 'vertical', 
+		resistance:false
+	}) 
+	is_weixin();  
+	$(".aboutus").click(function(){
+		window.location.href="http://yangchebao.com.cn/about.html";
+	});
+	$(".contactus").click(function(){
+		window.location.href="http://yangchebao.com.cn/contactus.html";
+	});
+
+}); 
+
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4336dd7c268cae8a585a3b06ad9c278b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body> 
+</html>

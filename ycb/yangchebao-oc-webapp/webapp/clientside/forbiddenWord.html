@@ -1,0 +1,109 @@
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<div class="urlContentWraper" id="Wraper_client_forbiddenWord">
+	<div class="ui-info-layout">
+		<h2 class="ui-tit"><strong>敏感词上传</strong><bottom class="all-work-info numb132">页面说明</bottom></h2>
+		<div class="ui-form">
+			<div class="row">
+				<label class="span3 grid-layout-label">上传文件</label>
+				<div class="span17 grid-layout-content">
+					<div id="words" name="words"></div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label">上次上传时间</label>
+				<div class="span17 grid-layout-content">
+					<div id="lastUploadTime" style="height:28px;line-height:28px;"></div>
+				</div>
+			</div>
+		</div> 
+		
+		<div class="ui-info-layout-subbox ui-form"> 
+				<span class="ui-btn-primary jrad-upload">上传</span>
+		</div>
+		</div>
+    <div id="Form_explain_eg132" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>此功能已停用。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		var wraper = $('#Wraper_client_forbiddenWord');
+		$('#words',wraper).upload({
+			url : '/shopmanage-ws/ws/0.1/forbiddenWords/renewalForbiddenWords',
+			autocomplete : false,
+			success : function() {
+				$.jRadMessage('上传成功');
+			},
+			validator : [ {
+				align : 'right'
+			},{
+				msg : "请选择要上传的文件",
+				type : "min",
+				value : "1"
+			}]
+		}); 
+		
+		$('.jrad-upload',wraper).button({
+			click : function() {
+				$('#words',wraper).upload('upload');
+			}
+		});
+		var timeJson = $.jRadGet({'url':'/shopmanage-ws/ws/0.1/forbiddenWords/getLastUploadTime'});
+		$("#lastUploadTime",wraper).html(timeJson.lastUploadTime?timeJson.lastUploadTime:'');
+	
+    $(".numb132").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg132").form({}).form('close');
+        $("#Form_explain_eg132").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg132 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg132").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg132").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg132 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+</script>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+<script  type="text/javascript" src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script> 
+<script type="text/javascript" src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<title>代金券领取</title>
+<style type="text/css">
+body{
+	font-family:'华文细黑','HelveticaNeue-Light';
+	font-weight:normal;
+	font-style:normal;
+	line-height:normal;
+	font-size:62.5%; 
+	background-color: #fff;
+}
+body,html{
+	height:100%;
+}
+img{
+	border:none;
+}
+*{
+	margin:0;
+	padding:0;
+} 
+section{
+	width: 100%;
+	min-height: 100%;
+}
+header{
+	width: 100%;
+	max-width: 64em;
+	margin: 0 auto;
+}
+header img{
+	width: 95%;
+	max-width: 60.8em; 
+	display: block;
+} 
+.btn-wraper{
+	width: 100%; 
+	position:absolute;
+	bottom: 4.7em;
+	left: 0;  
+}
+.btn-wraper>div{
+	padding: 0 3.7em;
+}
+.btn-wraper img{
+	width: 100%;
+	max-width: 48.7em;
+	margin: 0 auto;
+	display: block;
+}   
+.title{
+	text-align:center; 
+	padding:10px 30px 10px 15px;
+}
+.content{
+	padding-top:7em; 
+	max-width: 64em;
+	margin: 0 auto;
+}
+.title h1{ 
+	display:inline-block;
+	height:auto;
+	color:#1e1e1e;
+	padding-left:5.5em; 
+	margin:0 auto;
+	background:url('http://app.yangchebao.com.cn/group1/M00/03/5D/ChUBl1RAyouAfm9qAAAHUHLXSyM122.png') no-repeat;
+	font-size:1.8em;
+	font-weight:normal; 
+	min-height:89px;
+	background-size:auto 4.6em;
+}
+.success-wraper .title h1{ 
+	background:url('http://app.yangchebao.com.cn/group1/M00/03/5D/ChUBl1RAymqALIQFAAAIjS9D9_w418.png') no-repeat;
+}
+.title h1 span{
+	display:inline-block;
+	text-align:left;
+	line-height:45px; 
+}
+.title h1 span p{
+	color:#ffa600;
+	font-size:0.8em;
+	line-height:1.5em;
+}
+.title h1 span.msg{
+    line-height: 1.5em;
+} 
+</style>
+<body>
+	<section class="main-wraper">
+		 <header><img src="http://app.yangchebao.com.cn/group1/M00/04/74/ChUBl1R1quqAEyDSAADc1J3a6yQ441.jpg"/></header>
+		 <div class="btn-wraper"><div><img src="http://app.yangchebao.com.cn/group1/M00/04/74/ChUBl1R1qzqAc3bqAAAMzgMC2-I844.png" id="submit"/></div></div>
+	</section>
+	<section class="error-wraper" style="display:none;">
+		<div class="content">
+			<div class="title">
+				<h1>
+					<span><span style="font-size:1.2em">抱歉！</span><br/><span class="msg">已经领完啦！</span>
+					<p>注意：</p>
+					<p>1 每个用户只能领取1次</p>
+					<p>2 每次支付只能使用一张代金券</p></span>
+				</h1>
+			</div> 
+		</div>
+	</section>
+	<section class="success-wraper" style="display:none;">
+		<div class="content">
+			<div class="title">
+				<h1>
+					<span><span style="font-size:1.2em">恭喜！</span><br/><span class="msg">领取成功！</span>
+					<p>注意：</p>
+					<p>1 每个用户只能领取1次</p>
+					<p>2 每次支付只能使用一张代金券</p>
+					</span> 
+				</h1>
+			</div> 
+		</div> 
+	</section> 
+	<script type="text/javascript">  
+		$(document).ready(function(){  
+			var url =window.location.href; 
+			var paramsArr = (url.split("?")[1]).split("&");
+			var paramJson = {};
+			$.each(paramsArr,function(i){
+				var item = paramsArr[i].split("=");
+				paramJson[item[0]] = item[1];
+			});  
+			if(url.split("?").length==3){
+				var paramsArr2 = (url.split("?")[2]).split("&"); 
+				$.each(paramsArr2,function(i){
+					var item = paramsArr2[i].split("=");
+					paramJson[item[0]] = item[1];
+				});  
+			} 
+			$("#submit").click(function(){ 
+				var _this = $(this);
+				_this.attr("id","submit2");
+				var postData = {};
+				if(paramJson.customerId!=undefined){
+					postData.customerId = paramJson.customerId;
+				}
+				postData.busiId = paramJson.busiId;
+				postData.qrcodeActiveId = paramJson.qrcodeActiveId;
+				if(paramJson.userId!=undefined){
+					postData.userId = paramJson.userId;
+				} 
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/vouchers/qrCodeDraw',
+					type: 'post',
+					async: false,
+					data:$.toJSON(postData),
+					dataType: 'json',
+					contentType:'application/json;charset=utf-8',
+					success:function(data){
+						_this.attr("id","submit");
+						$(".success-wraper .msg").html(data.msg);
+						$(".success-wraper").show();
+						$(".main-wraper").hide();  
+					},error:function(xhr){
+						var mes = eval('('+xhr.responseText+')'); 
+						$(".error-wraper .msg").html(mes[0].message);
+						$(".error-wraper").show(); 
+						$(".main-wraper").hide();  
+					}
+					
+				}); 
+		 	});  
+		 });
+	</script>
+</body>
+
+</html>
+

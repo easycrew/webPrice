@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<script src="js/jquery-1.9.1.min.js"></script>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<title>服务详情</title>
+<script type="text/javascript" name="baidu-tc-cerfication" src="http://apps.bdimg.com/cloudaapi/lightapp.js#b549b101949af1d41b82fbaf396396a0"></script>
+<script type="text/javascript">window.bd && bd._qdc && bd._qdc.init({app_id: 'e1cf9f344f8bd8fbe6f3eb8b'});</script> 
+</head>
+<body>
+	<section class="package-explain" style="position: relative;">
+		<header>
+			<a href="index.html" class="back"></a>服务详情
+		</header>
+		<div class="main-wrap">
+			<article>
+				<div class="price-wrap">
+					<p id="serviceName"></p>
+					<p class="original-price" id="reservePrice">￥120</p>
+					<p class="discount-price"><span id="attentionNumber">关注：341</span><span id="shopPrice">￥150</span><span id="saveAmount">省 ¥30 </span></p>
+				</div> 
+				<div class="explain-wrap">
+					<h2 class="serviceCheck">选择用品(<strong id="serviceNum"></strong>)<span class="arrow"></span></h2> 
+					<p id="projectName"></p> 
+				</div> 
+				<div class="share-service-star">
+					<div id="serviceLevel">
+						<div class="level">服务态度:<span class="star"></span></div>
+						<span class="score">9.8</span>
+					</div>
+					<div id="qualityLevel">
+						<div class="level">施工效果:<span class="star"></span></div>
+						<span class="score">9.8</span>
+					</div>  
+				</div>
+				<h3 class="link" style="margin:0 0 0.8em;" id="goRemark">用户服务评价(<strong id="remarkCount">0</strong>)<span class="arrow"></span></h3>
+				
+				<div class="explain-wrap">
+					<h2>服务说明</h2>  
+					<iframe id="serviceInfo" src="" scrolling='no' width='100%' frameBorder="0"></iframe>
+				</div>
+
+			</article>
+			<!--footer class="button-wrap clearfix two-col">
+				<div class="left-wrap"><a href="#" class="btn btn-blue">电话咨询</a></div>
+				<div class="right-wrap"><a href="#" class="btn">免费预约</a></div>
+			</footer-->
+			<footer class="button-wrap clearfix">
+				<a href="javascript:void(0);" class="btn btn-blue" id="phone">电话咨询</a> 
+			</footer>
+		</div>
+		<div class="check-wrap">
+			<div class="check-wrap-header">
+				选择用品<span class="close"></span>
+			</div>
+			<article style="margin-bottom:5.4em;"> 
+			<div class="explain-wrap package-list check-list" id="serviceCheckList"> 
+				<p class="label">小保养</p>
+				<ul> 
+					<li>
+						<div>
+							<div>
+							<p class="intro">漆面养护套餐：洗车，手工玻离滑水镀膜，臭氧负离</p>
+							<p class="posi">漆面养护套餐：洗车，手工玻离滑水镀膜，臭氧负离</p>
+							<p class="amount">90%选择</p>
+							</div>
+						</div>
+						<div>
+							<p class="discount-price">¥5536</p>
+							<p class="original-price">¥5536</p>
+						</div>
+					</li>
+					<li class="check">
+						<div>
+							<div>
+								<p class="intro">漆面养护套餐</p>
+								<p class="posi">漆面养护套餐：洗车，手工玻离滑水镀膜，臭氧负离</p>
+								<p class="amount">90%选择</p>
+							</div>
+						</div>
+						<div>
+							<p class="discount-price">¥5536</p>
+							<p class="original-price">¥5536</p>
+						</div>
+					</li>
+				</ul>
+			</div> 
+			</article>
+			<footer class="button-wrap clearfix"> 
+				<a href="javascript:void(0)" class="btn" id="checkSubmit">确定</a>
+			</footer>
+		</div>
+	</section>
+	<div class="header-overlay-wrap"></div>
+	<footer class="button-wrap clearfix call-wrap" style="display:none;"> 
+		<a class="btn btn-pink" href="javascript:void(0);">取消</a> 
+	</footer>
+	<div class="overlay-wrap-phone" style="display:none;"></div> 
+		<script type="text/javascript">
+		$(document).ready(function(){
+			var url =window.location.href; 
+			var urlParams = (url.split("?")[1]).split("&");
+			var paramJson = {};
+			$.each(urlParams,function(i){
+				var item = urlParams[i].split("=");
+				paramJson[item[0]] = item[1];
+			});  
+			var height = ($(document).height()-138)/10+"em";
+		    $(".check-wrap article").attr("style","height:"+ height +";overflow:auto;margin-bottom:5.4em;");
+			$(".serviceCheck").on('click',function(){
+				$(".main-wrap").hide(); 
+				$('.header-overlay-wrap').toggle();
+				$(".check-wrap").toggleClass('open');
+				getServiceList();  
+			});
+			$(".check-wrap .close").on('click',function(){
+				$(".main-wrap").show();
+				$('.header-overlay-wrap').hide();
+				 $(".check-wrap").removeClass('open');
+				//$(".check-wrap").toggle('slow');
+			});
+			$("#checkSubmit").on('click',function(){
+				$(".main-wrap").show();
+				$('.header-overlay-wrap').hide();
+				$(".check-wrap").removeClass('open');
+				if($(".check-wrap .check").length>0){
+					$("#projectName").html($($(".check-wrap .check")[0]).find(".intro").html());
+				}
+			}); 
+			$("#otherDinners").on('click','li',function(){ 
+				var id = $(this).attr('id');
+				window.location.href = "index.html";
+			});
+			$(".check-list").on('click','li',function(){
+				if($(this).hasClass("check")){
+					$(this).removeClass('check');
+				}else{
+					$(".check-list .check").removeClass('check');
+					$(this).addClass("check"); 
+				}
+			});
+			$("#goRemark").on('click',function(){ 
+				window.location.href = "remark.html?busiServiceRelId="+paramJson.busiServiceRelId+"&businessInfoId="+paramJson.businessInfoId+"&title="+paramJson.title;
+			});
+			$("#phone").on('click',function(){ 
+				$(".overlay-wrap-phone").show();
+				$(".call-wrap").show();
+			});
+			$(".btn-pink").on('click',function(){ 
+				$(".overlay-wrap-phone").hide();
+				$(".call-wrap").hide();
+			});
+			var iframe = document.getElementById("serviceInfo");
+			var callback = function(){
+				try{ 
+					var doc = this.contentDocument || this.contentWindow.document;
+					var bHeight = doc.body.scrollHeight;
+					var dHeight = doc.documentElement.scrollHeight;
+					var height = Math.max(bHeight, dHeight);
+					this.height =  height+50;
+				}catch (ex){}
+			};
+			iframe.onload = function() {
+				var that = this;
+				window.setTimeout(function(){
+					callback.apply(that);
+				},300);
+			}; 
+			function getServiceInfo(busiServiceRelId){ 
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/shop/service/detail?busiServiceRelId='+busiServiceRelId,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {   
+						if(data.projectName!=undefined&&data.projectName!=""){
+							$("#serviceName").html(data.projectName);
+							$("#projectName").html(data.serviceName); 
+							$("#serviceNum").html(data.serviceNum);
+						}else{
+							$("#serviceName").html(data.serviceName);
+							$("#projectName").parents(".explain-wrap").hide();
+						} 
+						$("#reservePrice").html("¥"+data.reservePrice);  
+						$("#shopPrice").html("¥"+data.shopPrice);
+						 
+						if(data.saveAmount!=undefined){
+							$("#saveAmount").html("&nbsp;&nbsp;&nbsp;&nbsp;省¥"+data.saveAmount);
+						}else{
+							$("#saveAmount").html("");
+						} 
+						$("#attentionNumber").html("关注："+(data.attentionNumber?data.attentionNumber:0));
+						$("#remarkCount").html(data.remarkCount);
+						$("#serviceLevel .score").html(data.serviceLevel?data.serviceLevel:"0.0");
+						if(data.overServiceLevel!=""){
+							$("#serviceLevel .overLevel").html("高于行业"+data.overServiceLevel);
+						}
+						$("#qualityLevel .score").html(data.qualityLevel?data.qualityLevel:"0.0");
+						if(data.overQualityLevel!=""){
+							$("#qualityLevel .overLevel").html("高于行业"+data.overQualityLevel);
+						}
+						if(data.serviceLevel!=undefined&&data.serviceLevel!=""){ 
+							var score = parseInt(data.serviceLevel)/2*10;
+							var className = "start-"+score;
+							$("#serviceLevel .star").addClass(className);
+						}else{ 
+							$("#serviceLevel .star").addClass("start-00");
+						}
+						if(data.qualityLevel!=undefined&&data.qualityLevel!=""){
+							var score = parseInt(data.qualityLevel)/2*10;
+							var className = "start-"+score;
+							$("#qualityLevel .star").addClass(className);
+						}else{
+							$("#qualityLevel .star").addClass("start-00");
+						}  
+						
+						if(data.descriptionUrl!=undefined&&data.descriptionUrl!=""){ 
+							 $("#serviceInfo").attr('src',"/group1"+(data.descriptionUrl).split("group1")[1]);  
+						}
+
+					}
+				});
+			}
+			function getServiceList(){
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/shop/beautify/service/v2?busiServiceRelId='+paramJson.busiServiceRelId,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {   
+						var str = "";
+						$.each(data,function(key,items){
+							if(key=="thirdservice"){
+								str += '<ul>';
+							}else{
+								str +='<p class="label">'+key+'</p>'
+									+'<ul>';
+							}
+							$.each(items,function(i){
+								var item = items[i];
+								var posi = "",amount = '<p class="amount">0%选择</p>',className="";
+								if(item.location!=undefined&&item.location!=""){
+									posi = '<p class="posi">'+item.location+'</p>';
+								}
+								if(item.ratio!=undefined&&item.ratio!=""){
+									amount = '<p class="amount">'+item.ratio+'选择</p>';
+								} 
+								if($("#projectName").html()==item.serviceName){
+									className = "check";
+								}
+								str += '<li class="'+className+'">'
+									+'<div>'
+									+'<div>'
+									+'<p class="intro">'+item.serviceName+'</p>'
+									+ posi
+									+ amount
+									+'</div>'
+									+'</div>'
+									+'<div>'
+									+'<p class="discount-price">¥'+item.reservePrice+'</p>'
+									+'<p class="original-price">¥'+item.shopPrice+'</p>'
+									+'</div>'
+									+'</li>'; 
+							});
+							str += "</ul>"
+						});
+						$("#serviceCheckList").html(str);
+					}
+				});
+			}
+			function getShopInfo(id){ 
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/shop/business/detail/v2?id='+id,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) { 
+						document.title = "服务详情-"+data.name;
+						var phones = data.serviceTel;
+						var phoneStr = "";
+						$.each(phones,function(i){
+							phoneStr += '<a href="tel:'+phones[i]+'"><p>'+phones[i]+'</p></a>'; 
+						});   
+						$(".call-wrap").prepend(phoneStr); 
+					},error:function(xhr){
+						window.location.href = "http://www.yangchebao.com.cn";
+					}
+				});
+			} 
+			getServiceInfo(paramJson.busiServiceRelId);
+			getShopInfo(paramJson.businessInfoId);
+		}); 
+	</script>
+	<div class="baiduCount">
+	<script>//baidu 统计
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?36befafd9d601c669f9856c43f3ab457";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script> 
+	</div>
+</body> 
+</html>

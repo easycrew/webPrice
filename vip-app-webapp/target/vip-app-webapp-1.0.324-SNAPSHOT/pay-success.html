@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>  
+<script type="text/javascript" src="js/jquery.json-2.2.js"></script>
+<script type="text/javascript" src="js/index.js"></script> 
+<style>
+.title{text-align:center;}
+.title h1{display:inline-block; color:#FF6E47;padding-left:58px; margin:45px auto 40px;  background-repeat: no-repeat;background-size: 48px auto;font-size:1.8em;font-weight:normal; text-align: left;}
+.apply-success .title h1{ background-image:url('css/images/paySuc.png');}
+.apply-error .title h1{ background-image:url('css/images/payFail.png');}
+.title h1 span{display:inline-block; line-height:150%;font-size: 0.83em;color:#A2A2A2;}
+.line{border-top:1px solid #D9D9E2;margin:15px 30px;}
+p.pay-after a{display: inline-block;padding: 0.5em 0;width: 42%;color: #fff;font-size: 1.8em;background-color: #A3AECD;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;margin-top: 1.8em;cursor: pointer;}
+p.pay-after a.pay-look{margin-left:6%;background-color: #FF6E47;}
+.comment{font-size: 1.4em;color: #A3AECD;margin:40px 25px;background-color: #fff;border: 1px solid #A3AECD;border-radius: 5px;padding:18px;position: relative;list-style: decimal inside;position: relative;margin-bottom: 64px;} 
+.comment li:last-child{position: absolute;list-style: none;color: #fff;width: 70px;height: 25px;line-height: 25px;text-align: center;border-radius: 12px;background-color: #A3AECD;top: -12px;left: 10px;}
+</style>
+<title>支付成功</title> 
+<body style="height:100%;">  
+	<section class="apply-success"> 
+		<article> 
+			<div class="title">
+				<h1>恭喜土豪!<br><span>您已经成功付款</span></h1>
+				<p class="line"></p>
+				<p class="pay-after"><a href="http://w2l?closeType=closeActivity" class="pay-colse">关闭</a><a href="#" class="pay-look">查看理赔单详情</a></p>
+			</div> 
+			<ol class="comment">
+			    <li>维修费用需车主当面支付给您；</li>
+			    <li>结算金额已添加到您账户，详情请到个人中心或电脑后台查看。</li>
+			    <li>注意</li>
+			</ol>
+		</article> 
+	</section>  
+	<script type="text/javascript">  
+		$(document).ready(function(){
+			var response = "1";
+			var url =decodeURI(window.location.href);  
+			var paramsArr = (url.split("?")[1]).split("&");
+			var data = {};
+			$.each(paramsArr,function(i){
+				var item = paramsArr[i].split("=");
+				data[item[0]] = item[1];
+			});
+			var shopId = data.shopId
+			var claimOrderId = data.claimOrderId
+			
+			index.init = function(userInfo,bridge) { 
+				return response
+			}
+		 	index.pullUpRefresh = function(bridge) {  
+				return response;
+			}
+	 		
+			$('.pay-look').click(function(){   
+				//'&orderNumber='+ycblp201512231130464
+				//window.location.href = "http://w2nw?"+path+"/order-claimsDetail.html"
+ 			 	window.location.href = "order-successDetail.html?shopId="+shopId+'&claimOrderId='+claimOrderId;
+ 				return
+		 	});
+		}); 
+		
+	</script>  
+</body>
+
+</html>
+

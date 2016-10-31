@@ -1,0 +1,284 @@
+ 
+<div class="urlContentWraper" id="Wraper_vip_Role">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>权限组列表</strong><bottom class="all-work-info numb153">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <table id="Table_vip_Role"></table>
+    </div>
+    <div id="Form_vip_Role" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                 <label class="span3 grid-layout-label">权限组名称：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="name" class="jrad-input-container"></div>
+                 </div>
+            </div> 
+            <input type="hidden" name="id"/> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+	<div id="Form_vip_permission" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div name="permissions" class="jrad-checkbox-container"></div>  
+            <input type="hidden" name="roleId"/> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+	<div id="Form_vip_csspermission" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg153" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>商家权限组的管理，即为设置商家有哪些权限组。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_vip_Role');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	//var jRad = $.jRad('/radsample-ws','ent','Menu');	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+   jRad.validators['name'] = [{"msg":"权限组名称不能为空","type":"min","value":"1"}];  
+   page_column_model.push({display: '权限组名称', name : 'name',  sortable: true});  
+   page_search_items.push({row:'1',type:'jrad-input',display:'权限组名称',name:'name'}); 
+   
+   page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){
+            $('#Form_vip_Role').form({
+                title: '创建',
+                validators: jRad.validators, 
+                item:{},
+                style:{height:'300px'}, 
+                url:'/vip-euc-ws/ws/0.1/role/add', 
+				success_callback:function(){ 
+                            $('#Table_vip_Role').flexMessage('添加成功', 'success');
+                            $('#Table_vip_Role').flexReload();
+                        } 
+            }).form('open');
+        }
+    }); 
+	 page_list_buttons.push({title: '修改',name:'Edit', bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_vip_Role').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+            var checked = $('#Table_vip_Role').getCheckedTrs(); 
+            if(checked[0]) { 
+				 $('#Form_vip_Role').form({
+					title: '创建',
+					validators: jRad.validators, 
+					item:checked[0],
+					style:{height:'300px'}, 
+					url:'/vip-euc-ws/ws/0.1/role/update', 
+					success_callback:function(){ 
+								$('#Table_vip_Role').flexMessage('修改成功', 'success');
+								$('#Table_vip_Role').flexReload();
+							} 
+				}).form('open');
+            }
+        }
+    }); 
+	page_list_buttons.push({name:'Delete',bclass: 'delete',prefunc:function(){
+            var checked = $('#Table_vip_Role').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_vip_Role').getCheckedTrs();
+			  if(checked[0]) { 
+				$ .jRadConfirm('确认删除权限组'+checked[0].name+'吗？',1,function(){
+					var id =  checked[0].id; 
+					$.jRadPost({
+						url:'/vip-euc-ws/ws/0.1/role/delete?id='+id, 
+						success: function(){
+							$('#Table_vip_Role').flexMessage('删除成功。', 'success');
+							$('#Table_vip_Role').flexReload();
+						}
+					});
+				});
+			}
+		}
+	});  
+	
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_vip_Role').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true,
+			preProcess:userDataProcess,
+            url:'/vip-euc-ws/ws/0.1/role/all',
+		    queryUrl:'/vip-euc-ws/ws/0.1/role/query',
+			onError:showUserError
+    });
+	$(".userLink",wraper).live('click',function(){
+		var item = $(this).data("item");
+		updateUserView(item);
+	});
+	function updateUserView(item){
+		 $('#Form_vip_Role').form({grid:'16',
+                        title: '修改',
+                        validators: jRad.validators, 
+                        item:item, 
+						submit:addUser,
+                        url:'/vip-euc-ws/ws/0.1/user/update',
+                        success_callback:function(){ 
+                            $('#Table_vip_Role').flexMessage('修改成功', 'success');
+                            $('#Table_vip_Role').flexReload();
+                        } 
+                    }).form('open');
+	
+	}
+    
+    $(".numb153").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg153").form({}).form('close');
+        $("#Form_explain_eg153").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg153 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg153").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg153").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg153 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	
+});
+function showUserError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")");
+		  var cDiv = $("#Wraper_vip_Role .cDiv");
+		  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+		}
+function addUser(){
+	   var _form = $("#Form_vip_Role");
+	   var flag = _form.form('validateAll');
+	   if(!flag) {
+		   return;
+	   }
+	   var json = _form.form('getValue');
+	   json.description = "";
+	   if(json.password != "" ){
+	     json.password = hex_md5(json.password);
+	   }else{
+	     delete json.password;
+	   }
+	   json.mobile ="";
+	   var obj = {
+			user : json,
+			departmentId : "3",
+			positionId : "7" 
+	   }
+	   var url = '/vip-euc-ws/ws/0.1/user/add'; 
+	   if($(".pop-up-tit",_form).html()=="修改"){
+	      url = '/vip-euc-ws/ws/0.1/user/update';
+	   }
+		$.jRadPost({
+			url:url,
+			data:obj,
+			success:function(){ 
+				$('#Table_vip_Role').flexMessage('修改成功', 'success');
+				$('#Table_vip_Role').flexReload();
+			},error:function(data){
+				var mes = eval('('+data.responseText+')');
+				 $.jRadMessage({
+					 level:'error', 
+					 message:mes[0].message 
+				 });
+			}
+		});
+	   _form.form('close');
+}
+
+function dateTurn(second, type) {
+    var str = "";
+    if (second != null && second != "") {
+        var date = new Date(second);
+        str = date.getFullYear() + "-";
+        if ((date.getMonth() + 1) < 10) {
+            str += "0" + (date.getMonth() + 1);
+        } else {
+            str += (date.getMonth() + 1);
+        }
+        str += "-" + date.getDate();
+        if (type == 2) {
+            str += " " + date.getHours() + ":" + date.getMinutes() + ":"
+                    + date.getSeconds();
+        }
+    }
+    return str;
+}
+
+function userDataProcess(data){
+   for(var i=0;i<data.count;i++){
+     data.items[i].created = dateTurn(data.items[i].created,2); 
+   }
+   return data;
+} 
+
+function setCssPermission(){ 
+/**[{"name":"后台管理.管理账号.启用","securityDomain":10,"id":1867,"created":null,"deleted":null,"updated":null},
+{"name":"后台管理.权限管理.启用","securityDomain":10,"id":1868,"created":null,"deleted":null,"updated":null}]**/
+	var items = $.jRadGet({"url":"/vip-euc-ws/ws/0.1/permission/ccss/all"});
+	$.each(items,function(){
+	   
+	});
+}
+</script>

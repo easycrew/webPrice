@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+	<title></title>
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<script src="js/jquery-1.9.1.min.js"></script> 
+	<script src="js/index.js"></script>   
+</head> 
+<body>  
+<script type="text/javascript">   
+$(document).ready(function(){   
+   var paramJson = {};  
+   var url =window.location.search;   
+      
+   index.init = function(userInfo){  
+      paramJson = userInfo; 
+      if(url!=undefined&&url!=""){
+		var paramsArr = (url.split("?")[1]).split("&"); 
+		$.each(paramsArr,function(i){
+		 var item = paramsArr[i].split("=");
+		 paramJson[item[0]] = item[1];
+		});    
+	  }
+	  if(userInfo.modelId==undefined||userInfo.modelId==""||userInfo.modelId=="(null)"){
+		window.location.href = "brand.html?pageCode="+paramJson.pageCode;
+	  }else{  
+	    if(paramJson.pageCode=="1"){ 
+		   //window.location.href = "sya.html"; 
+		   if(userInfo.partnerid==undefined||userInfo.partnerid==""||userInfo.partnerid=="(null)"){
+		     // alertTasat("没有companyNo信息"); 
+		     getSdkUrl('abc')
+		   }else{
+		    getSdkUrl(userInfo.partnerid)
+		   }
+		}else if(paramJson.pageCode=="2"){
+		   window.location.href = "card/card.html";
+		}else if(paramJson.pageCode=="3"){
+		   window.location.href = "shopList2.html";
+		}else{
+		   alertTasat("没有pageCode信息");
+		} 		
+	  } 
+	}; 
+	function getSdkUrl(num){//获取sdk首页广告位 
+		$.ajax({
+		  url: '/yangchebao-app-ws/ws/0.1/advertise/location?modelId='+paramJson.modelId+'&cityName='+paramJson.cityName+'&location=19&count=1&sdkChannelNo='+num+"&"+(new Date()).getTime(),
+		  type: 'get', 
+		  dataType: 'json',
+		  success: function(data) {    
+		    if(data.length>0){
+				window.location.href = data[0].entityUrl;
+			}else{
+			    window.location.href = data[0].entityUrl;
+			}
+		  },error:function(xhr){   
+				var mes = eval('('+xhr.responseText+')');  
+				error(mes[0].message);
+		   
+			} 
+		});  
+	}
+}); 
+</script>
+</body>
+</html>

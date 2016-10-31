@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>  
+<title>支付宝</title>
+<script language="javascript" src="./js/jquery-1.10.1.min.js"></script> 
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script language="javascript" src="./js/jquery.json-2.2.js"></script>
+<script language="javascript" src="./js/share.js"></script>
+<link rel="stylesheet" href="./css/index.css">
+</head> 
+<body> 
+	<section style="" class="bank-wrap" id="zfbRegist">
+        <p class="error nError">&nbsp;</p>
+        <p class="error pError">&nbsp;</p> 
+        <ul>
+            <!-- <li class="info">
+                <label>账户姓名</label>
+                <span id="realName"></span>
+            </li> -->
+            <li><input type="text" placeholder="账户姓名" id="realName"/></li>
+            <li><input type="text" placeholder="支付宝账号" id="alipayAcount"/></li>
+            <li><input type="text" placeholder="再次输入支付宝账号" id="reAcount"/></li>
+             
+        </ul>
+        <div class="btn-wrap"><a id="submit" class="btn" href="javascript:void(0)">确定</a></div>
+    </section>
+	<script type="text/javascript">
+    $(document).ready(function(){ 
+        var postData = {}; 
+        var url = window.location.search; 
+        var paramsArr = (url.split("?")[1]).split("&");
+        var paramJson = {};
+        $.each(paramsArr,function(i){
+            var item = paramsArr[i].split("=");
+            paramJson[item[0]] = item[1];
+        });  
+        // $("#realName").html(decodeURIComponent(paramJson.realName));
+        var _postData={};
+        $.ajax({
+            url:'/yangchebao-weixin-ws/ws/0.1/salesman/getSalaryList?openid='+paramJson.openid,
+            type:'get',
+            async:false,
+            dataType:'json',
+            success:function(data){
+                _postData=data
+            },
+            error:function(xhr){
+                var mes = eval('('+xhr.responseText+')'); 
+                alert(mes[0].message);     
+            } 
+        });
+        if(_postData.alipayAcount!=undefined){
+            $('#realName').val(_postData.realName);
+            $('#alipayAcount').val(_postData.alipayAcount);
+            $('#reAcount').val(_postData.alipayAcount)
+        }
+        
+        $("#submit").click(function(){
+            $(".error").hide();
+            var realName=$.trim($('#realName').val());
+            if(realName==""){
+                $(".nError").html("请输入账户姓名").show();
+                return false;
+            }
+            if(realName.length>20){
+                $(".nError").html("账户姓名不能超过20个字").show();
+                return false;
+            }
+            $(".nError").hide();
+            var alipayAcount = $.trim($("#alipayAcount").val());
+            if(alipayAcount==""){
+                $(".pError").html("请输入支付宝账号").show();
+                return;
+            }
+            if(alipayAcount.length>50){
+                $(".pError").html("支付宝账号长度不能超过50字符").show();
+                return;
+            }
+            var reAcount = $.trim($("#reAcount").val()); 
+            if(reAcount!=alipayAcount){
+              $(".pError").html("两次输入的支付宝账号不同").show(); 
+              return;
+            }  
+            $(".pError").hide(); 
+            editZfb();
+            $(this).unbind('click')
+        }); 
+        function editZfb(){ 
+           var postData = {};
+           postData.salesmanInfoId = paramJson.salesmanInfoId;
+           if(paramJson.alipayId!=undefined||paramJson.alipayId!=""){
+            postData.alipayId = paramJson.alipayId;
+           } 
+           postData.realName = $("#zfbRegist #realName").val();
+           postData.alipayAcount = $("#alipayAcount").val();
+           $.ajax({
+                url: '/yangchebao-weixin-ws/ws/0.1/salesman/editAlipayAcount',
+                type: 'post',
+                async: false,
+                data:$.toJSON(postData),
+                dataType: 'text',
+                contentType:'application/json;charset=utf-8',
+                success:function(data){
+                    window.location.href = "cash.html?openid="+paramJson.openid;
+                },error:function(xhr){
+                    var mes = eval('('+xhr.responseText+')'); 
+                    alert('当前网络不稳定，请重新尝试。')
+                     
+                } 
+            }); 
+        }
+
+    }); 
+    </script>
+</body>
+
+</html>
+

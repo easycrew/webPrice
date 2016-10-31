@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>请完善安装信息</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		section#selectStyle article{
+			background-color: #fff;
+			margin-top: 1.3rem;
+		}
+		section#selectStyle div.oneRow{
+			line-height: 4.5rem;
+			padding: 0 1.6rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		section#selectStyle div.oneRow span{
+			font-size: 1.6rem;
+		}
+		section#selectStyle div.oneRow span.grayArrow{
+			float: right;
+			top: 1rem;
+		}
+		
+		section#selectStyle article.two{
+			border-top: 1px solid #D9D9E2;
+		}
+		div.theStyleRow,div.theModelRow{
+			position: relative;
+			border-bottom: 1px solid #D9D9E2;
+			line-height: 4.5rem;
+			padding: 0rem 1.6rem;
+		}
+		div.theStyleRow p,div.theModelRow p{
+			color: #595c5c;
+			font-size: 1.6rem;
+		}
+		div.theStyleRow img,div.theModelRow img{
+			position: absolute;
+			top: 1.3rem;
+			right: 2rem;
+			width: 2rem;
+		}
+		div.styleNext{
+			/*position: fixed;*/
+			background-color: #FF6138;
+			text-align: center;
+			font-size: 2rem;
+			line-height: 4.5rem;
+			width: 90%;
+			margin-left: 5%;
+			border-radius: 6px;
+			color: #fff;
+			margin-bottom: 2rem;
+			/*bottom: 2rem;*/
+		}
+		div.tips{
+			padding: 1.6rem 1.6rem 4rem 1.6rem;
+		}
+		div.tip{
+			padding: 0.2rem 0;
+			color: #a2a2a2;
+			font-size: 1.2rem;
+		}
+		div.tip span{
+			float: left;
+			display: inline-block;
+			width: 1.6rem;
+		}
+		div.tip p{
+			margin-left: 1.6rem;
+		}
+		.loadMore{
+			background-color: #f4f7f8;
+			text-align: center;
+			line-height: 4rem;
+			border-top: 1px solid #D9D9E2;
+			color: #a2a2a2;
+			font-size: 1.6rem;
+		}
+		span.yearStyle{
+			float: left;
+		}
+		div.yearStyleW{
+			margin-left: 80px;
+		}
+		div.yearStyleW input{
+			width: 100%;
+			line-height: 2.5rem;
+			font-size: 1.6rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 1rem 0 1rem 2rem;
+		}
+		div.addressW input{
+			width: 100%;
+			line-height: 2.5rem;
+			font-size: 1.6rem;
+			padding: 1rem 0;
+		}
+
+		div.selectItemsW{
+			position: fixed;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.5);
+		}
+		div.selectItems{
+			width: 80%;
+			margin-top: 120px;
+			margin-left: 10%;
+			background-color: #fff;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+		}
+		p.selectItem{
+			border-bottom: 1px solid #D9D9E2;
+			padding: 1.2rem;
+			font-size: 1.5rem;
+		}
+		p.selectItem:nth-last-child(1){
+			border-bottom: none!important;
+		}
+		p.selectItem img{
+			float: right;
+			width: 2rem;
+		}
+	</style>
+</head>
+<body>
+	<p><input name="eventId" type="hidden" value="AirFilterApplyPage"></p>
+	<section id="selectStyle">
+		<article class="one">
+			<div class="modelRow oneRow">
+				<span class="modelRowSe">选择品牌</span>
+				<span class="grayArrow"></span>
+			</div>
+			<div class="styleRow oneRow">
+				<span class="styleRowSe">选择车系</span>
+				<span class="grayArrow"></span>
+			</div>
+			<div class="yearStyleRow oneRow">
+				<span class="yearStyle">请输入年款</span>
+				<div class="yearStyleW"><input type="text" name="yearStyle" id="yearStyle" placeholder="例：2012年款"></div>
+			</div>
+			<div class="displacementRow oneRow">
+				<span class="yearStyle">请输入排量</span>
+				<div class="yearStyleW"><input type="text" name="displacement" id="displacement" placeholder="例：2.0T"></div>
+			</div>
+		</article>
+		<article class="three">
+			<div class="districtRow oneRow">
+				<span class="districtRowSe">选择区域</span>
+				<span class="grayArrow"></span>
+			</div>
+			<div class="locationRow oneRow">
+				<span class="locationRowSe">选择位置</span>
+				<span class="grayArrow"></span>
+			</div>
+			<div class="addressRow oneRow">
+				<div class="addressW"><input type="text" name="address" id="address" placeholder="请输入具体地址"></div>
+			</div>
+		</article>
+		<div class="tips">
+			<div class="tip">
+				<span>1、</span><p>若不清楚爱车年款，请输入车架号的第10位数字或字母；</p>
+			</div>
+			<div class="tip">
+				<span>2、</span><p>暂时缺货的空调滤芯，不显示品牌、车系；</p>
+			</div>
+			<div class="tip">
+				<span>3、</span><p>上门更换空调滤芯范围仅限于北京五环路以内及天通苑、回龙观地区；</p>
+			</div>
+			<div class="tip">
+				<span>4、</span><p>分享页面，并将分享截图发送至养车宝APP公众号（微信号：yangchebaoApp），24小时内即可获赠10元空调滤芯更换专属代金券。</p>
+			</div>
+		</div>
+		<div class="styleNext">下一步</div>
+		<article class="two" style="display:none;">
+		</article>
+	</section>
+	<div class="selectItemsW" style="display:none;">
+		<div class="selectItems">
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    paramJson.theModelRowName=decodeURI(decodeURI(paramJson.theModelRowName));
+	    paramJson.theStyleRowName=decodeURI(decodeURI(paramJson.theStyleRowName));
+	    // 获取区域
+	    var districtArr=[];
+	    var districtStr='';
+	    $.ajax({
+	    	url:'/yangchebao-app-ws/ws/0.1/marketactive/getWxArea?parentId=1',
+	    	type:'get',
+	    	dataType:'json',
+	    	contentType:'application/json;charset=utf-8',
+	    	success:function(data){
+	    		districtArr=data;
+	    		districtArr.forEach(function(key,i){
+	    			districtStr+='<p class="selectItem clearfix" data-id="'+key.areaId+'"><span>'+key.areaName+'</span><img src="./img/unchecked.png"></p>'
+	    		})
+	    	},
+	    	error:function(xhr){
+	    		var error=eval('('+xhr.responseText+')');
+	    		errorLog(error[0].message)
+	    	}
+	    });
+	    // 初始化品牌车系
+	    if(paramJson.theModelRowId){
+	    	$('section#selectStyle div.modelRow span.modelRowSe').html(paramJson.theModelRowName).attr('data-id',paramJson.theModelRowId);
+			$('section#selectStyle div.styleRow span.styleRowSe').html('选择车系').attr('data-id','');
+	    }
+	    if(paramJson.theStyleRowId){
+	    	$('section#selectStyle div.styleRow span.styleRowSe').html(paramJson.theStyleRowName).attr('data-id',paramJson.theStyleRowId);
+	    }
+	    // 选择品牌
+		$('section#selectStyle div.modelRow').unbind('click').bind('click',function(){
+			var modelRowId=$('section#selectStyle span.modelRowSe').attr('data-id');
+			window.location.href='selectModel.html?modelRowId='+modelRowId
+		});
+		// 选择车系
+		$('section#selectStyle div.styleRow').unbind('click').bind('click',function(){
+			var modelRowId=$('section#selectStyle span.modelRowSe').attr('data-id');
+			var modelRowName=$('section#selectStyle span.modelRowSe').html();
+			if(!modelRowId){
+				errorLog('请选择品牌');
+				return false
+			}
+			if(modelRowId){
+				var styleRowId=$('section#selectStyle span.styleRowSe').attr('data-id');
+				window.location.href='selectStyle.html?modelRowId='+modelRowId+'&styleRowId='+styleRowId+'&modelRowName='+modelRowName
+			}else{
+				return false
+			}	
+		});
+
+		$('div.selectItemsW').on('click',function(){
+			$(this).hide()
+		});
+		// 选择区域
+		$('div.districtRow').unbind('click').bind('click',function(){
+			$('div.selectItems').html(districtStr);
+			$('div.selectItemsW').show();
+			var districtId=$('span.districtRowSe').attr('data-id');
+			if(districtId){
+				$('p.selectItem[data-id="'+districtId+'"]').find('img').attr('src','./img/checked.png')
+			}
+			$('p.selectItem').unbind('click').bind('click',function(){
+				var itemText=$(this).find('span').html();
+				var itemId=$(this).attr('data-id');
+				$(this).find('img').attr('src','./img/checked.png');
+				$(this).siblings().find('img').attr('src','./img/unchecked.png');
+				$('span.districtRowSe').html(itemText).attr('data-id',itemId);
+				$('span.locationRowSe').html('选择位置').attr('data-id','');
+				$('div.selectItemsW').hide()
+			})
+		});
+		// 选择位置
+		$('div.locationRow').unbind('click').bind('click',function(){
+			if($('span.districtRowSe').html()=='选择区域'){
+				errorLog('请选择区域');
+				return false
+			}else{
+				var districtId=$('span.districtRowSe').attr('data-id');
+				$.ajax({
+					url:'/yangchebao-app-ws/ws/0.1/marketactive/getWxArea?parentId='+districtId,
+			    	type:'get',
+			    	dataType:'json',
+			    	contentType:'application/json;charset=utf-8',
+			    	success:function(data){
+			    		var locationStr='';
+			    		data.forEach(function(key,i){
+			    			locationStr+='<p class="selectItem clearfix" data-id="'+key.areaId+'"><span>'+key.areaName+'</span><img src="./img/unchecked.png"></p>'
+			    		});
+			    		$('div.selectItems').html(locationStr);
+			    		$('div.selectItemsW').show();
+						var locationtId=$('span.locationRowSe').attr('data-id');
+						if(locationtId){
+							$('p.selectItem[data-id="'+locationtId+'"]').find('img').attr('src','./img/checked.png')
+						}
+
+			    		$('p.selectItem').unbind('click').bind('click',function(){
+							var itemText=$(this).find('span').html();
+							var itemId=$(this).attr('data-id');
+							$(this).find('img').attr('src','./img/checked.png');
+							$(this).siblings().find('img').attr('src','./img/unchecked.png');
+							$('span.locationRowSe').html(itemText).attr('data-id',itemId);
+							$('div.selectItemsW').hide()
+						})
+			    	},
+			    	error:function(xhr){
+			    		var error=eval('('+xhr.responseText+')');
+			    		errorLog(error[0].message)
+			    	}
+				})
+			}
+		});
+		// 请输入具体地址
+		$('input#address').keyup(function(){
+			var addressVal=$.trim($('input#address').val());
+			if(addressVal.length>49){
+				$('input#address').val(addressVal.substring(0,50))
+			}
+		});
+		// 点击下一步
+		$('div.styleNext').unbind('click').bind('click',function(){
+			var externalStyleId=$('span.styleRowSe').attr('data-id');
+			var yearStyle=$.trim($('input#yearStyle').val());
+			var displacement=$.trim($('input#displacement').val());
+			var districtRowSe=$('span.districtRowSe').html();
+			var locationRowSe=$('span.locationRowSe').html();
+			var address=$.trim($('input#address').val());
+
+			if(!externalStyleId){
+				errorLog('请选择车系、品牌，以便我们为您准备适合的空调滤芯');
+				return false
+			}
+			if(yearStyle.length>20){
+				errorLog('年款最多20字');
+				return false
+			}
+			if(displacement.length>20){
+				errorLog('排量最多20字');
+				return false
+			}
+			if(districtRowSe=='选择区域'){
+				errorLog('请选择区域');
+				return false
+			}
+			if(locationRowSe=='选择位置'){
+				errorLog('请选择位置');
+				return false
+			}
+			if(address==''){
+				errorLog('请填写地址');
+				return false
+			}
+			if(address.length>50){
+				errorLog('地址不能多于50字');
+				return false
+			}
+			if(externalStyleId){
+				window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/changeAirfilter/sureOrder.html?externalStyleId="+externalStyleId+'&businessSerRelId='+businessSerRelId()+'&timeSerie='+yearStyle+'&displacement='+displacement+'&district='+districtRowSe+'&location='+locationRowSe+'&address='+address
+			}
+		})
+	})
+</script>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>欢迎瓜子二手车用户</title>  
+    <script language="javascript" src="../js/jquery-1.10.1.min.js"></script>
+    <script language="javascript" src="../js/jquery.json-2.2.js"></script>
+    <script language="javascript" src="./js/screen.js"></script> 
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>   
+<div class="coke-wrapper step-wrapper">
+    <ul class="step-tab">
+        <li class="current"><span><em>1</em>输入手机号</span></li>
+        <li><span><span><em>2</em>确认分店</span></li>
+        <li><span><em>3</em>确认时间</span></li>
+    </ul>
+    <div class="step-content">
+        <div class="step-title">奖品确认成功，您的奖品为：</div>
+        <div class="step-content-inner">
+            <div class="gift-wrapper">
+              <img src="css/images/header.png" />
+            </div>
+            <p><input type="text" placeholder="请输入手机号领取奖品" class="input-style2" id="mobile"/></p>
+            <p class="verification-code"><input type="text" placeholder="验证码" class="input-style2" id="mobileCode"/><a href="javascript:void(0);" class="btn" id="send">发送验证码</a></p>
+            <p class="sure"><a href="javascript:void(0);" class="btn" id="submit">确定</a></p>
+        </div>
+    </div>
+    <div class="step-pop-up" style="display:none;">
+        <a href="javascript:void(0);" class="close"></a>
+        <div class="step-pop-up-inner">
+            <p>您已经是养车宝用户<br/>点击下一步继续</p>
+            <p class="sure"><a href="javascript:void(0);" class="btn" id="nextStepBtn">下一步</a></p>
+        </div>
+    </div>
+</div>
+<div class="mark-layer" style="display:none"></div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var url =window.location.href; 
+        var paramsArr = (url.split("?")[1]).split("&");
+        var paramJson = {};
+        $.each(paramsArr,function(i){
+            var item = paramsArr[i].split("=");
+            paramJson[item[0]] = item[1];
+        });  
+        if(url.split("?").length==3){
+            var paramsArr2 = (url.split("?")[2]).split("&"); 
+            $.each(paramsArr2,function(i){
+                var item = paramsArr2[i].split("=");
+                paramJson[item[0]] = item[1];
+            });  
+        }   
+        if(paramJson.prizeType=="1"){
+            $(".step-tab li:first").show();
+            $("#money").html("4619");
+        }else{
+            $(".step-tab li").show();
+            $("#money").html("360");
+        }
+        var wait = 60;
+        $("#send").click(function(){
+            if($(this).hasClass("disabled")){
+                return false;
+            }
+            if(paramJson.userInfoId!=undefined&&paramJson.userInfoId!=""){
+                $(".step-pop-up").fadeIn();
+                $(".mark-layer").fadeIn();  
+                return false;
+            }
+            var mobile = $("#mobile").val(); 
+            if (mobile == '') {
+                alertTasat("请输入手机号码");
+                return
+            }
+            var regu = /^[1][0-9]{10}$/;
+            var re = new RegExp(regu);
+            if (!re.test(mobile)) {
+                alertTasat("请输入正确手机号码");
+                return
+            }    
+             var postData = {};
+             postData.mobile = mobile;
+             postData.prizeType = paramJson.prizeType;
+             postData.cocoCode = paramJson.cocoCode; 
+			 postData.channelId = "4"; 
+             $.ajax({
+                    url: '/yangchebao-weixin-ws/ws/0.1/coco/getMobileCode',
+                    type: 'post', 
+                    data:$.toJSON(postData),
+                    dataType: 'json',
+                    contentType:'application/json;charset=utf-8',
+                    success:function(data){
+                        if(data.isReg=="yes"&&paramJson.prizeType=="1"){ 
+						    $(".step-pop-up").fadeIn();
+                            $(".mark-layer").fadeIn();                              
+							paramJson.userInfoId = data.userInfoId;    
+                        }else if(data.isReg=="yes"&&paramJson.prizeType=="2"){ 
+                            $(".step-pop-up").fadeIn();
+                            $(".mark-layer").fadeIn();
+							paramJson.userInfoId = data.userInfoId;    
+                        } else{
+                             time();
+                             alertTasat("已成功向"+mobile+"发送验证码");
+                        }
+                    },error:function(xhr){
+                        var mes = eval('('+xhr.responseText+')'); 
+                        alertTasat(mes[0].message);
+                        wait = 0; 
+                        time();
+                    } 
+                });  
+       });
+       $("#submit").click(function(){
+            fastReg(paramJson.prizeType,paramJson.cocoCode);
+       });
+       $("#nextStepBtn").click(function(){
+            if( paramJson.prizeType=="1"){
+                window.location.href = "prize-success.html";         
+            }else{
+                window.location.href = "prize-shop.html?userInfoId="+paramJson.userInfoId+"&cocoCode="+paramJson.cocoCode+"&mobile="+$("#mobile").val();        
+            } 
+       });
+	   $(".step-pop-up .close").click(function(){
+			$(".step-pop-up").hide();
+			$(".mark-layer").hide(); 
+	   });
+      function time() {
+            var o = $("#send");
+            if (wait == 0) {
+                o.removeClass("disabled");
+                o.html("发送验证码"); 
+                wait = 60;
+            } else {
+                o.addClass("disabled", true);
+                o.html("还剩"+wait+"秒");
+                wait--;
+                setTimeout(function() {
+                    time();//循环调用
+                },
+                1000)
+            }
+        } 
+    }); 
+</script>
+</body>
+</html>

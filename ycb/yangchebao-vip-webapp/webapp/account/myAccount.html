@@ -1,0 +1,537 @@
+<style>
+    #Wraper_my_account h2{
+        background-color:#307ecc;
+        color:#fff;
+        padding-left:1%;
+        margin-bottom:0;
+    }
+    #Wraper_my_account #detail,#daybook{
+        border:1px solid #ccc;
+        margin-bottom:15px;
+    }
+    #Wraper_my_account #cash{
+        margin-bottom:50px;
+    }
+    #Wraper_my_account #cash p.p_one{
+        margin-left:2%;
+        margin-top:20px;
+        margin-bottom:30px;
+        font-size:1.6em;
+    }
+    #Wraper_my_account #cash div{
+        margin-left:5%;
+    }
+    #Wraper_my_account #cash div button{
+        font-size: 1.5em;
+    }
+    #Wraper_my_account #cash div .ui-note{
+        display:inline-block;
+        padding-left:3%;
+        position:relative;
+        top:5px;
+        left:0;
+        color:red;
+        font-size: 14px;
+    }
+    .container ul li{
+        line-height: 34px;
+        font-size: 15px;
+    }
+    .container ul li .takeBalanceReal{
+        color:#ff0000;
+        font-size: 24px;
+        font-weight: block;
+    }
+    #Wraper_my_account #cash p.p_one {
+        margin-bottom: 25px;
+        margin-left: 5%;
+        margin-top: 15px;
+    }
+    /*.y-table{width: 33%;border:none;margin-top:20px;}
+    .y-table tr th, .y-table tr td {
+        font-size:19px;
+        height:40px;
+        border: none;
+        text-align: right;
+    }*/
+    .y-table{
+        font-size:19px;
+        height:40px;
+        border: none;
+        text-align: right;
+        overflow: hidden;padding-top:25px;
+    }
+    .y-table .y-right{
+        text-align:right;
+       
+    }
+    .y-table .y-left{
+        text-align:left;
+        float:left;
+    }
+    /* Tipso Bubble Styles 提示层样式*/
+    .tipso_bubble, .tipso_bubble > .tipso_arrow{
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing:    border-box;
+        box-sizing:         border-box;
+    }
+    .tipso_bubble {
+        position: absolute;
+        text-align: center;
+        border-radius: 6px;
+        z-index: 9999;
+        /*border:1px solid #d99118;*/
+        padding: 10px;
+        font-size: 14px;
+    }
+    .tipso_style{
+        /*cursor: help;*/
+        /*border-bottom: 1px dotted;*/
+    }
+
+    /* Tipso Bubble Div */
+    .tipso_bubble > .tipso_arrow{
+        position: absolute;
+        width: 0; height: 0;
+        border: 8px solid #d99118;
+        pointer-events: none;
+    }
+    .tipso_bubble.top > .tipso_arrow {
+        border-top-color: #000;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        top: 100%;
+        left: 50%;
+        margin-left: -8px;
+    }
+    .tipso_bubble.bottom > .tipso_arrow {
+        border-bottom-color: #000;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        border-top-color: transparent;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -8px;
+    }
+    .tipso_bubble.left > .tipso_arrow {
+        border-left-color: #000;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+        top: 50%;
+        left: 100%;
+        margin-top: -8px;
+    }
+    .tipso_bubble.right > .tipso_arrow {
+        border-right-color: #000;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+        top: 50%;
+        right: 100%;
+        margin-top: -8px;
+    }
+
+    .wen{color:#89c6eb;margin-left:5px;}
+    #Wraper_my_account #cash .main-div{margin:10px 45px;}
+    .main-div{border:1px solid #d7d7d7;height:40px;line-height:40px;background: #f7f7f7;font-size: 18px;padding:10px 20px;}
+    .y-cash{color:#ff6600;font-size:22px;margin-left:30px;}
+    .sq-float{float:right;background: #0099ff;color:#fff;height:30px;line-height:30px;padding:0 20px;margin-top:5px;cursor: pointer;}
+    .wenflaot{float:right;margin-top:10px;}
+    .get{overflow:hidden;height:50px;line-height:50px;font-size:16px;}
+    .get li{float:left;margin-right:50px;}
+    .get .y-cash{margin-left:10px;}
+    .balance{color:#ff0000;font-size:16px;}
+    em{font-style: normal;background: #f4f4f4;color:#0a0a0a;font-family:"微软雅黑";font-size:14px;display:block;}
+    h6{background: #f4f4f4;color:#0a0a0a;font-family:"sans-serif";font-size:14px;}
+    .bDiv table tr td, .bDiv table tr th{text-align:center;}
+    .hDiv table tr td, .hDiv table tr th{text-align:center;}
+</style>
+<div class="urlContentWraper" id="Wraper_my_account">
+    <div id="Form_set_applyCash" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid container span3"> 
+                <ul>
+                    <li class="can">提现：<span class="takeBalance"></span>元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扣除2%：<span class="counterFee"></span>元</li>
+                    <li class="bank">到账金额：<span class="takeBalanceReal"></span>元</li>
+                    <li class="account">提现账户：<span class="bankName"></span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bankHolder"></span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bankAccount"></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container detailHide">
+            <button class="jrad-btn-primary btn btn-small btn-primary">
+                确定
+            </button>
+            <button class="jrad-btn-normal btn btn-small btn-default">
+                取消
+            </button>
+        </div>
+    </div>    
+    <div id="Form_set_transAccount" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid container span3"> 
+                <ul>
+                    <li>确认把理财余额<span class="canblance"></span>元转入账户？<br>转入账户后即可提现！</li>
+                </ul>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container detailHide">
+            <button class="jrad-btn-primary btn btn-small btn-primary">
+                确定
+            </button>
+            <button class="jrad-btn-normal btn btn-small btn-default">
+                取消
+            </button>
+        </div>
+    </div>
+    <div id="Form_myaccount_set" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid"> 
+                <div class="span23 grid-layout-content fluid-wrap">
+                    <h1 class="message"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="detail">
+        <h2>账户概况</h2>
+        <div id="cash">
+            <!-- <table class="y-table">
+                <tr>
+                    <td class="y-right">总资产：</td>
+                    <td class="y-left"><span class="totalAssets"></span>元<i class="icon-question-sign wen" title="总余额包括账户余额、理财余额的所有收入"></i></td>
+                    <td class="y-right">历史总收入：</td>
+                    <td class="y-left"><span class="totalRevenue"></span>元</td>
+                </tr>
+            </table> -->
+            <div class="y-table">
+                    <p class="y-left">总资产：</p>
+                    <p class="y-left"><span class="totalAssets"></span>元<i class="icon-question-sign wen" title="总余额包括账户余额、理财余额的所有收入"></i></p>
+                    <p class="y-left" style="margin-left:40px;">历史总收入：</p>
+                    <p class="y-left"><span class="totalRevenue"></span>元</p>
+            </div>
+            <div class="main-div">现金账户<i class="icon-question-sign wen" title="所有入账优先进入此账户，每日0点，此账户余额转移到理财账户计算利息"></i><span class="y-cash" id="takeBalance"></span>元<i class="icon-question-sign wen wenflaot" data-toggle="tooltip" title="1、只提现账户余额部分，理财账户转入现金账户才可提现；2、申请提现后3个工作日内到账；3、每次主动提现会收取2%的手续费，最多收取50元;4、按合同约定结算周期自动结算的无需支付手续费！"></i><span class="sq-float" id="applyCash">申请提现</span></div>
+            <div class="main-div">理财账户<i class="icon-question-sign wen" data-toggle="tooltip" title="此部分余额会按照每万份收益，每天获得利息，需转入现金账户才可提现"></i><span class="y-cash finanicalBalance" id="finanicalBalance"></span>元<i class="icon-question-sign wen wenflaot" data-toggle="tooltip" title="将理财账户余额转入现金账户，转入后不计利息，但可提现"></i><span class="sq-float" id="transAccount">转入账户</span></div>
+        </div>
+    </div>
+
+    <div id="settleAccountTabs">
+        <ul>
+            <li><a href="#licaiCash">理财账户流水</a></li>
+            <li><a href="#licaiAccount">现金账户流水</a></li>
+            <li><a href="#licaiRecord">提现记录</a></li>
+        </ul>
+        <div id="licaiCash">
+            <ul class="get">
+                <li>昨日收益<i class="icon-question-sign wen" data-toggle="tooltip" title="前一天收到的利息"></i><span class="y-cash yesterdayProfit" id="yesterdayProfit"></span>元</li>
+                <li>累计收益<i class="icon-question-sign wen" data-toggle="tooltip" title="累计获得的利息"></i><span class="y-cash financialRevenue" id="financialRevenue"></span>元</li>
+                <li>每万份收益<i class="icon-question-sign wen" data-toggle="tooltip" title="每1万元每天的利息"></i><span class="y-cash profit" id="profit"></span>元</li>
+                <li>预期年化收益率<i class="icon-question-sign wen" data-toggle="tooltip" title="1年收益占本金的百分比(((10000+每万份收益)/10000)^365-1)"></i><span class="y-cash profitRate" id="profitRate"></span></li>
+            </ul>
+            <div class="ui-info-layout">
+                <table id="Table_account_licaiCash">
+                </table>
+            </div>
+        </div>
+        <div id="licaiAccount">
+            <div class="ui-info-layout">
+                <table id="Table_account_licaiAccount">
+                </table>
+            </div>
+        </div>
+        <div id="licaiRecord">
+            <div class="ui-info-layout">
+                <table id="Table_account_licaiRecord">
+                </table>
+            </div> 
+        </div>
+    </div>       
+</div> 
+<script type="text/javascript" src="js/tipso.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var wraper = $('#Wraper_my_account');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+    var page_search_items_b = new Array();
+    var page_column_model_b = new Array();
+    var page_list_buttons_b = new Array(); 
+    var page_search_items_c = new Array();
+    var page_column_model_c = new Array();
+    var page_list_buttons_c = new Array(); 
+    var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    //$("[data-toggle='tooltip']").tooltip({background : 'red'});//问号的提示激活
+    $('.wen').tipso({background:'#11afd2',color:'#fff'});
+    var businessId = carsmart_config.businessInfoId;
+    var shopAccountId = carsmart_config.shopId;
+
+    var item_cash=$.jRadGet({url:'/vip-ws/ws/0.1/businessAccontInfo/getTackCashList?shopAccountId='+shopAccountId+'&businessId='+businessId});
+    var item_cash2=$.jRadGet({url:'/vip-ws/ws/0.1/businessAccontInfo/getFinancialAccount?businessInfoId='+businessId});
+
+    $('.totalAssets').html(parseFloat(item_cash.takeBalance)+parseFloat(item_cash2.finanicalBalance)).css('color','#ff0000'); //总资产
+
+    $('#takeBalance',wraper).html(item_cash.takeBalance).css('color','#ff0000'); // 现金账户金额
+    $('#finanicalBalance ',wraper).html(item_cash2.finanicalBalance).css('color','#ff0000');  //理财账户金额
+    $('#financialRevenue ',wraper).html(item_cash2.financialRevenue).css('color','#ff0000');  //累计收益
+    $('#yesterdayProfit ',wraper).html(item_cash2.yesterdayProfit).css('color','#ff0000');  //昨日收益
+    $('.canblance',wraper).html(item_cash2.finanicalBalance).css({'color':'#ff0000','font-size':'20px'});  //转入账户
+    $('.profit',wraper).html(item_cash2.profit).css('color','#ff0000');
+    $('.profitRate',wraper).html(item_cash2.profitRate).css('color','#ff0000');
+    $('.profit',wraper).html(item_cash2.profit).css('color','#ff0000');
+    $('.profitRate',wraper).html(item_cash2.profitRate).css('color','#ff0000');
+
+    $('.totalRevenue',wraper).html(item_cash.totalRevenue);
+
+    jRad.params['typeFlag']={data:[{id:'',name:'全部'},{id:'1',name:'收入'},{id:'2',name:'支出'}]};
+    //jRad.params['type'] = {data:[{id:'',name:'全部'},{id:'1',name:'账期自动结算'},{id:'2',name:'主动提现'},{id:'3',name:'提现驳回'},{id:'4',name:'转账失败'},{id:'5',name:'完成订单'},{id:'6',name:'订单补贴'},{id:'7',name:'车主卡整卡结算'},{id:'8',name:'保险订单提成'},{id:'9',name:'后台添加'},{id:'10',name:'后台减少'},{id:'11',name:'余额利息收益'},{id:'12',name:'其他'}]};
+    jRad.params['type'] = {data:[{id:'',name:'全部'},{id:'1',name:'账期自动结算'},{id:'2',name:'主动提现'},{id:'3',name:'提现驳回'},{id:'4',name:'转账失败'},{id:'5',name:'完成订单'},{id:'6',name:'订单补贴'},{id:'7',name:'车主卡整卡结算'},{id:'8',name:'保险订单提成'},{id:'9',name:'后台添加'},{id:'10',name:'后台减少'},{id:'11',name:'其他'},{id:'12',name:'配件商城退款'},{id:'13',name:'理财主动转入余额'},{id:'14',name:'理财账户增加余额'},{id:'15',name:'余额转入理财账户'},{id:'16',name:'理财余额利息'},{id:'17',name:'余额增加本息'},{id:'18',name:'车主卡补贴'},{id:'19',name:'配件商城消费'},{id:'20',name:'理财自动转入余额'}]}; 
+    $('#applyCash',wraper).unbind('click').bind('click',function(){
+        $('#Form_set_applyCash',wraper).form({
+            title:'申请提现',
+            grid:10,
+            url:'/vip-ws/ws/0.1/businessAccontInfo/postApplyTakeCash',
+            //sumbit:false,
+            preSubmit:function(json){
+                json.businessId = carsmart_config.businessInfoId;
+                json.cashWithdrawal=item_cash.takeBalance
+                json.cashWithdrawalReal=item_cash.takeBalanceReal
+                json.shopAccount=item_cash.bankAccount
+                return json
+            },
+            success:function(){
+                $('#detail').flexMessage('提现成功', 'success');
+                item_cash=$.jRadGet({url:'/vip-ws/ws/0.1/businessAccontInfo/getTackCashList?shopAccountId='+shopAccountId+'&businessId='+businessId});
+                $('#takeBalance',wraper).html(item_cash.takeBalance).css('color','#ff0000');
+                $('#totalRevenue span',wraper).html(item_cash.totalRevenue);
+                
+                $('#Table_account_licaiAccount').flexReloadSearch();
+                $('#Table_account_licaiRecord').flexReloadSearch();
+                
+                $('.totalAssets').html(parseFloat(item_cash.takeBalance)+parseFloat(item_cash2.finanicalBalance)).css('color','#ff0000');
+
+            },
+            error:function(xhr){
+                if(!(xhr.responseText)){
+                    return false
+                }
+                var mes = eval("("+xhr.responseText+")");
+                $('#Form_set_applyCash',wraper).form('close');
+                $('#Form_myaccount_set',wraper).form({
+                   title:'申请提现', 
+                   grid:10
+                }).form('open')
+                $('.message').html(mes[0].message).css('text-align','center')
+            }
+         }).form('open');
+         var reg = /^(.{4}).+(.{4})$/g;
+         $('#Form_settle_applyCash .detailHide',wraper).show();
+         $('.container .takeBalance').html(item_cash.takeBalance);
+         $('.container .counterFee').html(item_cash.counterFee);
+         $('.container .takeBalanceReal').html(item_cash.takeBalanceReal);
+         $('.container .bankName').html(item_cash.bankName);
+         $('.container .bankHolder').html(item_cash.bankHolder);
+         $('.container .bankAccount').html(item_cash.bankAccount.replace(reg,"$1********$2"));
+    });
+
+    $('#transAccount',wraper).unbind('click').bind('click',function(){
+        if(item_cash2.finanicalBalance == 0 || item_cash2.finanicalBalance == undefined){
+            $('#Form_myaccount_set',wraper).form({
+                title:'转入账户', 
+                grid:10
+            }).form('open')
+            $('.message').html("您还没有理财余额!").css('text-align','center')
+        }
+        else{
+            $('#Form_set_transAccount',wraper).form({
+                title:'转入账户',
+                grid:10,
+                url:'/vip-ws/ws/0.1/businessAccontInfo/transferAccount',
+                preSubmit:function(json){
+                    json.businessId = carsmart_config.businessInfoId;
+                    json.transferAmount=item_cash2.finanicalBalance;
+                    return json
+                },
+                success:function(){
+                    $('#detail').flexMessage('转入成功', 'success');
+                    // $('#Wraper_my_account').flexMessage('转账成功', 'success');
+                    // $('#Table_account_licaiAccount').flexReloadSearch();
+                    // $('#Table_account_licaiRecord').flexReloadSearch();
+                    
+                    item_cash=$.jRadGet({url:'/vip-ws/ws/0.1/businessAccontInfo/getTackCashList?shopAccountId='+shopAccountId+'&businessId='+businessId});
+                    item_cash2=$.jRadGet({url:'/vip-ws/ws/0.1/businessAccontInfo/getFinancialAccount?businessInfoId='+businessId});
+                    $('#takeBalance',wraper).html(item_cash.takeBalance).css('color','#ff0000');
+                    $('#finanicalBalance',wraper).html(item_cash2.finanicalBalance);
+                    $('#Table_account_licaiAccount').flexReloadSearch();
+                    $('#Table_account_licaiRecord').flexReloadSearch();
+                }
+            }).form('open'); 
+            // $('#Form_set_applyCash ul li').hide();
+            // var str='';
+            // str+='确认把理财余额'
+            //     +'<span class="balance">'+item_cash2.finanicalBalance+'元</span>'
+            //     +'转入账户？<br>转入账户后即可提现！'
+            // $('#Form_set_applyCash ul',wraper).append(str)
+        }
+    })
+    
+    $('#settleAccountTabs').tabs();
+    
+    $('#settleAccountTabs ul li:eq(0)').click(function(){
+        $("#licaiCash .btn-info:eq(1)").triggerHandler("click");
+    });  
+
+    $('#settleAccountTabs ul li:eq(1)').click(function(){
+        $("#licaiAccount  .btn-info:eq(1)").triggerHandler("click");
+    });   
+
+    $('#settleAccountTabs ul li:eq(2)').click(function(){
+        $("#licaiRecord .btn-info:eq(0)").triggerHandler("click");
+    });
+
+    page_column_model.push({display: '申请提现时间', name : 'applyData',diy:function(item,$div){
+        var applyData=item.applyData;
+        var str=applyData.substring(0,10);
+        $div.html(str)
+    }});
+    page_column_model.push({display: '提现余额(元)', name : 'cashWithdrawal'});
+    page_column_model.push({display: '扣除2%后金额(元)', name : 'cashWithdrawalReal'});
+    page_column_model.push({display: '审核状态', name : 'auditStatus',width:150,diy:function(item,$div){
+        $div.html(item.auditStatus);
+        if(item.auditStatus=='审核驳回'){
+            $div.html('审核驳回&nbsp;&nbsp;&nbsp;&nbsp;')
+         var $a = $("<a>").html("驳回原因");
+         $div.append($a);
+         $a.click(function(){
+            $('#Form_myaccount_set',wraper).form({
+                   title:'驳回原因', 
+                   grid:8
+            }).form('open')
+            $('.message').html(item.remark).css('text-align','center')
+         });
+        }
+        else if(item.auditStatus=='1'){$div.html('审核通过')}
+        else if(item.auditStatus=='0'){$div.html('审核中')}
+    }});
+    page_column_model.push({display: '审核时间', name : 'auditDate',diy:function(item,$div){
+        var auditDate=item.auditDate;
+        var str=auditDate.substring(0,10);
+        if(auditDate == '' || auditDate == undefined){
+            $div.html("--")
+        }else{
+            $div.html(str)
+        }
+    }});
+    page_column_model.push({display: '转账状态', name : 'isTransfered'});
+    page_column_model.push({display: '转账时间', name : 'transferDate',diy:function(item,$div){
+        var transferDate=item.transferDate;
+        var str=transferDate.substring(0,10);
+        $div.html(str)
+        if(transferDate == '' || transferDate == undefined){
+            $div.html("--")
+        }else{
+            $div.html(str)
+        }
+    }});
+
+    page_column_model_b.push({display: '时间', name : 'changeData'});
+    page_column_model_b.push({display: '类别', name : 'type'}); 
+    page_column_model_b.push({display: '类别明细', name : 'changeInfo'}); 
+    page_column_model_b.push({display: '收入(元)', name : 'inMoney',width:150,diy:function(item,$div){
+        if(item.changeMoney>0){
+            $div.html(item.changeMoney)
+        }else{
+            $div.html('--')
+        }
+    }});
+    page_column_model_b.push({display: '支出(元)', name : 'outeMoney',width:150,diy:function(item,$div){
+        if(item.changeMoney<0){
+            $div.html(item.changeMoney)
+        }else{
+            $div.html('--')
+        }
+    }}); 
+    page_column_model_b.push({display: '账户余额(元)', name : 'aBalance',width:150}); 
+
+    page_search_items_b.push({row:'1',type:'jrad-dateinput',display:'时间始',name:'startDate'});
+    page_search_items_b.push({row:'1',type:'jrad-dateinput',display:'时间终',name:'endDate'});
+    page_search_items_b.push({row:'1',type:'jrad-select',display:'收入/支出',name:'typeFlag',params:jRad.params['typeFlag']});
+    page_search_items_b.push({row:'2',type:'jrad-select',display:'类别',name:'type',params:jRad.params['type']});
+    page_search_items_b.push({row:'2',type:'jrad-input',display:'类别明细',name:'typeDetail'});
+
+
+    page_search_items_c.push({row:'1',type:'jrad-dateinput',display:'时间始',name:'startDate'});
+    page_search_items_c.push({row:'1',type:'jrad-dateinput',display:'时间终',name:'endDate'});
+
+    page_column_model_c.push({display: '时间', name : 'changeData'}); 
+    page_column_model_c.push({display: '收支(元)', name : 'changeMoney'}); 
+    page_column_model_c.push({display: '理财余额(元)', name : 'aBalance'}); 
+
+    $('#Table_account_licaiCash',wraper).flexigrid({
+        reload: true,
+        grid:10,
+        pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model_c,
+        searchitems: page_search_items_c,
+        buttons : page_list_buttons_c,
+        method:'get',
+        showSearch:true,   
+        showCheckbox:false,
+        pagedStyle: 'oc',
+        rp: 10,
+        overflow:true,
+        extParam:{'shopAccountId':carsmart_config.shopId,'businessId':carsmart_config.businessInfoId,'accountType':2},
+        url:'/vip-ws/ws/0.1/businessAccontInfo/getAccountTrail'
+    });
+
+    $('#Table_account_licaiAccount',wraper).flexigrid({
+        reload: true,
+        grid:10, 
+        pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model_b,
+        searchitems: page_search_items_b,
+        buttons : page_list_buttons_b,
+        method:'get',
+        showSearch:true,   
+        showCheckbox:false,
+        pagedStyle: 'oc',
+        rp: 10,
+        extParam:{'shopAccountId':carsmart_config.shopId,'businessId':carsmart_config.businessInfoId,'accountType':1},
+        url:'/vip-ws/ws/0.1/businessAccontInfo/getAccountTrail',
+        overflow:true,
+        onError:showIntegralsError
+    }); 
+
+    $('#Table_account_licaiRecord',wraper).flexigrid({
+        reload: true,
+        grid:10,
+        pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model,
+        buttons : page_list_buttons,
+        method:'get',
+        showSearch:true,
+        showCheckbox:false,
+        pagedStyle: 'oc',
+        rp: 10,
+        extParam:{'shopAccountId':carsmart_config.shopId,'businessId':carsmart_config.businessInfoId},
+        url:'/vip-ws/ws/0.1/businessAccontInfo/getTackCashApplyTrail', 
+        overflow:true 
+    });
+    $('#licaiCash .mDiv .tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:15px;float:left;line-height:60px;">理财账户流水列表</span>');
+
+    $('#licaiAccount .mDiv .tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:15px;float:left;line-height:60px;">现金账户流水列表</span>');
+
+    $('#licaiRecord .mDiv .tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:15px;float:left;line-height:60px;">提现记录列表</span>');
+
+    $('.hDiv',wraper).css('overflow','hidden');
+    $('.bDiv',wraper).css('overflow-x','scroll');
+    function showIntegralsError(xhr){
+      var errormsg = eval("(" + xhr.responseText + ")");
+      var cDiv = $("#daybook .cDiv");
+      $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+    }
+});
+</script>

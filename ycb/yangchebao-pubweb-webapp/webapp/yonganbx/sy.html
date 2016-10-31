@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8" />
+     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+     <meta content="yes" name="apple-mobile-web-app-capable" />
+     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+     <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+     <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.slides.min.0000000000000.js"></script>
+     <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js "></script>
+     <!-- <link href="http://app.yangchebao.com.cn/group1/M00/00/9F/template0000000000000000000000.css" rel="stylesheet" type="text/css" />   -->
+     <title>养车宝app首页</title>
+</head> 
+<style type="text/css"> 
+*{
+padding: 0;
+margin: 0;
+}
+body{
+    color: #1e1e1e;
+    font-family: "冬青黑体","黑体","HelveticaNeue-Light";
+    font-size: 62.5%;
+    background-color: #f4f7f8;
+    color: #lelele;
+} 
+a,a:hover{
+    text-decoration: none;
+    outline: none;
+}
+img,button {
+    border:none;
+}   
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.clearfix::after {
+    clear: both;
+}
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+    line-height: 0;
+} 
+a, a:hover {
+    outline: medium none;
+    text-decoration: none;
+}
+ul {
+    list-style: outside none none;
+}   
+.ad img{
+  display: block;
+  width: 100%;
+}
+section {
+    background-color: #fff;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #d9d9e2;
+}  
+.list-service{
+    margin: 0 1em 1.3em;
+    padding-left: 7em;
+}
+.list-service > li:nth-of-type(1) ,.list-service > li:nth-of-type(5) {
+    margin-left: -7em;
+    width: 7em;
+} 
+.list-service .service {
+    background-image:url("http://app.yangchebao.com.cn/group1/M00/02/10/ChoCK1ZFgyKAO2EYAAAVR1bfJkc305.png");
+    background-repeat: no-repeat;
+    background-size: 167px auto;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    margin: 0 15px;
+}
+.list-service label {
+    display: inline-block;
+    font-size: 1.3em;
+    margin-top:6px;
+    text-align: center;
+    width: 70px;
+} 
+.list-service .carwash {
+    background-position:0px 0px;
+} 
+.list-service .service2 {
+    background-position: -42px 0;
+}
+.list-service .service3 {
+    background-position: -84px 0;
+}
+.list-service .service4 {
+    background-position:  -127px 0;
+} 
+/*.list-service .service5 {
+    background-position: 0 -42px;
+}*/
+.list-service .batteryServ,.list-service2 .batteryServ{
+    background-image:url("http://app.yangchebao.com.cn/group1/M00/02/49/ChoCK1ZVT4WAbNl5AAADC5aZj9E633.png");    
+    background-size: 40px auto;
+}
+.list-service .service6 {
+    background-position:-42px -42px;
+}
+.list-service .service7 {
+    background-position: -84px -42px;
+}
+.list-service .service8 {
+    background-position: -127px -42px;
+}
+/*.list-service .service10 {
+ background-image:url("http://app.yangchebao.com.cn/group1/M00/01/7C/ChoCK1YbH2uAcrP4AAAEocTr9JM281.png");    
+ background-size: 40px auto; 
+}*/
+.list-service .service11 {
+ background-image:url("http://app.yangchebao.com.cn/group1/M00/01/96/ChoCK1YkqHyAExZJAAAEmxpcq5o392.png");    
+ background-size: 40px auto; 
+}
+.list-service .service12 {
+ background-image:url("http://app.yangchebao.com.cn/group1/M00/02/41/ChoCK1ZTyWGAGyyrAAAEECtF1aI259.png");    
+ background-size: 40px auto; 
+}
+.list-service > li:nth-of-type(2), .list-service > li:nth-of-type(3), .list-service > li:nth-of-type(4),.list-service > li:nth-of-type(6), .list-service > li:nth-of-type(7), .list-service > li:nth-of-type(8) {
+    text-align: right;
+    width: 33.3%;
+}
+.list-service > li:nth-of-type(5){
+  clear: both;
+}
+.list-service li {
+    float: left;
+    margin-top: 1.3em;
+}  
+.ui-tit::before { 
+    content: "";
+    display: inline-block;
+    height: 1.25em;
+    margin-right: 0.313em;
+    vertical-align: middle;
+    background-color: #fb451f;
+    width: 2px;
+} 
+.ui-tit {
+   color: #1e1e1e;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0.67em;
+    font-weight: normal;
+    border-bottom: 1px solid #d9d9e2;
+} 
+.ui-tit + .more {
+    margin: -2.8em 0.8em 0 0;
+}
+.more {
+    background-image:url("http://app.yangchebao.com.cn/group1/M00/05/50/ChUBl1Sf5N2AKWhqAAACVujSeIU111.png");
+    background-repeat: no-repeat;
+    background-size: 0.5em auto;
+    background-position: right center; 
+    color: #1e1e1e;
+    float: right;
+    font-size: 1.4em;
+    height: 2.57em;
+    line-height: 2.57em;
+    padding-right: 12px;
+}
+.list-module-pic li { 
+    padding: 0.625em 0.93em 0.93em;
+    background-color: #fff;
+    margin-top: 1em;
+}
+.list-module-pic .pic {
+    float: left;
+    height: 6em;
+    margin-top: 0.5em;
+    width: 8.2em;
+}
+.list-module-pic .pic img {
+    display: block;
+    height: 6em;
+    width: 8.2em;
+}
+.list-module-pic .pic + div {
+    margin-left: 9.5em;
+}  
+.list-module h3, .list-module-pic h3 {
+    font-size: 1.4em;
+    font-weight: normal;
+    margin-bottom: 0.323em;
+    min-height: 1.67em;
+} 
+.list-module-pic h3 .tit {
+    color: #1e1e1e;
+    display: inline-block;
+    vertical-align: middle;
+} 
+.distanceLabel {
+    background-color: #fb451f;
+    color: #fff;
+    display: inline-block;
+    float: right;
+    font-size: 1em;
+    height: 1.1em;
+    line-height: 1.1em;
+    margin-right: -0.7em;
+    padding: 0 1em 0 0.6em;
+} 
+.list-module-pic .info {
+    color: #323232;
+    font-size: 1.2em;
+    line-height: 150%;
+    margin: 0;
+} 
+.list-module-pic .notice {
+    color: #1e1e1e;
+    display: inline-block;
+    font-size: 1.2em;
+    margin-top: 0.5em;
+} 
+.list-module-pic .price {
+    color: #fb451f;
+    display: inline-block;
+    float: right;
+    font-size: 1.8em;
+} 
+.beautify .more, .carwash .more, .repair .more, .upkeep .more {
+    position: absolute;
+    right: 0;
+    top: 5px;
+} 
+.toolList{
+   margin: 0 2em 1em;
+   padding-left: 74px; 
+}
+.toolList li{
+   float: left;
+   margin-top: 1em;
+}
+.toolList > li:nth-of-type(1), .toolList > li:nth-of-type(4){
+  margin-left: -74px;
+  clear: both;
+}
+.toolList > li:nth-of-type(2), .toolList > li:nth-of-type(3), .toolList > li:nth-of-type(5),.toolList > li:nth-of-type(6){
+    text-align: right;
+    width: 50%;
+}
+.toolList .tool{
+    background-image:url("http://app.yangchebao.com.cn/group1/M00/02/10/ChoCK1ZFg1mADsvQAAA89_NMpZM559.png");
+    background-repeat: no-repeat;
+    background-size: 226px auto;
+    display: inline-block;
+    height: 64px;
+    width: 74px; 
+}
+.toolList .tool2{ 
+    background-position: -76px 0;
+}
+.toolList .tool3{ 
+    background-position: -152px 0;  
+} 
+.toolList .tool4{ 
+    background-position: 0 -66px;
+}
+.toolList .tool5{ 
+    background-position: -76px -66px;
+}
+.toolList .tool6{ 
+    background-position: -152px -66px;
+}
+.toolList .tool7{ 
+    background-position: 0 -133px;
+}
+.toolList .tool8{ 
+    background-position: -76px -133px;
+}
+/**团购**/
+.list-group li {
+    border-bottom: 1px solid #d9d9e2;
+    padding: 0 1em 0 1.5em;
+    position: relative;
+}
+.list-group li span {
+    display: block;
+}
+.group-title {
+    color: #1e1e1e;
+    font-size: 1.4em;
+}
+.group-info {
+    color: #a0a0a0;
+    font-size: 1.2em;
+    margin: 1em 0 0.7em;
+}
+.group-distance {
+    background-image: url("http://app.yangchebao.com.cn/group1/M00/00/9F/position0000000000000000000000.png");
+    background-repeat: no-repeat;
+    background-size: auto 1.4em; 
+    color: #6eaade;
+    font-size: 1em;
+    height: 1.7em;
+    line-height: 1.7em;
+    padding: 0 0 0.7em 1.7em;
+}
+.group-left {
+    min-height: 8em;
+    padding-top: 1.5em;
+    width: 76%;
+}
+.group-right {
+    border-left: 1px solid #d9d9e2;
+    bottom: 0;
+    float: right;
+    height: 7.5em;
+    line-height: 7.5em;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 23%;
+}
+.group-price {
+    color: #fb451f;
+    font-size: 1.6em;
+}
+.group-price b {
+    font-weight: normal;
+}
+.want-tit {
+    background-image:url("http://app.yangchebao.com.cn/group1/M00/05/50/ChUBl1Sf3P2AMuADAAAILDxahEw054.png") ;
+    background-repeat: no-repeat;
+    background-size: 2.96em auto;
+    background-position:  0.83em center;
+    border-bottom: 1px solid #d9d9e2;
+    color: #a0a097;
+    font-size: 1.2em;
+    font-weight: normal;
+    height: 3.33em;
+    line-height: 4em;
+    padding: 0 0.83em 0 4.25em;
+}
+.want-tit span:first-child {
+    color: #34cc89;
+    font-size: 1.33em;
+}  
+.tool-list li {
+    border-bottom: 1px solid #d9d9e2;
+    font-size: 1.5em;
+    height: 4em;
+    padding: 0 0.67em;
+    position: relative;
+}
+.tool-list .name {
+    color: #1e1e1e;
+    display: block;
+    padding-top: 0.8em;
+}
+.tool-list .comment {
+    color: #a0a097;
+    display: block;
+    font-size: 0.8em;
+    padding-top: 0.2em;
+}
+.tool-list .link {
+    background-image: url("http://app.yangchebao.com.cn/group1/M00/05/50/ChUBl1Sf5N2AKWhqAAACVujSeIU111.png");
+    background-repeat: no-repeat;
+    background-size:  0.67em auto;
+    background-position: center center;
+    cursor: pointer;
+    display: block;
+    height: 4em;
+    position: absolute;
+    right: 0.67em;
+    top: 0;
+    width: 0.67em;
+}
+/*今日头条*/
+.news-wrap .list-module-pic h3 {
+    font-size: 1.5em; 
+} 
+.news-wrap .info {
+    color: #a0a097;
+    font-size: 1.2em;
+    line-height: 150%;
+    margin: 0;
+}
+/*热门活动*/
+.list-activity li {
+    float: left;
+    margin-bottom: 1em;
+    width: 50%;
+}
+.list-activity > li:nth-of-type(2n+1) > div {
+    margin: 0 0.5em 0 1em;
+}
+.list-activity > li:nth-of-type(2n) > div {
+    margin: 0 1em 0 0.5em;
+}
+.list-activity li img {
+    display: block;
+    width: 100%;
+}
+/**弹框**/
+.dialog{
+  position: fixed;
+  width: 100%;
+  height: 100%; 
+  background-color: rgba(0,0,0,0.4);
+  top:0;
+  bottom: 0;
+  z-index:100;
+}
+.dialog>div{ 
+  margin: 100px 10px 0;
+  background-color: #fff; 
+  height: auto;
+  overflow: auto;
+}
+.dialog h1{
+  height: 33px;
+  text-align: center;
+  border-bottom: 1px solid #fb451f;
+  font-size: 1.7em;
+  line-height: 33px; 
+  color: #fb451f;
+  font-weight: normal;
+} 
+.dialog p{
+  padding: 20px;  
+  font-size: 1.6em;
+  line-height: 150%; 
+  color: #lelele;
+  font-weight: normal;
+}
+.dialog .btn-wrap>div{
+  width: 50%;
+  float: left;
+}
+.dialog .dialog-btn{
+  font-size: 1.6em;
+  color: #fff;
+  background-color: #fb451f;
+  display: block;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  cursor: pointer;
+}
+.dialog .left{
+  margin: 0 9px 17px 27px;
+}
+.dialog .right{
+  margin: 0 27px 17px 9px;
+  background-color: #c2c2c6;
+}
+.card-tit {
+    background-color: #fff;
+    background-image:url("http://app.yangchebao.com.cn/group1/M00/0B/A4/ChUBl1WeLKCAdcH2AAARKDB100s442.png") ;
+    background-repeat: no-repeat;
+    background-size: 26px auto;
+    background-position:  0.83em center;
+    border-bottom: 1px solid #d9d9e2;
+    color: #1e1e1e;
+    font-size: 1.2em;
+    font-weight: normal;
+    height: 3.33em;
+    line-height: 3.33em;
+    padding: 0 0.83em 0 4em;
+    margin: 10px 0;
+} 
+.card-tit span:first-child { 
+    font-size: 1.33em;
+}
+.card-tit + .more {
+    margin: -3.5em 0.8em 0 0;
+    color: #ff825f;
+}
+.ad{
+  position:relative;
+}
+.slidesjs-pagination {
+    bottom: 0.7em;
+    list-style: outside none none;
+    margin: 6px 0 0;
+    position: absolute;
+    right: 1em;
+    z-index: 100;
+}
+.slidesjs-pagination li {
+    display: inline-block;
+    margin: 0 1px;
+}
+.slidesjs-pagination li a {
+    background: transparent url("http://app.yangchebao.com.cn/group1/M00/00/9F/pagination00000000000000000000.png") no-repeat scroll 0 0 / auto 0.7em;
+    display: block;
+    float: left;
+    height: 0;
+    overflow: hidden;
+    padding-top: 0.7em;
+    width: 0.8em;
+}
+.slidesjs-pagination li a.active, .slidesjs-pagination li a.active:hover {
+    background-position: -1.05em 0;
+}
+
+.list-service2{
+    margin: 0 1em 1.3em;
+    padding-left: 6em;
+}
+.list-service2 > li:nth-of-type(1) ,.list-service2 > li:nth-of-type(5) {
+    margin-left: -6em;
+    width: 6em;
+} 
+.list-service2 .service {
+    background-image:url("http://app.yangchebao.com.cn/group1/M00/0B/42/ChUBl1WKlAqAaHdjAAAfUQKpPBM424.png");
+    background-repeat: no-repeat;
+    background-size: 209px auto;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    margin: 0 15px;
+}
+.list-service2 label {
+    display: inline-block;
+    font-size: 1.3em;
+    margin-top:6px;
+    text-align: center;
+    width: 70px;
+} 
+.list-service2 .carwash {
+    background-position:0 0;
+} 
+.list-service2 .upkeep {
+    background-position: -42px 0;
+}
+.list-service2 .beautify {
+    background-position: -84px 0;
+}
+.list-service2 .repair {
+    background-position:  -127px 0;
+}
+.list-service2 .service5 {
+    background-position: -169px 0;
+}
+.list-service2 .service6 {
+    background-position: 0 -42px;
+}
+.list-service2 .service7 {
+    background-position:-42px -42px;
+}
+.list-service2 .service8 {
+    background-position: -84px -42px;
+}
+.list-service2 .service9 {
+    background-position: -127px -42px;
+}
+/*.list-service2 .service10 {
+ background-image:url("http://app.yangchebao.com.cn/group1/M00/01/7C/ChoCK1YbH2uAcrP4AAAEocTr9JM281.png");    
+ background-size: 40px auto; 
+}*/
+.list-service2 .service11 {
+ background-image:url("http://app.yangchebao.com.cn/group1/M00/01/96/ChoCK1YkqHyAExZJAAAEmxpcq5o392.png");    
+ background-size: 40px auto; 
+}
+.list-service2 .service12 {
+ background-image:url("http://app.yangchebao.com.cn/group1/M00/02/41/ChoCK1ZTyWGAGyyrAAAEECtF1aI259.png");    
+ background-size: 40px auto; 
+}
+.list-service2 > li:nth-of-type(2), .list-service2 > li:nth-of-type(3), .list-service2 > li:nth-of-type(4),.list-service2 > li:nth-of-type(6), .list-service2 > li:nth-of-type(7), .list-service2 > li:nth-of-type(8) {
+    text-align: right;
+    width: 33.3%;
+}
+.list-service2 > li:nth-of-type(5){
+  clear: both;
+}
+.list-service2 li {
+    float: left;
+    margin-top: 1.3em;
+} 
+.bxOrder,.modelChange{ 
+  background-color: #A3AC56; 
+  color: #fff; 
+  display: block;
+  font-size: 1.6em; 
+  height: 40px;
+  line-height:40px; 
+} 
+.modelChange{
+  text-align: center;
+}
+.modelChange img{
+  vertical-align: middle;
+  width: 22px;
+  margin-left: 13px;
+}
+.bxOrder img{
+  vertical-align: middle;
+  width: 23px;
+  margin:0 10px 0 15px;
+} 
+.bxOrder span{
+  float: right;
+  display: block;
+  margin-right: 15px;
+  font-size: 1.8em; 
+}
+</style>
+<body> 
+<a class="modelChange" style="display:none;" href="javascript:void(0)">切换到理赔模式<img src="http://app.yangchebao.com.cn/group1/M00/02/D1/ChoCK1Z49NCAROWyAAAAuSdtXLc787.png"/></a> 
+<a class="bxOrder" style="display:none;" href="javascript:void(0)"><img src="http://app.yangchebao.com.cn/group1/M00/02/D0/ChoCK1Z49ISAYlQFAAABG4EKvCk420.png"/>您有<label></label>个理赔订单需要立即处理！<span>></span></a> 
+
+<article class="ad" style="display:none;" id="topAd-Wrap"></article>
+<section class="tools-wrap">
+   <ul class="toolList clearfix">
+     <li><a href="javascript:void(0);" id="lechengLink" class="localpoint" locationId="31"><span class="tool">&nbsp;</span></a></li><!--用车挣钱-->  
+     <!--li><a href="javascript:void(0);" id="applyTest" class="localpoint" locationId="33"><span class="tool tool3">&nbsp;</span></a></li--><!--上门检测-->
+     <!--li><a href="http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/04776326"><span class="tool tool4">&nbsp;</span></a></li--><!--每周红包 --> 
+     <!-- <li><a href="http://w2l?service=1&amp;subService=11" class="localpoint" locationId="35"><span class="tool tool6">&nbsp;</span></a></li> --><!--加油-->
+     <li><a href="http://w2nw?http://172.18.180.11/yangchebao-pubweb/doorMaintance/index.html" id="doorMaintance" class="localpoint" locationId="33"><span class="tool tool7"></span></a></li><!--上门保养-->
+     <li><a href="http://w2l/?presentType=1&amp;needLogin=0&amp;androidName=9&amp;iosName=IllegalFindStep0ViewController" class="localpoint" locationId="34"><span class="tool tool5">&nbsp;</span></a></li--><!--违章查询--> 
+     <li style="display:none;"><a href="http://w2l/?presentType=1&needLogin=1&androidName=34&iosName=AddOilCardPayViewController" class="localpoint" locationId="35"><span class="tool tool8">&nbsp;</span></a></li><!--加油卡-->
+   </ul>
+</section>
+<section>
+<ul class="list-service clearfix"  style="display:none;">
+  <li><a href="http://w2l/?presentType=1&needLogin=0&androidName=35&iosName=ShopSelectedConditionViewController&service=63&serviceName=洗车" class="localpoint" locationId="36"><span class="service carwash">&nbsp;</span></a>
+  <p><label>洗车</label></p>
+  </li>
+  <li><a href="http://w2l/?presentType=1&needLogin=0&androidName=6&iosName=ShopListViewController&service=5" class="localpoint" locationId="37"><span class="service service2">&nbsp;</span></a> 
+  <p><label>小保养</label></p>
+  </li>
+  <li><a href="http://w2l/?presentType=1&needLogin=0&androidName=35&iosName=ShopSelectedConditionViewController&service=66&serviceName=打蜡" class="localpoint" locationId="43"><span class="service service3">&nbsp;</span></a>
+  <p><label>打蜡</label></p>
+  </li>
+  <li><a href="http://w2l/?presentType=1&needLogin=0&androidName=35&iosName=ShopSelectedConditionViewController&service=77&serviceName=内饰清洗" class="localpoint" locationId="39"><span class="service service4">&nbsp;</span></a>
+  <p><label>内饰清洗</label></p>
+  </li>
+  <li><a href="http://w2nw?http://172.18.180.11/yangchebao-pubweb/changeBattery/index.html" class="localpoint" locationId="40"><span class="service service5 batteryServ">&nbsp;</span></a>
+  <p><label>上门换电瓶</label></p>
+  </li> 
+  <li><a href="http://w2l?service=2&subService=5987" class="localpoint" locationId="41"><span class="service service6">&nbsp;</span></a>
+  <p><label>乐乘盒子</label></p>
+  </li>  
+ <!-- li><a href="http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/01078158" class="localpoint" locationId="44"><span class="service service7">&nbsp;</span></a>
+  <p><label>抢购</label></p>
+  </li --> 
+  <li><a class="localpoint" href="http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/00676841" locationid="45"><span class="service service12"> </span></a>
+	<p><label>保险</label></p>
+	</li>
+  <li><a href="http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/05026902" class="localpoint" locationId="44"><span class="service service8">&nbsp;</span></a>
+  <p><label>更多</label></p>
+  </li> 
+</ul> 
+<ul class="list-service2 clearfix">
+	<li><a locationid="36" href="http://w2l?service=1&amp;subService=11" class="localpoint"><span class="service carwash"> </span></a>
+
+	<p><label>洗车</label></p>
+	</li>
+	<li><a locationid="37" href="http://w2l?service=3" class="localpoint"><span class="service upkeep"> </span></a>
+	<p><label>保养</label></p>
+	</li>
+	<li><a locationid="38" href="http://w2l?service=2" class="localpoint"><span class="service beautify"> </span></a>
+	<p><label>美容</label></p>
+	</li>
+	<li><a locationid="39" href="http://w2l?service=4" class="localpoint"><span class="service repair"> </span></a>
+	<p><label>维修</label></p>
+	</li>
+	<!--li><a class="localpoint" href="http://w2l?service=3&amp;subService=29" locationid="40"><span class="service service5"> </span></a>
+	<p><label>空调清洗</label></p>
+	</li-->
+    <li><a locationid="45" href="http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/00676841" class="localpoint"><span class="service service12"> </span></a>
+	<p><label>保险</label></p>
+	</li>
+	<li><a locationid="41" href="http://w2l?service=3&amp;subService=31" class="localpoint"><span class="service service6"> </span></a>
+	<p><label>油路清洗</label></p>
+	</li>
+	<li><a locationid="42" href="http://w2l?service=4&amp;subService=5489" class="localpoint"><span class="service service7"> </span></a>
+	<p><label>喷漆</label></p>
+	</li>
+	<!--li><a href="http://w2l?service=2&amp;subService=17" class="localpoint" locationId="43"><span class="service service8">&nbsp;</span></a>
+  <p><label>打蜡</label></p>
+  </li-->
+	<!--li><a locationid="44" href="http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/01078158" class="localpoint"><span class="service service10"> </span></a>
+	<p><label>抢购</label></p>
+	</li-->
+    <li><a locationid="44" href="http://w2nw?http://172.18.180.11/yangchebao-pubweb/changeBattery/index.html" class="localpoint"><span class="service service10 batteryServ"> </span></a>
+	<p><label>上门换电瓶</label></p>
+	</li> 
+</ul> 
+</section>  
+
+<section class="carwash-wrap" style="margin-bottom:0;">
+    <a href="http://w2l?service=1&amp;subService=11" class="localpoint" locationId="5"><h1 class="ui-tit"><span>最近的洗车店</span><a href="javascript:" style="margin-left:15px;" id="ktlvxin">.</a></h1>
+    <span class="more">全部洗车店</span></a> 
+    <ul class="list-module-pic">
+      <a href="javascript:void(0);">
+      <li class="clearfix localpoint" style="border:none;" locationId="6">
+        <div class="pic">
+          <img src=""/>
+        </div>
+        <div>
+          <h3><span class="tit"></span><span class="distanceLabel"></span></h3> 
+          <p class="info"></p>
+          <div><span class="notice"></span><span class="price"></span></div>
+        </div>
+      </li> 
+      </a>
+    </ul>
+</section>
+<a href="http://w2nw?http://172.18.180.11/yangchebao-oc/card/index.html"><h1 class="card-tit"><span>车主卡商城</span></h1>  
+<span class="more">优惠多多，轻松省钱</span>
+</a>
+<!--section class="want-wrap">
+  <h1 class="want-tit"><span>我要嘛</span><span> | 满足各种需求</span></h1> 
+  <ul class="tool-list">
+    <li class="clearfix">
+      <a href="http://w2l?presentType=1&amp;needLogin=1&amp;androidName=11&amp;iosName=WoYaoViewController" class="localpoint" locationId="13">
+      <span class="name">[维修理赔][接车送修]</span>
+      <span class="comment">专人对接</span>
+      <span class="link"></span>
+      </a>
+    </li>
+    <li class="clearfix">
+      <a href="http://w2l/?presentType=1&amp;needLogin=1&amp;androidName=14&amp;iosName=YangCheAlarmViewController" class="localpoint" locationId="14">
+      <span class="name">[养车闹钟]</span>
+      <span class="comment">再也不怕忘记年检</span>
+      <span class="link"></span>
+      </a>
+    </li> 
+  </ul>
+</section-->
+<section class="news-wrap">
+    <a href="http://w2l/?presentType=1&amp;needLogin=0&amp;androidName=13&amp;iosName=InfomationsViewController" class="localpoint" locationId="17"><h1 class="ui-tit"><span>今日头条</span></h1><span class="more">更多资讯</span></a> 
+    <ul class="list-module-pic">
+      <a href="http://w2l/?presentType=1&amp;needLogin=0&amp;androidName=13&amp;iosName=InfomationsViewController" class="localpoint" locationId="18">
+      <li class="clearfix" style="border:none;"> 
+        <div class="pic">
+          <img src=""/>
+        </div>
+        <div>
+          <h3><span class="tit"></span></h3> 
+          <p class="info"><!-- <span class="notice">456关注</span> --></p> 
+        </div> 
+      </li>
+      </a> 
+    </ul>
+</section> 
+<div class="dialog" id="testResultDialog" style="display:none;">
+      <div>
+        <h1>提示</h1>
+        <p>检测申请中！</p>
+        <div class="btn-wrap">
+            <div style="width:100%;"><div class="dialog-btn left" style="margin-right:27px;">关闭</div></div> 
+        </div>
+      </div>
+</div> 
+<div style="position:fixed;bottom:35px;right:20px;cursor:pointer;z-index:10;" locationid="10000" class="localpoint" id="redEnvelope">
+<a href="http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/06251127">
+<img style="width:47px;" src="http://app.yangchebao.com.cn/group1/M00/04/ED/ChUBl1SJBkuADvQMAAATZnhm3z0764.png">
+</a>
+</div>
+<script type="text/javascript">
+var paramJson = {};  
+function locationFun(id){ 
+    var postData = {};
+    postData.url = window.location.href.split("?")[0]; 
+    postData.type = "9";  
+    postData.locationId = id; 
+    var arr = [];
+    arr.push(postData);
+    $.ajax({ url: '/yangchebao-app-ws/ws/0.1/log/visit/location?'+window.location.href.split("?")[1],  
+         type: 'post',    
+         data:$.toJSON(arr), 
+         dataType: 'json', 
+         contentType:'application/json;charset=utf-8',
+         success:function(){}  
+    });
+} 
+function getCarwash(){ 
+    $.ajax({
+          url: '/yangchebao-app-ws/ws/0.1/shop/business/page/v2?areaName='+paramJson.cityName+'&modelId='+paramJson.modelId+'&service=1&lon='+paramJson.lon+'&lat='+paramJson.lat+'&pageindex=0&pagesize=1&specialServiceId=11&osInfo='+paramJson.osInfo,
+          type: 'get',  
+          dataType: 'json',
+          success: function(data) {  
+             var item = data.items[0]; 
+             var _li = $(".carwash-wrap .list-module-pic li:first");
+             $("img",_li).attr("src",item.logo);
+             if(item.name.length>10){
+              item.name = item.name.substring(0,10)+"...";
+             }
+               $(".tit",_li).html(item.name);
+               $(".info",_li).html("地址："+item.address);   
+               $(".notice",_li).html("关注："+item.attentionNumber);   
+               if(item.totalPrivilegePrice!="暂无"){
+                   $(".price",_li).html("￥"+item.totalPrivilegePrice);
+               }else{
+                 $(".price",_li).html(item.totalPrivilegePrice);
+              }
+               $(".distanceLabel",_li).html(item.distance); 
+                    _li.parent("a").attr('href','http://w2l?shopid='+item.id+'&surid='+item.busiServiceRelId); 
+              }
+      });
+  } 
+  
+function getInfomation(){  
+    $.ajax({
+          url: '/yangchebao-app-ws/ws/0.1/service/special?areaName='+paramJson.cityName+'&modelId='+paramJson.modelId,
+          type: 'get',  
+          dataType: 'json',
+          success: function(data) { 
+             var arr = data.informationList;
+             var item = arr[0]; 
+         var _li = $(".news-wrap .list-module-pic li:first");
+         $("img",_li).attr("src",item.pic);
+           $(".tit",_li).html(item.title);
+            if(item.summary.length>30){
+            $(".info",_li).html(item.summary.substring(0,30)+"...");  
+               }else{
+                $(".info",_li).html(item.summary);  
+               } 
+          }
+      });
+} 
+function getHotAdvertises(cityName){  
+    $.ajax({
+          url: '/yangchebao-app-ws/ws/0.1/advertise/hotAdvertises?cityName='+cityName,
+          type: 'get', 
+          dataType: 'json',
+          success: function(data) { 
+              $.each(data,function(i){
+                var num = "1000"+(i+1);
+                var activity = data[i];
+          var entityUrl=activity.entityUrl;
+          if(activity.entityId==""){
+            if(entityUrl.indexOf(".html")>-1||entityUrl.indexOf("urlMapper/rot")>-1){
+              entityUrl = "http://w2nw?"+activity.entityUrl;
+            }else{
+              entityUrl = activity.entityUrl;
+            }
+            
+          }else{
+            entityUrl = "http://w2l?shopid="+activity.entityId;
+          } 
+                var $li = $("<li>").html('<div><a href="'+ entityUrl +'"><img src="'+ activity.adPicAddress +'"/></a></div>').attr("locationId",num);
+                $("#activityUl").append($li);
+              });
+          }
+      });
+  }   
+function getAds(cityName,modelId1){  
+  $.ajax({
+        url: '/yangchebao-app-ws/ws/0.1/advertise/topAdvertises?cityName='+cityName+'&modelId='+modelId1,
+        type: 'get', 
+        dataType: 'json',
+        success: function(data) {
+            $.each(data,function(i){
+              var ad = data[i]; 
+              var url = 'http://w2nw?'+ad.entityUrl; 
+              if(ad.entityId!=""&&ad.adTurnType==1){ 
+                  url = "http://w2l?shopid="+ad.entityId; 
+              }
+              var $img = $("<img>").attr('src',ad.adPicAddress).attr('url',url);
+              $("#ads").append($img);
+            });
+            $('#ads').slidesjs({
+             width:640,
+             height:200, 
+             navigation: false,
+             play: {auto: true}
+           });
+           $("#ads img").click(function(){
+           window.open($(this).attr('url'));
+           });
+        }
+    });
+}
+
+function getTopAds(cityName,modelId1){  
+  $.ajax({
+        url: '/yangchebao-app-ws/ws/0.1/advertise/location?location=15&cityName='+cityName+'&modelId='+modelId1+'&count=3',
+        type: 'get', 
+        dataType: 'json',
+        success: function(data) {
+            if(data.length>0){ 
+              $.each(data,function(i){
+                var ad = data[i]; 
+                var url = ''; 
+                 if(ad.entityUrl.indexOf(".html")>-1||ad.entityUrl.indexOf("urlMapper/rot")>-1){
+                   url = 'http://w2nw?'+ad.entityUrl; 
+                 }else{
+                   url = ad.entityUrl;
+                 }
+                if(ad.entityId!=""&&ad.adTurnType==1){ 
+                    url = "http://w2l?shopid="+ad.entityId; 
+                }
+				var $img = $("<img>").attr('src',ad.adPicAddress).attr('url',url); 
+                $("#topAd-Wrap").append($img);
+              }); 
+              if(data.length>1){
+               $('#topAd-Wrap').slidesjs({
+				 width:640,
+				 height:90, 
+				 navigation: false,
+				 play: {auto: true}
+			   });
+               }else{
+                  $('#topAd-Wrap').show();
+               }
+			   $("#topAd-Wrap img").click(function(){
+			   window.open($(this).attr('url'));
+			   });
+           } 
+        }
+    });
+}
+
+function getDistance(shopId,lon,lat,obj){  
+    var _this = obj;
+      $.ajax({
+         url: '/yangchebao-app-ws/ws/0.1/shop/business/distance?id='+shopId+"&lon="+lon+"&lat="+lat,
+         type: 'get',  
+         dataType: 'json',
+         success: function(data) {
+              distance = data.distance;
+             _this.find(".group-distance").html(distance);
+         }
+     }); 
+ } 
+ function getCustomerId(id){
+      var customerId = "";
+      $.ajax({
+          url: '/yangchebao-app-ws/ws/0.1/user/userinfo/getCustomerId?userInfoId='+id,
+          type: 'get',
+          async: false,
+          dataType: 'json',
+          success: function(data) { 
+            if(data.customerId!=""&&data.customerId!=undefined){ 
+              customerId = data.customerId; 
+             }else{
+              customerId = -1; 
+             }
+          },error:function(){ 
+            customerId = -1;
+          }
+        });
+      return customerId;
+}
+ function isNewUser(id, deviceToken) {
+    $.ajax({
+        url: '/yangchebao-app-ws/ws/0.1/orders/carwash/checkIsNewUser?userInfoId=' + id + '&deviceToken=' + deviceToken,
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+           // if (data.flag == "YES") { 
+               // $("#isNewUser").click(function() {
+              //      window.location.href = "http://w2nw?http://app.yangchebao.com.cn/group1/M00/09/0A/ChUBl1UTZ9GAe0kgAAAQMcaDK-I44.html";
+             //   });
+            //} else { 
+                $("#isNewUser .tool").removeClass("tool2").addClass("tool4");
+                $("#isNewUser").click(function() {
+                    window.location.href = "http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/06251127";
+                });
+            //}
+            $("#isNewUser").parent("li").show();
+        }
+    })
+}
+function  applyTest() {
+    $.ajax({
+        url: '/yangchebao-weixin-ws/ws/0.1/appInspection/canMakeOrder?customerId=' +paramJson.customerId + '&' + parseInt(Math.random() * 100000),
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+            if (data.status == 2) { 
+            $("#applyTest").attr("href","http://w2nw?http://weixin.yangchebao.com.cn/yangchebao-weixin-ws/report.html?" + parseInt(Math.random() * 100000)); 
+            }else if (data.status == 1) {
+              $("#applyTest").attr("href","http://w2nw?http://weixin.yangchebao.com.cn/yangchebao-weixin-ws/index.html?" + parseInt(Math.random() * 100000));               
+            } else {
+                $("#applyTest").attr("href","javascript:void(0)");   
+                $("#applyTest").click(function(){
+                   $('#testResultDialog').fadeIn(); 
+                });
+            }
+        },
+        error: function(xhr) {
+            var mes = eval('(' + xhr.responseText + ')'); 
+        }
+    });
+}
+function  yonganBx() {
+    $.ajax({
+        url: '/yangchebao-app-ws/ws/0.1/user/subsidy/status?userInfoId='+paramJson.userId,
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+             //isClaimsPerson String  是否是保险理赔员：0.否；1.是  
+              if(data.isClaimsPerson==1){ 
+                $(".modelChange").show();
+                 $(".modelChange").attr("href","http://172.18.180.11/yangchebao-pubweb/yonganbx/index.html"+window.location.search);
+              }
+              if(data.claimsOrderNum>0){
+                $(".bxOrder").show();
+                $(".bxOrder label").html(data.claimsOrderNum);
+                if(data.claimsOrderNum>1){
+                   $(".bxOrder").attr("href","http://w2nw?http://172.18.180.11/yangchebao-pubweb/yonganbx/user/orderList.html");
+                }else{
+                   $(".bxOrder").attr("href","http://w2nw?http://172.18.180.11/yangchebao-pubweb/yonganbx/user/orderDetail.html?orderNumber="+data.orderNumber);
+                }
+              } 
+        },
+        error: function(xhr) {
+            var mes = eval('(' + xhr.responseText + ')'); 
+        }
+    });
+}
+function getRandom(){ 
+var date = (new Date()).getTime(); 
+var start = (new Date("2015/11/03 00:00:00")).getTime();
+var end = (new Date("2015/11/06 00:00:00")).getTime();
+if(date>start&&date<end){
+  var num =  Math.floor(Math.random()*9+1); 
+    console.log(num);
+  if(num==1){
+    locationFun("000");
+    $("body").append("<img src='http://t.jzt.58.com/novemberLoveWhat/index?hmsr=app_banner_ycb_sa_1023_csqg' style='display:none;'/>");
+ }
+} 
+}
+var index = {};
+function passParamsFromApp2Web(info){   
+		index.init(info);
+} 
+function connectWebViewJavascriptBridge(callback) {
+	if (window.WebViewJavascriptBridge) {
+		callback(WebViewJavascriptBridge)
+	} else {
+		document.addEventListener('WebViewJavascriptBridgeReady', function() {
+			callback(WebViewJavascriptBridge)
+		}, false)
+	}
+}
+connectWebViewJavascriptBridge(function(bridge) {
+	document.documentElement.style.webkitTouchCallout='none';
+	bridge.init(function(message, responseCallback) {   
+		if(message instanceof Object){  
+			if(typeof index.init === 'function') {   
+				responseCallback(index.init.apply(this,[message,bridge]));
+			} 
+		}else if(message=="pullUpRefresh"){
+			 typeof index[message] == 'function' && responseCallback(index.pullUpRefresh.apply(this));  
+		}else{
+			 responseCallback(setCallCountFromClient.apply(this,[message]));
+		}
+	}) 
+ 
+});
+index.init= function(info){  
+   var version = info.version;
+   if(version!=undefined&&(parseFloat(version)>3.8||parseFloat(version)==3.8)){
+	$(".tool5").parents("li").remove();
+	$(".tool8").parents("li").show(); 
+    $(".list-service2").hide();
+    $(".list-service").show();
+   }
+};
+$(document).ready(function(){  
+  $("body").css('width','100%');
+  var url = window.location.search; 
+  var paramsArr = (url.split("?")[1]).split("&"); 
+  $.each(paramsArr,function(i){
+    var item = paramsArr[i].split("=");
+    paramJson[item[0]] = item[1];
+  }); 
+
+  $("#testResultDialog .left").click(function(){
+    $("#testResultDialog").fadeOut();
+  });
+   var getLecheng = function(){
+        var url = '/yangchebao-app-ws/ws/0.1/advertise/earnUrl?modelId='+paramJson.modelId+'&cityName='+paramJson.cityName+'&userId='+paramJson.userId+'&'+(new Date()).getTime();
+       if(paramJson.customerId!=undefined&&paramJson.customerId!=""&&paramJson.customerId!="null"){ 
+         url = '/yangchebao-app-ws/ws/0.1/advertise/earnUrl?modelId='+paramJson.modelId+'&cityName='+paramJson.cityName+'&userId='+paramJson.userId+'&customerId='+paramJson.customerId+'&'+(new Date()).getTime();
+       } 
+        $.ajax({
+          url:url,
+          type: 'get', 
+          dataType: 'json', 
+          success: function(data) {   
+            $("#lechengLink").unbind('click').bind('click',function(){ 
+                 window.location.href = "http://w2nw?"+data.entityUrl; 
+              }); 
+          },error:function(xhr){} 
+        });   
+  } 
+  getLecheng(); 
+  $(".locationList").on('click','li',function(){
+    var locationId = $(this).attr("locationId");
+    if(locationId!=undefined && locationId!=""){
+      locationFun(locationId);
+    }
+  }); 
+  $(".localpoint").on('click',function(){
+    var locationId = $(this).attr("locationId");
+    if(locationId!=undefined && locationId!=""){
+      locationFun(locationId);
+    }
+  });    
+  $('a#ktlvxin').on('click',function(){
+    if(paramJson.customerId!=undefined&&paramJson.customerId!=""&&paramJson.customerId!="null"){
+       window.location.href="http://w2nw?http://172.18.180.11/yangchebao-pubweb/changeAirfilter/index.html"
+    }else{
+       window.location.href="http://w2l/?presentType=2&androidName=8&iosName=LoginViewController&needLogin=1"
+    }
+  });
+  if(paramJson.customerId!=undefined&&paramJson.customerId!=""&&paramJson.customerId!="null"){
+       getUserCar();
+    }
+  function getUserCar(){
+    $.ajax({
+          url: '/yangchebao-app-ws/ws/0.1/user/carinfo/maincar?customerId='+paramJson.customerId,
+          type: 'get',  
+          dataType: 'json',
+          success: function(data) { 
+               if(data.styleId==undefined||data.styleId==""){
+                 paramJson.styleId="";
+               }else{
+                 paramJson.styleId=data.styleId;
+               } 
+              // paramJson.modelName = data.modelName; 
+          }
+      });
+  }   
+  $("#search").click(function(){ 
+        var totalMileage = $.trim($("#totalMileage").val());
+    var reg=/^[1-9][0-9]{0,}$/;  
+    if(totalMileage!=""&&reg.test(totalMileage)){ 
+      if(paramJson.styleId==undefined||paramJson.styleId==""){  
+        window.location.href = "http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/route?localName=2015010717521204858527&totalMileage="+totalMileage;
+      }else{
+          window.location.href = "http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/route?localName=2015010717525404749287&styleId="+paramJson.styleId+"&totalMileage="+totalMileage;
+      }
+    } 
+  }); 
+if(paramJson.customerId!=undefined&&paramJson.customerId!=""&&paramJson.customerId!="null"){
+   $("#applyTest").attr("href","http://w2nw?http://weixin.yangchebao.com.cn/yangchebao-weixin-ws/index.html?" + parseInt(Math.random() * 100000))
+   //$("#applyTest").attr("href","http://w2l/?presentType=2&androidName=8&iosName=LoginViewController")
+}else{
+   $("#applyTest").attr("href","http://w2l/?presentType=2&androidName=8&iosName=LoginViewController")
+  }
+}); 
+window.onload = function(){
+  var cityName = paramJson.cityName,modelId1 = paramJson.modelId;
+  getTopAds(cityName,modelId1);  
+  getHotAdvertises(cityName);
+  getCarwash();
+  getInfomation(); 
+  getRandom();
+  yonganBx();
+    var deviceToken = "";
+    if (paramJson.imei != undefined && paramJson.imei != null && paramJson.imei != "") {
+        deviceToken = paramJson.imei
+    }
+    if (paramJson.uuid != undefined && paramJson.uuid != null && paramJson.uuid != "") {
+        deviceToken = paramJson.uuid
+    }
+  //isNewUser(paramJson.userId, deviceToken);
+  $.each($("#groupBuy li"),function(){
+    var shopId = $(this).attr('data-shopId');
+    var obj = $(this);
+    var distance = getDistance(shopId,paramJson.lon,paramJson.lat,obj); 
+ });
+ //$("#applyTest").attr("href","http://w2nw?http://weixin.yangchebao.com.cn/yangchebao-weixin-ws/index.html?" + parseInt(Math.random() * 100000));
+ //applyTest();
+}
+</script> 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?58c21c0ea0a6a5a832f9f5bbaf0fe4e9";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

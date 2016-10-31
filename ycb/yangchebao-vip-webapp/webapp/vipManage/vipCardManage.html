@@ -1,0 +1,241 @@
+<script type="text/javascript" src="vipManage/vipCardManage.js"></script>
+<script type="text/javascript" src="js/WdatePicker.js"></script>
+
+<style>
+	#Wraper_vipCard_Manage #vipCardCount a{
+		font-size:22px;
+		float:left;
+		margin-right:10px;
+	}
+	#Wraper_vipCard_Manage .diySearchClass{
+		float:right;
+		margin-right:10px;
+	}
+	
+	#Wraper_vipCard_Manage #vipCardCount div.serarch-content{
+	    border-bottom: 1px dashed #ccc;
+    	padding-bottom: 18px;
+    	min-width:inherit;
+	
+	}
+	#Wraper_vipCard_Manage #vipCardCount div.info-content{
+		padding-top:35px
+	}
+	#Wraper_vipCard_Manage #vipCardCount div.info-content label.title{
+		font-size:20px;
+		color:#666695;
+	}
+	#Wraper_vipCard_Manage #vipCardCount div.info-content table{
+		width: 80%;
+		margin: 0px 0px 0px 85px;
+	}
+	#Wraper_vipCard_Manage  #vipCardCount th,#Wraper_vipCard_Manage #vipCardCount td{
+    	padding:5px 0;
+		border-bottom:1px solid #eee;
+		border-right:1px solid #eee;
+		text-align:center;
+    }
+    #Wraper_vipCard_Manage  #vipCardCount th{
+    	background:#F2F2F2;
+    	color:#393939
+    }
+    .hDiv table th, .bDiv table td{text-align:center;}
+    
+
+</style>
+
+<div class="urlContentWraper" id="Wraper_vipCard_Manage"> 
+<div id="vipCardManageTabs">  
+	<ul>
+		<li>
+			<a href="#vipCardCount">会员卡统计</a>
+		</li>
+		<li>
+			<a href="#validVipCard">有效会员卡</a>
+		</li>
+		<li>
+			<a href="#wouldConsume">计次消费列表</a>
+		</li>
+	</ul>
+	<div class="ui-info-layout" id="vipCardCount">
+	    <div class="ydiv">
+	    	<div class="grid-row-fluid serarch-content">
+	    		<a href="javascript:" class="searchNowDay">当天</a>
+	    		
+	    		<a href="javascript:" class="searchNowMonth">本月</a>
+	    		
+	    		<a href="javascript:" class="serarchDiyTime">自定义</a>
+	    		
+	    		<div class="diySearchClass" style="display:none;">
+	    			从
+	    			<input id="startDate" class="Wdate" type="text" style="width:160px" onFocus="var endDate=$dp.$('endDate');WdatePicker({onpicked:function(){endDate.focus();},dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'})"/>
+	    			至
+	    			<input id="endDate" class="Wdate" type="text" style="width:160px" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startDate\')}'})"/>
+	    	 		所属门店：
+	    	 		<select size="1" name="businessInfoId" id="businessInfoId" ></select>
+	    	 		
+	    	 		<button class="search">
+          				 搜索
+       				 </button>
+				</div>
+	    	</div>
+	    	<div class="info-content">
+	    	<div class="grid-row-fluid">
+				 <label class="span3 grid-layout-label title">办卡/充值</label>
+				 <label class="span5 grid-layout-label title">储值消费</label>
+				 <label class="span5 grid-layout-label title">计次消费</label>
+				 <label class="span5 grid-layout-label title">会员卡合计</label>
+			</div>
+			<br>
+			<div class="grid-row-fluid">
+				 <label class="span3 grid-layout-label">数量：</label>
+				 <div class="span2 grid-layout-content">
+                    <div name="chargeAmount">
+                    </div>
+                </div>
+				 <label class="span3 grid-layout-label">数量：</label>
+				 <div class="span2 grid-layout-content">
+                    <div name="consumeAmount">
+                    </div>
+                </div>
+				 <label class="span3 grid-layout-label">总次数：</label>
+				 <div class="span2 grid-layout-content">
+                    <div name="recordAmount">
+                    </div>
+                </div>
+				 <label class="span3 grid-layout-label">会员卡总数：</label>
+				 <div class="span2 grid-layout-content">
+                    <div name="memberCardSumAmount">
+                    </div>
+                </div>
+			</div>
+			<div class="grid-row-fluid">
+				 <label class="span3 grid-layout-label">金额：</label>
+				 <div class="span2 grid-layout-content">
+                    <div name="chargeMoney">
+                    </div>
+                 </div>
+				 <label class="span3 grid-layout-label">金额：</label>
+				 <div class="span2 grid-layout-content">
+                    <div name="consumeMoney">
+                    </div>
+                 </div>
+				 <label class="span5 grid-layout-label"></label>
+				 <label class="span3 grid-layout-label">会员卡总金额：</label>
+				 <div class="span2 grid-layout-content">
+                    <div name="memberCardSumMoney">
+                    </div>
+                 </div>
+			</div>
+	    	</div>
+	    	
+	    	<div class="grid-row-fluid info-content">
+	    		<table id="buyChargeList">
+	    			<thead>
+	    				<tr>
+	    					<th>办卡充值</th>
+	    					<th>数量</th>
+	    					<th>优惠金额</th>
+	    					<th>赠送金额</th>
+	    					<th>实收金额</th>
+	    				</tr>
+	    			</thead>
+	    			<tbody>
+	    			</tbody>
+	    		</table>
+	    	</div>
+	    	<div class="grid-row-fluid info-content">
+	    		<table id="memberCardList">
+	    			<thead>
+	    				<tr>
+	    					<th>卡类型</th>
+	    					<th>数量</th>
+	    					<th>实收金额</th>	    		
+	    				</tr>
+	    			</thead>
+	    			<tbody>
+	    			</tbody>
+	    		</table>
+	    	</div>
+		</div>
+	</div>
+	<div class="ui-info-layout" id="validVipCard">
+	    <div class="vdiv">
+		<table id="Table_validVipCard_list"></table> 
+		</div>
+	</div>
+	<div class="ui-info-layout" id="wouldConsume">
+	    <div class="sdiv">
+		<table id="Table_WouldConsume_list"></table> 
+		</div>
+	</div>
+</div>
+<!-- 卡充值Form -->
+<div id="Form_cardRecharge" class="grid-layout ui-form" style="display:none;">
+	<div class="grid-layout-main jrad-form">
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label">姓名：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="memberName" class="jrad-input-container"></div>
+			</div>
+		</div>
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label">卡类型：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="memberCardName" class="jrad-input-container"></div>
+			</div>
+		</div>	
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>充值金额：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="chargeMoney" class="jrad-input-container"></div>
+			</div>
+		</div>		
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<button class="jrad-btn-primary btn btn-small btn-primary">
+          	 确定
+        </button>
+        <button class="jrad-btn-normal btn btn-small btn-default">
+           	 取消
+        </button>
+	</div>	
+</div>
+<!-- 卡延期Form -->
+<div id="Form_cardDelay" class="grid-layout ui-form" style="display:none;">
+	<div class="grid-layout-main jrad-form">
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label">姓名：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="memberName" class="jrad-input-container"></div>
+			</div>
+		</div>	
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label">卡类型：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="memberCardName" class="jrad-input-container"></div>
+			</div>
+		</div>	
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>充值金额：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="chargeMoney" class="jrad-input-container"></div>
+			</div>
+		</div>	
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>截止日期：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="expiredDate" class="jrad-dateinput-container"></div>
+			</div>
+		</div>	
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<button class="jrad-btn-primary btn btn-small btn-primary">
+          	 确定
+        </button>
+        <button class="jrad-btn-normal btn btn-small btn-default">
+           	 取消
+        </button>
+	</div>	
+</div>
+</div>

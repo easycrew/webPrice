@@ -1,0 +1,320 @@
+<style>
+  #Form_provinceTransaction_flow td,#Form_provinceTransaction_flow th{
+    text-align: center;
+  }
+</style>
+<div class="urlContentWraper" id="Wraper_provinceCharge">
+    <div class="ui-info-layout">
+      <div class="cdiv">
+           <h2 class="ui-tit"><strong>预付款管理列表</strong></h2>
+           <table id="Table_provinceCharge"></table>
+      </div>
+      <div class="sdiv" style="margin-top:10px;">
+           <h2 class="ui-tit"><strong>商家列表</strong></h2>
+           <table id="Table_provinceCharge_busiList"></table>
+      </div>
+    </div>
+    <!-- 收取金额设置 -->
+    <div id="Form_provinceCharge_install" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+          <p class="ui-note">收取金额只能设置为<span class="proPaidMin"></span>-<span class="proPaidMax"></span>元，其中养车宝收取<span class="ycbPaid"></span>元</p>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>  
+    <!-- 交易流水 -->
+    <div id="Form_provinceTransaction_flow" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+  			<table id="Table_provinceTransaction_flow">
+  	        	<tr>
+  	        		<th>变动金额</th>
+  	        		<th>变动后金额</th>
+  	        		<th>变动方式</th>
+  	        		<th>变动时间</th>
+  	        	</tr>
+        	</table>
+          <div class="pagation"></div>
+        </div> 
+    </div>  
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_provinceCharge');
+    var page_column_model = new Array();
+    var page_column_model_c = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+  	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+    var regions=eval('('+carsmart_config.regions+')');
+    if(regions[0].provinceId==0 || (regions[0].provinceId!=0 && regions[0].areaCodeId!=0)){
+      $('#Wraper_provinceCharge').html('您不是省代理商，请到“预付款管理”查看相关信息！');
+      return false
+    }
+    jRad.params['cityIdSearch'] = {
+      urlData:{
+        url:'/euc/ws/0.1/user/cities?provinceId='+regions[0].provinceId+'&userId='+carsmart_config.userId
+      },
+      unshiftData: {id:'',name:'请选择'}
+    };
+
+   var cities=$.jRadGet({url:'/euc/ws/0.1/user/cities?provinceId='+regions[0].provinceId+'&userId='+carsmart_config.userId});
+   var str='';
+   $.each(cities,function(i){
+    str+='<div class="row">'
+       +'<label class="span4 grid-layout-label">'+cities[i].name+'：</label>'
+       +'<div class="span4 grid-layout-content fluid-wrap">'
+       +'<div name="'+cities[i].name+'" class="jrad-input-container">'
+       +'</div></div></div>';
+    jRad.validators[cities[i].name]=[{msg:'请填写',type:'min',value:'1'},{msg:'请填写非负整数',type:'regex',value:/^\d+$/}];
+   });
+   $('#Form_provinceCharge_install div.jrad-form',wraper).prepend(str);
+
+   $('#Form_provinceCharge_install').form({
+      fluid: true,
+      grid:14,
+      validators: jRad.validators,
+      autobinding:true
+    });
+   $('#Form_provinceTransaction_flow').form({
+      title:'交易流水',
+      fluid: true,
+      grid:14,
+      autobinding:true
+    });
+
+    page_column_model.push({display: '代理商账号', name : 'agentUserName'});  
+    page_column_model.push({display: '代理市', name : 'agentCityName',diy:function(item,$div){
+      var str='';
+      var area=item.agentCityName;
+      $.each(area,function(i){
+        if(area[i].provinceName!=null && area[i].provinceName!=undefined){
+          str += area[i].provinceName
+        }
+        if(area[i].areaList!=null && area[i].areaList!=undefined){
+          $.each(area[i].areaList,function(j){
+            str += area[i].areaList[j].areaCodeName
+          })
+        }
+        
+      })
+      $div.html(str)
+    }}); 
+    page_column_model.push({display: '预付款余额（元）', name : 'usableSum',diy:function(item,$div){
+      $div.html(item.useableSum);
+      var flow=$('<a>').html('交易流水').addClass('flow').attr('href','javascript:').css('margin-left','10px');
+      $div.append(flow);
+      $('a.flow',$div).unbind('click').bind('click',function(){
+        $('#Form_provinceTransaction_flow',wraper).form('open');
+        fundRecords(0);
+        function fundRecords(page){
+          $.jRadGet({
+            url:'/shopmanage-ws/ws/0.1/agentManager/fundRecords?agentUserId='+item.agentUserId+'&pageindex='+page+'&pagesize=6',
+            success:function(data){
+              var str='';
+              if(data.items!=null && data.items!=undefined){
+                for(i=0;i<data.items.length;i++){
+                  if(data.items[i].changeAmount>0){
+                    data.items[i].changeAmount='+'+data.items[i].changeAmount
+                  };
+                  str+='<tr>'
+                      +'<td>'+data.items[i].changeAmount+'</td>'
+                      +'<td>'+data.items[i].accountAmount+'</td>'
+                      +'<td>'+data.items[i].operateTypeDesc+'</td>'
+                      +'<td>'+data.items[i].recordTime+'</td>'
+                      +'<tr>'
+                };
+                $('#Form_provinceTransaction_flow table').find('tr').remove();
+                var _th='<tr><th>变动金额</th><th>变动后金额</th><th>变动方式</th><th>变动时间</th></tr>';
+                $('#Form_provinceTransaction_flow table').append(_th).append(str);
+                if(data.items!=''){
+                $('#Form_provinceTransaction_flow div.pagation').page({
+                  diaplay_pages: 5, //展示几页页码
+                  pageindex: data.page, //当前页index
+                  pagesize: 6, //每页展示size
+                  totalCount: data.totalCount, //总条数
+                  totalPages: data.totalPages, //总页数
+                  callback: function(pageIndex) { //换页回调函数
+                    return fundRecords(pageIndex)
+                  },
+                  align:'right', //分页组件显示位置 left right center 默认center
+                  showText:'从第_start_到_end_项 共_total_项' 
+                })
+              }else{
+                $('#Form_provinceTransaction_flow div.pagation').html('');
+                $('#Form_provinceTransaction_flow table').append('<tr><td colspan="4">暂无符合条件的记录</td></tr>');
+              }
+              }
+            }
+          })
+        }
+	  })
+    }});
+    page_column_model.push({display: '已使用预付款金额（元）', name : 'hasUsedAmount'});
+    page_column_model.push({display: '养车宝收取金额', name : 'ycbRecAmount'});
+  	page_column_model.push({display: '省代理收取金额', name : 'parentRecAmount'});
+	
+    
+   page_search_items.push({row:'1',type:'jrad-input',display:'代理商账号',name:'userName'}); 
+   page_search_items.push({row:'1',type:'jrad-select',display:'市',name:'municipalityId',params:jRad.params['cityIdSearch']}); 
+
+	 page_list_buttons.push({title: '收取金额设置',displayname:'收取金额设置',name:'chargeInstall', bclass: 'chargeInstall',onpress : function(){
+				 var form = $('#Form_provinceCharge_install',wraper);
+         var municiPrepaidDetail=$.jRadGet({url:'/shopmanage-ws/ws/0.1/agentManager/municiPrepaidDetail?provinceId='+regions[0].provinceId});
+				 form.form({
+        					title:'预付款设置', 
+	                item:{},
+	                url:'/shopmanage-ws/ws/0.1/agentManager/municiPrepaidSave',
+	                before_submit:function(){
+                    var municiArr=[];
+	                	$('#Form_provinceCharge_install div.jrad-input-container',wraper).each(function(i){
+                      var json={};
+                      json.proRealPaid=$(this).input('val');
+                      json.muniName=$(this).attr('name');
+                      json.id=cityArr[i].id;
+                      municiArr.push(json)
+                    });
+	                	return municiArr
+	                },
+	                success_callback:function(){
+	                	$('#Table_provinceCharge').flexMessage('设置成功','success');
+	                	$('#Table_provinceCharge').flexReload()
+	                }
+            	}).form('open');
+              var cityArr=municiPrepaidDetail.municiArr;
+              $.each(cityArr,function(i){
+                var cityName=cityArr[i].muniName;
+                $('div[name="'+cityName+'"]',wraper).input('val',cityArr[i].proRealPaid)
+              });
+              $('span.proPaidMin',form).html(municiPrepaidDetail.proPaidMin);
+              $('span.proPaidMax',form).html(municiPrepaidDetail.proPaidMax);
+              $('span.ycbPaid',form).html(municiPrepaidDetail.ycbPaid)
+
+		}
+	}); 
+	page_list_buttons.push({title: '导出Excel',displayname:'导出EXCEL',name:'excel', bclass: 'excel',onpress : function(){
+        	var checked = $('#Table_provinceCharge').getCheckedTrs();
+          $.jRadConfirm('确认导出？',1,function(){
+             var param = {};
+             var userName = $.trim($(".searchContent div[name='userName']",wraper).input('val'));
+             if(userName!=""){
+              param['userName'] = userName;
+             };
+             param['provinceId'] = regions[0].provinceId;
+             var municipalityId = $.trim($(".searchContent div[name='municipalityId']",wraper).select('val'));
+             if(municipalityId!=""){
+              param['municipalityId'] = municipalityId;
+             };
+             var paramUrl = "";
+             if(param!={}){   
+             paramUrl+="?"
+             $.each(param,function(k,v){ 
+                paramUrl+="&"+k+"="+v; 
+             });
+             }
+             window.open('/shopmanage-ws/ws/0.1/agentManager/exportCoopBusi'+paramUrl);
+  		})
+  	}});
+  page_list_buttons.push({separator: true});
+    $('#Table_provinceCharge').flexigrid({
+            reload:true,
+      			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+      				diaplay_pages: 5,
+      				align: 'bottom' 
+      			},
+      			showSearch:true,  
+            url:'/shopmanage-ws/ws/0.1/agentManager/accountList?provinceId='+regions[0].provinceId, 
+      			onError:showError, 
+      			checkBoxType:'single',
+      			overflow:true,
+      			trEvent:function(){		//监听行事件 
+      				var checked = $('#Table_provinceCharge').getCheckedTrs();  
+      				$('#Table_provinceCharge_busiList').flexOptions({ 
+      					extParam:{
+      						agentUserId: checked[0].agentUserId
+      					}
+      				}).flexReload()
+      			}
+    });
+    $('span.offset0',wraper).removeClass('span3').addClass('span7');
+     $('div.searchButtons span[title="查询"]',wraper).click(function(){
+        var param = {};
+         var userName = $.trim($(".searchContent div[name='userName']",wraper).input('val'));
+         if(userName!=""){
+          param['userName'] = userName;
+         };
+         param['provinceId'] = regions[0].provinceId;
+         var municipalityId = $.trim($(".searchContent div[name='municipalityId']",wraper).select('val'));
+         if(municipalityId!=""){
+          param['municipalityId'] = municipalityId;
+         };
+         var paramUrl = "";
+         if(param!={}){   
+         paramUrl+="?"
+         $.each(param,function(k,v){ 
+            paramUrl+="&"+k+"="+v; 
+         });
+         }
+        $.jRadGet({
+          url:'/shopmanage-ws/ws/0.1/agentManager/getYcbProRecAmount'+paramUrl,
+          success:function(data){
+            $('div.hDivBox:eq(0) th:eq(5) div').html('养车宝收取金额<br>（合计：'+data.ycbRecAmount+'元）');
+            $('div.hDivBox:eq(0) th:eq(6) div').html('省代理收取金额<br>（合计：'+data.proRecAmount+'元）');
+          }
+        });
+     });
+    sumMoney();
+    function sumMoney(){
+      $.jRadGet({
+          url:'/shopmanage-ws/ws/0.1/agentManager/getYcbProRecAmount',
+          success:function(data){
+            $('div.hDivBox:eq(0) th:eq(5) div').html('养车宝收取金额<br>（合计：'+data.ycbRecAmount+'元）');
+            $('div.hDivBox:eq(0) th:eq(6) div').html('省代理收取金额<br>（合计：'+data.proRecAmount+'元）');
+          }
+        });
+    };
+    $('div.searchButtons span[title="清空查询条件"]',wraper).click(function(){
+      sumMoney()
+    });
+    
+  	page_column_model_c.push({display: '商家ID', name : 'busiId'});	
+  	page_column_model_c.push({display: '商家简称', name : 'busiRegName'});
+  	page_column_model_c.push({display: '预付款支付', name : 'agentPayAmount'});
+  	page_column_model_c.push({display: '养车宝收取', name : 'ycbRecAmount'});
+  	page_column_model_c.push({display: '省代理收取', name : 'parentRecAmount'});
+    page_column_model_c.push({display: '购买时间', name : 'coopStartDate'});
+  	page_column_model_c.push({display: '到期时间', name : 'coopEndDate'});
+
+
+    $('#Table_provinceCharge_busiList').flexigrid({
+            reload:true,
+            autoload: false,
+      			method:'get',
+            colModel : page_column_model_c,
+            searchitems: [],
+            pagination: {
+      				diaplay_pages: 5,
+      				align: 'bottom' 
+      			},
+      			showSearch:true,  
+      			overflow:true,
+            url:'/shopmanage-ws/ws/0.1/agentManager/coopBusiList', 
+      			onError:showError_2, 
+      			showCheckbox:false
+    });
+  	function showError(xhr){
+  		 var errormsg = eval("(" + xhr.responseText + ")"); 
+  		 $.jRadMessage({level:'error',message:errormsg[0].message})
+  	}
+  	function showError_2(xhr){
+  		 var errormsg = eval("(" + xhr.responseText + ")"); 
+  		 $.jRadMessage({level:'error',message:'请预付款账号'})
+  	}
+});
+</script>

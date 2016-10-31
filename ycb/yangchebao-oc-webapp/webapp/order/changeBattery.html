@@ -1,0 +1,212 @@
+ <style>
+    #Form_changeBattery_info div{
+        line-height: 24px;
+    }
+ </style>
+<div class="urlContentWraper" id="Wraper_changeBattery_order">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>上门换电瓶订单</strong><bottom class="all-work-info numb59">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+		<div class="pic-grid">
+			<table id="Table_changeBattery_order"></table>
+		</div>
+    </div>
+
+    <div id="Form_changeBattery_info" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+	        <div class="row">
+                <label class="span3 grid-layout-label">安装联系电话：</label>
+                <div class="span8 grid-layout-content fluid-wrap">
+                    <div name="mobile"></div>
+				</div> 
+            </div>  
+			<div class="row">
+                <label class="span3 grid-layout-label">安装地址：</label>
+                <div class="span8 grid-layout-content fluid-wrap">
+                    <div name="address"></div>
+				</div> 
+            </div> 
+        </div>
+    </div>
+    <div id="Form_explain_eg59" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>APP上外接的速电快保的订单列表。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_changeBattery_order');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+	
+	jRad.params['orderStatus'] = { 
+		data: [{id:'',name:'全部'},{id:'0',name:'未支付'},{id:'1',name:'支付完成'},{id:'2',name:'安装中'},{id:'3',name:'已完成'},{id:'4',name:'取消订单'}] 
+	};
+
+	$('#Form_changeBattery_info',wraper).form({
+        title:'安装信息',
+        grid:12,
+        item:{}
+    });
+
+    page_column_model.push({display: '订单id', name : 'id',hidden:true});
+    page_column_model.push({display: '订单编号', name : 'orderNumber'});
+    page_column_model.push({display: '电瓶品牌', name : 'batteryBrand'});
+    page_column_model.push({display: '电瓶型号', name : 'batteryNumber'});
+    page_column_model.push({display: '电瓶价格', name : 'price'});
+	page_column_model.push({display: '安装信息', diy:function(item,$div){
+		var a=$('<a>').attr('href','javascript:').html('点击查看');
+		$div.append(a);
+		$('a',$div).unbind('click').bind('click',function(){
+			$('#Form_changeBattery_info',wraper).form('open');
+            var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/changeBatteryOrder/getIntallInfo?id='+item.id})
+            $('#Form_changeBattery_info div[name="mobile"]',wraper).html(data.mobile);
+            $('#Form_changeBattery_info div[name="address"]',wraper).html(data.address);
+        });
+	}});
+	page_column_model.push({display: '用户手机', name : 'mobile'});
+	page_column_model.push({display: '订单状态', name : 'orderStatusName'}); 
+	page_column_model.push({display: '订单生成时间', name : 'orderDate'});
+	page_column_model.push({display: '订单状态时间', name : 'statusDate'});
+    
+    page_search_items.push({row:'1',type:'jrad-input',display:'订单编号',name:'orderNumber'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'电瓶品牌',name:'batteryBrand'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'电瓶型号',name:'batteryNumber'});
+	page_search_items.push({row:'2',type:'jrad-input',display:'用户手机号',name:'mobile'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'订单状态',name:'orderStatus',params:jRad.params['orderStatus']}); 
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'订单生成时间始',name:'orderDateStart'});
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'订单生成时间终',name:'orderDateEnd'});
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'订单状态时间始',name:'statusDateStart'});
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'订单状态时间终',name:'statusDateEnd'});
+
+	page_list_buttons.push({displayname: '导出EXCEL',name:'excel', bclass: 'excel',onpress : function(){ 
+		 $ .jRadConfirm('确认导出吗？',1,function(){
+				 var param = {};
+				 var orderNumber = $.trim($(".searchContent div[name='orderNumber']",wraper).input('val'));
+				 if(orderNumber!=""){
+					param['orderNumber'] = orderNumber;
+				 };
+				 var batteryBrand = $.trim($(".searchContent div[name='batteryBrand']",wraper).input('val'));
+				 if(batteryBrand!=""){
+					param['batteryBrand'] = batteryBrand;
+				 }; 
+				 var batteryNumber = $.trim($(".searchContent div[name='batteryNumber']",wraper).input('val'));
+				 if(batteryNumber!=""){
+					param['batteryNumber'] = batteryNumber;
+				 };
+				 var mobile = $.trim($(".searchContent div[name='mobile']",wraper).input('val'));
+				 if(mobile!=""){
+					param['mobile'] = mobile;
+				 }; 
+				 var orderStatus = $.trim($(".searchContent div[name='orderStatus']",wraper).select('val'));
+				 if(orderStatus!=""){
+					param['orderStatus'] = orderStatus;
+				 };
+				 var orderDateStart = $.trim($(".searchContent div[name='orderDateStart']",wraper).dateinput('val'));
+				 if(orderDateStart!=""){
+					param['orderDateStart'] = orderDateStart;
+				 };
+				 var orderDateEnd = $.trim($(".searchContent div[name='orderDateEnd']",wraper).dateinput('val'));
+				 if(orderDateEnd!=""){
+					param['orderDateEnd'] = orderDateEnd;
+				 }; 
+				 var statusDateStart = $.trim($(".searchContent div[name='statusDateStart']",wraper).dateinput('val'));
+				 if(statusDateStart!=""){
+					param['statusDateStart'] = statusDateStart;
+				 }; 
+				 var statusDateEnd = $.trim($(".searchContent div[name='statusDateEnd']",wraper).dateinput('val'));
+				 if(statusDateEnd!=""){
+					param['statusDateEnd'] = statusDateEnd;
+				 }; 
+				 var paramUrl = "";
+				 if(param!={}){   
+				 paramUrl+="?"
+				 $.each(param,function(k,v){ 
+						paramUrl+="&"+k+"="+v; 
+				 });
+				 }
+				 window.open('/shopmanage-ws/ws/0.1/changeBatteryOrder/exportList'+paramUrl);
+			}); 
+        }
+    });
+    page_list_buttons.push({separator: true});
+
+    $('#Table_changeBattery_order').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+			showSearch:true,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			overflow:true,
+			checkBoxType:'single',
+            url:'/shopmanage-ws/ws/0.1/changeBatteryOrder/list', 
+			onError:showUserError
+    }); 
+		
+	function showUserError(xhr){
+		var errormsg = eval("(" + xhr.responseText + ")");
+		var cDiv = $("#Wraper_changeBattery_order .cDiv");
+		$.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+	}
+    $(".numb59").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg59").form({}).form('close');
+        $("#Form_explain_eg59").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg59 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg59").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg59").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg59 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+</script>

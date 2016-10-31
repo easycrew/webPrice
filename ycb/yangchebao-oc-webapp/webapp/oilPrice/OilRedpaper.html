@@ -1,0 +1,234 @@
+ <div class="urlContentWraper" id="Wraper_redpaper_manage">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>油价红包管理</strong><bottom class="all-work-info numb123">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_redpaper_manage"></table>
+		</div>
+		<h2 class="ui-tit" style="margin-top:10px;"><strong>领取红包用户列表</strong></h2>
+		<div class="pic-grid">
+			<table id="Table_redpaperUsers_list"></table>
+		</div>
+    </div>
+    <div id="Form_redpaper_manage" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <input name="id" type="hidden"> 
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>红包活动：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="type" class="jrad-select-container"></div>
+						</div> 
+            </div>  
+			<div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>红包数量：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="num" class="jrad-input-container"></div>
+						</div> 
+            </div> 
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>红包金额：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="moneyRate" class="jrad-textarea-container"></div>
+                       <p class="ui-note">格式：金额+英文逗号+领取概率+英文分号<br>例如：1,10%;2,20%;5,70%<br>多个金额用英文分号隔开</p>
+                                    </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg123" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>在APP的附近加油站可分享此功能到微信，分享后，用户可在分享的页面领取红包，此页面就是对此红包的管理功能。</div>
+                    <div><strong>重要功能说明：</strong>红包设置：设置分享页面的可领取红包数量以及金额。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_redpaper_manage');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+    var page_column_model_c = new Array();
+    var page_search_items_c = new Array();
+    var page_list_buttons_c = new Array();
+	 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	jRad.validators['num'] = [{"msg":"红包数量不能为空","type":"min","value":"1"},{msg:"红包数量只能是数字",type:'regex',value:/^[-]*\d+$/}];
+	jRad.validators['moneyRate'] = [{"msg":"红包金额不能为空","type":"min","value":"1"},{msg:"请输入正确格式的红包金额",type:'regex',value:/^([0-9]+(.[0-9]{0,2}){0,1},[0-9]+%{1};{1})*([0-9]+(.[0-9]{0,2}){0,1},[0-9]+%{1})+$/}]; 
+	jRad.params["type"] = {data:[{id:'1',name:'更新油价'},{id:'2',name:'确认油价'},{id:'3',name:'春节活动'}]};
+    page_column_model.push({display: 'ID', name : 'id'});
+    page_column_model.push({display: '红包活动', diy:function(item,$div){
+    	if(item.type==1){
+    		$div.html('更新油价')
+    	}else if(item.type==2){
+    		$div.html('确认油价')
+    	}else if(item.type==3){
+    		$div.html('春节活动')
+    	}
+    }});
+    page_column_model.push({display: '分享红包用户ID', name : 'userId'});
+    page_column_model.push({display: '红包数量', name : 'num'}); 
+    page_column_model.push({display: '红包金额（元）', name : 'moneyRate'});
+	page_column_model.push({display: '分享时间', name : 'shareTime'});
+ 
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userId'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户手机号',name:'userMobile'});
+    page_search_items.push({row:'1',type:'jrad-dateinput',display:'分享时间始',name:'shareStartDate'}); 
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'分享时间终',name:'shareEndDate'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'红包活动',name:'type',params:{data:[
+		{id:'',name:'全部'},
+		{id:'1',name:'更新油价'},
+		{id:'2',name:'确认油价'},
+		{id:'3',name:'春节活动'}
+		]}});
+	 
+   $('#Form_redpaper_manage').form({
+		title: '红包设置',
+		validators: jRad.validators,
+		fields_params:jRad.params,
+		fluid:true,
+		autobinding:true,
+		height:280
+	}); 
+	 
+    page_list_buttons.push({displayname: '红包设置',name:'redpaper', bclass: 'redpaper',onpress : function(){ 
+		   $('#Form_redpaper_manage').form({
+											    url:'/shopmanage-ws/ws/0.1/redGiftManage/save',
+												before_submit:function(json){
+													json.lastOperator = carsmart_config.operatorName;
+													return json;
+												},
+												success_callback:function(){ 
+													$('#Table_redpaper_manage').flexMessage('设置成功', 'success');
+													$('#Table_redpaper_manage').flexReload();
+												},
+												error_callback:function(xhr){ 
+													var errormsg = eval("(" + xhr.responseText + ")"); 
+													$('#Table_redpaper_manage').flexMessage(errormsg.result, 'error'); 
+												} 	
+
+										   }).form('open');
+									var typeValue=$('#Form_redpaper_manage div[name="type"]').select('val');
+									var _item=$.jRadGet({url:'/shopmanage-ws/ws/0.1/redGiftManage/detail?type='+typeValue});
+									$('#Form_redpaper_manage div[name="num"]').input('val',_item.num);
+									$('#Form_redpaper_manage div[name="moneyRate"]').textarea('val',_item.moneyRate);
+									$('#Form_redpaper_manage div[name="type"]').select({
+										onchange:function(val){
+											var item=$.jRadGet({url:'/shopmanage-ws/ws/0.1/redGiftManage/detail?type='+val});
+											$('#Form_redpaper_manage div[name="num"]').input('val',item.num);
+											$('#Form_redpaper_manage div[name="moneyRate"]').textarea('val',item.moneyRate)
+										}
+									})
+        }
+    }); 
+    page_list_buttons.push({separator: true});
+	$('#Table_redpaper_manage').flexigrid({
+			reload:true,
+			method:'get', 
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			url:'/shopmanage-ws/ws/0.1/redGiftManage/shareGiftList',
+			checkBoxType:'single',
+			onError:showError,
+			trEvent:function(){
+				var checked=$("#Table_redpaper_manage").getCheckedTrs();
+				$("#Table_redpaperUsers_list").flexOptions({
+					extParam:{
+						id:checked[0].id
+					}
+				}).flexReload();
+			}
+	}); 
+	page_column_model_c.push({display: '红包ID', name : 'takeId'});
+    page_column_model_c.push({display: '用户手机号', name : 'mobilePhone'});
+    page_column_model_c.push({display: '领取金额（元）', name : 'takeMoney'});
+    page_column_model_c.push({display: '领取时间', name : 'takeTime'});
+    page_list_buttons_c.push({separator: true});
+    $('#Table_redpaperUsers_list').flexigrid({
+			reload:true,
+			autoload:false,
+			method:'get', 
+			colModel : page_column_model_c,
+			buttons : page_list_buttons_c,
+			searchitems:[],
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			url:'/shopmanage-ws/ws/0.1/redGiftManage/shareGiftTakeList',
+			onError:_showError,
+			showCheckbox:false
+	})
+    $(".numb123").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg123").form({}).form('close');
+        $("#Form_explain_eg123").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg123 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg123").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg123").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg123 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		} 
+function _showError(){
+	var checked=$('#Table_redpaper_manage').getCheckedTrs();
+	if(checked.length==0){
+		$('#Table_redpaperUsers_list').flexMessage('请先选择红包活动',"error");
+	}
+}
+</script>

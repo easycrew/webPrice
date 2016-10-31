@@ -1,0 +1,519 @@
+<style>
+	.hDiv table tr td, .hDiv table tr th{text-align:center;}
+	.bDiv table tr td, .bDiv table tr th{text-align:center;}
+</style>
+<div class="urlContentWraper" id="Wraper_account_manage">
+    <button class="jrad-btn-primary btn btn-small btn-primary" id="branchShopControlBtn" data-status="0">
+            关闭分店的服务码验证
+    </button>
+	<p class="ui-note">开启时，分店可以验证用户的服务码，也可发送给总店统一验证；</p>
+	<p class="ui-note">关闭时，分店不能为用户验证服务码，必须将服务码发送给总店统一验证。</p>
+	<!-- 列表显示 -->
+    <div class="ui-info-layout">
+        <!-- <h2 class="header smaller lighter blue"><i class="icon-table"></i>分店账号管理列表</h2> -->
+        <table id="Table_account_manage">
+        </table>
+	</div>
+	<div id="account_check_reason" style="display:none;">
+		<p class="reason">	</p>
+	</div>
+	<div id="Form_account_manage" class="grid-layout ui-form">
+		<div class="grid-layout-main jrad-form">
+			<input name="id" type="hidden">
+			<p id="pwdInfo"  style="padding:5px 0 5px 90px;color:#666;">账号的初始密码为123456</p>
+			<div class="grid-row-fluid"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					账号：
+				</label>
+				<div class="span8 grid-layout-content fluid-wrap">
+					<div data-name="account" class="jrad-input-container">
+					</div>
+				</div>
+			</div>
+			<div class="grid-row-fluid">
+				<label class="span4 grid-layout-label">
+				<span class="ui-form-required">*</span>
+					店名：
+				</label>
+				<div class="span8 grid-layout-content fluid-wrap">
+					<div data-name="shopName" class="jrad-input-container">
+					</div>
+				</div>
+			</div> 
+			<div id="readonlyDiv">
+			<div class="grid-row-fluid">
+				<label class="span4 grid-layout-label">
+				<span class="ui-form-required">*</span>
+					工商注册名称：
+				</label>
+				<div class="span20 grid-layout-content fluid-wrap">
+					<div data-name="businessName" class="jrad-input-container">
+					</div>
+				</div>
+			</div>
+			 <div class="grid-row-fluid">
+				<label class="span4 grid-layout-label">
+				<span class="ui-form-required">*</span>
+				   商家对外简称：
+				</label>
+				<div class="span20 grid-layout-content fluid-wrap">
+					<div data-name="businessRegName" class="jrad-input-container">
+					</div>
+				</div>
+			</div>
+			<div class="grid-row-fluid">
+				<label class="span4 grid-layout-label">
+				<span class="ui-form-required">*</span>
+					省：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div data-name="provinceId" class="jrad-select-container">
+					</div>
+				</div>
+				<label class="span2 grid-layout-label">
+				<span class="ui-form-required">*</span>
+					市：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div data-name="areaCodeId" class="jrad-select-container">
+					</div>
+				</div>
+				<label class="span3 grid-layout-label">
+				<span class="ui-form-required">*</span>
+					县/区：
+				</label>
+				<div class="span5 grid-layout-content fluid-wrap">
+					<div data-name="countyId" class="jrad-select-container">
+					</div>
+				</div>
+			</div>
+			 <div class="grid-row-fluid">
+				<label class="span4 grid-layout-label">
+				<span class="ui-form-required">*</span>
+					地址：
+				</label>
+				<div class="span20 grid-layout-content fluid-wrap">
+					<div data-name="address" class="jrad-input-container">
+					</div>
+				</div>
+			</div> 
+			<div class="grid-row-fluid">
+				<label class="span4 grid-layout-label">
+				<span class="ui-form-required">*</span>
+					分店联系人：
+				</label>
+				<div class="span20 grid-layout-content fluid-wrap">
+					<div data-name="linkman" class="jrad-input-container">
+					</div>
+				</div>
+			</div>
+			<div class="grid-row-fluid">
+				<label class="span4 grid-layout-label">
+				<span class="ui-form-required">*</span>
+				   联系人手机：
+				</label>
+				<div class="span20 grid-layout-content fluid-wrap">
+					<div data-name="phone" class="jrad-input-container">
+					</div>
+				</div>
+			</div>
+			</div>
+			<input type="hidden" name="status"/>
+			<input type="hidden" name="roleId"/>
+			<input type="hidden" name="parentId"/>
+			<input type="hidden" name="shopAccountId"/>
+			<input type="hidden" name="shopLoginAccountId"/>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container">
+			<button class="jrad-btn-primary btn btn-small btn-primary">
+				确定
+			</button>
+			<button class="jrad-btn-normal btn btn-small btn-default">
+				取消
+			</button>
+		</div>
+	</div> 
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var wraper = $('#Wraper_account_manage'); 
+	var ROLEID = "4";
+	if(carsmart_config.controlStatus == "1"){
+		var btn = $("#branchShopControlBtn",wraper);
+		btn.html("分店服务码验证已开启，点击关闭");
+		btn.data("status","0"); 
+	}else{
+		var btn = $("#branchShopControlBtn",wraper);
+		btn.html("分店服务码验证已关闭，点击开启");
+		btn.data("status","1");
+		ROLEID = "6";
+	}
+	$("#branchShopControlBtn",wraper).click(function(){
+		var obj = $(this);
+		var status = obj.data('status');
+		var name = "";
+		if(status=="0"){
+			name = "关闭分店的服务码验证功能吗？"
+		}else if(status=="1"){
+			name = "开启分店的服务码验证功能吗？"
+		}
+		$.jRadConfirm("确认"+name, 1,
+			function() {
+			var postData = {};
+			postData.shopAccountId = carsmart_config.shopId;
+			postData.controlStatus = status; 
+			$.jRadPost({url:'/vip-ws/ws/0.1/branchShop/control/status',
+			   data:postData,
+			   success:function(data){
+					$.jRadMessage({message:'操作成功',level:'success',selector:wraper});  
+					if(data.controlStatus == "0"){ 
+						obj.html("分店服务码验证已关闭，点击开启");
+						obj.data("status","1");
+						ROLEID = "6";
+					}else{ 
+						obj.html("分店服务码验证已开启，点击关闭");
+						obj.data("status","0");
+						ROLEID = "4";
+					}
+			   },
+			   error:function(xhr){
+				var errormsg = eval("(" + xhr.responseText + ")"); 
+				$.jRadMessage({message:errormsg[0].message,level:'error',selector:wraper});  
+			}}); 
+		});
+	}); 
+	var parentId = carsmart_config.shopId;
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+    var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});   
+	jRad.validators['account'] = [{msg:"账号不能为空",type:'min',value:1}];	
+	jRad.validators['shopName'] = [{msg:"店名不能为空",type:'min',value:1}];	
+	jRad.validators['businessName'] = [{msg:"工商注册名称不能为空",type:'min',value:1}];	
+	jRad.validators['businessRegName'] = [{msg:"商家对外简称不能为空",type:'min',value:1}];	
+	jRad.validators['provinceId'] = [{msg:"请选择",type:'min',value:1}];	
+	jRad.validators['areaCodeId'] = [{msg:"请选择",type:'min',value:1}];	
+	jRad.validators['countyId'] = [{msg:"请选择",type:'min',value:1}];	
+	jRad.validators['address'] = [{msg:"地址不能为空",type:'min',value:1}];	
+	jRad.validators['linkman'] = [{msg:"联系人不能为空",type:'min',value:1}];	
+	jRad.validators['phone'] = [{msg:"联系人手机不能为空",type:'min',value:1},{msg:"请填写正确的手机号",type:'regex',value:/^((\+86)|(86)){0,}1\d{10}$/}];
+	jRad.params['provinceCodeSearch'] = {
+		urlData:{
+			url:'/vip-ws/ws/0.1/area/provinceAll'
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var provinceCode = $('.searchContent div[name=provinceId]',wraper).select('val'); 
+			if(provinceCode==''){ 
+				$('.searchContent div[name=areaCodeId]',wraper).select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}]});
+			}else{  
+			$('.searchContent div[name=areaCodeId]',wraper).select({ 
+				urlData:{
+					url: '/vip-ws/ws/0.1/area/municipalities?provinceId=' + provinceCode 
+				},
+				unshiftData: {id:'',name:'请选择'}
+			}).select('val','');
+			}
+		}
+	}; 
+	var citySelect = $.jRadGet({url:'/vip-ws/ws/0.1/area/municipalityList'});
+		 
+	jRad.params['cityIdSearch'] = {
+		data: [{id:'',name:'请选择'}] 
+	}; 
+	jRad.params['status'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'有效'},{id:'0',name:'无效'}] 
+	}; 
+	var fields_params = {}; 
+	fields_params['provinceId'] = {
+		urlData:{
+			url:'/vip-ws/ws/0.1/area/provinceAll' 
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var provinceCode = $('#Form_account_manage div[data-name=provinceId]').select('val');
+			if(provinceCode==''){
+				$('#Form_account_manage div[data-name=areaCodeId]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}]});
+			}else{
+			$('#Form_account_manage div[data-name=areaCodeId]').select({
+				urlData:{
+					url: '/vip-ws/ws/0.1/area/municipalities?provinceId=' + provinceCode 
+				},
+				unshiftData: {id:'',name:'请选择'}
+			});
+			}
+			$('#Form_account_manage div[data-name=areaCodeId]').select('val','');
+		}
+	};
+	fields_params['areaCodeId'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){
+			var cityId = $('#Form_account_manage div[data-name=areaCodeId]').select('val');
+			if(cityId==''){
+				$('#Form_account_manage div[data-name=countyId]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}]});
+			}else{
+				$('#Form_account_manage div[data-name=countyId]').select({
+					urlData:{
+						url: '/vip-ws/ws/0.1/area/countries?areaCodeId=' + cityId
+					},
+					unshiftData: {id:'',name:'请选择'}
+				});
+			}
+			$('#Form_account_manage div[data-name=countyId]').select('val','');
+		}
+	}; 
+	fields_params['countyId'] = {
+			data: [{id:'',name:'请选择'}]
+		};
+	 
+	fields_params['status'] = {
+			data: [{id:'1',name:'有效'},{id:'0',name:'无效'}] 
+		}; 
+    jRad.validators['title'] = [{"msg":'请输入',"type":'min',"value":1},{"msg":"输入过长","type":"max","value":"150"}];
+	jRad.validators['messageTemplateContent'] = [{"msg":'请输入',"type":'min',"value":1},{"msg":"输入过长","type":"max","value":"300"}];
+	jRad.validators['smsContent'] = [{"msg":'请输入',"type":'min',"value":1},{"msg":"输入过长","type":"max","value":"300"}]; 
+
+    page_column_model.push({display: '账号', name : 'account',  sortable : true});
+    page_column_model.push({display: '店名', name : 'shopName',  sortable: true}); 
+    page_column_model.push({display: '城市', name : 'areaCodeId',  sortable : true,datasource:citySelect});
+    page_column_model.push({display: '地址', name : 'address',  sortable : true}); 
+    page_column_model.push({display: '创建时间', name : 'created',  sortable : true});
+    page_column_model.push({display: '审核状态', name : 'auditStatus',  sortable : true,diy:function(item,$div){
+		
+		
+		if(item.auditStatus=='审核驳回'){
+			var $reason = $("<a>").addClass('flexOperate').html("点击查看原因");
+			$div.html(item.auditStatus+"&nbsp;&nbsp;&nbsp;&nbsp;").append($reason);
+			$reason.click(function(){ 
+				var reasonJson = $.jRadGet({url:'/vip-ws/ws/0.1/branchShop/auditdesc?shopAccountId='+item.shopAccountId}); 
+				$("#account_check_reason .reason",wraper).html(reasonJson.auditDesc);
+				$("#account_check_reason",wraper).dialog('open'); 
+			});
+		}else {
+			$div.html(item.auditStatus);
+		}
+	}});   
+	/**{id:'0',name:'未提交审核'},{id:'1',name:'审核中'},{id:'2',name:'审核通过'},{id:'3',name:'审核驳回'}**/  
+   page_search_items.push({row:'1',type:'jrad-input',display:'账号',name:'account'}); 
+   page_search_items.push({row:'1',type:'jrad-input',display:'店名',name:'shopName'}); 
+   page_search_items.push({row:'2',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']});
+   page_search_items.push({row:'2',type:'jrad-select',display:'市',name:'areaCodeId',params:jRad.params['cityIdSearch']});
+   
+    page_list_buttons.push({
+        title: '新增',
+		displayname:'新增',
+        bclass: 'icon-plus',
+        onpress: function() { 
+			$('#Form_account_manage .btn-primary').html("提交审核");
+			$("#readonlyDiv",wraper).show();
+			$('#Form_account_manage').form({
+                title: '新增',
+                item: {'status':'0','roleId':ROLEID,"parentId":parentId},
+				validators: jRad.validators, 
+				url:'/vip-ws/ws/0.1/shopAccountBack/addShopAccount',
+                success: function() {
+                    $('#Table_account_manage').flexMessage('新建成功,初始密码为 123456。', 'success','3');
+                    $('#Table_account_manage').flexReload();
+                }
+            }).form('open');
+			$("#Form_account_manage #pwdInfo").show();
+        }
+    }); 
+    page_list_buttons.push({
+        title: '修改',
+		displayname:'修改',
+        bclass: 'icon-edit',
+        prefunc: function() {
+            var checked = $('#Table_account_manage').getCheckedTrs();
+            if (checked.length != 1) {
+                return false;
+            } else {
+                return true;
+            }
+        },
+        onpress: function() {
+			var checked = $('#Table_account_manage').getCheckedTrs(); 
+			if (checked[0]) {
+				var item = $.jRadGet({url:'/vip-ws/ws/0.1/shopAccountBack/getShopAccountInfo?shopAccountId='+checked[0].shopAccountId+'&shopLoginAccountId='+checked[0].shopLoginAccountId});
+				item.shopAccountId = checked[0].shopAccountId; 
+				item.shopLoginAccountId = checked[0].shopLoginAccountId; 
+				if(item.auditStatus=="2"){ 
+					$("#readonlyDiv",wraper).hide();
+					$('#Form_account_manage .btn-primary').html("确定");
+				}else{
+					$("#readonlyDiv",wraper).show();
+					$('#Form_account_manage .btn-primary').html("重新提交审核");
+				}
+                $('#Form_account_manage').form({
+                    title: '修改',
+                    item: item,
+					validators: jRad.validators, 
+                    url:'/vip-ws/ws/0.1/shopAccountBack/editShopAccount',
+                    success: function() {
+                        $('#Table_account_manage').flexMessage('修改成功', 'success','3');
+                        $('#Table_account_manage').flexReloadCurrentPage();
+                    }
+                }).form('open');
+				$("#Form_account_manage #pwdInfo").hide();
+            }
+        }
+    });
+    page_list_buttons.push({
+        title: '删除',
+		displayname:'删除',
+        bclass: 'icon-trash',
+        prefunc: function() {
+            var checked = $('#Table_account_manage').getCheckedTrs();
+            if (checked.length != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        onpress: function() {
+            var checked = $('#Table_account_manage').getCheckedTrs();
+            $.jRadConfirm('确认删除？', 1,
+            function() {
+                $(checked).each(function(index) {
+                    $.ajax({
+                        url:'/vip-ws/ws/0.1/shopAccountBack/deleteShopAccount?shopAccountId='+this.shopAccountId+'&shopLoginAccountId='+this.shopLoginAccountId, 
+                        type: "post",
+                        dataType: 'text',
+                        success: function(data) {
+                            $('#Table_account_manage').flexMessage('删除成功', 'success','3');
+                            $('#Table_account_manage').flexReload();
+                        }
+                    });
+                });
+            });
+        }
+    });
+	 page_list_buttons.push({
+        title: '重置密码',
+		displayname:'重置密码',
+        //bclass: 'icon-re-pwd',
+        bclass: 'pwd', 
+        prefunc: function() {
+            var checked = $('#Table_account_manage').getCheckedTrs();
+            if (checked.length != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        onpress: function() {
+            var checked = $('#Table_account_manage').getCheckedTrs();
+     		$ .jRadConfirm('确认重置密码？重置后,该用户密码将更改为初始密码  123456。 ',1,function(){
+				var id =  checked[0].userId; 
+				$.jRadPost({
+					url:'/vip-euc-ws/ws/0.1/user/password/reset?id='+id, 
+					success: function(){
+						$('#Table_account_manage').flexMessage('密码重置为123456，请通知相关人员尽快修改密码。', 'success');
+           	    		$('#Table_account_manage').flexReload();
+					}
+				});
+			});
+        }
+    });	 
+	page_list_buttons.push({
+        title: '分店信息管理',
+		displayname:'分店信息管理',
+        bclass: 'gljc',
+        prefunc: function() {
+            var checked = $('#Table_account_manage').getCheckedTrs();
+            if (checked.length != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        onpress: function() {
+            var checked = $('#Table_account_manage').getCheckedTrs();
+     		if(checked[0].auditStatus=="审核中"){
+				$.jRadAlert("该分店还没有经过商家审核，暂时不能管理基础信息。","error","",-1); 
+			}else{
+				$(document).data("account_branchShopId",checked[0].shopAccountId);
+				$('#sidebar').menu('open','branchManage/shopInfoEdit-branch.html');
+			} 
+        }
+    });	  
+	page_list_buttons.push({
+        title: '分店服务管理',
+		displayname:'分店服务管理',
+        bclass: 'glfw',
+        prefunc: function() {
+            var checked = $('#Table_account_manage').getCheckedTrs();
+            if (checked.length != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        onpress: function() {
+            var checked = $('#Table_account_manage').getCheckedTrs();
+     		if(checked[0].auditStatus=="审核中"){
+				$.jRadAlert("该分店还没有经过商家审核，暂时不能管理基础信息。","error","",-1); 
+			}else{
+				$(document).data("account_branchShopId",checked[0].shopAccountId);
+				$('#sidebar').menu('open','branchManage/serviceInfoEdit-branch.html');
+			} 
+        }
+    });	  
+    $('#Table_account_manage').flexigrid({
+        reload: true,
+        pagination: {diaplay_pages: 5,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model,
+        buttons: page_list_buttons,
+        searchitems: page_search_items,
+        pagedStyle: 'oc',
+		method:'get',
+		showSearch:true,
+        url:'/vip-ws/ws/0.1/shopAccountBack/queryAcounts?type=0&userId='+carsmart_config.userId, //1.CMS查询0.总店查询分店，此时userId为当前登录用户的ID 
+        preProcess: function(data) { //查询后处理数据
+            var items = data.items;
+            $.each(items,
+            function(index, value) {
+                if (value.status == '1') {
+                    value.status = '有效';
+                } else {
+                    value.status = '失效';
+                }
+            });
+            data.items = items;
+            return data;
+        }
+    }); 
+    
+    $('.hDiv',wraper).css('overflow','hidden');
+    $('.bDiv',wraper).css('overflow-x','scroll');
+    $('#Form_account_manage').form({
+        title: '新增',
+        grid: 20,
+        validators: jRad.validators,
+        fields: fields_params,
+        item: {
+            status: '1'
+        },
+        url: '/content-ws/ws/0.1/bloodRule/add',
+        success: function() {
+            $('#Table_account_manage').flexMessage('创建成功', 'success');
+            $('#Table_account_manage').flexReload();
+        }
+    });
+
+    $('.tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:15px;float:left;line-height:60px;">分店账号列表</span>');
+	$("#account_check_reason",wraper).dialog({
+		title: '驳回原因',
+		grid: 15, 
+		buttons: false
+	});
+});
+</script>

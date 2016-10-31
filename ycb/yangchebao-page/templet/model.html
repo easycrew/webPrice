@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js "></script>
+	<title>确认车型</title>
+</head>
+<style type="text/css">
+body{
+	background-color:#f4f7f8;  
+	color:#1e1e1e;
+	font-family:'冬青黑体','黑体','HelveticaNeue-Light';
+	font-size:62.5%;
+} 
+a{
+	color:#00a0e9;
+	text-decoration: none;
+}
+a:focus{
+	outline:none;
+}
+ul{
+	list-style:none;
+}
+img{
+	border:none;
+}
+*{
+	margin:0;
+	padding:0;
+	text-shadow:none;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.tit{
+	font-weight: normal;
+	font-size: 1.5em;
+	padding: 0 0.67em;
+	height: 2.93em;
+	line-height: 2.93em;
+	border-bottom:1px solid #dadae3; 
+	background-color: #fff; 
+} 
+.link{
+    background: #fff url(http://app.yangchebao.com.cn/group1/M00/05/66/ChUBl1Sii4KAPcN5AAACRdIl04A240.png) no-repeat center right; 
+    background-size: 1.3em auto;
+    float: right;
+    display: block;
+    width: 1.3em;
+    height:2.93em; 
+}
+.tip{
+	font-size: 1.2em;
+	color: #a0a097;
+	padding: 0.67em 0.67em 0; 
+}
+.btn{ 
+	font-size:1.6em;
+	color:#fff;
+	background-color: #34cc89;
+	height: 30px;
+	line-height: 30px;
+	display: block;
+	margin: 2.125em 5.56em;
+	text-align: center; 
+}  
+.model-wrap{
+	padding: 0;
+}
+.model-wrap p{
+	padding: 0 0.67em;
+}
+.model-list{ 
+	position: absolute;
+	width: 100%;
+	background-color: #fff;
+	z-index: 101;
+	max-height: 0;
+    overflow: auto; 
+    transition: max-height 0.7s ease-out 0s;
+    top: 5.69em; 
+}
+.model-list li { 
+    border-bottom: 1px solid #d9d9e2;
+    cursor: pointer;
+   	height: 2.93em;
+	line-height: 2.93em;
+    padding: 0 1.93em;
+}
+.model-list li:hover{
+    background-color: #f4f7f8;
+}
+.model-list.open {
+    max-height: 20em;
+}
+.overlay-wrap {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    display: none;
+    position: fixed;
+    top: 85px;
+    width: 100%;
+    z-index: 100;
+}
+</style>
+<body>  
+ <h1 class="tit">奥迪A8</h1>
+ <div class="tit model-wrap">
+ 	<p><span id="styleName">选择车型</span><a href="javascript:void(0);" class="link" id="dropBtn"></a></p>
+ 	<ul class="model-list" id="dropList">
+ 		<!-- <li>奥迪A8</li>
+ 		<li>奥迪A8</li> 
+ 		<li>奥迪A6</li>  -->
+ 	</ul> 
+ </div>
+ <p class="tip">需要先确认车型，才能为您提供保养方案。</p> 
+ <a class="btn" href="javascript:void(0);" id="save">确定</a>
+ <div class="overlay-wrap"></div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var url = window.location.search;
+		var paramsArr = (url.split("?")[1]).split("&");
+		var paramJson = {};
+		$.each(paramsArr,function(i){
+			var item = paramsArr[i].split("=");
+			paramJson[item[0]] = item[1];
+		}); 
+		getStypeList();
+		function getStypeList(){
+			$.ajax({
+		        url: '/yangchebao-app-ws/ws/0.1/support/style/list?modelId='+paramJson.modelId,
+		        type: 'get', 
+		        async: false,
+		        dataType: 'json',
+		        success: function(data) {
+		             var str = "";
+		             $.each(data,function(i){
+		             	var item = data[i];
+		             	str += '<li styleId="'+ item.id +'">'+ item.name +'</li>'
+		             });
+		             $("#dropList").append(str);
+		        }
+		    }); 
+		}
+		$('#dropBtn').on('click',function(){
+				$('.overlay-wrap').toggle();
+				$('#dropList').toggleClass('open');
+		});
+		$('#dropList li').on('click',function(){
+			$('.overlay-wrap').hide();
+			$('#dropList').removeClass('open'); 
+			$("#styleName").html($(this).html()).attr("styleId",$(this).attr("styleId"));
+		});
+		$("#save").click(function(){  
+			window.location.href = "http://w2nw?http://10.23.31.151/yangchebao-app-ws/ws/0.1/urlMapper/route?localName=2014123020220105402375&styleId="+paramJson.styleId+"&totalMileage="+totalMileage;
+		});
+	});
+</script>	 
+</body>
+</html>

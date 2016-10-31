@@ -1,0 +1,38 @@
+@charset "utf-8";
+.right{
+	float:left;
+	width:217px;
+	margin-top:6px;
+}
+h2{
+	margin-left:5px;
+	font-size:18px;
+    font-family:"微软雅黑";
+    color:#333;
+}
+.line_2{	
+	height:2px;
+	width:218px;
+	margin:2px 0 6px 0;
+	background-color:#c3c9d2;
+	overflow:hidden;
+}
+.line_2 p{
+	background-color:#d41f30;
+	width:83px;
+	height:2px;
+}
+.right .ri_con{
+	margin-top:13px;
+}
+.right .ri_con p{
+	height:36px;
+	line-height:36px;
+	padding-left:5px;
+}
+.right .ri_con p a{
+	color:#583962;
+	text-decoration:none;
+	font-size:14px;
+    font-family:"微软雅黑";
+}

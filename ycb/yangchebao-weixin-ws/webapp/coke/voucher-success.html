@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>可口可乐活动</title>  
+    <script language="javascript" src="../js/jquery-1.10.1.min.js"></script> 
+    <script language="javascript" src="./js/screen.js"></script> 
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>   
+<div class="coke-wrapper step-wrapper">
+    <ul class="step-tab">
+        <li><span><em>1</em>输入手机号</span></li>
+        <li class="current"><span><em>2</em>下载养车宝</span></li>
+    </ul>
+    <div class="step-content">
+        <div class="step-title">奖品确认成功，您的奖品为：</div>
+        <div class="step-content-inner">
+            <div class="gift-wrapper gift-wrapper2">
+                <span class="car"><img src="css/images/car-gray.png"/></span>
+                <div class="gift">
+                    <p><strong>20</strong>元</p>
+                </div>
+            </div>
+            <p class="tips">恭喜领取成功，下载养车宝客户端后，<br/>并用本人手机号登录即可使用。</p>
+            <p class="sure" id="download" path="http://yangchebao.com.cn/website-ws/ws/0.1/app/download"><a href="javascript:void(0);" class="btn">下载养车宝</a></p>
+        </div>
+    </div>
+    <div class="footer">@养车宝</div>
+</div> 
+<script type="text/javascript">
+     function  is_weixin(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            $('#download').attr('path','http://a.app.qq.com/o/simple.jsp?pkgname=com.carsmart.emaintain');
+        }else{
+            var sUserAgent = navigator.userAgent.toLowerCase(); 
+            var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+            var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+            var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+            var bIsAndroid = sUserAgent.match(/android/i) == "android"; 
+            if(bIsIpad || bIsIphone || bIsIphoneOs){
+                $('#download').attr('path','https://itunes.apple.com/us/app/yang-che-bao/id736543893');
+            }else{   
+                $('#download').attr('path','http://yangchebao.com.cn/website-ws/ws/0.1/app/download');
+            }
+        } 
+    } 
+    $(document).ready(function(){
+        is_weixin();    
+        $("#download").click(function(){ 
+            window.location.href = $(this).attr("path");
+        });
+    }); 
+</script>
+</body>
+</html>

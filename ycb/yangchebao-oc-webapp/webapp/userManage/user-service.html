@@ -1,0 +1,449 @@
+<style>
+.height28{
+  height:28px;
+  line-height:28px;
+}
+.carInfos .car{
+	border-top: 1px dashed rgb(204, 204, 204);
+    margin: 10px;
+}
+</style>
+<div class="urlContentWraper" id="Wraper_user2">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>用户列表</strong><bottom class="all-work-info numb22">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+		<div class="pic-grid">
+			<table id="Table_user2"></table>
+		</div>
+    </div>
+    <div id="Form_user2" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <h3>个人信息</h3>
+            <div class="row">
+                 <label class="span3 grid-layout-label">用户名：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="alias" class="jrad-input-container"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">手机：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="mobile" class="jrad-input-container"></div>
+                                    </div>
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label">昵称：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="nicName" class="jrad-input-container"></div>
+                                    </div>
+            </div> 
+            <div class="row">
+                 <label class="span3 grid-layout-label">邮箱：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="email" class="jrad-input-container"></div>
+                                    </div>
+            </div>
+			<div class="carInfos"></div>
+        </div> 
+    </div>    
+  
+	<div id="Form_user_msg2" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div class="row">
+                 <label class="span3 grid-layout-label">用户手机号：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="mobile" class="jrad-input-container"></div>
+					   <p class="ui-note">多个手机号请用英文;隔开</p>
+                                    </div>
+            </div> 
+			<div class="row">
+                 <label class="span3 grid-layout-label">发送给：</label>
+                 <div class="span8 grid-layout-content">
+                       <div name="mobileFile" class="jrad-upload-container"></div>  <!--a href="#" class="download" id="download">下载模板</a-->
+                                    </div>
+            </div>
+			<div class="row">
+                 <label class="span3 grid-layout-label">发送内容：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="content" class="jrad-textarea-container"></div>
+                                    </div>
+            </div> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg22" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>给客服展示的用户列表，去掉了操作区的功能。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_user2');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+	jRad.params['provinceCodeSearch'] = {
+		urlData:{
+			url:'/euc/ws/0.1/user/provinces?userId='+carsmart_config.userId
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var provinceCode = $('.searchContent div[name=provinceId]',wraper).select('val'); 
+			if(provinceCode==''){ 
+				$('.searchContent div[name=areaCodeId]',wraper).select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}]});
+			}else{  
+			$('.searchContent div[name=areaCodeId]',wraper).select({ 
+				urlData:{
+					 url:'/euc/ws/0.1/user/cities?provinceId='+provinceCode+'&userId='+carsmart_config.userId
+				},
+				unshiftData: {id:'',name:'请选择'}
+			}).select('val','');
+			}
+		}
+	};
+	jRad.params['cityIdSearch'] = {
+		data: [{id:'',name:'请选择'}] 
+	}; 
+	jRad.params['isReg'] = {
+		data: [{id:'',name:'全部'},{id:'0',name:'未注册'},{id:'1',name:'已注册'}] 
+	}; 
+	jRad.params['isAudit'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'是'},{id:'0',name:'否'}] 
+	};
+	jRad.validators['content'] = [{"msg":"发送内容不能为空","type":"min","value":"1"}];
+	var fields_params = {};  
+	fields_params['content'] = {grid: 9};   
+	fields_params['isAudit'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'是'},{id:'0',name:'否'}] 
+	}; 
+	fields_params['mobileFile'] = {
+		url:'/shopmanage-ws/ws/0.1/sms/batch/send',
+        autocomplete:false,
+		success: function(data) {   
+			if (data != undefined&&data[0]!=undefined&&data[0].message!="") {
+				$.jRadAlert(data[0].message,"error");  
+			}else{ 
+				$('#Form_user_msg2',wraper).form('close');
+				if(data.status=="400"){
+					$.jRadAlert(data.msg, 'warning',"",-1); 
+				}else{
+					$('#Tale_user',wraper).flexMessage(data.msg, 'success'); 
+				}
+			} 
+		}
+	};	
+	$('#Form_user_msg2',wraper).form({
+                title: '短信群发',
+                validators: jRad.validators,
+                fields_params: fields_params,  
+                submit: addShortMessage 
+            });
+    page_column_model.push({display: '用户ID', name : 'userInfoId'});
+    page_column_model.push({display: '注册ID', name : 'customerId'});
+    page_column_model.push({display: '用户名', name : 'alias'});
+    page_column_model.push({display: '昵称', name : 'nicName'});
+    page_column_model.push({display: '手机', name : 'mobile'});
+	page_column_model.push({display: '邮箱', name : 'email'});
+	page_column_model.push({display: '市', name : 'areaName'});
+	page_column_model.push({display: '车辆品牌', name : 'brandName'});
+	page_column_model.push({display: '是否注册', name : 'isRegisterd'});
+	page_column_model.push({display: '是否认证', name : 'isAudit',diy:function(item,$div){
+      if(item.isAudit=="1"){
+        $div.html('是')
+      }else{
+        $div.html('否')
+      }
+    }});
+	//page_column_model.push({display: '激活时间', name : 'createDate'});
+	//page_column_model.push({display: '注册时间', name : 'regDate'});
+    
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'手机',name:'mobile'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'昵称',name:'nicName'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']});
+	page_search_items.push({row:'2',type:'jrad-select',display:'市',name:'areaCodeId',params:jRad.params['cityIdSearch']}); 
+	page_search_items.push({row:'2',type:'jrad-select',display:'是否注册',name:'isReg',params:jRad.params['isReg']}); 
+	//page_search_items.push({row:'3',type:'jrad-dateinput',display:'激活时间开始',name:'startDate'});
+	//page_search_items.push({row:'3',type:'jrad-dateinput',display:'激活时间结束',name:'endDate'});
+	page_search_items.push({row:'3',type:'jrad-select',display:'是否认证',name:'isAudit',params:jRad.params['isAudit']});
+	
+	// page_list_buttons.push({displayname: '查看用户信息',name:'userInfo',bclass: 'userInfo',prefunc:function(){
+ //            var checked = $('#Table_user2').getCheckedTrs();
+ //            if (checked.length != 1||carsmart_config.isAgentor!=0) {return false;}else{return true;}
+ //        },onpress : function(){
+	//     	var checked = $('#Table_user2').getCheckedTrs();   
+	// 		var json =$.jRadGet({
+	// 			 url : "/shopmanage-ws/ws/0.1/userInfoCms/getUserInfoDetail?userInfoId="+checked[0].userInfoId,
+	// 			 async:false
+	// 		});
+	// 		if(json){
+	// 		showUserInfo(json);
+	// 		}
+	// 	}
+	// });
+	// page_list_buttons.push({displayname: '查看点评',name:'seeRemark',bclass: 'seeRemark',prefunc:function(){
+ //            var checked = $('#Table_user2').getCheckedTrs();
+ //            if (checked.length != 1||carsmart_config.isAgentor!=0) {return false;}else{return true;}
+ //        },onpress : function(){
+	//     	var checked = $('#Table_user2').getCheckedTrs();
+	// 		var id = checked[0].userInfoId; 
+	// 		$(document).data("userRemarkId",id);
+	// 		$.jRadOpenTab({'name':'点评管理','url':'userManage/remark.html'});
+ 
+	// 	}
+	// });
+	// page_list_buttons.push({displayname: '查看举报',name:'seeInform',bclass: 'seeInform',prefunc:function(){
+ //            var checked = $('#Table_user2').getCheckedTrs();
+ //            if (checked.length != 1 ||carsmart_config.isAgentor!=0) {return false;}else{return true;}
+ //        },onpress : function(){
+	// 		var checked = $('#Table_user2').getCheckedTrs();
+	// 		var id = checked[0].userInfoId; 
+	// 		$(document).data("userInformId",id);
+	// 		$.jRadOpenTab({'name':'举报管理','url':'userManage/inform.html'});
+	// 	}
+	// });  
+	// page_list_buttons.push({displayname: '积分管理',name:'seeIntegrals',bclass: 'seeIntegrals',prefunc:function(){
+ //            var checked = $('#Table_user2').getCheckedTrs();
+ //            if (checked.length != 1||carsmart_config.isAgentor!=0) {return false;}else{return true;}
+ //        },onpress : function(){
+	// 		var checked = $('#Table_user2').getCheckedTrs();
+	// 		var id = checked[0].userInfoId; 
+	// 		$(document).data("userIntegralsId",id);
+	// 		$.jRadOpenTab({'name':'积分管理','url':'userManage/integrals.html'});
+	// 	}
+	// });  	
+	// page_list_buttons.push({displayname: '短信群发',name:'sendMsg',bclass: 'sendMsg',
+	// 	prefunc:function(){
+	// 		if(carsmart_config.isAgentor!=0){return false;}else{return true;}
+	// 	},
+	// 	onpress : function(){
+	// 		$('#Form_user_msg2',wraper).form({
+	// 			item:{}
+	// 		}).form('open');  
+	// 	}
+	// });  
+ //    page_list_buttons.push({separator: true});
+    
+    var today='';
+	var date=new Date();
+	var newTime=date.getTime()-(7*24*60*60*1000);
+	date.setTime(newTime);
+	var year=date.getFullYear();
+	var month=date.getMonth()+1;
+	var day=date.getDate();
+	if(month<10){
+		month="0"+month
+	}
+	if(day<10){
+		day="0"+day
+	}
+	today=year+'-'+month+'-'+day;
+
+    $('#Table_user2').flexigrid({
+            reload:true,
+			method:'post',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+			showSearch:true,
+			//queryParam: {'startDate':today},
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			checkBoxType:'single',
+            url:'/shopmanage-ws/ws/0.1/userInfoCms/queryUserInfo', 
+			onError:showUserError
+    }); 
+	//$('div.searchContent div[name="startDate"]',wraper).dateinput('val',today);
+
+	// var $espan = $("<span>").addClass("ui-btn-icon");
+	// var $cspan = $("<span>").addClass("ui-btn-icon-content");
+	// var $span = $("<span>").html("导出").css({
+	//   "display":"inline-block",
+	//   "height":"16px",
+	//   "vertical-align":"middle" 
+	// });  
+	// $(".searchButtons",wraper).append($espan.append($cspan.append($span)));
+	// $espan.click(function(){  
+	// 		var url = '/shopmanage-ws/ws/0.1/userInfoCms/ExportUserList?';
+	// 		url+='userInfoId=' + $(".searchContent div[name='userInfoId']",wraper).input('val');
+	// 		url+='&mobile=' + $(".searchContent div[name='mobile']",wraper).input('val');
+	// 		url+='&nicName=' + $(".searchContent div[name='nicName']",wraper).input('val');
+	// 		url+='&provinceId=' + $(".searchContent div[name='provinceId']",wraper).select('val');
+	// 		url+='&areaCodeId=' + $(".searchContent div[name='areaCodeId']",wraper).select('val');
+	// 		url+='&isReg=' + $(".searchContent div[name='isReg']",wraper).select('val');
+	// 		url+='&startDate=' + $(".searchContent div[name='startDate']",wraper).dateinput('val');
+	// 		url+='&endDate=' + $(".searchContent div[name='endDate']",wraper).dateinput('val');
+	// 		//url+='&brandName=' + $(".searchContent div[name='brandName']",wraper).input('val');
+	// 		window.open(url);
+	// });
+	if($(document).data('skipUserId')!=undefined&&$(document).data('skipUserId')!=""){
+			var skipUserId = $(document).data('skipUserId');
+			$(document).data('skipUserId','');
+			var json =$.jRadGet({
+				 url : "/shopmanage-ws/ws/0.1/userInfoCms/getUserInfoDetail?userInfoId="+skipUserId,
+				 async:false
+			});
+			if(json){
+				showUserInfo(json);
+			}
+	
+	}
+	//积分管理--〉用户管理 
+	if($(document).data('integralsUserId')!=undefined&&$(document).data('integralsUserId')!=""){
+			var integralsUserId = $(document).data('integralsUserId');
+			$(document).data('integralsUserId','');
+			var json =$.jRadGet({
+				 url : "/shopmanage-ws/ws/0.1/userInfoCms/getUserInfoDetail?userInfoId="+integralsUserId,
+				 async:false
+			});
+			if(json){
+				showUserInfo(json);
+			}
+	
+	} 
+	
+    $(".numb22").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg22").form({}).form('close');
+        $("#Form_explain_eg22").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg22 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg22").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg22").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg22 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	function addShortMessage(){
+		   var _form = $("#Form_user_msg2");
+		   var json = _form.form('getValue'); 
+		   var flag = _form.form('validateAll');
+		   if(!flag) {
+			   return;
+		   }  
+		   	delete json.mobileFile;
+		   $('div[name=mobileFile]',wraper).upload({
+				params: json,
+		   }).upload('upload'); 
+	} 
+});
+function showUserError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_user2 .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+
+function showUserInfo(json){   
+		 $('#Form_user2 .carInfos').html(""); 
+		if(!json.carInfos){
+		  return;
+		}
+		if(json.carInfos.length > 0){
+			$('#Form_user2 .carInfos').append( '<h3>车辆信息</h3>');
+		} 
+		var htmlStr = ""; 
+		$.each(json.carInfos,function(i){
+			var item = json.carInfos[i];
+			var styleName = item.styleName||"";
+			var ownName = item.ownName||"";
+			var vinNumber = item.vinNumber||"";
+			var machineNumber = item.machineNumber||"";
+			var plateNumber = item.plateNumber||"";
+			var buyDate = item.buyDate||"";
+			var carPrices = item.carPrices||""; 
+		    htmlStr +='<h3 class="car">'+styleName+'</h3>'
+			+'<div class="row">'
+			+'<label class="span3 grid-layout-label">车主姓名：</label>'
+            +'<div class="span5 grid-layout-content height28">'
+		    +'<p>'+ownName+'</p>'
+            +'</div>'
+            +'</div>'
+			+'<div class="row">'
+			+'<label class="span3 grid-layout-label">车架号：</label>'
+            +'<div class="span5 grid-layout-content height28">'
+		    +'<p>'+vinNumber+'</p>'
+            +'</div>'
+            +'</div>'
+			+'<div class="row">'
+			+'<label class="span3 grid-layout-label">发动机编号：</label>'
+            +'<div class="span5 grid-layout-content height28">'
+		    +'<p>'+machineNumber+'</p>'
+            +'</div>'
+            +'</div>'
+			+'<div class="row">'
+			+'<label class="span3 grid-layout-label">车牌号：</label>'
+            +'<div class="span5 grid-layout-content height28">'
+		    +'<p>'+plateNumber+'</p>'
+            +'</div>'
+            +'</div>'
+			+'<div class="row">'
+			+'<label class="span3 grid-layout-label">购车日期：</label>'
+            +'<div class="span5 grid-layout-content height28">'
+		    +'<p>'+buyDate+'</p>'
+            +'</div>'
+            +'</div>'
+			+'<div class="row">'
+			+'<label class="span3 grid-layout-label">购车价格：</label>'
+            +'<div class="span5 grid-layout-content height28">'
+		    +'<p>'+carPrices+'</p>'
+            +'</div>'
+            +'</div>'; 
+		});  
+	   $('#Form_user2 .carInfos').append(htmlStr);
+	   $('#Form_user2').form({
+			title: '查看', 
+			item:json
+		}).form('open'); 
+		$('#Form_user2 .ui-input').input("readonly",true);  
+		
+}
+</script>

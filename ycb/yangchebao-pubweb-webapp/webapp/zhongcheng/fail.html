@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>提取保险金</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		div.imgW,p.text{
+			text-align: center;
+		}
+		div.imgW{
+			margin: 4rem 0 2rem;
+		}
+		div.imgW img{
+			width: 90px;
+		}
+		p.text{
+			font-size: 1.5rem;
+			color: #a2a2a2; 
+		}
+		p.comment{
+			color: #A2A2A2;
+			font-size: 1.2rem;
+		    text-align: center;
+			margin: 2rem 1rem 0;
+			border-top: 1px solid #D9D9E2;
+			padding: 1rem 0 0;
+		}
+		.org.text{
+			color:#FF6138;
+			font-size: 1.8rem;
+		}
+		div.btn{
+			text-align: center;
+			color: #fff;
+			background-color: #ff6138;
+			margin: 2.5rem 1.5rem 0;
+			font-size: 1.8rem; 
+			line-height: 4.4rem;
+			-webkit-border-radius: 8px;
+			-moz-border-radius: 8px;
+			border-radius: 8px; 
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<div class="imgW bigGift"><img src="./img/bigGift.png"></div>
+		<p class="text">恭喜保险金提取成功！</p>
+		<p class="text org">您还获得100元养车宝余额奖励</p>
+		<p class="comment">保险金和余额奖励都已发放到您的余额中<br>
+        您可以选择提现或用于购买服务
+		</p>
+		<div class="btn">立即查看</div>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+
+	    if(paramJson.cardStatus==0){
+	    	$('p.twoR').show()
+	    }else{
+	    	$('p.oneR').show()
+	    }
+	})
+</script>
+</html>

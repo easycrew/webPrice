@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>上门保养</title>
+	<link rel="stylesheet" href="./css/nav.css">
+	<script src="./js/jquery-1.10.1.min.js"></script>
+	<script language="javascript" src="./js/jquery.json-2.2.js"></script> 
+	<script src="./js/main.js"></script>
+	<style>
+		div.toMyKeppOrder,div.carmodel,div.carstyle{
+			background-color: #fff;
+			border-bottom: 1px solid #D9D9E2;
+			padding: 0.6rem 1rem;
+		}
+		div.toMyKeppOrder p,div.carmodel p,div.carstyle p{
+			font-size: 1rem;
+			float: left;
+		}
+		
+		
+		
+		
+		article.redPag-article{
+			position: relative;
+			/*display: none;*/
+			/*visibility: hidden;*/
+		}
+		div.redPag{
+			position: absolute;
+			z-index: 200;
+			bottom: 0;
+			width: 70%;
+			margin-left: 15%;
+			background-image: url(./img/v.png);
+			background-repeat: no-repeat;
+			background-size: 100%;
+			text-align: center;
+		}
+		div.openRedPag{
+			position: absolute;
+			z-index: 100;
+			bottom: 0;
+			width: 70%;
+			margin-left: 15%;
+			background-image: url(./img/v2.png);
+			background-repeat: no-repeat;
+			background-size: 100%;
+			visibility: hidden;
+		}
+		div.openWraper{
+			position: absolute;
+			z-index: 109;
+			bottom: 5.6%;
+			width: 100%;
+			overflow: hidden;
+		}
+		div.voucherWraper{
+			position: absolute;
+			z-index: 120;
+			bottom: -0.3rem;
+			width: 100%;
+			background-image: url(./img/vCopy2_02.png);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+		div.voucher{
+			position: absolute;
+			z-index: 110;
+			/*bottom: 6%;*/
+			top:50%;
+			width: 80%;
+			background-image: url(./img/vCopy.png);
+			background-repeat: no-repeat;
+			background-size: 100%;
+			margin: 0 10%;
+		}
+		p.voucherTitle{
+			text-align: center;
+			color: #E26050;
+			font-size: 0.9rem;
+		}
+		ul.voucherDetail{
+			margin-left: 22%;
+		}
+		ul.voucherDetail li{
+			font-size: 0.8rem;
+		}
+		ul.voucherDetail li span{
+			font-size: 0.8rem;
+			color: #f55d5d;
+		}
+		div.btnWraper{
+			padding-top: 25%;
+		}
+		p.redButton{
+			width: 60%;
+			margin: 0 auto;
+			background-color: #FFE140;
+			font-size: 1.1rem;
+			font-weight: bold;
+			color: #f55d5d;
+			padding: 3% 0;
+			-webkit-border-radius: 1rem;
+			-moz-border-radius: 1rem;
+			border-radius: 1rem;
+			text-shadow: 0 1px 1px rgba(0,0,0,.3);
+			-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+			-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+			box-shadow: 0 1px 2px rgba(0,0,0,.2);
+		}
+		p.redTip{
+			color: #F8E71C;
+			font-size: 1rem;
+			margin-top: 8%;
+		}
+		div.activityDetial{
+			text-align: center;
+			color: #6EAADE;
+			margin-top: -0.5rem;
+			width: 100%;
+			/*display: none;*/
+			/*visibility: hidden;*/
+		}
+		div.activityDetial span{
+			font-size: 0.9rem;
+			font-weight: bold;
+		}
+		div.nextBtn{
+			width: 90%;
+			background-color: #f55d5d;
+			color: #fff;
+			font-size: 1.1rem;
+			line-height: 2.6rem;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			text-align: center;
+			margin: 2rem 5% 1rem;
+		}
+
+		div.errorLog{
+			position: fixed;
+			top: 0;
+			z-index: 500;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0,0,0,0);
+		}
+		div.errorLog p{
+			position: relative;
+			width: 90%;
+			margin: 6rem auto;
+			background-color: rgba(0,0,0,0.5);
+			font-size: 1rem;
+			color: #fff;
+			text-align: center;
+			padding: 0.6rem 0;
+			border-radius: 8px;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<header>
+			<div class="toMyKeppOrder clearfix">
+				<p>我的保养订单</p>
+				<span class="cd"></span>
+			</div>
+			<nav>
+				
+			</nav>
+		</header>
+		<article class="selectCar-article">
+			<div class="carmodel clearfix">
+				<p>选择车系</p>
+				<span class="cd"></span>
+			</div>
+			<div class="carstyle clearfix">
+				<p>选择车型</p>
+				<span class="cd"></span>
+			</div>
+		</article>
+		<article class="redPag-article">
+			<div class="redPag">
+				<div class="btnWraper">
+					<p class="redButton">领取红包</p>
+					<p class="redTip">本红包可用于上门保养服务</p>
+				</div>
+			</div>
+			<div class="openRedPag">
+				<div class="openWraper">
+					<div class="voucher">
+						<p class="voucherTitle">您已经领取上门保养红包</p>
+						<ul class="voucherDetail">
+							<li><span id="voucherPrice">100元</span>保养代金券</li>
+							<li>安防神器“乐乘盒子”</li>
+						</ul>
+					</div>
+					<div class="voucherWraper"></div>
+				</div>
+			</div>
+		</article>
+		<!-- <div class="activityDetial"><span>活动详情></span></div> -->
+		<div class="nextBtn">下一步</div>
+	</section>
+	<div class="errorLog" style="display:none;">
+		<p></p>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		// nav
+		$('header nav').load('nav.html');
+
+		// 获取主车信息
+		if(paramJson._modelId){
+			$('div.carmodel p').html(decodeURI(decodeURI(paramJson.modelName))).attr('id',paramJson._modelId)
+		}else{
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/user/carinfo/maincar?userId='+paramJson.userId+'&'+new Date().getTime(),
+				type:'get',
+				async:false,
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					if(data.modelId){
+						$('div.carmodel p').html(data.modelName).attr('id',data.modelId);
+					}
+					if(data.styleId){
+						$('div.carstyle p').html(data.styleName).attr('id',data.styleId)
+					}
+				}
+			})
+		}
+		// 获取车型
+		if(paramJson.styleId){
+			$('div.carstyle p').html(decodeURI(decodeURI(paramJson.styleName))).attr('id',paramJson.styleId)
+		}
+		// 隐藏红包
+		// // 红包高度自适应
+		var redHeight=0.684*($('div.redPag').width());
+		var openRedHeight=0.869*($('div.openRedPag').width());
+		$('div.redPag').height(redHeight);
+		$('div.openRedPag').height(openRedHeight);
+		$('article.redPag-article').height(0.9*$('div.redPag').width());
+
+		$('article.redPag-article').css('visibility','hidden');
+		$('div.activityDetial').css('visibility','hidden');
+		// 用户是否有红包
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/externmaintain/voucher/status?userInfoId='+paramJson.userId+'&'+new Date().getTime(),
+			type:'get',
+			dataType:'json',
+			async:false,
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				if(data.havaVoucher==0){
+					$('article.redPag-article').css('visibility','visible');
+					$('div.activityDetial').css('visibility','visible');
+					// 红包高度自适应
+					// var redHeight=0.684*($('div.redPag').width());
+					// var openRedHeight=0.869*($('div.openRedPag').width());
+					// $('div.redPag').height(redHeight);
+					// $('div.openRedPag').height(openRedHeight);
+					// $('article.redPag-article').height(0.9*$('div.redPag').width());
+					// 打开红包
+					$('p.redButton').unbind('click').bind('click',function(){
+						$.ajax({
+							url:'/yangchebao-app-ws/ws/0.1/externmaintain/voucher/get?userInfoId='+paramJson.userId+'&'+new Date().getTime(),
+							type:'get',
+							dataType:'json',
+							async:false,
+							contentType:'application/json;charset=utf-8',
+							success:function(data2){
+								$('div.redPag').hide();
+								$('div.openRedPag').css('visibility','visible');
+								$('span#voucherPrice').html(data2.voucherPrice+'元');
+								var voucherHeight=0.7375*($('div.voucher').width());
+								var voucherWidth=$('div.voucher').width();
+								$('div.voucherWraper').height(0.4686*voucherWidth);
+								$('div.openWraper').height(1.26*voucherHeight);
+								$('div.voucher').height(voucherHeight);
+								$('p.voucherTitle').css('line-height',0.1875*voucherHeight+'px');
+								$('ul.voucherDetail li:first').css('line-height',0.3675*voucherHeight+'px');
+								$('div.voucher').animate({'top':0},800)
+							}
+						})
+						
+					})
+				}else if(data.havaVoucher==1&&data.isUseVoucher==0){
+					$('article.redPag-article').css('visibility','visible');
+					$('div.activityDetial').css('visibility','visible');
+
+					$('div.redPag').hide();
+					$('div.openRedPag').css('visibility','visible');
+					$('span#voucherPrice').html(data.voucherPrice+'元');
+					var voucherHeight=0.7375*($('div.voucher').width());
+					var voucherWidth=$('div.voucher').width();
+					$('div.voucherWraper').height(0.4686*voucherWidth);
+					$('div.openWraper').height(1.26*voucherHeight);
+					$('div.voucher').height(voucherHeight);
+					$('p.voucherTitle').css('line-height',0.1875*voucherHeight+'px');
+					$('ul.voucherDetail li:first').css('line-height',0.3675*voucherHeight+'px');
+					$('div.voucher').css({'top':'0'})
+				}else{
+					var bodyHeight=$('body').height();
+					var windowHeight=window.screen.availHeight;
+					if(windowHeight<bodyHeight){
+						$('div.nextBtn').css({'position':'fixed','z-index':'100','bottom':'1rem','width':'90%'})
+					}
+				}
+			}
+		});
+		// 错误框
+		var errorLog=function(msg){
+			$('div.errorLog').show();
+			$('div.errorLog p').html(msg);
+			var errorHeight=$('div.errorLog p').outerHeight();
+			$('div.errorLog p').css({'top':'50%','margin-top':'-'+errorHeight/2+'px'});
+			$('div.errorLog').unbind('click').bind('click',function(){
+				$('div.errorLog').hide()
+			});
+			setTimeout(function(){
+				$('div.errorLog').hide()
+			},3000)
+		};
+		// 选择车系
+		$('div.carmodel').unbind('click').bind('click',function(){
+			window.location.href="selectCarBrand.html?userId="+paramJson.userId+'&customerId='+paramJson.customerId
+		});
+		// 选择车型
+		$('div.carstyle').unbind('click').bind('click',function(){
+			if($('div.carmodel p').attr('id')){
+				window.location.href="selectCarStyle.html?modelId="+$('div.carmodel p').attr('id')+'&modelName='+$('div.carmodel p').html()+"&userId="+paramJson.userId+'&customerId='+paramJson.customerId
+			}else{
+				errorLog('请选择车系')
+			}
+			
+		});
+		// 下一步
+		$('div.nextBtn').unbind('click').bind('click',function(){
+			// 保养查询
+			// if(paramJson.customerId==undefined||paramJson.customerId=='null'||paramJson.customerId==''||paramJson.customerId==null){
+			// 	var close = function(){
+	  //               window.location.href = "http://w2l?closeActivity"
+	  //           };
+			// 	window.location.href='http://w2l?presentType=2&androidName=8&iosName=LoginViewController';
+			// 	setTimeout(close,100)
+			// }else{
+				$.ajax({
+					url:'/yangchebao-app-ws/ws/0.1/user/carinfo/maincar?userId='+paramJson.userId+'&'+new Date().getTime(),
+					type:'get',
+					async:false,
+					dataType:'json',
+					contentType:'application/json;charset=utf-8',
+					success:function(data){
+						if(!(data.carInfoId)){
+							var _postData={};
+							_postData.modelId=$('div.carmodel p').attr('id');
+							_postData.customerId=paramJson.customerId;
+							$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/user/complete/addCarInfo',
+								type:'post',
+								dataType:'json',
+								async:false,
+								data:$.toJSON(_postData),
+								contentType:'application/json;charset=utf-8',
+								success:function(data){
+								},
+								error:function(xhr){
+									var error=eval('('+xhr.responseText+')');
+									alert(error[0].message)
+								}
+							})
+						}
+						
+					}
+				});
+				if($('div.carstyle p').attr('id')){
+					$.ajax({
+						url:'/yangchebao-app-ws/ws/0.1/externmaintain/query/v3?userInfoId='+paramJson.userId+'&styleId='+$('div.carstyle p').attr('id'),
+						type:'get',
+						async:false,
+						dataType:'json',
+						contentType:'application/json;charset=utf-8',
+						success:function(data){
+							removeLocalStorage('modelName',$('div.carmodel p').html());
+							removeLocalStorage('styleName',$('div.carstyle p').html());
+							removeLocalStorage('styleId',$('div.carstyle p').attr('id'));
+
+							setLocalStorage('modelName',$('div.carmodel p').html());
+							setLocalStorage('styleName',$('div.carstyle p').html());
+							setLocalStorage('styleId',$('div.carstyle p').attr('id'));
+							// setLocalStorage('serviceData',data);
+							window.location.href='selectService.html?userId='+paramJson.userId+'&customerId='+paramJson.customerId
+						},
+						error:function(xhr){
+							var error=eval('('+xhr.responseText+')');
+							alert(error[0].message)
+						}
+					})
+				}else{
+					errorLog('请选择车型')
+				}
+			// }
+		});
+		// 保养订单
+		$('div.toMyKeppOrder').unbind('click').bind('click',function(){
+				window.location.href="orderList.html?userId="+paramJson.userId+'&customerId='+paramJson.customerId
+			
+		})
+		
+	})
+</script>
+</html>

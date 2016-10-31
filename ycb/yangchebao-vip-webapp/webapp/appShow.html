@@ -1,0 +1,362 @@
+<style>
+    #appBroadcast{
+        border:1px solid #ccc;
+        margin-bottom:15px;
+    }
+    #mainService{
+        border:1px solid #ccc;
+    }
+    .app_title{
+        color:#fff;
+        height:60px;
+        line-height:60px;
+        background-color:#3586f5;
+        border-bottom:1px solid #ccc;
+        padding-left:20px;
+        font-size:14px;
+    }
+    #Form_appShow{
+        margin-top:20px;
+    }
+    .ui-info-layout{
+        width:98%;
+        margin:0 1% 10px;
+    }
+    #serviceList ul{
+        overflow:hidden;
+    }
+    #serviceList ul li{
+        float:left;
+        width:46%;
+        padding-left:3%;
+        padding-top:16px;
+        /*border-bottom:1px solid #ccc;*/
+    }
+    .line{
+        border-right:1px solid #ccc;
+    }
+    .tips{
+        color:#0099FF;
+        margin:10px 0;
+    }
+    #myShop{
+        border:1px solid #555;
+    }
+    .cDiv table tr td, .cDiv table tr th{text-align:center;}
+</style>
+<div class="urlContentWraper" id="Wraper_appShow">
+    <div id="Form_installService" class="grid-layout ui-form">
+        <div class="grid-layout-main jrad-form">
+            <input name="serviceId" type="hidden"/>
+            <div class="grid-row-fluid"> 
+                <label class="span3 grid-layout-label">
+                    服务：
+                </label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div data-name="zeroService" class="jrad-select-container service">
+                    </div>
+                    <p id="serviceNames"></p>
+                </div>
+            </div>
+            <div class="grid-row-fluid"> 
+                <label class="span3 grid-layout-label">
+                    服务说明：
+                </label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div data-name="serviceSummary" class="jrad-textarea-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <button class="jrad-btn-primary btn btn-small btn-primary">
+                确定
+            </button>
+            <button class="jrad-btn-normal btn btn-small btn-default">
+                取消
+            </button>
+        </div>
+    </div>
+	<!-- 列表显示 -->
+    <div id="appBroadcast">
+        <div class="app_title">APP广播</div>
+        <div id="Form_appShow" class="grid-layout ui-form">
+            <div class="grid-layout-main jrad-form">
+                <div class="grid-row-fluid"> 
+                    <label class="span3 grid-layout-label">
+                        广播内容：
+                    </label>
+                    <div class="span7 grid-layout-content fluid-wrap">
+                        <div data-name="content" class="jrad-textarea-container">
+                        </div>
+                    </div>
+                    <button class="jrad-btn-primary btn btn-small btn-primary" style="margin-top:2.4%;">提交</button>
+                </div>
+            </div>
+        </div>
+        <div class="ui-info-layout">
+            <table id="Table_appShow">
+            </table>
+    	</div>   
+    </div>
+    <div id="mainService">
+        <div class="app_title">主推服务</div>
+        <div id="serviceList">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+    <p class="tips">说明：广播和主推服务，用于在APP“我的商家”页面的显示。</p>	
+    <div><img src="img/myShop.jpg" width="320px" id="myShop"></div>
+</div> 
+<script type="text/javascript">
+$(document).ready(function() {
+	var wraper = $('#Wraper_appShow');
+	var parentId = carsmart_config.shopId;
+    var page_column_model = new Array();
+    var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    jRad.validators['content']=[{msg:"广播内容不能为空",type:'min',value:1},{msg:"广播内容最多256字",type:'max',value:256}];
+
+    var fields_params={};
+    fields_params['zeroService'] = {
+        urlData: {
+                url:'/vip-ws/ws/0.1/business/getServiceListByShopId?parentId=-1&level=0&shopAccountId='+carsmart_config.shopId,
+                id: 'serviceId',
+                name: 'serviceName',
+                type: 'get',
+                dataType: 'json'
+            }, 
+        unshiftData:{id:'',name:'请选择'},
+        onchange: function(val){  
+                getServiceSonNode("1",val,wraper);  
+        }
+    };
+    $('div[data-name="content"]',wraper).textarea({
+        rows:3,
+        grid:20
+    });
+    $('#hide').css('visibility','hidden');
+    $('div[data-name="content"] textarea',wraper).focus(function(){
+        $('div.ui-field-error',wraper).hide();
+        $(this).parent().css({'border-color':'#f59942','border-shadow':'0 0 0 2px rgba(245, 153, 66, 0.3)'})
+    });
+    $("#Form_appShow").form({
+        layout:'grid',
+        grid:22,
+        validators: jRad.validators, 
+        type:'post',
+        url:'/vip-ws/ws/0.1/business/addBroadcast',
+        preSubmit:function(json){
+            json.shopAccountId=carsmart_config.shopId;
+            return json
+        },
+        success: function() {
+            $('#Table_appShow').flexMessage('提交成功', 'success');
+            $('#Table_appShow').flexReload();
+        }
+    })
+    page_column_model.push({display: '广播内容', name : 'content'});
+    page_column_model.push({display: '广播时间', name : 'createDate'}); 
+
+    $('#Table_appShow',wraper).flexigrid({
+        reload: true,
+        grid:40,
+        pagination: {diaplay_pages: 6,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model,
+		method:'get',
+		showSearch:true,
+        showCheckbox:false,
+        url:'/vip-ws/ws/0.1/business/listBroadcast?shopAccountId='+carsmart_config.shopId,      
+        overflow:true 
+    }); 
+    $('.mDiv',wraper).hide();
+    $('#Form_installService').form({
+        fluid: true,
+        fields: fields_params,
+        autobinding:true
+    });
+    mainService();
+    function mainService(){
+        $.jRadGet({
+            url:'/vip-ws/ws/0.1/business/mainServiceList?shopAccountId='+parentId,
+            success:function(data){
+                var str='';
+                var j='';
+                if(data==""){
+                    str+='<li>'
+                        +'<p><span>&nbsp;&nbsp;&nbsp;服务一：</span><button class="jrad-btn-primary btn btn-small btn-primary installService">设置</button></p>'
+                        +'<p><span>服务名称：</span><span class="serviceName">请先设置！</span></p>'
+                        +'<p><span>服务说明：</span><span class="serviceSummary">请先设置！</span></p>'
+                        +'<p style="display:none;"></p>'
+                        +'</li>'
+                        +'<li>'
+                        +'<p><span>&nbsp;&nbsp;&nbsp;服务二：</span><button class="jrad-btn-primary btn btn-small btn-primary installService">设置</button></p>'
+                        +'<p><span>服务名称：</span><span class="serviceName">请先设置！</span></p>'
+                        +'<p><span>服务说明：</span><span class="serviceSummary">请先设置！</span></p>'
+                        +'<p style="display:none;"></p>'
+                        +'</li>'
+                }else if(data.length==1){
+                    if($.trim(data[0].serviceName)==""){
+                        data[0].serviceName="请先设置！"
+                    }
+                    if($.trim(data[0].serviceSummary)==""){
+                        data[0].serviceSummary="请先设置！"
+                    }
+                    str+='<li>'
+                        +'<p><span>&nbsp;&nbsp;&nbsp;服务一：</span><button class="jrad-btn-primary btn btn-small btn-primary installService">设置</button></p>'
+                        +'<p><span>服务名称：</span><span class="serviceName">'+data[0].serviceName+'</span></p>'
+                        +'<p><span>服务说明：</span><span class="serviceSummary">'+data[0].serviceSummary+'</span></p>'
+                        +'<p style="display:none;">'+data[0].businessServiceRelId+'</p>'
+                        +'</li>'
+                        +'<li>'
+                        +'<p><span>&nbsp;&nbsp;&nbsp;服务二：</span><button class="jrad-btn-primary btn btn-small btn-primary installService">设置</button></p>'
+                        +'<p><span>服务名称：</span><span class="serviceName">请先设置！</span></p>'
+                        +'<p><span>服务说明：</span><span class="serviceSummary">请先设置！</span></p>'
+                        +'<p style="display:none;"></p>'
+                        +'</li>'
+                }else{
+                    $.each(data,function(i){
+                        var item=data[i];
+                        j=i+1;
+                        if(i==0){
+                            j='一'
+                        }else if(i=1){
+                            j='二'
+                        }
+                        if($.trim(item.serviceName)==""){
+                            item.serviceName="请先设置！"
+                        }
+                        if($.trim(item.serviceSummary)==""){
+                            item.serviceSummary="请先设置！"
+                        }
+                        str+='<li>'
+                            +'<p><span>&nbsp;&nbsp;&nbsp;服务'+j+'：</span><button class="jrad-btn-primary btn btn-small btn-primary installService">设置</button></p>'
+                            +'<p><span>服务名称：</span><span class="serviceName">'+item.serviceName+'</span></p>'
+                            +'<p><span>服务说明：</span><span class="serviceSummary">'+item.serviceSummary+'</span></p>'
+                            +'<p style="display:none;">'+item.businessServiceRelId+'</p>'
+                            +'</li>'
+                    })
+                }
+                $('#serviceList ul').append(str);
+                $('#serviceList ul li:even').addClass('line')
+            }
+        });
+        $('#serviceList button').unbind('click').bind('click',function(){
+            var parentLi=$(this).parents('li');
+            var businessServiceRelId=$(this).parents('li').find('p:hidden').text();
+            var serviceName=$(this).parents('li').find('span.serviceName').text();
+            var serviceSummary=$(this).parents('li').find('span.serviceSummary').text();
+            $('#Form_installService').form({
+                title:'设置',
+                url:'/vip-ws/ws/0.1/business/mainServiceSet',
+                preSubmit:function(json){
+                    if($('div[data-name="zeroService"]',wraper).select('val')=='' && $.trim($('div[data-name="serviceSummary"]',wraper).textarea('val'))=='' && $('#serviceNames',wraper).html()!=''){
+                        return false
+                    }
+                    json.businessServiceRelId=businessServiceRelId;
+                    json.shopAccountId=parentId;
+                    json.serviceId=$('#Form_installService .service:last').select('val');
+                    return json
+                },
+                success:function(){
+                    $('#serviceList ul').html('');
+                    mainService()
+                }
+            }).form('open');
+            if(serviceName=="请先设置！"){
+                $('#serviceNames').html('').hide()
+            }else{
+                $('#serviceNames').html('已选择：'+serviceName).show()
+            }
+            if(serviceSummary=="请先设置！"){
+                $('div[data-name="serviceSummary"]').textarea('val','')
+            }else{
+                $('div[data-name="serviceSummary"]').textarea('val',serviceSummary)
+            }
+            $('div[data-name="serviceSummary"]',wraper).textarea({
+                rows:3,
+                grid:14
+            });
+            
+            $('#Form_installService button.btn-primary',wraper).bind('click',function(){
+                if($('div[data-name="zeroService"]',wraper).select('val')=='' && $.trim($('div[data-name="serviceSummary"]',wraper).textarea('val'))=='' && $('#serviceNames',wraper).html()!=''){
+                        $.jRadConfirm("确定取消此主推服务？",1,function(){
+                            var postData={};
+                            postData.businessServiceRelId=businessServiceRelId;
+                            postData.shopAccountId=parentId;
+                            postData.serviceId=$('#Form_installService .service:last').select('val');
+                                $.jRadPost({
+                                    url:'/vip-ws/ws/0.1/business/mainServiceSet',
+                                    data:postData,
+                                    success:function(){
+                                        $('#serviceList ul').html('');
+                                        mainService();
+                                        $('#Form_installService').form('close')
+                                    }
+                                })
+                            })
+                    }
+            })
+
+        });
+    };
+    
+    
+    function getServiceSonNode(node,val,wraper){   
+        var label = "";
+        var serviceClass = "";
+        if(node==1){
+            label = "一级";
+            serviceClass = "firstService"; 
+            $("#Form_installService .addService").parents(".grid-row-fluid").remove();
+        }else if(node==2){
+            label = "二级";
+            serviceClass = "secondService"; 
+            $("#Form_installService div[name='secondService']").parents(".grid-row-fluid").remove();
+            $("#Form_installService div[name='thirdService']").parents(".grid-row-fluid").remove();
+        }else if(node==3){
+            label = "三级";
+            serviceClass = "thirdService";
+            $("#Form_installService div[name='thirdService']").parents(".grid-row-fluid").remove();
+        }else if(node==4){
+            label = "四级";
+            serviceClass = "fourService";
+            $("#Form_installService div[name='fourService']").parents(".grid-row-fluid").remove();
+        }
+        if(val!=""){
+            var item = $.jRadGetDataSources('/vip-ws/ws/0.1/business/getServiceListByShopId?parentId='+val+'&level='+node+'&shopAccountId='+carsmart_config.shopId,"serviceId","serviceName");
+            if(item.length>0){
+                item.unshift({id:'',name:'请选择'}); 
+                var row = '<div class="grid-row-fluid">'
+                            +'<label class="span3 grid-layout-label">'+label+'：</label>'
+                            +'<div class="span12 grid-layout-content">'
+                            +'<div name="'+serviceClass+'" class="jrad-select-container service addService"></div>'
+                            +'</div>'
+                            +'</div>' ; 
+                if(node==1){
+                $("#Form_installService .grid-row-fluid:eq(0)",wraper).after(row);
+                }else if(node==2){
+                $("#Form_installService .grid-row-fluid:eq(1)",wraper).after(row);
+                }else if(node==3){
+                $("#Form_installService .grid-row-fluid:eq(2)",wraper).after(row);
+                }else if(node==4){
+                $("#Form_installService .grid-row-fluid:eq(3)",wraper).after(row);
+                }
+                node++; 
+                $('#Form_installService div[name='+serviceClass+']').select({
+                    data:item,
+                    unshiftData: {id:'',name:'请选择'}, 
+                    onchange: function(val){ 
+                        getServiceSonNode(node,val,wraper); 
+                    } 
+                });
+            }
+        }
+    }
+    
+    
+});
+</script>
+<!-- <div id="footer" style=""><div style="">©2016 北京车盈科技有限公司 京ICP备15056241号-1</div> </div> -->

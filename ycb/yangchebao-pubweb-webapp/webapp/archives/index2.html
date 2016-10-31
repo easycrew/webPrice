@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<script src="../js/jquery-1.9.1.min.js"></script> 
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<script src="js/index.js"></script>  
+<title>驾驶报告</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	font-size:62.5%;
+}
+body{
+	background-color: #F4F7F8;
+	font-family:'华文细黑','HelveticaNeue-Light'; 
+	color:#1e1e1e;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+body,html{
+	min-height:100%;
+}
+ol{
+	list-style: none;
+}
+img{
+	border:none;
+}
+.clearfix {
+   *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+   display: table;
+   line-height: 0;
+   content: "";
+}
+.clearfix:after {
+  clear: both;
+} 
+a{
+	text-decoration: none;
+} 
+.org{  
+  color:#FF6138; 
+} 
+article,header{
+	margin-bottom: 1rem;
+	background-color: #fff;
+}
+header{
+	font-size: 1.2rem;
+	padding: 1.5rem 1.5rem 1.3rem 2.5rem;
+	height: auto;
+	overflow: auto;
+	position:relative;
+}
+header .left{
+	float: left;
+	width: 6rem;
+	text-align: center;
+} 
+header .right{
+	margin-left: 12rem;
+    padding-top: 1.6rem;
+}
+header .medal{
+	display: block;
+	background-image: url(images/medal3.png);
+	background-size: 27.4rem auto;
+	background-repeat: no-repeat;
+	background-position: right center;
+	height:4.2rem;
+	width:4.2rem;
+	margin-bottom: 0.3rem;
+	margin:0 auto;
+}
+header .level2{
+	background-position: -17.4rem center;
+}
+header .level3{
+	background-position: -11.4rem center;
+}
+header .level4{
+	background-position: -5.4rem center;
+}
+header .level5{
+	background-position: 0 center;
+}
+.score{
+	margin-bottom: 1.2rem;  
+} 
+.grade{
+	text-align: center;
+	padding: 3.5rem 0 1.5rem;
+}
+.grade span{ 
+	font-size:1.5rem;
+	color:#FF6138; 
+	border-bottom:1px solid #FFB19C;
+	padding-bottom: 0.5rem;
+	background-image: url("images/grade.png");
+	background-size: 2.4rem auto;
+	background-repeat: no-repeat;
+	background-position:0.7rem top;
+	padding-left: 3.8rem;
+}
+.comment{
+	font-size: 1.2rem;
+	text-align: center;
+}
+.button-wrap{
+	text-align: center;
+	padding: 1.5rem 0;
+}
+.button{ 
+	font-size:1.5rem;
+	color:#FF6138; 
+	text-align:center;
+	padding: 1rem 1.3rem;
+	border-radius: 3px;
+	border:1px solid #FF6138;
+	text-decoration: none;
+	display: inline-block;
+} 
+.ui-tit::before {
+    background-color:#FF6138;
+    content: "";
+    display: inline-block;
+    height: 1.25em;
+    margin-right: 0.313em;
+    vertical-align: middle;
+    width: 2px;
+} 
+.ui-tit {
+    color: #1e1e1e;
+    font-size: 1.5em;
+    margin: 0;
+    padding:1rem 1.5rem;
+    font-weight: normal;
+}
+.list li{
+	padding: 1.3rem 1.6rem;
+	border-bottom: 1px solid #D9D9E2; 
+	font-size: 1.2rem; 
+	display:block;
+}
+.list li:first-child{
+	border-top: 1px solid #D9D9E2; 
+}
+.list li>div{
+	display: table;
+	width: 100%; 
+}
+.list li .left,.list li .content{
+	display: table-cell; 
+	vertical-align: middle;
+}
+.list .left{
+	width: 4.5rem; 
+}
+.list .left span{
+	display: block; 
+	background-repeat: no-repeat; 
+	width: 3rem;
+	height: 3.1rem;
+	margin-right: 2rem;
+	position: relative;
+	background-size: 3rem auto;
+	background-position:left;  
+}
+.list .left .icon1{ 
+    background-image: url("images/icon_youhao.png");
+}
+.list .left .icon2{ 
+	background-image: url("images/icon_licheng.png"); 
+}
+.list .left .icon3{ 
+	background-image: url("images/icon_dianping.png");   
+}
+.list .left .lowIcon{
+	position: absolute;
+	top:2px;
+	right:-8px;
+	width: 1.5rem;
+	display: none;
+}
+.list .left .tipIcon{
+	position: absolute;
+	top: -5px;
+	right: -8px;
+	width: 1.5rem;
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	background-color:#FF6138; 
+    border-radius:100%;
+	display: none;
+} 
+.list .content p{
+	line-height:150%;
+}
+.list .content p:last-child{ 
+	display: table;
+	width: 100%; 
+}
+.list .content p:last-child .right{
+	display: table-cell;
+	vertical-align: middle; 
+	color:#6EAADE; 
+	text-align: right;
+	white-space: nowrap;
+}
+.list .keepupRemind{
+	float:right;
+	vertical-align: middle; 
+	color:#6EAADE; 
+	text-align: right;
+	white-space: nowrap;
+	margin-top: -16px;
+}
+.link{ 
+	font-size:1.2rem;
+	display: inline-block;
+	color:#6EAADE;
+	float: right;
+}
+.noBox{
+	padding: 0;
+}
+.noBox>div{
+	padding: 2rem 1.5rem 2rem 2.5rem;
+}
+.noBox img{
+	display: block;
+	width: 100%;
+} 
+.noBox .left{
+	width: 4rem;
+}
+.noBox .right{
+	margin-left: 5.5rem;
+    padding-top:0.6rem;
+	
+}
+.noBox .right p:first-child{
+	margin-bottom:5px;
+}
+header .medal2 {
+    background-image: url("images/medal2.png");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size:auto 5.3rem;
+    display: block;
+    height: 5.3rem;
+	width:4rem;
+    margin-bottom: 0.3rem;
+} 
+.gradWrap,.hasBox{
+	border-bottom:1px solid #d9d9e2;
+} 
+/**错误提示**/
+.tasat-wrap{
+   position: fixed;
+   text-align: center;
+   bottom: 50%;
+   width: 100%; 
+}
+.tasat {
+	background-color: #000;
+	border-radius: 8px;
+	color: #fff;
+	display: inline-block;
+	font-size: 14px;
+	margin: 0 20px;
+	opacity: 0.8;
+	padding: 10px;
+}  
+.noteLink{
+	float:right;
+	color:#1E1E1E;
+	border-bottom:1px solid #FF6138;
+	background-image: url("images/report.png");
+    background-position:left 0 ;
+    background-repeat: no-repeat;
+    background-size:auto 1.5rem;
+	padding:0 0 0.2rem 2rem; 
+	position:absolute;
+	bottom:1rem;
+	right:1rem;
+}
+header .medalWrap{
+	background-image: url("images/bg_chenghao.png");
+    background-position:left center ;
+    background-repeat: no-repeat;
+    background-size:11.7rem;
+	width:11.7rem;
+	height:8.1rem;
+	position:relative;
+}
+header .medal{
+	left: 2rem;
+    position: absolute;
+    top: 1.8rem; 
+}
+.medalWrap label{
+	display: inline-block;
+    margin-left: 4.7rem;
+    margin-top: 1.1rem;
+    width: 1.2rem;
+	color:#FF6138; 
+	line-height: 130%;
+}
+.boxWrap{
+	background-color:#fff;
+	padding:1.5rem;
+	border-bottom:1px solid #d9d9e2;
+	margin-bottom:1rem;
+}
+.boxWrap p{
+	font-size:1.4rem;
+	text-align:center;
+}
+.boxLink{
+	font-size:1.8rem;
+	text-align:center;
+	display:block;
+	color:#FF6138;
+	border:2px solid #FF6138;
+	border-radius:3px;
+	height:3.5rem;
+	line-height:3.5rem;
+	width:69%;
+	margin:1.5rem auto 0; 
+}
+.tool-list{
+	background-color:#fff;
+	height:auto;
+	overflow:auto;
+	padding:1.5rem 0;
+	border-bottom:1px solid #d9d9e2;
+}
+.tool-list>div{
+	 width: 33%;
+	 float: left;
+	 text-align: center;
+}
+.tool-list p{
+	 font-size: 1.2rem;
+	 margin:0.6rem 0 0;
+}
+.tool-list p span{
+	color:#ADADAD;
+} 
+.tool-list .icon{
+	height:5rem;
+	width:5rem;
+	display:inline-block;
+	border-radius:100%;
+	background-position:center center ;
+    background-repeat: no-repeat;
+    background-size:5rem; 
+	line-height:5rem;
+	text-align:center;
+	font-size:1.8rem;
+	color:#fff; 
+}
+.tool-list .wz,.tool-list .wzsz{
+    position:relative;
+}
+.tool-list .wz .icon{
+	background-image: url("images/wz.png"); 
+}
+.tool-list .nj .icon{
+	background-color:#FB9857; 
+}
+.tool-list .xf .icon{
+	background-color:#7ED321; 
+}
+.tool-list .wzsz .icon{
+	background-image: url("images/wzsz.png"); 
+}
+.tool-list .njsz .icon{
+	background-image: url("images/njsz.png"); 
+}
+.tool-list .xfsz .icon{
+	background-image: url("images/xfsz.png"); 
+}
+.wzNum{
+	position:absolute;
+	top:5px;
+	right:50%;
+	font-size:1.2rem;
+	color:#fff;
+	min-width:1.5rem;
+	width:auto;
+	height:1.5rem;
+	border-radius:100%;
+	background-color:#FF6138;
+	display: block;
+	margin-right:-30px; 
+	display:inline-block; 
+}
+</style>
+<body> 
+	<p><input name="eventId" type="hidden" value="FileDrivingPage"></p>
+    <header class="hasBox">
+    	<div class="left medalWrap"><span class="medal level5"></span><label>--</label></div>
+    	<div class="right">
+    		<p class="score">驾驶得分&nbsp;<span class="org avgScore">--</span><span class="dw">&nbsp;分</span></p>
+    		<p class="distance">昨日里程&nbsp;<span class="org dateMileage">--</span><span class="dw">&nbsp;km</span>
+    		<a href="javascript:void(0)" class="noteLink driveNoteLink">查看报告</a></p>
+    	</div>
+    </header>
+    <div class="noBox boxWrap" style="display:none;">
+    	<p>安装乐乘盒子，了解车辆状况，矫正驾驶行为</p>
+		<a href="javascript:void(0);" class="boxLink">立即安装</a>
+    </div> 
+    <article>
+    	<h1 class="ui-tit"><span class="userChannel">盒子用户专享服务</span></h1>
+    	<ul class="list">
+    		<li>
+    		    <div>
+    			<div class="left">
+    				<span class="icon1"><img src="images/low.png" class="lowIcon"></span> 
+    			</div>
+    			<div class="content">
+    			<p>燃油余量：<span class="org fule">？</span> L</p>
+    			<p class="complexOilConsume"><label>油耗</label>：<span class="org fuelPerKm">--</span> L/100km<span class="right oilLink">9.9折加油 ></span></p> 
+    			</div>
+    		    </div>
+    		</li>
+    		<li>
+    		    <div>
+    			<div class="left">
+    				<span class="icon2"><label class="tipIcon"></label></span>
+    			</div>
+    			<div class="content">
+    				<p class="maintainInfo"><label>官方保养里程</label>：<span class="num org">？</span> <span class="dw"></span></p> 
+    			<p class="totalMileage">总里程：<span class="org">562814</span> km</p> 
+				<span class="keepupRemind">保养提醒 ></span>
+    			</div>
+    		    </div>
+    		</li>
+    		<li>
+    		    <div>
+    			<div class="left">
+    				<span class="icon3"><img src="images/low.png" class="lowIcon"></span>
+    			</div>
+    			<div class="content">
+    				<p><label>当前电压</label>：<span class="org voltage">--</span> v </p>
+					<p><label>报废电压</label>：<span class="org voltageThreshold">--</span> v<span class="right batteryServ" style="font-size:1.2rem">上门更换 ></span></p> 
+    			</div>
+    		    </div>
+    		</li>
+
+    	</ul>
+    </article> 
+	<article class="tool-list">
+		<div class="wzsz">
+			<span class="icon"></span>
+			<span class="wzNum" style="display:none;"></span>
+			<p>违章处理</p>
+		</div>
+		<div class="njsz">
+			<span class="icon"></span>
+			<p>年检提醒<span>(天)</span></p>
+		</div>
+		<div class="xfsz">
+			<span class="icon"></span>
+			<p>消分提醒<span>(天)</span></p>
+		</div>
+	</article> 
+ <script type="text/javascript">
+var paramJson = {}; 
+$(document).ready(function(){   
+	var url = window.location.search;  
+	var paramsArr = (url.split("?")[1]).split("&"); 
+	$.each(paramsArr,function(i){
+	var item = paramsArr[i].split("=");
+	paramJson[item[0]] = item[1];
+	});  
+	$(".oilLink").click(function(){
+	    locationFun("112");
+		window.location.href = "http://w2l/?presentType=1&needLogin=1&androidName=34&iosName=AddOilCardPayViewController";
+	});
+	$(".driveNoteLink").click(function(){
+	   locationFun("118");
+	   window.location.href = "http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/archives/driveNote.html";
+	});
+	$('.batteryServ').click(function(){
+	    locationFun("114");
+		isLogin("http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/changeBattery/index.html");
+	 });
+	$(".boxLink").click(function(){
+		window.location.href = "http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/carEarn/boxIntro.html"; 
+	});
+    var dd = new Date(); 
+	dd.setDate(dd.getDate()-1);//获取AddDayCount天后的日期
+	var y = dd.getFullYear();
+	var m = dd.getMonth()+1;//获取当前月份的日期
+	var d = dd.getDate(); 
+	if(m<10){
+	   m = "0"+m;
+	}
+	if(d<10){
+	   d = "0"+d;
+	}
+	var dateNum = y+"-"+m+"-"+d;  
+	getInfo(dateNum);  
+	getMaintenance();
+    /**if(paramJson.customerId!=undefined&&paramJson.customerId!=""&&paramJson.customerId!="null"){  
+		getMainCarInfo();
+	} 	**/
+	getTool();
+	$(".wz,.wzsz").click(function(){
+	    locationFun("115");
+		window.location.href = "http://w2l/?presentType=1&needLogin=0&androidName=9&iosName=IllegalFindStep0ViewController";
+	});
+	$(".nj,.njsz").click(function(){
+		locationFun("116");
+		window.location.href = "http://w2l/?presentType=1&needLogin=1&androidName=14&iosName=YangCheAlarmViewController";
+	});
+	$(".xf,.xfsz").click(function(){
+		locationFun("117");
+		window.location.href = "http://w2l/?presentType=1&needLogin=1&androidName=14&iosName=YangCheAlarmViewController";
+	});
+});
+function getInfo(dateNum){  
+		$.ajax({
+          url: '/yangchebao-app-ws/ws/0.1/driving/getDrivingData?dateNum='+dateNum+'&userInfoId='+paramJson.userId,
+          type: 'get',  
+          async:false,
+          dataType: 'json',
+          success: function(data) { 
+		     if(data.userChannel!=undefined&&data.userChannel=="2"){
+				$(".userChannel").html("人保会员专享服务");
+				$(".noBox .rb").html("人保");
+			 }else if(data.userChannel!=undefined&&data.userChannel=="3"){
+			    $(".userChannel").html("人保珠海会员专享服务");
+				$(".noBox .rb").html("人保珠海");
+			 }else if(data.userChannel!=undefined&&data.userChannel=="4"){
+			    $(".userChannel").html("众诚会员专享服务");
+				$(".noBox .rb").html("众诚");
+			 }
+             if(data.boxStatus=="N"){//没盒子
+             	$(".toGradeLink").click(function(){ 
+             		isLogin("http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/archives/gradeHistory.html?box=0"); 
+                });
+             	$(".noBox").show();
+             	$(".hasBox").hide(); 
+             	$(".list li:first-child p:first-child").hide();
+             	$(".complexOilConsume label").html('官方油耗'); 
+             	if(data.complexOilConsumeData.complexOilConsumeStatus=="Y"){
+             		$(".complexOilConsume .org").html(data.complexOilConsumeData.complexOilConsume); 
+             	}else{
+					$(".complexOilConsume .org").html("？"); 
+             	}  
+				if(data.awardList!=undefined&&data.awardList.length>0){
+					var awardArr = [];
+					$.each(data.awardList,function(){
+						var award = this;
+						awardArr.push(award.awardName); 
+					});	
+					$(".noBox .award").html(awardArr.join(" + ")); 
+				}
+             }else{//有盒子
+             	$(".toGradeHistory").attr("href","http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/archives/gradeHistory.html"+window.location.search+"&box=1");
+             	if(data.dataStatus=="Y"){
+             		var drivingMsg = data.drivingMsg;
+             		$(".hasBox .left label").html(drivingMsg.title);  
+             		$(".hasBox .avgScore").html(drivingMsg.avgScore);
+             		$(".hasBox .dateMileage").html((drivingMsg.dateMileage).toFixed(2));
+             		$(".sequence").html(drivingMsg.sequence);
+             		$(".beatUserPer").html(data.beatUserPer);
+					if(drivingMsg.title=='至尊车手'){
+    					$('header .medal').removeClass("level5");
+    				}else if(drivingMsg.title=='驾驶达人'){
+    					$('header .medal').removeClass("level5").addClass("level2");
+    				}else if(drivingMsg.title=='希望之星'){
+    					$('header .medal').removeClass("level5").addClass("level3");
+    				}else if(drivingMsg.title=='公路狂人'){
+    					$('header .medal').removeClass("level5").addClass("level4");
+    				}else if(drivingMsg.title=='马路杀手'){
+    					$('header .medal').removeClass("level5").addClass("level5");
+    				}
+             	}else{
+             		$(".hasBox .left label").html("无记录");  
+					$(".hasBox .left label").css("margin-top","1.8rem")
+             		$(".hasBox .avgScore").html("无");
+					$(".hasBox .avgScore").next(".dw").html("");
+             		$(".hasBox .dateMileage").html("无"); 
+             		$(".hasBox .dateMileage").next(".dw").html("");
+             		$(".sequence").html("500+");
+             		$(".drivingCnt").html("昨日已有<span class='org'>"+data.drivingCnt+"</span>名车主 获得驾驶行为奖励");
+             	}
+             	if(data.fuelPerKmData.fuelPerKmStatus=="Y"){ 
+	         		$(".fuelPerKm").html(data.fuelPerKmData.fuelPerKm); 
+	             }else{
+	             	$(".fuelPerKm").html("？"); 
+	             }
+	             if(data.fuleData.fuleStatus=="Y"){ 
+	         		$(".fule").html(data.fuleData.fule); 
+	         		if(data.fuleData.fuleLow=="Y"){ 
+	         			$(".list .icon1 .lowIcon").show();
+	                }
+	             }else{
+	             	$(".fule").html("？"); 
+	             }   
+             } 
+             if(data.voltageData!=undefined){
+             	  $(".voltageThreshold").html(data.voltageData.voltageThreshold);
+             	  if(data.voltageData.voltageStatus=="Y"){
+           				$(".voltage").html(data.voltageData.voltage);
+             	  }else{
+             	  	$(".voltage").parent("p").children("label").html("官方正常电压");
+             	  	$(".voltage").html(data.voltageData.voltage);
+             	  } 
+             	  if(data.voltageData.voltageLow=="Y"){
+           				$(".list .icon3 .lowIcon").show();
+             	  }  
+             }
+             //保养 
+             var scase = data.maintainRemindData.maintainStatus; 
+             if(scase=="11"){
+             		$(".totalMileage").hide();//总里程  
+             		$(".maintainInfo .num").html(data.maintainRemindData.mileageInterval); 
+					$(".maintainInfo .dw").html("km"); 
+             }else if(scase=="12"){
+             	    $(".totalMileage .org").html(data.maintainRemindData.totalMileage);
+             		$(".maintainInfo .num").html(data.maintainRemindData.mileageInterval); 
+					$(".maintainInfo .dw").html("km"); 
+             }else{
+             	$(".totalMileage .org").html(data.maintainRemindData.totalMileage);
+             	 var mLabel = data.maintainRemindData.showDataStatus;
+	             if(mLabel=="0"){
+	             	$(".maintainInfo label").html("距离下次保养里程"); 
+	             	$(".maintainInfo .dw").html("km"); 
+	             	$(".maintainInfo .num").html(data.maintainRemindData.maintainMileage); 
+	             }else if(mLabel=="1"){
+	             	$(".maintainInfo label").html("超过保养里程"); 
+	             	$(".maintainInfo .dw").html("km");
+	             	$(".maintainInfo .num").html(data.maintainRemindData.maintainMileage); 
+	             }else if(mLabel=="2"){
+	             	$(".maintainInfo label").html("距离下次保养时间"); 
+	             	$(".maintainInfo .dw").html("天"); 
+	             	$(".maintainInfo .num").html(data.maintainRemindData.maintainDate); 
+	             }else{
+	             	$(".maintainInfo label").html("超过下次保养时间"); 
+	             	$(".maintainInfo .dw").html("天");
+	             	$(".maintainInfo .num").html(data.maintainRemindData.maintainDate); 
+	             }  
+	             if(data.maintainRemindData.lowStatus=="1"){
+	             	$(".list .icon2 .tipIcon").show();
+                 }
+             }
+             
+      	   	
+          },error:function(xhr){   
+            var mes = eval('('+xhr.responseText+')');  
+			alertTasat(mes[0].message); 
+          } 
+      }); 
+}  
+function getMaintenance(){  
+		$.ajax({
+          url: '/yangchebao-app-ws/ws/0.1/maintenance/jump?userInfoId='+paramJson.userId,
+          type: 'get',  
+          async:false,
+          dataType: 'json',
+          success: function(data) {   
+			if(data.statusCode=="0"){
+			  $(".keepupRemind").click(function(){
+			      locationFun("113");
+				  isLogin("http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/keepupRemind/carInfo.html");
+			  });
+			}else{
+			   $(".keepupRemind").click(function(){
+			      locationFun("113");
+			      isLogin("http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/keepupRemind/keepUpTest.html");
+			  });
+			}
+		  
+		  },error:function(xhr){   
+            var mes = eval('('+xhr.responseText+')');  
+			alertTasat(mes[0].message); 
+          } 
+      }); 
+}  
+function getMainCarInfo(){
+	$.ajax({
+          url: '/yangchebao-app-ws/ws/0.1/user/carinfo/maincar?customerId='+paramJson.customerId,
+          type: 'get',  
+          async:false,
+          dataType: 'json',
+          success: function(data) {   
+			if(data.plateNumber!=undefined&&data.plateNumber!=""){
+			   $(".wzsz").addClass("wz").removeClass("wzsz"); 
+			}
+			if(data.drivingLicenseDate!=undefined&&data.drivingLicenseDate!=""){
+			   $(".njsz").addClass("nj").removeClass("njsz").html;
+			}
+			if(data.driverLicenseDate!=undefined&&data.driverLicenseDate!=""){
+			   $(".xfsz").addClass("xf").removeClass("xfsz");
+			}
+		  
+		  },error:function(xhr){   
+            var mes = eval('('+xhr.responseText+')');  
+			alertTasat(mes[0].message); 
+          } 
+      }); 
+
+}
+function getTool(){
+	$.ajax({
+          url: '/yangchebao-pubinfo-ws/ws/0.1/home/outservices/v2?userInfoId='+paramJson.userId+'&'+(new Date()).getTime(),
+          type: 'get',  
+          async:false,
+          dataType: 'json',
+          success: function(data) {   
+		    if(data.trafficViolationCount!=undefined&&data.trafficViolationCount!=""){
+			   $(".wzsz").addClass("wz").removeClass("wzsz"); 
+			   $(".wz").append('<span class="wzNum">'+data.trafficViolationCount+'</span>');
+			   $(".wzNum").show();
+			   $(".wzNum").height($(".wzNum").width()+"px");
+			   $(".wzNum").css("line-height",$(".wzNum").width()+"px");
+			   
+			}
+			if(paramJson.customerId!=undefined&&paramJson.customerId!=""&&paramJson.customerId!="null"){
+				if(data.inspectClock.nextYearCheckDays!=undefined&&data.inspectClock.nextYearCheckDays!=""){
+				   $(".njsz").addClass("nj").removeClass("njsz");
+				   $(".nj .icon").html(data.inspectClock.nextYearCheckDays);
+				}
+				if(data.inspectClock.nextReduceScoreDays!=undefined&&data.inspectClock.nextReduceScoreDays!=""){
+					$(".xfsz").addClass("xf").removeClass("xfsz");
+					$(".xf .icon").html(data.inspectClock.nextReduceScoreDays);
+				} 
+			}
+		  },error:function(xhr){   
+            var mes = eval('('+xhr.responseText+')');  
+			alertTasat(mes[0].message); 
+          } 
+      }); 
+}
+//添加日志
+function locationFun(id){ 
+    var postData = {};
+    postData.url = window.location.href.split("?")[0]; 
+    postData.type = "10";  
+    postData.locationId = id; 
+    var arr = [];
+    arr.push(postData);
+    $.ajax({ url: '/yangchebao-app-ws/ws/0.1/log/visit/location?'+window.location.href.split("?")[1],  
+         type: 'post',    
+         data:$.toJSON(arr), 
+		 async:false,
+         dataType: 'json', 
+         contentType:'application/json;charset=utf-8',
+         success:function(){}  
+    });
+} 
+</script>
+</body> 
+</html>
+

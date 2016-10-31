@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<script src="../js/jquery-1.9.1.min.js"></script> 
+<script src="js/index.js"></script> 
+<title>排行榜和奖品</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	font-size:62.5%;
+}
+body{
+	background-color: #F4F7F8;
+	font-family:'华文细黑','HelveticaNeue-Light'; 
+	color:#1e1e1e;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+body,html{
+	min-height:100%;
+}
+ol{
+	list-style: none;
+}
+img{
+	border:none;
+}
+.clearfix {
+   *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+   display: table;
+   line-height: 0;
+   content: "";
+}
+.clearfix:after {
+  clear: both;
+} 
+a{
+	text-decoration: none;
+} 
+.org{  
+  color:#FF6138; 
+} 
+article,header{
+	margin-bottom: 1rem;
+	background-color: #fff;
+}
+header{
+	font-size: 1.2rem; 
+	padding: 0 3rem; 
+	border-bottom:0.7px solid #d9d9e2;
+}
+header .box-wrap{ 
+	border-bottom:0.7px solid #C2C2C6; 
+	height: auto;
+	overflow: auto; 
+	padding: 3rem 0 2rem; 
+}
+header .left{
+	float: left;
+	width: 13rem; 
+}
+header .left img{
+	display: block;
+	width: 10.5rem;
+	margin-left: 0.5rem;
+}
+header .right{
+	margin-left: 7.6rem;
+	padding-top: 0.9rem;
+} 
+header .right h1{ 
+	font-size:1.8rem;
+	color:#FF6138; 
+	font-weight: normal;
+} 
+header h2{  
+	font-size:1.5rem; 
+	text-align:center;
+	font-weight: normal;
+	padding: 1.4rem 0;
+} 
+header .two-btn{  
+	font-size:1.5rem; 
+	text-align:center;
+	font-weight: normal;
+	padding: 0 1.1rem 2rem;
+	height: auto;
+	overflow: auto; 
+}
+header .two-btn>div{  
+	 width: 50%;
+	 float: left;
+}
+header .two-btn a{  
+	font-size:1.4rem;
+	color:#FF6138;
+	line-height:3rem;
+	text-align:center;
+	display: block;
+	height: 3rem;
+	border: 1px solid #FF6138;
+	border-radius: 3px;
+} 
+header .two-btn .lbtn{  
+	margin-right: 1rem;
+} 
+header .two-btn .rbtn{  
+	margin-left: 1rem;
+}
+.title{
+	font-size:1.2rem;
+	color:#A2A2A2; 
+	text-align:center;
+	padding: 0.5rem 0;
+} 
+.glist{
+	display: table;
+	width: 100%;
+	background-color: #fff;
+}
+.glist li{
+	display: table-row;  
+}
+.glist li>div{
+	display: table-cell;
+	vertical-align: middle; 
+	text-align: center;
+	border-bottom:0.7px solid #C2C2C6; 
+	padding:2rem 0; 
+}
+.glist li>div:first-child{ 
+	text-align: left;
+	padding-left: 1.5rem;
+	position: relative;
+} 
+.glist li>div:last-child{ 
+	padding-right: 1.5rem; 
+} 
+.glist .info{
+	font-size: 1.5rem;
+}
+.glist label{
+	font-size: 1.2rem; 
+    color:#C2C2C6; 
+    display: block;
+} 
+.glist li>div:first-child label{
+	padding-left: 15px; 
+} 
+.glist img{
+	width: 1.7rem; 
+	position: absolute;
+	top: 2.2rem;
+	left: 115px;
+}
+</style>
+</head>
+<body>
+	<p><input name="rightNavBtnInfo" type="hidden" value="奖励说明" /> 
+	<input name="rightNavBtnInfo" type="hidden" value="http://app.yangchebao.com.cn/yangchebao-pubweb/archives/comment.html" /> 
+	<input name="rightNavBtnInfo" type="hidden" value="0" /></p>
+    <script type="text/javascript">
+		function getBasePageInfos(){
+         var btnTxt = $("input:eq(0)").val();
+         var actionUrl = $("input:eq(1)").val();
+         var isNeedLogin = $("input:eq(2)").val();
+         var infoJson={};
+         infoJson.titleBtnActions=[];
+         var btnJson={};
+         btnJson.btnTxt=btnTxt;
+         btnJson.actionUrl=actionUrl;
+         btnJson.isNeedLogin=isNeedLogin;
+         infoJson.titleBtnActions.push(btnJson);
+         var infoJsonStr=JSON.stringify(infoJson);
+         window.shareInfos.getBasePageInfos(infoJsonStr);
+        }
+	</script>
+    <header> 
+        <div class="box-wrap">
+    	<div class="left"><img src="images/box.png"></div>
+    	<div class="right">
+    		<h1>装安防神器</h1>
+    		<p>随时随地，掌握车辆状况</p>  
+    	</div>
+    	</div>
+    	<h2>矫正驾驶行为，赢取养车大礼</h2>
+    	<div class="two-btn">
+    		<div>
+    			<a class="lbtn" href="javascript:void(0);">查看奖励设置</a>
+    		</div>
+    		<div>
+    			<a class="rbtn" id="lechengLink" href="javascript:void(0);">获得安防神器</a>
+    		</div> 
+    	</div> 
+    </header> 
+    <p class="title">昨日排名（<span class="yestoday">7月12日</span>）</p>
+    <ul class="glist"> 
+    	 
+    </ul> 
+<script type="text/javascript">
+var paramJson = {}; 
+var pageindex = 0; 
+$(document).ready(function(){   
+		var url = window.location.search; 
+		var paramsArr = (url.split("?")[1]).split("&"); 
+		$.each(paramsArr,function(i){
+		var item = paramsArr[i].split("=");
+		paramJson[item[0]] = item[1];
+		});  
+		var dd = new Date(); 
+        dd.setDate(dd.getDate()-1);//获取AddDayCount天后的日期
+		var y = dd.getFullYear();
+		var m = dd.getMonth()+1;//获取当前月份的日期
+		var d = dd.getDate(); 
+	    var dateNum = y+"-"+m+"-"+d;    
+		$(".yestoday").html(m+"-"+d); 
+        $(".lbtn").attr("href","http://w2nw?"+getPath()+"comment.html"); 
+		getGradeList(dateNum);
+		var entityUrl = ""; 
+        function getPageUrl(){ 
+		       //根据城市获取 补贴与激活页面地址
+		    $.ajax({
+				  url: '/yangchebao-app-ws/ws/0.1/advertise/location?modelId='+paramJson.modelId+'&cityName='+paramJson.cityName+'&location=18&count=1&'+(new Date()).getTime(),
+				  type: 'get', 
+				  dataType: 'json',
+				  success: function(data) {   
+					    entityUrl = "http://w2nw?"+data[0].entityUrl; 
+                       $("#lechengLink").attr("url",entityUrl); 
+				  },error:function(xhr){} 
+				});  
+			} 
+		    getPageUrl();
+		    $("#lechengLink").click(function(){
+		    	if(paramJson.customerId=='' || paramJson.customerId==null || paramJson.customerId=='null' || paramJson.customerId==undefined){
+				        window.location.href="http://w2l?presentType=2&androidName=8&iosName=LoginViewController"
+				    }else{
+				        window.location.href=$(this).attr("url");
+				    }
+		    });
+	});
+ 
+   function getGradeList(dateNum){  
+	$.ajax({
+	      url: '/yangchebao-app-ws/ws/0.1/driving/getFirst100UserRankList?userInfoId='+paramJson.userId+'&dateNum='+dateNum+'&pageindex='+pageindex+'&pagesize=10',
+	      type: 'get',  
+	      async:false,
+	      dataType: 'json',
+	      success: function(data) {  
+		      if(pageindex==0){
+				$(".glist").html("");
+			  }
+              if((data.page+1)<data.totalPages){
+                $(".tip").show();
+              } else{
+                $(".tip").hide();
+              } 
+              pageindex++;  
+              var items = data.items;
+              if(items.length>0){
+              $.each(items,function(i){
+                var item = items[i];  
+                var flower = "";
+                var mobile = item.mobile.substring(0,3)+"****"+item.mobile.substring(7,11);
+                if(item.awardStatus=="Y"){
+                	flower = '<img src="images/flower.png"/>';
+                }
+                var _li = '<li>'
+			    	+'	<div>'
+			    	+'		<p class="info"><span class="idx">'+(i+1)+'.</span><span class="phone">'+mobile+'</span></p>'
+			    	+'		<label>'+item.modelName+'</label>'
+			    	+ flower
+			    	+'	</div>'
+			    	+'	<div>'
+			    	+'		<p class="info">'+item.avgScore+'</p>'
+			    	+'		<label>驾驶平均分</label>'
+			    	+'	</div>'
+			    	+'	<div>'
+			    	+'		<p class="info">'+item.dateMileage+'</p>'
+			    	+'		<label>行驶里程</label>'
+			    	+'	</div> '
+			    	+'</li>';
+                $(".glist").append(_li);
+              });
+            }else{
+               $(".null-tip").show();
+            }
+	      }
+	 });
+} 
+</script> 
+</body> 
+</html>
+

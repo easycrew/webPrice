@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>  
+<script type="text/javascript" src="js/jquery.json-2.2.js"></script>
+<script type="text/javascript" src="js/index.js"></script> 
+<style>
+.title{text-align:center;}
+.title h1{display:inline-block; color:#FF6E47;padding-left:58px; margin:45px auto 40px;  background-repeat: no-repeat;background-size: 48px auto;font-size:1.8em;font-weight:normal; text-align: left;}
+.apply-success .title h1{ background-image:url('css/images/paySuc.png');}
+.apply-error .title h1{ background-image:url('css/images/payFail.png');}
+.title h1 span{display:inline-block; line-height:150%;font-size: 0.83em;color:#A2A2A2;}
+.line{border-top:1px solid #D9D9E2;margin:15px 30px;}
+p.pay-after a{display: inline-block;padding: 0.5em 0;width: 42%;color: #fff;font-size: 1.8em;background-color: #A3AECD;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;margin-top: 1.8em;cursor: pointer;}
+p.pay-after a.pay-look{margin-left:6%;background-color: #FF6E47;}
+.comment{font-size: 1.4em;color: #A3AECD;margin:40px 25px;background-color: #fff;border: 1px solid #A3AECD;border-radius: 5px;padding:18px;position: relative;list-style: decimal inside;position: relative;margin-bottom: 64px;} 
+.comment li:last-child{position: absolute;list-style: none;color: #fff;width: 70px;height: 25px;line-height: 25px;text-align: center;border-radius: 12px;background-color: #A3AECD;top: -12px;left: 10px;}
+/* 选择付款方式 */
+.dialog2{position: fixed;width: 100%;height: 100%; background-color: rgba(0,0,0,0.4);top:50%;bottom: 0;z-index:1000;margin-top:-220px;/**display: none;**/}
+.dialog-content2{background-color: #fff;margin: 30px; position: relative;}
+.dialog2 .title{font-size: 1.8em;text-align: center;height: 43px;line-height: 43px;border-bottom: 1px solid #fb451f;font-weight: normal;}
+.dialog2 ul{width: 100%; -webkit-box-sizing:border-box;box-sizing:border-box; vertical-align: middle; height: 240px;overflow:auto;margin:10px 0;} 
+.btn-wrap{ padding: 18px 0;border-top: 1px solid #fb451f;}
+.dialog-btn{ width:100px;margin:0 auto;font-size: 1.6em;color: #fff;text-decoration: none;display: block; background-color: #fb451f;height: 30px;line-height: 30px;text-align: center;}
+.close {cursor: pointer;display: inline-block;height: 28px;position: absolute;right: 10px;top: 5px;width: 28px;z-index: 10;}
+.close label::before {border-right: 1px solid #fc5d3c;content: "";display: inline-block;height: 28px;transform: rotate(45deg);-ms-transform:rotate(45deg);   -moz-transform:rotate(45deg); -webkit-transform:rotate(45deg);  -o-transform:rotate(45deg); width: 1px;}
+.close label::after {border-left: 1px solid #fc5d3c;content: "";display: inline-block;height: 28px;transform: rotate(-45deg);-ms-transform:rotate(-45deg);   -moz-transform:rotate(-45deg); -webkit-transform:rotate(-45deg);  -o-transform:rotate(-45deg); width: 1px;}
+.close label {display: inline-block;margin-left: 10px;}
+.pay-style{height:40px;line-height:40px;border-bottom:1px solid #d9d9e2;}
+.pay-style span{float:left;}
+.pay-style .sel{background-image: url("css/images/check.png");background-position: -19px center;background-repeat: no-repeat;background-size: 34px auto;width:15px;height:30px;margin:0.2em 1.5em;display: block; }
+.pay-style .checked{background-position: 0 center;}
+.zfb{margin-left: 5px;background-image: url("http://app.yangchebao.com.cn/group1/M00/0A/FA/ChUBl1VymuGAaFDRAAAMthS5nvg588.png");background-size: 58px auto;background-repeat: no-repeat;background-position:0 center;width:80px;height:36px;}
+.wx{margin-left: 5px;background-image: url("http://app.yangchebao.com.cn/group1/M00/0A/FA/ChUBl1Vymx2AT9oYAAAJTkelqrs820.png");background-size: 71px auto;background-repeat: no-repeat;background-position:0 center;width:80px;height:37px;}
+.pay-style label{font-size:1.2em;color:#a0a097;display: inline-block;height: 40px; line-height: 40px;border-left: 1px solid #d9d9e2;padding-left: 10px;}
+.last-li{margin-top:10px;}
+</style>
+
+<title>支付失败</title>
+<body style="height:100%;">   
+	<section class="apply-error"> 
+		<article> 
+			<div class="title">
+				<h1>支付失败!<br><span>钱没花出去郁闷</span></h1>
+				<p class="line"></p>
+				<p class="pay-after"><a href="http://w2l?closeType=closeActivity" class="pay-colse">关闭</a><a href="javascript:void(0)" class="pay-look">重新支付</a></p>
+			</div> 
+			<ol class="comment">
+			    <li>若超过支付限额支付失败，请拨打养车宝客服电话400-607-1222咨询。</li>
+			    <li>注意</li>
+			</ol>
+		</article> 
+
+		<div class="dialog2" style="display:none">
+			<div class="dialog-content2">
+				<span class="close"><label></label></span>
+				<h1 class="title">支付方式</h1>
+				<ul>
+					<li class="clearfix pay-style">	
+						<span class="sel checked"></span>
+						<span class="zfb"></span>
+						<span class="pro-list"><label>需要拥有支付宝账号</label></span>
+					</li> 
+					<!-- <li class="clearfix pay-style last-li">
+						<span class="sel"></span>
+						<span class="wx"></span>
+						<span class="pro-list"><label>需要开通微信钱包</label></span>
+					</li>  -->
+				</ul>
+				<div class="btn-wrap"><a href="" class="dialog-btn">确定</a></div>
+		    </div>
+		</div>
+		<div class="dialog-overlay" style="display:none;"></div>
+	</section>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var response = "1";
+			var url =decodeURI(window.location.href);  
+			var paramsArr = (url.split("?")[1]).split("&");
+			var data = {};
+			$.each(paramsArr,function(i){
+				var item = paramsArr[i].split("=");
+				data[item[0]] = item[1];
+			});
+			var shopId = data.shopId
+			var claimOrderId = data.claimOrderId
+			$('.pay-look').click(function(){
+				$(".dialog2").show(); 
+    			$(".dialog-overlay").show();
+				$(".dialog2").on('click','li',function(){
+			        $('.sel').removeClass('checked')
+			        $(this).children(".sel").addClass('checked');
+			        if($('.sel').eq(0).hasClass("checked")){
+						$('.dialog-btn').attr("href","http://w2l/?presentType=1&androidName=7&iosName=MyWebViewController&claimOrderId="+claimOrderId+"&orderChannel=claimsOrder&payChannelKey=2")
+					}else{
+						$('.dialog-btn').attr("href","http://w2l/?presentType=1&androidName=7&iosName=MyWebViewController&claimOrderId="+claimOrderId+"&orderChannel=claimsOrder&payChannelKey=1")
+					}
+			    }); 
+		        if($('.sel').eq(0).hasClass("checked")){
+					$('.dialog-btn').attr("href","http://w2l/?presentType=1&androidName=7&iosName=MyWebViewController&claimOrderId="+claimOrderId+"&orderChannel=claimsOrder&payChannelKey=2")
+				}else{
+					$('.dialog-btn').attr("href","http://w2l/?presentType=1&androidName=7&iosName=MyWebViewController&claimOrderId="+claimOrderId+"&orderChannel=claimsOrder&payChannelKey=1")
+				}
+				$('.close').click(function(){
+					$('.dialog2').fadeOut()
+    				$(".dialog-overlay").fadeOut();
+			        $('.sel').removeClass('checked')
+			        $('.sel').eq(0).addClass('checked')
+				})
+				return
+			})
+
+			// alert(data.shopId)
+			// alert(data.claimOrderId)
+			index.init = function(userInfo,bridge) { 
+				return response
+			}
+		 	index.pullUpRefresh = function(bridge) {  
+				return response;
+			} 
+		});
+	</script>  
+</body>
+
+</html>
+

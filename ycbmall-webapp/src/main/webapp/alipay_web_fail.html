@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"> 
+  <title>支付失败</title>
+</head>
+<style type="text/css">
+body{ 
+    font-family:"黑体", "微软雅黑";
+	font-size:62.5%;
+} 
+body,ul,li{
+	margin:0;
+	padding:0; 
+}
+.content{
+	margin:0 1em;
+}
+.title{
+	text-align:center;  
+}
+.title h1{ 
+	display:inline-block; 
+	color:#1e1e1e;
+	padding-left:58px; 
+	margin:45px auto 40px;  
+	background-image:url('img/sad.png');
+	background-repeat: no-repeat;
+	background-size: 45px auto;
+	font-size:1.8em;
+	font-weight:normal; 
+}
+.title h1 span{
+	display:inline-block;
+	text-align:left;
+	line-height:150%; 
+}
+.comment{
+	border:1px solid #c2c2c6;
+	background-color:#fef4ca;
+	color:#1e1e1e; 
+	margin:0 0; 
+	padding:20px; 
+	border-radius: 5px;
+	margin-bottom:40px;
+}
+.comment li{
+	margin-left:20px;
+	line-height:150%;
+	font-size:1.4em;
+}
+.button-container{
+	border-top:1px solid #c2c2c6;
+	height: auto;
+	overflow: auto;
+}  
+.button{ 
+	height:36px;
+	background-color:#fb451f;
+	color:#fff;
+	display:block; 
+	text-align:center;
+	line-height:36px;
+	margin:40px auto;
+	text-decoration:none; 
+	border-radius: 5px;
+	font-size:1.8em;
+} 
+.left{
+	float:left;
+	width:50%; 
+}
+.right{
+	float:right;
+	width:50%; 
+}
+.button-red{  
+	background-color:#fb451f; 
+    margin-left:5px;	
+}
+.button-blue{ 
+	background-color:#00a0e9;  
+	margin-right:5px;	
+}
+.answer{
+	list-style: none;
+	margin-left: 40px;
+}
+.titleF{
+	font-weight: bold;
+	font-size: 16px;
+}
+.backPaly{
+	display: block;
+	position: relative;
+	left: 50%;
+	margin-left: -100px;
+	background-color:#00a0e9;
+	width: 150px;
+	height: 60px;
+	color: #F0EFED;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 60px;
+	border-radius: 5px;
+	text-decoration: none;
+	text-align: center;
+}
+</style>
+<body style="background-color:#ebebf0;">
+	<div style="width:100%;">
+		<div class="content">
+			<div class="title"><h1><span>付款失败!<br/>不开心</span></h1></div> 
+			<ul class="comment">
+				<li class="titleF">Q:无法进行支付？</li> 
+				<li class="answer">A:当您点击确认购买后，请不要关闭新打开的页面，否则购买将无法完成。</li>
+				<li class="titleF">Q：打开支付页面，提示“该页无法显示”或空白页，可能是什么原因？</li>
+				<li class="answer">A：可能是由以下原因造成的：<br>
+									1）没有升级IE浏览器，导致加密级别过低，无法进入银行系统。<br>
+    								2）上网环境或上网方式受限，可能是网络服务商限制，建议更换一种上网方式。<br>
+    								3）尝试刷新页面；如果刷新不能解决问题，可能由于浏览器缓存设置的原因，请在IE菜单->工具->Internet选项->点击 “删除cookies”和“删除文件”，用以清除临时文件。 
+				</li>
+				<li class="titleF">Q：银行页面打不开的解决方法？</li>
+				<li class="answer">A: 可能是由以下原因造成的：<br>
+								    1）没有升级IE浏览器，导致加密级别过低，无法进入银行系统。<br>
+								    2）如果是个人电脑，请关闭您的防火墙再试。<br>
+								    3）在IE浏览器“工具”菜单->Internet选项->高级->安全，在SSL2.0和SSL3.0的选项前打勾。<br>
+								    4）查看密钥长度是否支持128位(IE->帮助->关于Internet Explorer)，如果低于128，请升级密钥包。<br>
+									5）请您把银行网址在受信任的站点中添加进去，添加方法为：打开IE浏览器->工具->Internet选项->安全->受信任的站点->站点->添加银行的网站，重启IE浏览器登录养车宝进行相关操作。
+				</li>
+				<li class="titleF">Q：为什么交易付款不成功？</li>
+				<li class="answer">A:可能是由以下原因造成的：<br>
+								    1）由于银行返回的通知信息比较晚，超过了此次交易的超时时间，交易已关闭，不过请放心，我们会在收到银行的通知后，将您此次付款的金额加到您的帐户。<br>
+								    2）重复付款导致（交易状态已经是已付款状态），可能对同一笔交易重复付款，不过请放心，重复付款的金额会退还到您的帐户中。
+				</li>
+			</ul>
+		</div>
+		<a href="historyOrder.html" class="backPaly">返回支付</a>
+	</div>
+</body>
+</html>

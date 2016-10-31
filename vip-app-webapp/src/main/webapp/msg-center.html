@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="js/index.js"></script> 
+<title>消息中心</title>
+<body>
+	<section> 
+		<ul class="msg-center" id="msgList">
+			<!-- <li>
+				<h2>降价啦！全国人民喜迎油价下跌！</h2>
+				<p class="info">自科鲁兹在国内市场上市之初，其凭借硬朗运动的外形俘获了年轻人的心，直至今日一直...</p>
+				<p class="time">2014.09.12 15:20</p>
+			</li>
+			<li class="active">
+				<h2>降价啦！全国人民喜迎油价下跌！</h2>
+				<p class="info">自科鲁兹在国内市场上市之初，其凭借硬朗运动的外形俘获了年轻人的心，直至今日一直...</p>
+				<p class="time">2014.09.12 15:20</p>
+			</li> -->
+		</ul>
+	</section>
+<script type="text/javascript"> 
+		$(document).ready(function(){  
+		 	 var page = 0,pagesize=10,shopAccountId="-1",response="1";
+		 	 function getMessageList(shopAccountId,pageindex,pagesize,owraper){   
+				$.ajax({
+					url: '/vip-app-ws/ws/0.1/vipMessage/queryBusiMessages?shopAccountId='+shopAccountId+'&pageindex='+pageindex+'&pagesize='+pagesize,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {  
+						page++;    
+						var str = ""; 
+						var items = data.items; 
+						$.each(items,function(i){ 
+							var item = items[i];
+							var isRead ="";
+							if(item.isRead=='1'){
+								isRead = "active";
+							}   
+							str +='<li class="'+ isRead +'" businessMessageRelId="'+item.businessMessageRelId+'" title="'+ item.remarks +'">'
+								+'<h2 class="wrap">'+ item.title +'</h2>'
+								+'<p class="info wrap close">'+  item.remarks +'</p>'
+								+'<p class="time">'+ item.sendDate +'</p>'
+								+'</li>' ; 
+						});
+						if(owraper!=undefined){ 
+							$("#msgList").next('.null-tip').remove();
+							$("#msgList").html(str); 
+							if(str==""){
+								$("#msgList").after('<p class="null-tip">暂无消息</p>'); 
+							}  
+						}else{
+							$("#msgList").append(str);
+						}  
+			 			if(data.page == data.totalPages-1){
+							response = "0";
+						} 
+					},
+					error:function(xhr){
+						alertRe("获取数据失败！");
+					}
+				}); 
+		 	}
+		 	function readMsg(id){
+		 		$.ajax({
+					url: '/vip-app-ws/ws/0.1/vipMessage/readMessage?businessMessageRelId='+id,
+					type: 'post',
+					async: false,
+					dataType: 'json',
+					success: function(data) {  
+					},
+					error:function(xhr){ 
+					}
+				}); 
+		 	}
+		 	index.init = function(userInfo,bridge) { 
+		 		shopAccountId = userInfo.shopAccountId; 
+			 	$("#msgList").on("click","li",function(){
+			 		if(!($(this).hasClass("active"))){
+			 			readMsg($(this).attr("businessMessageRelId"));
+			 		}
+			 		$(this).addClass("active");
+			 		var _info = $(this).children(".info");
+			 		if(_info.hasClass('close')){
+			 			_info.removeClass('close')
+			 		}else{
+			 			_info.addClass('close')
+			 		}
+			 	}); 
+			 	getMessageList(userInfo.shopAccountId,0,10,"html");  
+			 	return response;
+			}
+			index.pullUpRefresh = function(bridge) {  
+				getMessageList(shopAccountId,page,pagesize); 
+				return response;
+			}
+		 
+		});  
+ 
+	</script>  
+</body>
+
+</html>
+
+
+

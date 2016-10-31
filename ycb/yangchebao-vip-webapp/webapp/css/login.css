@@ -1,0 +1,289 @@
+﻿*{
+	margin:0px;
+	padding:0px;
+}
+body{
+    font-family:Arial,"微软雅黑";
+	*font-family:"微软雅黑",Arial;
+    font-size:12px; 
+	background-color:#dfe4ec;
+}
+body:before{
+  background-color:#dfe4ec;
+}
+body,html{
+	height:100%;
+}
+ul{
+    list-style: none outside none;
+}
+input,button,select,textarea{outline:none}  
+textarea{resize:none}
+a{
+	color:#1d52b6;
+	text-decoration:none;
+	cursor:pointer;
+}
+a:hover{
+	text-decoration:underline;
+}
+.ui-btn-login{
+	/*background-color:#39b1f6;*/
+	background-color:#3586f5;
+	color:#ffffff;
+	font-size:16px;
+	display:block;
+	height:37px;
+	line-height:37px;
+	cursor:pointer;
+}
+.ui-btn-enroll{
+	color:#ffffff;
+	font-size:16px;
+	display:block;
+	height:37px;
+	line-height:37px;
+	cursor:pointer;
+}
+.ui-btn-login:hover {
+	background-position:left -41px;
+}
+/*.login-wrap{
+	width:500px;
+	margin:0 auto;
+	height:100%;
+	position:relative;
+	margin-top:-935px;
+	top:50%;
+}*/
+.login-wrap input{
+	color:#666666;
+}
+.login-wrap input:focus{
+	color:#3B4047;
+	border:none;
+	box-shadow:none;
+}
+.login-wrap h1{
+	color:#5f5f5f;
+	font-size:18px;
+	font-weight:normal;
+	margin-bottom:0px;
+}
+.login-wrap h1 img{
+	vertical-align:middle;
+}
+.login-wrap h1 .logo{
+	margin-right:10px;
+}
+.login-wrap .title{
+	border-left:1px #e3e3e3 solid;
+	display:inline-block;
+	vertical-align:middle;
+	height:40px;
+	line-height:40px;
+	margin:11px 0px 0px 12px;	
+	padding-left:12px;
+}
+.login-container{
+	width:500px;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin:-232px 0px 0px -250px;
+	padding:0;
+}
+.login-content{
+	/**background:transparent url('images/login-bg.jpg') no-repeat scroll left 10px;**/
+	height:370px;
+	border:5px solid #E5E9EB;
+	background-color:#fff; 
+	border-radius:3px;
+}
+.login-content-main{
+	/*margin-left: 480px;*/
+	background:#fff;
+            padding: 80px 0 45px 0;
+	border-left:1px solid #ebebeb;
+}
+.login-content-main > div{
+	margin:0 auto;
+	width:297px;
+}
+.login-content-main input{
+	border:0px;
+}
+.login-wrap li{
+	margin-bottom:25px;
+}
+.login-wrap .login-input,.check-code{
+	display:inline-block\0;
+	height:22px;
+	padding:5px 6px 5px 11px;
+}
+.login-wrap .login-input{
+	background:transparent url('images/login-input-bg.png') no-repeat scroll 0 0;
+	width:280px;
+}
+.login-wrap .icon{
+	display:inline-block;
+	width:20px;
+	height:23px;
+	vertical-align:middle;
+}
+.login-name-icon{
+	background:transparent url('images/login-name.png') no-repeat scroll 0 center;
+}
+.login-password-icon{
+	background:transparent url('images/login-password.png') no-repeat scroll 0 center;
+}
+.login-input input{
+	font-size:12px;
+	font-family:Arial,'微软雅黑';
+	font-family:'微软雅黑',Arial;
+	vertical-align:middle;
+	padding:0 5px;
+	height:21px;
+	line-height:21px;
+	background-color:#fff; 
+}
+.login-input input{
+	width:250px;
+}
+.login-wrap .on-error{
+	background:transparent url('images/ui-field-error.png') no-repeat scroll 0 0;
+	color:#BB4B47;
+	min-height:14px;
+	line-height:14px;
+	padding-left:20px;
+	margin-top:5px;
+	position:absolute;
+}
+.buttons-wrap:after{
+	content:'.';
+	display:block;
+	height:0px;
+	clear:both;
+	visibility:hidden;
+}
+.buttons-wrap{
+	width:100%;
+	margin-bottom:15px;
+	text-align: center;
+}
+.login-content .related {
+    float: left;
+    height: 371px;
+    position: relative;
+    width: 482px;
+}
+.jrad-dialog-alert .icon-remove{
+ line-height:25px;
+}
+.temp-box{
+
+}
+a {text-decoration:none;}
+a:hover {text-decoration:none;}
+
+/*focus*/
+.focus {position:relative;overflow:hidden;}
+.logo{padding-top:10px;padding-bottom: 10px;padding-left:10%;}
+.focus_m ul {width:100%;height:600px;overflow:hidden;}
+.focus_m li {width:100%;height:600px;_float:left; }
+.focus_m li.li_1 {background:url(images/banner1.jpg) center 0 no-repeat ;background-size: cover;}
+.focus_m li.li_2 {background:url(images/banner2.jpg) center 0 no-repeat ;background-size: cover;}
+.focus_m li.li_3 {background:url(images/banner3.jpg) center 0 no-repeat ;background-size: cover;}
+.focus_s {height:0;position:relative;margin:0 auto;z-index:2;width:1000px;}
+.focus_s ul {height:12px;overflow:hidden;position:absolute;left:470px;top:630px;}
+.focus_s li {float:left;cursor:pointer;height:12px;width:12px;overflow:hidden;margin-right:10px;}
+.focus_s li b {display:block;text-indent:-999em;background:url(images/circle.png) 0 0 no-repeat;width:12px;
+	height:32px;overflow:hidden;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=noscale, src='images/circle.png');_background:none;}
+.focus_s li.active b {margin-top:-20px;}
+
+
+/*login*/
+.login_box {height:0;position:relative;margin:0 auto;z-index:2;width:1000px;}
+.login {position:absolute;width:350px;height:397px;overflow:hidden;top:104px;right:0;left: 75%;}
+.login_content {position:relative;width:350px;height:397px;overflow:hidden;z-index:2;background-color: #fff;}
+
+
+/*footer*/
+.footer{
+	width: 1000px;
+	margin:0 auto;
+	/*overflow: auto;*/
+	background-color: #f4f4f4;
+}
+.footer:after{display:block;clear:both;content:"";visibility:hidden;height:0;}
+.footer div{
+	float: left;
+	margin-top: 36px;
+	/*background-color: #f4f4f4;*/
+}
+.footer a{
+	display:block;
+	color: #596377;
+	font-size: 16px;
+}
+
+.footera1{
+	margin-bottom: 10px;
+}
+.footera2{
+	margin-top: 10px;
+}
+.footer a:hover{
+	color: #596377;
+}
+.footBox1{
+	padding-left: 37px;
+	padding-right: 37px;
+	border-right:1px solid #596377;
+}
+.footBox2{
+	padding-top: 15px;
+	padding-left: 37px;
+	padding-right: 37px;
+}
+.footBox2 a{
+	cursor: default;
+	/*margin-top: 1px;*/
+}
+.footBox3{
+	/*clear: both;*/
+	/*zoom:1;*/
+	width: 425px;
+  	margin: 0 auto;
+  	padding-top: 44px;
+  	/*background-color: #f4f4f4;*/
+  	padding-bottom: 50px;
+}
+.footBox3 a{
+	float: left;
+	font-size: 14px;
+	color: #596377;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-right: 1px solid #596377;
+}
+.copyIcon{
+	font-size: 15px;
+	float: left;
+}
+.btnBox a{
+	display: block !important;
+}
+.footerbg{
+	background-color: #f4f4f4;
+	position: absolute;
+	width: 100%;
+}
+/*.clearfix:after {
+     content:".";
+     display:block;
+     height:0;
+     clear:both;
+     visibility:hidden;
+}*/

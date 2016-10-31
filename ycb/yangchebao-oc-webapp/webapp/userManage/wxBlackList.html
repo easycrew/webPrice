@@ -1,0 +1,248 @@
+ <div class="urlContentWraper" id="Wraper_wx_blacklist">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>微信黑名单列表</strong><bottom class="all-work-info numb25">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_wx_blacklist"></table>
+		</div>
+    </div>
+    <div id="Form_wx_blacklist" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+        	<input type="hidden" name="wxBlackListId">
+            <div class="row">
+                 <label class="span3 grid-layout-label">用户手机：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="mobile" class="jrad-input-container"></div>
+			     </div>
+                 <label class="span3 grid-layout-label">拉黑原因：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="blackListingReason" class="jrad-select-container"></div>
+			     </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">渠道：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="channel" class="jrad-select-container"></div>
+			     </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_wx_edit" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+        	<input type="hidden" name="wxBlackListId">
+            <div class="row">
+                 <label class="span3 grid-layout-label">状态：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="status" class="jrad-select-container"></div>
+			     </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg25" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>用户在微信有一些违规操作时，会把用户拉入黑名单，此用户在微信的一些功能禁止使用（现阶段禁止的功能有“轻松兼职”）。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_wx_blacklist');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	//var jRad = $.jRad('/radsample-ws','ent','Menu');	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+	jRad.params['channel'] = {data:[
+		{"id":"1",name:"业务员推广"},
+		{"id":"2",name:"上门检测"}
+	  ]};   
+    jRad.params['blackListingReason'] = {data:[
+	    {"id":"",name:"全部"}, 
+		{"id":"1",name:"小工推荐刷单"},
+		{"id":"2",name:"其他"}
+	  ]};
+    jRad.validators['mobile'] = [{"msg":"用户手机不能为空","type":"min","value":"1"},{msg:"手机号格式不正确",type:'regex',value:/^\s*1\d{10}\s*$/}];
+	
+    var fields_params = {}; 
+    fields_params['blackListingReason'] = {data:[
+		{"id":"1",name:"小工推荐刷单"},
+		{"id":"2",name:"其他"}
+	  ]};
+    fields_params['channel'] = {data:[
+		{"id":"1",name:"业务员推广"},
+		{"id":"2",name:"上门检测"}
+	  ]};
+	fields_params['status'] = {data:[
+		{"id":"0",name:"无效"},
+		{"id":"1",name:"有效"},
+		{"id":"2",name:"删除"}
+	  ]};
+    page_column_model.push({display: 'openId', name : 'openId'});
+    page_column_model.push({display: '用户手机', name : 'mobile'});
+    page_column_model.push({display: '拉黑原因', name : 'blackListingReason',datasource:jRad.params['blackListingReason'].data});
+    page_column_model.push({display: '状态', name : 'status'});
+    page_column_model.push({display: '渠道', name : 'channel',datasource:jRad.params['channel'].data});
+    page_column_model.push({display: '进入时间', name : 'createDateStr'});
+	page_column_model.push({display: '操作人', name : 'operator'});
+    
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+	page_search_items.push({row:'1',type:'jrad-select',display:'拉黑原因',name:'blackListingReason',params:{
+	  data:[
+	    {"id":"",name:"全部"}, 
+		{"id":"1",name:"小工推荐刷单"},
+		{"id":"2",name:"其他"}
+	  ]
+	}});
+	page_search_items.push({row:'1',type:'jrad-input',display:'操作人',name:'operator'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'进入时间始',name:'startCreateDate'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'进入时间终',name:'endCreateDate'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'渠道',name:'channel',params:{
+	  data:[
+		{"id":"",name:"全部"},
+		{"id":"1",name:"业务员推广"},
+		{"id":"2",name:"上门检测"}
+	  ]
+	}});
+	 
+   $('#Form_wx_blacklist').form({
+		title: '新增黑名单用户',
+		validators:jRad.validators,
+		fields_params:fields_params
+	}); 
+    $('#Form_wx_edit').form({
+		title: '修改状态',
+		fields_params:fields_params
+	}); 
+	 
+    page_list_buttons.push({title: '新增黑名单用户',displayname:'新增黑名单用户',name:'Add', bclass: 'add',onpress : function(){  
+		   $('#Form_wx_blacklist').form({
+		   		item:{},
+				url:'/shopmanage-ws/ws/0.1/userInfoCms/addWXBlacklist',
+				before_submit:function(json){ 
+					json.operator = carsmart_config.operatorName;
+					return json
+				},
+				success_callback:function(){ 
+					$('#Table_wx_blacklist').flexMessage('新增成功', 'success');
+					$('#Table_wx_blacklist').flexReload()
+				}
+		   	}).form('open')
+        }
+    });
+  
+	page_list_buttons.push({title: '修改状态',displayname:'修改状态',name:'edit',bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_wx_blacklist').getCheckedTrs();
+            if (checked.length == 0) {return false;}else{return true;}
+        },onpress : function(){
+        	var checked = $('#Table_wx_blacklist').getCheckedTrs();
+        	if(checked[0]){
+		    	$('#Form_wx_edit').form({
+		    		item:{},
+		    		type:'post',
+	               	url:'/shopmanage-ws/ws/0.1/userInfoCms/editBlacklistStatus',
+					before_submit:function(json){ 
+						var checked = $('#Table_wx_blacklist').getCheckedTrs();
+						var postData = [];
+						$.each(checked,function(i){
+							var postJson={};
+						 	postJson.wxBlackListId=checked[i].wxBlackListId;
+						 	postJson.status=json.status;
+						 	postJson.opserator=carsmart_config.operatorName;
+						 	postData.push(postJson);
+						});
+						return postData
+					},				
+					success_callback:function(){ 
+	                            $('#Table_wx_blacklist').flexMessage('修改成功', 'success');
+	                            $('#Table_wx_blacklist').flexReloadCurrentPage()
+	                        } 
+	            }).form('open'); 
+	        }
+		}
+	});
+    page_list_buttons.push({separator: true});
+
+	$('#Table_wx_blacklist').flexigrid({
+			reload:true,
+			method:'get', 
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/getWXBlackList',
+			onError:showRemarkError,
+			checkBoxType:''
+	}) 
+	
+    $(".numb25").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg25").form({}).form('close');
+        $("#Form_explain_eg25").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg25 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg25").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg25").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg25 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	
+});
+function showRemarkError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_wx_blacklist .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+</script>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html id="baseHtml">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+	<link rel="stylesheet" type="text/css" href="css/base.css"/>
+	<link rel="stylesheet" href="css/index.css" />
+	<link rel="stylesheet" type="text/css" href="css/ycbmall/group.css"/>
+	<link rel="stylesheet" type="text/css" href="css/ycbmall/zepto.aslider.css"/>
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+	<script type="text/javascript" src="js/jquery.json-2.2.js"></script>
+	<script src="js/jquery.urlParam.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script src="http://cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
+	<script type="text/javascript" src="./js/zepto.fx.js"></script>
+    <script type="text/javascript" src="./js/zepto.fx_methods.js"></script>
+    <script type="text/javascript" src="./js/zepto.aslider.js"></script>
+	<title>团购</title>
+	<style type="text/css">
+		html{font-size: 62.5%;width: 100%;}
+		.alert-container img{width: 100%;}
+		.slider1 .wrapper {height: 70%;}
+		.close{display: inline-block;width: 100%;}	
+	</style>
+</head>
+<body style="width: 100%;">
+	<section class="main-wrap">
+	<article>
+		<div class="group-contianer">
+			<div class="group-top">
+				<input type="hidden" value="groupPurchasingId" />
+				<div class="banner">
+					<div class="bannerImg">
+						<img src="" />
+						<p class="btn-des"><span data-aslider-in="1000|fade|bottom">查看活动细则</span></p>
+					</div>
+					<div class="goodsInfo">
+						<div class="goodsInfo-l time-table">
+							<p>剩余时间</p>
+							<p class="timeSpan">
+								<span class="time-num time-day">0</span>天
+								<span class="time-num time-hour">0</span>时
+								<span class="time-num time-minute">0</span>分
+								<span class="time-num time-second">0</span>秒
+							</p>
+						</div>
+						<div class="goodsInfo-r goods-saleNum">
+							<ul>
+								<li class="numLi total">
+									<span class="numLi-title title">团购目标</span>
+									<br>
+									<span class="numLi-num Num">0<span class="numLi-unit">件</span></span>
+								</li>
+								<li class="numLi accumulation">
+									<span class="numLi-title title">已累计团购</span>
+									<br>
+									<span class="numLi-num Num">0<span class="numLi-unit">件</span></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="group-content">
+				<ul class="group-list" id="groupList">
+					<!--<li class="commodityId">
+						<div class="group-info">
+							<div class="list-l">
+								<img src="css/ycbmall/images/groupGoods.png"/>
+							</div>
+							<div class="list-r">
+								<p class="list-name">美孚 金美孚1号全合成机油SN</p>
+								<p class="list-des">0W-40 1L</p>
+								<p class="list-num">
+									小计：<span class="list-price">&yen;<span class="group-price">40.00</span></span>
+									<span class="saleNum">
+										<span class="numDown">-</span><input type="number" class="group-num" value="5" /><span class="numUp">+</span>
+									</span>
+								</p>
+							</div>
+							<p class="ui-note"></p>
+						</div>
+						<div class="price-list">
+							<ul>
+								<li class="Header">
+									<span class="header-num">数量(<e>件</e>)</span>
+									<span class="header-price">价格(元)</span>
+								</li>
+								<li>
+									<span class="num"><span>1</span>-<span>3</span></span>
+									<span class="price">40.00</span>
+								</li>
+								<li class="_checked">
+									<span class="num">3-6</span>
+									<span class="price">30.33</span>
+								</li>
+								<li>
+									<span class="num">3-6</span>
+									<span class="price">30.33</span>
+								</li>
+								<li>
+									<span class="num">3-6</span>
+									<span class="price">30.33</span>
+								</li>
+								<li>
+									<span class="num"><span class="startNum">3</span>-<span class="endNum">6</span></span>
+									<span class="price">30.33</span>
+								</li>
+							</ul>
+						</div>
+					</li>-->
+				</ul>
+			</div>
+
+		</div>
+		<div class="group-footer">
+			<p class="footer-l">
+				总计:<span class="total-num">0</span>
+				<span class="total-unit">件</span>
+			</p>
+			<p class="footer-c">
+				合计:<span class="total-Price">&yen;<span class="total-price">0</span></span>
+			</p>
+			<p class="footer-r">
+				<span class="settle">立即购买</span>
+			</p>
+		</div>
+	</article>
+	</section>
+	<aside class="slider1 aslider" data-aslider="1000">
+		<div class="wrapper bgc1">
+			<div class="alert-top">
+				<span class="close" id="alertClose"></span>
+			</div>
+			<div class="scroll alert-container">
+				<div class="slider">
+					<h2>团购介绍</h2>
+					<div class="details indroduce" id="group-indroduce"></div>
+					<h2>团购规则</h2>
+					<div class="details rules" id="group-rules"></div>
+					<h2>常见问题</h2>
+					<div class="details question" id="group-question"></div>
+				</div>
+			</div>
+			<div class="alert-footer">
+				<span class="close">确定</span>
+			</div>
+		</div>
+
+	</aside>
+<script type="text/javascript">
+$(document).ready(function(){
+	var response="1",page=0,pagesize=100,isShowUnavailable=0,flag=1;
+	var status="0";
+	var groupPurchasingId=$.getQuery('groupPurchasingId');
+	var titleReal='团购';
+
+	//获得团购信息
+	function getGroupList(userInfo){
+		var postData={};
+		postData.groupPurchasingId=$.getQuery('groupPurchasingId');
+		postData.areaCodeId=userInfo.areaCodeId;
+		postData.userInfoId=userInfo.userId;
+		postData.isShowUnavailable=0;
+		$.ajax({
+			type:"get",
+			url:"/ycbmall-app-ws/ws/0.1/groupPurchasing/getBasicInfo",
+			data:postData,
+			async:false,
+			dataType:'json',
+			success:function(data){
+				$("title").html(data.name);//title团购名称ios
+				titleReal=data.name;//title团购名称android
+				status=data.status;
+				$(".group-top input[type='hidden']").val(data.groupPurchasingId);
+				$(".group-top div.bannerImg img").attr('src',data.appActivePicUrl);
+			 	$("li.total span.Num").html(data.minNum+'<span class="numLi-unit">'+data.unit+'</span>');
+			 	$(".accumulation span.Num").html(data.cumulativeNum+'<span class="numLi-unit">'+data.unit+'</span>');
+			 	if(data.introduceUrl!=undefined){
+				 	var introduceUrl=data.introduceUrl.replace(/app/,'vipapp');
+				 	$("#group-indroduce").load(introduceUrl);
+			 	}
+			 	if(data.ruleUrl!=undefined){
+				 	var ruleUrl=data.ruleUrl.replace(/app/,'vipapp');
+				 	$("#group-rules").load(ruleUrl);
+			 	}
+			 	if(data.commonProblemsUrl!=undefined){
+				 	var commonProblemsUrl=data.commonProblemsUrl.replace(/app/,'vipapp');
+				 	$("#group-question").load(commonProblemsUrl);
+			 	}
+				//倒计时
+				SysSecond = data.timeRemaining;
+			 	if(SysSecond>0){
+					SetRemainTime();
+		  			InterValObj = window.setInterval(SetRemainTime, 1000);
+			 	}else if(SysSecond==0){
+			 		$(".goodsInfo span.time-day").html("0");
+				  	$(".goodsInfo span.time-hour").html("0");
+				  	$(".goodsInfo span.time-minute").html("0");
+				  	$(".goodsInfo span.time-second").html("0");
+			 	}
+				var skuInfo=data.skuInfo;
+				var str='';
+				$.each(skuInfo, function(i) {
+					str+='<li commodityId="'+this.commodityId+'" class="commodityId" skuId="'+this.skuId+'" maximum="'+this.maximum+'">'
+						+'<div class="group-info">'
+							+'<div class="list-l">'
+								+'<img src="'+this.middlePicUrl+'" />'
+							+'</div>'
+							+'<div class="list-r">'
+								+'<p class="list-name">'+this.name+'</p>'
+								+'<p class="list-num">'
+									+'小计:<span class="list-price">&yen;<span class="group-price">0</span></span>'
+									+'<span class="saleNum">'
+										+'<span class="numDown">-</span><input type="tel" class="group-num" value="0" maxlength="3"/><span class="numUp">+</span>'
+									+'</span>'
+								+'</p>'
+							+'</div>'
+						+'<p class="ui-note"></p>'
+						+'</div>'
+						+'<div class="price-list">'
+							+'<ul>'
+								+'<li class="Header">'
+									+'<span class="header-num">数量(<e>'+data.unit+'</e>)</span>'
+									+'<span class="header-price">价格(元)</span>'
+								+'</li>'
+						var priceEchelons=this.priceEchelons;
+						var priceEchelonsStr='';
+						$.each(priceEchelons,function(j){
+							priceEchelonsStr+='<li>'
+								+'<span class="num"><span class="startNum">'+this.startNum+'</span>-<span class="endNum">'+this.endNum+'</span></span>'
+								+'<span class="price">'+this.sellingPrice+'</span>'
+							+'</li>'
+						});
+						str+=priceEchelonsStr;
+							str+='</ul>'
+						+'</div>'
+					+'</li>'
+				});
+				if(str==''){
+					$("#groupList").html('<p class="null-tip" style="margin-top: 8em;font-size: 1.4rem;">本次团购商品暂不支持在此地区销售</p>')
+				}else{
+					$("#groupList").html(str);
+				}
+				
+			}
+		});
+	}	
+		//结算总价和总计
+		function sumNum(){
+			var a={};
+			var number_=0;
+			var price_=0;
+			$("#groupList li.commodityId").each(function(){
+				var perNum=parseInt($.trim($(this).find('p.list-num input.group-num').val()));
+				var perPrice=parseFloat(parseFloat($(this).find('p.list-num span.group-price').html()).toFixed(2));
+				number_+=perNum;
+				price_+=perPrice;
+				price_=parseFloat(price_.toFixed(2));
+			});
+			a.allNum=number_;
+			a.allPrice=price_;
+			$("div.group-footer .footer-l span.total-num").html(a.allNum);
+			$("div.group-footer .footer-c span.total-price").html(a.allPrice);
+		}
+		//价格级联
+		function cascade(buyNum,othis){
+			
+			var thisEle=othis;
+			var maxNum=thisEle.parents('.group-info').siblings().find('li:last span.endNum').html();//价格档最大购买数量
+			thisEle.parents('.group-info').siblings().find('li:gt(0)').each(function(i){
+				var startNum=$(this).find('span.startNum').html();//价格档min
+				var endNum=$(this).find('span.endNum').html();//价格档max
+				if(buyNum<=0){
+					$(this).removeClass().siblings('li:gt(0)').removeClass();
+					currentPrice=0;
+//					thisEle.find('span.numDown').addClass("unClick");
+				}
+				if(buyNum>maxNum||buyNum>=startNum&&buyNum<=endNum){
+					var perPrice=parseFloat($(this).find('span.price').html());//价格档价格
+					currentPrice=(buyNum*perPrice).toFixed(2);//单个商品价格
+					$(this).addClass('_checked').siblings('li:gt(0)').removeClass();//匹配价格档
+				}
+			});
+			thisEle.parents('p.list-num').find('span.group-price').html(currentPrice);//单个商品的总价格显示
+		}
+		//购买数量校验
+		function checkeNum(buyNum,em){
+			flag=1;
+			var thisEle=em;
+			var maximum=thisEle.attr('maximum');//用户最大购买量
+			if(buyNum>maximum){
+				thisEle.find('p.ui-note').html('最多只能购买'+maximum+'件');
+//				alertTasat('最多只能购买'+maximum+'件');
+				flag=0
+			}else{
+				thisEle.find('p.ui-note').html('');
+			}
+			return flag
+		}
+	//获得团购信息结束
+	index.init=function(userInfo,bridge){
+		var path=getPath();
+		var currentPrice=0;
+		
+		//跳转到团购详情页
+		/*$("#groupList").delegate('li[commodityId]','ontouchstart click touched',function(e){
+			var that=this;
+			var home=path;
+			switch(e.type){
+				case 'touchstart':break;
+				case 'click':
+					var commodityId=$(that).attr("commodityId");
+					//跳转到相应的团购sku详情信息
+			}
+		})*/
+		//数量加减操作
+		//数量减
+		$("#groupList").on('click','span.numDown',function(){
+			var thisEle=$(this);
+			var thisEle_=$(this).parents('li.commodityId');//父元素li
+			var buyNum=$.trim($(this).next().val());//商品数量
+			var skuId=$(this).parents('li.commodityId').attr('commodityId');//商品id
+			var maximum=$(this).parents('li.maximum').attr('maximum');
+			if(!/^[0-9]*[1-9][0-9]*$/.test(buyNum)){
+				return false
+			}else{
+				var intBuyNum=parseInt(buyNum)-1;
+				if(intBuyNum==0){
+					$(this).addClass("unClick");				
+				}else{
+					$(this).removeClass("unClick");
+				}
+				if(intBuyNum<999){
+					$(this).siblings('span.numUp').removeClass('unClick');
+				}
+				$(this).next().val(intBuyNum);
+				//价格档级联
+				
+				//价格档级联
+				cascade(intBuyNum,thisEle);
+				sumNum();
+				flag=checkeNum(intBuyNum,thisEle_);
+			}
+		});
+		//数量加
+		$("#groupList").on('click','span.numUp',function(){
+			var thisEle=$(this);
+			var thisEle_=$(this).parents('li.commodityId');//父元素li
+			var buyNum=$.trim($(this).prev().val());//商品数量
+			var skuId=$(this).parents('li.commodityId').attr('commodityId');//商品id
+			if(!/^(0|[1-9]\d*)$/.test(buyNum)){
+				return false
+			}else{
+				var intBuyNum=parseInt(buyNum)+1;
+				if(intBuyNum>=999){
+					intBuyNum=999;
+					$(this).prev().val(999);
+					$(this).addClass("unClick");
+				}else{
+					$(this).prev().val(intBuyNum);
+					$(this).removeClass("unClick");
+				}
+				if(intBuyNum>0){
+					$(this).siblings('span.numDown').removeClass('unClick');
+				}
+				//价格档级联
+				
+				//价格档级联
+				cascade(intBuyNum,thisEle);
+				sumNum();
+				flag=checkeNum(intBuyNum,thisEle_);
+			}
+		});
+		
+		//价格档点击
+		$("#groupList").on('click','div.price-list li:gt(0)',function(){
+			var thisEle_=$(this).parents('li.commodityId');//父元素li
+			$(this).addClass('_checked').siblings('li:gt(0)').removeClass();
+			var startNum=parseInt($(this).find('span.startNum').html());
+			var perPrice=parseFloat($(this).find('span.price').html());
+			currentPrice=(startNum*perPrice).toFixed(2);
+			$(this).parents('li.commodityId').find('p.list-num span.group-price').html(currentPrice);
+			$(this).parents('li.commodityId').find('input').val(startNum);
+			sumNum();
+			flag=checkeNum(startNum,thisEle_);
+		});
+		//自己输入数量
+		$("#groupList ").on('focus','input.group-num',function(){
+			$(this).val(0);
+		})
+		$("#groupList ").on('input','input.group-num',function(){
+			var thisEle=$(this);
+			var thisEle_=$(this).parents('li.commodityId');//父元素li
+			var buyNum=$.trim($(this).val());//商品数量
+			var intBuyNum=parseInt((buyNum));
+			var skuId=$(this).parents('li.commodityId').attr('commodityId');//商品id
+			if(!/^([0-9]\d*|[0]{1,1})$/.test(buyNum)){
+				alertTasat("请输入正确的购买数量")
+				$(this).val(0);
+				intBuyNum=0;
+			}else{
+				if(intBuyNum<=0){
+					$(this).siblings('span.numDown').addClass("unClick");
+					$(this).siblings('span.numUp').removeClass('unClick');
+				}else if(intBuyNum>=999){
+					$(this).siblings('span.numUp').addClass('unClick');
+					$(this).siblings('span.numDown').removeClass('unClick');
+				}else{
+					$(this).siblings('span').removeClass('unClick');
+				}
+				$(this).val(intBuyNum);
+				//价格档级联
+				
+				//价格档级联
+				flag=checkeNum(intBuyNum,thisEle_);
+			}
+			cascade(intBuyNum,thisEle);
+			sumNum();
+		});
+		//立即购买
+		$(".group-footer p.footer-r span.settle").click(function(){
+			var tg=$(this);
+//			flag=1;
+			//未勾选团购商品
+			var totalNumber=$(".group-footer span.total-num").html();
+			if(totalNumber==0){
+				alertTasat('请选择商品');
+				return false;
+			}
+
+			var skuArray=[];
+			var skuArrayJson={};
+			var postData={};
+			postData.groupPurchasingId=groupPurchasingId;
+			postData.userInfoId=userInfo.userId;
+			postData.areaCodeId=userInfo.areaCodeId;
+			$("#groupList li.commodityId").each(function(i){
+				skuArrayJson={};
+				var skuNum=parseInt($.trim($(this).find('.group-info input.group-num').val()));
+				if(skuNum!=0){
+					skuArrayJson.skuNum=skuNum;
+					skuArrayJson.skuId=$(this).attr('skuId');
+					skuArray.push(skuArrayJson);
+				}
+			});
+			postData.skuArray=skuArray;
+			$.ajax({
+				type:"post",
+				url:"/ycbmall-app-ws/ws/0.1/groupPurchasing/replaceUserGpTemp",
+				async:false,
+				data:$.toJSON(postData),
+				dataType:'json',
+				contentType:'application/json;charset=UTF-8',
+				success:function(data){
+					window.location.href='http://w2l/?presentType=1&androidName=4&iosName=BuyGoodsViewController&from=3&groupPurchasingId='+groupPurchasingId;
+				},
+				error:function(xhr){
+					var error =JSON.parse(xhr.responseText);
+					alertTasatG(error[0].message);
+					$("#groupList li.commodityId").each(function(i){
+						$(this).find('p.ui-note').html('');
+					})
+					return false
+				}
+			});
+		});
+		getGroupList(userInfo,"html");
+		var groupTitle={titleReal:titleReal,isGroupTitle:'1'};
+		if(bIsAndroid()){
+			window.mallTitle.getMallTitle(groupTitle.isGroupTitle,groupTitle.titleReal);  
+		}else{
+			bridge.send(groupTitle);
+		}
+			return 0;
+	}
+});
+function SetRemainTime() {
+  	if (SysSecond > 0) {
+	   	var second = Math.floor(SysSecond % 60);             // 计算秒     
+	   	var minite = Math.floor((SysSecond / 60) % 60);      //计算分
+	   	var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时
+	  	var day = Math.floor((SysSecond / 3600) / 24);  //计算天
+	  	$(".goodsInfo span.time-day").html(day);
+	  	$(".goodsInfo span.time-hour").html(hour);
+	  	$(".goodsInfo span.time-minute").html(minite);
+	  	$(".goodsInfo span.time-second").html(second);
+		SysSecond = SysSecond - 1;
+  	}else{//剩余时间小于或等于0的时候，就停止间隔函数
+  		$(".goodsInfo span.time-day").html("0");
+	  	$(".goodsInfo span.time-hour").html("0");
+	  	$(".goodsInfo span.time-minute").html("0");
+	  	$(".goodsInfo span.time-second").html("0");
+   		window.clearInterval(InterValObj);
+// 		$("div.goodDetails_footer a.limitedBuyBtn").unbind('click').addClass('change');
+  	}
+}
+
+</script>
+</body>
+</html>

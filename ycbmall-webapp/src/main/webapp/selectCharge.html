@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="养车宝配件商城，100%原厂品质">
+	<meta name="description" content="养车宝配件商城，100%原厂品质，3M、威固、美孚、壳牌Ahell、普利司通、米其林等汽车配件，厂价直销！">
+	<title>全网正品汽车配件_养车宝配件商城！</title>
+	<link rel="icon" href="favicon.ico">
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/jquery.urlParam.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/selectCharge.css">
+	<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+	<div class="login"></div>
+	<div class="container">
+		<div class="top"></div>
+		<div class="main">
+			<div class="mainCommen"></div>
+			<div class="selectCharge">
+				<div class="orderPrice">
+					<p class="orderPrice-detail">
+						<span>订单号：</span><span class="orderPrice-orderNumber">C15052705001047</span>
+						<span>支付金额：</span><span class="orderPrice-chargePrice"></span>
+					</p>
+					<p class="orderPrice-note">请您在提交订单 <span class="limitChargeTime">24小时</span> 内完成支付，否则订单会自动取消。</p>
+					<p class="orderPrice-checkOrderDetail"><a href="">[查看订单详情]</a></p>
+				</div>
+				<div class="selectChargeDetail">
+					<h2>请选择支付方式</h2>
+					<div class="selectChargeDetail-con">
+						<span class='span_wraper clickSpan_wraper'><input type="radio" name="chargeType" value="zfb" checked="checked"><span class="zfbImg"><img src="img/zfb_img.png"></span></span>
+						<span class='span_wraper'><input type="radio" name="chargeType" value="bank" class="bank"><span class="bankText">银行卡支付</span></span>
+					</div>
+					<div class="chargeNext"><span>下一步</span></div>
+				</div>
+			</div>
+		</div>
+		<div class="footer"></div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$('div.top').load('top.html');
+		$('div.mainCommen').load('searchAndNav.html');
+		$('div.footer').load('footer.html');
+		$('div.selectChargeDetail-con span.span_wraper').click(function(){
+			$(this).siblings().removeClass('clickSpan_wraper').find('input[type="radio"]').prop('checked',false);
+			$(this).addClass('clickSpan_wraper').find('input[type="radio"]').prop('checked',true);
+		});
+	});
+</script>
+
+</html>

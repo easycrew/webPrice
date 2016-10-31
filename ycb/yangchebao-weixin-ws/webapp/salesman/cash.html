@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>  
+<title>工资详情</title>
+<link rel="stylesheet" href="./css/index.css">
+<script language="javascript" src="./js/jquery-1.10.1.min.js"></script> 
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+<script language="javascript" src="./js/jquery.json-2.2.js"></script>
+<script language="javascript" src="./js/index.js"></script> 
+<script language="javascript" src="./js/share.js"></script> 
+<script language="javascript" src="./js/jquery.pagination.js"></script> 
+<style>
+
+    .pagination {
+        text-align: right;
+        margin-top: 15px;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        border: 1px solid #666;
+        color: #555;
+    }
+
+    .pagination a,.pagination span {
+        display: inline-block;
+        padding: 0 0.3em;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+    .pagination .current {
+        background: #8E97A7;
+        color: #fff;
+        border: 1px solid #666;
+    }
+
+    .pagination .current.prev,.pagination .current.next {
+        color: #999;
+        border-color: #999;
+        background: #fff;
+    }
+</style>
+</head>  
+<body> 
+	<section style="margin:15px 0 33px;"> 
+        <ul class="cash-wrap"> 
+            <li class="link" id="zfb" path="zfb-info.html"><label>支付宝账号</label><span>未设置</span></li> 
+            <!-- <li class="link" id="bank" path="bank-info.html"><label>银行卡号</label><span>未设置</span></li> -->
+            <li><label>可提现工资</label><span id="restSalary"></span></li> 
+            <li><label>已提现工资</label><span id="cashSalary"></span></li> 
+        </ul> 
+        <div class="btn-wrap"><a id="zfbCashBtn" class="btn" href="javascript:void(0)">提现到支付宝</a></div>
+        <!-- <div class="btn-wrap"><a id="bankCashBtn" class="btn white-btn" href="javascript:void(0)">提现到银行卡</a></div> -->
+        <div class="btn-wrap"><a href="javascript:void(0);" class="link" id="toCashHistory">提现历史</a></div>
+  </section>
+  <section  class="history-wrap">
+        <h1 class="tit">说明</h1>
+        <ul>
+            <li>
+                <div style="overflow:hidden;"><p style="float:left;width:5%;height:1.8em;"> 1. </p><p>支付宝提现，每次提现金额不得少于10元；</p></div>
+                <div style="overflow:hidden;"><p style="float:left;width:5%;height:2.6em;"> 2. </p><p>申请提现后，工资会在3个工作日内转入您的支付宝账户。</p></div>  
+            </li>   
+        </ul>
+        <h1 class="tit">工资详细</h1>
+        <ul id="salaryList"> 
+            <!-- <li>赶快去赚取你的第一份工资吧！</li>  -->
+        </ul>
+        <div class="demo">
+            <div class="pagination"></div>
+        </div>
+    </section>
+    <script type="text/javascript">
+    $(document).ready(function(){ 
+        var postData = {}; 
+        var salesmanInfoId,cash,minZfb,minBank;
+        var url = window.location.search; 
+        var paramsArr = (url.split("?")[1]).split("&");
+        var paramJson = {};
+        $.each(paramsArr,function(i){
+            var item = paramsArr[i].split("=");
+            paramJson[item[0]] = item[1];
+        }); 
+        $(".link").click(function(){ 
+           window.location.href = $(this).attr("path");
+        });
+        $("#toCashHistory").click(function(){
+            window.location.href = "cash-history.html?salesmanInfoId="+salesmanInfoId;
+        });    
+        $("#zfbCashBtn").click(function(){
+            if($('#zfb span').html()=="未设置"){
+                alertRe("请先设置收款帐号！");
+                return;
+            }else if(cash<minZfb){
+                alertRe("支付宝的最小提现金额是"+minZfb+"元");
+                return;
+            };
+            // var _a=confirmRe('确认提现到支付宝帐号'+$('#zfb span').html()+'？');
+            // alert('1');
+            // if(_a){
+            //     alert('0');
+            //     getCash("0",$(this).attr("payId"));
+            // }else{
+            //     alert('2');
+            // }
+            confirmRe('确认提现到支付宝帐号'+$('#zfb span').html()+'？',sure);
+            function sure(){
+                getCash("0",$("#zfbCashBtn").attr("payId"))
+            }
+        });
+        // $("#bankCashBtn").click(function(){
+        //     if($('#bank span').html()=="未设置"){
+        //         alertRe('请先设置收款帐号！');
+        //         return;
+        //     }else if(cash<minBank){
+        //         alertRe("银行卡的最小提现金额是"+minZfb+"元");
+        //         return;
+        //     };
+        //     var _b=confirmRe('确认提现到银行帐号'+$('#bank span').html()+'？');
+        //     if(_b){
+        //          getCash("1",$(this).attr("payId"));
+        //     }
+        // });
+        getSalaryList();
+        getConfigMessage();
+        function getSalaryList(){ 
+            $.ajax({
+                url: '/yangchebao-weixin-ws/ws/0.1/salesman/getSalaryList?openid='+paramJson.openid,
+                 type: 'get',
+                async: false,
+                dataType: 'json',
+                success:function(data){ 
+                    var cashSalary=data.totalSalary-data.restSalary;
+                     $("#restSalary").html("￥"+Number(data.restSalary).toFixed(2));
+                     $("#cashSalary").html("￥"+Number(cashSalary).toFixed(2)); 
+                     salesmanInfoId = data.salesmanInfoId;
+                     cash = data.restSalary;
+                     var realName = encodeURIComponent(data.realName);
+                     $("#zfb").attr("path","zfb-info.html?salesmanInfoId="+salesmanInfoId+"&realName="+realName+"&openid="+paramJson.openid);
+                     // $("#bank").attr("path","bank-info.html?salesmanInfoId="+salesmanInfoId+"&realName="+realName+"&openid="+paramJson.openid); 
+                     if(data.alipayId!=undefined&&data.alipayId!=""){
+                        $("#zfbCashBtn").attr("payId",data.alipayId);
+                        if(data.alipayAcount.length>8&&data.alipayAcount.length<12){
+                            if($(document.body).width()<360){
+                                $("#zfb span").html(data.alipayAcount.substring(0,8)+'…')
+                            }else{
+                               $("#zfb span").html(data.alipayAcount) 
+                            }
+                        }else if(data.alipayAcount.length>12){
+                            if($(document.body).width()<360){
+                                $("#zfb span").html(data.alipayAcount.substring(0,8)+'…')
+                            }else if($(document.body).width()<400){
+                               $("#zfb span").html(data.alipayAcount.substring(0,11)+'…') 
+                            }else{
+                               $("#zfb span").html(data.alipayAcount)
+                            }
+                        }else{
+                            $("#zfb span").html(data.alipayAcount)
+                        };
+                        $("#zfb").attr("path","zfb-info.html?salesmanInfoId="+salesmanInfoId+"&realName="+realName+"&alipayId="+data.alipayId+"&openid="+paramJson.openid);
+                     } 
+                     // if(data.bankId!=undefined&&data.bankId!=""){
+                     //     $("#bankCashBtn").attr("payId",data.bankId);
+                     //     $("#bank span").html(data.bankAcount.brankNumber);   
+                     //     $("#bank").attr("path","bank-info.html?salesmanInfoId="+salesmanInfoId+"&realName="+realName+"&bankId="+data.bankId+"&openid="+paramJson.openid);
+                     // } 
+                     change_page(0);
+                     var initPagination = false;
+                     function change_page(page){
+                        var params={"pageindex": page,'openid':paramJson.openid,'pagesize':10};
+                        $.get("/yangchebao-weixin-ws/ws/0.1/salesman/pageSalaryList", params, function(data) {
+                            if (data) {
+                                var items = data.items;
+                                $("#salaryList").html('');
+                                if (items && items.length > 0) {
+                                    var arr = items;
+                                    $.each(arr,function(i){
+                                        var item = arr[i];
+                                        var _li = "";
+                                        var mobile = item.mobile;
+                                        mobile = mobile.substring(0,3)+"****"+mobile.substring(7,11)
+                                        if(item.salaryStatus=="0"||item.salaryStatus=="2"){
+                                            var msg = "";
+                                            if(item.salaryStatus=="0"){
+                                                msg = '<p class="info">'+ item.message +'</p>';
+                                            }else{
+                                                msg = '<p class="money">￥'+ item.salary +'</p>';
+                                            }
+                                            _li = '<li>'
+                                               +'<p>'+item.createDate+'</p>'
+                                               +'<p><span class="point">'+ mobile +'</span>用户已成功注册！</p>'
+                                               +'<p>注册时间：'+ item.registerTime +'</p>'
+                                               + msg
+                                               +'</li>';
+                                        }else if(item.salaryStatus=="3"){
+                                                _li = '<li>'
+                                               +'<p>'+item.createDate+'</p>'
+                                               +'<p><span class="point">'+ mobile +'</span>用户当天完成首个订单！</p>'
+                                               +'<p>完成时间：'+ item.completeTime +'</p>'
+                                               +'<p class="info">'+ item.message +'</p>'
+                                               +'</li>';
+                                            }else if(item.salaryStatus=="1"){
+                                             _li = '<li>'
+                                               +'<p>'+item.createDate+'</p>'
+                                               +'<p><span class="point">'+ mobile +'</span>用户当天完成首个订单！</p>'
+                                               +'<p>完成时间：'+ item.completeTime +'</p>'
+                                               +'<p class="money">￥'+ item.salary +'</p>'
+                                               +'</li>';
+                                        };
+                                        $("#salaryList").append(_li);
+                                     });
+                                    if (!initPagination) {
+                                        $(".pagination").pagination(data.totalCount, {
+                                            items_per_page: 10,
+                                            num_display_entries: 2,
+                                            num_edge_entries: 1,
+                                            link_to: "javascript:void(0);",
+                                            prev_text: "<",
+                                            next_text: ">",
+                                            callback: function(page_index){
+                                                change_page(page_index)
+                                            }
+                                        });
+                                        initPagination = true;
+                                    }
+                                    window.scrollTo(0,document.body.scrollHeight)
+                                } else {
+                                   $('#salaryList').html('<li>赶快去赚取你的第一份工资吧！</li>')
+                                }
+                            }
+                        })
+
+                     }
+
+                },error:function(xhr){ 
+                     var mes = eval('('+xhr.responseText+')'); 
+                     alert(mes[0].message); 
+                     
+                } 
+            }); 
+        }
+        function getCash(type,id){
+            var postData = {};
+           postData.salesmanInfoId = salesmanInfoId; 
+           postData.payType = type;
+           postData.salesmanPayChannelId = id;
+           postData.cash = cash; 
+           $.ajax({
+                url: '/yangchebao-weixin-ws/ws/0.1/salesman/withDrawSalary',
+                type: 'post',
+                async: false,
+                data:$.toJSON(postData),
+                dataType: 'text',
+                contentType:'application/json;charset=utf-8',
+                success:function(data){
+                    $.ajax({
+                        url: '/yangchebao-weixin-ws/ws/0.1/salesman/getSalaryList?openid='+paramJson.openid,
+                        type: 'get',
+                        async: false,
+                        dataType: 'json',
+                        success:function(json){ 
+                            var cashSalary=json.totalSalary-json.restSalary;
+                             $("#restSalary").html("￥"+json.restSalary);
+                             $("#cashSalary").html("￥"+Number(cashSalary).toFixed(2))
+                         }
+                     });
+                    alertRe("提现成功。");
+                },error:function(xhr){
+                    var mes = eval('('+xhr.responseText+')'); 
+                    alert(mes[0].message);
+                     
+                } 
+            }); 
+
+        }
+        function getConfigMessage(){ 
+            $.ajax({
+                url: '/yangchebao-weixin-ws/ws/0.1/salesman/getConfigMessage',
+                type: 'get',
+                async: false,
+                dataType: 'json',
+                success:function(data){ 
+                     minZfb = data.minAlipayCash;
+                     minBank = data.minBankCash;
+                },error:function(xhr){ 
+                     var mes = eval('('+xhr.responseText+')'); 
+                     alert(mes[0].message);  
+                } 
+            }); 
+        } 
+    }); 
+    </script>
+</body>
+
+</html>
+

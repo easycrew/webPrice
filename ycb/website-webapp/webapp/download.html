@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta name="keywords" content="养车宝，汽车保养，洗车美容">
+<meta name="description" content="养车宝为车主提供汽车保养，汽车美容，汽车维修，免费电话救援等服务，简易流程让您养车省心，交易透明让您养车安心，专业服务让您养车不用担心！">
+<title>养车宝下载_汽车保养美容专家！</title>
+<link rel="icon" href="img/icon.png" type="image/png">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+	<div class="container">
+		<div class="top">
+			<div id="navi"></div>
+		</div>
+		<div class="content">
+			<div class="app_banner">
+				<div class="mobile">
+					<img src="img/loading.jpg" width="338" height="336" title="养车宝">
+					<div class="mobile_intro">正在加载...</div>
+				</div>
+				<ul>
+					<li>
+						<p class="p_i">iPhone版</p>
+						<p class="wx"><img src="img/app_iphone.png" width="200" height="200"></p>
+						<p><a href="https://itunes.apple.com/us/app/yang-che-bao/id736543893"><img src="img/down_iphone.png"></a></p>
+					</li>
+					<li>
+						<p class="p_a">Android版</p>
+						<p class="wx"><img src="img/app_android.png" width="200" height="200"></p>
+						<p><a href="http://yangchebao.com.cn/website-ws/ws/0.1/app/download"><img src="img/down_android.png"></a></p>
+					</li>
+				</ul>
+				<div class="div_360"><a href="zhushou360://type=apk&amp;name=养车宝&amp;icon=https://www.dropbox.com/s/r383rjiptxa8hky/136.PNG&amp;url=http://yangchebao.com.cn/website-ws/ws/0.1/app/download"><img src="img/360.png"></a></div>
+			</div>
+			<div class="app_intro">
+				<div class="intro_left">
+					<h2>功能简介</h2>
+					<div>正在加载...</div>
+				</div>
+				<div class="intro_right">
+					<h2>新版特性</h2>
+					<div>正在加载...</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer"></div>
+</body>
+<!--[if IE 6.0]>
+	<script src="js/DD_belatedPNG.js"></script>
+	<script>
+        DD_belatedPNG.fix("img");
+	</script>
+<![endif]-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff924926d1eaf998748c11fd77a92f7ca' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script src="http://zhushou.360.cn/script/360mobilemgrdownload.js"></script>
+<script src="js/jquery-1.7.min.js"></script>
+<script src="js/main.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#navi").load("head.html");
+		Car.footer();
+		
+		$.get(Car.url("/app/info"), function(data) {
+			if (data) {
+				$(".mobile_intro").html(data.version);
+				$(".intro_left div").html(data.functions);
+				$(".intro_right div").html(data.feature);
+			}
+		});
+		
+		$.get(Car.url("/adWeb/getAppDownloadAd"), function(data) {
+			if (data && data.picUrl) {
+				$(".mobile img").attr("src", data.picUrl);
+			}
+		});
+	});
+</script>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="robots" content="noarchive"/>
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js "></script>
+	<script src="./js/commen.js"></script>
+    <title>盒子返利</title>
+	<link rel="stylesheet" href="./css/box.css">
+</head> 
+<body>
+<section id="detail-page">  
+  <header>
+    <p class="title">
+            <span class="left"><img src="http://app.yangchebao.com.cn/group1/M00/0B/14/ChUBl1V6qfqANz7kAAAC8xmk1VQ074.png">已补贴(元)</span>
+            <span class="right commentL">发放与使用说明</span>
+        </p>
+        <h1 class="price" id="totalAmount">...</h1>
+        <p class="info">每月最多可领取<span class="org">30</span>元 奖励7天未领取将自动失效</p>  
+  </header> 
+    <a href="javascript:void(0);" class="link tit">最近30天未返利:<span id="noDownDay">0</span>天<span class="dot" id="dot"></span><span class="right" id="toRecord"><span class="org">返利记录</span><span class="rightArrow"></span></span></a>
+    <article class="circle-wrap"> 
+        <div class="pie-wrap">
+            <div class="pie_left"><div class="left"></div></div>
+            <div class="pie_right"><div class="right"></div></div> 
+            <div class="pie_info"><span id="piemsg"></span></div>
+        </div> 
+        <p class="legend"><span class="yellow"></span><label>已领补贴 : <strong id="hasDownAmount"></strong>元</label>
+        <br><span class="gray"></span><label>过期未领 : <strong id="noDownAmount"></strong>元</label>
+        </p>
+    </article> 
+</section>  
+    <script type="text/javascript">   
+    $(document).ready(function(){  
+        var url =window.location.search;    
+        var paramsArr = (url.split("?")[1]).split("&");
+        var paramJson = {}; 
+        $.each(paramsArr,function(i){
+            var item = paramsArr[i].split("=");
+            paramJson[item[0]] = item[1];
+        });   
+        $(".commentL").click(function(){
+            window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/carEarn/boxCommentOld.html"; 
+        }); 
+        $("#toRecord").click(function(){ 
+            window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/carEarn/record.html?subsidySource=1";  
+			//subsidySource 1.盒子返利；2.车险返利
+        }); 
+		$("#dot").click(function(){
+            window.location.href="http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/05263957";
+			//车挣617-未领到补贴说明
+        });
+        function getGeneral(){ 
+			//subsidySource 1.盒子返利；2.车险返利		
+            $.ajax({
+              url:'/yangchebao-app-ws/ws/0.1/autogain/subsidy/general?subsidySource=1&userInfoId='+paramJson.userId+'&'+(new Date()).getTime(),
+              type: 'get', 
+              dataType: 'json',
+              success: function(data) {   
+					$("#totalAmount").html(data.totalAmount); 
+					$("#hasDownAmount").html(data.hasDownAmount);
+					$("#noDownAmount").html(data.noDownAmount); 
+					$('.pie-wrap').each(function() {
+						var h =  parseInt(data.hasDownAmount);
+						var n =  parseInt(data.noDownAmount);  
+						if(data.hasDownAmount!="0"){
+							var num = (h/(h+n))*100* 3.6;
+							if (num<=180) {
+								$(this).find('.right').css('transform', "rotate(" + num + "deg)");
+							} else {
+								$(this).find('.right').css('transform', "rotate(180deg)");
+								$(this).find('.left').css('transform', "rotate(" + (num - 180) + "deg)");
+							}
+						} 
+					});  
+              },error:function(xhr){} 
+            });   
+        }
+		function getInfo(){  
+            $.ajax({
+              url: '/yangchebao-app-ws/ws/0.1/chezheng/subsidy/total?sourceId=1&userInfoId='+paramJson.userId+'&'+(new Date()).getTime(),
+              type: 'get', 
+              dataType: 'json',
+              success: function(data) { 
+                   if(data.hasSubsidy!="0"){  
+						$("#noDownDay").html(data.noDownAmount); 
+					}
+              },error:function(xhr){} 
+            });   
+        } 
+		getGeneral();
+		getInfo();
+    }); 
+</script> 
+</body> 
+</html>

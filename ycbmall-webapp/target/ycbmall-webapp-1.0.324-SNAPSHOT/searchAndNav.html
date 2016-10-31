@@ -1,0 +1,304 @@
+<meta charset="utf-8" />
+<style type="text/css">
+	#goodsNumA{position: relative;cursor: pointer;}
+	#goodsNum{color:#DF3F20;font: bold 12px/1 "微软雅黑";position: absolute;top: -15px; *top: 8px; left: 44px;}
+	#home{margin: 0;padding: 0;}
+	.nav_con ul li a:hover{background-color: #EA4627;}
+	div.main_search li.li-search-first a:hover{color:#FD6244;}
+</style>
+<div class="main_search">
+	<ul class="ul-search-first">
+		<li class="logoMall li-search-first"><h1><span style="display:none;">养车宝配件商城</span><img src="img/logoMall.png" alt="养车宝配件商城"></h1></li>
+		<li class="li-search-first"><span class="smallLine"></span></li>
+		<li class="area li-search-first" id="areaList"><p class="areaFirst"><input type="hidden" value="230"/><span>北京 </span><img src="img/areaDown.png"></p>
+			<ul class="areaList" style="display:none;">
+				<li><p>北京市</p></li>
+			</ul>
+		</li>
+		<li class="mallSearch li-search-first">
+			<div class="searchGoods">
+				<form>
+					<input id="hiddenText" type="text" style="display:none" />
+					<input type="text" name="keyword">
+					<span class="search" style="font-family: '微软雅黑';">搜索</span>
+				</form>
+			</div>
+			<div class="hotSearch">
+				<span>热门搜索：</span>
+				<span class="hotGoods"><a href="javascript:">黄壳</a></span><span class="hotGoods"><a href="javascript:">火花塞</a></span><span class="hotGoods"><a href="javascript:">滤清器</a></span><span class="hotGoods"><a href="javascript:">蓄电池</a></span><span class="hotGoods last-hotGoods"><a href="javascript:">红壳</a></span>
+			</div>
+		</li>
+		<li class="selfCenter li-search-first"><img src="img/selfCenter.png"><span><a href="javascript:">个人中心</a></span></li>
+		<li class="contactUs li-search-first"><img src="img/contectUs.png"><span><a href="helpCenter.html" target="_blank">联系我们</a></span></li>
+		<li class="helpCenter li-search-first"><img src="img/helpCenter.png"><span><a href="helpCenter.html" target="_blank">帮助中心</a></span></li>
+	</ul>
+</div>
+<div class="nav">
+	<div class="nav_con">
+		<ul>
+			<li class="home"><a id="home" href="http://mall.yangchebao.com.cn"><img src="img/homeMenu.png"></a></li>
+			<li class="hotCake"><a id="hotSela" href="index.html" path="index.html">热销</a></li>
+			<!--隐藏tab键团购-->
+			<li class="groupPurchase"><a id="groupPurchase" href="groupPurchase.html" path="groupPurchase.html">团购</a></li>
+			<li class="classify"><a id="classfy" href="classify.html" path="classify.html">分类</a></li>
+			<li class="carType"><a id="carType" href="carType.html" path="carType.html">车型</a></li>
+			<li class="goodsVip" style="display: none;"><a id="goodsVip" href="goodsVip.html" path="goodsVip.html">专享</a></li>
+			<li class="isExclusive" style="display: none;"><a id="exclusive" href="exclusive.html" path="exclusive.html">4S专供</a></li>
+		</ul>
+	</div>
+	<div class="broadcastMes">
+		<p><img src="img/broadcast.png"><span>养车宝配件商城，保真保正，超值低价！诚于心，惠于您！</span></p>
+	</div>
+	<div class="shopCar_bg"><img src="img/shopCar_bg.png"></div>
+	<div class="shopCar"><a id="goodsNumA"><img src="img/shopCar_big.png"><span id="goodsNum" >0</span></a></div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$(".login-dialog-overlay").css('height',$(document).height());
+		var areaCodeId=mall.getCookie('areaCodeId');
+		var areaCodeName=mall.getCookie('areaCodeName');
+		if(document.cookie.indexOf('customerId=')!=-1){
+			var username=mall.getCookie('username');
+			var customerId=mall.getCookie('customerId');
+			var shopName=mall.getCookie('shopName');
+			var areaName=mall.getCookie('areaName');
+			var isPrivilege=mall.getCookie('isPrivilege');	//获取是否有专享权限
+			var isExclusive=mall.getCookie('isExclusive');	//获取是否有专供权限
+			if(isPrivilege==1){
+				$(".goodsVip").show();
+			}else{
+				$(".goodsVip").hide();
+			}
+			if(isExclusive==1){
+				$(".isExclusive").show();
+			}else{
+				$(".isExclusive").hide();
+			}
+			$('p.areaFirst').css('cursor','default').unbind('click');//登录后不可切换城市
+			$('p.areaFirst img').hide();//隐藏下三角
+			var _url=mall.url('/user/shoppingcard/page');
+			_url+='?userInfoId='+customerId+'&areaCodeId='+areaCodeId;
+			$.ajax({
+				type:"get",
+				url:_url+'&'+ new Date().getTime(),
+				async:false,
+				dataType:"json",
+				contentType:"application/json;charset=utf-8",
+				success:function(data){
+					var totalCount=data.totalCount;
+					$('#goodsNum').html(totalCount);
+				}
+			});
+		}
+		
+		$('div.shopCar').click(function(){
+			if(document.cookie.indexOf('customerId=')!=-1){
+				$('#goodsNumA').attr("href","myShopCar.html");
+			}else{
+
+				$('div.Form-login').show();
+				$('div.login-dialog-overlay').show();
+				$('li.login a').html('请登录');
+				$('li.username p').html('');
+			}
+		});
+			
+		
+		// nav
+		var pathName=location.pathname;
+		//线上
+		switch(pathName){
+			case "/classify.html":
+				$('#classfy').addClass('navClick');break;
+			case "/index.html":
+				$("#hotSela").addClass('navClick');break;
+			case "/carType.html":
+				$('#carType').addClass('navClick');break;
+			case "/groupPurchase.html":
+			case "/groupPurchaseDetails.html":
+				$('#groupPurchase').addClass('navClick');break;
+			case "/goodsVip.html":
+				$("#goodsVip").addClass('navClick');break;
+			case "/exclusive.html":
+				$("#exclusive").addClass('navClick');break;
+			default:
+				$('#home').addClass('navClick');break;
+		}
+		//测试环境
+//		if(pathName=="/ycbmall/classify.html"){
+//			$('#classfy').addClass('navClick');
+//		}else if(pathName=="/ycbmall/index.html"){
+//			$("#hotSela").addClass('navClick');
+//		}else if(pathName=="/ycbmall/carType.html"){
+//			$('#carType').addClass('navClick');
+//		}else if(pathName=='/ycbmall'){
+//			$('#home').addClass('navClick');
+//		}
+		 
+
+		
+		// area
+		$('p.areaFirst').bind('click',function(){
+			if($('ul.areaList').is(':hidden')){
+				$('p.areaFirst img').attr('src','img/areaUp.png');
+				$(this).parent().addClass('areaFirstClick');
+				$('ul.areaList').stop(false,true).slideDown();
+				$('ul.areaList li').each(function(){
+					var _areaStr=$(this).find('p').text()+' ';
+					if($('p.areaFirst').text()==_areaStr){
+						$(this).find('p').addClass('areaListP_select');
+						$(this).siblings().find('p').removeClass('areaListP_select')
+					}
+				});
+				$('ul.areaList li p').hover(function(){
+					$(this).addClass('areaListP_hover');
+					$(this).parent().siblings().find('p').removeClass('areaListP_hover')
+				},function(){
+					$(this).removeClass('areaListP_hover')
+				})
+			}else{
+				$('p.areaFirst img').attr('src','img/areaDown.png');
+				$('ul.areaList').stop(false,true).slideUp();
+				$(this).parent().removeClass('areaFirstClick')
+			}
+		});
+
+		$('body').bind('click',function(e){
+			if($(e.target).attr('id')!='areaList' && $(e.target).parents('li').attr('id')!='areaList'){
+				$('p.areaFirst img').attr('src','img/areaDown.png');
+				$('ul.areaList').stop(false,true).slideUp();
+				$('li.area').removeClass('areaFirstClick')
+			}
+		});
+
+		$('ul.ul-search-first li.area').on('click','ul.areaList li p',function(){
+			var selectArea=$(this).html();
+			$('p.areaFirst span').html(selectArea+' ');
+			$('p.areaFirst img').attr('src','img/areaDown.png');
+			$('ul.areaList').stop(false,true).slideUp();
+			$('ul.ul-search-first li.area').removeClass('areaFirstClick');
+			matchSelectedCity(selectArea);
+			
+	    });
+	    //匹配选中城市
+	    function matchSelectedCity(areaCodeName){
+			$.ajax({
+					type:"get",
+					url:mall.url('/areaCode/list'),
+					async:false,
+					dataType:"json",
+					contentType:"application/json;charset=utf-8",
+					success:function(data){
+						$.each(data,function(i){
+							if(data[i].areaname==areaCodeName){
+								$('p.areaFirst span').html(data[i].areaname+' ');
+								$('p.areaFirst input').val(data[i].areacodeId);
+								mall.setCookie('areaCodeId',data[i].areacodeId);
+								mall.setCookie('areaCodeName',areaCodeName);
+							}
+						});
+					window.location.reload();
+					}
+			});
+		}
+		//显示当前城市
+	function showCurrentCity(){
+		//cookie有值
+		if(areaCodeId==null){
+			$.ajax({
+				type:"get",
+				url:mall.url('/areaCode/list'),
+				async:false,
+				dataType:"json",
+				contentType:"application/json;charset=utf-8",
+				success:function(data){
+					var areaStr='';
+					var dataSqlArea=filterCity();
+					$.each(data,function(i){
+						if(data[i].areaname==dataSqlArea){
+							$('p.areaFirst span').html(data[i].areaname+' ');
+							$('p.areaFirst input').val(data[i].areacodeId);
+						}else{
+							$('p.areaFirst span').html('北京市 ');
+							$('p.areaFirst input').val('230');
+						}
+						areaStr+='<li><p class="'+data[i].areacodeId+'" class="areaCode">'+data[i].areaname+'</p></li>'
+					});
+					$('ul.areaList').html(areaStr)
+				}
+			});
+			mall.setCookie('areaCodeId',$('p.areaFirst input').val());
+			mall.setCookie('areaCodeName',$.trim($('p.areaFirst span').html()));
+		}else{
+			if(document.cookie.indexOf('customerId=')!=-1){ 
+				$('p.areaFirst').unbind('click');//登录后不可切换城市
+			}
+			$.get(mall.url('/areaCode/list'),function(data){
+				var areaStr='';
+				$.each(data,function(i){
+					areaStr+='<li><p class="'+data[i].areacodeId+'" class="areaCode">'+data[i].areaname+'</p></li>'
+				});
+				$('ul.areaList').html(areaStr)
+			});
+			$('p.areaFirst input').val(areaCodeId);
+			$('p.areaFirst span').html(areaCodeName+' ');
+		}
+		
+	}
+	showCurrentCity();
+		//根据IP判断当前城市
+		function filterCity(){
+			var nowAreaName=returnCitySN.cname;
+			var dataSql=nowAreaName.split("省");
+			var dataSqlArea='';
+			if(dataSql.length==2){
+				dataSqlArea=dataSql[1];
+			}else if(dataSql.length==1){
+				dataSqlArea=dataSql[0];
+			}
+			return dataSqlArea
+		}
+		// 个人中心
+		$('li.selfCenter span a').on('click',function(){
+			if(document.cookie.indexOf('customerId=')!=-1){
+				$(this).attr('href','historyOrder.html');
+			}else{
+				$('div.Form-login').show();
+				$('div.login-dialog-overlay').show();
+				$('li.login a').html('请登录');
+				$('li.username p').html('');
+			}
+		});
+		 //search
+		$('input[name="keyword"]').keydown(function(event){
+			if(event.keyCode==13){
+				$("span.search").trigger("click");
+			}
+		})
+		$('span.search').unbind('click').bind('click',function(){
+			var keyword=$.trim($('input[name="keyword"]').val());
+			keyword=keyword.replace(/[&\|\\\*^%$#@]/g,"");//把特殊字符过滤掉
+			if(keyword!=''){
+				window.location.href='classifyResult.html?keyword='+keyword;
+			}else{
+				window.location.href='classifyResult.html';
+			}
+		});
+		
+		var _url = window.location.search; 
+	    var _paramJson = {};
+	    if(_url!=''){
+	    	var _paramsArr = (_url.split("?")[1]).split("&");
+		    $.each(_paramsArr,function(i){
+		        var item = _paramsArr[i].split("=");
+		        _paramJson[item[0]] = item[1]
+		    });
+	    }
+	    if(_paramJson.keyword){
+    		var _keyword=decodeURI(decodeURI(_paramJson.keyword));
+			$('input[name="keyword"]').val(_keyword)
+    	}
+	    $('div.nav_con').on('click',{});
+	    
+	})
+</script>

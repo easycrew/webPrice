@@ -1,0 +1,135 @@
+<style>
+ 	#Wraper_car_type h2{
+        background-color:#307ecc;
+        color:#fff;
+        padding-left:1%;
+        margin-bottom:0;
+    }
+    #Wraper_car_type #packAgeItems th,#Wraper_car_type #packAgeItems td{
+    	padding:5px 0;
+		border-bottom:1px solid #eee;
+		border-right:1px solid #eee;
+		text-align:center;
+    }
+    #Wraper_car_type #packAgeItems td input{
+    	margin: 8px 0;
+    }
+     .hDiv table th, .bDiv table td{text-align:center;}
+</style>
+<script type="text/javascript" src="vipManage/cardType.js"></script>
+
+<div class="urlContentWraper" id="Wraper_car_type"> 
+<div id="careTypeTabs">  
+	<ul>
+		<li>
+			<a href="#validCard">有效卡种</a>
+		</li>
+		<li>
+			<a href="#nullityCard">停用卡种</a>
+		</li>
+	</ul>  
+	<div class="ui-info-layout" id="validCard">
+	    <div class="ydiv">
+		<table id="Table_validCard_list"></table> 
+		</div>
+	</div>
+	<div class="ui-info-layout" id="nullityCard">
+	    <div class="vdiv">
+		<table id="Table_nullityCard_list"></table> 
+		</div>
+	</div>
+</div>
+<!-- 有效卡种form -->
+ <div id="Form_valid_card" class="grid-layout ui-form" style="display:none">
+ 	<div class="grid-layout-main jrad-form"> 
+		 <input name="serviceId" type="hidden">  
+		 <div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>卡名称：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="name" class="jrad-input-container"></div>
+			</div>
+			 <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>有效月：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="expiredMonth" class="jrad-input-container"></div>
+			</div>
+		</div>	
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>售卡价：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="sellingPrice" class="jrad-input-container" placeholder="0.00"></div>
+			</div>
+			 <label class="span5 grid-layout-label">所属门店：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="businessInfoId" class="jrad-select-container"></div>
+			</div>
+		</div>	
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>初始金额：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="initMoney" class="jrad-input-container" placeholder="0.00"></div>
+			</div>
+			 <label class="span5 grid-layout-label">赠送金额：</label>
+			 <div class="span7 grid-layout-content">
+				   <div name="freeMoney" class="jrad-input-container" placeholder="0.00"></div>
+			</div>
+		</div>	
+		<div class="grid-row-fluid">
+			 <label class="span5 grid-layout-label">选择套餐项目：</label>
+			 <div class="span7 grid-layout-content">
+					<button class="btn btn-small btn-primary" id="jrad-button-item"> 点击选择 </button> 
+			</div>
+		</div>
+		<div class="grid-row-fluid">
+			<div id="addPackAgeItem" style="margin: 10px;border:1px solid #BFC4CD;display: none;">
+					<table id="packAgeItems" cellpadding="0" cellspacing="0">
+						<thead style="background-color: #DEE1E6;border: 0;">
+							<tr>
+								<td>服务名称</td>
+								<td>次数</td>
+								<td>售价</td>
+								<td>总价</td>
+								<td>操作</td>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					<tfoot></tfoot>
+				</table>
+			</div>
+     	</div>
+ 	</div>
+ 	<!-- Form按钮 -->
+ 	<div class="jrad-buttons-container ui-buttons-container"> 
+		 <button class="jrad-btn-primary btn btn-small btn-primary">
+           	 确定
+        </button>
+        <button class="jrad-btn-normal btn btn-small btn-default">
+           	 取消
+        </button>
+	</div>	
+</div>
+	<!-- 套餐项目 -->
+ 	<div id="Form_combo_item" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid">
+           		<label class="span3 grid-layout-label"></label>
+                <div class="span20 grid-layout-content">
+                	<div name="offerType" class="jrad-radio-container"></div>
+                </div>
+            </div>
+         	
+            <div class="grid-row-fluid">
+                 <label class="span6 grid-layout-label">服务名称：</label>
+                 <div class="span14 grid-layout-content">
+                 	<div name="serviceId" class="jrad-select-container"></div>
+                    <p style="display:none;color:#f00;">请选择服务名称</p>
+                 </div>
+           </div>
+          
+   		 </div>
+   		 <div class="jrad-buttons-container ui-buttons-container">
+            <button class="jrad-btn-primary btn btn-small btn-primary">确定</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+	</div>
+</div>

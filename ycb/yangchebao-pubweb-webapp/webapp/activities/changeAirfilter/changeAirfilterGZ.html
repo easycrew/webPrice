@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>99元上门更换双层PM2.5空调滤芯</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/css/main.css">
+	<script src="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/js/commen.js"></script>
+	<style>
+		section{
+			background-color: #73bd64;
+		}
+		article.top img{
+			width: 100%;
+		}
+		div.eight{
+			width: 95%;
+			margin: 1.6rem auto 0;
+		}
+		div.eight img{
+			width: 100%;
+		}
+		div.price{
+			margin: 0 2.2rem;
+			border: 5px solid #36a125;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			text-align: center;
+		}
+		div.priceItems{
+			text-align: center;
+			margin: 3rem 1rem;
+		}
+		p.priceItem{
+			font-size: 2.31rem;
+			color: #fff;
+			/*line-height: 4rem;*/
+		}
+		p.plus{
+			color: #114a14;
+			font-size: 2.31rem;
+		}
+		div.lastPrice{
+			margin: 0 1rem;
+			padding: 1rem 0;
+			text-align: center;
+			color: #184712;
+			font-size: 3.2rem;
+			line-height: 5rem;
+			border-top: 3px solid #36a125;
+			border-bottom: 3px solid #36a125;
+		}
+		div.lastPrice span{
+			position: relative;
+			top: 5px;
+			color: #fff;
+			font-size: 4.74rem;
+		}
+		div.nine{
+			margin: 1.5rem 1rem;
+		}
+		div.nine img{
+			width: 48%;
+		}
+		img.nine_1{
+			margin-right: 4%;
+		}
+		div.activityRule{
+			background-color: #36a125;
+			padding: 1.5rem 1rem;
+			text-align: left;
+		}
+		div.activityRule h3{
+			font-size: 1.8rem;
+			color: #fff;
+			padding-bottom: 0.2rem;
+			font-weight: normal;
+		}
+		div.activityRule p.ruleItem{
+			font-size: 1.2rem;
+			color: #fff;
+			padding-top: 1rem;
+		}
+		p.userFeedback{
+			font-size: 1.2rem;
+			color: #fff;
+			padding-top: 0.2rem;
+		}
+		article.btnW{
+			background-color: #6bb75b;
+			padding: 3rem 0 5rem;
+		}
+		div.orderBtn{
+			margin: 0 auto;
+			width: 95%;
+			text-align: center;
+			color: #fff;
+			font-size: 2rem;
+			line-height: 4.2rem;
+			background-color: #29ac1c;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			-webkit-box-shadow: 0px 0px 10px rgba(0,0,0,0.4) inset,-5px 6px 0px #104813;
+			-moz-box-shadow: 0px 0px 10px rgba(0,0,0,0.4) inset,-5px 6px 0px #104813;
+			box-shadow: 0px 0px 10px rgba(0,0,0,0.4) inset,-5px 6px 0px #104813;
+		}
+
+div.dialogJIA{
+	position: fixed;
+	top: 0;
+	z-index: 500;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+div.dialogJIA div.dialogWraper{
+    position:relative;
+	width: 90%;
+	margin-left:5%;
+    padding-top: 100px;
+    padding-bottom: 1.6rem;
+    background-color: #fff;
+	background-image: url(http://app.yangchebao.com.cn/group1/M00/03/85/ChoCK1anHKeAN1P5AADLhOgcMUc085.jpg);
+    background-size:100% 100%;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+div.dialogJIA p.dialogCon{
+	padding: 0 1.6rem;
+	color: #1e1e1e;
+	font-size: 1.5rem;
+}
+div.dialogJIA p.dialogBtn{
+    width: 40%;
+    margin: 1rem auto 0;
+	text-align: center;
+	font-size: 1.8rem;
+	color: #fff;
+	line-height: 4rem;
+    background-color: #ff6138;
+    -webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+span.closeBtn{position:absolute;top:-1rem;right:-1rem;display:inline-block;}
+span.closeBtn img{width:32px;}
+p.con2{margin-top:1rem;text-indent:2em;}
+
+
+div.feedback{
+	margin: 1rem 2.2rem;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+p.nickName{
+	color: #f4cf21;
+	font-size: 1.2rem;
+}
+img.userIcon{
+	position: relative;
+	top: -0.2rem;
+	width: 1.2rem;
+	margin-right: 0.6rem;
+}
+div.feedbackRow{
+	padding-bottom: 1rem;
+}
+	</style>
+</head>
+<body>
+<p><input name="eventId" type="hidden" value="AirFilterPublicityPage"></p>
+<div class="dialogJIA" style="display:none;">
+	<div class="dialogWraper">
+        <span class="closeBtn"><img src="http://app.yangchebao.com.cn/group1/M00/03/84/ChoCK1anFkiAan-5AAAIZHkSy1Y616.png"></span>
+		<p class="dialogCon">尊敬的养车宝用户：</p><p class="dialogCon con2">因春节假期，2月3日-2月15日期间，将暂停“更换空调滤芯”服务，但您可正常下单，我们将在16日正常上班后，统一上门服务。感谢您的理解与支持，提前祝您春节快乐！</p>
+		<p class="dialogBtn">我知道了</p>
+	</div>
+</div>
+<p><input name="share" type="hidden" value="1" /></p>
+
+<p><input name="share" type="hidden" value="99元上门更换双层PM2.5空调滤芯" /> <input name="share" type="hidden" value="http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/04308417" /> <input name="share" type="hidden" value="http://app.yangchebao.com.cn/group1/M00/02/DD/ChoCK1Z9Xy2AfuD-AAAPJUY11sE748.jpg" /> <script type="text/javascript">
+         function getShareInfos(){
+         var isShare = $("input:eq(0)").val();
+         var content = $("input:eq(1)").val();
+         var targetUrl = $("input:eq(2)").val();
+         var imgUrl = $("input:eq(3)").val();
+         window.shareInfos.a(content,targetUrl,imgUrl,isShare);
+         }
+         </script></p>
+
+
+	<section>
+		<article class="top">
+			<div class="one"><img src="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/img/one.jpg"></div>
+			<div class="two"><img src="http://app.yangchebao.com.cn/group1/M00/03/32/ChoCK1aUsZCAbtWXAAT5lvej9Fg210.png"></div>
+			<div class="three"><img src="http://app.yangchebao.com.cn/group1/M00/03/32/ChoCK1aUsWOAH1yqAAGQhEaVW1c274.jpg"></div>
+			<div class="four"><img src="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/img/four.jpg"></div>
+			<div class="five"><img src="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/img/five.jpg"></div>
+			<div class="six"><img src="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/img/six.jpg"></div>
+			<div class="seven"><img src="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/img/seven.jpg"></div>
+		</article>
+		<article class="bottom">
+			<div class="eight"><img src="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/img/eight.jpg"></div>
+			<div class="price">
+				<div class="priceItems">
+					<p class="priceItem">100元空调滤芯</p>
+					<p class="plus">+</p>
+					<p class="priceItem">100元空调清洗</p>
+					<p class="plus">+</p>
+					<p class="priceItem">200元全车检测</p>
+				</div>
+				<div class="lastPrice">只要<span>99元</span></div>
+				<div class="nine">
+					<img src="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/img/nine_1.jpg" class="nine_1"><img src="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilter/img/nine_2.jpg">
+				</div>
+				<div class="activityRule">
+					<h3>活动规则：</h3>
+					<div class="ruleD">
+						<p class="ruleItem">一、活动范围：本活动只针对广州地区养车宝用户；</p>
+						<p class="ruleItem">二、活动时间：长期有效；</p>
+						<p class="ruleItem">三、活动内容：养车宝双重滤网空调滤芯99元超值抢购，买滤芯即送价值200元的全车检测服务，价值100元的空调清洗服务，价值100元的空调滤芯更换，一次性上门，完成所有服务，让您再无后顾之忧；</p>
+						<p class="ruleItem">四、活动补充：部分车型暂不支持空调滤芯安装，请车主在购买前确认是否支持车型，本次活动的最终解释权归养车宝所有。</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="activityRule feedback">
+				<h3>用户反馈：</h3>
+				<div class="ruleD" style="padding-top: 1rem;">
+					<div class="feedbackRow">
+						<p class="nickName"><img src="http://app.yangchebao.com.cn/group1/M00/03/BA/ChoCK1bECu6AXNA_AAAFfxcyOqA140.png" class="userIcon">斯柯达明锐车友 189****2738</p>
+						<p class="userFeedback">安装完了，相当不错，商品描述真实可靠，非常满意，完全超出期望值，而且还上门清洗安装， 师傅非常专业，总之就是物美价廉，值得购买，以后还会再来的。</p>
+					</div>
+					<div class="feedbackRow">
+						<p class="nickName"><img src="http://app.yangchebao.com.cn/group1/M00/03/BA/ChoCK1bECu6AXNA_AAAFfxcyOqA140.png" class="userIcon">奥迪A4L车友   137****8762</p>
+						<p class="userFeedback">用了几天才来评价，质量真是非常棒，双层滤网，比4S店便宜多了，约定下午2点，师傅很准时的来了，相比于上一个空调滤芯效果真是明显，外面PM2.5爆表车内空气也非常好。驱霾效果真不是盖，赞赞赞～～</p>
+					</div>
+					<div class="feedbackRow">
+						<p class="nickName"><img src="http://app.yangchebao.com.cn/group1/M00/03/BA/ChoCK1bECu6AXNA_AAAFfxcyOqA140.png" class="userIcon">别克君威车友   136****5837</p>
+						<p class="userFeedback">养车宝的品质信得过，而且是真的方便，免费上门安装，顺便做了空调清洗和全车检测，省下了安装费也不用操心，和原车的比较一下，大小刚好，而且比原车的多了一层滤网。</p>
+					</div>
+				</div>
+			</div>
+		</article>
+		<article class="btnW">
+			<div class="orderBtn">立即预约</div>
+		</article>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    // 立即预约
+	    var close = function(){
+            window.location.href = "http://w2l?closeActivity"
+        };
+		$('div.orderBtn').unbind('click').bind('click',function(){
+			if(paramJson.customerId=='null' || paramJson.customerId==null || paramJson.customerId=='' || paramJson.customerId==undefined){
+				window.location.href="http://w2l?presentType=2&androidName=8&iosName=LoginViewController";
+				setTimeout(close,100)
+				// var customerId = getCustomerId(paramJson.userId); 
+				// if(customerId=="-1"){
+				// 	window.location.href="http://w2l/?presentType=2&androidName=8&iosName=LoginViewController&needLogin=1"
+				// }else{			
+				// 	window.location.href="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilterGZ/model.html" 
+				// }
+			}else{
+				window.location.href="http://app.yangchebao.com.cn/yangchebao-pubweb/changeAirfilterGZ/model.html"
+			}
+		});
+         //2015年假判断
+  var startTime=new Date('2016/1/27 00:00:00');
+  var endTime=new Date('2016/2/16 00:00:00');
+  var nowTime=new Date();
+  startTime=startTime.getTime();
+  endTime=endTime.getTime();
+  nowTime=nowTime.getTime();
+  if(nowTime>=startTime && nowTime<endTime){
+    $('div.dialogJIA').show();
+    var dialogWraper=$('div.dialogWraper').outerHeight();
+	$('div.dialogWraper').css({'top':'50%','margin-top':'-'+dialogWraper/2+'px'});
+  }
+  $('div.dialogJIA p.dialogBtn,div.dialogJIA span.closeBtn').on('click',function(){
+	$('div.dialogJIA').hide()
+  });
+	})
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f4232721e0b965f7f6dd0ac91c8c958b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</html>

@@ -1,0 +1,88 @@
+@charset 'utf-8';
+div.hotClassify{
+	margin-top: 40px;
+}
+div.hotClassify_title,div.allClassify_title{
+	border-bottom: 1px solid #FD6244;
+}
+div.hotClassify_title h2,div.allClassify_title h2 {
+	margin: 0 0 5px 10px;
+	font-size: 18px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.hotClassify_con{
+	margin-top: 5px;
+}
+div.hotClassify_con ul{
+	overflow: hidden;
+}
+div.hotClassify_con ul li{
+	float: left;
+	width: 120px;
+	text-align: center;		cursor: default;
+}
+div.hotClassify_con ul li p.hotClassify_conImg{
+	height: 60px;
+	line-height: 80px;
+}
+div.hotClassify_con ul li p.hotClassify_conText{
+	padding-top: 12px;
+}
+div.hotClassify_con ul li p.hotClassify_conText a{
+	display: inline-block;
+	height: 14px;
+	line-height: 14px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #000;
+}
+
+
+div.allClassify{
+	margin-top: 50px;
+	margin-bottom: 40px;
+}
+div.allClassify_con{
+	margin-top: 10px;
+}
+div.allClassify_con ul{
+	overflow: hidden;
+}
+div.allClassify_con ul li{
+	float: left;
+	padding: 18px 0;
+	border-bottom: 1px solid #E5E4E2;
+	width: 580px;
+	overflow: hidden;
+}
+div.allClassify_con ul li:nth-child(odd){
+	margin-right: 40px;
+}  
+div.allClassify_con ul li div.allClassify_img,div.allClassify_con ul li div.allClassify_text{
+	float: left;
+}
+div.allClassify_con ul li div.allClassify_text{
+	width: 355px;
+	margin-top: 60px;
+	margin-left: 17px;
+}
+div.allClassify_con ul li div.allClassify_text p.allClassify_textTitle a{
+	display: inline-block;
+	margin-bottom: 10px;
+	height: 24px;
+	line-height: 24px;
+	font-size: 20px;
+	font-family: "microsoft yahei";
+	color: #fd6244;
+}
+div.allClassify_con ul li div.allClassify_text a{
+	display: inline-block;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	height: 16px;
+	line-height: 16px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #333;
+}div.allClassify_con ul li div.allClassify_text a:hover{	color: #fd6244;}

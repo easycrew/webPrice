@@ -1,0 +1,147 @@
+<div class="urlContentWraper" id="Wraper_noComparison_info"> 
+	<div class="row-fluid ui-data-show"> 
+		<div class="hDiv">
+			 <h2 class="ui-tit"><strong>保险未比价用户信息</strong></h2> 
+			 <table id="Table_noComparison_info"></table>
+		</div> 
+	</div> 
+</div>
+<script type="text/javascript">
+	$(function(){
+		var wraper = $('#Wraper_noComparison_info');
+		var page_column_model = new Array();
+		var page_search_items = new Array();
+		var page_list_buttons = new Array(); 
+		var entityModel = {};
+		var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+
+		jRad.params['isTest'] = {
+			data:[
+			{id:'0',name:'只显示非测试数据'},
+			{id:'1',name:'只显示测试数据'},
+			{id:' ' ,name:'显示全部数据'}
+			]}
+
+		jRad.params['provCode'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll'
+		},
+		unshiftData: {id:'',name:'请选择'},
+			onchange: function(){
+				var provinceCode = $('.searchContent div[name=provCode]',wraper).select('val'); 
+				if(provinceCode==''){ 
+					$('.searchContent div[name=cityId]',wraper).select({
+						urlData:{url:''},
+						data:[{id:'',name:'请选择'}],
+						val:''});
+				}else{  
+					$('.searchContent div[name=cityId]',wraper).select({ 
+						urlData:{
+							url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+						},
+						unshiftData: {id:'',name:'请选择'}
+					}).select('val','');
+				}
+			}
+		};
+		jRad.params['cityId'] = {
+			data: [{id:'',name:'请选择'}] 
+		};
+
+		page_search_items.push({row:'3',type:'jrad-dateinput',display:'创建开始时间',name:'startTime'}); 
+   		page_search_items.push({row:'3',type:'jrad-dateinput',display:'创建结束时间',name:'endTime'}); 
+   		page_search_items.push({row:'3',type:'jrad-select',display:'测试数据显示',name:'isTest',params:jRad.params['isTest']});
+   		page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+   		page_search_items.push({row:'1',type:'jrad-input',display:'用户手机号',name:'mobile'});
+   		page_search_items.push({row:'1',type:'jrad-input',display:'渠道名称',name:'channelName'});
+   		page_search_items.push({row:'2',type:'jrad-select',display:'行驶省份',name:'provCode',params:jRad.params['provCode']}); 
+		page_search_items.push({row:'2',type:'jrad-select',display:'行驶城市',name:'cityId',params:jRad.params['cityId']});
+   		page_search_items.push({row:'2',type:'jrad-input',display:'页面编码',name:'pageCode'});
+
+   		page_column_model.push({display: '用户 ID', name : 'userInfoId'}); 
+   		page_column_model.push({display: '用户手机号', name : 'mobile'}); 
+   		page_column_model.push({display: '用户车牌号', name : 'plateNo'}); 
+   		page_column_model.push({display: '用户行驶城市', name : 'cityName'}); 
+   		page_column_model.push({display: '用户信息生成时间', name : 'createTime'}); 
+   		page_column_model.push({display: '是否为测试', name : 'isTest',datasource:[{id:'0',name:'否 '},{id:'1',name:'是'}]}); 
+   		page_column_model.push({display: '渠道名称', name : 'channelName'}); 
+   		page_column_model.push({display: '页面编码', name : 'pageCode'}); 
+   		page_column_model.push({display: '比价类型', name : 'compareType'}); 
+
+		page_list_buttons.push({displayname: '导出EXCEL',name:'excel', bclass: 'excel',onpress : function(){ 
+		        $ .jRadConfirm('确认导出吗？',1,function(){
+		                var param = {};
+		                var startTime = $.trim($(".searchContent div[name='startTime']",wraper).dateinput('val'));
+		                if(startTime!=""){
+		                    param['startTime'] = startTime;
+		                }; 
+		               var endTime = $.trim($(".searchContent div[name='endTime']",wraper).dateinput('val'));
+		                if(endTime!=""){
+		                    param['endTime'] = endTime;
+		                }; 
+		                var isTest = $.trim($(".searchContent div[name='isTest']",wraper).select('val'));
+		                if(isTest!=""){
+		                    param['isTest'] = isTest;
+		                };
+		                var userInfoId = $.trim($(".searchContent div[name='userInfoId']",wraper).input('val'));
+		                if(userInfoId!=""){
+		                    param['userInfoId'] = userInfoId;
+		                };
+		                var mobile = $.trim($(".searchContent div[name='mobile']",wraper).input('val'));
+		                if(mobile!=""){
+		                    param['mobile'] = mobile;
+		                };
+		                var provCode = $.trim($(".searchContent div[name='provCode']",wraper).select('val'));
+		                if(provCode!=""){
+		                    param['provCode'] = provCode;
+		                };
+		                 var cityCode = $.trim($(".searchContent div[name='cityCode']",wraper).select('val'));
+		                if(cityCode!=""){
+		                    param['cityCode'] = cityCode;
+		                };
+		                var channelName = $.trim($(".searchContent div[name='channelName']",wraper).input('val'));
+		                if(channelName!=""){
+		                    param['channelName'] = channelName;
+		                };
+		                var pageCode = $.trim($(".searchContent div[name='pageCode']",wraper).input('val'));
+		                if(pageCode!=""){
+		                    param['pageCode'] = pageCode;
+		                };
+
+		                var paramUrl = "";
+		                if(param!={}){   
+		                    paramUrl+="?"
+		                    $.each(param,function(k,v){ 
+		                        paramUrl+="&"+k+"="+v; 
+		                    });
+		                }
+		                window.open('/shopmanage-ws/ws/0.1/insuredOrder/exportInsureCompareRecordList'+paramUrl);
+		            }); 
+		        }
+    	});
+
+
+   		$('#Table_noComparison_info').flexigrid({
+            			reload:true,
+			method:'get',
+            			colModel : page_column_model,
+            			buttons : page_list_buttons,
+           			searchitems :page_search_items,
+            			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			extParam:{isTest:0},
+			showSearch:true, 
+			overflow:true,
+			showCheckbox: true,
+            		url:'/shopmanage-ws/ws/0.1/insuredOrder/getInsureCompareRecordList',
+			onError:showError
+    		});
+
+   		function showError(xhr){
+			var errormsg = eval("(" + xhr.responseText + ")"); 
+			$.jRadMessage({level:'error',message:errormsg[0].message});
+		} 
+	})
+</script>

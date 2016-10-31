@@ -1,0 +1,359 @@
+<style>
+	#Wraper_order_manage .bbit-grid td > .t-content{
+		text-overflow: inherit;
+		-o-text-overflow: inherit;
+		white-space: inherit;
+		word-break: break-all;
+	}
+	.cDiv{
+		min-width: 900px;
+	}
+	
+	/*.hDiv table tr td, .hDiv table tr th{text-align:center;}
+	.bDiv table tr td, .bDiv table tr th{text-align:center;}*/
+</style>
+<div class="urlContentWraper" id="Wraper_order_manage">
+    <div id="branchOrderTabs">
+    	<!-- <ul>
+    		<li><a href="#branch_netPaid">线上支付订单</a></li>
+    		<li class="branch_crashPaid" style="display:none;"><a href="#branch_crashPaid">当面支付订单</a></li>
+    	</ul> -->
+	    <div id="branch_netPaid">
+	    	<table id="Table_branch_netPaid_list"></table>
+	    </div>
+		<div id="branch_crashPaid">
+	    	<table id="Table_branch_crashPaid_list"></table>
+	    </div>
+    </div>
+	<div id="Form_order_manage" class="grid-layout ui-form">
+		<div class="grid-layout-main jrad-form"> 
+			 <input name="orderServiceId" type="hidden">  
+			 <div class="grid-row-fluid">
+				<label class="span4 grid-layout-label">服务：</label>
+				<div class="span8 grid-layout-content">
+					<div name="zeroService" class="jrad-select-container service"></div>
+				</div>
+			</div> 
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<button class="jrad-btn-primary btn btn-small btn-primary">
+				确定
+			</button>
+			<button class="jrad-btn-normal btn btn-small btn-default">
+				取消
+			</button>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var wraper = $('#Wraper_order_manage');
+	// var isYibin=$.jRadGet({url:'/vip-ws/ws/0.1/shopAccountBack/isYiBinBusi?shopAccountId='+carsmart_config.shopId});
+	// if(isYibin.isYiBinBusi==true){
+	// 	$('li.branch_crashPaid',wraper).show()
+	// }else{
+	// 	$('li.branch_crashPaid',wraper).hide()
+	// }
+	// var branchOrderJson = {};
+	// branchOrderJson.branch_netPaid = "1";
+	// branchOrderJson.branch_crashPaid = "0";
+	// $('#branchOrderTabs').tabs({
+	// 	heightStyle: 'auto', 
+	// 	beforeLoad: function( event, ui ) {// 加载前操作
+	// 		  ui.jqXHR.error(function() {
+	// 		  ui.panel.html("无法加载页面" );
+	// 		});
+	// 	},
+	// 	select:function(event, ui){
+	// 		var panel = ui.panel; 
+	// 		var typeName = $(panel).attr('id'); 
+	// 		var type = branchOrderJson[typeName]; 
+	// 		window.setTimeout(function(){
+	// 			getbranchOrderInfo(type,typeName,carsmart_config.shopId);//1.线上支付订单 0.当面支付订单
+	// 		},300);
+	// 	}
+	// });
+
+	getbranchOrderInfo("1","branch_netPaid",carsmart_config.shopId);
+
+	function getbranchOrderInfo(type,typeName,parentId){
+		var wraper = $('#Wraper_order_manage');
+		var table='Table_'+typeName+'_list';
+		var parentId = carsmart_config.shopId;
+	    var page_column_model = new Array();
+	    var page_search_items = new Array();
+	    var page_list_buttons = new Array();
+	    
+	    var entityModel = {};  
+	    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+		var branchSelect = $.jRadGetDataSources( '/vip-ws/ws/0.1/shopAccountBack/getBranchShopList?shopAccountId='+parentId,'businessInfoId','shopName');
+		branchSelect.unshift({id:'',name:'请选择'});  
+		jRad.validators['zeroService'] = [{msg:"请选择服务",type:'min',value:'1'}];
+		jRad.validators['firstService'] = [{msg:"请选择一级服务",type:'min',value:'1'}];
+		jRad.validators['secondService'] = [{msg:"请选择二级服务",type:'min',value:'1'}];
+		jRad.validators['thirdService'] = [{msg:"请选择三级服务",type:'min',value:'1'}];
+		var fields = {}; 
+		fields['zeroService'] = {
+			urlData: {
+				url:'/vip-ws/ws/0.1/business/getServiceListByShopId?parentId=-1&level=0&shopAccountId='+parentId,
+				id: 'serviceId',
+				name: 'serviceName',
+				type: 'get',
+				dataType: 'json'
+			}, 
+			unshiftData:{id:'',name:'请选择'}, 
+			onchange: function(val){ 
+				$('#Form_order_manage div[name="illustrate"]').mediaarea('val',"");
+				getServiceSonNode("1",val,wraper);  
+			}
+		};  
+		$('#Form_order_manage').form({ 
+			title:'选择服务',
+			fields: fields,
+			grid:22,
+	        validators: jRad.validators, 
+		    type:'post', 
+			preSubmit:function(json){
+				var njson = {};
+				njson.orderServiceId = json.orderServiceId;
+				njson.shopId = carsmart_config.shopId;
+				njson.serviceId = $('#Form_order_manage .grid-row-fluid:last').find(".service").select('val');
+				return njson; 
+			},
+	        url: '/vip-ws/ws/0.1/orders/reChoose',
+	        success: function() {
+	            $('#Table_order_manage').flexMessage('提交成功', 'success');
+	            $('#Table_order_manage').flexReloadSearch();
+	        }		
+		});
+	   
+	    page_column_model.push({display: '订单编号', name : 'orderNumber',width:130});
+	 	page_column_model.push({display: '预订分店', name : 'branchShopName',width:100}); 
+	    page_column_model.push({display: '服务名称', name : 'serviceName',width:110,diy:function(item,$div){
+			if(item.chooseStatus=='1'){
+				var $service = $("<a class='flexOperate'>").html("请确认用户最终选择服务");
+				$div.html(item.serviceName+"&nbsp;&nbsp;&nbsp;&nbsp;").append($service);
+				$service.click(function(){   
+					$("#Form_order_manage",wraper).form({
+						item:{'orderServiceId':item.orderServiceId}
+					}).form('open'); 
+				});
+			}else {
+				$div.html(item.serviceName);
+			}
+		}});  
+		page_column_model.push({display: '金额（元）', width:40,diy:function(item,$div){
+			var _clearingPrice=item.clearingPrice;
+			var _shopVoucherPrice=item.shopVoucherPrice;
+			var _subsidyAmount=item.subsidyAmount;		
+			var _couponPrice=item.couponPrice;
+			if(_subsidyAmount==''){
+				_subsidyAmount=0
+			};
+			var realPrice=parseFloat(item.ycbPayBusiPrice);
+			var _isCheap=item.idlePrivStatusDesc;                                                 
+			if(realPrice<0){
+				realPrice=0
+			}
+			var aaa="&nbsp; &nbsp; &nbsp; &nbsp; 订单金额："+_clearingPrice+"<br>&nbsp; &nbsp; 代金券金额："+_shopVoucherPrice+"<br>&nbsp; &nbsp; &nbsp; &nbsp; 补贴金额："+_subsidyAmount+"<br>实际收入金额："+realPrice;
+			if(_couponPrice >0){
+				aaa = aaa+"<br>&nbsp; &nbsp; &nbsp; &nbsp; 抵用券价："+_couponPrice;
+			}
+			aaa=aaa+"<br>&nbsp; &nbsp; 是否闲时优惠："+_isCheap;
+
+			$div.html(aaa);
+		}});
+		// page_column_model.push({display: '是否闲时优惠', name : 'idlePrivStatusDesc'});
+		page_column_model.push({display: '是否结算', name : 'transferStatusDesc',diy:function(item,$div){
+			$div.html('<p class="p_center">'+item.transferStatusDesc+'</p>');
+			$('.p_center',$div).css('text-align','center')
+		},width:80});
+		page_column_model.push({display: '客户信息', width:160,diy:function(item,$div){
+			var _nicName=item.nicName;
+			var _userMobile=item.userMobile;
+			var _model=item.model;
+			var _purchaseTimes=item.purchaseTimes;
+			$div.html("用户昵称："+_nicName+"<br>&nbsp; &nbsp; 手机号："+_userMobile+"<br>&nbsp; &nbsp; &nbsp; &nbsp; 车系："+_model+"<br>到店次数："+_purchaseTimes);
+		}});
+		page_column_model.push({display: '是否车主卡订单', name : 'isCardPayDesc',width:115,diy:function(item,$div){
+			$div.html(item.isCardPayDesc).css('text-align','center')
+		}});
+		page_column_model.push({display: '赠送商品', name : 'giftInfo',width:115});
+	    page_column_model.push({display: '订单生成时间', name : 'orderDate', width:98,diy:function(item,$div){
+	    	$div.html('<p class="p_center">'+item.orderDate.substr(0,10)+'<br>'+item.orderDate.substr(11,8)+'</p>');
+	    	$('.p_center',$div).css('text-align','center')
+	    }}); 
+	    page_column_model.push({display: '订单服务时间', name : 'serviceDate', width:98,diy:function(item,$div){
+	    	$div.html('<p class="p_center">'+item.serviceDate.substr(0,10)+'<br>'+item.serviceDate.substr(11,8)+'</p>');
+	    	$('.p_center',$div).css('text-align','center')
+	    }}); 
+	    page_column_model.push({display: '订单状态', name : 'orderStatus',width:70,datasource:[ 
+			{"id":"1","name":"待服务"},
+			{"id":"2","name":"已完成"},
+			{"id":"3","name":"已退款"},
+			{"id":"4","name":"过期"}
+		]});
+
+		page_search_items.push({row:'1',type:'jrad-select',display:'预订分店',name:'businessInfoId',params:{data:branchSelect}});     
+		page_search_items.push({row:'1',type:'jrad-input',display:'订单编号',name:'orderNumber'}); 
+		page_search_items.push({row:'1',type:'jrad-input',display:'服务名称',name:'serviceName'});
+		page_search_items.push({row:'2',type:'jrad-input',display:'用户昵称',name:'nicName'});
+		page_search_items.push({row:'2',type:'jrad-input',display:'用户手机号',name:'userMobile'});
+		page_search_items.push({row:'2',type:'jrad-select',display:'是否使用代金券',name:'useVoucherType',params:{data:[
+			{"id":"","name":"全部"},
+			{"id":"99","name":"否"},
+			{"id":"2","name":"是"}
+		]}});  
+		page_search_items.push({row:'3',type:'jrad-select',display:'是否闲时优惠',name:'idlePrivStatus',params:{data:[
+			{"id":"","name":"全部"},
+			{"id":"0","name":"否"},
+			{"id":"1","name":"是"}
+		]}}); 
+		page_search_items.push({row:'3',type:'jrad-select',display:'是否结算',name:'transferStatus',params:{data:[
+			{"id":"","name":"全部"},
+			{"id":"0","name":"否"},
+			{"id":"1","name":"是"}
+		]}});  
+		page_search_items.push({row:'3',type:'jrad-select',display:'订单状态',name:'orderStatus',params:{data:[
+			{"id":"","name":"全部"},
+			{"id":"1","name":"待服务"},
+			{"id":"2","name":"已完成"},
+			{"id":"3","name":"已退款"},
+			{"id":"4","name":"过期"}
+		]}}); 
+		page_search_items.push({row:'4',type:'jrad-daterange',display:'订单生成时间',name:'orderDate',grid:7}); 
+		page_search_items.push({row:'4',type:'jrad-daterange',display:'订单服务时间',name:'serviceDate',grid:7}); 
+		
+		page_list_buttons.push({
+	        title: '导出成EXCEL',
+			displayname:'导出成EXCEL',
+	        bclass: 'icon-excel', 
+	        onpress: function() { 
+	     		$ .jRadConfirm('确认导出吗？',1,function(){
+					var param = {};
+					var orderNumber = $.trim($(".searchContent div[name='orderNumber']",wraper).input('val'));
+					if(orderNumber!=""){
+						param['orderNumber'] = orderNumber;
+					};
+					var serviceName = $.trim($(".searchContent div[name='serviceName']",wraper).input('val'));
+					if(serviceName!=""){
+						param['serviceName'] = serviceName;
+					};
+					var orderDate = $.trim($(".searchContent div[name='orderDate']",wraper).daterange('val'));
+					if(orderDate!=""){
+						param['orderDate'] = orderDate;
+					};
+					var serviceDate = $.trim($(".searchContent div[name='serviceDate']",wraper).daterange('val'));
+					if(serviceDate!=""){
+						param['serviceDate'] = serviceDate;
+					}; 
+					var businessInfoId = $(".searchContent div[name='businessInfoId']",wraper).select('val');
+					if(businessInfoId!=""){
+						param['businessInfoId'] = businessInfoId;
+					};  
+					var nicName = $.trim($(".searchContent div[name='nicName']",wraper).input('val'));
+					if(nicName!=""){
+						param['nicName'] = nicName;
+					};
+					var userMobile = $.trim($(".searchContent div[name='userMobile']",wraper).input('val'));
+					if(userMobile!=""){
+						param['userMobile'] = userMobile;
+					};
+					var useVoucherType = $.trim($(".searchContent div[name='useVoucherType']",wraper).select('val'));
+					if(useVoucherType!=""){
+						param['useVoucherType'] = useVoucherType;
+					};
+					var idlePrivStatus = $.trim($(".searchContent div[name='idlePrivStatus']",wraper).select('val'));
+					if(idlePrivStatus!=""){
+						param['idlePrivStatus'] = idlePrivStatus;
+					};
+					var transferStatus = $.trim($(".searchContent div[name='transferStatus']",wraper).select('val'));
+					if(transferStatus!=""){
+						param['transferStatus'] = transferStatus;
+					};
+					var orderStatus = $.trim($(".searchContent div[name='orderStatus']",wraper).select('val'));
+					if(orderStatus!=""){
+						param['orderStatus'] = orderStatus;
+					};
+					var paramUrl = "?shopAccountId="+carsmart_config.shopId+"&paid="+type;
+					if(param!={}){   
+						$.each(param,function(k,v){ 
+							paramUrl+="&"+k+"="+v; 
+						});
+					}
+					window.open('/vip-ws/ws/0.1/orders/exportExcel'+paramUrl);
+				});
+	        }
+	    });
+	    $('#Table_'+typeName+'_list').flexigrid({
+	        reload: true,
+	        pagination: {diaplay_pages: 5,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+	        colModel: page_column_model,
+	        buttons: page_list_buttons,
+	        searchitems: page_search_items,
+	        pagedStyle: 'oc',
+			method:'get',
+			showSearch:true,
+	        url:'/vip-ws/ws/0.1/orders/list?paid='+type,
+			overflow:true,
+			preQuery:function(param){
+				if($('div.searchContent div[name="businessInfoId"]',wraper).select('val')==null){
+					param.businessInfoId=0
+				}
+				return param
+			},
+			extParam:{'shopAccountId':parentId} 
+	    });
+
+    	$('.tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:15px;float:left;line-height:60px;">订单列表</span>');
+	    $('.hDiv',wraper).css('overflow','hidden');
+	    $('.bDiv',wraper).css('overflow-x','scroll')
+	}
+
+	function getServiceSonNode(node,val,wraper){   
+		var label = "";
+		var serviceClass = "";
+		if(node==1){
+			label = "一级";
+			serviceClass = "firstService"; 
+			$("#Form_order_manage .addService").parents(".grid-row-fluid").remove();
+		}else if(node==2){
+			label = "二级";
+			serviceClass = "secondService"; 
+			$("#Form_order_manage div[name='secondService']").parents(".grid-row-fluid").remove();
+			$("#Form_order_manage div[name='thirdService']").parents(".grid-row-fluid").remove();
+		}else if(node==3){
+			label = "三级";
+			serviceClass = "thirdService";
+			$("#Form_order_manage div[name='thirdService']").parents(".grid-row-fluid").remove();
+		}
+		if(val!=""){
+			var item = $.jRadGetDataSources('/vip-ws/ws/0.1/business/getServiceListByShopId?parentId='+val+'&level='+node+'&shopAccountId='+carsmart_config.shopId,"serviceId","serviceName");
+			if(item.length>0){
+			item.unshift({id:'',name:'请选择'}); 
+			var row = '<div class="grid-row-fluid">'
+						+'<label class="span4 grid-layout-label">'+label+'：</label>'
+						+'<div class="span8 grid-layout-content">'
+						+'<div name="'+serviceClass+'" class="jrad-select-container service addService"></div>'
+						+'</div>'
+						+'</div>' ; 
+			if(node==1){
+			$("#Form_order_manage .grid-row-fluid:eq(0)",wraper).after(row);
+			}else if(node==2){
+			$("#Form_order_manage .grid-row-fluid:eq(1)",wraper).after(row);
+			}else if(node==3){
+			$("#Form_order_manage .grid-row-fluid:eq(2)",wraper).after(row);
+			}
+			node++; 
+			$('#Form_order_manage div[name='+serviceClass+']').select({
+				data:item,
+				unshiftData: {id:'',name:'请选择'}, 
+				onchange: function(val){ 
+					getServiceSonNode(node,val,wraper); 
+				}
+			});
+			}
+		}
+	}
+});
+</script>

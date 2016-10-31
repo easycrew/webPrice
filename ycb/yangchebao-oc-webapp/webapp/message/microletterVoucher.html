@@ -1,0 +1,253 @@
+<div class="urlContentWraper" id="Wraper_microletter_voucher">
+    <div class="ui-info-layout"> 
+        <h2 class="ui-tit"><strong>微信代金券管理</strong><bottom class="all-work-info numb913">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <table id="Table_microletter_voucher"></table>
+    </div>
+    <div id="Form_microletter_voucher" style="display:none;">
+        <div class="grid-layout-main jrad-form">   
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					活动名称：
+				</label>
+				<div class="span5 grid-layout-content">
+					<div name="activeTitle" class="jrad-input-container"></div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					活动详情：
+				</label>
+				<div class="span10 grid-layout-content" style="margin-left:0px;">
+					<div name="activeContent" class="jrad-mediaarea-container"></div>
+				</div>
+			</div>
+			<div class="row"> 
+				 <label class="span4 grid-layout-label">
+					<span class="ui-form-required">*</span>
+					代金券ID：
+				</label>
+				<div class="span6 grid-layout-content bank">
+					<div name="voucherTopicIdsRate" class="jrad-textarea-container"></div>
+					<p class="ui-note">示例：46:90%,67:10%<br>代金劵ID+英文冒号+概率+英文逗号隔开<br>概率总和为100%</p>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					每周最大领取数：
+				</label>
+				<div class="span5 grid-layout-content">
+					<div name="maxTakeNum" class="jrad-input-container"></div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					领取开始时间：
+				</label>
+				<div class="span5 grid-layout-content">
+					<div name="takeStartTime" class="jrad-dateinput-container"></div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					领取结束时间：
+				</label>
+				<div class="span5 grid-layout-content">
+					<div name="takeEndTime" class="jrad-dateinput-container"></div>
+				</div>
+			</div> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg913" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>一个活动，有多个代金券，按概率领取时，需要在此处设置。</div>
+                    <div><strong>重要功能说明：</strong>①创建： 活动名称：标示一下是哪个活动的代金券，不会再APP显示；
+                       活动详情：随意填写，没有用上这个字段；
+                       代金券ID：按示例写入有效的代金券，代金券一定要在有效期内，且是有效的；
+                       每周最大领取数：同一用户一周内最多领取的数量；
+                       领取开始时间/结束时间：即活动的有效期。</div>
+                    <div><strong>注意事项：</strong>1、一般一个代金券活动的步骤是，现在代金券管理设置好需要领取的代金券，然后在此把需要发放的代金券设置成合适的领取概率。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_microletter_voucher');
+    var page_column_model = new Array();
+    var page_list_buttons = new Array();
+    var page_search_items = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+    
+	jRad.validators['activeTitle'] = [{"msg":"活动名称不能为空","type":"min","value":"1"}];
+	jRad.validators['activeContent'] = [{"msg":"活动详情不能为空","type":"min","value":"1"}];
+	jRad.validators['voucherTopicIdsRate'] = [{"msg":"代金券ID不能为空","type":"min","value":"1"},{msg:"请输入正确格式的代金券ID",type:'regex',value:/^([0-9]+:[0-9]+%{1},{1})*([0-9]+:[0-9]+%{1})+$/}];
+	jRad.validators['maxTakeNum'] = [{"msg":"最大领取数不能为空","type":"min","value":"1"},{msg:"请输入正整数",type:'regex',value:/^[0-9]*[1-9][0-9]*$/}]; 
+	
+	$('.jrad-textarea-container',wraper).textarea({
+		rows:5,
+		grid:10
+	});
+	 $('#Form_microletter_voucher').form({
+        grid: 20,
+        validators: jRad.validators 
+    });
+	page_column_model.push({display: '活动ID', name : 'activeId'}); 
+	page_column_model.push({display: '活动名称', name : 'activeTitle'});
+    page_column_model.push({display: '活动详情', name : 'activeContent'}); 
+    page_column_model.push({display: '代金券ID', name : 'voucherTopicIdsRate'}); 
+    page_column_model.push({display: '最大领取数', name : 'maxTakeNum'}); 
+    page_column_model.push({display: '领取开始时间', name : 'takeStartTime'}); 
+    page_column_model.push({display: '领取结束时间', name : 'takeEndTime'}); 
+    page_column_model.push({display: '创建时间',name:'createTime'});
+    page_column_model.push({display: '最后操作时间',name:'updateTime'}); 
+    page_column_model.push({display: '最后操作人',name:'lastOperator'});
+  
+
+   page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){ 
+			$('#Form_microletter_voucher').form({
+                title: '创建', 
+                item:{},
+                style:{height:'300px'}, 
+                url:'/shopmanage-ws/ws/0.1/wxActive/add', 
+				before_submit:function(json){
+					json.lastOperator=carsmart_config.operatorName
+				},
+				success_callback:function(){ 
+                            $('#Table_microletter_voucher').flexMessage('创建成功', 'success');
+                            $('#Table_microletter_voucher').flexReload();
+                        } 
+            }).form('open');
+        }
+    }); 
+	
+	page_list_buttons.push({name:'edit',bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_microletter_voucher').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_microletter_voucher').getCheckedTrs(); 
+	    	var _item=$.jRadGet({url:'/shopmanage-ws/ws/0.1/wxActive/detail?activeId='+checked[0].activeId});
+				$('#Form_microletter_voucher').form({
+                title: '编辑',
+                item:_item, 
+                url:'/shopmanage-ws/ws/0.1/wxActive/modify', 
+                before_submit:function(json){
+                	json.activeId=checked[0].activeId;
+                	json.lastOperator=carsmart_config.operatorName
+                },
+				success_callback:function(){ 
+                            $('#Table_microletter_voucher').flexMessage('编辑成功', 'success');
+                            $('#Table_microletter_voucher').flexReload();
+                        } 
+            }).form('open'); 
+		}
+	});
+	page_list_buttons.push({name:'delete',bclass: 'delete',prefunc:function(){
+            var checked = $('#Table_microletter_voucher').getCheckedTrs();
+            if (checked.length == 0) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_microletter_voucher').getCheckedTrs();
+	    	var ids=[];
+	    	$.each(checked,function(i){
+	    		var id=checked[i].activeId;
+	    		ids.push(id);
+	    	});
+	    	var _ids=ids.join(',');  
+			$.jRadConfirm('确认删除吗？',1,function(){
+				var postData={};
+				postData.lastOperator=carsmart_config.operatorName;
+				postData.activeIds=_ids;
+				$.jRadPost({
+					url:'/shopmanage-ws/ws/0.1/wxActive/del',
+					data:postData,
+					success:function(){
+						$('#Table_microletter_voucher').flexMessage('已删除', 'success');
+                        $('#Table_microletter_voucher').flexReload();
+					}
+				})
+			}) 
+		}
+	});   
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_microletter_voucher').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			}, 
+            url:'/shopmanage-ws/ws/0.1/wxActive/list', 
+            showSearch:true,
+            overflow:true,
+			onError:showError
+    });
+    $(".numb913").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg913").form({}).form('close');
+        $("#Form_explain_eg913").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg913 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg913").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg913").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg913 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+    
+});
+function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		} 
+</script>
+

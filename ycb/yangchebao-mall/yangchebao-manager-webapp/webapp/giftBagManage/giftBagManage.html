@@ -1,0 +1,315 @@
+<script type="text/javascript" src="giftBagManage/giftBagManage.js"></script>
+<style>
+	#Wraper_giftBag_manage #Table_giftIntroduce_list th,#Wraper_giftBag_manage #Table_giftIntroduce_list td{
+		padding:5px 0;
+		border-bottom:1px solid #eee;
+		border-right:1px solid #eee;
+		text-align:center;
+	}
+	#Wraper_giftBag_manage #Table_giftIntroduce_list th{
+		font-size:16px;
+		background-color:#F8F8F8;
+	}
+	#Wraper_giftBag_manage #Table_giftIntroduce_list tr:nth-child(even){
+		background-color:#fff;
+	}
+	#Wraper_giftBag_manage #Table_giftIntroduce_list tr:nth-child(odd){
+		background-color:#F8F8F8;
+	}
+
+</style>
+<div class="urlContentWraper" id="Wraper_giftBag_manage">
+<div class="ui-info-layout">
+<div class="ui-info-layout-subbox "> 
+	<div class="jrad-table">
+        <h2 class="ui-tit"><strong>4S店专供页礼包</strong></h2>
+        <!-- 列表显示 -->
+        <table id="Table_giftBag_manage"></table>
+    </div>
+	<div class="details-box" style="display:none;">
+			<ul class="details-tab">
+				<li class="tab-cur tab-cur-first f-left" rele="Form_giftBag_manage" ><span name="title">礼包基础信息</span></li>
+				<li class="f-left" rele="giftInfo_introduce"><span name="title">礼包介绍信息</span></li>
+				<li><span class="return"></span></li>
+			</ul>
+			<div class="details-content">
+				<div class="details-scroll">
+					<div class="details-content-inner">
+						<!-- 礼包基础信息 -->
+						<div class="grid-layout ui-form tabReleForm" id="Form_giftBag_manage">
+							<div class="jrad-form">  
+								<div class="grid-layout-main">
+								<input type="hidden" name="updateOrAdd"/>
+								<input name="id" type="hidden"/> 
+								<h2 class="ui-tit ui-dashboard-header"><strong>特供列表页</strong></h2> 
+								<div class="row-fluid">
+								 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>礼包名称：</label>
+								 <div class="span5 grid-layout-content">
+									   <div name="name" class="jrad-input-container"></div>
+								 </div>
+								</div>
+								<div class="row-fluid">
+								 <label class="span3 grid-layout-label">副标题：</label>
+								 <div class="span5 grid-layout-content">
+									   <div name="title" class="jrad-input-container"></div>
+								 </div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label"><span class="ui-form-required">*</span> 礼包Banner： </label>
+									<div class="span15 grid-layout-content fluid-wrap">
+										<div name="giftBannerPicFile" class="jrad-uploadimg-container">
+										</div>
+									</div>
+									<input type="hidden" name="picBannerUrl"/>
+									<input type="hidden" name="middleBannerUrl"/>
+									<input type="hidden" name="smallBannerUrl"/>
+								</div>    
+								<div class="row-fluid">
+									 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>排序：</label>
+									 <div class="span5 grid-layout-content">
+										   <div name="sequence" class="jrad-input-container"></div>
+									 </div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label"> <span class="ui-form-required">*</span>地区： </label>
+									<div class="span14 grid-layout-content fluid-wrap">
+										<div class="jrad-buttons-container" name="area_check_btn">
+											<span id="jrad-button-area" class="jrad-primary">
+												点击选择 </span>
+										</div>
+										<div name="regions"></div>
+										<div id="area_check_string" style="margin: 10px 0;"></div>
+									</div>
+								</div> 
+								<div class="row-fluid">
+									 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>状态：</label>
+									 <div class="span5 grid-layout-content">
+										   <div name="status" class="jrad-select-container"></div>
+									 </div>
+								</div>
+								<h2 class="ui-tit ui-dashboard-header"><strong>详情页礼包</strong></h2>
+								<label style="color:#aeb4c1;font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(礼包类型二选一)</label> 
+								<div class="row-fluid">
+		 								<label class="span3 grid-layout-label"><input name="mediumType" type="radio" value="1" />礼包视频地址 </label>
+										<div class="span7 grid-layout-content">
+											<div name="videoUrl" class="jrad-input-container"></div>
+											<label style="color:#aeb4c1;font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;必须上传两个视频地址,用英文逗号隔开</label> 
+										</div> 
+								</div> 
+								<div class="row-fluid">
+		 							  <label class="span3 grid-layout-label"><input name="mediumType" type="radio" value="2" />礼包图片展示</label>
+										<div class="span5 grid-layout-content">
+											<div name="picGiftUrlFile" class="jrad-uploadimg-container">
+										</div>
+									<input type="hidden" name="picGiftUrl"/>
+									<input type="hidden" name="middleGiftUrl"/>
+									<input type="hidden" name="smallGiftUrl"/>  
+								</div> 
+								</div> 
+								<div class="row-fluid">
+										<label class="span3 grid-layout-label"> 
+											<span class="ui-form-required">*</span>简介：
+										</label>
+										<div class="span4 grid-layout-content">
+											<div class="jrad-textarea-container" name="introduction">
+											</div>
+										</div>
+								</div>
+								<div class="row-fluid">
+										<label class="span3 grid-layout-label"> 
+											<span class="ui-form-required">*</span>参数：
+										</label>
+										<div class="span8 grid-layout-content">
+											<div class="jrad-textarea-container" name="parameter">
+											</div>
+										</div>
+								</div>
+								<h2 class="ui-tit ui-dashboard-header"><strong>礼包商品</strong></h2>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label"><span class="ui-form-required">*</span>套装SKU： </label>
+									<div class="span14 grid-layout-content fluid-wrap">
+										<div class="jrad-buttons-container" name="suit_check_btn">
+											<span id="jrad-button-suit" class="jrad-primary">
+												点击添加 </span>
+										</div>
+										<div name="suitSku"></div>
+										<div id="suit_check_string" style="margin: 10px 0;"></div>
+									</div>
+								</div> 
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">单品SKU： </label>
+									<div class="span14 grid-layout-content fluid-wrap">
+										<div class="jrad-buttons-container" name="sku_check_btn">
+											<span id="jrad-button-sku" class="jrad-primary">
+												点击添加</span>
+										</div>
+										<div name="skuLists"></div>
+										<div id="sku_check_string" style="margin: 10px 0;"></div>
+									</div>
+								</div> 
+								
+							</div>
+							<div class="jrad-buttons-container ui-buttons-container">
+								<span class="jrad-btn-primary">确定</span> 
+								<span class="jrad-btn-normal">取消</span>
+							</div>
+						</div>
+						</div>
+						<!--礼包介绍信息-->
+						<div id="giftInfo_introduce" class="tabReleForm" style="display:none;">
+							<div>
+								<span id="addGiftIntroduce" class="jrad-btn-primary jrad-form-element ui-btn-primary" style="display:inline-block;margin-bottom:10px;"><span class="ui-btn-primary-content">新增礼包介绍</span></span>
+							</div>
+							<table id="Table_giftIntroduce_list" cellspacing="0" cellpadding="0"></table> 
+						</div>
+					</div>
+		    	</div>
+     		 </div>
+		</div>
+	</div>
+</div>
+
+
+<!-- 地区选择-->
+<div id="Form_area" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		  <div class="row-fluid">
+			<label class="span3 grid-layout-label"> 省：</label>
+			<div class="span5 grid-layout-content">
+				<div class="jrad-select-container" name="provinceId">
+				</div>
+			</div> 
+			<label class="span3 grid-layout-label">	市：</label>
+			<div class="span5 grid-layout-content">
+				<div class="jrad-select-container" name="areaCodeId">
+				</div>
+			</div>
+		</div> 
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div> 
+
+
+<!-- 套装sku选择-->
+<div id="Form_suit" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		  <div class="row">
+			<label class="span3 grid-layout-label"> 套装SKU-ID：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-input-container" name="id">
+				</div>
+				<button id="btnSuitSku" type="button" value="查询" style="margin-left:5px;">查询</button>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span3 grid-layout-label"> 套装SKU名称：</label>
+			<div class="span5 grid-layout-content">
+				<input name="suitSkuId" type="hidden"/> 
+				<div name="suitSkuName"></div>
+			</div>  
+		</div>
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary" id="btn">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div>
+
+
+<!-- 单品sku选择-->
+<div id="Form_sku" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		  <div class="row">
+			<label class="span3 grid-layout-label"> 单品SKU-ID：</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-input-container" name="id">
+				</div>
+				<button id="btnSku" type="button" value="查询" style="margin-left:5px;">查询</button>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span3 grid-layout-label"> 单品SKU名称：</label>
+			<div class="span5 grid-layout-content">
+				<input name="skuId" type="hidden"/>
+				<div name="skuName"></div>
+			</div>  
+		</div>
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary" id="btn">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div>
+<!-- 礼包介绍窗口 -->
+<div id="Form_giftIntroduce_manage" style="display:none; ">
+	<div class="ui-info-layout">
+		<div class="ui-info-layout-subbox">
+			<div class="details-box">
+				<ul class="details-tab">
+					<li class="tab-cur tab-cur-first f-left" rele="basicInfo_giftIntroduce"><span name="title">礼包介绍</span></li>
+					<li class="f-left" rele="carType_giftIntroduce"><span name="title">绑定车型</span></li>
+				</ul>
+				<div class="details-content">
+					<div class="details-scroll">
+						<div class="details-content-inner">
+							<!--基本信息-->
+							<label style="color:#aeb4c1;font-size: 14px;font-weight:normal;">一个礼包介绍对应一个车型品牌，不允许多个礼包同时绑定一个车型品牌</label>
+							<div class="grid-layout ui-form tabReleForm" id="basicInfo_giftIntroduce">
+								<div class="jrad-form"> 
+									<div class="grid-layout-main">
+										<input type="hidden" name="introduceId">
+										<input type="hidden" name="giftId">
+										<input type="hidden" name="updateOrAdd">
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"><span class="ui-form-required">*</span>名称：</label>
+											<div class="span9 grid-layout-content">
+												<div class="jrad-input-container" name="name"></div>
+												<label style="color:#aeb4c1;font-size: 12px;">注:1~3个字符</label>
+											</div>  
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"><span class="ui-form-required">*</span>礼包描述：</label>
+											<div class="span5 grid-layout-content">
+												<div class="jrad-mediaarea-container" name="introduce"></div>
+											</div>
+										</div> 
+									</div>
+								</div>
+								<div class="offset3">
+									<span class="ui-btn-primary" tabindex="1">
+										<span class="ui-btn-primary-content">确定</span>
+									</span> 
+								</div>
+							</div>
+							<!-- 绑定车型列表 -->
+							<div>
+								<div id="carType_giftIntroduce" class="tabReleForm span20" style="display:none;">
+									<table id="Table_bindCarType_list"></table> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--礼包介绍绑定车型-->
+<div id="Form_service_brand" style="display:none;">
+	<div class="grid-layout-main jrad-form">
+		<div class="jrad-tree" id="brandsTree"></div>
+		<div class="jrad-checkbox-container" name="vendor" style="position:absolute;bottom:25px;font-weight:bold;"></div> 
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div>
+
+
+
+</div>

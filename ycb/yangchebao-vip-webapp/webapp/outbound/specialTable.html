@@ -1,0 +1,1070 @@
+<style type="text/css">
+   tbody .inputstyle{
+         opacity: 1 !important;
+         filter:alpha(opacity=100) !important;
+         margin-left: 5px !important;
+         margin-top: -6px ;
+    }
+    #Wraper_special_list .searchButtons {
+        display:none !important;
+    }
+    #Form_supplier .jrad-buttons-container,#Form_warehousing .jrad-buttons-container,
+    #Form_storage_type .jrad-buttons-container,#Form_agent .jrad-buttons-container
+    {
+        display: none;
+    }
+
+    .aStyle{
+        margin-top: 5px;
+        float: left;
+        margin-left: 5px
+    }
+
+    .selectStyle{
+        float: left;
+        width:200px;
+    }
+
+    .starStyle{
+      color: #f00;
+      font-size: 20px;
+      margin-top: 5px;
+      float: left;
+    }
+
+    #Wraper_special_list #Table_outBound th,#Wraper_special_list  #Table_outBound td,
+    #Wraper_outbound_details .hDivBox table th,#Wraper_outbound_details .hDivBox table td,
+    #Wraper_outbound_details #Table_goods_add th,#Wraper_outbound_details #Table_goods_add td
+    {
+        text-align:center;
+    }
+
+    .closeStyle{
+        display:block;
+        margin-top:125px;
+        margin-left: 41px;
+        width: 87px;
+        height: 37px;
+        background: #64a0f3;
+        text-align: center;
+        line-height: 37px;
+        color: #fff;
+        cursor:pointer;
+    }
+    .v_return{
+        margin:55px auto;
+    }
+    .tips{
+        border-color: #dddddd;
+        border-style: solid;
+        border-width: 0 1px 1px 1px;
+        color: #666666;
+        font-size: 14px;
+        padding: 10px;
+        text-align: center;
+        height: 280px;
+        line-height: 280px;
+    }
+
+</style>
+
+<div class="urlContentWraper" id="Wraper_special_list">
+    <div class="ui-info-layout" id="jrad-table">
+        <div class="vdiv">
+            <table id="Table_special_list">
+            <table id="Table_outBound">
+                <thead>
+                    <tr>
+                        <th style="height: 40px">商品编号</th>
+                        <th>商品名称</th>
+                        <th>品牌</th>
+                        <th>规格</th>
+                        <th>单位</th>
+                        <th>数量</th>
+                        <th>单价</th>
+                        <th>金额</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                    <tbody></tbody>
+                </table>  
+            </table>
+            <div class="tips">请添加出库商品</div>
+        </div>
+    </div>
+    <!-- 下面列表 -->
+    <div class="grid-layout ui-form" id="Table_outBoundlist" style="min-width: 1300px;position:relative;">
+        <div class="jrad-form">
+            <div class="grid-layout-main">  
+                <div class="grid-row-fluid" style="float: left;width:150px;">
+                    <label class="span10 grid-layout-label">合计数量：</label>
+                    <div class="span3">
+                        <div name="totalAmount" id="totalAmount" style="margin-top: 5px;"></div>
+                    </div>
+                </div>
+
+                <div class="grid-row-fluid" style="float: left;width:523px;">
+                    <label class="span5 grid-layout-label">出库类型：</label>
+                    <div class="span10 grid-layout-content">
+                        <div name="storageTypeId" class="jrad-select-container" id="storageTypeId"></div>
+                    </div>
+                </div>
+
+                <div class="grid-row-fluid" style="float: left;width: 500px;">
+                    <label class="span5 grid-layout-label">经办人：</label>
+                    <div class="span10 grid-layout-content">
+                        <div name="agentId" class="jrad-select-container" id="agentId"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container" id="audit" style="clear:both;position:absolute;right: 15%;">                               
+            <button class=" btn btn-small btn-primary">确认出库</button>
+        </div>
+    </div>
+</div>
+<div id="popupStyle">
+<!-- 出库库房弹框 -->
+<div class="grid-layout ui-form"  style="display:none;" id="Form_warehousing">
+    <div class="jrad-form">  
+        <div class="grid-layout-main">
+            <div class="grid-row-fluid">
+                <div style="margin-bottom: 10px;margin-left: 44px;">
+                    <a style="margin-right: 10px;" id="warehousing_add">新增</a>
+                </div>
+                <table id="Table_warehousing" style="width: 500px;margin: 0 auto;">
+                    <thead>
+                        <tr>
+                            <!-- <th style="width:50px;text-align: center;"></th> -->
+                            <!-- <th style="text-align: center;">序号</th> -->
+                            <th style="text-align: center;">出库库房</th>
+                            <th style="text-align: center;">备注</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>                                        
+        </div>
+    </div>
+    <div class="jrad-buttons-container ui-buttons-container">                               
+        <button class="jrad-btn-primary btn btn-small btn-primary">完成</button>
+        <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+    </div>
+</div>
+<!--出库库房新增-->
+<div class="grid-layout ui-form"  style="display:none;" id="Form_warehousing_add">
+    <div class="jrad-form">  
+        <div class="grid-layout-main">
+            <div class="grid-row-fluid">
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 120px;">*</span>出库库房：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="name" class="jrad-input-container"></div>
+                    </div>
+                    <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+                </div>                                  
+            </div>
+            <div class="grid-row-fluid">
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">备注：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="description" class="jrad-textarea-container"></div>
+                    </div>
+                    <label class="span3 grid-layout-label" style="color: #999">20个字以内</label>
+                </div>                                  
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">                               
+            <button class="jrad-btn-primary btn btn-small btn-primary">完成</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div>
+</div>
+<!-- 入库类型弹框 -->
+<div class="grid-layout ui-form"  style="display:none;" id="Form_storage_type">
+    <div class="jrad-form">  
+        <div class="grid-layout-main">
+            <div class="grid-row-fluid">
+                <div style="margin-bottom: 10px;margin-left: 44px;">
+                    <a style="margin-right: 10px;" id="storageType_add">新增</a>
+                </div>
+                <table id="Table_storageType" style="width: 500px;margin: 0 auto;">
+                    <thead>
+                        <tr>
+                            <!-- <th style="width:50px;text-align: center;"></th> -->
+                            <!-- <th style="text-align: center;">序号</th> -->
+                            <th style="text-align: center;">出库类型</th>
+                            <th style="text-align: center;">备注</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>                                        
+        </div>
+    </div>
+    <div class="jrad-buttons-container ui-buttons-container">                               
+        <button class="jrad-btn-primary btn btn-small btn-primary">完成</button>
+        <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+    </div>
+</div>
+<!--入库类型新增-->
+<div class="grid-layout ui-form"  style="display:none;" id="Form_storageType_add">
+    <div class="jrad-form">  
+        <div class="grid-layout-main">
+            <div class="grid-row-fluid">
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 115px;">*</span>出库类型：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="name" class="jrad-input-container"></div>
+                    </div>
+                    <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+                </div>                                  
+            </div>
+            <div class="grid-row-fluid">
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">备注：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="description" class="jrad-textarea-container"></div>
+                    </div>
+                    <label class="span3 grid-layout-label" style="color: #999">20个字以内</label>
+                </div>                                  
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">                               
+            <button class="jrad-btn-primary btn btn-small btn-primary">完成</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div>
+</div>
+<!-- 经办人弹框 -->
+<div class="grid-layout ui-form"  style="display:none;" id="Form_agent">
+    <div class="jrad-form">  
+        <div class="grid-layout-main">
+            <div class="grid-row-fluid">
+                <div style="margin-bottom: 10px;margin-left: 44px;">
+                    <a style="margin-right: 10px;" id="agent_add">新增</a>
+                </div>
+                <table id="Table_agent" style="width: 500px;margin: 0 auto;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">经办人</th>
+                            <th style="text-align: center;">职务</th>
+                            <th style="text-align: center;">联系电话</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>                                        
+        </div>
+    </div>
+    <div class="jrad-buttons-container ui-buttons-container">                               
+        <button class="jrad-btn-primary btn btn-small btn-primary">完成</button>
+        <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+    </div>
+</div>
+<!--经办人新增-->
+<div class="grid-layout ui-form"  style="display:none;" id="Form_agent_add">
+    <div class="jrad-form">  
+        <div class="grid-layout-main">
+            <div class="grid-row-fluid">
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 131px;">*</span>经办人：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="name" class="jrad-input-container"></div>
+                    </div>
+                    <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+                </div>                                  
+            </div>
+            <div class="grid-row-fluid">
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">职务：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="position" class="jrad-input-container"></div>
+                    </div>
+                    <label class="span3 grid-layout-label" style="color: #999">11个字以内</label>
+                </div>                                  
+            </div>
+            <div class="grid-row-fluid">
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">电话：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="telephone" class="jrad-input-container"></div>
+                    </div>
+                    <label class="span3 grid-layout-label" style="color: #999">11个字以内</label>
+                </div>                                  
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">                               
+            <button class="jrad-btn-primary btn btn-small btn-primary">完成</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div id="Wraper_outbound_details" style="display:none;">
+    <div class="ui-info-layout" id="jrad-table">
+        <div class="vdiv">
+            <table id="Table_goods_add"></table>
+            <a id="v_return" class="closeStyle v_return">出库添加完成</a>
+        </div>
+    </div>
+</div>
+
+<div  class="auditPage" style="display:none;min-height: 500px;position:relative;">
+    <div class="prompt" style="position: absolute;left:50%;top: 50%;margin-left: -100px;">
+        <i class="icon-envelope-alt" style="margin-right: 10px;"></i>
+        <span style="font-size: 18px;">订单出库完成</span>
+        <button id="close1" class="closeStyle">关闭</button>
+    </div>
+</div>
+
+ <script type="text/javascript">
+    $(document).ready(function() {
+        var wraper = $('#Wraper_special_list');
+        var parentId = carsmart_config.shopId;
+        var page_column_model = new Array();
+        var page_search_items = new Array();
+        var page_list_buttons = new Array();
+        var page_search_items_a=new Array(); 
+        var entityModel = {};
+        var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+        // fields: false, 初始化form中的组件
+        var fields_params ={};  
+
+        jRad.params['storageId'] = {
+            urlData:{
+                url:'/vip-ws/ws/0.1/storage/queryStoragelist?shopAccountId='+carsmart_config.shopId,
+                id: 'id',       // 隐含值
+                name: 'name',   // 展示值
+                type: 'get',    // 请求方式
+                dataType: 'json'
+            },
+            unshiftData:{id:'',name:'请选择'}
+        };
+        var fields_params2 ={};
+        fields_params2['storageTypeId'] = {
+            urlData:{
+                url:'/vip-ws/ws/0.1/storageType/queryOutStorageTypelist?shopAccountId='+carsmart_config.shopId
+                +"&status=1",
+                id: 'id',       // 隐含值
+                name: 'name',   // 展示值
+                type: 'get',    // 请求方式
+                dataType: 'json'
+            },
+        };
+
+        fields_params2['agentId'] = {
+            urlData:{
+                url:'/vip-ws/ws/0.1/agent/queryAgentlist?shopAccountId='+carsmart_config.shopId,
+                id: 'id',       // 隐含值
+                name: 'name',   // 展示值
+                type: 'get',    // 请求方式
+                dataType: 'json'
+            },
+            unshiftData:{id:'',name:'请选择'}
+        };
+
+        page_search_items.push({row:'1',type:'jrad-select',display:'出库库房',name:'storageId',params:jRad.params['storageId']});
+        page_search_items.push({row:'1',type:'jrad-input',display:'出库日期',name:'orderDate',params:jRad.params['orderDate']});
+
+        page_list_buttons.push({title: '出库商品添加',displayname:'出库商品添加',bclass: 'icon-plus',
+            onpress: function(){
+                arr = [];
+                $("#Table_outBound tbody tr").each(function(i){
+                    arr.push($("#Table_outBound tbody tr").eq(i).attr("id"))
+                })
+                $("#Wraper_special_list").hide();
+                $("#Wraper_outbound_details").show();
+                $("#Wraper_outbound_details .searchButtons .btn-info").eq(0).click();
+            }
+        }); 
+
+        $('#Table_special_list').flexigrid({
+            colModel: page_column_model,
+            searchitems: page_search_items,   //设置查询条件
+            buttons : page_list_buttons,      //操作按钮
+            showSearch:true,      //设置是否默认显示高级查询
+            showCheckbox: false,   //是否加复选框
+            onError:showError2
+        });
+
+        $("#Wraper_special_list .table-footer").css("display","none");
+        $("#Table_special_list button[title='刷新']").css("display","none")
+
+        $('.tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:16px;float:left;line-height:60px;">特殊出库</span>');
+
+        $("#Wraper_special_list .grid-layout-content").append("<a>管理</a>");   //添加管理
+        $(".grid-layout-content a:contains('管理')").each(function(i){
+            $(".grid-layout-content a:contains('管理')").eq(i).addClass("aStyle");
+        })
+        $("#Wraper_special_list div[name=storageId]").css({"float":"left","width":"200px"})
+        $("#Wraper_special_list div[name=storageTypeId]").css({"float":"left","width":"150px","margin-right":"0px"})
+        $("#Wraper_special_list div[name=agentId]").css({"float":"left","width":"156px","margin-right":"0px"})
+        $("#Wraper_storage_list div[name=orderDate]").css("width","150px");
+
+        $(".grid-layout-content a:contains('管理')").eq(1).css("display","none");
+        $(".grid-layout-content a:contains('管理')").eq(0).parent("div").css("min-width","250px");
+
+        $('#Table_outBoundlist').form({
+            validators:jRad.validators,
+            fields:fields_params2,
+            layout:'grid'
+        });
+
+        function showError2(xhr){
+            var errormsg = eval("(" + xhr.responseText + ")");
+            var vdiv = $("#Wraper_goods_manage .vdiv");
+            $.jRadMessage({level:'error',message:errormsg[0].message,selector:vdiv});
+        }
+
+        $('.hDiv',wraper).css('overflow','hidden');
+        // $('.bDiv',wraper).css('overflow-x','scroll');
+
+
+        //提交审核
+        $('#audit').click(function(){
+            $.jRadConfirm('确认要出库吗？',1,function(){
+                // var checked = $('#Table_goods_add').getCheckedTrs();
+                var postData = {};
+                postData.agentId=$("#Wraper_special_list div[name=agentId]").select('val');
+                postData.storageId=$("#Wraper_special_list .searchContent div[name=storageId]").select('val');
+                postData.storageTypeId=$("#Wraper_special_list div[name=storageTypeId]").select('val');
+                postData.totalAmount=$("#Table_outBoundlist div[name=totalAmount]").html();
+                postData.orderDate=$("#Wraper_special_list .grid-row-fluid div[name=orderDate]").html();
+                postData.totalMoney=$("#totalAmount").attr("grossamount");
+                postData.shopAccountId=carsmart_config.shopId;
+                var commodityIds=[];               
+                $("#Table_outBound tbody tr").each(function(i){
+                   var myData={}; 
+                   myData.commodityId=$(this).attr("id");
+                   myData.amount=$("input.count").eq(i).val();
+                   myData.totalMoney=$("td.totalMoney").eq(i).html();
+                   commodityIds.push(myData);
+                })
+                postData.commodityIds=commodityIds;
+                $.jRadPost({  
+                    url:'/vip-ws/ws/0.1/transferOrder/deliveryOrder',
+                    data:postData, 
+                    success: function(data){ 
+                        $("#Wraper_special_list").hide();
+                        $(".auditPage").show();
+
+                    },
+                    error:function(xhr){ 
+                        var errormsg = eval("(" + xhr.responseText + ")"); 
+                        console.log(errormsg[0].message)
+                        if (errormsg != undefined) {
+                            // $('.vdiv').flexMessage(errormsg[0].message, 'error');
+                            $.jRadMessage({level:'error',message:errormsg[0].message,selector:$('#Table_outBound thead')});
+                        }
+                    }
+                });
+            }); 
+        });
+
+        // 关闭
+        $("#close1").click(function(){
+            // $("#Wraper_special_list").show();
+            $.jRadOpen({'url':'outbound/outTable.html'})
+            $(".auditPage").hide();
+        })
+
+        //入库库房管理
+        $(".grid-layout-content a:contains('管理')").eq(0).click(function(id){
+            var dtails = $.jRadGet({
+                url:'/vip-ws/ws/0.1/storage/queryStoragelist?shopAccountId='+carsmart_config.shopId,
+            });
+            $('#Form_warehousing').form({
+                title: '出库库房',
+                url:'/vip-ws/ws/0.1/storage/getStorageById',
+                preSubmit:function(json){ 
+                    json.commodityId = item.id;   //商品id获取
+                    json.shopAccountId = carsmart_config.shopId;
+                    // json.operator = carsmart_config.operatorName;   //经办人获取
+                    json.operatorId = 123;   //经办人获取
+                    return json;
+                },
+                success: function(){ 
+                     $.jRadOpen({'url':'outbound/specialTable.html'})
+                }
+                }).form('open');
+
+                var tr_len=$("#Table_warehousing").find("tr").length;
+                for(var cur=0;cur<tr_len;cur++){
+                    if(cur!==0){
+                      $("#Table_warehousing").find("tr").eq(cur).hide();
+                    }
+                };  
+
+                var str="";
+                $.each(dtails,function(i){
+                    var _item=dtails[i];
+                    str+="<tr>"
+                        // +"<td style='text-align: center;'>"+"<input type='checkbox' class='inputstyle'>"+"</td>"
+                        // +"<td style='text-align: center;'>"+_item.id+"</td>"
+                        +"<td style='text-align: center;'>"+_item.name+"</td>"
+                        +"<td style='text-align: center;'>"+_item.description+"</td>"
+                        +"<td style='text-align: center;'>"+'<a class="storageEdit" id="'+_item.id+'">编辑</a><a class="storageDel" style="margin-left:10px" id="'+_item.id+'">删除</a></td>'
+                        +"</tr>";
+                });
+                $("#Table_warehousing tbody").append(str);
+            
+        })  
+
+        //入库库房新增
+        $("#warehousing_add").click(function(){
+            $("#Form_warehousing").form('close');
+            $('#Form_warehousing_add').form({
+                title: '新增',
+                url:'/vip-ws/ws/0.1/storage/addStorage',
+                preSubmit:function(json){ 
+                    // json.commodityId = item.id;   //商品id获取
+                    json.operator = carsmart_config.operatorName; 
+                    json.shopAccountId = carsmart_config.shopId;
+                    json.operatorId = 123;   //经办人获取
+                    // console.log(carsmart_config.operatorName)
+                    return json;
+                },
+                success: function(){ 
+                    $.jRadOpen({'url':'outbound/specialTable.html'})
+                }
+                }).form('open');
+        })  
+
+        //入库库房编辑
+        $("#Table_warehousing").on('click','.storageEdit',function(){
+            $("#Form_warehousing").form('close');
+            var _id = $(this).attr("id");
+            var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/storage/getStorageById?storageId='+_id,
+             });
+            $('#Form_warehousing_add').form({
+                title: '编辑',
+                item:dtails,
+                url:'/vip-ws/ws/0.1/storage/editStorage',
+                preSubmit:function(json){ 
+                    json.storageId =_id;   //商品id获取
+                    json.operator = carsmart_config.operatorName;   //经办人获取
+                    json.shopAccountId = carsmart_config.shopId;
+                    return json;
+                },
+                success: function(){ 
+                    $.jRadOpen({'url':'outbound/specialTable.html'})
+                },
+                cancel:function(){
+                        $.jRadOpen({'url':'outbound/specialTable.html'})
+                        $(".modal-backdrop").hide()
+                }
+                }).form('open');
+        })  
+
+        //入库库房删除
+        $("#Table_warehousing").on('click','.storageDel',function(){
+            $("#Form_warehousing").form('close');
+            var _id = $(this).attr("id");
+            $.jRadConfirm('是否确认删除该供应商？',1,function(){
+                $.jRadGet({  
+                    url:'/vip-ws/ws/0.1/storage/deleteStorageById?storageId='+_id,
+                    success: function(data){ 
+                        $.jRadOpen({'url':'outbound/specialTable.html'})
+                    },
+                    error:function(xhr){ 
+                        var errormsg = eval("(" + xhr.responseText + ")"); 
+                        if (errormsg != undefined) {
+                            $('#Table_warehousing').flexMessage(errormsg[0].message, 'error');
+                        }
+                    }
+                });
+            })
+        })
+
+        //入库类型管理
+        $(".grid-layout-content a:contains('管理')").eq(2).click(function(id){
+            var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/storageType/queryOutStorageTypelist?shopAccountId='+carsmart_config.shopId+"&status=1",
+            });
+            $('#Form_storage_type').form({
+                title: '出库类型',
+                url:'/vip-ws/ws/0.1/storageType/getStorageTypeById',
+                preSubmit:function(json){ 
+                    json.commodityId = item.id;   //商品id获取
+                    // json.operator = carsmart_config.operatorName;   //经办人获取
+                    json.shopAccountId = carsmart_config.shopId;
+                    json.operatorId = 123;   //经办人获取
+                    return json;
+                },
+                success: function(){ 
+                    $.jRadOpen({'url':'outbound/specialTable.html'})
+                }
+                }).form('open');
+
+                var tr_len=$("#Table_storageType").find("tr").length;
+                for(var cur=0;cur<tr_len;cur++){
+                    if(cur!==0){
+                      $("#Table_storageType").find("tr").eq(cur).hide();
+                    }
+                }; 
+
+                var str="";
+                $.each(dtails,function(i){
+                    var _item=dtails[i];
+                    str+="<tr>"
+                        // +"<td style='text-align: center;'>"+"<input type='checkbox' class='inputstyle'>"+"</td>"
+                        // +"<td style='text-align: center;'>"+_item.id+"</td>"
+                        +"<td style='text-align: center;'>"+_item.name+"</td>"
+                        +"<td style='text-align: center;'>"+_item.description+"</td>"
+                        +"<td style='text-align: center;'>"+'<a class="typeEdit" id="'+_item.id+'">编辑</a><a class="typeDel" style="margin-left:10px" id="'+_item.id+'">删除</a></td>'
+                        +"</tr>";
+                });
+                $("#Table_storageType tbody").append(str); 
+                $("#Table_storageType a.typeEdit").eq(0).css("display","none");
+                $("#Table_storageType a.typeDel").eq(0).css("display","none");
+                $("#Table_storageType a.typeEdit").eq(1).css("display","none");
+                $("#Table_storageType a.typeDel").eq(1).css("display","none");
+        })
+
+        //出库类型新增
+        $("#storageType_add").click(function(){
+            $("#Form_storage_type").form('close');
+            $('#Form_storageType_add').form({
+                title: '新增',
+                url:'/vip-ws/ws/0.1/storageType/addStorageType',
+
+                preSubmit:function(json){ 
+                    // json.commodityId = item.id;   //商品id获取
+                    json.flag=2;
+                    json.operator = carsmart_config.operatorName;   //经办人获取
+                    json.shopAccountId = carsmart_config.shopId;
+                    json.operatorId = 123;   //经办人获取
+                    return json;
+                },
+                success: function(){ 
+                    $.jRadOpen({'url':'outbound/specialTable.html'})
+                }
+                }).form('open');
+        }) 
+
+        //出库类型编辑
+        $('#Table_storageType').on('click','.typeEdit',function(){
+            $("#Form_storage_type").form('close');
+            var _id = $(this).attr("id");
+            var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/storageType/getStorageTypeById?storageTypeId='+_id,
+             });
+            $('#Form_storageType_add').form({
+                title: '编辑',
+                item:dtails,
+                url:'/vip-ws/ws/0.1/storageType/editStorageType',
+                preSubmit:function(json){ 
+                    json.storageTypeId = _id;   //商品id获取
+                    json.operator = carsmart_config.operatorName;   //经办人获取
+                    json.shopAccountId = carsmart_config.shopId;
+                    return json;
+                },
+                success: function(){ 
+                    $.jRadOpen({'url':'outbound/specialTable.html'})
+                },
+                cancel:function(){
+                        $.jRadOpen({'url':'outbound/specialTable.html'})
+                        $(".modal-backdrop").hide()
+                }
+            }).form('open');
+        }) 
+
+        //出库类型删除
+        $('#Table_storageType').on('click','.typeDel',function(){
+            $("#Form_storage_type").form('close');
+            var _id = $(this).attr("id");
+            $.jRadConfirm('是否确认删除该入库类型？',1,function(){
+                $.jRadGet({  
+                    url:'/vip-ws/ws/0.1/storageType/deleteStorageTypeById?storageTypeId='+_id+"&shopAccountId="+carsmart_config.shopId,
+                    success: function(data){ 
+                        $.jRadOpen({'url':'outbound/specialTable.html'})
+                        shopAccountId = carsmart_config.shopId
+                    },
+                    error:function(xhr){ 
+                        var errormsg = eval("(" + xhr.responseText + ")"); 
+                        if (errormsg != undefined) {
+                            $('#Table_storageType').flexMessage(errormsg[0].message, 'error');
+                        }
+                    }
+                });
+            })
+        })
+        //经办人管理
+        $(".grid-layout-content a:contains('管理')").eq(3).click(function(id){
+            var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/agent/queryAgentlist?shopAccountId='+carsmart_config.shopId,
+             });
+            $('#Form_agent').form({
+                title: '经办人',
+                url:'/vip-ws/ws/0.1/agent/getAgentById',
+                preSubmit:function(json){ 
+                    json.commodityId = item.id;   //商品id获取
+                    // json.operator = carsmart_config.operatorName;   //经办人获取
+                    json.shopAccountId = carsmart_config.shopId;
+                    json.operatorId = 123;   //经办人获取
+                    return json;
+                },
+                success: function(){ 
+                    $.jRadOpen({'url':'outbound/specialTable.html'})
+                }
+                }).form('open'); 
+
+                var tr_len=$("#Table_agent").find("tr").length;
+                for(var cur=0;cur<tr_len;cur++){
+                    if(cur!==0){
+                      $("#Table_agent").find("tr").eq(cur).hide();
+                    }
+                };
+
+                var str="";
+                $.each(dtails,function(i){
+                    var _item=dtails[i];
+                    str+="<tr>"
+                        // +"<td style='text-align: center;'>"+"<input type='checkbox' class='inputstyle'>"+"</td>"
+                        // +"<td style='text-align: center;'>"+_item.id+"</td>"
+                        +"<td style='text-align: center;'>"+_item.name+"</td>"
+                        +"<td style='text-align: center;'>"+_item.position+"</td>"
+                        +"<td style='text-align: center;'>"+_item.telephone+"</td>"
+                        +"<td style='text-align: center;'>"+'<a class="agentEdit" id="'+_item.id+'">编辑</a><a class="agentDel" style="margin-left:10px" id="'+_item.id+'">删除</a></td>'
+                        +"</tr>";
+                });
+                $("#Table_agent tbody").append(str);           
+        })
+        //经办人新增
+        $("#agent_add").click(function(){
+            $("#Form_agent").form('close');
+            $('#Form_agent_add').form({
+                title: '新增',
+                url:'/vip-ws/ws/0.1/agent/addAgent',
+                preSubmit:function(json){ 
+                    // json.commodityId = item.id;   //商品id获取
+                    json.operator = carsmart_config.operatorName;   //经办人获取
+                    json.shopAccountId = carsmart_config.shopId;
+                    json.operatorId = 123;   //经办人获取
+                    return json;
+                },
+                success: function(data){ 
+                        $.jRadOpen({'url':'outbound/specialTable.html'})
+                }
+                }).form('open');
+        }) 
+        //经办人编辑
+         $('#Table_agent').on('click',".agentEdit",function(){
+            $("#Form_agent").form('close');
+            var _id = $(this).attr("id");
+            var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/agent/getAgentById?agentId='+_id,
+             });
+            $('#Form_agent_add').form({
+                title: '编辑',
+                item:dtails,
+                url:'/vip-ws/ws/0.1/agent/editAgent',
+                preSubmit:function(json){ 
+                    json.id = _id;   //商品id获取
+                    json.operator = carsmart_config.operatorName;   //经办人获取
+                    json.shopAccountId = carsmart_config.shopId;
+                    // json.operatorId = 123;   //经办人获取
+                    return json;
+                },
+                success: function(){ 
+                    $.jRadOpen({'url':'outbound/specialTable.html'})
+                },
+                cancel:function(){
+                        $.jRadOpen({'url':'outbound/specialTable.html'})
+                        $(".modal-backdrop").hide()
+                }
+            }).form('open');
+         })
+        //经办人删除
+        $('#Table_agent').on('click',".agentDel",function(){
+           $("#Form_agent").form('close'); 
+           var _id = $(this).attr("id");
+            $.jRadConfirm('是否确认删除该经办人？',1,function(){
+                $.jRadGet({  
+                    url:'/vip-ws/ws/0.1/agent/deleteAgentById?agentId='+_id,
+                    success: function(data){ 
+                        $.jRadOpen({'url':'outbound/specialTable.html'})
+                    },
+                    error:function(xhr){ 
+                        var errormsg = eval("(" + xhr.responseText + ")"); 
+                        if (errormsg != undefined) {
+                            $('#Table_storageType').flexMessage(errormsg[0].message, 'error');
+                        }
+                    }
+                });
+            })
+        })
+
+        function currentTime(){
+            var d = new Date(),str = '';
+            str += d.getFullYear()+'-';
+            str  += d.getMonth() + 1+'-';
+            str  += d.getDate();
+            // str += d.getHours()+'时'; 
+            // str  += d.getMinutes()+'分'; 
+            // str+= d.getSeconds()+'秒'; 
+            return str;
+        }
+        setInterval(function(){$('.searchContent div[name=orderDate]').html(currentTime)},1000);
+        $('#Table_special_list div[name="orderDate"]').input('readonly',true);
+
+    });
+ </script>
+
+ <script type="text/javascript">
+
+ $(document).ready(function(){
+    var wraper_b = $('#Wraper_outbound_details');
+        var parentId = carsmart_config.shopId;
+        var page_column_model_b = new Array();
+        var page_search_items_b = new Array();
+        var page_list_buttons_b = new Array();  
+        var entityModel = {};
+        var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+        // fields: false, 初始化form中的组件
+        var fields_params ={};
+
+        jRad.params['secondClassificationId'] = {
+            data: [{id:'',name:'请选择'}]
+        };
+
+        jRad.params['firstClassificationId'] = {
+            urlData:{
+                url:'/vip-ws/ws/0.1/classification/getClassificationsList',
+                id: 'classificationId',// 隐含值
+                name: 'name'// 展示值
+            },
+            unshiftData: {id:'',name:'请选择'},
+            onchange: function(){
+                var provinceCode = $('.searchContent div[name=firstClassificationId]',wraper_b).select('val'); 
+                if(provinceCode==''){ 
+                    $('.searchContent div[name=secondClassificationId]',wraper_b).select({
+                        urlData:{url:''},
+                        data:[{id:'',name:'请选择'}]});
+                }else{  
+                    $('.searchContent div[name=secondClassificationId]',wraper_b).select({ 
+                        urlData:{
+                            url: '/vip-ws/ws/0.1/classification/getClassificationsByParentId?classificationId='+provinceCode,
+                            id: 'classificationId',// 隐含值
+                            name: 'name'// 展示值 
+                        },
+                        unshiftData: {id:'',name:'请选择'}
+                    }).select('val','');
+                }
+            }
+        };   
+
+        page_search_items_b.push({row:'1',type:'jrad-input',display:'商品名称',name:'name'});
+        page_search_items_b.push({row:'1',type:'jrad-select',display:'商品一级分类',name:'firstClassificationId',params:jRad.params['firstClassificationId']});
+        page_search_items_b.push({row:'1',type:'jrad-select',display:'商品二级分类',name:'secondClassificationId',params:jRad.params['secondClassificationId']});
+
+
+        page_column_model_b.push({display: '商品编号', name : 'code'});         
+        page_column_model_b.push({display: '商品id', name : 'id',hidden:true});
+        page_column_model_b.push({display: '商品名称', name : 'name'});
+        page_column_model_b.push({display: '品牌', name : 'brand'});
+        page_column_model_b.push({display: '规格', name : 'norms'});
+        page_column_model_b.push({display: '当前售价', name : 'salePrice'});
+        page_column_model_b.push({display: '操作',width:200, name : 'operate',
+            diy:function(item,$div){
+                var $add = $("<a>").addClass('flexOperate').html("添加");
+                var $addInfo = $("<a>").addClass('flexOperate').html("(已添加)").css("color","#BC1313");
+                var count=0;
+                totalNO=0;
+                var totalMoney=0;
+                grossAmount=0;
+                $div.append($add);
+                $add.click(function(){
+                    $(".tips").css("display","none") 
+                    var checked = $('#Table_goods_add').getCheckedTrs(); 
+                    var _id=item.id;
+                    var str="";
+                    str+="<tr id='"+item.id+"'>"
+                        +"<td>"+item.code+"</td>"
+                        +"<td>"+item.name+"</td>"
+                        +"<td>"+item.brand+"</td>"
+                        +"<td>"+item.norms+"</td>"
+                        +"<td>"+item.salesUnit+"</td>"
+                        +"<td><input type='text' class='inputstyle"+item.id+" count' style='width:50px;' value='0' maxlength='10'></td>"
+                        +"<td class='sale'>"+item.salePrice+"</td>"
+                        +"<td class='totalMoney'>"+totalMoney+"</td>"
+                        +"<td>"+"<a class='infoDel' name="+item.id+" >删除</a>"+"</td>"
+                        +"</tr>";    
+
+                    if(arr.length == 0){
+                        $("#Table_outBound tbody").append(str);
+                    }else if(arr.length>1){
+
+                    }else{
+                         $.each(arr,function(i){
+                            if(_id == arr[i]){
+
+                            }else{                                      
+                                $("#Table_outBound tbody").append(str);
+                            }
+                        })
+                    }
+
+                    if(arr.length>1){
+                        var flag=0;
+                        $.each(arr,function(i){
+                            if(_id == arr[i]){
+                                flag++;
+                            } 
+                        })
+                        if(flag == 0){
+                                $("#Table_outBound tbody").append(str);
+                        }
+                    }
+
+
+
+                    $("input.count").keyup(function(e) {　　　
+                        // this.value = this.value.replace(/[^\d]/g, '').replace(/(\d{10})(?=\d)/g, "$1 ");
+                        this.value = this.value.replace(/[^\d]/g, '');
+                        if(this.value == 0){
+                            this.value = " ";
+                        }
+                    });
+
+                    var val=$(".inputstyle"+item.id).val();
+                    $(".inputstyle"+item.id).val(parseInt(val)+1);                   
+                    count++;
+
+                    var tr_len=$("#Table_outBound tbody").find("tr").length;
+
+                    $("#totalAmount").html(totalNO);
+
+                    $("input.count").focus(function(){
+                        $(this).attr("data-oval",$(this).val()); //将当前值存入自定义属性
+                    }).blur(function(){
+                            var oldVal=($(this).attr("data-oval")); //获取原值
+                            var newVal=($(this).val()); //获取当前值
+                            if (oldVal!=newVal)
+                            {
+                            totalNO=0;
+                            totalMoney=0;
+                            grossAmount=0
+                            for(var i=0;i<tr_len;i++){
+                                var val1=$("input.count").eq(i).val();
+                                totalNO=totalNO+parseInt(val1);
+                                $("#totalAmount").html(totalNO);
+                                var sale=$("td.sale").eq(i).html();
+                                totalMoney=toDecimal2(parseInt(val1)*parseFloat(sale));
+                                $("td.totalMoney").eq(i).html(totalMoney);
+                                var val3=$("td.totalMoney").eq(i).html();
+                                grossAmount=grossAmount+parseFloat(val3);
+                                $("#totalAmount").attr("grossamount",grossAmount)
+                            }
+                        }
+                    });
+
+
+
+                    for(var i=0;i<tr_len;i++){
+                            var val=$("input.count").eq(i).val();
+                            var sale=$("td.sale").eq(i).html();
+                            totalMoney=toDecimal2(parseInt(val)*parseFloat(sale));
+                            $("td.totalMoney").eq(i).html(totalMoney);
+                            totalNO=totalNO+parseInt(val); 
+                            var val2=$("td.totalMoney").eq(i).html();
+                            grossAmount=grossAmount+parseFloat(val2); 
+                            $("#totalAmount").attr("grossamount",grossAmount);                                            
+                    }
+
+                    // $("#totalAmount").attr("grossamount",grossAmount)
+                    $("#totalAmount").html(totalNO);
+                    totalNO=0;
+
+                    $div.append($addInfo);
+
+                    $(this).unbind('click');
+                    $(this).css("color","#D3D3D3");
+
+                    $('.infoDel').unbind("click").bind('click',function(){
+                        var tr=$(this).parent().parent();
+                        $.jRadConfirm('确认删除吗？',1,function(){                                  
+                                tr.remove(); 
+                                success:{
+                                    totalNO=0;
+                                    $("input.count").each(function(i){
+                                        var val=$("input.count").eq(i).val();
+                                        totalNO=totalNO+parseInt(val);
+                                    })
+                                    $("#totalAmount").html(totalNO);
+                                }
+                        });                            
+                    }) 
+
+                    // 保留2位小数正则
+                    function toDecimal2(x) {    
+                        var f = parseFloat(x);    
+                        if (isNaN(f)) {    
+                            return false;    
+                        }    
+                        var f = Math.round(x*100)/100;    
+                        var s = f.toString();    
+                        var rs = s.indexOf('.');    
+                        if (rs < 0) {    
+                            rs = s.length;    
+                            s += '.';    
+                        }    
+                        while (s.length <= rs + 2) {    
+                            s += '0';    
+                        }    
+                        return s;    
+                    }
+
+                })
+            }
+        });
+
+        // page_list_buttons_b.push({title: '返回',displayname:'返回',bclass: 'icon-reply',
+        //     onpress: function(){
+        //         $("#Wraper_special_list").show();
+        //         $("#Wraper_outbound_details").hide();
+        //     }
+        // });
+
+        $("#v_return").click(function(){;
+            $("#Wraper_special_list").show();
+            $("#Wraper_outbound_details").hide();
+        })
+
+        $('#Table_goods_add').flexigrid({
+            reload: true,   //是否有刷新按钮
+            pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},   //是否分页
+            colModel: page_column_model_b,
+            searchitems: page_search_items_b,   //设置查询条件
+            buttons : page_list_buttons_b,      //操作按钮
+            pagedStyle: 'oc',        //请求分页参数格式 默认OC ，RAD GRID
+            method:'get',
+            showSearch:true,      //设置是否默认显示高级查询
+            showCheckbox: false,   //是否加复选框
+            overflow:true,        //当数据的宽度大于屏幕宽度时，是否显示横向滚动条。false：表示不显示 true:表示显示
+            checkBoxType:'single', //表格但多选，默认空串（多选），如果 'single'单选
+            onError:showError3,
+            url:'/vip-ws/ws/0.1/commodity/queryCommodities?shopAccountId='+carsmart_config.shopId+"&status=1"
+        });
+
+        $('.tDiv',wraper_b).before('<span style="margin:0 20px 0 14px;font-size:16px;float:left;line-height:60px;">商品添加</span>');
+
+        function showError3(xhr){
+            var errormsg = eval("(" + xhr.responseText + ")");
+            var vdiv = $("#Wraper_outbound_details .vdiv");
+            $.jRadMessage({level:'error',message:errormsg[0].message,selector:vdiv});
+        }
+
+
+        $('#Wraper_outbound_details .vdiv .hDiv tr th').eq(1).attr("style","display:none;");   //隐藏商品id
+
+
+        
+
+        $('.hDiv',wraper_b).css('overflow','hidden');
+        $('.bDiv',wraper_b).css('overflow-x','scroll');
+ });
+
+ </script>

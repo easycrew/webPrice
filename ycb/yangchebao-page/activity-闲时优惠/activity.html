@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>  
+<title>活动</title>
+<style type="text/css">
+    body{
+    font-family:'华文细黑','HelveticaNeue-Light';
+    font-size:62.5%;
+    color:#fff;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+    background-color: #473f89;
+}
+body,html{
+    min-height:100%;
+}
+a{
+    text-decoration:none;
+}
+ul{
+    list-style:none;
+}
+img{
+    border:none;
+}
+*{
+    margin:0;
+    padding:0;
+}
+.clearfix {
+   *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+   display: table;
+   line-height: 0;
+   content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.activity-wrap{
+    color: #fff;
+}
+.activity-wrap h2{
+    font-size: 1.6em;
+    margin-bottom: 0.714em; 
+}
+.activity-wrap .intro{
+    color: #fff;
+    font-size: 1.6em;
+    line-height: 1.427em;
+    text-indent: 1.714em;
+}
+.activity-wrap .flag{
+    background-color: #4d9eea;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #ffffff;
+    display: inline-block;
+    font-weight:normal;
+    height: 1.714em;
+    line-height: 1.714em;
+    text-align: center;
+    padding: 0 0.714em;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    margin-right: 0.357em;
+}
+.activity-wrap .flag-wrap{
+    margin-top:0.357em;
+}
+.activity-wrap figure img{
+    display: block;
+    width: 100%;
+}
+.activity-wrap figure > div{
+    padding: 1.5em;
+}
+.activity-wrap figure .intro{
+    color: #fff;
+}
+.activity-content{
+    padding:1em 1.5em;
+}
+.activity-content article{
+    margin-bottom: 1.8em;
+}
+.button-wrap{
+    margin-top:1.25em;  
+}
+.module-wrap:first-child,
+.button-wrap:first-child{
+    margin-top:0;
+}
+.btn{
+    background-color:#e90722;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    color:#ffffff;
+    font-size:1.8em;
+    display:block;
+    height:2.4em;
+    line-height:2.4em;
+    text-align:center;
+    padding:0 0.5em;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.list-module,
+.list-module-pic{
+    margin-bottom:0.7em;
+}
+.list-module h3,
+.list-module-pic h3{
+    color:#fff;
+    font-size: 1.8em;
+    line-height:1.125em;
+    font-weight:normal;
+    margin-bottom: 0.313em;
+}
+.list-module h3 .tit,
+.list-module-pic h3 .tit{
+    display:inline-block;
+    vertical-align: middle;
+}
+.list-module-pic li{
+    border-bottom:1px #fff solid;
+    padding: 0 0 1em;
+    margin-bottom: 1em;
+}
+.list-module li:last-child,
+.list-module-pic li:last-child{
+    border-bottom:none;
+}
+.list-module p,
+.list-module-pic p{
+    font-size:1.6em;
+    line-height:1.286em;
+}
+.list-module-pic .pic{
+    border:1px #cdcccc solid;
+    float:left;
+    width:11em;
+}
+.list-module-pic .pic img{
+    display:block;
+    width:100%;
+}
+.list-module-pic .pic + div{
+    margin-left:12em;
+}
+.list-module-pic .flag{
+    height: 1.429em;
+    line-height: 1.429em;
+}
+.ui-tit{
+    font-size:1.6em;
+    line-height:1.25em; 
+    font-weight:normal;
+    padding:0.375em 1.125em;
+    margin-bottom:1.25em;
+}
+.ui-tit > span{
+    display:inline-block;
+    vertical-align: middle;
+}
+.activity-wrap .note{
+    color: #fff45c;
+} 
+.list-module li{ 
+    display: table;
+    width: 100%;
+    border-bottom:1px #fff solid; 
+}
+.list-module .tit{
+    color:#fff45c;
+    font-size: 1.6em;
+    display: table-cell;
+    vertical-align: middle;
+}
+.list-module .price{
+    font-size:2em; 
+    padding:0 1em;
+    color: #000;
+    background-color: #f29b76;
+    border-radius: 8px;
+    height: 1.8em;
+    line-height: 1.8em;
+    display: inline-block;
+}
+.list-module .label{
+    font-size:1.5em; 
+    padding:0 0.47em;
+    color: #000;
+    background-color: #fff45c;
+    border-radius: 12px;
+    height: 1.4em;
+    line-height: 1.4em;
+    display: inline-block;
+    position: absolute;
+    top: -1em;
+    left: -0.47em; 
+}
+.list-module .price-wrap{ 
+    display: table-cell;
+    text-align: right;
+}
+.list-module .price-wrap div{
+    display: inline-block;
+    position: relative;
+    margin:2.3em 0 0 2em;  
+    min-height:4.8em; 
+}
+</style>
+<body>
+	<section class="activity-wrap">
+		<figure>
+			<img src="http://app.yangchebao.com.cn/group1/M00/04/57/ChUBl1RzAdGAMkfUAAD4i7aYehI722.jpg">
+			<div>
+				<p class="intro">闲时：不是忙时就是闲时，闲时有什么？不是静坐待客，不是仓日晴岚，是更强的折扣和更细致的的服务。</p>
+	         	<p class="intro">养车宝联合北上广三地众多商家，为您带来维修服务“闲时优惠”，工时费折扣多多，优惠立享。</p>             
+         	</div>
+		</figure>
+		<div class="activity-content">
+			<article>
+				<h2><span class="flag">活动内容</span></h2>
+				<p class="intro">只要您是养车宝的用户，即可直接在提供服务的商家预约闲时时段接受维修或者任意其他服务，工时费打折更多，比平时更少排队，更悠闲的接受服务。</p>
+                <p class="intro">在下表中，您可以看到服务商家的详细信息，无须购买，直接在养车宝中拨打电话预约，告知商家您来自养车宝，即可享受“闲时优惠”！</p>
+                <p class="intro note">注：预约时间后未在闲时期间到店，将按照商家平时报价或重新协商服务价格。</p>
+			</article> 
+			<h2><span class="flag">活动支持商家和服务</span></h2>  
+			<ul class="list-module-pic"> 
+			<li class="clearfix">
+				<div class="pic"> <a href="http://w2l?shopid=104018"><img src="http://app.yangchebao.com.cn/group1/M00/03/A7/ChUBl1RQXMeAGDrDAAATQKsfQhQ180.jpg"/></a>
+			  </div>
+				<div>
+					<h3><span class="tit">北京天乐通达汽车用品有限公司</span></h3>
+					<p>商家地址：某某某某某某某莫某某某某地区</p>
+                    <p>联系电话：010-88403599</p>
+					<p>闲时段：8:00-10:00  17:00-19:00</p> 
+				</div>
+			</li>
+		    </ul> 
+			<ul class="list-module"> 
+			 <li>                    
+                  <span class="tit">服务：免费消毒免费消毒免费消毒免费消毒免费消毒</span>
+                  <div class="price-wrap">
+                      <div><span class="label">原价</span><span class="price">999</span></div> 
+                      <div><span class="label">折扣价</span><span class="price">888</span></div> 
+                  </div>
+                </li>   
+                <li>                    
+                  <span class="tit">服务：免费消毒</span>
+                  <div class="price-wrap">
+                      <div><span class="label">原价</span><span class="price">999</span></div> 
+                      <div><span class="label">折扣价</span><span class="price">888</span></div> 
+                  </div>
+                </li> 	
+                <li>                    
+                  <span class="tit">服务：免费消毒</span>
+                  <div class="price-wrap">
+                      <div><span class="label">原价</span><span class="price">999</span></div> 
+                      <div><span class="label">折扣价</span><span class="price">888</span></div> 
+                  </div>
+                </li> 
+			</ul>
+		</div>
+	</section> 
+</body>
+
+</html>
+

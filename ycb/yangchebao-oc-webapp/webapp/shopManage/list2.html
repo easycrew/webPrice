@@ -1,0 +1,1200 @@
+<style type="text/css">
+	#Form_service_carwash .ui-checkbox,#Form_service_smallUpkeep .ui-checkbox{
+		display: block;
+	}
+	.mouseDiv{
+		display:none;
+		border:1px solid #555;
+		background-color:#fff;
+	}
+	.overDiv{
+		background-color: black;
+		height: 100%;
+		opacity: 0.5;
+		position: absolute;
+		top:0;
+		width: 100%;
+	}
+	/* tab */
+	.details-box2{
+		border-width:1px;
+		border-color:#c6cad5;
+		border-style:solid;
+	}
+	.details-box-inner{
+		width:100%;
+	}
+	.details-tab2{
+		background-color:#e5e9ee;
+		height:36px;
+	}
+	.details-tab2 li{
+		height:31px;
+		line-height:31px;
+		font-size:14px;
+		padding-top:5px;
+	}
+	.details-tab2 li span{
+		display:block;
+		padding:0px 20px;
+		cursor:pointer;
+	}
+	.details-tab2 .tab-cur{
+		background:#ffffff url('css/images/details-tab-cur.png') repeat-x scroll 0 0;
+		margin-top:-1px;
+		height:32px;
+	}
+	.details-tab2 .tab-cur span{
+		border-left:1px #c8ccd7 solid;
+		border-right:1px #c8ccd7 solid;
+	}
+	.details-tab2 .tab-cur-first{
+		margin-left:-1px;
+	}
+	.details-tab2 .tab-cur-last span{
+		border-right:0px;
+	}
+	/*表格样式*/
+	table#process {
+	    font-size:11px;
+	    color:#333333;
+	    border-width: 1px;
+	    border-color: #666666;
+	    border-collapse: collapse;
+	    margin-left: 100px;
+	}
+	table#process th {
+	    border-width: 1px;
+	    padding: 8px;
+	    border-style: solid;
+	    border-color: #666666;
+	    background-color: #dedede;
+	}
+	table#process td {
+	    border-width: 1px;
+	    padding: 4px;
+	    border-style: solid;
+	    border-color: #666666;
+	    background-color: #ffffff;
+	}
+	table#process td input{
+		height: 24px;
+    	padding: 0 2px;
+    	width: 70px;
+	}
+	.app .note{
+		margin-left:90px;color:#ff0000;
+	}
+	.note2{margin:8px 0 8px 95px;color:#ff0000;}
+</style>
+
+<script type="text/javascript" src="shopManage/shopmanage.js"></script>
+<!-- <script type="text/javascript" src="shopManage/standard.js"></script> -->
+<!-- <script type="text/javascript" src="js/liandong.js"></script> -->
+
+<div class="urlContentWraper" id="Wraper_shop_list">
+	<div class="ui-info-layout">
+		<div class="ui-info-layout-subbox "> 
+			<div class="jrad-table">
+				<h2 class="ui-tit"><strong>商家管理列表</strong><bottom class="all-work-info numb31">页面说明</bottom></h2>
+				<div class="pic-grid">
+					<table id="Table_shop_list"></table> 
+				</div>
+			</div>
+			<h2 class="ui-tit" style="display:none;"><strong>商家新增</strong></h2>
+			<div class="details-box"> 
+				<ul class="details-tab">
+					<li class="tab-cur tab-cur-first f-left" rele="shopInfo"><span name="title">基础信息</span></li>
+					<li class="f-left" rele="operateInfo"><span name="title">运营信息</span></li>
+					<li class="f-left" rele="carwashService"><span name="title">洗车</span></li>
+					<li class="f-left" rele="beautifyService"><span name="title">美容</span></li> 
+					<li class="f-left" rele="upkeepService"><span name="title">保养</span></li>
+					<li class="f-left" rele="repairService"><span name="title">维修</span></li>
+					<li class="f-left" rele="rescueService"><span name="title">救援</span></li> 
+					<li class="f-left" rele="smallUpkeepService"><span name="title">小保养</span></li> 
+					<li class="f-left" rele="standardService"><span name="title">服务标准化</span></li> 
+					<li class="f-right"><span class="return"></span></li>
+					<li class="f-right"><span id="saveBtn" class="jrad-btn-normal" style="display:inline-block;float:right;margin:-2px 0 0;">保存全部</span></li> 
+				</ul>
+				<div class="details-content">
+					<div class="details-scroll">
+						<div class="details-content-inner">
+							<!--基础信息start-->
+							<div class="grid-layout ui-form tabReleForm" id="shopInfo">
+								<div class="jrad-form"> 
+									<div class="grid-layout-main">  
+										<input type="hidden" name="updateOrAdd"/>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">
+												<span class="ui-form-required">
+													*
+												</span>
+												商家名称：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-input-container" name="name">
+												</div>
+											</div> 
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												地址：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-input-container" name="address">
+												</div>
+											</div>
+										</div> 
+										<div class="row-fluid"> 
+											<label class="span3 grid-layout-label"> 
+												省：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="provinceId">
+												</div>
+											</div>
+											<label class="span3 grid-layout-label"> 
+												市：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="areaCodeId">
+												</div>
+											</div>
+											<label class="span3 grid-layout-label"> 
+												区县：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="countyId">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												邮箱：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-input-container" name="email">
+												</div>
+											</div>
+											<label class="span3 grid-layout-label"> 
+												QQ：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-input-container" name="qq">
+												</div>
+											</div>
+										</div>  
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												营业开始时间：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-dateinput-container" name="startTime">
+												</div>
+											</div>
+											<label class="span3 grid-layout-label"> 
+												营业结束时间：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-dateinput-container" name="endTime">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												售前电话：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-input-container" name="serviceTel">
+												</div>
+												<p class="ui-note">多个电话请用英文,隔开，一般不需要填写</p>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												售后电话：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-input-container" name="mobile">
+												</div>
+												<p class="ui-note">多个电话请用英文,隔开，请把手机号码填写在最前面，此手机号码将用来接收新订单提醒。</p>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">
+												商家类型：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="type">
+												</div>
+											</div>
+											<!-- <label class="span3 grid-layout-label">
+												支持在线支付：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="onlinePayStatus">
+												</div>
+											</div>
+											<label class="span3 grid-layout-label settle">
+												结算比例：
+											</label>
+											<div class="span6 grid-layout-content settle">
+												<div class="jrad-input-container" name="transferRate">
+												</div>%
+												<p class="ui-note">结算比例为商家结算的百分比；例如：和商家结算100元，设置结算比例为90%后，只用和商家结算90元。</p>
+											</div> -->
+										</div>
+										<!-- <div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												是否允许线下付款：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="allowOfflinePay">
+												</div>
+											</div>
+											<label class="span3 grid-layout-label"> 
+												返现分店是否通用：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="isSubsidyShare">
+												</div>
+											</div>
+											<label class="span3 grid-layout-label"> 
+												是否可以使用代金券：
+											</label>
+											<div class="span6 grid-layout-content">
+												<div class="jrad-select-container" name="canUseVoucher">
+												</div>
+											</div>
+										</div>  -->
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 服务品牌： </label>
+											<div class="span4 grid-layout-content fluid-wrap">
+												<div class="jrad-buttons-container" name="brand_check_btn">
+													<span id="jrad-button-brand" class="jrad-primary">
+														点击选择 </span>
+												</div>
+												<p id="brand_check_string" style="margin: 10px 0;"></p>
+											</div>
+											<label class="span3 grid-layout-label"> 
+												是否连锁店体系商家：
+											</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="isChainBusiness">
+												</div>
+											</div>
+											<label class="span3 grid-layout-label"> 
+												是否使用ERP系统：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="isUseErpSystem">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												状态：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="status">
+												</div>
+											</div>
+											<label class="span3 grid-layout-label"> 
+												BD负责人：
+											</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="bdOperator">
+												</div>
+											</div> 
+											<label class="span3 grid-layout-label"> 
+												是否接收告警短信：
+											</label>
+											<div class="span6 grid-layout-content">
+												<div class="jrad-select-container" name="isReceiveWMessage">
+												</div>
+											</div>
+										</div>
+										<!--tab 切换-->
+										<div style="margin-top:20px">
+											<span class="showTab showTab_select" name="shop_map_btn">经纬度信息</span> 
+											<span class="showTab" name="shop_dec_btn">商家简介</span>
+											<span class="showTab" name="shop_photo_btn">商家图片</span> 
+										</div>
+										<div style="border:1px solid #ccc;padding-top:10px;min-height:570px;">  
+										<div class="shop_map"> 			
+										<!-- <div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												原始经度：
+											</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="longtitude">
+												</div>
+											</div>
+											<label class="span4 grid-layout-label"> 
+												原始纬度：
+											</label>
+											<div class="span8 grid-layout-content">
+												<div class="jrad-input-container" name="latitude">
+												</div>
+												<span class="ui-note">原始经纬度不为必填项！</span>
+											</div>
+										</div> --> 
+										<div class="row-fluid"> 
+											<!-- onClick="sear(document.getElementById('txtCity').value);"  -->
+
+											<label class="span3 grid-layout-label"></label>
+											<input type="text" id="txtCity" name="txtCity" value="" style="width:427px;margin-left:18px;float:left;height:23px;" placeholder="请输入商家地址">
+											<button id="chaxun" style="float:left;margin:0 8px 5px 10px;height:24px;" class="btn btn-small ui-btn-primary"> 查询 </button>
+											<!-- <label class="span3 grid-layout-label"> 
+												显示经度（高德）：
+											</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="deflectionLongtitude">
+												</div>
+											</div>
+											<label class="span4 grid-layout-label"> 
+												显示纬度（高德）：
+											</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="deflectionLatitude">
+												</div>
+											</div> --> 
+											<!-- <div class="span7">
+												<span id="jrad-btn-showGMap" class="jrad-secondary ui-btn-secondary" style="margin-left:30px;">显示高德地图</span>
+												<span id="jrad-btn-gMapToBMap" class="jrad-secondary ui-btn-secondary">高德to百度坐标</span>
+												
+											</div> -->
+										</div> 
+										<div class="row-fluid"> 
+											<label class="span3 grid-layout-label"> 
+												显示经度：
+											</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="baiduLongtitude">
+												</div>
+											</div>
+											<label class="span4 grid-layout-label"> 
+												显示纬度：
+											</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-input-container" name="baiduLatitude">
+												</div>
+											</div>
+											<div class="span7">
+												 <!-- <span id="jrad-btn-showBMap" class="jrad-secondary ui-btn-secondary" style="margin-left:30px;">显示百度地图</span>
+												<span id="jrad-btn-bMapToGMap" class="jrad-secondary ui-btn-secondary">百度to高德坐标</span> -->
+												<span id="showPosition" class="mouseDiv"></span>
+											</div>
+										</div> 
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">显示地图：</label>
+											<div class="span19 grid-layout-content" style="border:1px solid #ccc;position:relative;height:430px;">
+												<div>
+												  <span class="mapTab mapTab_select" name="b_map_btn">百度地图</span>
+												  <span class="mapTab" name="g_map_btn" style="display:none">高德地图</span>
+												</div>
+												<div id="b_map" style="position:absolute;width:100%;height:400px;z-index:100;"></div>
+												<div id="g_map" style="position:absolute;width:100%;height:400px;z-index:0;"></div> 
+											</div>
+										</div>
+										</div>
+										<div class="shop_dec">
+										<div class="row-fluid">
+											<label class="span2 grid-layout-label"> 商家简介： </label>
+											<div class="span15 grid-layout-content fluid-wrap">
+												<div class="jrad-mediaarea-container" name="introduction">
+												</div>
+											</div>
+										</div>
+										</div>
+										<div class="shop_photo">
+											<div class="row-fluid">
+												<label class="span4 grid-layout-label"> 商家logo： </label>
+												<div class="span15 grid-layout-content fluid-wrap">
+													<div name="logoIdFile" class="jrad-uploadimg-container">
+													</div>
+												</div>
+											</div>   
+											<div class="row-fluid">
+												<label class="span4 grid-layout-label"> 商家照片： </label>
+												<div class="span17 grid-layout-content fluid-wrap">
+													<div name="businessIdsFile" class="jrad-uploadimg-container">
+													</div>
+												</div>
+											</div>
+										</div>
+										</div><!--tab 切换-->  
+										 
+										<input type="hidden" name="id"/>
+										<input type="hidden" name="logoId"/>
+										<div id="businessIds"></div>
+										<div name="brandIds"></div>
+									</div> 
+								</div>
+								<div class="offset3 jrad-buttons-container ui-buttons-container">
+									<span class="jrad-btn-primary">确定</span>  
+								</div>
+							</div>
+							<!--基础信息end-->
+							<!--运营信息start-->
+							<div class="grid-layout ui-form tabReleForm" id="operateInfo" style="display:none;">
+								<div class="jrad-form"> 
+									<div class="grid-layout-main">  
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												商家简称：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-input-container" name="businessRegName">
+												</div>
+											</div>
+										</div> 
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												商家广告：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-buttons-container" name="service">
+												   <span id="jrad-button-shop-addAD" class="jrad-primary">
+														新增广告位
+												   </span>
+												</div> 
+											</div> 
+										</div>
+										<div id="ADList"> 
+
+										</div>	 
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												合作等级：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="isCoop">
+												</div>
+											</div>
+											<div class="span4 grid-layout-content coopBuy" style="display:none;">
+												<div class="jrad-buttons-container" name="coopBuy">
+												   <span id="jrad-button-shop-coopBuy" class="jrad-primary ui-btn-primary">
+													   <span class="ui-btn-primary-content">购买合约时间</span>
+												   </span>
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												是否有线下合同：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-select-container" name="hasOffContract">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												商家级别：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-input-container" name="grade">
+												</div>
+												<p class="ui-note">可输入正整数，20及20以上为高级别商家，输入数字按个位数向下取整。
+												<br>例：输入21，向下取整为20，此商家为高级别商家；
+												<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输入18，向下取整为10，此商家为低级别商家；</p>
+											</div>
+										</div>
+										<div class="row-fluid coopTime">
+											<label class="span3 grid-layout-label"> 
+												合约时间：
+											</label>
+											<div class="span10 grid-layout-content">
+												<div class="jrad-dateinput-container" name="coopStartDate"></div> -- <div class="jrad-dateinput-container" name="coopEndDate"></div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												是否赠送玻璃水：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-select-container" name="isGiveGlass">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												是否允许线下付款：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="allowOfflinePay">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label">
+												支持在线支付：
+											</label>
+											<div class="span3 grid-layout-content">
+												<div class="jrad-select-container" name="onlinePayStatus">
+												</div>
+											</div>
+											<label class="span2 grid-layout-label settle">
+												结算比例：
+											</label>
+											<div class="span6 grid-layout-content settle">
+												<div class="jrad-input-container" name="transferRate">
+												</div>%
+												<p class="ui-note">结算比例为商家结算的百分比；例如：和商家结算100元，设置结算比例为90%后，只用和商家结算90元。</p>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												返现分店是否通用：
+											</label>
+											<div class="span4 grid-layout-content">
+												<div class="jrad-select-container" name="isSubsidyShare">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												是否可以使用代金券：
+											</label>
+											<div class="span6 grid-layout-content">
+												<div class="jrad-select-container" name="canUseVoucher">
+												</div>
+											</div>
+										</div>
+
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												是否置顶：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-select-container" name="isTop">
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<label class="span3 grid-layout-label"> 
+												备注：
+											</label>
+											<div class="span21 grid-layout-content">
+												<div class="jrad-textarea-container" name="remarks">
+												</div>
+											</div>
+										</div> 
+									</div> 
+								</div>
+								<div class="offset3 jrad-buttons-container ui-buttons-container">
+									<span class="jrad-btn-primary">确定</span>  
+								</div>
+							</div>
+							<!--运营信息 end-->
+
+							<!--服务 洗车start-->
+							<div id="carwashService" class="tabReleForm">
+								<table id="Table_carwash_list"></table> 
+								<p style="margin:10px 10px 20px;color:#666;" class="tips"></p>
+							</div>
+							<!--服务 美容-->
+							<div id="beautifyService" class="tabReleForm">
+								<table id="Table_beautify_list"></table> 
+								<p style="margin:10px 10px 20px;color:#666;" class="tips"></p>
+							</div>
+							<!--服务 保养-->
+							<div id="upkeepService" class="tabReleForm">
+								<table id="Table_upkeep_list"></table> 
+								<p style="margin:10px 10px 20px;color:#666;" class="tips"></p>
+							</div>
+							<!--服务 维修-->
+							<div id="repairService" class="tabReleForm">
+								<table id="Table_repair_list"></table> 
+								<p style="margin:10px 10px 20px;color:#666;" class="tips"></p>
+							</div> 
+							<!--服务 救援-->
+							<div id="rescueService" class="tabReleForm">
+								<table id="Table_rescue_list"></table> 
+							</div>
+							<!--服务 小保养-->
+							<div id="smallUpkeepService" class="tabReleForm">
+								<table id="Table_smallUpkeep_list"></table> 
+								<p style="margin:10px 10px 20px;color:#666;" class="tips"></p>
+							</div>  
+							<!--服务标准化-->
+							<div id="standardService" class="tabReleForm">
+								<!-- <table id="Table_standard_list"></table>  -->
+							    <div class="details-box2">
+							    	<ul class="details-tab2">
+										<li class="tab-cur tab-cur-first f-left" rele="carwash"><span name="title">洗车</span></li>
+										<li class="f-left" rele="beautify"><span name="title">美容</span></li>
+										<li class="f-left" rele="upkeep"><span name="title">保养</span></li>
+										<li class="f-left" rele="repair"><span name="title">维修</span></li>
+									</ul>
+									<div class="details-content">
+										<div class="details-scroll">
+											<div class="details-content-inner">
+												<div class="ui-info-layout tabReleForm2" id="carwash">
+											      <div class="qdiv">
+											           <table id="Table_settle_carwash"></table>
+											      </div> 
+											    </div>
+
+												<div class="ui-info-layout tabReleForm2" id="beautify" style="display:none;">
+											      <div class="qdiv">
+											           <table id="Table_settle_beautify"></table>
+											      </div>
+											    </div>
+
+												<div class="ui-info-layout tabReleForm2" id="upkeep" style="display:none;">
+											      <div class="qdiv">
+											           <table id="Table_settle_upkeep"></table>
+											      </div>
+											    </div>
+
+												<div class="ui-info-layout tabReleForm2" id="repair" style="display:none;">
+											      <div class="qdiv">
+											           <table id="Table_settle_repair"></table>
+											      </div>
+											    </div>
+											    
+											</div>
+										</div>
+									</div>
+							    </div>
+							</div> 
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--服务品牌-->
+	<div id="Form_service_brand" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			 <div class="jrad-tree" id="brandsTree">
+			 </div> 
+			<div class="jrad-checkbox-container" name="vendor" style="position:absolute;bottom:5px;font-weight:bold;"></div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div> 
+	<!-- 购买合约时间 -->
+	<div id="Form_buy_CoopTime" style="display:none;">
+		<div class="grid-layout-main jrad-form">  
+			 <div class="row">
+				 <label class="span3 grid-layout-label">合约年限：</label>
+				 <div class="span12 grid-layout-content">
+					   <div name="buyYear" class="jrad-input-container"></div>年
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>合约开始时间：</label>
+				 <div class="span12 grid-layout-content">
+					   <div name="coopStartDate" class="jrad-dateinput-container"></div>
+				 </div>
+			</div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+
+	<div id="Form_ok_CoopTime" style="display:none;">
+		<div class="grid-layout-main jrad-form">  
+			  
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+
+	<!--服务carwash form-->
+	<div id="Form_service_carwash" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			 <input name="serviceId" type="hidden">
+			 <input name="bizServicePriceId" type="hidden">  
+			 <input name="id" type="hidden">   
+			 <div class="row" style="display:none;">
+				 <label class="span3 grid-layout-label">同步到分店：</label>
+				 <div class="span12 grid-layout-content">
+					   <div name="busiIds" class="jrad-checkbox-container"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>一级：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="firstService" class="jrad-select-container service"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label">门市价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="shopPrice" class="jrad-input-container"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label">预订价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="reservePrice" class="jrad-input-container"></div>
+				 </div>
+			</div>  
+			<!-- <div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>工时费：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="workPrice" class="jrad-input-container"></div>
+				 	   <p class="ui-note">工时费为每个工时的单价。如无工时费请填0，目前此项目仅用于收集数据，不会计入结算价，用户不会看见。</p>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>所需工时：</label>
+				 <div class="span7 grid-layout-content">
+					   <div name="workHour" class="jrad-input-container"></div>
+				       <p class="ui-note">请输入最小为1的正整数，每个工时10分钟。如无工时管理请填1，目前此项目仅用于收集数据，用户不会看见。</p>
+				 </div>
+			</div> -->
+			<div class="row date">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 使用开始时间：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="useStartTime" class="jrad-dateinput-container"></div>
+				 </div>
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 使用结束时间：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="useEndTime" class="jrad-dateinput-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 预约信息：</label>
+				 <div class="span12 grid-layout-content">
+					   <div name="reserveInfo" class="jrad-select-container"></div>
+				 </div>
+			</div>  
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 使用规则：</label>
+				 <div class="span12 grid-layout-content">
+					   <div name="useRule" class="jrad-textarea-container"></div>
+				 </div>
+			</div>  
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>结算价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="clearingPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label">闲时优惠价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="idlePrivilegePrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label">闲时结算价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="idleClearingPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label">抵用券价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="couponPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label">抵用券现金价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="couponCashPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label">抵用券结算价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="couponClearingPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"></label>
+				 <div class="span9 grid-layout-content">
+					   <p class="ui-note">抵用券价：此服务需支付的抵用券金额;<br>抵用券现金价：用抵用券支付时需支付的现金价格;<br>抵用券结算价：用抵用券购买此服务，需和商家结算的价格;<br>抵用券现只开通宜宾地区，其他地区不要填写此金额。</p>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label">商家是否补贴：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="isSubsidy" class="jrad-select-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>排列序号：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="sequence" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>服务说明：</label>
+				 <div class="span5 grid-layout-content" style="margin-left:0;">
+					   <div name="illustrate" class="jrad-mediaarea-container"></div>
+				 </div>
+			</div>  
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+	<!-- 优惠时间设置 -->
+	<div id="Form_discount_time" style="display:none;">
+		<div class="grid-layout-main jrad-form">    
+			<div class="row">
+				 <label class="span3 grid-layout-label">
+				 闲时优惠时间：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="idlePrivilegePeriod" class="jrad-radio-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"></label>
+				 <div class="span10 grid-layout-content" name="idlePrivilegeTimeOne">
+					   <div class="jrad-dateinput-container startTime_one"></div> -- <div class="jrad-dateinput-container endTime_one"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"></label>
+				 <div class="span10 grid-layout-content" name="idlePrivilegeTimeTwo">
+					   <div  class="jrad-dateinput-container startTime_two"></div> -- <div class="jrad-dateinput-container endTime_two"></div>
+				 </div>
+			</div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+	<!-- 救援服务 -->
+	<div id="Form_service_rescue" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			 <input name="busiRescueRadarId" type="hidden">
+			 <input name="midifyTime" type="hidden"> 
+			 <input name="lastModifier" type="hidden">   
+			 <input name="bizServicePriceId" type="hidden"> 
+			 <input name="id" type="hidden">  
+			 <div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>救援类型：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="rescueServiceId" class="jrad-select-container service"></div>
+									</div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>救援报价：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="rescueUnit" class="jrad-input-container"></div>
+									</div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>救援范围：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="rescueRegion" class="jrad-select-container"></div>
+									</div>
+			</div> 
+			<input name="busiId" type="hidden">
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+	<!-- 小保养服务 -->
+	<div id="Form_service_smallUpkeep" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			 <input name="serviceId" type="hidden">  
+			 <input name="bizServicePriceId" type="hidden"> 
+			 <input name="id" type="hidden">
+			 <div class="row" style="display:none;">
+				 <label class="span3 grid-layout-label">同步到分店：</label>
+				 <div class="span12 grid-layout-content">
+					   <div name="busiIds" class="jrad-checkbox-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>一级：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="firstService" class="jrad-select-container service"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label">机油门市价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="shopPrice" class="jrad-input-container"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label">机油预订价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="reservePrice" class="jrad-input-container"></div>
+				 </div>
+			</div>  
+			<div class="row">
+				 <label class="span3 grid-layout-label">机油结算价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="clearingPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<!-- <div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>工时费：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="workPrice" class="jrad-input-container"></div>
+				 	   <p class="ui-note">工时费为每个工时的单价。</p>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>所需工时：</label>
+				 <div class="span7 grid-layout-content">
+					   <div name="workHour" class="jrad-input-container"></div>
+				       <p class="ui-note">请输入最小为1的正整数，每个工时10分钟。</p>
+				 </div>
+			</div> -->
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 预约信息：</label>
+				 <div class="span12 grid-layout-content">
+					   <div name="reserveInfo" class="jrad-select-container"></div>
+				 </div>
+			</div>  
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 使用规则：</label>
+				 <div class="span12 grid-layout-content">
+					   <div name="useRule" class="jrad-textarea-container"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>排列序号：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="sequence" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>服务说明：</label>
+				 <div class="span5 grid-layout-content" style="margin-left:0;">
+					   <div name="illustrate" class="jrad-mediaarea-container"></div>
+				 </div>
+			</div>  
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+	<!-- 机滤价或工时价设置 -->
+	<div id="Form_FilterWork_install" style="display:none;">
+		<div class="grid-layout-main jrad-form">    
+			<div class="row filter">
+				 <label class="span3 grid-layout-label">机滤门市价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="filterShopPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row filter">
+				 <label class="span3 grid-layout-label">机滤预定价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="filterReservePrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row filter">
+				 <label class="span3 grid-layout-label">机滤结算价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="filterClearingPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row work">
+				 <label class="span3 grid-layout-label">工时费门市价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="workShopPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row work">
+				 <label class="span3 grid-layout-label">工时费预定价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="workReservePrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row work">
+				 <label class="span3 grid-layout-label">工时费结算价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="workClearingPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+
+	<!-- 活动结算价新增 -->
+	<div id="Form_price_list" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			 <input name="serviceId" type="hidden">  
+			 <input name="bizServicePriceId" type="hidden">
+			 <input name="id" type="hidden">
+			 <div class="row">
+				 <label class="span3 grid-layout-label">活动名称：</label>
+				 <div class="span12 grid-layout-content">
+					   <div name="bizActivityId" class="jrad-select-container"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span3 grid-layout-label">合作方名称：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="bizPartnerId" class="jrad-select-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>结算价：</label>
+				 <div class="span5 grid-layout-content">
+					   <div name="clearingPrice" class="jrad-input-container"></div>
+				 </div>
+			</div>   
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+	
+	<!-- 标准化服务增加修改 -->
+	<div id="Form_standard_service" style="display:none;">
+		<div class="grid-layout-main jrad-form wrapDiv"> 
+			<input name="operator" type="hidden">  
+			<div class="row beforeDiv">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>服务名称：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="serviceId" class="jrad-select-container"></div>
+				 </div>
+			</div>
+			<div class="app">
+			</div>
+			<div class="row">
+                <ul>
+                    <li><div id="createTable"></div></li>
+                </ul>
+			</div>
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>预约信息：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="reserveInfo" class="jrad-select-container"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>使用规则：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="useRule" class="jrad-textarea-container"></div>
+					   </div>
+					  
+			</div>
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>商家是否补贴：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="isSubsidy" class="jrad-select-container"></div>
+				 </div>	  
+			</div> 
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>是否先行赔付：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="isCompensate" class="jrad-select-container"></div>
+				 </div>
+			</div>  
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>排列序号：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="sequence" class="jrad-input-container"></div>
+				 </div>
+			</div>     
+			<!-- <div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>服务说明：</label>
+				 <div class="span6 grid-layout-content">
+					   <div name="illustrate" class="jrad-mediaarea-container" style="margin-left:0"></div>
+				 </div>
+			</div> -->  
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+
+	<div id="Form_service_desc" style="display:none;">
+		<div class="grid-layout-main jrad-form wrapDiv">    
+			<div class="row-fluid">
+				 <div class="span6 grid-layout-content">
+					   <div name="serviceExplain" class="jrad-mediaarea-container" style="margin-left:0"></div>
+				 </div>
+			</div>  
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+    <div id="Form_explain_eg31" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>商家信息的管理功能</div>
+                    <div><strong>重要功能说明：</strong>1、创建：创建商家时，需要输入的字段较多，下面先解释一下重要的字段，
+						①	售前电话/售后电话：至少需要输入一个售后电话，而且第一个售后电话必须为手机号码。
+						②	商家类型：逻辑上没有用到，一般选“其他”；
+						③	支持在线支付：选择支持后，在APP上，此商家就可以直接在线支付了；
+						④	结算比例：最终与商家的结算比例，一般合作商家为100%，自注册的为90%；
+						⑤	是否允许线下付款：允许的话，此商家的线下支付订单可以在APP展示。现阶段无此类型商家；
+						⑥	返现分店是否通用：选择“是”，此商家的专属余额可以在分店通用；
+						⑦	是否可以使用代金券：选择“否”，在此商家购买服务时，无法选择代金券；
+						⑧	服务品牌：选择服务品牌后，非此品牌的车辆，看不到此商家；
+						⑨	经纬度信息：商家的具体地址，可直接搜索；
+						⑩	商家简介：编辑的内容将在APP展示；
+						⑪	商家图片：商家LOGO图是必填的，LOGO图将显示在APP的商家详情页面，即商家的门面图；
+						⑫	商家广告：可创建多个商家广告，在APP显示在LOGO图的下面；
+						⑬	合作等级：没签约的为“普通商家”、已签约的为“合作商家”，先阶段商家只用了此两个等级；
+						⑭	洗车、美容、保养、维修：这４个服务为基础服务，门市价为展示给用户的原价，在逻辑上用不到，预订价为用户需要支付的价格，结算价为我们养车宝需要与商家结算的价格。
+						⑮	救援：有“搭电”“换胎”“送油”三个类型的救援，创建完成后，将显示在ＡＰＰ的发现菜单里面；
+						⑯	小保养：需要注意的是，机滤价格、工时费是同一设置的，即每个服务都是这个价格；
+						⑰	服务标准化：若服务已存在，再次创建时，不影响原服务。
+　　　　　				修改：同创建；
+　　　　　				删除：逻辑删除
+					</div>
+                    <div><strong>注意事项：</strong>１、创建“无效”的商家时，只填写“商家名称”就可保存；２、只有先创建“基础信息”、“运营信息”完成后，才能创建服务；</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+
+<div class="urlContentWraper" id="Wraper_price_list" style="display:none;">
+	<div class="ui-info-layout">
+		<div class="ui-info-layout-subbox">		
+			<div class="jrad-table2">
+				<h2 class="ui-tit"><strong>活动结算价类别</strong></h2>
+				<div class="pic-grid">
+					<table id="Table_price_list"></table> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

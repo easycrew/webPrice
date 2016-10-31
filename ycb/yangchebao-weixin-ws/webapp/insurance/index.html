@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta name="format-detection" content="telephone=no" /> 
+<link href="css/index.css" rel="stylesheet" type="text/css" />
+<link href="../date/mobiscroll.custom-2.13.2.min.css" rel="stylesheet" type="text/css" />
+<title>车险报价查询</title>
+</head> 
+<style type="text/css">
+/**错误提示**/
+.tasat-wrap{
+   position: fixed;
+   text-align: center;
+   bottom: 50%;
+   width: 100%; 
+}
+.tasat {
+    background-color: #000;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 20px;
+    opacity: 0.8;
+    padding: 10px;
+} 
+/**查看更多**/
+.tip {
+    color: #a0a097;
+    font-size: 1.5em;
+    padding: 10px;
+    text-align: center;
+    display: none;
+    cursor:pointer;
+}
+</style>
+<body>
+<div class="container"> 
+    <section class="main-wrap">
+	<header class="tabs">
+	    <div>
+		<span><label class="selected" tid="tab1">基础版</label></span>
+		<span><label tid="tab2">大众版</label></span>
+		<span><label tid="tab3">豪华版</label></span>
+	    </div>
+	</header> 
+    <article class="detail-wrap" id="tab1">
+    	<img src="css/images/1.png" class="ad"/>
+    	<div class="detail">
+    		<p>套餐详情</p>
+    		<ul>    
+    			<li>1. 第三者责任险<span class="right">30万</span></li>
+    			<li>2. 交强险      <span class="right">投保</span></li>
+    			<li>3. 车船险      <span class="right">代缴</span></li>
+    			<li>不计免赔包括1</li>
+    		</ul>
+    		<span class="arrow"></span>
+    	</div>
+    </article> 
+     <article class="detail-wrap" id="tab2" style="display:none;">
+    	<img src="css/images/2.png" class="ad"/>
+    	<div class="detail">
+    		<p>套餐详情</p>          
+    		<ul>    
+    			<li>1. 车辆损失险  <span class="right">投保</span></li>
+    			<li>2. 第三者责任险<span class="right">50万</span></li>
+    			<li>3. 全车抢盗险  <span class="right">投保</span></li>
+    			<li>4. 司机责任险  <span class="right">1万</span></li>
+    			<li>5. 乘客责任险  <span class="right">1万/座</span></li>
+    			<li>6. 玻璃险      <span class="right">国产玻璃</span></li>
+    			<li>7. 交强险      <span class="right">投保</span></li>
+    			<li>8. 车船险      <span class="right">代缴</span></li>
+    			<li>不计免赔包括1、2、3、4、5</li>
+    		</ul>
+    		<span class="arrow"></span>
+    	</div>
+    </article> 
+     <article class="detail-wrap" id="tab3" style="display:none;">
+    	<img src="css/images/3.png" class="ad"/>
+    	<div class="detail">
+    		<p>套餐详情</p>         
+    		<ul>    
+    			<li>1. 车辆损失险  <span class="right">投保</span></li>
+    			<li>2. 第三者责任险<span class="right">100万</span></li>
+    			<li>3. 全车抢盗险  <span class="right">投保</span></li>
+    			<li>4. 司机责任险  <span class="right">1万</span></li>
+    			<li>5. 乘客责任险  <span class="right">1万/座</span></li>
+    			<li>6. 玻璃险      <span class="right">国产玻璃</span></li>
+    			<li>7. 自然损失险  <span class="right">投保</span></li>
+    			<li>8. 车身划痕险  <span class="right">0.5万</span></li>
+    			<li>9. 涉水损失险  <span class="right">投保</span></li>
+    			<li>10. 指定专修   <span class="right">投保</span></li>
+    			<li>11. 交强险     <span class="right">投保</span></li>
+    			<li>12. 车船险     <span class="right">代缴</span></li>
+    			<li>不计免赔包括1、2、3、4、5、7、8、9</li>
+    		</ul>
+    		<span class="arrow"></span>
+    	</div>
+    </article> 
+	<article class="form-wrap"> 
+		<ul> 
+			<li>
+				<label class="left">车牌号码</label>
+				<div class="right">
+					<span class="number-first"><strong>京</strong><label class="down-arrow"></label></span>
+					<div class="input-wrap"><input type="text" id="plateNo"></div>
+				</div>
+			</li>
+            <li style="display:none;">
+				<label class="left">车牌号码</label>
+				<div class="right"> 
+					<div class="input-wrap"><input type="text" id="plateNo2"></div>
+				</div>
+			</li> 			
+			<li>
+				<label class="left">行驶城市</label>
+				<div class="right"> 
+					<div class="input-wrap point"><input type="text" class="cityCheckBtn" readonly></div>
+				</div>
+			</li> 
+			<li>
+				<label class="left">初登日期</label>
+				<div class="right"> 
+					<div class="input-wrap date"><input type="text" id="firstRegDate" readonly></div>
+				</div>
+			</li> 
+			<li>
+				<label class="left">车辆信息</label>
+				<div class="right"> 
+					<div class="input-wrap"><input type="text" class="carCheckBtn" placeholder="请选择车辆信息 >" readonly></div>
+				</div>
+			</li> 
+		</ul> 
+        <div id="submit" class="button bg-org">查询</div>  
+  </article>
+  <article class="comment-wrap">
+  	<h1>说明</h1>
+  	<ol>
+  		<li>不需填写手机号码，拒绝骚扰电话；</li>
+  		<li>查询立减15%－25%保费，不妨一试！</li>
+  		<li>分享给好友有更多优惠哦！</li>
+  		<li>请务必填写正确的车牌号码，用此车牌购买保险时才 会享受优惠。</li> 
+  	</ol>
+  </article>  
+  </section>
+  <!--车牌-->
+  <section class="carNumberCity" style="display:none;"> 
+    <div class="close"><label></label></div>
+    <span>京</span><span>沪</span><span>粤</span><span>苏</span><span>浙</span><span>鲁</span>
+    <span>晋</span><span>冀</span><span>豫</span><span>川</span><span>渝</span><span>辽</span>
+    <span>吉</span><span>黑</span><span>皖</span><span>鄂</span><span>湘</span><span>赣</span>
+    <span>闽</span><span>陕</span><span>甘</span><span>宁</span><span>蒙</span><span>津</span>
+    <span>贵</span><span>云</span><span>桂</span><span>琼</span><span>青</span><span>新</span>
+    <span>藏</span>
+  </section> 
+  <!--选择城市-->
+  <div class="selectCity" style="display:none;">
+  <div class="selectCity-title"><p>选择城市</p><img src="css/images/closeCity_icon.png"></div>
+	<div class="selectCity-loading">
+		<div class="selectCity-loading-main">
+			<div class="selectCity-loading-img"><img src="css/images/selectCity_load.gif" id="img"></div>
+			<p class="selectCity-loading-text">正在获取城市······</p>
+		</div>
+	</div>
+	<div class="selectCity-main" style="position:relative;">
+		<article class="hotCitys">
+			<p class="hotCitys-title">热门城市</p>
+			<div class="hotCitys-con">
+				<ul class="hotCitys-ul"> 
+				</ul>
+			</div>
+		</article>
+		<div class="allCitys-wraper">
+			<article class="allCitys">
+				<ul class="allCitys-ul"> 
+				</ul>
+			</article>
+		</div>
+	</div>
+	<article class="allCitys-letters">
+		<p class="allCitys-letters-p">
+			<span>A</span><br />
+			<span>B</span><br />
+			<span>C</span><br />
+			<span>D</span><br />
+			<span>E</span><br />
+			<span>F</span><br />
+			<span>G</span><br />
+			<span>H</span><br />
+			<span>I</span><br />
+			<span>J</span><br />
+			<span>K</span><br />
+			<span>L</span><br />
+			<span>M</span><br />
+			<span>N</span><br />
+			<span>O</span><br />
+			<span>P</span><br />
+			<span>Q</span><br />
+			<span>R</span><br />
+			<span>S</span><br />
+			<span>T</span><br />
+			<span>U</span><br />
+			<span>V</span><br />
+			<span>W</span><br />
+			<span>X</span><br />
+			<span>Y</span><br />
+			<span>Z</span><br />
+		</p>
+	</article>
+	</div> 
+    <!--选择品牌-->
+	<section class="brand-page" style="display:none;"> 
+		<h1 class="son-title">选择品牌<span class="close"><label></label></span></h1>
+		<article class="allBrands">
+			<ul class="allBrands-ul" style="position: relative;"> 
+			</ul>
+		</article>
+		<article class="allBrands-letters" style='display:none;'>
+			<p class="allBrands-letters-p">
+				<span>A</span><br />
+				<span>B</span><br />
+				<span>C</span><br />
+				<span>D</span><br />
+				<span>E</span><br />
+				<span>F</span><br />
+				<span>G</span><br />
+				<span>H</span><br />
+				<span>I</span><br />
+				<span>J</span><br />
+				<span>K</span><br />
+				<span>L</span><br />
+				<span>M</span><br />
+				<span>N</span><br />
+				<span>O</span><br />
+				<span>P</span><br />
+				<span>Q</span><br />
+				<span>R</span><br />
+				<span>S</span><br />
+				<span>T</span><br />
+				<span>U</span><br />
+				<span>V</span><br />
+				<span>W</span><br />
+				<span>X</span><br />
+				<span>Y</span><br />
+				<span>Z</span><br />
+			</p>
+		</article> 
+	</section>  
+	 <!--选择车系-->
+	<section class="model-page" style="display:none;">
+		<h1 class="son-title">选择车系<span class="close"><label></label></span></h1>
+		<ul class="allModels-ul">
+			<li> 
+				<div class="carModel-detail"></div>
+			</li> 
+		</ul>
+	</section>
+	 <!--选择车辆信息-->
+	<section class="carInfo-page" style="display:none;">
+		<h1 class="son-title">车辆信息<span class="close"><label></label></span></h1>
+		<article class="carIfo-items">
+			<div class="isAutoMatic carIfo-item" style="cursor:pointer;">
+				<p>手/自动挡</p>
+				<img src="css/images/selectModel_icon.png">
+			</div>
+			<div class="gasDisplayment carIfo-item">
+				<p class="unSelect">排气量</p>
+			 
+			</div>
+			<div class="modelYear carIfo-item">
+				<p class="unSelect">年款</p> 
+			</div>
+			<div class="loading" style="display:none;"><img src="css/images/loading.gif" id="img">加载中，请稍等…</div>
+			<div class="loadResult" style="display:none;"> 
+			</div>
+			<div class="sureBtn">确定</div>
+		</article>
+		<article class="selectItems" style="display:none;">
+			<div class="selectItemOne" style="display:none;">
+				<div class="selectItem-title">手/自动挡</div>
+				<ul class="selectItems-ul">
+					<li>
+						<span class="span-wraper"><span class="span-item">手动挡</span></span>
+					</li>
+					<li class="selectedItem">
+						<span class="span-wraper"><span class="span-item">自动挡</span><img src="css/images/checked_img.png"></span>
+					</li>
+				</ul>
+				<div class="selectItem-btn">
+					<p class="nextStop">下一步</p>
+				</div>
+			</div>
+			<div class="selectItemTwo" style="display:none;">
+				<div class="selectItem-title">排气量</div>
+				<ul class="selectItems-ul">
+					<li>
+						<span class="span-wraper"><span class="span-item">2.7L</span></span>
+					</li>
+					<li class="selectedItem">
+						<span class="span-wraper"><span class="span-item">3.0L</span><img src="css/images/checked_img.png"></span>
+					</li>
+				</ul>
+				<div class="selectItem-btn">
+					<p class="preStep">上一步</p>
+					<p class="nextStop">下一步</p>
+				</div>
+			</div>
+			<div class="selectItemThree" style="display:none;">
+				<div class="selectItem-title">年款</div>
+				<ul class="selectItems-ul">
+					<li>
+						<span class="span-wraper"><span class="span-item">2014</span></span>
+					</li>
+					<li class="selectedItem">
+						<span class="span-wraper"><span class="span-item">2015</span><img src="css/images/checked_img.png"></span>
+					</li>
+				</ul>
+				<div class="selectItem-btn">
+					<p class="preStep">上一步</p>
+					<p class="nextStop">完成</p>
+				</div>
+			</div>
+		</article>
+		<div class="overLay" style="display:none;"></div>
+	</section> 
+</div>
+<!--查询报价遮罩层-->
+<div class="load-bar">
+	<img src="waiting/0.png" id="i0"> 
+	<img src="css/images/wait.png" id="wait" style="display:none;"> 
+	<p>需要在众多保险公司中筛选出最低价<br>请稍等......</p>
+</div>
+<script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script> 
+<script type="text/javascript" src="../js/jquery.json-2.2.js"></script> 
+<script src="../date/mobiscroll.custom-2.13.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+<script src="js/index.js"></script> 
+<script src="js/commen.js"></script>  
+</body>
+</html>

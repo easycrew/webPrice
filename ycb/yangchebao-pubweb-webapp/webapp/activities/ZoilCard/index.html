@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta name="format-detection" content="telephone=no" />
+<meta http-equiv="Expires" CONTENT="0">  
+<meta http-equiv="Cache-Control" CONTENT="no-cache">  
+<meta http-equiv="Pragma" CONTENT="no-cache"> 
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script>
+ <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<script type="text/javascript" src="js/index.js"></script> 
+<link rel="stylesheet" href="css/index.css">
+<title>加油卡充值</title>
+</head>
+<style type="text/css">
+ header{
+ 	background-color: #fff;
+ 	font-size: 1.5rem;
+ 	/* padding: 1rem 0; */
+ 	border-bottom: 1px solid #D9D9E2;
+ 	height: auto;
+ 	overflow: auto;
+ }
+ header div{
+ 	width:50%;
+ 	display: inline-block;
+ 	float: left;
+ 	height: 3.5rem;
+ 	line-height: 3.5rem;
+ 	box-sizing:border-box;
+ 	text-align: center;
+}
+header div:first-child{
+	border-right: 1px solid #D9D9E2;
+}
+header span{
+	display: inline-block;
+	background-image: url("css/images/icon.png");
+	background-repeat: no-repeat;
+	background-size: 2.2rem;
+	background-position: left top;
+	width: 2.3rem;
+	height:1.7rem;
+	vertical-align: middle;
+	margin-right: 0.8rem;
+}
+header .i{
+	background-position: left bottom;
+	height:1.8rem;
+	width: 1.9rem;
+}
+.header-img{
+      width: 100%;
+      display: block;
+}
+.header-img img{
+      width: 100%;
+}
+.addBtn,.changeBtn{
+	font-size: 1.8rem;
+	color: #f55d5d;
+	text-align: center;
+	background-color: #fff;
+	height: 6.6rem;
+	line-height: 6.6rem;
+	border-bottom: 1px solid #D9D9E2;
+	display: block;
+	margin-top: 1rem;
+}
+.changeBtn{
+	text-align: left;
+	color: #1E1E1E;
+	padding: 0 1.5rem 0 2rem;
+      position: relative;
+}
+.changeBtn a{
+	color: #6EAADE;
+	float: right;
+}
+.changeBtn a span{
+	color:#A2A2A2;
+}
+.check-wrap{
+	background-color: #fff;
+	margin-top: 1rem;
+}
+.check-wrap h1{
+	font-size: 1.3rem;
+	font-weight: normal;
+	padding: 1.2rem 1rem;
+}
+.price-wrap{
+	height: auto;
+ 	overflow: auto;
+}
+.price-wrap span{
+	display: inline-block;
+	float: left;
+	width: 29%;
+	margin-left: 3.1%;
+	height: 4rem;
+	line-height: 4rem;
+	font-size: 1.8rem;
+	border: 1px solid #D9D9E2;
+	border-radius: 3px;
+	text-align: center;
+	margin-bottom: 1rem;
+	box-sizing:border-box;
+}
+.price-wrap .checked{
+	border-color: #f55d5d;
+	border-width: 2px;
+}
+.button.disabled{
+	background-color: #D9D9E2;
+	color: #fff;
+}
+.btn-wrap{
+	margin: 1rem 1.5rem 0;
+	padding-bottom: 2rem;
+}
+.tit{
+    font-size: 1.3rem;
+	color: #A2A2A2;
+	margin: 2rem 1.5rem 1rem;
+}
+.tit a{
+   float: right; 
+   color: #6EAADE;
+}
+.comment{
+	font-size: 1.2rem;
+	color: #A2A2A2;
+	margin: 0 1.5rem;
+	padding-left: 1.5rem;
+	padding-bottom:2rem;
+}
+.message{
+	margin: 1rem 0 -1rem;
+	/*min-height: 2.8rem; */
+	background-color: #FEF4CA;
+	color: #000000;
+	border: 1px solid #F5A623;
+	font-size: 1.2rem;
+	padding: 0.8rem;
+}
+.info{
+	font-size: 1.2rem;
+	color: #A2A2A2;
+	padding:0 1rem 0 3.1%;
+}
+.dialog{
+    position: fixed;
+    background-color: rgba(0,0,0,0.8);
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: none;
+}
+.dialog-content{
+    margin: 20% 1rem 0 1rem;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 0 1rem;
+}
+.dialog .info{
+	font-size: 1.5rem;
+	padding: 5.6rem 0 2.6rem;
+	color: #1e1e1e;
+}
+.dialog .btn-wrap{ 
+	padding: 1rem 0;
+	margin: 0
+}
+.dialog .zfb{
+	padding: 5.6rem 0 2.6rem;
+}
+.dialog .zfb img{
+	width: 5.8rem;
+	margin-right:1rem;
+}
+.dialog .zfb span{
+	display: inline-block;
+	float: right;
+	width: 2.2rem;
+	height: 2.2rem;
+	background-image: url("css/images/check.png");
+	background-position: right center;
+	background-repeat: no-repeat;
+	background-size: 4.4rem auto;
+}
+.zfb .checked span{
+	background-position: left center;
+}
+.zfb p{
+  font-size:1.2rem;
+  color:#a2a2a2;
+}
+a,img,button,input,textarea,ul,li,.price-wrap{
+	-webkit-tap-highlight-color:rgba(255,255,255,0);
+}
+input{
+    background-color: #fff;
+    border:none;
+    font-size: 1.8rem; 
+    width: 100%;
+  } 
+  .replace{
+    position: absolute;
+    top: 0;
+    right: 10px;
+  }
+  .ash{
+    background-color: #d9d9e2;
+  }
+  /* 隐藏弹出层 */
+.pop-up{
+  width: 100%;
+  background-color:rgba(0,0,0,0.8);
+  position: fixed;
+  z-index: 1000;
+  display: none;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom:0;
+}
+.pop{
+  width: 85%;
+  height: 19.5rem;
+  display: block;
+  margin:0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  position:relative;
+  margin-top: 30%;
+  text-align: center;
+}
+.pop span{
+  display: block;
+}
+.error-btn{
+  color: #fff;
+  font-size: 2.4rem;
+  background-color: #6EAADE;
+  width: 90%;
+  margin: 0 auto;
+  line-height: 52px;
+  margin-top: 32px;
+}
+.error-receive{
+  font-size: 2.4rem;
+  padding-top: 50px;
+}
+</style>
+<body>
+<!--隐藏弹出层-->
+ <div class="pop-up"></div>
+    <header>
+    <p class="header-img"><img src="css/images/lADOI8NfkszczQKA_640_220.jpg"></p>
+    	<div class="tab"><span class="i"></span>充值记录</div>
+    	<div class="tab2"><span class="i2"></span>管理油卡</div>
+    </header>
+    <p class="message" style="display:none;">中石油官网处于维护中，暂时关闭中石油加油卡充值，后续开通另行通知。
+    </p>
+  <a href="javascript:void(0);" class="addBtn" style="display:none;">+ 添加加油卡</a>
+    <div class="changeBtn" style="display:none;"><span id="cardNo">--</span>
+      <a href="javascript:void(0);">更换 <span>></span></a>
+    </div>
+    <article class="check-wrap">
+    	<h1>选择充值金额</h1>
+    	<div class="price-wrap">
+    		<!-- <span>¥3000</span><span>¥2000</span><span>¥1000</span>
+    		<span>¥200</span><span>¥100</span><span>¥50</span> -->
+    	</div>
+    	<p class="info"></p>
+    	<div class="btn-wrap"><a href="javascript:void(0);" id="submit" class="button disabled">立即充值</a></div>
+    </article>
+    <p class="tit">加油卡充值说明<a href="javascript:void(0);" class="commentHref">查看详细说明 ></a></p>
+    <ol class="comment"> 
+    	<li>总额有限，先到先得，售完为止，欲购从速；</li>
+    	<li>每个用户只能充值1次；</li>
+    	<li>如超出总额将显示无法充值。</li>
+    </ol>
+    <div class="dialog pay-dialog">
+    	<div class="dialog-content">
+    		<div class="zfb">
+    		  <p class="checked"><img src="css/images/zfb_icon.png">需要拥有支付宝账号
+    		  <span></span>
+    		  </p>
+    		</div>
+    		<p class="btn-wrap"><a href="javascript:void(0)" class="button">我知道了</a></p>
+    	</div>
+    </div>    
+    <div class="dialog">
+    	<div class="dialog-content">
+    		<p class="info">中石油官网处于维护中，暂时关闭中石油加油卡充值，后续开通另行通知。</p>
+    		<p class="btn-wrap"><a href="javascript:void(0)" class="button">我知道了</a></p>
+    	</div>
+    </div>
+<script type="text/javascript">
+   var paramJson = {}; 
+   paramJson.payFlag = true; 
+   $(document).ready(function(){  
+		var url =window.location.search;    
+		if(url!=undefined&&url!=""){
+			var paramsArr = (url.split("?")[1]).split("&"); 
+			$.each(paramsArr,function(i){
+			 var item = paramsArr[i].split("=");
+			 paramJson[item[0]] = item[1];
+			});    
+		} 
+    //alert(paramJson.exchangeCode);
+    if(paramJson.userInfoId){
+      var wsearch = "?customerId="+paramJson.customerId+"&userInfoId="+ paramJson.userInfoId+"&exchangeCode="+paramJson.exchangeCode;
+    }else{
+      var wsearch = "?customerId="+paramJson.customerId+"&userInfoId="+ paramJson.userId+"&exchangeCode="+paramJson.exchangeCode;
+    }
+		$(".tab").click(function(){
+			window.location.href = "rechargeList.html"+wsearch;
+		});
+		$(".tab2").click(function(){
+			window.location.href = "cardList.html"+wsearch;
+		});
+		$(".addBtn").click(function(){
+			window.location.href = "addCard.html"+wsearch;
+		});
+    //选择金额
+ 		$(".price-wrap").on('click','span.no-ash',function(){
+		    if($(".changeBtn").css("display")=="none"){
+			  return;
+			}
+            $(".price-wrap span").removeClass("checked");
+            $(this).addClass("checked");
+            var info = $(this).data("info");
+            $(".info").html("原价：¥"+info.regularPrice+"  省：¥"+info.saveAmount); 
+            if(paramJson.payFlag){
+              $("#submit").html("支付金额：¥"+info.payment).removeClass("disabled");
+              paramJson.sourceId = info.rechargeDinnerId;
+            }
+ 		});
+ 		$("#submit").click(function(){
+ 		if(!$(this).hasClass("disabled")){
+               $(".pay-dialog").fadeIn();
+ 		}
+ 		});
+ 		$(".pay-dialog .btn-wrap").click(function(){
+ 			   $(".pay-dialog").fadeOut();
+ 			   pay();
+ 		}); 
+ 		$(".changeBtn a").click(function(){
+ 			  window.location.href = "cardList.html"+wsearch;
+ 		}); 
+              $(".pay-dialog").click(function(){
+                     $(".pay-dialog").fadeOut();
+  
+            }); 
+ 		getInfo();
+   });
+   function getInfo(){ 
+    var url="";
+    if(paramJson.userInfoId){
+       url = '/yangchebao-app-ws/ws/0.1/oilcard/general?userInfoId='+paramJson.userInfoId+'&activityCode=zhengzhouchezhan&osInfo=7&'+new Date().getTime()
+    }else{
+       url = '/yangchebao-app-ws/ws/0.1/oilcard/general?userInfoId='+paramJson.userId+'&activityCode=zhengzhouchezhan&osInfo=7&'+new Date().getTime()
+    }
+   		$.ajax({
+              url: url,
+              type: 'get',  
+              dataType: 'json',
+              success: function(data) {
+              	 if(data.oilCardInfo.cardNo==undefined){
+              	 	$(".addBtn").show();
+              	 }else{
+              	 	$(".changeBtn").show();
+              	 	$(".changeBtn #cardNo").html(data.oilCardInfo.cardNo); 
+              	 	if(data.oilCardInfo.cardType==1){
+              	 		if(data.cnpcFlag==0){
+              	 			//不可用
+              	 			paramJson.payFlag = false;
+              	 		}
+              	 	}else{
+              	 		if(data.sinopecFlag==0){
+              	 			//不可用
+              	 			paramJson.payFlag = false;
+              	 		}
+              	 	}
+
+              	 }
+              	 paramJson.cnpcFlag = data.cnpcFlag;
+              	 paramJson.sinopecFlag = data.sinopecFlag;
+              	 var priceList = data.rechargeDinnerInfo; 
+                 
+              	 $.each(priceList,function(i){
+              	 	var item  = priceList[i];
+              	 	var _span = $("<span class='no-ash'>").html("¥"+item.regularPrice).data("info",item);
+                         //余额不足时标签置灰
+                          if(data.remainRechargeAmount<item.regularPrice){
+                            var _span = $("<span class='ash'>").html("¥"+item.regularPrice).data("info",item);
+                          }
+                          $(".price-wrap").append(_span);
+              	 });
+                 //今日额度已用完弹窗
+                      if(data.remainRechargeAmount==0.00){
+                          err_log('今日额度已用完');
+                      }
+              	 $(".commentHref").attr("href",data.descriptionUrl);
+              	 if(data.note!=undefined&&data.note!=""){//公告
+              	 	$(".message").html(data.note).show();
+              	 } 
+              },error:function(xhr){  
+                var mes = eval('('+xhr.responseText+')'); 
+                alertTasat(mes[0].message);
+              }
+          });  
+
+   }
+ function pay(){
+          var postData = {};
+          postData.cooperateCompanyNo = "";
+          postData.customerId = paramJson.customerId;
+          postData.payChannelKey = "alipay.wap.wallet";
+          postData.orderChannel = "oilCardRecharge";
+          postData.cardNo = $("#cardNo").html();
+          postData.sourceId =  paramJson.sourceId ;
+          postData.exchangeCode =  paramJson.exchangeCode ;
+          postData.isUseBalance =  0 ;
+           $.ajax({
+                url: '/yangchebao-app-ws/ws/0.1/orderservice/placeorder',
+                type: 'post',
+                async: false,
+                data:$.toJSON(postData),
+                dataType: 'json',
+                contentType:'application/json;charset=utf-8',
+                success:function(data){ 
+					if(data.payUrl!=""){
+						window.location.href = data.payUrl;
+					}
+                },error:function(xhr){ 
+                    var mes = eval('('+xhr.responseText+')'); 
+                    alertTasat(mes[0].message);
+                } 
+            }); 
+      }
+</script>
+</body>
+</html>

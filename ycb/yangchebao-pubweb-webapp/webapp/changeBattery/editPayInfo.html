@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>支付信息</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<script src="./js/swiper.min.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./date/mobiscroll.custom-2.13.2.min.css">
+	<script src="./date/mobiscroll.custom-2.13.2.min.js"></script>
+	<script src="./js/commen.js"></script>
+	<style>
+		section#editPayInfo article{
+			background-color: #fff;
+			margin-bottom: 5rem;
+		}
+		div.editPayInfo-row{
+			padding: 0.8rem 1rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.editPayInfo-row span{
+			display: inline-block;
+			float: left;
+			font-size: 0.9rem;
+			color: #a2a2a2;
+			width: 4.6rem;
+			padding: 0.4rem 0;
+		}
+		div.editPayInfo-row p,div.editPayInfo-row div{
+			margin-left: 4.6rem;
+		}
+		div.editPayInfo-row input{
+			width: 100%;
+			font-size: 0.9rem;
+			padding: 0.4rem 0;
+		}
+		div.editPayInfo-row span.grayArrow{
+			float: right;
+			bottom: 1.36rem;
+		}
+		div.surePayinfoBtn{
+			/*position: fixed;*/
+			background-color: #FF6138;
+			text-align: center;
+			font-size: 1.2rem;
+			line-height: 2.6rem;
+			width: 90%;
+			margin-left: 5%;
+			border-radius: 6px;
+			color: #fff;
+			margin-top: 1.2rem;
+			/*bottom: 1.2rem;*/
+		}
+		/*时间控件遮罩*/
+		div.dwo{
+			position: fixed!important;
+		}
+		/*选择地区*/
+		article.placeWraper{
+			position: fixed;
+			z-index: 100;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.5)!important;
+		}
+		div.placeSlect{
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			background-color: #fff;
+		}
+		div.placeCon{
+			position: relative;
+			padding: 1rem 0;
+		}
+		article.placeWraper ul li{
+			line-height: 1.6rem;
+			font-size: 0.95rem;
+			color: #3f4968;
+			text-align: center;
+		}
+		div.placeCon div.proCon,div.cityCon,div.areaCon{
+			float: left;
+			width: 33.3333%;
+			height: 8rem;
+			overflow: hidden;
+		}
+		p.surePlaceBtn{
+			background-color: #ff6138;
+			color: #fff;
+			font-size: 1.2rem;
+			line-height: 3.8rem;
+			text-align: center;
+		}
+
+		div.middleSelected{
+			position: absolute;
+			width: 100%;
+			top: 4.1rem;
+			height: 1.6rem;
+			border-top: 1px solid #e4e6f1;
+			border-bottom: 1px solid #e4e6f1;
+		}
+	</style>
+</head>
+<body>
+	<section id="editPayInfo">
+		<article>
+			<div class="editPayInfo-row">
+				<span>联系姓名：</span><p><input type="text" name="contactName" id="contactName"></p>
+			</div>
+			<div class="editPayInfo-row">
+				<span>联系手机：</span><p><input type="text" name="phone" id="phone"></p>
+			</div>
+			<div class="editPayInfo-row">
+				<span>预约时间：</span>
+				<p>
+					<input type="text" name="orderTime" id="orderTime" placeholder="请选择">
+					<span class="grayArrow"></span>
+				</p>
+			</div>
+			<div class="editPayInfo-row">
+				<span>所在地区：</span>
+				<div>
+					<input type="text" name="area" id="area" placeholder="请选择" readonly data-proId='' data-cityId='' data-areaId=''>
+					<span class="grayArrow"></span>
+				</div>
+			</div>
+			<div class="editPayInfo-row">
+				<span>详细地址：</span><p class="pIn"><input type="text" name="detailAddress" id="detailAddress"></p>
+			</div>
+		</article>
+		<article class="placeWraper" style="display:none;">
+			<div class="placeSlect">
+				<div class="placeCon clearfix">
+					<div class="middleSelected"></div>
+					<div class="proConWraper">
+						<!-- <div class="proCon swiper-container">
+							<ul class="proCon-ul swiper-wrapper">
+							</ul>
+						</div> -->
+					</div>
+					<div class="cityConWraper">
+						<!-- <div class="cityCon swiper-container">
+							<ul class="cityCon-ul swiper-wrapper">
+							</ul>
+						</div> -->
+					</div>
+					<div class="areaConWraper">
+						<!-- <div class="areaCon swiper-container">
+							<ul class="areaCon-ul swiper-wrapper">
+							</ul>
+						</div> -->
+					</div>
+				</div>
+				<p class="surePlaceBtn">确定</p>
+			</div>
+		</article>
+		<div class="surePayinfoBtn">确定</div>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		// 时间控件
+		var date = new Date();
+		// date.setDate(date.getDate()+1);	
+		date.setHours(date.getHours()+1);
+		date.setMinutes("0");
+		date.setSeconds("0");
+		var nowYear=date.getFullYear()+5;
+		$("input#orderTime").mobiscroll().datetime({
+	        theme: "bootstrap", 
+	        mode: "clickpick",   
+	        display: "model", 
+	        lang: "zh",       
+	        minDate:date, 
+	        dateFormat: 'yy-mm-dd', 
+	        stepMinute: 60, 
+	        endYear:nowYear 
+	    });
+	    // 编辑支付信息
+	    var userName=decodeURI(decodeURI(paramJson.userName));
+		var userMobile=decodeURI(decodeURI(paramJson.userMobile));
+		// .replace(/[ ]/g,"")
+		var userArea='';
+		var userAddress='';
+		if(paramJson.userArea){
+			userArea=decodeURI(decodeURI(paramJson.userArea));
+			userAddress=decodeURI(decodeURI(paramJson.userAddress));
+		}
+		var userTime=decodeURI(decodeURI(paramJson.userTime));
+
+		$('input[name="contactName"]').val(userName);
+	    $('input[name="phone"]').val(userMobile);
+	    if(userTime!='无'){
+	    	$('input[name="orderTime"]').val(userTime)
+	    }else{
+	    	$('input[name="orderTime"]').val('')
+	    }
+	    if(userArea!=''){
+	    	$('input[name="area"]').val(userArea);
+	    	$('input[name="detailAddress"]').val(userAddress);
+	    	$('input[name="area"]').attr({'data-proId':paramJson.userProId,'data-cityId':paramJson.userCityId,'data-areaId':paramJson.userAreaId})
+	    }else{
+	    	$('input[name="area"]').val('');
+	    	$('input[name="detailAddress"]').val('')
+	    }
+
+		// 选择地区
+		$('input#area').unbind('click').bind('click',function(){
+			var mySwiper2,mySwiper3;
+			var preAreaId=$(this).attr('data-areaId');
+			var preCityId=$(this).attr('data-cityId');
+			var preProId=$(this).attr('data-proId');
+			var preProIdIndex=0;
+			var preCityIdIndex=0;
+			var preAreaIdIndex=0;
+			var isIntArea=true;
+			$('article.placeWraper').show();
+			$('div.proConWraper').html('<div class="proCon swiper-container"><ul class="proCon-ul swiper-wrapper"></ul></div>');
+			$('div.cityConWraper').html('<div class="cityCon swiper-container"><ul class="cityCon-ul swiper-wrapper"></ul></div>');
+			$('div.areaConWraper').html('<div class="areaCon swiper-container"><ul class="areaCon-ul swiper-wrapper"></ul></div>');
+			$('section#editPayInfo').delegate('article.placeWraper','click',function(e){
+				if(!(e.target.closest('div.placeSlect'))){
+					$('article.placeWraper').hide()
+				}
+			});
+			// 初始化省
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/common/provincelist',
+				type:'get',
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					var proStr='';
+					data.forEach(function(key,i){
+						proStr+='<li class="swiper-slide" data-proId="'+key.id+'">'+key.name+'</li>'
+					})
+					$('ul.proCon-ul').html(proStr);
+					if(preProId){
+						preProIdIndex=$('li[data-proId="'+preProId+'"]').index()
+					}
+					// 省滚动
+					var mySwiper = new Swiper('div.proConWraper .swiper-container', {
+						// autoplay: 5000,
+						initialSlide : preProIdIndex,
+						direction : 'vertical',
+						slidesPerView: 5,
+						centeredSlides: true,
+						mousewheelControl: true,
+						onSlideChangeStart:function(swiper){
+							isIntArea=true;
+							nowProId=$('div.proConWraper .swiper-container li.swiper-slide-active').attr('data-proId');
+							$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/common/citylist?provinceId='+nowProId,
+								type:'get',
+								dataType:'json',
+								contentType:'application/json;charset=utf-8',
+								success:function(data2){
+									var cityStr='';
+									data2.forEach(function(key,i){
+										cityStr+='<li class="swiper-slide" data-cityId="'+key.id+'">'+key.name+'</li>'
+									});
+									$('ul.cityCon-ul').html(cityStr);
+									if(preCityId){
+										preCityIdIndex=$('li[data-cityId="'+preCityId+'"]').index()
+									}
+									// 市滚动
+									if(mySwiper2!=undefined){
+										mySwiper2.destroy()
+									}
+									mySwiper2=new Swiper('div.cityConWraper .swiper-container', {
+										initialSlide : preCityIdIndex,
+										direction : 'vertical',
+										slidesPerView: 5,
+										centeredSlides: true,
+										mousewheelControl: true,
+										onSlideChangeStart:function(swiper2){
+											isIntArea=false;
+											nowCityId=$('div.cityConWraper .swiper-container li.swiper-slide-active').attr('data-cityId');
+											$.ajax({
+												url:'/yangchebao-app-ws/ws/0.1/common/arealist?cityId='+nowCityId,
+												type:'get',
+												dataType:'json',
+												contentType:'application/json;charset=utf-8',
+												success:function(data3){
+													var areaStr='';
+													data3.forEach(function(key,i){
+														areaStr+='<li class="swiper-slide" data-areaId="'+key.id+'">'+key.name+'</li>'
+													});
+													$('ul.areaCon-ul').html(areaStr);
+													if(preAreaId){
+														preAreaIdIndex=$('li[data-areaId="'+preAreaId+'"]').index()
+													}
+													// 地区滚动
+													if(mySwiper3!=undefined){
+														mySwiper3.destroy();
+													}
+													mySwiper3=new Swiper('div.areaConWraper .swiper-container', {
+														initialSlide : preAreaIdIndex,
+														direction : 'vertical',
+														slidesPerView: 5,
+														centeredSlides: true,
+														mousewheelControl: true,
+														onSlideChangeStart:function(swiper3){}
+													})
+												}
+											})
+										}
+									});
+									
+									if(isIntArea){
+										var nowCityId=$('div.cityConWraper .swiper-container li.swiper-slide-active').attr('data-cityId');
+										$.ajax({
+											url:'/yangchebao-app-ws/ws/0.1/common/arealist?cityId='+nowCityId,
+											type:'get',
+											dataType:'json',
+											contentType:'application/json;charset=utf-8',
+											success:function(data3){
+												var areaStr='';
+												data3.forEach(function(key,i){
+													areaStr+='<li class="swiper-slide" data-areaId="'+key.id+'">'+key.name+'</li>'
+												});
+												$('ul.areaCon-ul').html(areaStr);
+												if(preAreaId){
+													preAreaIdIndex=$('li[data-areaId="'+preAreaId+'"]').index()
+												}
+												// 地区滚动
+												if(mySwiper3!=undefined){
+													mySwiper3.destroy();
+												}
+												mySwiper3=new Swiper('div.areaConWraper .swiper-container', {
+													initialSlide : preAreaIdIndex,
+													direction : 'vertical',
+													slidesPerView: 5,
+													centeredSlides: true,
+													mousewheelControl: true,
+													onSlideChangeStart:function(swiper3){}
+												})
+											}
+										})
+									}
+								}
+							})
+						}
+					});
+					// 初始化市
+					if(preProIdIndex==0||preProIdIndex==2){
+						var nowProId=$('div.proConWraper .swiper-container li.swiper-slide-active').attr('data-proId');
+						$.ajax({
+							url:'/yangchebao-app-ws/ws/0.1/common/citylist?provinceId='+nowProId,
+							type:'get',
+							dataType:'json',
+							contentType:'application/json;charset=utf-8',
+							success:function(data2){
+								var cityStr='';
+								data2.forEach(function(key,i){
+									cityStr+='<li class="swiper-slide" data-cityId="'+key.id+'">'+key.name+'</li>'
+								});
+								$('ul.cityCon-ul').html(cityStr);
+								if(preCityId){
+									preCityIdIndex=$('li[data-cityId="'+preCityId+'"]').index()
+								}
+								// 初始化市滚动
+								if(mySwiper2!=undefined){
+									mySwiper2.destroy();
+								}
+								mySwiper2=new Swiper('div.cityConWraper .swiper-container', {
+									initialSlide : preCityIdIndex,
+									direction : 'vertical',
+									slidesPerView: 5,
+									centeredSlides: true,
+									mousewheelControl: true,
+									onSlideChangeStart:function(swiper2){
+										nowCityId=$('div.cityConWraper .swiper-container li.swiper-slide-active').attr('data-cityId');
+										$.ajax({
+											url:'/yangchebao-app-ws/ws/0.1/common/arealist?cityId='+nowCityId,
+											type:'get',
+											dataType:'json',
+											contentType:'application/json;charset=utf-8',
+											success:function(data3){
+												var areaStr='';
+												data3.forEach(function(key,i){
+													areaStr+='<li class="swiper-slide" data-areaId="'+key.id+'">'+key.name+'</li>'
+												});
+												$('ul.areaCon-ul').html(areaStr);
+												if(preAreaId){
+													preAreaIdIndex=$('li[data-areaId="'+preAreaId+'"]').index()
+												}
+												// 地区滚动
+												if(mySwiper3!=undefined){
+													mySwiper3.destroy();
+												}
+												mySwiper3=new Swiper('div.areaConWraper .swiper-container', {
+													initialSlide : preAreaIdIndex,
+													direction : 'vertical',
+													slidesPerView: 5,
+													centeredSlides: true,
+													mousewheelControl: true,
+													onSlideChangeStart:function(swiper3){}
+												})
+											}
+										})
+									}
+								});
+								// 初始化地区
+								if(preCityIdIndex==0||preCityIdIndex==2){
+									var nowCityId=$('div.cityConWraper .swiper-container li.swiper-slide-active').attr('data-cityId');
+									$.ajax({
+										url:'/yangchebao-app-ws/ws/0.1/common/arealist?cityId='+nowCityId,
+										type:'get',
+										dataType:'json',
+										contentType:'application/json;charset=utf-8',
+										success:function(data3){
+											var areaStr='';
+											data3.forEach(function(key,i){
+												areaStr+='<li class="swiper-slide" data-areaId="'+key.id+'">'+key.name+'</li>'
+											});
+											$('ul.areaCon-ul').html(areaStr);
+											if(preAreaId){
+												preAreaIdIndex=$('li[data-areaId="'+preAreaId+'"]').index()
+											}
+											// 初始化地区滚动
+											if(mySwiper3!=undefined){
+												mySwiper3.destroy();
+											}
+											mySwiper3=new Swiper('div.areaConWraper .swiper-container', {
+												initialSlide : preAreaIdIndex,
+												direction : 'vertical',
+												slidesPerView: 5,
+												centeredSlides: true,
+												mousewheelControl: true,
+												onSlideChangeStart:function(swiper3){}
+											})
+										}
+									})
+								}
+							}
+						})
+					}
+				}
+			});
+			// 确定地区
+			$('p.surePlaceBtn').unbind('click').bind('click',function(){
+				var sureProId=$('ul.proCon-ul li.swiper-slide-active').attr('data-proid');
+				var sureProVal=$('ul.proCon-ul li.swiper-slide-active').html();
+				var sureCityId=$('ul.cityCon-ul li.swiper-slide-active').attr('data-cityid');
+				var sureCityVal=$('ul.cityCon-ul li.swiper-slide-active').html();
+				var sureAreaId=$('ul.areaCon-ul li.swiper-slide-active').attr('data-areaid');
+				var sureAreaVal=$('ul.areaCon-ul li.swiper-slide-active').html(); 
+				$('input#area').val(sureProVal+' '+sureCityVal+' '+sureAreaVal).attr({'data-proId':sureProId,'data-cityId':sureCityId,'data-areaId':sureAreaId});
+				$('div.proConWraper').html('');
+				$('div.cityConWraper').html('');
+				$('div.areaConWraper').html('');
+				$('article.placeWraper').hide()
+			})
+		});
+		// 确定支付信息按钮
+		$('div.surePayinfoBtn').unbind('click').bind('click',function(){
+			var contactName=$.trim($('input[name="contactName"]').val());
+			var phone=$.trim($('input[name="phone"]').val());
+			if(phone.indexOf(" ")!=-1){
+				phone=phone.replace(' ','');
+				if(phone.indexOf(" ")!=-1){
+					phone=phone.replace(' ','');
+				}
+			}
+			var orderTime=$('input[name="orderTime"]').val();
+			var area=$('input[name="area"]').val();
+			var userProId=$('input[name="area"]').attr('data-proId');
+			var userCityId=$('input[name="area"]').attr('data-cityId');
+			var userAreaId=$('input[name="area"]').attr('data-areaId');
+			var detailAddress=$.trim($('input[name="detailAddress"]').val());
+			if(contactName==''){
+				errorLog('请填写联系姓名');
+				return false
+			}
+			if(phone==''){
+				errorLog('请填写联系手机');
+				return false
+			}
+			if(/^1[0-9]{10}$/.test(phone)==false){
+				errorLog('请填写正确的手机号');
+				return false
+			}
+			if(orderTime==''){
+				errorLog('请选择预约时间');
+				return false
+			}
+			if(area==''){
+				errorLog('请选择所在地区');
+				return false
+			}
+			if(detailAddress==''){
+				errorLog('请填写详细地址');
+				return false
+			}
+			window.location.href="selectBattery.html?contactName="+contactName+'&phone='+phone+'&area='+area+'&detailAddress='+detailAddress+'&orderTime='+orderTime+'&userProId='+userProId+'&userCityId='+userCityId+'&userAreaId='+userAreaId+'&userId='+paramJson.userId+'&customerId='+paramJson.customerId
+			// $('section#mainPage p.userName').html(contactName);
+			// $('section#mainPage p.userMobile').html(phone);
+			// $('section#mainPage p.userAddress').html(area+detailAddress).css('color','#1e1e1e').attr({'data-area':area,'data-detail':detailAddress});
+			// $('section#mainPage p.userTime').html(orderTime).css('color','#1e1e1e');
+			// $('section#mainPage').show();
+			// $('section#editPayInfo').hide()
+		})
+	})
+</script>
+</html>

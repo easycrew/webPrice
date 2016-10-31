@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>支付结果</title>
+	<script src="./js/jquery-1.10.1.min.js"></script>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		body {
+			font-family: 'STHeitiSC-Light',Helvetica,Arial,sans-serif;
+		}
+		section{
+			text-align: center;
+		}
+		p{
+			line-height: 1.6rem;
+			margin: 4rem 0 3rem 0;
+		}
+		p img{
+			width: 1.4rem;
+			margin-right: 0.6rem;
+			margin-top: -0.26rem;
+			border: none;
+    		vertical-align: middle;
+		}
+
+		p,div{
+			font-size: 1.2rem;
+		}
+		
+		div{
+			color: #fff;
+			line-height: 2.625rem;
+			background-color: #FF6138;
+			width: 90%;
+			margin: 0 auto;
+			border-radius: 8px;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<p class="toOrder"><img src="./images/payResult.png">请去订单详情查看！</p>
+		<div class="orderdetailBtn">查看订单详情</div>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    // 请去订单详情
+	    $('div.orderdetailBtn').unbind('click').bind('click',function(){
+	    	window.location.href="order-list.html?customerId="+paramJson.customerId;
+	    })
+	})
+</script>
+</html>

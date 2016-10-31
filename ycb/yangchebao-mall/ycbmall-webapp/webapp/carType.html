@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="养车宝，配件商城">
+	<meta name="description" content="养车宝配件商城，100%原厂品质，3M、威固、美孚、壳牌Ahell、普利司通、米其林等汽车配件，厂价直销！">
+	<title>全网正品汽车配件_养车宝配件商城！</title>
+	<link rel="icon" href="favicon.ico">
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script src="js/common.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/carType.css">
+	<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+	<div class="container">
+		<div class="Form-carStyle dialog" style="display: none;">
+			<div class="dialog-title"><h3></h3><img src="img/alertRe_close.png" class="dialog-close"></div>
+			<div class="dialog-con">
+				<p><span>车型：</span><select name="theCarType"><option value="">请选择车型</option></select></p>
+				<p class="ui-note" style="color:#f00;text-align: left;padding-left:130px;padding-top:6px;"></p>
+				<span class="dialog-sure">确定</span>
+			</div>
+		</div>
+		<div class="dialog-overlay" style="display: none;"></div>
+		<div class="top"></div>
+		<div class="main">
+			<div class="mainCommen"></div>
+			<div class="hotCarType">
+				<div class="hotCarType_title"><h2>热门品牌</h2></div>
+				<div class="hotCarType_con">
+					<ul>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="87" name="D"><img src="img/carLogo/acar87.png" alt="大众_养车宝" title="大众_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="87" name="D">大众</a></p>
+						</li>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="94" name="M"><img src="img/carLogo/acar94.png" alt="马自达_养车宝" title="马自达_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="94" name="M">马自达</a></p>
+						</li>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="83" name="R"><img src="img/carLogo/acar83.png" alt="日产_养车宝" title="日产_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="83" name="R">日产</a></p>
+						</li>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="86" name="X"><img src="img/carLogo/acar86.png" alt="现代_养车宝" title="现代_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="86" name="X">现代</a></p>
+						</li>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="109" name="F"><img src="img/carLogo/acar109.png" alt="丰田_养车宝" title="丰田_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="109" name="F">丰田</a></p>
+						</li>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="239" name="J"><img src="img/carLogo/acar239.png" alt="吉利_养车宝" title="吉利_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="239" name="J">吉利</a></p>
+						</li>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="92" name="B"><img src="img/carLogo/acar92.png" alt="比亚迪_养车宝" title="比亚迪_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="92" name="B">比亚迪</a></p>
+						</li>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="89" name="B"><img src="img/carLogo/acar89.png" alt="本田_养车宝" title="本田_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="89" name="B">本田</a></p>
+						</li>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="123" name="F"><img src="img/carLogo/acar123.png" alt="福特_养车宝" title="福特_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="123" name="F">福特</a></p>
+						</li>
+						<li>
+							<p class="hotCarType_conImg"><a href="javascript:" path="112" name="B"><img src="img/carLogo/acar112.png" alt="标致_养车宝" title="标致_养车宝"></a></p>
+							<p class="hotCarType_conText"><a href="javascript:" path="112" name="B">标致</a></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="allCarType">
+				<div class="allCarType_title">
+					<h2>全部品牌</h2>
+					<div class="letters">
+						<span class="Acar Afirst" id="A">A</span>
+						<span class="Acar" id="B">B</span>
+						<span class="Acar" id"C">C</span>
+						<span class="Acar" id="D">D</span>
+						<span class="Acar" id="E">E</span>
+						<span class="Acar" id="F">F</span>
+						<span class="Acar" id="G">G</span>
+						<span class="Acar" id="H">H</span>
+						<span class="Acar" id="I">I</span>
+						<span class="Acar" id="J">J</span>
+						<span class="Acar" id="K">K</span>
+						<span class="Acar" id="L">L</span>
+						<span class="Acar" id="M">M</span>
+						<span class="Acar" id="N">N</span>
+						<span class="Acar" id="O">O</span>
+						<span class="Acar" id="P">P</span>
+						<span class="Acar" id="Q">Q</span>
+						<span class="Acar" id="R">R</span>
+						<span class="Acar" id="S">S</span>
+						<span class="Acar" id="T">T</span>
+						<span class="Acar" id="U">U</span>
+						<span class="Acar" id="V">V</span>
+						<span class="Acar" id="W">W</span>
+						<span class="Acar" id="X">X</span>
+						<span class="Acar" id="Y">Y</span>
+						<span class="Acar" id="Z">Z</span>
+					</div>
+				</div>
+				<div class="allCarType_con">
+					<div class="allCarType-info detail-box">
+						<div class="letterCarType">
+							<div class="theLetter"><span>A</span></div>
+							<div class='theLetter_carType'>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer"></div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$('div.top').load('top.html');
+		$('div.mainCommen').load('searchAndNav.html');
+		$('div.footer').load('footer.html');
+
+		$('span.Afirst').addClass('spanClick');
+		$.get(mall.url('/support/modelInfo/list'),{initial:'a'},function(data){
+				var brandStr='';
+					brandStr+='<div class="theLetter"><span>A</span></div>';
+					getCarType(data,brandStr)
+		});
+
+		$('div.letters span.Acar').on('click',function(){
+			$(this).addClass('spanClick').siblings().removeClass('spanClick');
+			var initial=$(this).html().toLowerCase();
+			var _initial=$(this).html();
+			$.get(mall.url('/support/modelInfo/list'),{initial:initial},function(data){
+				var brandStr='';
+					brandStr+='<div class="theLetter"><span>'+_initial+'</span></div>';
+					getCarType(data,brandStr)
+			})
+		});
+		$('div.hotCarType_con li p a').click(function(){
+			var initial=$(this).attr('name').toLowerCase();
+			var _initial=$(this).attr('name');
+			var _id=$(this).attr('path');
+			$.get(mall.url('/support/modelInfo/list'),{initial:initial},function(data){
+				var brandStr='';
+				brandStr+='<div class="theLetter"><span>'+_initial+'</span></div>';
+				getCarType(data,brandStr);
+				setTimeout(300,hashTo(_id))
+			});
+			$('span#'+_initial).addClass('spanClick').siblings().removeClass('spanClick')
+		});
+		function hashTo(id){
+			window.location.hash =id
+		}
+		function getCarType(data,brandStr){
+			if(data!=''){
+				$.each(data,function(i){
+					brandStr+='<div class="theLetter_carType" id="'+this.id+'">'
+							 +'<div class="theLetter_carType_logo">'
+							 +'<p class="carLogoImg"><img src="img/carLogo/'+this.logo+'" alt="'+this.name+'_养车宝" title="'+this.name+'_养车宝"></p>'
+							 +'<p class="carLogoText" id="'+this.id+'">'+this.name+'</p>'
+							 +'</div>'
+							 +'<div class="theLetter_carType_text">';
+					var factoryStr='';
+					var factories=this.factories;
+					$.each(factories,function(j){
+						factoryStr+='<div class="theCar">'
+								   +'<p class="theCarType" id="'+this.id+'">'+this.name+'</p>'
+								   +'<p class="theCarType_detail">'
+						var modelStr='';
+						var models=this.models;
+						// classifyResult.html?brandId='+data[i].id+'&factoryId='+factories[j].id+'&modelId='+this.id+'" id="'+this.id+'
+						$.each(models,function(k){
+							 modelStr+='<span><a href="javascript:" class="carModel" id="'+this.id+'">'+this.name+'</a></span>'
+						});
+							factoryStr+=modelStr+'</p>';
+							factoryStr+='</div>';
+					})
+					brandStr+=factoryStr+'</div></div>'
+				});
+				$('div.letterCarType').html(brandStr)
+			}else{
+				brandStr+='<div class="theLetter_carType" style="text-align: center;font-size: 14px;padding: 10px 0;">暂无符合条件的车型</div>';
+				$('div.letterCarType').html(brandStr)
+			}
+			
+			$('p.theCarType_detail').each(function(){
+				$(this).find('span:last').css('border','none')
+			})
+		};
+		$('div.letterCarType').on('click','a.carModel',function(){
+			window.scrollTo(0,0);
+			$('div.Form-carStyle').show();
+			$('div.dialog-overlay').show();
+			var modelId=$(this).attr('id'),modelName=$(this).text();
+			var factoryId=$(this).parent().parent().siblings('p.theCarType').attr('id'),factoryName=$(this).parent().parent().siblings('p.theCarType').text();
+			var brandId=$(this).parents('div.theLetter_carType').find('p.carLogoText').attr('id'),brandName=$(this).parents('div.theLetter_carType').find('p.carLogoText').text();
+			$.get(mall.url('/support/style/list'),{modelId:modelId},function(data){
+				var stylesStr = '<option value="">请选择车型</option>';
+				$.each(data,function(i){
+					stylesStr+='<option value="'+this.styleId+'">'+this.styleName+'</option>'
+				});
+				$('div.Form-carStyle select').html(stylesStr)
+			});
+			$('div.Form-carStyle span.dialog-sure').unbind('click').bind('click',function(){
+				if($('div.Form-carStyle select').val()==''){
+					$('div.Form-carStyle p.ui-note').html('请选择车型');
+					return false
+				}
+				var styleId=$('div.Form-carStyle select').val();
+				var styleName=$('div.Form-carStyle select option[value="'+styleId+'"]').text();
+				$('div.Form-carStyle').hide();
+				$('div.dialog-overlay').hide();
+				$('div.Form-carStyle p.ui-note').html('');
+				
+				window.open('classifyResult.html?brandId='+brandId+'&factoryId='+factoryId+'&modelId='+modelId+'&styleId='+styleId)
+			});
+			$('div.Form-carStyle select').focus(function(){
+				$('div.Form-carStyle p.ui-note').html('')
+			})
+		});
+		$('div.container').on('click','div.Form-carStyle img.dialog-close',function(){
+			$('div.Form-carStyle').hide();
+			$('div.dialog-overlay').hide();
+			$('div.Form-carStyle p.ui-note').html('');
+		});
+		
+	});
+	// cookie传参
+	function setCookie(name,value){
+		var days=30;
+		var exp=new Date();
+		exp.setTime(exp.getTime()+days*24*60*60*1000);
+		document.cookie=name+'='+escape(value)+';expires='+exp.toGMTString()
+	}
+	function getCookie(name){
+		var arr =document.cookie.match(new RegExp("(^|)"+name+"=([^;]*)(;|$)"));
+		if(arr != null) 
+		return unescape(arr[2]); 
+		return null;
+	}
+	function delCookie(name){
+	    var exp = new Date();
+	    exp.setTime(exp.getTime() - 1);
+	    var cval=getCookie(name);
+	    if(cval!=null)
+        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+	} 
+</script>
+</html>

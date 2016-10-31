@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>获取盒子</title>  
+    <script language="javascript" src="js/jquery-1.10.1.min.js"></script> 
+</head>
+<body>
+	    <script language="javascript">
+        $(document).ready(function(){
+        	 var url =window.location.search;    
+	         var paramsArr = (url.split("?")[1]).split("&");
+	         var paramJson = {}; 
+	         $.each(paramsArr,function(i){
+	            var item = paramsArr[i].split("=");
+	            paramJson[item[0]] = item[1];
+	         });  
+			getInfo();
+	        function getInfo(){  
+	            $.ajax({
+	              url: '/yangchebao-app-ws/ws/0.1/biz/lecheng/checkCode?exchangeCode='+paramJson.exchangeCode, 
+	              type: 'get', 
+	              dataType: 'json',
+	              success: function(data){
+						var status= data.status;
+			            if(status=="1"){
+			            	//activityPageUrl
+			                window.location.href = "/yangchebao-oc/yongan/step1.html"+url;
+			            }
+	              },
+	              error:function(data){
+						var status= data.status;
+	              		if(status=="2"){
+			               window.location.href = "/yangchebao-oc/yongan/reuse.html"; 
+			            }
+			            else{
+			            	var mes = eval('('+data.responseText+')'); 
+							alert(mes[0].message);
+			            }
+	              } 
+	            });  
+	        }
+
+        });
+    </script>
+</body> 
+</html>

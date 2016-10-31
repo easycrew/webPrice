@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+		<title>个人中心</title>
+		<script type="text/javascript" src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script>
+		<script type="text/javascript">
+			!function(t,e){function n(t,e,n){var r=t.children(),o=!1;t.empty();for(var i=0,d=r.length;d>i;i++){var l=r.eq(i);if(t.append(l),n&&t.append(n),a(t,e)){l.remove(),o=!0;break}n&&n.detach()}return o}function r(e,n,i,d,l){var s=!1,c="a, table, thead, tbody, tfoot, tr, col, colgroup, object, embed, param, ol, ul, dl, blockquote, select, optgroup, option, textarea, script, style",u="script, .dotdotdot-keep";return e.contents().detach().each(function(){var h=this,f=t(h);if("undefined"==typeof h)return!0;if(f.is(u))e.append(f);else{if(s)return!0;e.append(f),!l||f.is(d.after)||f.find(d.after).length||e[e.is(c)?"after":"append"](l),a(i,d)&&(s=3==h.nodeType?o(f,n,i,d,l):r(f,n,i,d,l)),s||l&&l.detach()}}),n.addClass("is-truncated"),s}function o(e,n,r,o,d){var c=e[0];if(!c)return!1;var h=s(c),f=-1!==h.indexOf(" ")?" ":"　",p="letter"==o.wrap?"":f,g=h.split(p),v=-1,w=-1,b=0,y=g.length-1;for(o.fallbackToLetter&&0==b&&0==y&&(p="",g=h.split(p),y=g.length-1);y>=b&&(0!=b||0!=y);){var m=Math.floor((b+y)/2);if(m==w)break;w=m,l(c,g.slice(0,w+1).join(p)+o.ellipsis),r.children().each(function(){t(this).toggle().toggle()}),a(r,o)?(y=w,o.fallbackToLetter&&0==b&&0==y&&(p="",g=g[0].split(p),v=-1,w=-1,b=0,y=g.length-1)):(v=w,b=w)}if(-1==v||1==g.length&&0==g[0].length){var x=e.parent();e.detach();var T=d&&d.closest(x).length?d.length:0;x.contents().length>T?c=u(x.contents().eq(-1-T),n):(c=u(x,n,!0),T||x.detach()),c&&(h=i(s(c),o),l(c,h),T&&d&&t(c).parent().append(d))}else h=i(g.slice(0,v+1).join(p),o),l(c,h);return!0}function a(t,e){return t.innerHeight()>e.maxHeight}function i(e,n){for(;t.inArray(e.slice(-1),n.lastCharacter.remove)>-1;)e=e.slice(0,-1);return t.inArray(e.slice(-1),n.lastCharacter.noEllipsis)<0&&(e+=n.ellipsis),e}function d(t){return{width:t.innerWidth(),height:t.innerHeight()}}function l(t,e){t.innerText?t.innerText=e:t.nodeValue?t.nodeValue=e:t.textContent&&(t.textContent=e)}function s(t){return t.innerText?t.innerText:t.nodeValue?t.nodeValue:t.textContent?t.textContent:""}function c(t){do t=t.previousSibling;while(t&&1!==t.nodeType&&3!==t.nodeType);return t}function u(e,n,r){var o,a=e&&e[0];if(a){if(!r){if(3===a.nodeType)return a;if(t.trim(e.text()))return u(e.contents().last(),n)}for(o=c(a);!o;){if(e=e.parent(),e.is(n)||!e.length)return!1;o=c(e[0])}if(o)return u(t(o),n)}return!1}function h(e,n){return e?"string"==typeof e?(e=t(e,n),e.length?e:!1):e.jquery?e:!1:!1}function f(t){for(var e=t.innerHeight(),n=["paddingTop","paddingBottom"],r=0,o=n.length;o>r;r++){var a=parseInt(t.css(n[r]),10);isNaN(a)&&(a=0),e-=a}return e}if(!t.fn.dotdotdot){t.fn.dotdotdot=function(e){if(0==this.length)return t.fn.dotdotdot.debug('No element found for "'+this.selector+'".'),this;if(this.length>1)return this.each(function(){t(this).dotdotdot(e)});var o=this,i=o.contents();o.data("dotdotdot")&&o.trigger("destroy.dot"),o.data("dotdotdot-style",o.attr("style")||""),o.css("word-wrap","break-word"),"nowrap"===o.css("white-space")&&o.css("white-space","normal"),o.bind_events=function(){return o.bind("update.dot",function(e,d){switch(o.removeClass("is-truncated"),e.preventDefault(),e.stopPropagation(),typeof l.height){case"number":l.maxHeight=l.height;break;case"function":l.maxHeight=l.height.call(o[0]);break;default:l.maxHeight=f(o)}l.maxHeight+=l.tolerance,"undefined"!=typeof d&&(("string"==typeof d||"nodeType"in d&&1===d.nodeType)&&(d=t("<div />").append(d).contents()),d instanceof t&&(i=d)),g=o.wrapInner('<div class="dotdotdot" />').children(),g.contents().detach().end().append(i.clone(!0)).find("br").replaceWith("  <br />  ").end().css({height:"auto",width:"auto",border:"none",padding:0,margin:0});var c=!1,u=!1;return s.afterElement&&(c=s.afterElement.clone(!0),c.show(),s.afterElement.detach()),a(g,l)&&(u="children"==l.wrap?n(g,l,c):r(g,o,g,l,c)),g.replaceWith(g.contents()),g=null,t.isFunction(l.callback)&&l.callback.call(o[0],u,i),s.isTruncated=u,u}).bind("isTruncated.dot",function(t,e){return t.preventDefault(),t.stopPropagation(),"function"==typeof e&&e.call(o[0],s.isTruncated),s.isTruncated}).bind("originalContent.dot",function(t,e){return t.preventDefault(),t.stopPropagation(),"function"==typeof e&&e.call(o[0],i),i}).bind("destroy.dot",function(t){t.preventDefault(),t.stopPropagation(),o.unwatch().unbind_events().contents().detach().end().append(i).attr("style",o.data("dotdotdot-style")||"").data("dotdotdot",!1)}),o},o.unbind_events=function(){return o.unbind(".dot"),o},o.watch=function(){if(o.unwatch(),"window"==l.watch){var e=t(window),n=e.width(),r=e.height();e.bind("resize.dot"+s.dotId,function(){n==e.width()&&r==e.height()&&l.windowResizeFix||(n=e.width(),r=e.height(),u&&clearInterval(u),u=setTimeout(function(){o.trigger("update.dot")},100))})}else c=d(o),u=setInterval(function(){if(o.is(":visible")){var t=d(o);(c.width!=t.width||c.height!=t.height)&&(o.trigger("update.dot"),c=t)}},500);return o},o.unwatch=function(){return t(window).unbind("resize.dot"+s.dotId),u&&clearInterval(u),o};var l=t.extend(!0,{},t.fn.dotdotdot.defaults,e),s={},c={},u=null,g=null;return l.lastCharacter.remove instanceof Array||(l.lastCharacter.remove=t.fn.dotdotdot.defaultArrays.lastCharacter.remove),l.lastCharacter.noEllipsis instanceof Array||(l.lastCharacter.noEllipsis=t.fn.dotdotdot.defaultArrays.lastCharacter.noEllipsis),s.afterElement=h(l.after,o),s.isTruncated=!1,s.dotId=p++,o.data("dotdotdot",!0).bind_events().trigger("update.dot"),l.watch&&o.watch(),o},t.fn.dotdotdot.defaults={ellipsis:"... ",wrap:"word",fallbackToLetter:!0,lastCharacter:{},tolerance:0,callback:null,after:null,height:null,watch:!1,windowResizeFix:!0},t.fn.dotdotdot.defaultArrays={lastCharacter:{remove:[" ","　",",",";",".","!","?"],noEllipsis:[]}},t.fn.dotdotdot.debug=function(t){};var p=1,g=t.fn.html;t.fn.html=function(n){return n!=e&&!t.isFunction(n)&&this.data("dotdotdot")?this.trigger("update",[n]):g.apply(this,arguments)};var v=t.fn.text;t.fn.text=function(n){return n!=e&&!t.isFunction(n)&&this.data("dotdotdot")?(n=t("<div />").text(n).html(),this.trigger("update",[n])):v.apply(this,arguments)}}}(jQuery);
+
+			var index = {};
+			function connectWebViewJavascriptBridge(callback) {
+				if (window.WebViewJavascriptBridge) {
+					callback(WebViewJavascriptBridge)
+				} else {
+					document.addEventListener('WebViewJavascriptBridgeReady', function() {
+						callback(WebViewJavascriptBridge)
+					}, false)
+				}
+			}
+			connectWebViewJavascriptBridge(function(bridge) {
+				document.documentElement.style.webkitTouchCallout='none';
+				bridge.init(function(message, responseCallback) {   
+					if(message instanceof Object){ 
+						if(typeof index.init === 'function') {
+							responseCallback(index.init.apply(this,[message,bridge]));
+						} 
+					}else if(message=="pullUpRefresh"){
+						 typeof index[message] == 'function' && responseCallback(index.pullUpRefresh.apply(this));  
+					}else{
+						 responseCallback(setCallCountFromClient.apply(this,[message]));
+					}
+				}) 
+			 
+			});
+ 
+			function pullUpRefresh() {
+				var f = index.pullUpRefresh();   
+				// 加载动作 
+				android.pullUpResponse(true); // 加载完成，通知客户端
+				if(f=="1"){
+					f=0x3;
+				}else{
+					f=0x1;
+				}
+				//alert(f);
+				android.setPullMode(f);
+			 }
+			function pullDownClose(m){
+				if(m=='1'){
+					m=0x0;//上拉下拉都不要
+				}else{
+					m=0x1;//下拉刷新，上拉加载不执行
+				}
+				android.setPullMode(m);
+			}
+			   function setAtomInfo(info) 
+			   {
+				//alert("shopAccountId:"+info.shopAccountId+", businessInfoId:"+info.businessInfoId);
+				var f = index.init(info); 
+				if(f=="1"){
+					f=0x3;
+				}else{
+					f=0x1;
+				} 
+				android.setPullMode(f);
+			   } 
+		</script>
+		<style>
+			* {margin: 0;padding: 0;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);-webkit-box-sizing: border-box;-moz-box-sizing: border-box;-ms-box-sizing: border-box;box-sizing: border-box}
+			html{font-size: 62.5%;}
+			body{font-size: 62.5%;font-family: STHeitiSC-Light;min-height:100%;background-color: #eef0f7;}
+			.top-head-wrap {margin-bottom: 0.2rem;width: 100%;}
+			img{width: 100%;vertical-align: top;}
+			.top-head-wrap>.title {position: relative;}
+			.top-head-wrap>.title>label {display: inline-block;position: absolute;top: 1.8rem;left: 0.8rem;color: #FFFFFF;font-size: 18px;}
+			section.question-wraper div {margin-top: 1rem;background: #FFFFFF;padding: 1rem 1.3rem;width: 100%;}
+			section.question-wraper div p {padding-left: 3.5rem;}
+			section.question-wraper div p:first-child {background: url(http://vipapp.yangchebao.com.cn/vip-app/css/ycbmall/images/session-meg.png) no-repeat;background-size: auto 100%;padding-bottom: 0.4rem;font-size: 1.5rem;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+			section.question-wraper div p:last-child {font-size: 1.3rem;color: #949DAE;width: 100%;height: 3.8rem;}
+		</style>
+</head>
+<!--
+*************运营同学请注意**************
+*1.<p>和</p>之间添加内容
+*2.第一个<p>和</p>之间添加问答标题内容
+*3.第二个<p>和</p>之间添加问答正文
+*4.将跳转到问答详情页面的url写在<div>里class=" "引号中（注意一一对应给你，为必填内容）
+*5.一条信息为一个<div></div>,创建多条请复制
+* ****************
+-->
+	<body>
+		<section class="top-head-wrap">
+			<div class="title">
+				<img src="http://vipapp.yangchebao.com.cn/vip-app/css/ycbmall/images/exclive-tbg.png"/>
+				<label>专家问答</label>
+			</div>
+		</section>
+		<section class="question-wraper">
+			<!--内容编辑处-开始-->
+			
+			<div class="跳转的URL">
+				<p>标题必填</p>
+				<p>正文必填</p>
+			</div>
+			
+			<!--内容编辑处-结束-->
+		</section>
+		<script type="text/javascript">
+			$(".question-wraper div p:last-child").dotdotdot();
+			$(document).ready(function(){
+			 	index.init=function(userInfo,bridge){
+					$(".question-wraper").delegate('div','touchstart click touched',function(e){
+						switch(e.type){
+							case 'touchstart': break;
+							case 'click':
+								var urlTo=$(this).attr('class');
+								window.location.href="http://w2nw?"+urlTo;
+								break;
+						}
+					});
+					return 0
+				}
+			})
+		</script>
+	</body>
+</html>

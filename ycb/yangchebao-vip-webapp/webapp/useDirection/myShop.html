@@ -1,0 +1,39 @@
+<style>
+	img{
+		width:100%;
+		height:100%;
+	}
+	#ycb-useDirection-myShop{
+		position:relative;
+	}
+	.backSpan{
+		position:absolute;
+		top:-44px;
+		right:0;
+		z-index:1000;
+		display:inline-block;
+		width:110px;
+		height:26px;
+		line-height:26px;
+		background-color:#fff;
+		border:1px solid #ddd;
+		text-align:center;
+		cursor:pointer;
+	}
+	#user_menu{
+		z-index:1001!important;
+	}
+</style>
+<div class="urlContentWraper" id="ycb-useDirection-myShop">
+	<img src="../img/7.jpg">
+	<span class="backSpan">返回</span>
+</div>
+<script type="text/javascript">
+$(function(){
+	var wraper=$("#ycb-useDirection-myShop");
+	$("ul.breadcrumb").append(' 我的店铺');
+	$('.backSpan',wraper).click(function(){
+		$.jRadOpen({'url':"useDirection/useDirection.html"})
+	})
+})
+</script>

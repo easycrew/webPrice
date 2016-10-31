@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>身份认证</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style> 
+		article.cardInfo{ 
+			margin-top: 1.5rem;
+		}
+		div.row{
+			background-color: #fff;
+			position: relative;
+			padding: 1rem 0;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.row span{
+			display: inline-block;
+			float: left;
+			font-size: 1.8rem;
+			line-height: 3rem;
+			padding: 0 1rem; 
+			text-align: center;
+		}
+		div.row p{
+			margin-left: 7.6rem;
+			border-left: 1px solid #D9D9E2;
+			padding-left: 1rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		div.row input{
+			border: none;
+			width: 100%;
+			font-size: 1.8rem;
+			line-height: 3rem;
+			background-color: #fff;
+		}
+		div.sureBtn{
+			text-align: center;
+			color: #fff;
+			background-color: #ff6138;
+			margin: 2.5rem 1.5rem 0;
+			font-size: 1.8rem; 
+			line-height: 4.4rem;
+			-webkit-border-radius: 8px;
+			-moz-border-radius: 8px;
+			border-radius: 8px; 
+		}
+		.info{
+			font-size: 1.2rem;
+			color: #A2A2A2;
+			margin:1rem 1.5rem;
+		}
+		.link{
+			font-size: 1.2rem;
+			float: right;
+			color: #6EAADE;
+			margin: 1rem 1.5rem;
+		}
+		div.imgW,p.text{
+			text-align: center;
+		}
+		div.imgW{
+			margin: 4rem 0 2rem;
+		}
+		div.imgW img{
+			width: 90px;
+		}
+		p.text{
+			font-size: 1.5rem;
+			color: #a2a2a2;
+		}
+		p.tip{
+			display: none;
+			color: #ff6138;
+			font-size: 1.2rem;
+			width: 220px;
+			margin: 1rem auto 0;
+
+		}
+		input,textarea{
+			-webkit-appearance:none;
+			-moz-appearance: none;
+			appearance: none;
+		}
+		input:focus{
+			outline:none;
+		}
+		div.grayBtn{
+		  background-color:#ccc;
+		}
+	</style>
+</head>
+<body>
+	<section> 
+		<article class="cardInfo" style="display:none;">
+			<div class="row clearfix">
+				<span>姓&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+				<p class="cardNum"><input name="name" type="text"></p>
+			</div>
+			<div class="row clearfix">
+				<span>保单号</span>
+				<p class="cardPwd"><input name="policyCode" type="text"></p>
+			</div>
+			<div class="row clearfix">
+				<span>车架号</span>
+				<p class="cardPwd"><input name="vin" type="text"></p>
+			</div>
+			<p class="info">请确保填写的信息与保单信息一致，否则将无法领取福利</p>
+			<div class="sureBtn">确认</div>
+			<!--a class="link" href="javascript:void(0);">提取续保保险金规则说明</a-->
+		</article> 
+		<article  class="resultWrap" style="display:none;">
+			<div class="imgW jianIcon"><img src="./img/jianIcon.png"></div>
+			<p class="text threeR">安防神器暂时不支持您的车型</p>
+			<p class="tip">您的请求我们已经记录，可以支持您的车型时，我们会再次联系您。</p>
+		</article>
+	</section>
+	<section id="sucHtml"></section>
+</body>
+<script class="text/javascript"> 
+	var index = {};
+	function connectWebViewJavascriptBridge(callback) {
+		if (window.WebViewJavascriptBridge) {
+			callback(WebViewJavascriptBridge)
+		} else {
+			document.addEventListener('WebViewJavascriptBridgeReady', function() {
+				callback(WebViewJavascriptBridge)
+			}, false)
+		}
+	}
+	connectWebViewJavascriptBridge(function(bridge) {
+		document.documentElement.style.webkitTouchCallout='none';
+		bridge.init(function(message, responseCallback) {   
+			if(message instanceof Object){  
+				if(typeof index.init === 'function') {  
+					responseCallback(index.init.apply(this,[message,bridge]));
+				} 
+			}else if(message=="pullUpRefresh"){
+				 typeof index[message] == 'function' && responseCallback(index.pullUpRefresh.apply(this));  
+			}else{
+				 responseCallback(setCallCountFromClient.apply(this,[message]));
+			}
+		}) 
+	 
+	});
+	var bridge;
+	index.init = function(userInfo,bri){  
+	  bridge = bri;
+	};
+	var paramJson = {};
+	$(function(){  
+		// 获取参数 
+		var url = window.location.search; 
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }   
+		// 人保用户绑定
+		$('div.sureBtn').unbind('click').bind('click',function(){
+		    if($(this).hasClass("grayBtn")){
+			  return false;
+			}
+			insure(); 
+		})
+		$('input[name="vin"]').keyup(function(){
+		   $(this).val($(this).val().toUpperCase());
+		}); 
+		check();
+	});
+	
+	function insure(){
+			var name=$.trim($('input[name="name"]').val());
+			var policyCode=$.trim($('input[name="policyCode"]').val());
+			var vin=$.trim($('input[name="vin"]').val());
+			if(name==''){
+				errorLog('请输入姓名');
+				return false
+			}
+			if(name.length>14){
+				errorLog('输入姓名过长');
+				return false
+			}
+			if(policyCode==''){
+				errorLog('请输入保单号');
+				return false
+			}
+			if(vin==''){
+				errorLog('请输入车架号');
+				return false
+			}
+			var reg = /^[A-Z0-9]{17}$/;
+			if(!(reg.test(vin))){
+				errorLog('请输入正确的车架号');
+				return false
+			} 
+			var postData={};
+			postData.userInfoId = paramJson.userId;
+			postData.realName=name;
+			postData.policyCode = policyCode;
+			postData.vin=vin;
+			postData.comCode=1000; 
+            $('div.sureBtn').addClass("grayBtn");
+			$.ajax({          
+				url:'/yangchebao-app-ws/ws/0.1/insure/identify',
+				type:'post',
+				dataType:'json',
+				data:$.toJSON(postData),
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+				     $('div.sureBtn').removeClass("grayBtn");
+					if(data.resultCode==1){
+						//发消息给客户端 刷新挣钱页面
+						if(paramJson.osInfo=="3"){//android 
+							 window.shareInfos.moneyRefresh("1"); 
+						}else{
+							var json = {"moneyRefresh":"1"};
+							bridge.send(json, function(responseData) {
+								log('JS got response', responseData)
+							});
+						}  
+					    $(".cardInfo").hide();
+						paramJson.discount = data.discount;
+						paramJson.isGiveBox = data.isGiveBox;
+					    $("#sucHtml").load("memberSuc.html");  
+					}else{
+						window.location.href="activeFail.html";
+					}
+				},
+				error:function(xhr){
+				   $('div.sureBtn').removeClass("grayBtn");
+					var error=eval('('+xhr.responseText+')');
+					errorLog(error[0].message)
+				}
+			})
+	}
+    function check(){ 
+    	$.ajax({
+              url: '/yangchebao-app-ws/ws/0.1/insure/checkUserIdentify?userInfoId='+paramJson.userId+'&comCode=1000'+"&"+(new Date()).getTime(),
+              type: 'get', 
+              dataType: 'json',
+              success: function(data) {   
+              	 if(data.resultCode!=undefined&&data.resultCode==0){
+              	 	//未认证
+              	 	$(".cardInfo").show();
+              	 }else{
+              	 	//已认证 
+              	 	if(data.isGiveBox==1){ 
+					   paramJson.isGiveBox = data.isGiveBox;
+					   $("#sucHtml").load("memberSuc.html");  
+              	 	}else{ 
+					  $(".resultWrap .threeR").html("身份已经认证成功，无需重复认证。");
+					  $(".resultWrap").show();
+              	 	}
+              	 }
+              },error:function(xhr){  
+                var mes = eval('('+xhr.responseText+')'); 
+                errorLog(mes[0].message);
+              }
+          });   
+    } 
+</script>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<script src="../../js/jquery-1.9.1.min.js"></script> 
+<script src="../js/index.js"></script> 
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/swiper.3.1.2.jquery.min.0000000.js"></script>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<link rel="stylesheet" href="http://app.yangchebao.com.cn/group1/M00/00/9F/swiper.min.0000000000000000000.css"> 
+<title>众诚奖励</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	font-size:62.5%;
+}
+body{
+	background-color: #57CFA6;
+	font-family:'华文细黑','HelveticaNeue-Light'; 
+	color:#1e1e1e;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+body,html{
+	min-height:100%;
+}
+ol{
+	list-style: none;
+}
+img{
+	border:none;
+}
+.clearfix {
+   *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+   display: table;
+   line-height: 0;
+   content: "";
+}
+.clearfix:after {
+  clear: both;
+} 
+a{
+	text-decoration: none;
+} 
+.headPic{
+	display: block;
+	padding: 1.5rem 1.2rem 0;
+	width: 100%;
+	box-sizing:border-box;
+}
+.reportWrap{
+	margin: -1rem 1.5rem 1.5rem;
+	background-color: #fff;
+	padding: 1rem 3rem 6.6rem 2.2rem;
+	position: relative;
+	z-index: 1;
+	font-size: 1.2rem;
+	color: #57CFA6; 
+}
+.reportWrap h1{
+	font-weight: normal;
+	font-size: 1.2rem;
+}
+.reportWrap ul{
+	background-image: url("images/borderBg.png");
+	background-repeat: repeat-y;
+	background-size: 3px;
+	background-position: left top;
+	padding: 0 1rem; 
+}
+.reportWrap ul li{
+	background-color: #D4F2E8; 
+	border-bottom:1px solid #57CFA6;  
+	border-left:1px solid #57CFA6;  
+	border-right:1px solid #57CFA6;  
+	height: 2.4rem;
+	line-height: 2.4rem; 
+} 
+.reportWrap ul .title{ 
+	background-color: #fff;
+	border-left:none;
+	border-right:none;
+	padding: 1rem 0 0.5rem;
+}
+.reportWrap ul li span:first-child{ 
+	display: inline-block;
+	width: 42%; 
+	padding-left: 1.5rem;
+	box-sizing:border-box;
+}
+.reportWrap ul li span:last-child{ 
+	display: inline-block;
+	width: 58%; 
+}
+span.red{
+	color: #F53857;
+}
+ul li{
+	list-style: none;
+}
+ul li.title{
+    position: relative;
+}
+.title label{
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 100%;
+	background-color: #57CFA6;
+	margin-right: 1rem;
+	position: absolute;
+	left: -1.4rem;
+	top:1.5rem;
+}
+ul li.null{
+	padding-left: 1.5rem;
+}
+.btn{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	background-color: #FB451F;
+	font-size:1.8rem;
+	color: #fff;
+	text-align: center;
+	height: 4.4rem;
+	line-height: 4.4rem;
+	left: 0;
+	z-index: 2;
+}
+</style>
+<body>
+   <img src="images/head.png" class="headPic"/>
+   <section class="reportWrap">
+   	<ul class="historyUl">
+   		<!-- <li class="title"><label></label>2016年3月－2016年5月（第1季度）</li> 
+   		<li><span>2016年3月</span><span class="red">现金：20元</span></li>
+   		<li><span>2016年3月</span><span class="red">现金：20元</span></li> 
+   		<li><span>2016年3月</span><span class="red">现金：20元</span></li> 
+   		<li class="title"><label></label>2016年3月－2016年5月（第1季度）</li> 
+   		<li><span>2016年3月</span><span class="red">现金：20元</span></li>
+   		<li><span>2016年3月</span><span>期待您获得更多奖励</span></li> 
+   		<li><span>2016年3月</span><span>期待您获得更多奖励</span></li> 
+   		<li class="title"><label></label>2016年3月－2016年5月（第1季度）</li> 
+   		<li class="null">期待您获得更多奖励</li>
+   		<li class="title"><label></label>2016年3月－2016年5月（第1季度）</li> 
+   		<li class="null">期待您获得更多奖励</li> -->
+   	</ul> 
+   </section>
+   <a class="btn toReInsurance" href="javascript:void(0);" style="display:none;">保险已到期，续保继续拿奖励</a>
+<script type="text/javascript">
+	var paramJson = {};
+	$(document).ready(function(){ 
+		var url = window.location.search; 
+		var paramsArr = (url.split("?")[1]).split("&"); 
+		$.each(paramsArr,function(i){
+		var item = paramsArr[i].split("=");
+		paramJson[item[0]] = item[1];
+		});  
+		$(".toReInsurance").click(function(){//跳转续保
+        	window.location.href = "http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/zhongcheng/reInsurance.html"; 
+        });
+	 	getHistoryReward();
+	});
+	function getHistoryReward(){    
+	    var currentDate = getCurrentDate();
+		$.ajax({
+			  url: '/yangchebao-app-ws/ws/0.1/tripMonthly/historyReward?userInfoId='+paramJson.userId+"&"+new Date().getTime(),
+			  type: 'get',  
+			  async:false,
+			  dataType: 'json',
+			  success: function(data) { 
+                    if(data.code=="202"){
+					    $(".btn").show(); 
+					}			  
+				    var items = data.data; 
+				    var num = 0;
+				    var season = 1;
+				    var overtime = false;
+				    $.each(items,function(i){  
+				    	var item = items[i];
+				    	var month = dateTurn(item.month); 
+				    	if(num==0){
+					    	var _title = '<li class="title"><label></label>'+month+'－'+dateTurn(item.month,true)+'（第'+season+'季度）</li>';
+					    	$(".historyUl").append(_title);
+					    	if(item.month>currentDate){
+					    		overtime = true;
+					    		var _li = '<li class="null">期待您获得更多奖励</li>';
+					    		$(".historyUl").append(_li);  
+					    	} 
+				        } 
+				         
+				        if(!overtime){
+					        var _li = '<li><span>'+month+'</span><span class="red">现金：'+(item.money?item.money:"0")+'元</span></li>'
+					        if(item.month>currentDate){
+					        	_li = '<li><span>'+month+'</span><span>期待您获得更多奖励</span></li>'
+					        }
+					        $(".historyUl").append(_li);
+					    }
+				        num++;
+				        if(num>2){
+				        	num = 0;
+				        	season++;
+				        }
+					    
+				    });
+				
+			  }
+		 });
+	} 
+	function dateTurn(str,flag){
+	   var month = str.substring(4);
+	   var year = str.substring(0,4);
+	   if(flag){  
+	   	 var next =  parseInt(month)+2;
+	   	 if(next>12){ 
+             next = "0"+(next-12);
+	   	 	 return (parseInt(year)+1)+"年"+next+"月"; 
+	   	 }else{
+	   	 	if(next<10){
+	   	 		next = "0"+next;
+	   	 	}
+	   	    return year+"年"+next+"月"; 
+	   	 }
+	   }
+       return year+"年"+month+"月";  
+	}
+	function getCurrentDate(){
+		var year = (new Date()).getFullYear();
+		var month = (new Date()).getMonth(); 
+		if(month<10){
+		   month = "0"+month;
+		}
+		return year+""+month; 
+	}
+</script>
+</body> 
+</html>

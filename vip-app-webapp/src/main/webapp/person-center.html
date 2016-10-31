@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="js/index.js"></script> 
+<title>个人中心</title>
+<style type="text/css">
+	body{
+		font-size: 62.5%;
+	}
+	li>span{
+		display: inline-block;
+		width: 100%;
+		height: 1.7rem;
+	}
+</style>
+</head>
+<body>
+	<div class="order">
+		<p class="order-top">
+			<span>配件订单</span>
+			<span class="order-more">查看全部订单&nbsp;</span>
+		</p>
+		<ul class="order-ul">
+			<li class="paymenting"><span></span><label>待付款</label></li>
+			<li class="goods-receipt"><span></span><label>待收货</label></li>
+			<li class="finish"><span></span><label>已完成</label></li>
+		</ul>
+	</div>
+	<div class="store-4s order">
+		<p>
+			<span>店铺管理</span>
+		</p>
+		<ul>
+			<li class="gitfBag-sell" id="exclusive"><span></span><label>礼包销售</label></li>
+		</ul>
+	</div>
+	<section> 
+		<ul class="person-center">
+			<li><a href="javascript:void(0)" id="cash"><i class="icon-cash"></i><span>申请提现</span></a></li>
+			<li style="display:none;"><a href="javascript:void(0)" id="regist"><i class="icon-user"></i><span>创建会员</span></a></li>
+			<li><a href="javascript:void(0)" id="msg-center"><i class="icon-msg"></i><span>消息中心</span></a></li>
+			<li><a href="javascript:void(0)" id="feedback"><i class="icon-feedback"></i><span>问题反馈</span></a></li>
+			<li><a href="javascript:void(0)" id="about-us"><i class="icon-about"></i><span><span><span>关于我们</span></a></li>
+			<li><a href="javascript:void(0)" id="login"><i class="icon-switch"></i><span><span>账户切换</span></a></li> 
+			<!--<li><a href="javascript:void(0)" id="shop"><i class="icon-shop"></i><span><span>店铺推广</span></a></li>--> 
+		</ul>
+	</section>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//  function fBrowserRedirect(){
+			// 	var sUserAgent = navigator.userAgent.toLowerCase(); 
+			// 	var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+			// 	var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+			// 	var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+			// 	var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+			// 	var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+			// 	var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+			// 	var bIsAndroid = sUserAgent.match(/android/i) == "android";
+			// 	var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+			// 	var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile"; 
+			// 	if(bIsIpad || bIsIphoneOs || bIsIphone){ 
+			// 	} else{
+			// 		$(".person-center").append('<li><a href="http://w2l?exit" id="exit"><i class="icon-exit"></i><span>退出程序</span></a></li>');
+			// 	}
+			// } 
+			function getPrivilege(userInfo){
+				$.ajax({
+					type:"get",
+					url:"/ycbmall-app-ws/ws/0.1/user/getUserPrivilege",
+					async:false,
+					data:{userInfoId:userInfo.userId},
+					dataType:'json',
+					success:function(data){
+						console.log(data);
+						if(data.isExclusive){
+							$(".store-4s").show();
+						}
+					}
+				});
+			}
+			function getPath2(path){
+					var arr = path.split("/");
+					var length = arr.length;
+					arr.splice(length-1);
+					return arr.join("/");
+			}
+	    	function getMsg(id,atomic){   
+				$.ajax({
+					url: '/vip-app-ws/ws/0.1/common/getPersonalBaseCount?shopAccountId='+id+"&"+atomic,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {   
+					 	if(data.messageCount>0){
+					 		$("#msg-center").append('<span class="flag"></span>');
+					 	}
+					 	if(data.feedBackCount>0){
+					 		$("#feedback").append('<span class="flag"></span>');
+					 	}
+					},
+					error:function(xhr){
+						alertRe("获取数据失败");
+					}
+				}); 
+		 	}  	
+		 	function creatUser(shopAccountId,atomic){    
+				$.ajax({
+					url: '/vip-app-ws/ws/0.1/userMember/shop/isAbledToCreateMember?shopAccountId='+shopAccountId+"&"+atomic,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {   
+					 	 if(data.isAbled=="1"){//是否可以创建会员：0.否 1.是
+						 	 $("#regist").parents("li").show();
+						 }
+					},
+					error:function(xhr){   
+                    	var mes = eval('('+xhr.responseText+')');  
+						alertRe("获取数据失败");
+					}
+				}); 
+		 	}
+		 	//暂时不用
+		 	function sureBtn(){
+		 		var turnUrl=''
+		 		if(bIsAndroid()){
+		 			turnUrl="http://d.yangchebao.com.cn/bd/";
+		 		}else{
+		 			turnUrl="https://itunes.apple.com/us/app/yang-che-bao-shang-jia-ban/id937183920?mt=8";
+		 		}
+		 		window.open(turnUrl,'_blank');
+		 	}
+		 	//暂时不用
+			index.init = function(userInfo,bridge) {
+				//fBrowserRedirect();
+				getPrivilege(userInfo);
+				userInfo.version = userInfo.version||"";
+				$(".order-more").click(function(){
+		 			var version=userInfo.version.replace(/\./g,'');
+		 			if(version<130){
+			 			alertRe("使用该功能需要更新升级至最新版本，重新打开客户端将提示您升级。",'');
+			 			return false
+		 			}else{
+						window.location.href="http://w2l/?presentType=1&androidName=6&iosName=MyPayOrderListViewController&orderStatus=0";
+					}
+	 			});
+				$(".order ul.order-ul li").on('click',function(){
+		 			var version=userInfo.version.replace(/\./g,'');
+		 			if(version<130){
+			 			alertRe("使用该功能需要更新升级至最新版本，重新打开客户端将提示您升级。",'');
+			 			return false
+		 			}else{
+						var thisClass=$(this).attr('class');
+						var orderStatus='';
+						switch(thisClass){
+							case "paymenting":
+							orderStatus=1;break;
+							case "goods-receipt":
+							orderStatus=2;break;
+							case "finish":
+							orderStatus=3;break;
+							default:
+							orderStatus='';break;
+						}
+						window.location.href="http://w2l/?presentType=1&androidName=6&iosName=MyPayOrderListViewController&orderStatus="+orderStatus;
+					}
+				})
+				$(".store-4s ul li").on('click',function(){
+					var url =window.location.href; 
+					var urlParams={},path=url,id;
+					if(url.indexOf("?")>-1){
+						urlParams = (url.split("?")[1]).split("&");
+						path = url.split("?")[0];
+					}
+				 	path = getPath2(path);
+				 	id=$(this).attr("id");
+			 		window.location.href="http://w2nw?"+path+"/"+id+".html";
+				})
+				userInfo.userId = userInfo.userId||"";
+		 		userInfo.osInfo = userInfo.osInfo||"";
+		 		userInfo.version = userInfo.version||"";
+		 		userInfo.imei = userInfo.imei||"";
+		 		userInfo.deviceToken = userInfo.deviceToken||"";
+				var atomic ="userId="+userInfo.userId+"&osInfo="+userInfo.osInfo+"&version="+userInfo.version+"&imei="+userInfo.imei+"&deviceToken="+userInfo.deviceToken;
+				getMsg(userInfo.shopAccountId,atomic); 
+				creatUser(userInfo.shopAccountId,atomic);
+				var url =window.location.href; 
+				var urlParams={},path=url;
+				if(url.indexOf("?")>-1){
+					urlParams = (url.split("?")[1]).split("&");
+					path = url.split("?")[0];
+				}
+			 	path = getPath2(path);
+			 	var as = $(".person-center a");
+			 	$.each(as,function(){ 
+			 		var id = $(this).attr("id");
+//			 		if(id=='shop'){
+//			 			return;
+//			 		}
+			 		if(id=="login"){
+		 				$(this).attr("href","http://w2l?login");
+			 		}else{
+				 		$(this).attr("href","http://w2nw?"+path+"/"+id+".html");
+				 	}
+			 	}); 
+				return "0";
+				
+		} 
+		});
+
+	</script>
+</body>
+
+</html>
+

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="robots" content="noarchive">
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js "></script> 
+	<script src="./js/commen.js"></script>
+    <title>养车宝补贴</title>
+</head>
+<style type="text/css">
+    *{
+        margin: 0;
+        padding: 0;
+    }
+	body,html{
+        height:100%;
+    }
+    body{
+        background-color: #fff; 
+        font-family:'华文细黑','HelveticaNeue-Light';
+        font-size:62.5%;
+        color:#1e1e1e;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box;  
+    } 
+    img{
+        border:none;
+    }
+    .clearfix {
+       *zoom: 1;
+    }
+    .clearfix:before,
+    .clearfix:after {
+       display: table;
+       line-height: 0;
+       content: "";
+    }
+    .clearfix:after {
+      clear: both;
+    } 
+    ul,ol{
+        list-style: none;
+    }   
+    #detail-page header{
+         border-bottom: 1px solid #d9d9e2; 
+         background-color: #fff;
+         margin-bottom: 1em;
+    }
+    .title{
+        display: table;
+        width: 100%;
+        padding: 1em;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box; 
+    }
+    .title span{
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .title .left{
+        text-align: left;
+        font-size: 1.5em;
+    }
+    .title img{
+        width: 19px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .title .right{
+        text-align: right;
+        font-size: 1em;
+    }
+    .price{
+        text-align: center;
+        font-size: 3em;
+        color: #fb451f;
+        padding: 5px 0 0;
+        margin: 0 40px;
+        border-bottom: 1px solid #d9d9e2; 
+    }
+    .org{
+        color: #fb451f; 
+    }
+    .info{
+        font-size: 1.2em;
+        padding: 1em;
+        text-align: center;
+    }
+    .link{
+        height:48px;
+        line-height: 48px;
+        display: block;
+        text-align: left;
+        color: #1e1e1e; 
+        background-color: #fff;
+        text-decoration: none;
+        padding: 0 10px;
+        border-bottom: 1px solid #d9d9e2;
+    }
+    .link .right{
+        float: right;
+        color: #6eaade; 
+    }
+    .link.use{
+        font-size: 1.5em;
+    }
+    .link.tit{
+        height: 37px;
+        line-height: 37px;
+        font-size: 1.4em;
+    }
+    .use .right{
+        font-size: 0.93em;
+    }
+    .circle-wrap{
+        height: 100px;
+        margin-bottom: 1em;
+        background-color: #fff; 
+        border-bottom: 1px solid #d9d9e2;
+        position: relative;
+        display: table;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box; 
+        width: 100%;
+        padding: 35px 0 0;
+    }
+    .pie-wrap {
+        width: 76px;
+        height: 76px; 
+        position: absolute;
+        border-radius: 50%;
+        background: #ffcc00;
+        top:11px;
+        left:38px;
+    }
+    .pie_left, .pie_right {
+        width: 76px;
+        height: 76px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .pie_left .left,.pie_right .right {
+        display: block;
+        width:76px;
+        height:76px;
+        background:#e2f0f6;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0; 
+    }
+    .pie_right, .right {
+        clip:rect(0,auto,auto,38px);
+    }
+    .pie_left, .left {
+        clip:rect(0,38px,auto,0);
+    }
+    .legend{
+        font-size: 1.2em;  
+        text-align: right;
+        padding-right: 26px; 
+        display: block;  
+    }
+    .legend .yellow,.legend .gray{
+        background-color: #ffcc00;
+        height: 10px;
+        width: 10px;
+        display: inline-block; 
+        margin-right: 7px; 
+        vertical-align: middle;
+    }
+    .legend label,.legend .dot{
+        vertical-align: middle;
+    }
+    .legend .gray{
+        background-color: #e2f0f6; 
+    }  
+    .legend:last-child{
+        margin-top: 5px;
+    }
+    .dot{ 
+        display: inline-block;
+        width: 24px;
+        height: 12px;
+        background-image: url(http://app.yangchebao.com.cn/group1/M00/0B/14/ChUBl1V6qb2AEjkMAAABhXiB4js600.png);
+        background-position: center;
+        background-size: 24px auto;
+        margin-left: 10px; 
+    }
+    .info .dot{
+        vertical-align: middle;
+    }
+    strong{
+        font-weight: normal;
+    }
+    .pie_info {
+        width: 76px;
+        height: 76px; 
+        border-radius: 100%;
+        position: absolute;
+        z-index: 1; 
+        text-align: center;   
+        font-size:1.2em; 
+        color: #9aa3a2;
+        padding: 0 11px;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box; 
+        display: table;
+    }
+    .pie_info span{ 
+        display: table-cell;
+        vertical-align: middle;
+    } 
+  #buy-page header{
+      padding:3.3em 4em 0; 
+      background-color:#fff; 
+    }
+    #buy-page header img{ 
+        padding:0 4.1em;
+        border-bottom:1px solid #e94c36;
+        width:100%;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box; 
+    }  
+    .pic-wrap{
+      padding:3.2em 4em 1.3em; 
+      background-color:#fff;  
+      margin-bottom: 35px;
+    }
+    .pic-wrap img{  
+      width:100%; 
+    }   
+    a{
+      text-decoration: none;
+    }
+    .btn {
+        border: 2px solid #e94c36;
+        border-radius: 5px;
+        color: #e94c36;
+        display: block;
+        font-size: 2em;
+        height: 38px;
+        line-height: 38px;
+        text-align: center;
+    }
+    .blue{
+        color:#3990f2; 
+        border-color:#3990f2;
+    }
+
+    section#pay-page header{
+    width: 90%;
+    margin: 0 auto;
+  }
+    section#pay-page header div.header-img img{
+    width: 100%;
+    }
+    section#pay-page header div.header-text{
+      padding: 0.5em 0 1em;
+      border-top: 1px solid #F37143;
+    }
+    section#pay-page header p{
+      font-size: 1.5em;
+      padding-bottom: 0.2rem;
+      color: #333;
+
+    }
+    div.slidLine{
+        width: 100%;
+        height: 15px;
+        background-color: #F4F7F8;
+    }
+    div.selectPayStyle-title span{
+        display: inline-block;
+        width: 2px;
+        height: 22px;
+        margin-right: 8px;
+        margin-left: 10px;
+        background-color: #FB4823;
+    }
+    div.selectPayStyle-title strong{
+        position: relative;
+        top: -4px;
+    }
+    div.selectPayStyle-title{
+        font-size: 1.8em;
+        border-bottom: 2px solid #ECEBF0;
+        padding-bottom: 3px;
+        padding-top: 10px;
+        line-height: 24px;
+    }
+    ul.payStyle-ul{
+        margin-left: 4%;
+    }
+    ul.payStyle-ul li.weixinStyle{
+        border-bottom: 2px solid #ECEBF0;
+    }
+    ul.payStyle-ul li{
+        overflow: hidden;
+        padding: 15px 0;
+    }
+    ul.payStyle-ul li img.styleImg{
+        vertical-align: middle;
+        width: 26%;
+        margin-right: 2%;
+    }
+    ul.payStyle-ul li span.checkWraper{
+        position: relative;
+        display: inline-block;
+        float: right;
+        margin-right: 3%;
+    }
+    ul.payStyle-ul li span.boxCheck{
+        display: inline-block;
+        width: 2em;
+        height: 2em;
+        border: 1px solid #ccc;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        position: relative;
+        top: 8px;
+        cursor: pointer;
+    }
+    ul.payStyle-ul li strong{
+        color: #999;
+        font-size: 1.4em;
+        position: relative;
+        top: 4px;
+    }
+    ul.payStyle-ul li  img.checkedImg{
+        position: absolute;
+        right: -0.3em;
+        top: 0.7em;
+        width: 2.5em;
+    }
+    div.mainItems{
+        overflow: hidden;
+        background-color: #F4F7F8;
+        padding: 15px;
+        border-top: 1px solid #E2E2EA;
+    }
+    div.payMoney{
+        overflow:hidden;
+        border-top: 1px solid #FDDBD5;
+        padding: 15px;
+    }
+    span.payMoneyNum{
+        font-size: 1.8em;
+        position: relative;
+        top: 0.4em;
+    }
+    span.payMoneyNum strong{
+        font-size: 1.2em;
+        color: #FB451F;
+    }
+    span.payMoneyBtn{
+        display: inline-block;
+        float: right;
+        font-size: 1.8em;
+        background-color: #FB451F;
+        color: #fff;
+        padding: 0.5em 2.8em;
+        cursor: pointer;
+    }
+
+    #buy-page{
+        background-color: #fff;
+    }
+    #buy-page header{
+      padding:3.3em 4em 0; 
+      background-color:#fff; 
+    }
+    #buy-page header img{ 
+        padding:0 4.1em;
+        border-bottom:1px solid #e94c36;
+        width:100%;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box; 
+    }  
+    .pic-wrap{
+      padding:3.2em 4em 1.3em; 
+      background-color:#fff;  
+      margin-bottom: 35px;
+    }
+    .pic-wrap img{  
+      width:100%; 
+    }   
+    a{
+      text-decoration: none;
+    }
+    .blue{
+        color:#3990f2; 
+        border-color:#3990f2;
+    }
+     .box-wrap{
+      padding:3.3em 4em 0; 
+      background-color:#fff; 
+    }
+    .box-wrap img{ 
+        padding:0 4.5em;
+        border-bottom:1px solid #e94c36;
+        width:100%;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box; 
+    }  
+    .pic-wrap{
+      padding:3.2em 4em 1.3em; 
+      background-color:#fff;  
+      margin-bottom: 1em;
+    }
+    .pic-wrap img{  
+        width:100%; 
+    }   
+    .ui-tit::before { 
+        content: "";
+        display: inline-block;
+        height: 1.25em;
+        margin-right: 0.313em;
+        vertical-align: middle;
+        background-color: #fb451f;
+        width: 2px;
+    } 
+    .ui-tit {
+        color: #1e1e1e;
+        font-size: 1.5em;
+        margin: 0;
+        padding: 15px 15px 11px;
+        font-weight: normal; 
+        background-color: #f4f7f8;
+    } 
+    .button-wrap {
+        padding:0 15px; 
+    }
+    #buy-page .btn {
+        background-color: #fb451f;
+        border-radius: 4px;
+        color: #ffffff;
+        display: block;
+        font-size: 1.6em;
+        height: 52px;  
+        text-align: center;  
+        padding-top: 5px;
+         -webkit-box-sizing:border-box;
+        box-sizing:border-box;
+        line-height: 100%; 
+    }
+    .btn span{
+        font-size: 0.69em;
+        display: block; 
+    } 
+    .btn-blue {
+        background-color: #6eaade!important;
+        border: 1px solid #6eaade!important;
+    }
+    .btn-blue:hover {
+        background-color: #178ec5;
+    }
+    .two-col > div {
+        float: left;
+        width: 50%; 
+        vertical-align: middle;
+    }
+    .two-col > .left-wrap .btn {
+        margin-right: 6px;
+    }
+    .two-col > .right-wrap .btn {
+        margin-left: 6px;
+    }
+    .free-link{
+        font-size: 1.5em;
+        color: #fb451f;
+        margin:10px 15px 0;
+    }
+    .free-link a{
+        color: #fb451f;
+        text-decoration: underline;
+    }
+    .free-link span{
+        font-size: 0.74em;
+        color:#a0a097;
+    }
+    .button-link{
+       padding:10px 15px 5px 20px;
+       background-color: #fff;
+       border-bottom: 1px solid #d9d9e2;
+       border-top: 1px solid #d9d9e2;
+       position: relative;
+    }
+    .s-btn{
+        height: 27px;
+        line-height: 27px;
+        /*border:1px solid #fb451f;*/
+        border-radius: 5px;
+        display: inline-block;
+        color: #fb451f;
+        font-size: 1.4em;
+        padding: 0 10px;
+    }
+    .button-link .info{
+        color: #a0a097;
+        font-size: 1.2em;
+        padding-top: 5px;
+        text-align: left;
+    }
+    .arrow{
+        border-right: 1px solid #d9d9e2;
+        border-top: 1px solid #d9d9e2;
+        display: inline-block;
+        height: 15px; 
+        width: 15px;
+        position: absolute;
+        right:15px;
+        top: 26px;
+        transform: rotate(45deg);
+        -o-transform: rotate(45deg); /* Opera浏览器 */
+        -webkit-transform: rotate(45deg); /* Webkit内核浏览器 */
+        -moz-transform: rotate(45deg); 
+    }
+    .content{ 
+       background-color: #fff;
+       border-bottom: 1px solid #d9d9e2;
+       border-top: 1px solid #d9d9e2;
+    }
+    .comment{
+        background-color: #fef4ca;
+        color: #2a2a2e;
+        font-size: 1.2em;
+        padding: 35px 20px 12px;
+        margin:16px 10px 0; 
+        border-radius: 8px;
+        position: relative; 
+    }
+    .comment-pic{
+        position: absolute;
+        top: -6px;
+        left: 20px;
+    }
+    .comment-pic img{
+      width: 170px;
+    }
+    .comment li{
+        margin-left: 15px;
+    }
+    .step-wrap{
+        margin: 0 15px 0 25px; 
+        border-left: 1px dashed #d9d9e2;
+        padding-top: 20px;
+    }
+    .step{
+        font-size: 1.3em;
+        padding-left: 15px;
+        position: relative; 
+    }
+    .step span{
+        position: absolute;
+        width: 21px;
+        height: 21px;
+        border-radius: 100%;
+        background-color:#fb451f;
+        color: #fff;
+        font-size: 1em;
+        font-weight: 600;
+        text-align: center;
+        line-height: 21px;
+        left: -12px;
+    }
+    .step-info{
+        font-size: 1.2em;
+        color: #221815;
+        background-color: #fff2f2;
+        border: 1px solid #ead7d7;
+        margin:8px 0 12px 15px;
+        padding: 10px;
+        line-height: 150%;
+    }
+    .QRcode{
+        padding: 0 110px;
+        margin-top: -20px;
+    }
+    .QRcode img{
+        display: block; 
+        width: 100%;
+    }
+    .QRinfo{
+        font-size: 1.2em;
+        text-align: center;
+        margin: 10px 0 27px;
+    }
+    .blue-comment{
+        color: #221815;
+        background-color: #f3fbff;
+        line-height: 150%;
+        font-size: 1.2em;
+        padding: 19px 8px 14px;
+        margin: 26px 27px 0;
+        border: 1px solid #cce2ed; 
+        position: relative;
+    }
+    .blue-comment .point{
+       font-size: 0.92em;
+       color: #3e73b9;
+    }
+    .blue-pic{
+        padding: 16px 9px 14px 6px;
+    }
+    .blue-pic img{
+        display: block; 
+        width: 100%;
+    }
+    .phone{
+        font-size: 1.6em;
+        color: #fb451f;
+        text-align: center;
+        padding: 19px 0;
+    }
+    .blue-comment label{
+        position: absolute;
+        height: 26px;
+        line-height: 26px;
+        width: 26px;
+        text-align: center;
+        border-radius: 100%;
+        color: #fff;
+        background-color: #3e73b9;
+        font-size: 1.6em;
+        font-weight: 700;
+        top: -13px;
+        left: 50%;
+        margin-left: -13px;
+    }
+
+    p.isIgnore{
+       font-size: 1.2em;
+       color:#a0a097;
+       padding:6px 15px 10px;
+       border-bottom: 1px solid #d9d9e2;
+    }
+	/**补贴整合**/
+	#detail-page{
+		background-color: #f4f7f8; 
+	} 
+	.bbtn{
+		display: block;
+		margin:15px;
+		height:44px;
+		line-height: 44px;
+		border-radius:4px;
+		background:#ff6138;
+		color: #fff;
+		text-align: center;
+		font-size: 1.8em;
+	 }
+	 .bbtn span{
+		display: inline-block;
+		background-image: url(images/icon2.png);
+		background-size: 17px auto;
+		background-position:left center;
+		background-repeat: no-repeat;
+		padding-left: 27px;
+	 }
+	 .time-wrap{
+		background-color: #fff;
+	 }
+	 .time-wrap .day{
+		border-bottom: 1px solid #ff6138;
+		color: #fb451f;
+		font-size: 1.5em;
+		margin: 0 40px;
+		padding: 5px 0 0;
+		text-align: center;
+	  }
+	  .time-wrap .day strong{
+		 font-size: 2em;
+		 font-weight: normal;
+	  }
+	  .info.gray{
+		color:#a2a2a2;
+		text-align: left;
+	  }
+
+	/**tab**/
+	.tabs {
+		height: auto;
+		overflow: auto;
+		margin-bottom:10px;
+		background-color: #fff;
+	}
+	.tabs span{
+		display: block;
+		width: 50%;
+		float: left;
+		text-align:center;
+		font-size:1.5em;
+		color:#c2c2c6;
+		height: 32px;
+		line-height: 32px;
+		border-bottom: 1px solid #d9d9e2; 
+		padding: 8px 0;
+		cursor: pointer;
+	}
+	.tabs .selected{
+		color:#ff6138;
+		border-bottom: 2px solid #ff6138;
+	}
+	.tabs span:last-child label{
+		display: block;
+		border-left: 1px solid #d9d9e2;
+	}
+	/**广告**/
+	.ad{
+		background-color:#fff;
+		background-image: url(http://app.yangchebao.com.cn/group1/M00/01/15/ChoCK1X2zUuAUEutAAAmRoSVlPQ867.png);
+		background-size: 157px auto;
+		background-position: left bottom;
+		background-repeat: no-repeat;
+		height: 42px;
+		margin-bottom: 10px;
+		font-size:1.5em;
+		color:#6eaade;
+		font-weight: bold; 
+		padding: 20px 0; 
+		padding-left: 50%;
+	}
+	.bxad{
+		background-image: url(http://app.yangchebao.com.cn/group1/M00/01/15/ChoCK1X2zSuAP5IoAAAkohEh2xQ264.png);
+	}
+	.ad .txt{
+		display: inline-block;
+		margin-left: -50px;  
+	}
+	.ad .right{
+		background-image: url(http://app.yangchebao.com.cn/group1/M00/01/15/ChoCK1X2zNCAX9JtAAACI03BFFg684.png);
+		background-size: 26px auto;
+		background-position:center;
+		background-repeat: no-repeat;
+		height: 42px;
+		width: 26px;
+		float: right;
+		margin-right: 15px;  
+	}
+	.load{
+		height:35px;line-height:35px;text-align:right;font-size:1.4em;color:#6eaae4;background-color:#f4f7f8;
+	}
+	.load span{
+	  display:inline-block;
+	  padding:0 10px;
+	  cursor:pointer;
+	}
+</style>
+<body>
+<section id="detail-page">   
+	<div id="bx-wrap">  
+	    <header>
+		<p class="title">
+			<span class="left"><img src="http://app.yangchebao.com.cn/group1/M00/0B/14/ChUBl1V6qfqANz7kAAAC8xmk1VQ074.png">已补贴(元)</span>
+			<span class="right">开始补贴时间 : <label id="subsidyStartDate"></label></span>
+		</p>
+		<h1 class="price" id="bxAmount"></h1>
+		<p class="info"><strong id="subsidyPeriod">3</strong>年最高可补贴<span class="org" id="fullAmount">1095</span>元<span class="dot" id="bxdot"></span></p>  
+	  </header>  
+	  <a href="javascript:void(0);" class="bbtn" id="toBaoxian">
+		  <span>出险了，立刻报案</span>
+	  </a> 
+	  <article class="time-wrap">
+		  <h1 class="link tit">车险到期提醒</h1>
+		  <h1 class="day">倒计时 <strong id="lastDays"></strong> 天</h1>
+		  <p class="info">上次保险起保时间：<span id="bizEffectiveDate"></span>
+					 <br/>保险到期日期：<span id="bizExpireDate"></span></p>  
+	  </article>
+	  <p class="info gray">将会在车险到期的最后60天、30天、10天上午十点通 过免费短信和系统消息的方式提醒您及时续保。</p>
+	</div>  
+</section> 
+ <script type="text/javascript">   
+    $(document).ready(function(){  
+        var url =window.location.search;    
+        var paramsArr = (url.split("?")[1]).split("&");
+        var paramJson = {}; 
+        $.each(paramsArr,function(i){
+            var item = paramsArr[i].split("=");
+            paramJson[item[0]] = item[1];
+        });  
+		$("#bxdot").click(function(){
+            window.location.href="http://w2nw?http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/04716770"; //保险补贴说明 
+        });
+	   $("#toBaoxian").click(function(){
+		 	window.location.href = "http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/baoxian/carSafe.html";
+		});
+		function getBx(){
+			$.ajax({
+              url: '/yangchebao-app-ws/ws/0.1/insure/subsidy?userInfoId='+paramJson.userId+'&'+(new Date()).getTime(),
+              type: 'get', 
+              dataType: 'json',
+              success: function(data) {    
+                   $("#bxAmount").html(data.totalAmount);
+                   $("#lastDays").html(data.lastDays);
+                   $("#bizEffectiveDate").html(data.bizEffectiveDate);
+                   $("#bizExpireDate").html(data.bizExpireDate);  
+                   $("#subsidyStartDate").html(data.subsidyStartDate);   
+              },error:function(xhr){} 
+            });  
+		
+		}
+		function getStatus(){
+			$.ajax({
+			  url: '/yangchebao-app-ws/ws/0.1/user/subsidy/status?userInfoId='+paramJson.userId+'&'+(new Date()).getTime(),
+			  type: 'get', 
+			  dataType: 'json',
+			  success: function(data) {  
+				if(data.isInsureSubsidy=="0"){
+					window.location.href = "http://app.yangchebao.com.cn/yangchebao-pubweb/baoxian/safeIndex.html"+window.location.search;
+				}else{
+					$("#bx-wrap").show();
+					getBx();
+				}
+			  },error:function(xhr){} 
+			});   
+		};	
+		//getStatus();
+		getBx();
+    }); 
+</script> 
+</body> 
+</html>

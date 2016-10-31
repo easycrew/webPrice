@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="养车宝配件商城，100%原厂品质">
+	<meta name="description" content="养车宝配件商城，100%原厂品质，3M、威固、美孚、壳牌Ahell、普利司通、米其林等汽车配件，厂价直销！">
+	<title>全网正品汽车配件_养车宝配件商城！</title>
+	<link rel="icon" href="favicon.ico">
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/jquery.urlParam.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/orderDetail.css">
+	<link rel="stylesheet" href="css/product.css">
+	<link rel="stylesheet" href="css/login.css">
+	<style type="text/css">
+		.change{
+			border: 2px solid blue;
+		}
+	</style>
+</head>
+<body>
+	<!-- <div class="login"></div> -->
+	<div id="logis-wrap" style="display: none;">
+			<div class="header"><a href=""><img src="img/alertRe_close.png"></a></div>
+			<div class="logis-cont">
+				<div class="con-tit">
+					<span class="bag1">包裹1</span>
+					<span class="bga2">包裹2</span>
+				</div>
+				<div class="logis-main-first">
+				<div class="con-ydxx">
+					<h2>运单信息</h2>
+					<p class="conCompany"></p>
+                    <p class="conNum"></p>
+				</div>
+				<div class="con-wldt">
+					<h2>物流动态</h2>
+					<div class="flowCon">
+					</div>
+				</div>
+				<div class="con-bot">
+					<p>
+				</div>
+			    </div>
+			</div>			
+				<div class="logis-main-cecond" style="display: none;">
+				<div class="con-ydxx">
+					<h2>运单信息</h2>
+					<p class="conCompany">物流公司：  申通快递</p>
+                    <p class="conNum">运单号码：  9873458494537439457384</p>
+				</div>
+				<div class="con-wldt">
+					<h2>物流动态</h2>
+					<div class="flowCon">
+					</div>
+				</div>
+				<div class="con-bot">
+					<p>
+				</div>
+			    </div>
+			</div>	
+	<div class="goodsFlow-dialog-overlay" style="display:none;"></div>
+
+	<div class="container">
+		<div class="top"></div>
+		<div class="main">
+			<div class="mainCommen"></div>
+			<div class="orderDetail">
+				<div class="orderDetail-top"><h2>订单详情</h2><a class="back" href="javascript:window.history.go(-1);">返回></a></div>
+				<div class="orderDetail-main">
+					<h3><img src="img/orderDetail_h3Img.png">订单详情</h3>
+					<div class="buyerInfo">
+						<div class="buyerAddress">
+							<p>
+								<span class="buyerInfoText">买家信息</span>
+								<span class="buyerAddressDetail"></span>
+							</p>
+							<p>
+								<span class="shopName">店名:汽车用品店</span>
+							</p>
+							
+						</div>
+						<div class="buyerContact">
+							<p class="buyerContact_p1">
+								<span class="buyerName"></span>
+								<span class="bringType">配送方式：养车宝配送</span>
+							</p>
+							<p class="buyerContact_p2">
+								<span class="buyerTel"></span>
+								<span class="chargeType"></span>
+							</p>
+						</div>
+					</div>
+					<div class="theOrderInfo">
+						<div class='theOrderInfo-top'>
+							<div class="theOrderStatus">
+								<span class="theOrderInfoText">订单信息</span>
+								<span class="theOrderStatusDetail"><!--订单状态：待确认--></span>
+							</div>
+							<div class="theOrderNumber">
+								<span class="theOrderNumberDetail"><!--订单号：C15052705001047--></span>
+								<span class="theOrderTime"><!--下单时间：2015-04-23 23:34:15--></span>
+							</div>
+						</div>
+						<div class="theOrderInfo-main">
+							<table class="Table-theOrderInfo" cellpadding="0" cellspacing="0">
+								<thead>
+									<td class="goodsName">商品信息</td>
+									<!--<td>型号规格</td>-->
+									<td>价格</td>
+									<td>数量</td>
+									<!--<td class="operate">操作</td>-->
+								</thead>
+								<tbody>
+									
+								</tbody>
+							</table>
+							<div class="theOrderInfo-main-bottom">
+								<p class="goodsAllPrice">商品总价：<span class="goodsAllPrice-detail"><!--￥339.99--></span>快递费：<span class="postMoney"><!--+￥50.00--></span></p>
+								<p class="realCharge">
+									余额支付金额：
+									<span class="balancePayment" style="padding-right: 20px;">￥0</span> 
+									实付款：
+									<span class="realChargeDetail"><!--￥65.63--></span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer"></div>
+	</div>
+</body>
+<script type="text/javascript">
+if(!(document.cookie.indexOf('customerId')!=-1)){
+	location.href="index.html";
+}
+function aplayment(orderNumber){
+		window.location='playment.html?orderNumber='+orderNumber;
+	}
+	function changeState(customerId,orderNumber,orderStatus){
+		var postData={};
+		postData.userInfoId=customerId;
+		postData.orderNumber=orderNumber;
+		postData.orderStatus=orderStatus;
+			$.ajax({
+			type:'post',
+			url:mall.url('/userorder/status/replace'),
+			dataType:'json',
+			data:$.toJSON(postData),
+			contentType:'application/json;charset=utf-8',
+			success:function(){
+				if(orderStatus=="8"){
+					mall.alertRe('订单取消成功！','取消订单');
+				}else if(orderStatus=="6"){
+					mall.alertRe('确认收货成功','确认收货');
+				}
+			}						
+			});
+	}			
+	function searchFlow(orderNumber){
+		$("#logis-wrap").show();
+		$.get(mall.url('/userorder/express/detail'),{orderNumber:orderNumber},function(data){
+				$.each(data.parcelList, function(i) {
+					if(i==0){
+						$("div.logis-main-first div.con-ydxx p.conCompany").html('物流公司:'+this.expressWayName);
+						$("div.logis-main-first div.con-ydxx p.conNum").html('运单号码:'+this.expressWayId);
+						var dataExpress='';
+						$.each(this.expressWayDetail, function(j) {
+							dataExpress+='<p><span class="data"></span>'
+										+'<span class="time">'+this.time+'</span>'
+										+'<span class="address">'+this.context+'</span></p>';
+						});
+						$('div.logis-main-first div.flowCon').html(dataExpress);
+						$('div.logis-main-first div.con-bot p').html("<span class='customerAdd'>收货信息:</span>"+this.postalAddress);
+					}else{
+						$("div.logis-main-second div.con-ydxx p.conCompany").html('物流公司:'+this.expressWayName);
+						$("div.logis-main-second div.con-ydxx p.conNum").html('运单号码:'+this.expressWayId);
+						var dataExpress='';
+						$.each(this.expressWayDetail, function(j) {
+							dataExpress+='<p><span class="data"></span>'
+										+'<span class="time">'+this.time+'</span>'
+										+'<span class="address">'+this.context+'</span></p>';
+						});
+						$('div.logis-main-first div.con-bot p').html("<span class='customerAdd'>收货信息:</span>"+this.postalAddress);
+						$('div.logis-main-second div.flowCon').html(dataExpress);
+						}
+				});
+			});
+	}
+	$(function(){
+		$('div.top').load('top.html');
+		$('div.mainCommen').load('searchAndNav.html');
+		$('div.footer').load('footer.html');
+		var username=mall.getCookie('username');
+		var customerId=mall.getCookie('customerId');
+		
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		var orderNumber=paramJson.orderNumber;
+		
+		$.get(mall.url('/userorder/detail'),{orderNumber:orderNumber},function(data){
+			var entityId=data.entityId;
+			$('span.buyerAddressDetail').html('收货地址：'+data.postalAddress);
+			$('span.shopName').html('店名：'+username);
+			$('span.buyerName').html('联系人：'+data.consigneeName);
+			$('span.buyerTel').html('联系电话：'+data.mobile);
+			$('span.chargeType').html('支付方式：'+data.payOnlineName);
+			$('span.theOrderNumberDetail').html('订单号：'+data.orderNumber);
+			$('span.theOrderTime').html('下单时间：'+data.orderDate);
+			switch(data.orderStatus){
+				case "1":
+				if(data.remitAuditStatus==1){
+					$('span.theOrderStatusDetail').html('订单状态：汇款确认中...');
+				}else{
+					$('span.theOrderStatusDetail').html('订单状态：待付款');
+				}
+					break;
+				case "2":
+				case "3":
+				case "4":
+					$('span.theOrderStatusDetail').html('订单状态：待发货');
+					break;
+				case "5":
+					$('span.theOrderStatusDetail').html('订单状态：待收货');
+					break;
+				case "6":
+					$('span.theOrderStatusDetail').html('订单状态：已完成');
+					break;
+				case "7":
+					$('span.theOrderStatusDetail').html('订单状态：已评价');
+					break;
+				case "8":
+					$('span.theOrderStatusDetail').html('订单状态：'+data.orderStatusName);
+					break;
+				default:
+					break;
+			}			
+			var orderDetailStr='';
+			var skulist=data.skulist;
+			//console.log(skulist.skuId);
+			$.each(skulist,function(i){
+				
+				if(i==0){
+					if(skulist.length>1){
+						orderDetailStr+='<tr class="tr-detailCon-first">'
+									   +'<td class="td-goodsname" style="text-align:left;padding-left:40px;">'
+									   +'<a href="javascript:" class="goodsImg" onclick="judgeStatus('+this.skuId+','+entityId+','+this.commodityId+')">'
+									   if(this.commodityType==2){
+								  			orderDetailStr+='<i>专享</i>'
+								  		}
+									   orderDetailStr+='<img src="'+this.smallPicUrl+'" width="78" height="78">'
+									   +'</a>'
+									   var item_name=this.skuName;
+									  	if(item_name.length>61){
+										item_name=item_name.substring(0,60)+'…'
+									   }
+					    orderDetailStr+='<span class="goodsNameDetail"><span>'+item_name+'</span></span>'
+									   +'</td>'
+									   +'<td>'+this.skuPrice+'</td>'
+									   +'<td class="td-goodsPrice" style="border-right:1px solid #e8e8e8">×'+this.skuNum+'</td>'
+					}else{
+						orderDetailStr+='<tr class="tr-detailCon-first">'
+									   +'<td class="td-goodsname" style="text-align:left;padding-left:40px;">'
+									   +'<a href="javascript:" class="goodsImg" onclick="judgeStatus('+this.skuId+','+entityId+','+this.commodityId+')">'
+									  if(this.commodityType==2){
+								  			orderDetailStr+='<i>专享</i>'
+								  		}
+									   orderDetailStr+='<img src="'+this.smallPicUrl+'" width="78" height="78">'
+									   +'</a>'
+//									   +'</td><td style="text-align:left;width:400px;">'
+									   var item_name=this.skuName;
+									  	if(item_name.length>61){
+										item_name=item_name.substring(0,60)+'…'
+									   }
+					    orderDetailStr+='<span class="goodsNameDetail"><span>'+item_name+'</span></span>'
+									   +'</td>'
+									   //+'<td>'+this.productModel+'</td>'
+									   +'<td>'+this.skuPrice+'</td>'
+									   +'<td class="td-goodsPrice" style="border-right:1px solid #e8e8e8">×'+this.skuNum+'</td>'
+//									   +'<td class="td-operate">'
+					}
+//				    
+				}else{
+					orderDetailStr+='<tr class="tr-detailCon">'
+								  +'<td class="td-goodsname" style="text-align:left;padding-left:40px;">'
+								  +'<a href="javascript:" class="goodsImg" onclick="judgeStatus('+this.skuId+','+entityId+','+this.commodityId+')">'
+								 if(this.commodityType==2){
+							  			orderDetailStr+='<i>专享</i>'
+							  		}
+								   orderDetailStr+='<img src="'+this.smallPicUrl+'" width="78" height="78">'
+								   +'</a>'
+	//									   +'</td><td style="text-align:left;width:400px;">'
+								   var item_name=this.skuName;
+								  	if(item_name.length>61){
+									item_name=item_name.substring(0,60)+'…'
+								   }
+			  		orderDetailStr+='<span class="goodsNameDetail">'+item_name+'</span>'
+								  +'</td>'
+								  //+'<td>'+this.productModel+'</td>'
+								  +'<td>'+this.skuPrice+'</td>'
+								  +'<td class="td-goodsPrice" style="border-right:1px solid #e8e8e8">×'+this.skuNum+'</td>'
+				}
+			    	orderDetailStr+='</tr>'
+			});
+			$('table.Table-theOrderInfo tbody').html(orderDetailStr);
+
+			$('span.goodsAllPrice-detail').html('￥'+data.originalPayment);
+			$('span.postMoney').html('￥'+data.calculatePostage);
+			$('span.balancePayment').html('￥'+data.balancePayment);
+			$('span.realChargeDetail').html('￥'+data.cashPayment);
+			$('table.Table-theOrderInfo tbody p.td-operate-status').on('click','span',function(){
+				window.location='playment.html?orderNumber='+orderNumber;
+			});
+			$('table.Table-theOrderInfo tbody').on('click','span.afterBuy',function(){
+				mall.alertRe('如果您的订单需要退换货，请拨打电话400-677-89999','申请售后')
+			});
+			$('table.Table-theOrderInfo tbody').on('click','span.goodsFlowDetail',function(){
+				$('div.Form-goodsFlow').show();
+				$('div.goodsFlow-dialog-overlay').show();
+				$('div.Form-goodsFlow-con div.tabTitle li').unbind('click').bind('click',function(){
+					$(this).addClass('current').siblings('li').removeClass('current');
+					var thisId=$(this).attr('id');
+					$('div.Form-goodsFlow-con div#'+thisId).show().siblings('div.detail-box').hide()
+				});
+				$('div.Form-goodsFlow img.dialog-close').unbind('click').bind('click',function(){
+					$('div.Form-goodsFlow').hide();
+					$('div.goodsFlow-dialog-overlay').hide()
+				})
+			})
+			
+		})
+	});
+function judgeStatus(skuId,entityId,commodityId){
+	$.get(mall.url('/sku/getSkuById'),{skuId:skuId},function(data){
+		if(data.status!=1){
+			mall.alertRe("该商品已下架","");
+			return false;
+		}else{
+			location.href='goodsDetail.html?groupPurchasingId='+entityId+'&skuId='+skuId+'&commodityId='+commodityId;
+		}
+	})
+}
+</script>
+
+</html>

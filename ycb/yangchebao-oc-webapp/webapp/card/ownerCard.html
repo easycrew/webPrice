@@ -1,0 +1,1189 @@
+<style>
+	table#Table_detail th,table#Table_detail td{
+		text-align: center;
+	}
+</style>
+<div class="urlContentWraper" id="Wraper_ownerCard">
+    <div class="ui-info-layout">
+      <div class="cdiv">
+           <h2 class="ui-tit"><strong>车主卡管理列表</strong><bottom class="all-work-info numb71">页面说明</bottom></h2>
+           <!-- 列表显示 -->
+           <table id="Table_ownerCard"></table>
+      </div>
+      <div class="sdiv" style="margin-top:10px;">
+           <h2 class="ui-tit"><strong>服务列表</strong></h2>
+           <!-- 列表显示 -->
+           <table id="Table_ownerCard_serviceList"></table>
+      </div>
+      <div class="bdiv" style="margin-top:10px;">
+           <h2 class="ui-tit"><strong>车主卡列表</strong></h2>
+           <!-- 列表显示 -->
+           <table id="Table_ownerCard_businessList"></table>
+      </div>
+    </div>
+    <div id="Form_ownerCard" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+        	<input type="hidden" name="cardPicture">
+        	<div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 车主卡类型：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-select-container" name="buyType"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 车主卡名称：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="cardName"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 等级：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="cardGrade"></div>
+				 </div>
+            </div>
+			<div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>售价：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="price"></div>
+                 </div>
+                 <label class="span3 grid-layout-label">商家补贴额：</label>
+                 <div class="span3 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="cardSubsidy"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">
+				 销售提成金额：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="saleCommission"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 有效期（月）：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="periodValidity"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">
+				 最大购买次数：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="maxBuyCnt"></div>
+                       <p class="ui-note">不限制则无需填写</p>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">
+        				 购买间隔：</label>
+        				 <div class="span10 grid-layout-content fluid-wrap" name="maxFrequency">
+        				 	<input type="text" class="days">天<input type="text" class="times">次
+        				 	<p class="ui-note">不限制则无需填写</p>
+        				 </div>
+            </div>
+            <div class="row readShow">
+                 <label class="span3 grid-layout-label">绑定商家ID：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="busiIds"></div>
+                       <p class="ui-note">多个商家ID用英文逗号隔开</p>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">是否赠送乐乘盒子：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-select-container" name="isSendBox"></div>
+                 </div>
+                 <label class="span3 grid-layout-label">是否发放补贴：</label>
+                 <div class="span3 grid-layout-content fluid-wrap">
+                       <div class="jrad-select-container" name="isBoxSubsidy"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">是否整卡结算：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-select-container" name="wholeCardBilling"></div>
+                 </div>
+                 <label class="span3 grid-layout-label">交易佣金：</label>
+                 <div class="span3 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="payCommission"></div>
+                 </div>
+            </div> 
+            <div class="row wholeCard" style="display:none;">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+         整卡结算商家ID：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="billingBusiId"></div>
+                       <p class="ui-note">在车主卡商城购买的车主卡，与整卡结算商家ID结算；<br>在商家详情购买的车主卡，直接与该商家结算。</p>
+                 </div>
+            </div>
+            <div class="row wholeCard" style="display:none;">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+         整卡结算天数：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-input-container" name="billingDelayDay"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">
+         是否商家后台展示：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div class="jrad-select-container" name="isShowVip"></div>
+                       <p class="ui-note">选择“是”，绑定商家的VIP后台“我的车主卡”菜单将显示此车主卡</p>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 是否允许退款：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div name="allowRefunds" class="jrad-select-container"></div>
+                 </div>
+            </div> 
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 是否乐乘活动：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div name="isLechengActive" class="jrad-select-container"></div>
+                 </div>
+            </div> 
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+         是否商家专属卡：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div name="isBusiExclusive" class="jrad-select-container"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">
+				 卡面图片：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div name="cardPictureFile" class="jrad-uploadimg-container"></div>
+                 </div>
+            </div> 
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 预付费数量：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div name="saleAmount" class="jrad-input-container"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>
+				 状态：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div name="cardStatus" class="jrad-select-container"></div>
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">
+				 备注：</label>
+                 <div class="span6 grid-layout-content fluid-wrap">
+                       <div name="remark" class="jrad-textarea-container"></div>
+                 </div>
+            </div>
+            <input type="hidden" name="lastModifier"/> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_ownerCard_serviceList" style="display:none;">
+        <div class="grid-layout-main jrad-form">    
+			<div class="row"> 
+				<label class="span3 grid-layout-label"> 
+					<span class="ui-form-required">*</span>服务ID：
+				</label>
+				<div class="span6 grid-layout-content fluid-wrap">
+					<div name="serviceId" class="jrad-input-container">
+					</div> 
+				</div>
+			</div> 
+			<div class="row"> 
+				<label class="span3 grid-layout-label"> 
+					<span class="ui-form-required">*</span>显示名称：
+				</label>
+				<div class="span6 grid-layout-content fluid-wrap">
+					<div name="displayName" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label"> 
+					<span class="ui-form-required">*</span>服务价值：
+				</label>
+				<div class="span6 grid-layout-content fluid-wrap">
+					<div name="serviceValue" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label">车主卡结算价：</label>
+				<div class="span6 grid-layout-content fluid-wrap">
+					<div name="cleanPrice" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label">结算价上限：
+				</label>
+				<div class="span6 grid-layout-content fluid-wrap">
+					<div name="priceLimit" class="jrad-input-container"> 
+					</div>
+          <p class="ui-note">若关联商家的服务结算价超过此上限，则客户端车主卡详情不显示此商家。</p>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label"> 
+					<span class="ui-form-required">*</span>次数：
+				</label>
+				<div class="span6 grid-layout-content fluid-wrap">
+					<div name="serviceTimes" class="jrad-input-container">
+					</div> 
+				</div>
+			</div>
+			<div class="row"> 
+          <label class="span3 grid-layout-label"> 
+              <span class="ui-form-required">*</span>显示所有商家：
+          </label>
+          <div class="span4 grid-layout-content fluid-wrap">
+             <div name="isShowAllBusi" class="jrad-select-container"></div>
+          </div>
+      </div>
+			<div class="row">
+                 <label class="span3 grid-layout-label">
+				 使用间隔：</label>
+				 <div class="span10 grid-layout-content fluid-wrap" name="useFrequencyLimit">
+				 	<input type="text" class="useDays">天<input type="text" class="useTimes">次
+				 	<p class="ui-note">不限制则无需填写</p>
+				 </div>
+            </div>
+			<div class="row"> 
+				<label class="span3 grid-layout-label"> 
+					<span class="ui-form-required">*</span>描述：
+				</label>
+				<div class="span6 grid-layout-content fluid-wrap">
+					<div name="remark" class="jrad-textarea-container">
+					</div> 
+				</div>
+			</div>
+    </div>
+    <div class="jrad-buttons-container ui-buttons-container"> 
+        <span class="jrad-btn-primary">确定</span>
+	      <span class="jrad-btn-normal">取消</span>
+    </div>
+    </div> 
+    <div id="Form_ownerCard_checkDetails" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+  			<table id="Table_detail">
+  	        	<tr>
+  	        		<th>变更时间</th>
+  	        		<th>商家</th>
+  	        		<th>服务</th>
+  	        		<th>剩余次数</th>
+  	        	</tr>
+        	</table>
+        </div> 
+    </div>
+    <div id="Form_ownerCard_msg" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+            <input type="hidden" name='cardTopicId'/>
+            <div class="row">
+                 <label class="span3 grid-layout-label">用户手机号：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="mobile" class="jrad-input-container"></div>
+                       <p class="ui-note">多个手机号请用英文;隔开</p>
+                 </div>
+            </div>
+            <!-- 
+            <div class="row">
+                 <label class="span3 grid-layout-label">车主卡密码：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="cardTopicId" class="jrad-input-container"></div>
+                 </div>
+            </div> -->
+            <div class="row">
+                 <label class="span3 grid-layout-label">发送给：</label>
+                 <div class="span8 grid-layout-content">
+                       <div name="mobileFile" class="jrad-upload-container"></div> 
+                       <!--a href="#" class="download" id="download">下载模板</a-->
+                       <p class="ui-note">批量发送需上传txt文件,txt每行字段为“手机号码”,只有线下已付费的车主卡才能发放。</p>
+                 </div>
+            </div> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>  
+    <div id="Form_explain_eg71" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>车主卡的管理功能列表。</div>
+                    <div><strong>重要功能说明：</strong>①创建：创建车主卡时需要注意以下字段：
+            车主卡类型：线上未付费的为APP直接出售；
+            线上已付费的为可以直接用码激活的车主卡（现阶段无此车主卡）；
+            线下未付费的为线下的实体卡，扫描后还需支付的车主卡（现阶段无此车主卡）；
+            线下已付费的为，扫描发放的二维码，可直接领取的车主卡（先阶段无此车主卡）。
+            销售提成金额：商家出售车主卡后，获取的提成金额；
+            购买间隔：用户购买此车主卡的最小间隔；
+            绑定商家ID：设置商家ID后，此车主卡只能在此商家使用，多个商家用英文逗号隔开（若多个商家分开计算的话，不建议设置到一张车主卡里面）；
+            是否赠送乐乘盒子：设置为“是”后，购买此车主卡后，会赠送一个乐乘盒子的订单；
+            是否整卡结算：设置为“是”后，购买的车主卡会在指定的时间，全款结算给指定商家；
+            是否允许退款：一般通用卡允许退款，绑定商家ID的都不允许退款；
+            是否乐乘活动：此活动已结束，都设置为“否”即可；
+            是否商家专属卡：都设置为“否”即可；
+            卡面图片：可为车主卡设置专属的卡面，若不上传，会有默认的卡面图片；
+            预付费数量：线下的卡，都需要提前设置预付费数量，按这个数量生成线下兑换的码，生成的码，可通过“导出EXCEL”功能导出；
+            状态：有效的车主卡才能在APP展示。
+                 ②修改：修改后，已经购买的车主卡也会相应修改，但是车主卡里面的服务不会修改；
+                 ③删除：修改为“删除”状态，APP看不到此状态车主卡；
+                 ④导出EXCEL：导出的为预付款数量的兑换码；
+                 ⑤车主卡发放：勾选车主卡后，点击此按钮，输入用户手机号后，会给此用户发放车主卡（注意只有预付费数量的车主卡才能发放成功）。
+                 ⑥创建服务：服务ID：基础服务的ID，不要填成商家创建的服务的绑定ID哦；
+                             显示名称：APP上显示此服务的名称；
+                             服务价值：展示给用户的此服务的价格，退款时也按此价值扣款；
+                             车主卡结算价：给商家结算时的价格，若不填则按商家创建服务时设置的结算价结算；
+                             结算价上限：若关联商家的服务结算价超过此上限，则客户端车主卡详情不显示此商家；
+                             次数：包含此服务的次数；
+                             显示所有商家：若选成“是”，在APP上此服务支持的商家，为所有包含此服务的商家；
+                             使用间隔：此服务的最小使用间隔；
+                             描述：介绍一下服务内容。
+                ⑦修改服务：已购买的车主卡，里面的服务不会修改；
+                ⑧删除服务：已购买的车主卡，里面的服务不会删除；</div>
+                    <div><strong>注意事项：</strong>1、车主卡包含的服务，商家也一定要创建此服务，否则无法在此商家使用；2、发放车主卡时，此车主卡一定要有预付费数量，且这些数量没有使用完，若发放不成功，可修改一下预付费数量，再发放。3、购买车主卡没有增加盒子，一般先检查“是否赠送乐乘盒子”字段，再检查商家是否有盒子服务，若都正常，去找开发。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".all-work-info").click(function(){
+        var menuId = $("#tabs").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg71").form({
+            title:'页面说明',
+            item:data,
+            url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+            before_submit:function(json){ 
+                json.operator = carsmart_config.operatorName;
+                json.menuName = $("#tabs").attr("menuName");
+                json.menuId = $("#tabs").attr("menuId");
+                return json;
+            },
+            success_callback:function(){ 
+                $('#Table_user').flexMessage('设置成功', 'success');
+                $('#Table_user').flexReloadCurrentPage()
+            }
+        }).form('open')
+        $("#Form_explain_eg71 .textarea-content").removeClass("span4").addClass("span12")
+    })
+    var wraper = $('#Wraper_ownerCard');
+    var page_column_model = new Array();
+    var page_column_model_c = new Array();
+    var page_column_model_d = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+    var page_list_buttons_c = new Array();
+    var page_list_buttons_d = new Array();
+	//var jRad = $.jRad('/radsample-ws','ent','Menu');	
+	  var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+
+    jRad.validators['cardName']=[{msg:'请填写',type:'min',value:1},{msg:'最多20个字',type:'max',value:20}];
+    jRad.validators['price']=[{msg:'请填写',type:'min',value:1},{msg:'请填写非负整数',type:'regex',value:/^\s*\d+\s*$/}];
+    jRad.validators['periodValidity']=[{msg:'请填写',type:'min',value:1},{msg:'请填写正整数',type:'regex',value:/^\s*([0-9]*[1-9][0-9]*){1,6}\s*$/}];
+    jRad.validators['saleAmount']=[{msg:'请填写',type:'min',value:1},{msg:'请填写非负整数',type:'regex',value:/^\s*\d+\s*$/}];
+    jRad.validators['busiIds']=[{msg:'请填写正确格式',type:'regex',value:/^\s*(([0-9]*[1-9][0-9]*){1,6})+(,([0-9]*[1-9][0-9]*){1,6})*\s*$/}];
+    jRad.validators['saleCommission']=[{msg:'请填写正整数',type:'regex',value:/^\s*\d+\s*$/}];
+    jRad.validators['maxBuyCnt']=[{msg:'请填写正整数',type:'regex',value:/^\s*\d+\s*$/}];
+
+    var validators={};
+    validators['serviceId']=[{msg:'请填写',type:'min',value:1},{msg:'请填写最多10位的正整数',type:'regex',value:/^\s*([0-9]*[1-9][0-9]*){1,9}\s*$/}];
+    validators['displayName']=[{msg:'请填写',type:'min',value:1},{msg:'最多10个字',type:'max',value:10}];
+    validators['serviceValue']=[{msg:'请填写',type:'min',value:1},{msg:'请填写1000以内正整数',type:'regex',value:/^\s*([0-9]*[1-9][0-9]*){1,3}\s*$/}];
+    validators['serviceTimes']=[{msg:'请填写',type:'min',value:1},{msg:'请填写最多10位非负整数',type:'regex'/*,value:/^\s*([0-9]*[1-9][0-9]*){1,9}\s*$/*/}];
+    validators['remark']=[{msg:'请填写',type:'min',value:1}];
+
+
+    // validators['cleanPrice']=[{msg:'请填写最多5位的正整数',type:'regex',value:/^\s*([0-9]*[1-9][0-9]*){1,4}\s*$/}];
+
+    // validators['priceLimit']=[{msg:'请填写最多5位的正整数',type:'regex',value:/^\s*([0-9]*[1-9][0-9]*){1,4}\s*$/}];
+  
+	jRad.params['buyType'] = {
+		data: [{id:' ',name:'全部'},{id:'1',name:'线上未付费'},{id:'2',name:'线上已付费'},{id:'3',name:'线下未付费'},{id:'4',name:'线下已付费'}] 
+	};
+	jRad.params['cardGrade'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'1'},{id:'2',name:'2'},{id:'3',name:'3'},{id:'4',name:'4'},{id:'5',name:'5'}] 
+	}; 
+	jRad.params['cardStatus'] = {
+		data: [{id:'4',name:'未删除'},{id:'1',name:'有效'},{id:'0',name:'无效'},{id:'2',name:'删除'}] 
+	}; 
+	jRad.params['saleAmount'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'是'},{id:'0',name:'否'}] 
+	};
+	jRad.params['allowRefunds'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'允许'},{id:'0',name:'不允许'}] 
+	};
+  jRad.params['isSendBox'] = {
+    data: [{id:'0',name:'否'},{id:'1',name:'是'}] 
+  }; 
+    jRad.params['bizPartnerId'] = {
+    data: [{id:'100000000',name:'官方发放'},{id:'1',name:'永安保险'}] 
+  }; 
+
+	var fields_params = {}; 
+	fields_params['buyType'] = {
+		data: [{id:'1',name:'线上未付费'},{id:'2',name:'线上已付费'},{id:'3',name:'线下未付费'},{id:'4',name:'线下已付费'}] 
+	};
+	fields_params["cardGrade"]={data:[{id:'1',name:'1'},{id:'2',name:'2'},{id:'3',name:'3'},{id:'4',name:'4'},{id:'5',name:'5'}]};	
+	fields_params["cardStatus"]={data:[{id:'1',name:'有效'},{id:'0',name:'无效'},{id:'2',name:'删除'}]};
+  fields_params["allowRefunds"]={data:[{id:'1',name:'允许'},{id:'0',name:'不允许'}]};
+	fields_params["isShowVip"]={data:[{id:'1',name:'是'},{id:'0',name:'否'}]};
+	fields_params["isLechengActive"]={data:[{id:'0',name:'否'},{id:'1',name:'是'}]};
+  fields_params["isBusiExclusive"]={data:[{id:'0',name:'否'},{id:'1',name:'是'}]};
+  fields_params["wholeCardBilling"]={data:[{id:'0',name:'否'},{id:'1',name:'是'}]};
+  fields_params["isSendBox"]={data:[{id:'0',name:'否'},{id:'1',name:'是'}]};
+  fields_params["isBoxSubsidy"]={data:[{id:'0',name:'否'},{id:'1',name:'是'}]};
+
+  fields_params['mobileFile'] = {
+    url:'/shopmanage-ws/ws/0.1/cardTopicManage/sendUserCard',
+    autocomplete:false,
+    success: function(data) {   
+          if (data != undefined&&data[0]!=undefined&&data[0].message!="") {
+            $.jRadAlert(data[0].message,"error");  
+          }else{
+            $('#Form_ownerCard_msg',wraper).form('close');
+            $('#Table_ownerCard').flexReloadCurrentPage();        
+            if(data.status=="400"){
+              $.jRadAlert(data.msg, 'warning',"",-1); 
+            }else{
+              $('#Table_ownerCard',wraper).flexMessage(data.msg, 'success'); 
+            }
+          } 
+    },
+    error:function(xhr){
+      var errormsg = eval("(" + xhr.responseText + ")");
+      $.jRadMessage({level:'error',message:errormsg[0].message,selector:$('#Form_ownerCard_msg .pop-up-middle',wraper)})
+    }
+  };  
+  $('#Form_ownerCard_msg',wraper).form({
+      title: '车主卡发放',
+      validators: jRad.validators,
+      fields_params: fields_params,  
+      submit: addShortMessage 
+  });
+  function addShortMessage(){
+       var _form = $("#Form_ownerCard_msg");
+       var json = _form.form('getValue'); 
+       var flag = _form.form('validateAll');
+       if(!flag) {
+         return;
+       }  
+       delete json.mobileFile;
+       $('div[name=mobileFile]',wraper).upload({
+        params: json,
+       }).upload('upload'); 
+  } 
+  
+	fields_params["cardPictureFile"]={
+		url:'/shopmanage-ws/ws/0.1/file/uploadThree',
+    	delFunc: function(item){
+		   item.list.remove();
+		   $("input[name='cardPicture']",wraper).val("");
+		},
+		fileName:"file",
+        note: '',
+        show: false,
+        params: {type:""},
+        success: function(data){
+		   if(data[0]&&data[0].code=="400"){
+		     $.jRadMessage({level:'error',message:data[0].message});
+		   }else{
+		    $("input[name='cardPicture']",wraper).val(data.smallUrl);
+		   }
+		},
+        beforeSubmit: function(obj){
+		  var re = /^.*\.(jpg|JPG|gif|GIF|png|PNG)$/;
+		  if(re.test(obj.val())){
+		    return true;
+		  }else{  
+			$.jRadAlert("只能上传JPG、GIF、PNG图片文件", "error");
+		    return false;
+		  }
+		},
+        single: true,
+        showInfo:false,
+        prev:'smallUrl'
+	};
+	var fields_params_d={};
+	fields_params_d['cardStatus']={data:[{id:'1',name:'使用中'},{id:'2',name:'使用完'},{id:'3',name:'已过期'},{id:'4',name:'已退款'}]};
+   $('#Form_ownerCard').form({
+		fluid: true,
+		validators: jRad.validators,  
+		fields_params: fields_params,
+		autobinding:true
+	});
+    page_column_model.push({display: 'ID', name : 'cardTopicId'});
+    page_column_model.push({display: '车主卡编号', name : 'carTopicNo'});
+    page_column_model.push({display: '车主卡名称', name : 'cardName'});  
+    page_column_model.push({display: '卖出数量', name : 'salNum',sortable:true});
+    page_column_model.push({display: '售价', name : 'price',sortable:true});
+    page_column_model.push({display: '最大购买次数', name : 'maxBuyCnt'});
+    page_column_model.push({display: '购买间隔', name : 'maxFrequency'});
+    page_column_model.push({display: '是否允许退款', name : 'allowRefunds',datasource:fields_params["allowRefunds"].data});
+    page_column_model.push({display: '绑定商家简称(BD负责人)', name : 'bussSName'});   
+    page_column_model.push({display: '车主卡城市', name : 'cardTopicCity'});  
+    page_column_model.push({display: '车主卡类型', name : 'buyType',datasource:fields_params["buyType"].data}); 
+    page_column_model.push({display: '等级', name : 'cardGrade',datasource:fields_params["cardGrade"].data});
+    //page_column_model.push({display: '销售提成金额', name : 'saleCommission'});
+  	page_column_model.push({display: '有效期（月）', name : 'periodValidity'});
+    page_column_model.push({display: '是否赠送乐乘盒子', name : 'isSendBox',diy:function(item,$div){
+      if(item.isSendBox=="0"){
+        $div.html('否')
+      }else{
+        $div.html('是')
+      }
+    }});
+  	page_column_model.push({display: '预付费数', name : 'saleAmount'});
+  	page_column_model.push({display: '状态', name : 'cardStatus',datasource:fields_params["cardStatus"].data});
+    page_column_model.push({display: '最后操作人', name : 'operator'});
+    page_column_model.push({display: '最后操作时间', name : 'lastOperatorDate'});
+    page_column_model.push({display: '备注', name : 'remark'});
+	
+    
+   page_search_items.push({row:'1',type:'jrad-input',display:'ID',name:'cardTopicId'}); 
+   page_search_items.push({row:'1',type:'jrad-input',display:'车主卡编号',name:'carTopicNo'}); 
+   page_search_items.push({row:'1',type:'jrad-select',display:'车主卡类型',name:'buyType',params:jRad.params['buyType']}); 
+   page_search_items.push({row:'2',type:'jrad-input',display:'车主卡名称',name:'cardName'}); 
+   page_search_items.push({row:'2',type:'jrad-select',display:'等级',name:'cardGrade',params:jRad.params['cardGrade']}); 
+   page_search_items.push({row:'2',type:'jrad-select',display:'状态',name:'cardStatus',params:jRad.params['cardStatus']}); 
+   page_search_items.push({row:'3',type:'jrad-input',display:'车主卡密码',name:'password'}); 
+   page_search_items.push({row:'3',type:'jrad-dateinput',display:'最后操作时间始',name:'lastOperatorStartDate'}); 
+   page_search_items.push({row:'3',type:'jrad-dateinput',display:'最后操作时间终',name:'lastOperatorEndDate'}); 
+   page_search_items.push({row:'4',type:'jrad-select',display:'是否允许退款',name:'allowRefunds',params:jRad.params['allowRefunds']}); 
+   page_search_items.push({row:'4',type:'jrad-select',display:'是否预付费',name:'saleAmount',params:jRad.params['saleAmount']}); 
+   page_search_items.push({row:'4',type:'jrad-input',display:'车主卡城市',name:'cardTopicCity'}); 
+   page_search_items.push({row:'5',type:'jrad-input',display:'商家ID',name:'businessInfoId'}); 
+
+   page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){
+				var form = $('#Form_ownerCard',wraper);
+				form.form({
+					title:'创建', 
+          //grid:20,
+	                item:{},
+	                url:'/shopmanage-ws/ws/0.1/cardTopicManage/save',
+	                before_submit:function(json){
+	                	if($.trim($('#Form_ownerCard input.days').val())!='' || $.trim($('#Form_ownerCard input.times').val())!=''){
+	                		json.maxFrequency = $.trim($('#Form_ownerCard input.days').val())+'%'+$.trim($('#Form_ownerCard input.times').val())
+	                	}
+	                	json.operator = carsmart_config.operatorName;
+                    var val =  $('#Form_ownerCard div[name="payCommission"]').input('val');
+                    if(val == ''){
+                      json.payCommission = 0;
+                    }
+	                	return json
+	                },
+	                success_callback:function(data){ 
+						$('#Table_ownerCard').flexMessage('创建成功', 'success');
+						$('#Table_ownerCard').flexReload()
+					}  
+            	}).form('open');
+
+              //$('#Form_ownerCard div[name="payCommission"]').input('val',0);
+
+              $(".readShow").show();
+              $('#Form_ownerCard div.wholeCard').hide();
+
+              $('#Form_ownerCard div[name="isBoxSubsidy"]').select('readonly',true);
+              $('#Form_ownerCard div[name="payCommission"]').input('readonly',true);
+              $('#Form_ownerCard div[name="isSendBox"]').select('readonly',false);
+
+              $('#Form_ownerCard div[name="wholeCardBilling"]').select('readonly',false);
+              $('#Form_ownerCard div[name="billingBusiId"]').input('readonly',false);
+              $('#Form_ownerCard div[name="billingDelayDay"]').input('readonly',false);
+            	$('#Form_ownerCard div[name="saleAmount"]').input('val','0');
+            	$('#Form_ownerCard input.days').val('');
+            	$('#Form_ownerCard input.times').val('');
+              $('#Form_ownerCard input[name="price"]').blur(function(){
+                  var priceVue = $('#Form_ownerCard div[name="price"]').input("val")
+                  if(priceVue > 500){
+                      $('#Form_ownerCard div[name="cardSubsidy"]').input("val",50)
+                  }else{
+                      $('#Form_ownerCard div[name="cardSubsidy"]').input("val",30)
+                  }
+                  if(priceVue == ""){
+                      $('#Form_ownerCard div[name="cardSubsidy"]').input("val",'')
+                  }
+              })
+              $('#Form_ownerCard div[name="wholeCardBilling"]').select({
+                  onclick:function(){
+                      if($('#Form_ownerCard div[name="wholeCardBilling"]').select('val') == 0){
+                        $('#Form_ownerCard div.wholeCard').hide()
+                        $('#Form_ownerCard div[name="payCommission"]').input('readonly',true);
+                      }else{
+                        $('#Form_ownerCard div.wholeCard').show()
+                        $('#Form_ownerCard div[name="payCommission"]').input('readonly',false);
+                      }
+                  }
+              });
+              $('#Form_ownerCard div[name="isSendBox"]').select({
+                  onclick:function(){
+                  if($('#Form_ownerCard div[name="isSendBox"]').select('val') == 1){
+                      $('#Form_ownerCard div[name="wholeCardBilling"]').select('val',0);
+                      $('#Form_ownerCard div[name="isBoxSubsidy"]').select('readonly',false);
+                      //$('#Form_ownerCard div[name="wholeCardBilling"]').select('readonly',true);
+                  }else{
+                      $('#Form_ownerCard div[name="isBoxSubsidy"]').select('readonly',true);
+                      //$('#Form_ownerCard div[name="wholeCardBilling"]').select('readonly',false);
+                  }
+              }});
+				var _ul = $("div[name='cardPictureFile']",wraper).children(".pic-show"); 
+	   			_ul.html("")
+		}
+	});
+	 page_list_buttons.push({title: '修改',name:'Edit', bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_ownerCard').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+    },onpress : function(){
+	    	var checked = $('#Table_ownerCard').getCheckedTrs(); 
+			  var cardTopicId = checked[0].cardTopicId;
+			  var item = $ .jRadGet({url : '/shopmanage-ws/ws/0.1/cardTopicManage/detail?cardTopicId='+cardTopicId}); 
+			  if(checked[0]) {
+				var _form = $('#Form_ownerCard',wraper);
+				_form.form({
+					title:'修改', 
+          //grid:20,
+	                item:item,
+	                url:'/shopmanage-ws/ws/0.1/cardTopicManage/save',
+	                before_submit:function(json){
+	                	json.cardTopicId = cardTopicId;
+	                	if($.trim($('#Form_ownerCard input.days').val())!='' || $.trim($('#Form_ownerCard input.times').val())!=''){
+	                		json.maxFrequency = $.trim($('#Form_ownerCard input.days').val())+'%'+$.trim($('#Form_ownerCard input.times').val())
+	                	}
+	                	json.operator = carsmart_config.operatorName;
+                    var val =  $('#Form_ownerCard div[name="payCommission"]').input('val');
+                    if(val == ''){
+                      json.payCommission = 0;
+                    }
+	                	return json
+	                },
+	                success_callback:function(){
+	                	$('#Table_ownerCard').flexMessage('修改成功','success');
+	                	$('#Table_shop_list').flexReloadCurrentPage();
+	                }
+            	}).form('open');
+
+              // if(item.payCommission == '' || item.payCommission == undefined){
+              //     $('#Form_ownerCard div[name="payCommission"]').input('val',0);
+              // }
+              $(".readShow").show();
+            	var arr=item.maxFrequency.split('%');
+            	$('#Form_ownerCard input.days').val(arr[0]);
+            	$('#Form_ownerCard input.times').val(arr[1]);
+              if(item.wholeCardBilling == 0){
+                $('#Form_ownerCard div.wholeCard').hide()
+              }else{
+                $('#Form_ownerCard div.wholeCard').show()
+              }
+              //$('#Form_ownerCard div[name="wholeCardBilling"]').select('readonly',true);
+
+             // $('#Form_ownerCard div[name="isSendBox"]').select('readonly',true);
+             
+              if($('#Form_ownerCard div[name="isSendBox"]').select('val') == 1){
+                  $('#Form_ownerCard div[name="isBoxSubsidy"]').select('readonly',false);
+              }else{
+                  $('#Form_ownerCard div[name="isBoxSubsidy"]').select('readonly',true);
+              }
+
+              if($('#Form_ownerCard div[name="wholeCardBilling"]').select('val') == 0){
+                  $('#Form_ownerCard div[name="payCommission"]').input('readonly',true);
+              }else{
+                  $('#Form_ownerCard div[name="payCommission"]').input('readonly',false);
+              }
+
+              // var priceVue = $('#Form_ownerCard div[name="price"]').input("val")
+              // if(priceVue > 500){
+              //     $('#Form_ownerCard div[name="cardSubsidy"]').input("val",50)
+              // }else{
+              //     $('#Form_ownerCard div[name="cardSubsidy"]').input("val",30)
+              // }
+              
+              $('#Form_ownerCard input[name="price"]').blur(function(){
+                  var priceVue = $('#Form_ownerCard div[name="price"]').input("val")
+                  if(priceVue > 500){
+                      $('#Form_ownerCard div[name="cardSubsidy"]').input("val",50)
+                  }else{
+                      $('#Form_ownerCard div[name="cardSubsidy"]').input("val",30)
+                  }
+                  if(priceVue == ""){
+                      $('#Form_ownerCard div[name="cardSubsidy"]').input("val",'')
+                  }
+              })
+              $('#Form_ownerCard div[name="wholeCardBilling"]').select({
+                  onclick:function(){
+                  if($('#Form_ownerCard div[name="wholeCardBilling"]').select('val') == 0){
+                        $('#Form_ownerCard div.wholeCard').hide()
+                        $('#Form_ownerCard div[name="payCommission"]').input('readonly',true);
+                      }else{
+                        $('#Form_ownerCard div.wholeCard').show()
+                        $('#Form_ownerCard div[name="payCommission"]').input('readonly',false);
+                      }
+                  }
+              });
+              $('#Form_ownerCard div[name="isSendBox"]').select({
+                  onclick:function(){
+                  if($('#Form_ownerCard div[name="isSendBox"]').select('val') == 1){
+                      $('#Form_ownerCard div[name="wholeCardBilling"]').select('val',0);
+                      $('#Form_ownerCard div[name="isBoxSubsidy"]').select('readonly',false);
+                      //$('#Form_ownerCard div[name="wholeCardBilling"]').select('readonly',true);
+                  }else{
+                      $('#Form_ownerCard div[name="isBoxSubsidy"]').select('readonly',true);
+                      //$('#Form_ownerCard div[name="wholeCardBilling"]').select('readonly',false);
+                  }
+              }});
+             
+
+              $('#Form_ownerCard div[name="billingBusiId"]').input('readonly',true);
+              $('#Form_ownerCard div[name="billingDelayDay"]').input('readonly',true);
+              
+            	var _ul = $("div[name='cardPictureFile']",wraper).children(".pic-show"); 
+   				var src = item.cardPicture;
+   				if(src!=undefined&&src!=""){ 
+					  var _li = '<li name="" class="adPicBoxli"><div class="large-pic"><div class="pic-box"><div class="pic-content"><div class="pic-vc">'
+								+'<img src="'+src+'">'
+								+'</div></div><span name="small" class="del-btn"></span></div></div></li>'
+					  _ul.html(_li); 
+					  $(".adPicBoxli .del-btn",wraper).click(function(){
+							var small = $(this).prev(".pic-content").find("img").attr("src");
+							$(this).parents(".adPicBoxli").remove(); 
+						    $("input[name='cardPicture']",wraper).val("") 
+					  })
+				}
+			  }
+		}
+	}); 
+	page_list_buttons.push({title: '删除',name:'Delete', bclass: 'delete',prefunc:function(){
+            var checked = $('#Table_ownerCard').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+    },onpress : function(){
+        	var checked = $('#Table_ownerCard').getCheckedTrs();
+        	var postData={};
+        		postData.cardTopicId=checked[0].cardTopicId;
+        	$.jRadConfirm('确认删除？',1,function(){
+        		$.jRadPost({
+        			url:'/shopmanage-ws/ws/0.1/cardTopicManage/del',
+        			data:postData,
+        			success:function(){
+        				$('#Table_ownerCard').flexMessage('删除成功!', 'success');
+		           	    $('#Table_ownerCard').flexReloadSearch(); 
+        			},error:function(xhr){
+					    var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined) {
+							$('#Table_ownerCard').flexMessage(errormsg[0].message, 'error');
+						}
+					}
+        		})
+        	})
+		}
+	});
+	page_list_buttons.push({title: '导出Excel',displayname:'导出EXCEL',name:'excel', bclass: 'excel',prefunc:function(){
+    var checked = $('#Table_ownerCard').getCheckedTrs();
+    if (checked.length != 1) {return false;}else{return true;}
+    },onpress : function(){
+    	var checked = $('#Table_ownerCard').getCheckedTrs();
+    	$.jRadConfirm('确认导出？',1,function(){
+		    window.open('/shopmanage-ws/ws/0.1/cardTopicManage/exportActivePwd?cardTopicId='+checked[0].cardTopicId);
+    	})
+    }
+	});
+  page_list_buttons.push({displayname: '车主卡发放',name:'send',bclass: 'send',prefunc:function(){
+            var checked = $('#Table_ownerCard').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+        var checked = $('#Table_ownerCard').getCheckedTrs();  
+        $('#Form_ownerCard_msg',wraper).form({
+          item:{'cardTopicId':checked[0].cardTopicId}
+        }).form('open'); 
+
+        $('#Form_ownerCard_msg div[name="mobile"]').input('readonly',false);
+        $('#Form_ownerCard_msg div[name="mobileFile"]').upload('readonly',false);
+        $('#Form_ownerCard_msg div[name="mobile"]').input({
+            listeners: 
+            [{type:'focus',hander:function(){
+              if($('#Form_ownerCard_msg div[name="mobileFile"]').upload('val') == ''){
+                $('#Form_ownerCard_msg div[name="mobileFile"]').upload('readonly',true);
+                $('#Form_ownerCard_msg div[name="mobile"]').input('readonly',false);
+              }
+              else{
+                $('#Form_ownerCard_msg div[name="mobile"]').input('readonly',true);
+                $('#Form_ownerCard_msg div[name="mobileFile"]').upload('readonly',false);
+              }
+            }
+            }]
+        });
+        $('#Form_ownerCard_msg div[name="mobileFile"]').upload({
+            listeners: 
+            [{type:'focus',hander:function(){
+              if($('#Form_ownerCard_msg div[name="mobile"]').input('val') == ''){
+                $('#Form_ownerCard_msg div[name="mobile"]').input('readonly',true);
+                $('#Form_ownerCard_msg div[name="mobileFile"]').upload('readonly',false);
+              }
+              else{
+                $('#Form_ownerCard_msg div[name="mobileFile"]').upload('readonly',true);
+                $('#Form_ownerCard_msg div[name="mobile"]').input('readonly',false);
+              }
+            }
+            }]
+        })
+
+    }
+  });
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_ownerCard').flexigrid({
+          reload:true,
+		      method:'get',
+          colModel : page_column_model,
+          buttons : page_list_buttons,
+          searchitems :page_search_items,
+          pagination: {
+				    diaplay_pages: 5,
+				    align: 'bottom' 
+		      },
+          
+			    showSearch:true,  
+			    queryParam:{"bizPartnerId":100000000},
+          url:'/shopmanage-ws/ws/0.1/cardTopicManage/list', //此时userId为当前登录用户的ID 
+			    onError:showError, 
+			    checkBoxType:'single',
+			    overflow:true,
+    			trEvent:function(){		//监听行事件 
+    				var checked = $('#Table_ownerCard').getCheckedTrs();  
+    				$('#Table_ownerCard_serviceList').flexOptions({ 
+    					extParam:{
+    						cardTopicId: checked[0].cardTopicId
+    					}
+    				}).flexReload();
+    				$('#Table_ownerCard_businessList').flexOptions({ 
+    					extParam:{
+    						cardTopicId: checked[0].cardTopicId
+    					}
+    				}).flexReload();
+    				var cardTopic=$('#Table_ownerCard').getCheckedTrs();
+        			$('thead:eq(1) th:eq(4) div',wraper).html('服务价值（总价值：'+cardTopic[0].totalValue+')')
+    			}
+    });
+    $('div.searchButtons span.ui-btn-icon',wraper).click(function(){
+    	$('#Table_ownerCard_businessList').flexOptions({ 
+			extParam:{
+				password: $('.searchContent div[name="password"]').input('val')
+			}
+		}).flexReload()
+    });
+    var fields_params_s = {};
+	fields_params_s['isShowAllBusi'] = {
+		data: [{id:'0',name:'否'},{id:'1',name:'是'}] 
+	  };
+    $('#Form_ownerCard_serviceList').form({
+		validators: validators,
+		fluid: true,
+		autobinding:true,
+        fields_params: fields_params_s
+	}); 	
+	page_column_model_c.push({display: '服务ID', name : 'serviceId'});	
+	page_column_model_c.push({display: '服务', name : 'serviceName'});
+	page_column_model_c.push({display: '显示名称', name : 'displayName'});
+	page_column_model_c.push({display: '服务价值', name : 'serviceValue',width:240});
+	page_column_model_c.push({display: '次数', name : 'serviceTimes'});
+	page_column_model_c.push({display: '描述', name : 'remark'});
+
+	page_list_buttons_c.push({title: '创建',name:'Add', bclass: 'add',prefunc:function(){
+            var checked = $('#Table_ownerCard').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+				var form = $('#Form_ownerCard_serviceList',wraper);
+				var checked = $('#Table_ownerCard').getCheckedTrs(); 
+				form.form({
+  					title:'创建', 
+            item:{},
+            url:'/shopmanage-ws/ws/0.1/cardTopicManage/addService',
+            before_submit:function(json){
+            	json.cardTopicId=checked[0].cardTopicId;
+            	if($.trim($('#Form_ownerCard_serviceList input.useDays').val())!='' || $.trim($('#Form_ownerCard_serviceList input.useTimes').val())!=''){
+            		json.useFrequencyLimit = $.trim($('#Form_ownerCard_serviceList input.useDays').val())+'%'+$.trim($('#Form_ownerCard_serviceList input.useTimes').val())
+            	}
+            	json.operator = carsmart_config.operatorName;
+            	return json
+            },
+            success_callback:function(data){ 
+              if(data.msg.indexOf("请尽快添加") > 0)
+              {
+                $.jRadAlert(data.msg,'error')
+              }else{
+                $.jRadAlert(data.msg,'success')
+              }
+  						$('#Table_ownerCard_serviceList').flexMessage('创建成功', 'success');
+  						$('#Table_ownerCard_serviceList').flexReload();
+  					}  
+      	  }).form('open'); 
+  				$('#Form_ownerCard_serviceList input.useDays').val('');
+          $('#Form_ownerCard_serviceList input.useTimes').val('')
+		}
+	});
+	page_list_buttons_c.push({title: '修改',name:'Edit', bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_ownerCard_serviceList').getCheckedTrs();
+            var checked_0 = $('#Table_ownerCard').getCheckedTrs();
+            if (checked.length != 1 || checked_0.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_ownerCard_serviceList').getCheckedTrs();
+	    	var checked_0 = $('#Table_ownerCard').getCheckedTrs();
+			var cardTopicServiceRelId = checked[0].cardTopicServiceRelId;
+			var item = $ .jRadGet({url : '/shopmanage-ws/ws/0.1/cardTopicManage/serviceDetail?cardTopicServiceRelId='+cardTopicServiceRelId}); 
+			if(checked[0]) {
+				var _form = $('#Form_ownerCard_serviceList',wraper);
+				_form.form({
+					title:'修改', 
+	                item:item,
+	                url:'/shopmanage-ws/ws/0.1/cardTopicManage/addService',
+	                before_submit:function(json){
+	                	json.cardTopicId=checked_0[0].cardTopicId;
+	                	json.cardTopicServiceRelId = cardTopicServiceRelId;
+	                	if($.trim($('#Form_ownerCard_serviceList input.useDays').val())!='' || $.trim($('#Form_ownerCard_serviceList input.useTimes').val())!=''){
+	                		json.useFrequencyLimit = $.trim($('#Form_ownerCard_serviceList input.useDays').val())+'%'+$.trim($('#Form_ownerCard_serviceList input.useTimes').val())
+	                	}
+	                	json.operator = carsmart_config.operatorName;
+						json.isShowAllBusi =  $('#Form_ownerCard_serviceList div[name="isShowAllBusi"]').select('val');
+	                	return json
+	                },
+	                success_callback:function(data){
+                    if(data.msg.indexOf("请尽快添加") > 0)
+                    {
+                      $.jRadAlert(data.msg,'error')
+                    }else{
+                      $.jRadAlert(data.msg,'success')
+                    }
+	                	$('#Table_ownerCard_serviceList').flexMessage('修改成功','success');
+	                	$('#Table_ownerCard_serviceList').flexReload();
+	                }
+            	}).form('open');
+            	var arr=item.useFrequencyLimit.split('%');
+            	$('#Form_ownerCard_serviceList input.useDays').val(arr[0]);
+            	$('#Form_ownerCard_serviceList input.useTimes').val(arr[1])
+			}
+		}
+	}); 
+	page_list_buttons_c.push({title: '删除',name:'Delete', bclass: 'delete',prefunc:function(){
+            var checked = $('#Table_ownerCard_serviceList').getCheckedTrs();
+            var checked_0 = $('#Table_ownerCard').getCheckedTrs();
+            if (checked.length == 0  || checked_0.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+        	var checked = $('#Table_ownerCard_serviceList').getCheckedTrs();
+        	var postData={};
+        	var _arr=[];
+        	$.each(checked,function(i){
+        		_arr.push(checked[i].cardTopicServiceRelId)
+        	});
+        	postData.cardTopicServiceRelIds=_arr.join(',');
+        	$.jRadConfirm('确认删除？',1,function(){
+        		$.jRadPost({
+        			url:'/shopmanage-ws/ws/0.1/cardTopicManage/delService',
+        			data:postData,
+        			success:function(){
+        				$('#Table_ownerCard_serviceList').flexMessage('删除成功!', 'success');
+		           	    $('#Table_ownerCard_serviceList').flexReloadSearch() 
+        			},
+              error:function(xhr){
+  					    var errormsg = eval("(" + xhr.responseText + ")"); 
+  						  if (errormsg != undefined) {
+  							$('#Table_ownerCard_serviceList').flexMessage(errormsg[0].message, 'error');
+  						}
+					}
+        		})
+        	})
+		}
+	});  
+
+  page_list_buttons_c.push({displayname: '添加无忧理赔',title: '添加无忧理赔',name:'send', bclass: 'send',prefunc:function(){
+        var checked = $('#Table_ownerCard').getCheckedTrs();
+        if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+        var form = $('#Form_ownerCard_serviceList',wraper);
+        var checked = $('#Table_ownerCard').getCheckedTrs(); 
+        form.form({
+            fields_params: fields_params_s,
+            url:'/shopmanage-ws/ws/0.1/cardTopicManage/addService',
+            before_submit:function(json){
+              json.cardTopicId=checked[0].cardTopicId;
+              if($.trim($('#Form_ownerCard_serviceList input.useDays').val())!='' || $.trim($('#Form_ownerCard_serviceList input.useTimes').val())!=''){
+                json.useFrequencyLimit = $.trim($('#Form_ownerCard_serviceList input.useDays').val())+'%'+$.trim($('#Form_ownerCard_serviceList input.useTimes').val())
+              }
+              json.operator = carsmart_config.operatorName;
+              return json
+            },
+            success_callback:function(data){ 
+              if(data.msg.indexOf("请尽快添加") > 0)
+              {
+                $.jRadAlert(data.msg,'error')
+              }else{
+                $.jRadAlert(data.msg,'success')
+              }
+              $('#Table_ownerCard_serviceList').flexMessage('添加成功', 'success');
+              $('#Table_ownerCard_serviceList').flexReload();
+            }  
+          }).form('open'); 
+          $('#Form_ownerCard_serviceList div[name="serviceId"]').input('val',8478);
+          $('#Form_ownerCard_serviceList div[name="displayName"]').input('val','无忧理赔');
+          $('#Form_ownerCard_serviceList div[name="serviceValue"]').input('val',100);
+          $('#Form_ownerCard_serviceList div[name="cleanPrice"]').input('val',0);
+          $('#Form_ownerCard_serviceList div[name="priceLimit"]').input('val','');
+          $('#Form_ownerCard_serviceList div[name="serviceTimes"]').input('val',10);
+          $('#Form_ownerCard_serviceList div[name="isShowAllBusi"]').select('val',1);
+          $('#Form_ownerCard_serviceList input.useDays').val('');
+          $('#Form_ownerCard_serviceList input.useTimes').val('');
+          $('#Form_ownerCard_serviceList div[name="remark"]').textarea('val','无忧理赔是当用户出险后，由具备资质的商家提供定损、理赔、维修、送车上门一站式无忧服务。该服务免去了用户在修理厂和保险公司之间的奔波之苦，由商家全程代理办理。');
+          //$('.textarea-content').addClass('span6').removerClass('span4')
+    }
+  });
+
+  page_list_buttons_c.push({separator: true});
+
+  $('#Table_ownerCard_serviceList').flexigrid({
+            reload:true,
+            autoload: false,
+			method:'get',
+            colModel : page_column_model_c,
+            buttons : page_list_buttons_c,
+            searchitems: [],
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true,  
+			overflow:true,
+            url:'/shopmanage-ws/ws/0.1/cardTopicManage/serviceList', //此时userId为当前登录用户的ID 
+			onError:showError_2, 
+			checkBoxType:'single'
+  });
+
+  page_column_model_d.push({display: 'ID', name : 'cardId'});	
+	page_column_model_d.push({display: '用户ID', name : 'userInfoId'});
+	page_column_model_d.push({display: '购买时间', name : 'buyDate'});
+	page_column_model_d.push({display: '购买渠道', name : 'buyChannelDesc'}); 
+	page_column_model_d.push({display: '已消费金额', name : 'consumedAmount'});	
+	page_column_model_d.push({display: '可退金额', name : 'refundableAmount'});
+	page_column_model_d.push({display: '状态', name : 'cardStatus',datasource:fields_params_d["cardStatus"].data});
+	page_column_model_d.push({display: '绑定密码', name : 'password'});   
+	page_column_model_d.push({display: '消费详情',diy:function(item,$div){
+		var checkDetail=$("<a>").addClass("checkDetail").attr({href:"javascript:"}).html("详情");
+        $div.html(checkDetail); 
+		$("a.checkDetail",$div).unbind('click').bind('click',function(){
+			$.jRadGet({
+				url:'/shopmanage-ws/ws/0.1/cardTopicManage/cardConsumeList?cardId='+item.cardId,
+				success:function(data){
+					$("#Form_ownerCard_checkDetails").form({ 
+						title: '消费详情',
+						success_callback:function(data){  
+		                              $('#Table_ownerCard_serviceList').flexReload()
+		                        }
+					}).form('open');
+					var str='';
+					$.each(data,function(i){
+						str+='<tr>'
+							+'<td>'+data[i].createDate+'</td>'
+							+'<td>'+data[i].busiName+'</td>'
+							+'<td>'+data[i].serviceName+'</td>'
+							+'<td>'+data[i].remainTimes+'</td>'
+							+'</tr>'
+					});
+					$('#Table_detail',wraper).html('<tr><th>变更时间</th><th>商家</th><th>服务</th><th>剩余次数</th></tr>');
+					$('#Table_detail',wraper).append(str)
+				},error:function(xhr){
+					  		var errormsg = eval("(" + xhr.responseText + ")"); 
+							if (errormsg != undefined) {
+								$('#Table_ownerCard_businessList').flexMessage(errormsg[0].message, 'error');
+							} 
+					  }
+			})
+		})
+    }});
+ 	page_list_buttons_d.push({separator: true});
+    
+    $('#Table_ownerCard_businessList').flexigrid({
+            reload:true,
+            autoload: true,
+      			method:'get',
+            colModel : page_column_model_d,
+            buttons : page_list_buttons_d,
+            dataType: 'json',
+            searchitems: [],
+            pagination: {
+      				diaplay_pages: 5,
+      				align: 'bottom' 
+      			},
+      			showSearch:true,  
+      			overflow:true,
+            url:'/shopmanage-ws/ws/0.1/cardTopicManage/cardList', //此时userId为当前登录用户的ID 
+            pagedStyle: 'oc',
+            checkBoxType:'single'
+    });
+    $(".numb71").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg71").form({}).form('close');
+        $("#Form_explain_eg71").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+      submit:function(){
+              var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg71 div[name='remark']").textarea("val")
+        $.jRadPost({
+            url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+            data:postData,
+            success:function(){
+            $("#Form_explain_eg71").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        });
+      }, 
+      cancel:function(){
+        $("#Form_explain_eg71").form('close')
+            $('.overcurtainDiv').hide();
+      }
+        }).form('open')
+        $("#Form_explain_eg71 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		 $.jRadMessage({level:'error',message:errormsg[0].message})
+	}
+	function showError_2(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		 $.jRadMessage({level:'error',message:'请先选择车主卡主题'})
+	}
+});
+</script>

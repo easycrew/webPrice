@@ -1,0 +1,239 @@
+<div class="urlContentWraper" id="Wraper_cardOrder_agent">
+    <div class="ui-info-layout">
+      <div class="qdiv">
+           <h2 class="ui-tit"><strong>代理商车主卡订单</strong><bottom class="all-work-info numb74">页面说明</bottom></h2>
+           <!-- 列表显示 -->
+           <table id="Table_cardOrder_manage_two"></table>
+      </div>
+    </div>  
+    <div id="Form_ownerCardAgent_checkDetails" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+        <table id="Table_detail">
+              <tr>
+                <th>变更时间</th>
+                <th>商家</th>
+                <th>服务</th>
+                <th>剩余次数</th>
+              </tr>
+          </table>
+        </div> 
+    </div>
+    <div id="Form_explain_eg74" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>代理商使用的车主卡订单列表，只能显示自己代理区域的订单。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_cardOrder_agent');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	  var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+
+    jRad.params['cardStatus'] = {
+      data: [{id:'',name:'全部'},{id:'1',name:'使用中'},{id:'4',name:'已退款'},{id:'3',name:'已过期'}] 
+    }; 
+    var fileds_params={};
+    fileds_params['transferStatus'] = {
+      data: [{id:'',name:'全部'},{id:'0',name:'未申请提现'},{id:'1',name:'已申请提现但未转账'},{id:'2',name:'已转账'}] 
+    };
+
+    page_column_model.push({display: '车主卡主题ID', name : 'cardTopicId'}); 
+	  page_column_model.push({display: '车主卡ID', name : 'cardId'}); 
+  	page_column_model.push({display: '车主卡名称', name : 'cardName'}); 
+    page_column_model.push({display: '绑定商家简称(BD负责人)', name : 'bussSName',hidden:true});
+    page_column_model.push({display: '车主卡城市', name : 'cardTopicCity'});
+    page_column_model.push({display: '车主卡售价', name : 'price'});
+	  page_column_model.push({display: '用户手机号', name : 'mobile'});
+	  page_column_model.push({display: '购买时间', name : 'buyDate',hidden:true});
+	  page_column_model.push({display: '购买渠道', name : 'buyChannel',hidden:true,datasource:fileds_params['transferStatus'].data});
+    page_column_model.push({display: '已消费金额', name : 'consumedAmount',hidden:true});
+    page_column_model.push({display: '可退金额', name : 'refundableAmount',hidden:true});
+    page_column_model.push({display: '状态', name : 'cardStatus'});
+    page_column_model.push({display: '绑定密码', name : 'pwd',hidden:true});
+    page_column_model.push({display: '消费详情',diy:function(item,$div){
+        var checkDetail=$("<a>").addClass("checkDetail").attr({href:"javascript:"}).html("详情");
+        $div.html(checkDetail); 
+        $("a.checkDetail",$div).unbind('click').bind('click',function(){
+          $.jRadGet({
+            url:'/shopmanage-ws/ws/0.1/cardTopicManage/cardConsumeList?cardId='+item.cardId,
+            success:function(data){
+              $("#Form_ownerCardAgent_checkDetails").form({ 
+                title: '消费详情',
+                success_callback:function(data){  
+                    $('#Table_cardOrder_manage_two').flexReload()
+                }
+              }).form('open');
+              var str='';
+              $.each(data,function(i){
+                str+='<tr>'
+                  +'<td>'+data[i].createDate+'</td>'
+                  +'<td>'+data[i].busiName+'</td>'
+                  +'<td>'+data[i].serviceName+'</td>'
+                  +'<td>'+data[i].remainTimes+'</td>'
+                  +'</tr>'
+              });
+              $('#Table_detail',wraper).html('<tr><th>变更时间</th><th>商家</th><th>服务</th><th>剩余次数</th></tr>');
+              $('#Table_detail',wraper).append(str)
+            },
+            error:function(xhr){
+                var errormsg = eval("(" + xhr.responseText + ")"); 
+                if (errormsg != undefined) {
+                  $('#Table_ownerCard_businessList').flexMessage(errormsg[0].message, 'error');
+                } 
+            }
+          })
+        })
+    }});
+    
+    page_search_items.push({row:'1',type:'jrad-input',display:'车主卡主题ID',name:'cardTopicId'}); 
+    page_search_items.push({row:'1',type:'jrad-input',display:'车主卡名称',name:'cardName'}); 
+    page_search_items.push({row:'1',type:'jrad-input',display:'绑定商家简称',name:'boundBusiRegName'}); 
+    page_search_items.push({row:'2',type:'jrad-input',display:'用户手机号',name:'mobile'}); 
+    page_search_items.push({row:'2',type:'jrad-dateinput',display:'购买时间始',name:'buyStartDate'});
+    page_search_items.push({row:'2',type:'jrad-dateinput',display:'购买时间终',name:'buyEndDate'}); 
+    //page_search_items.push({row:'3',type:'jrad-input',display:'车主卡城市',name:'cardTopicCityId'});
+    page_search_items.push({row:'3',type:'jrad-input',display:'购买渠道',name:'buyChannel'});
+    page_search_items.push({row:'3',type:'jrad-select',display:'状态',name:'cardStatus',params:jRad.params['cardStatus']});
+
+    page_list_buttons.push({displayname: '导出EXCEL',name:'excel', bclass: 'excel',onpress : function(){ 
+      $ .jRadConfirm('确认导出吗？',1,function(){
+        var param = {};
+        var cardTopicId = $.trim($(".searchContent div[name='cardTopicId']",wraper).input('val'));
+        if(cardTopicId!=""){
+          param['cardTopicId'] = cardTopicId;
+        }; 
+        var cardName = $.trim($(".searchContent div[name='cardName']",wraper).input('val'));
+        if(cardName!=""){
+          param['cardName'] = cardName;
+        };
+        var boundBusiRegName = $.trim($(".searchContent div[name='boundBusiRegName']",wraper).input('val'));
+        if(boundBusiRegName!=""){
+          param['boundBusiRegName'] = boundBusiRegName;
+        }; 
+        var mobile = $.trim($(".searchContent div[name='mobile']",wraper).input('val'));
+        if(mobile!=""){
+          param['mobile'] = mobile;
+        };
+        var buyStartDate = $.trim($(".searchContent div[name='buyStartDate']",wraper).dateinput('val'));
+        if(buyStartDate!=""){
+          param['buyStartDate'] = buyStartDate;
+        }; 
+        var buyEndDate = $.trim($(".searchContent div[name='buyEndDate']",wraper).dateinput('val'));
+        if(buyEndDate!=""){
+          param['buyEndDate'] = buyEndDate;
+        }; 
+        var cardTopicCity = $.trim($(".searchContent div[name='cardTopicCity']",wraper).input('val'));
+        if(cardTopicCity!=""){
+          param['cardTopicCity'] = cardTopicCity;
+        };
+        var buyChannel = $.trim($(".searchContent div[name='buyChannel']",wraper).input('val'));
+        if(buyChannel!=""){
+          param['buyChannel'] = buyChannel;
+        };
+        var cardStatus = $.trim($(".searchContent div[name='cardStatus']",wraper).select('val'));
+        if(cardStatus!=""){
+          param['cardStatus'] = cardStatus;
+        }; 
+
+        var paramUrl = "";
+        if(param!={}){   
+        paramUrl+="?"
+        $.each(param,function(k,v){ 
+            paramUrl+="&"+k+"="+v; 
+        });
+        }
+        window.open('/shopmanage-ws/ws/0.1/cardTopicOrderForCms/exportAccountInfo'+paramUrl);
+      }); 
+    }
+  });
+
+  page_list_buttons.push({separator: true});
+
+  var areacodeList = carsmart_config.regions;
+    var json = eval('(' + areacodeList + ')'); 
+    var cityId = '';
+    $.each(json,function(i){
+        var arr = json[i]
+        cityId = arr.areaCodeId;
+  }) 
+    
+  $('#Table_cardOrder_manage_two').flexigrid({
+        reload:true,
+  			method:'get',
+        colModel : page_column_model,
+        buttons : page_list_buttons,
+        searchitems :page_search_items,
+        pagination: {
+  				diaplay_pages: 5,
+  				align: 'bottom' 
+  			},
+  			showSearch:true, 
+        filter:true, 
+        url:'/shopmanage-ws/ws/0.1/cardTopicOrderForCms/list?cardTopicCityId='+cityId,
+  			onError:showError, 
+  			checkBoxType:'single'
+  });
+
+  $(".numb74").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg74").form({}).form('close');
+        $("#Form_explain_eg74").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+      submit:function(){
+              var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg74 div[name='remark']").textarea("val")
+        $.jRadPost({
+            url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+            data:postData,
+            success:function(){
+            $("#Form_explain_eg74").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        });
+      }, 
+      cancel:function(){
+        $("#Form_explain_eg74").form('close')
+            $('.overcurtainDiv').hide();
+      }
+        }).form('open')
+        $("#Form_explain_eg74 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	
+	function showError(xhr){
+		var errormsg = eval("(" + xhr.responseText + ")"); 
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		}
+  });
+
+</script>

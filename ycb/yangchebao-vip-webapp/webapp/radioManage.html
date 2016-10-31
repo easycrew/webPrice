@@ -1,0 +1,854 @@
+<style>
+    /*#Table_send_radioManage_list tr td, #Table_radioManage_list tr td{text-align: center;}
+    #Table_send_radioManage_list tr th, #Table_radioManage_list tr th{text-align: center;}*/
+    table tr th, table tr td {text-align: center;}
+    #Form_radioManage tr th, #Form_radioManage tr td, #Form_mainPush tr th, #Form_mainPush tr td{text-align: left;}
+    #Form_cancel p{text-align: left;padding-left:50px;}
+    .ul_info li{line-height:24px;}
+    .ul_info a{color: #2f8ac8;text-decoration: none;float:right;padding-right:50px;cursor:pointer;}
+    .ul_info span{float:left;padding-left:50px;}
+
+    .presee-look{width:319px;margin:20px auto;background: #f4f7f8;border:1px solid #d0d2d4;}
+    .header-look{height: 95px;background: url(img/look-tip.png) 0 0 no-repeat;width: 100%;position: relative;}
+    .ads-title{margin-top:10px;background: #fff;}
+    .ads-title li{height:34px;line-height:34px;padding:0 5px 0 10px;border-bottom:1px solid #eeeef2;}
+    .three_title{margin-top:10px;background: url(img/zhutui_ser.png) 0 0 no-repeat;width:100%;height:37px;}
+    .zhutui-ser{background: #fff;}
+    .right-btn{width:22px;height:38px;background:url(img/right-btn.png) right 0 no-repeat;margin-top:1px;}
+    .zhutui-ser li{padding: 0 10px;height:38px;line-height:38px;border-bottom:1px solid #eeeef2;}
+    .bottom-look{width:319px;height:180px;background: url(img/look-bottom.png) 0 0 no-repeat;}
+    .adrp1{position: absolute;left:45px;top:48px;font-size:14px;color:#fff;width:167px;height:20px;overflow: hidden;line-height:20px;}
+    .timep2{position: absolute;left:45px;top:66px;font-size:12px;color:#fff;}
+    .samll-look{width:30px;height:32px;background: url(img/small-lookico.png) center center no-repeat;margin-top:2px;}
+</style>
+<div class="urlContentWraper" id="Wraper_radioManage">
+    <div id="radioList" style="margin-top:10px;">
+        <div class="ui-info-layout">
+            <!-- <h2 class="header smaller lighter blue">广播列表</h2> -->
+            <table id="Table_radioManage_list">
+            </table>
+        </div> 
+    </div>  
+    <div id="sendList" style="margin-top:10px;">
+        <div class="ui-info-layout">
+            <!-- <h2 class="header smaller lighter blue">主推服务列表</h2> -->
+            <table id="Table_send_radioManage_list">
+            </table>
+        </div> 
+    </div>
+
+    <div id="Form_radioManage" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid"> 
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>广播内容：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="content" class="jrad-input-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>点击广播跳转：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="typeFlag" class="jrad-radio-container">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid-row-fluid serviceIsshow">
+                <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>一级服务：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="service" class="jrad-select-container service"></div>
+                </div>
+            </div>  
+            <div class="grid-row-fluid inputer" style="display:none">
+                <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>网址：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="url" class="jrad-input-container" placeholder="请输入网址">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">是否在APP显示：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="appDisplayFlag" class="jrad-select-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <button class="jrad-btn-primary btn btn-small btn-primary">确定</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div> 
+    <div id="Form_mainPush" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label"><span class="ui-form-required">*</span>一级服务：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="service2" class="jrad-select-container service2"></div>
+                </div>
+            </div> 
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">是否在APP显示：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="displayFlag" class="jrad-select-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <button class="jrad-btn-primary btn btn-small btn-primary">确定</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div>
+    <div id="Form_cancel" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid">
+                <div class="span24 grid-layout-content">
+                    <div class="grid-row-fluid">
+                        <p>APP最多显示两条广播，请先取消以下任意广播的显示：</p>
+                        <ul class="ul_info">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <div id="Form_prelook" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid">
+                <div class="presee-look">
+                    <div class="header-look">
+                        <p class="adrp1"></p>
+                        <p class="timep2"></p>
+                    </div>
+                    <ul class="ads-title">
+                    </ul>
+                    <div class="three_title"></div>
+                    <ul class="zhutui-ser"></ul>
+                    <div class="bottom-look"></div>
+                </div>
+            </div> 
+        </div>
+    </div>  
+
+</div> 
+<script type="text/javascript">
+$(document).ready(function() {
+    var wraper = $('#Wraper_radioManage');
+    var page_column_model = new Array();
+    var page_list_buttons = new Array(); 
+    var page_column_model_b = new Array(); 
+    var page_list_buttons_b = new Array();
+    var entityModel = {};
+    
+    var field_params={};  
+    field_params['appDisplayFlag']={
+        data:[{id:'1',name:'显示'},{id:'0',name:'不显示'}]
+    };    
+    field_params['displayFlag']={
+        data:[{id:'1',name:'显示'},{id:'0',name:'不显示'}]
+    };
+    field_params['typeFlag']={
+        data:[{id:'1',name:'服务'},{id:'2',name:'网址'}],
+        onclick:function(){  
+            if($("div[name='typeFlag']",wraper).radio('val')=='1'){ 
+               $(".serviceIsshow",wraper).show();
+               $(".inputer",wraper).hide()
+               $(".defaultHide1").show();
+            }
+            else{
+               $(".serviceIsshow",wraper).hide();
+               $(".inputer",wraper).show()
+               $(".defaultHide1").hide();
+            }
+        }
+    };
+   
+    field_params['service'] = {
+        data:[{id:'',name:'请选择'},{id:'1',name:'洗车'},{id:'2',name:'美容'},{id:'3',name:'保养'},{id:'4',name:'维修'}] ,
+        onchange:function(val){ 
+            getServiceSonNode(1,val,wraper); 
+        }
+    };
+    field_params['service2'] = {
+        data:[{id:'',name:'请选择'},{id:'1',name:'洗车'},{id:'2',name:'美容'},{id:'3',name:'保养'},{id:'4',name:'维修'}] ,
+        onchange:function(val){ 
+            getServiceSonNode2(1,val,wraper); 
+        }
+    };
+    page_column_model.push({display: '广播Id', name : 'broadcastId',hidden:true});
+    page_column_model.push({display: '广播内容', name : 'content'});
+    page_column_model.push({display: '点击广播跳转的服务或网址',diy:function(item,$div){
+        if(item.showFlag == 0){
+            $div.html(item.url)
+        }else{
+            $div.html(item.serviceName)
+        }
+    }});
+    page_column_model.push({display: '是否在APP显示', name : 'appDisplayFlag',diy:function(item,$div){
+        if(item.appDisplayFlag == 0){
+            $div.html("不显示")
+        }else{
+            $div.html("显示")
+        }
+    }}); 
+    page_column_model.push({display: '广播最后修改时间', name : 'updateDate'}); 
+
+    page_list_buttons.push({title: '创建',displayname:'创建',bclass: 'icon-plus',
+        onpress: function(){
+            $("#Form_radioManage").form({
+                title:'创建',
+                fields:field_params,
+                item:{},
+                url:'/vip-ws/ws/0.1/business/addBroadcast',
+                preSubmit:function(json){
+                    json.shopAccountId = carsmart_config.shopId;
+                    json.saveFlag = "insert";
+                    if( $('#Form_radioManage div[name="typeFlag"]',wraper).radio('val') == 1){
+                        json.serviceId = $(".defaultHide1").attr("id");
+                    }else{
+                        json.serviceId = '';
+                    }
+                    return json;
+                },
+                success: function(data) {
+                    if(data.overrun == 1){
+                        $("#Form_radioManage").form({
+                            grid:12
+                        }).form('open')
+                        $("#Form_cancel").form({}).form('open')
+                        $("#Form_cancel p").html("");
+                        $("#Form_cancel p").html("APP最多显示两条广播，请先取消以下任意广播的显示：");
+                        var cancelDat = $.jRadGet({url:'/vip-ws/ws/0.1/business/getDisplayBroadcast?shopAccountId='+carsmart_config.shopId});
+                        var str = '';
+                        $('#Form_cancel ul').html("");
+                        $.each(cancelDat,function(i){
+                            var item = cancelDat[i];
+                            str += '<li class="clearfix">'
+                                    +'<span>'+item.content+'</span>'
+                                    +'<a broadcastId="'+item.broadcastId+'">取消显示</a>'
+                                +'</li>'
+                        });
+                        $('#Form_cancel ul').append(str)
+                        $(".ul_info a").click(function(){
+                            $(this).parent().remove();
+                            var broadcastId = $(this).attr("broadcastId");
+                            $.ajax({
+                                type:'post',
+                                async:false,
+                                url:'/vip-ws/ws/0.1/business/cannelAppDisplay?broadcastId='+broadcastId,
+                                success: function(data){
+                                    $(this).parent().remove();
+                                },
+                                error:function(xhr){
+                                }
+                            })
+                        })
+                        $("#Form_cancel .pop-up-close").click(function(){
+                            //$("#Form_radioManage").form({item:item}).form('open')
+                            //$("#radioList .btn-info").eq(2).click();
+                        })
+                    }else{
+                        $('#Table_radioManage_list').flexMessage('创建成功', 'success','3');
+                        $('#Table_radioManage_list').flexReload();
+                    }
+                },
+                error:function(xhr){
+                    var mes = eval("("+xhr.responseText+")");  
+                    $.jRadMessage({level:'error',message:mes[0].message,selector:$("#Form_radioManage .pop-up-middle")})
+                }
+            }).form('open')
+            $(".serviceIsshow",wraper).show();
+            $(".inputer",wraper).hide()
+            $('#Form_radioManage div[name="typeFlag"]',wraper).radio('val','1');
+            $('#Form_radioManage div[name="appDisplayFlag"]',wraper).select('val','1');
+        }
+    })    
+
+    page_list_buttons.push({title: '修改',displayname:'修改',bclass: 'edit',
+        prefunc:function(){
+            var checked = $('#Table_radioManage_list').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },
+        onpress: function() {
+            var checked = $('#Table_radioManage_list').getCheckedTrs();
+            $("#Form_radioManage").form({
+                title:'修改',
+                fields:field_params,
+                url:'/vip-ws/ws/0.1/business/addBroadcast',
+                preSubmit:function(json){
+                    json.shopAccountId = carsmart_config.shopId;
+                    json.saveFlag = "update";
+                    if($("#Form_radioManage div[name='typeFlag']").radio('val') == 1){
+                        json.serviceId = $(".defaultHide1").attr("id");
+                    }else{
+                        json.serviceId = '';
+                    }
+
+                    json.broadcastId = checked[0].broadcastId
+                    return json;
+                },
+                success: function(data) {
+                    if(data.overrun == 1){
+                        $("#Form_radioManage").form({
+                            grid:12
+                        }).form('close')
+                        $("#Form_cancel").form({}).form('open')
+                        $("#Form_cancel p").html("");
+                        $("#Form_cancel p").html("APP最多显示两条广播，请先取消以下任意广播的显示：");
+                        var cancelDat = $.jRadGet({url:'/vip-ws/ws/0.1/business/getDisplayBroadcast?shopAccountId='+carsmart_config.shopId});
+                        var str = '';
+                        $('#Form_cancel ul').html("");
+                        $.each(cancelDat,function(i){
+                            var item = cancelDat[i];
+                            str += '<li class="clearfix">'
+                                    +'<span>'+item.content+'</span>'
+                                    +'<a broadcastId="'+item.broadcastId+'">取消显示</a>'
+                                +'</li>'
+                        });
+                        $('#Form_cancel ul').append(str)
+                        $(".ul_info a").click(function(){
+                            $(this).parent().remove();
+                            var broadcastId = $(this).attr("broadcastId");
+                            $.ajax({
+                                type:'post',
+                                async:false,
+                                url:'/vip-ws/ws/0.1/business/cannelAppDisplay?broadcastId='+broadcastId,
+                                success: function(data){
+                                    $(this).parent().remove();
+                                },
+                                error:function(xhr){
+                                }
+                            })
+                        })
+                        $("#Form_cancel .pop-up-close").click(function(){
+                            $("#radioList .btn-info").eq(2).click();
+                        })
+                    }else{
+                        $('#Table_radioManage_list').flexMessage('修改成功', 'success','3');
+                        $('#Table_radioManage_list').flexReload();
+                    }
+                },
+                error:function(xhr){
+                    var mes = eval("("+xhr.responseText+")");  
+                    $.jRadMessage({level:'error',message:mes[0].message,selector:$("#Form_radioManage .pop-up-middle")})
+                }
+            }).form('open')
+            $("#Form_radioManage div[name='content']").input('val',checked[0].content)
+            if(checked[0].showFlag == 1){
+                $("#Form_radioManage div[name='typeFlag']").radio('val',1)
+                $(".serviceIsshow").show();
+                $(".defaultHide1").show();
+                $(".inputer").hide()
+                if(checked[0].serviceName.substring(0,2) == '洗车'){
+                    $("#Form_radioManage div[name='service']").select('val',1);
+                    var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+1+'&businessInfoId='+carsmart_config.businessInfoId});
+                    var serviceName;
+                    $.each(data,function(i){
+                        var itemDat = data[i];
+                        if(itemDat.id == checked[0].businessServiceRelId){
+                            serviceName = itemDat.serviceName;
+                            $(".defaultHide1").attr({id:itemDat.id})
+                            $("#Form_radioManage div[name='firstService'] span").html(serviceName)
+                        }
+                    })
+                }else if(checked[0].serviceName.substring(0,2) == '美容'){
+                    $("#Form_radioManage div[name='service']").select('val',2)
+                    var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+2+'&businessInfoId='+carsmart_config.businessInfoId});
+                    var serviceName;
+                    $.each(data,function(i){
+                        var itemDat = data[i];
+                        if(itemDat.id == checked[0].businessServiceRelId){
+                            serviceName = itemDat.serviceName;
+                            $(".defaultHide1").attr({id:itemDat.id})
+                            $("#Form_radioManage div[name='firstService'] span").html(serviceName)
+                        }
+                    })
+                }else if(checked[0].serviceName.substring(0,2) == '保养'){
+                    $("#Form_radioManage div[name='service']").select('val',3)
+                    var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+3+'&businessInfoId='+carsmart_config.businessInfoId});
+                    var serviceName;
+                    $.each(data,function(i){
+                        var itemDat = data[i];
+                        if(itemDat.id == checked[0].businessServiceRelId){
+                            serviceName = itemDat.serviceName;
+                            $(".defaultHide1").attr({id:itemDat.id})
+                            $("#Form_radioManage div[name='firstService'] span").html(serviceName)
+                        }
+                    })
+                }else{
+                    $("#Form_radioManage div[name='service']").select('val',4)
+                    var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+4+'&businessInfoId='+carsmart_config.businessInfoId});
+                    var serviceName;
+                    $.each(data,function(i){
+                        var itemDat = data[i];
+                        if(itemDat.id == checked[0].businessServiceRelId){
+                            serviceName = itemDat.serviceName;
+                            $(".defaultHide1").attr({id:itemDat.id})
+                            $("#Form_radioManage div[name='firstService'] span").html(serviceName)
+                        }
+                    })
+                }
+            }else{
+                $("#Form_radioManage div[name='typeFlag']").radio('val',2)
+                $(".serviceIsshow").hide();
+                $(".defaultHide1").hide();
+                $(".inputer").show()
+                $("#Form_radioManage div[name='url']").input('val',checked[0].url)
+            }
+            if(checked[0].appDisplayFlag == 1){
+                $("#Form_radioManage div[name='appDisplayFlag']").select('val',1);
+            }else{
+                $("#Form_radioManage div[name='appDisplayFlag']").select('val',0)
+            }
+        }
+    })
+  
+    page_list_buttons.push({title: '预览',displayname:'预览',bclass: 'look',
+        onpress: function(){
+            $("#Form_prelook").form({
+                title:'预览'
+            }).form('open')
+            var adreTime = $.jRadGet({url:'/vip-ws/ws/0.1/business/queryBasicInfo?shopAccountId='+carsmart_config.shopId})
+            var per_cancelDat = $.jRadGet({url:'/vip-ws/ws/0.1/business/getDisplayBroadcast?shopAccountId='+carsmart_config.shopId});
+            var _ul = $(".ads-title")
+            _ul.html("")
+            $.each(per_cancelDat,function(i){
+                var item = per_cancelDat[i];
+                var _li = $('<li class="clearfix"><span class="samll-look" style="float:left;"></span><span style="float:left;width:260px;height:32px;overflow:hidden;">'+item.content+'</span></li>')
+                _ul.append(_li)
+            })
+            var per_cancelDat2 = $.jRadGet({url:'/vip-ws/ws/0.1/business/getDisPlayMainService?businessInfoId='+carsmart_config.businessInfoId});
+            var _ul2 = $(".zhutui-ser")
+            _ul2.html("")
+            $.each(per_cancelDat2,function(i){
+                var item = per_cancelDat2[i];
+                var _li = $('<li class="clearfix"><span style="float:left;width:240px;overflow:hidden;height:38px;">'+item.serviceName+'</span><span style="float:right;" class="right-btn"></span><span style="float:right;">¥'+item.price+'</span></li>')
+                _ul2.append(_li)
+            })
+            $(".adrp1").html(adreTime.address)
+            $(".timep2").html(adreTime.startTime+'-'+adreTime.endTime+'&nbsp;营业')
+        }
+    })
+
+    $('#Table_radioManage_list',wraper).flexigrid({
+        reload: true,
+        grid:40,
+        pagination: {diaplay_pages: 6,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel : page_column_model,
+        buttons : page_list_buttons,
+        method:'get',
+        showSearch:false,
+        checkBoxType:'single',
+        //showCheckbox:false,
+        url:'/vip-ws/ws/0.1/business/listBroadcast?shopAccountId='+carsmart_config.shopId,      
+        overflow:true 
+    }); 
+
+    $('#radioList .tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:15px;float:left;line-height:60px;">广播列表</span>');
+
+    page_column_model_b.push({display: '商家服务ID', name : 'businessServiceRelId',hidden:true});
+    page_column_model_b.push({display: '推荐服务', name : 'serviceName'});
+    page_column_model_b.push({display: '是否在APP显示',diy:function(item,$div){
+        if(item.displayFlag == 0){
+            $div.html("不显示")
+        }else{
+            $div.html("显示")
+        }
+    }});
+    page_column_model_b.push({display: '推荐服务最后修改时间', name : 'updateDate'}); 
+
+    page_list_buttons_b.push({title: '创建',displayname:'创建',bclass: 'icon-plus',
+        onpress: function(){
+            $("#Form_mainPush").form({
+                title:'创建',
+                fields:field_params,
+                item:{},
+                url:'/vip-ws/ws/0.1/business/saveMainService',
+                preSubmit:function(json){
+                    json.businessServiceRelId = $(".defaultHide2").attr("id");
+                    json.displayFlag = $("#Form_mainPush div[name='displayFlag']").select('val');
+                    json.saveType = "insert";
+                    return json;
+                },
+                success:function(data){ 
+                    if(data.overrun == 1){
+                        $("#Form_mainPush").form({
+                            grid:12
+                        }).form('close')
+                        $("#Form_cancel").form({}).form('open')
+                        $("#Form_cancel p").html("");
+                        $("#Form_cancel p").html("APP最多显示5条服务，请先取消以下任意服务的显示：");
+                        var cancelDat = $.jRadGet({url:'/vip-ws/ws/0.1/business/getDisPlayMainService?businessInfoId='+carsmart_config.businessInfoId});
+                        var str = '';
+                        $('#Form_cancel ul').html("");
+                        $.each(cancelDat,function(i){
+                            var item = cancelDat[i];
+                            str += '<li class="clearfix">'
+                                    +'<span>'+item.serviceName+'</span>'
+                                    +'<a businessServiceId="'+item.businessServiceRelId+'">取消显示</a>'
+                                +'</li>'
+                        });
+                        $('#Form_cancel ul').append(str)
+                        $(".ul_info a").on('click',function(){
+                            var _taht = $(this)
+                            var postJson = {};
+                            postJson.businessServiceRelId = $(this).attr("businessServiceId");
+                            postJson.operator = carsmart_config.operatorName;
+                            $.jRadAjax({
+                                type:'post',
+                                async:false,
+                                data:postJson,
+                                url:'/vip-ws/ws/0.1/business/cannelServiceDisplay',
+                                success: function(){
+                                    _taht.parent().remove(); 
+                                },
+                                error:function(xhr){
+                                }
+                            })
+                        })
+                        $("#Form_cancel .pop-up-close").click(function(){
+                            $("#sendList .btn-info").eq(2).click();
+                        })
+                    }else{
+                        $('#Table_send_radioManage_list').flexMessage('创建成功', 'success','3');
+                        $('#Table_send_radioManage_list').flexReload();
+                    }
+                },
+                error:function(xhr){
+                    var errormsg = eval("(" + xhr.responseText + ")"); 
+                    if (errormsg != undefined) {
+                        $.jRadMessage({message: errormsg[0].message,level: 'error',selector:$('#Form_mainPush .pop-up-middle')})
+                    }
+                }
+            }).form('open')
+            $("#Form_mainPush div[name='service2']").select("readonly",false);
+            $("#Form_mainPush div[name='firstService']").select("readonly",false);
+            $(".defaultHide2").hide();
+            $('#Form_mainPush div[name="displayFlag"]',wraper).select('val','1');
+        }
+    })    
+    page_list_buttons_b.push({title: '修改',displayname:'修改',bclass: 'edit',
+        prefunc:function(){
+            var checked = $('#Table_send_radioManage_list').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },
+        onpress: function(){
+            var checked = $('#Table_send_radioManage_list').getCheckedTrs();
+            $("#Form_mainPush").form({
+                title:'修改',
+                fields:field_params,
+                url:'/vip-ws/ws/0.1/business/saveMainService',
+                preSubmit:function(json){
+                    json.businessServiceRelId = $(".defaultHide2").attr("id");
+                    json.displayFlag = $("#Form_mainPush div[name='displayFlag']").select('val');
+                    json.saveType = "update"
+                    return json;
+                },
+                success:function(data){ 
+                    if(data.overrun == 1){
+                        $("#Form_mainPush").form({
+                            grid:12
+                        }).form('close')
+                        $("#Form_cancel").form({}).form('open')
+                        $("#Form_cancel p").html("");
+                        $("#Form_cancel p").html("APP最多显示5条服务，请先取消以下任意服务的显示：");
+                        var cancelDat = $.jRadGet({url:'/vip-ws/ws/0.1/business/getDisPlayMainService?businessInfoId='+carsmart_config.businessInfoId});
+                        var str = '';
+                        $('#Form_cancel ul').html("");
+                        $.each(cancelDat,function(i){
+                            var item = cancelDat[i];
+                            str += '<li class="clearfix">'
+                                    +'<span>'+item.serviceName+'</span>'
+                                    +'<a businessServiceId="'+item.businessServiceRelId+'">取消显示</a>'
+                                +'</li>'
+                        });
+                        $('#Form_cancel ul').append(str)
+                        $(".ul_info a").on('click',function(){
+                            var _taht = $(this)
+                            var postJson = {};
+                            postJson.businessServiceRelId = $(this).attr("businessServiceId");
+                            postJson.operator = carsmart_config.operatorName;
+                            $.jRadAjax({
+                                type:'post',
+                                async:false,
+                                data:postJson,
+                                url:'/vip-ws/ws/0.1/business/cannelServiceDisplay',
+                                success: function(data){
+                                    _taht.parent().remove(); 
+                                },
+                                error:function(xhr){
+                                }
+                            })
+                        })
+                        $("#Form_cancel .pop-up-close").click(function(){
+                            $("#sendList .btn-info").eq(2).click();
+                        })
+                    }else{  
+                        $('#Table_send_radioManage_list').flexMessage('修改成功', 'success','3');
+                        $('#Table_send_radioManage_list').flexReload();
+                    }
+                },
+                error:function(xhr){
+                    var errormsg = eval("(" + xhr.responseText + ")"); 
+                    if (errormsg != undefined) {
+                        $.jRadMessage({message: errormsg[0].message,level: 'error',selector:$('#Form_mainPush .pop-up-middle')})
+                    }
+                }
+            }).form('open')
+            //$(".serviceIsshow").show();
+            $(".defaultHide2").show();
+            if(checked[0].serviceName.substring(0,2) == '洗车'){
+                $("#Form_mainPush div[name='service2']").select('val',1);
+                var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+1+'&businessInfoId='+carsmart_config.businessInfoId});
+                var serviceName;
+                $.each(data,function(i){
+                    var itemDat = data[i];
+                    if(itemDat.id == checked[0].businessServiceRelId){
+                        serviceName = itemDat.serviceName;
+                        $(".defaultHide2").attr({id:itemDat.id})
+                        $("#Form_mainPush div[name='firstService'] span").html(serviceName)
+                    }
+                })
+            }else if(checked[0].serviceName.substring(0,2) == '美容'){
+                $("#Form_mainPush div[name='service2']").select('val',2)
+                var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+2+'&businessInfoId='+carsmart_config.businessInfoId});
+                var serviceName;
+                $.each(data,function(i){
+                    var itemDat = data[i];
+                    if(itemDat.id == checked[0].businessServiceRelId){
+                        serviceName = itemDat.serviceName;
+                        $(".defaultHide2").attr({id:itemDat.id})
+                        $("#Form_mainPush div[name='firstService'] span").html(serviceName)
+                    }
+                })
+            }else if(checked[0].serviceName.substring(0,2) == '保养'){
+                $("#Form_mainPush div[name='service2']").select('val',3)
+                var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+3+'&businessInfoId='+carsmart_config.businessInfoId});
+                var serviceName;
+                $.each(data,function(i){
+                    var itemDat = data[i];
+                    if(itemDat.id == checked[0].businessServiceRelId){
+                        serviceName = itemDat.serviceName;
+                        $(".defaultHide2").attr({id:itemDat.id})
+                        $("#Form_mainPush div[name='firstService'] span").html(serviceName)
+                    }
+                })
+            }else{
+                $("#Form_mainPush div[name='service2']").select('val',4)
+                var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+4+'&businessInfoId='+carsmart_config.businessInfoId});
+                var serviceName;
+                $.each(data,function(i){
+                    var itemDat = data[i];
+                    if(itemDat.id == checked[0].businessServiceRelId){
+                        serviceName = itemDat.serviceName;
+                        $(".defaultHide2").attr({id:itemDat.id})
+                        $("#Form_mainPush div[name='firstService'] span").html(serviceName)
+                    }
+                })
+            }
+
+            if(checked[0].displayFlag == 1){
+                $("#Form_mainPush div[name='displayFlag']").select('val',1);
+            }else{
+                $("#Form_mainPush div[name='displayFlag']").select('val',0)
+            }
+
+            $("#Form_mainPush div[name='service2']").select("readonly",true);
+            $("#Form_mainPush div[name='firstService']").select("readonly",true);
+            $("#Form_mainPush div[name='firstService'] span").html(checked[0].serviceName);
+        }
+    })
+
+    page_list_buttons_b.push({title: '预览',displayname:'预览',bclass: 'look',
+        onpress: function(){
+            $("#Form_prelook").form({
+                title:'预览'
+            }).form('open')
+            var adreTime = $.jRadGet({url:'/vip-ws/ws/0.1/business/queryBasicInfo?shopAccountId='+carsmart_config.shopId})
+            var per_cancelDat = $.jRadGet({url:'/vip-ws/ws/0.1/business/getDisplayBroadcast?shopAccountId='+carsmart_config.shopId});
+            var _ul = $(".ads-title")
+            _ul.html("")
+            $.each(per_cancelDat,function(i){
+                var item = per_cancelDat[i];
+                var _li = $('<li class="clearfix"><span class="samll-look" style="float:left;"></span><span style="float:left;width:260px;height:32px;overflow:hidden;">'+item.content+'</span></li>')
+                _ul.append(_li)
+            })
+            var per_cancelDat2 = $.jRadGet({url:'/vip-ws/ws/0.1/business/getDisPlayMainService?businessInfoId='+carsmart_config.businessInfoId});
+            var _ul2 = $(".zhutui-ser")
+            _ul2.html("")
+            $.each(per_cancelDat2,function(i){
+                var item = per_cancelDat2[i];
+                var _li = $('<li class="clearfix"><span style="float:left;width:240px;overflow:hidden;height:38px;">'+item.serviceName+'</span><span style="float:right;" class="right-btn"></span><span style="float:right;">¥'+item.price+'</span></li>')
+                _ul2.append(_li)
+            })
+            $(".adrp1").html(adreTime.address)
+            $(".timep2").html(adreTime.startTime+'-'+adreTime.endTime+'&nbsp;营业')
+        }
+    })
+    $('#Table_send_radioManage_list',wraper).flexigrid({
+        reload: true,
+        grid:40,
+        pagination: {diaplay_pages: 6,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel : page_column_model_b,
+        buttons : page_list_buttons_b,
+        method:'get',
+        showSearch:false,
+        checkBoxType:'single',
+        //showCheckbox:false,
+        url:'/vip-ws/ws/0.1/business/getMainServiceListInfo?mainStatus='+1+'&businessInfoId='+carsmart_config.businessInfoId,      
+        overflow:true 
+    }); 
+    
+    $('#sendList .tDiv',wraper).before('<span style="margin:0 20px;font-size:16px;float:left;line-height:60px;">主推服务列表</span>');
+    $('#radioList tr th').eq(1).attr("style","display:none;")
+    $('#sendList tr th').eq(1).attr("style","display:none;")
+    $('.hDiv',wraper).css('overflow','hidden');
+    $('.bDiv',wraper).css('overflow-x','scroll');
+
+
+    function getServiceSonNode(n,val,wraper){   
+        var label = "",serviceClass = "",num = "";
+        var node = n;
+        if(node==1){
+            label = "服务";
+            serviceClass = "firstService"; 
+            num = "first"; 
+            $("#Form_radioManage .first").parents(".grid-row-fluid").remove();
+            $("#Form_radioManage .second").parents(".grid-row-fluid").remove();
+            $("#Form_radioManage .third").parents(".grid-row-fluid").remove();
+            $("#Form_radioManage .four").parents(".grid-row-fluid").remove();
+        }else if(node==2){
+            label = "二级服务";
+            serviceClass = "secondService"; 
+            num = "second"; 
+            $("#Form_radioManage .second").parents(".grid-row-fluid").remove();
+            $("#Form_radioManage .third").parents(".grid-row-fluid").remove();
+            $("#Form_radioManage .four").parents(".grid-row-fluid").remove();
+        } else if(node==3){
+            label = "三级服务";
+            serviceClass = "thirdService"; 
+            num = "third"; 
+            $("#Form_radioManage .third").parents(".grid-row-fluid").remove();
+            $("#Form_radioManage .four").parents(".grid-row-fluid").remove();
+        } else if(node==4){
+            label = "四级服务";
+            serviceClass = "fourService"; 
+            num = "four"; 
+            $("#Form_radioManage .four").parents(".grid-row-fluid").remove();
+        }
+        if(val!=""){
+            var item = $.jRadGetDataSources('/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+val+'&businessInfoId='+carsmart_config.businessInfoId,"id","serviceName");
+            if(item.length>0){
+                item.unshift({id:'',name:'请选择'}); 
+                var row = '<div class="grid-row-fluid defaultHide1">'
+                            +'<label class="span5 grid-layout-label"><span class="ui-form-required">*</span>二级'+label+'：</label>'
+                            +'<div class="span12 grid-layout-content fluid-wrap">'
+                            +'<div name="'+serviceClass+'" class="jrad-select-container service '+ num +'"></div>'
+                            +'</div>'
+                            +'</div>'  
+                $("#Form_radioManage .service:last",wraper).parents(".grid-row-fluid").after(row); 
+                node++;
+                $('#Form_radioManage div[name='+serviceClass+']').select({
+                    data:item,
+                    unshiftData: {id:'',name:'请选择'},
+                    onclick:function(data){
+                        var price;
+                        var id
+                        var workHour
+                        var serviceName
+                        if(data.id == ''){
+                            $(".defaultHide1").hide();
+                        }else{
+                            $(".defaultHide1").show();
+                            var item2 = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+val+'&businessInfoId='+carsmart_config.businessInfoId});
+                            $.each(item2,function(i){
+                                var itemDat = item2[i];
+                                if(itemDat.serviceName == data.name){
+                                    id=itemDat.id;
+                                    serviceName = itemDat.serviceName;
+                                }
+                            })
+                            $(".defaultHide1").attr({id:id,serviceName:serviceName});
+                        }
+                    } 
+                });
+            } 
+        }
+    } 
+    function getServiceSonNode2(n,val,wraper){   
+        var label = "",serviceClass = "",num = "";
+        var node = n;
+        if(node==1){
+            label = "服务";
+            serviceClass = "firstService"; 
+            num = "first"; 
+            $("#Form_mainPush .first").parents(".grid-row-fluid").remove();
+            $("#Form_mainPush .second").parents(".grid-row-fluid").remove();
+            $("#Form_mainPush .third").parents(".grid-row-fluid").remove();
+            $("#Form_mainPush .four").parents(".grid-row-fluid").remove();
+        }else if(node==2){
+            label = "二级服务";
+            serviceClass = "secondService"; 
+            num = "second"; 
+            $("#Form_mainPush .second").parents(".grid-row-fluid").remove();
+            $("#Form_mainPush .third").parents(".grid-row-fluid").remove();
+            $("#Form_mainPush .four").parents(".grid-row-fluid").remove();
+        } else if(node==3){
+            label = "三级服务";
+            serviceClass = "thirdService"; 
+            num = "third"; 
+            $("#Form_mainPush .third").parents(".grid-row-fluid").remove();
+            $("#Form_mainPush .four").parents(".grid-row-fluid").remove();
+        } else if(node==4){
+            label = "四级服务";
+            serviceClass = "fourService"; 
+            num = "four"; 
+            $("#Form_mainPush .four").parents(".grid-row-fluid").remove();
+        }
+        if(val!=""){
+            var item = $.jRadGetDataSources('/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+val+'&businessInfoId='+carsmart_config.businessInfoId,"id","serviceName");
+            if(item.length>0){
+                item.unshift({id:'',name:'请选择'}); 
+                var row = '<div class="grid-row-fluid defaultHide2">'
+                            +'<label class="span5 grid-layout-label"><span class="ui-form-required">*</span>二级'+label+'：</label>'
+                            +'<div class="span12 grid-layout-content fluid-wrap">'
+                            +'<div name="'+serviceClass+'" class="jrad-select-container service2'+ num +'"></div>'
+                            +'</div>'
+                            +'</div>'  
+                $(".defaultHide2").remove();
+                $("#Form_mainPush .service2:last",wraper).parents(".grid-row-fluid").after(row); 
+                node++;
+                $('#Form_mainPush div[name='+serviceClass+']').select({
+                    data:item,
+                    unshiftData: {id:'',name:'请选择'},
+                    onclick:function(data){
+                        var price;
+                        var id
+                        var workHour
+                        var serviceName
+                        if(data.id == ''){
+                            $(".defaultHide2").hide();
+                        }else{
+                            $(".defaultHide2").show();
+                            var item2 = $.jRadGet({url:'/shopmanage-ws/ws/0.1/businessServiceRel/getBusinessServiceList?serviceType='+val+'&businessInfoId='+carsmart_config.businessInfoId});
+                            $.each(item2,function(i){
+                                var itemDat = item2[i];
+                                if(itemDat.serviceName == data.name){
+                                    id=itemDat.id;
+                                    serviceName = itemDat.serviceName;
+                                }
+                            })
+                            $(".defaultHide2").attr({id:id,serviceName:serviceName});
+                        }
+                    } 
+                });
+            } 
+        }
+    } 
+});
+</script>

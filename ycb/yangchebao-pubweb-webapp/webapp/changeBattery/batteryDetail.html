@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>请选择电瓶</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		article{
+			display: none;
+		}
+		img{
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<article class="boshi">
+			<div><img src="./img/boshi/1.jpg"></div>
+			<div><img src="./img/boshi/10.jpg"></div>
+			<div><img src="./img/boshi/11.jpg"></div>
+			<div><img src="./img/boshi/12.jpg"></div>
+			<div><img src="./img/boshi/13.jpg"></div>
+			<div><img src="./img/boshi/14.jpg"></div>
+		</article>
+		<article class="deerfu">
+			<div><img src="./img/deerfu/1.jpg"></div>
+			<div><img src="./img/deerfu/3.jpg"></div>
+			<div><img src="./img/deerfu/4.jpg"></div>
+			<div><img src="./img/deerfu/6.jpg"></div>
+			<div><img src="./img/deerfu/7.jpg"></div>
+			<div><img src="./img/deerfu/9.jpg"></div>
+			<div><img src="./img/deerfu/13.jpg"></div>
+			<div><img src="./img/deerfu/14.jpg"></div>
+		</article>
+		<article class="fengfan">
+			<div><img src="./img/fengfan/1.jpg"></div>
+			<div><img src="./img/fengfan/10.jpg"></div>
+			<div><img src="./img/fengfan/11.jpg"></div>
+			<div><img src="./img/fengfan/12.jpg"></div>
+			<div><img src="./img/fengfan/13.jpg"></div>
+			<div><img src="./img/fengfan/14.jpg"></div>
+		</article>
+		<article class="luotuo">
+			<div><img src="./img/luotuo/1.jpg"></div>
+			<div><img src="./img/luotuo/3.jpg"></div>
+			<div><img src="./img/luotuo/4.jpg"></div>
+			<div><img src="./img/luotuo/6.jpg"></div>
+			<div><img src="./img/luotuo/7.jpg"></div>
+			<div><img src="./img/luotuo/9.jpg"></div>
+			<div><img src="./img/luotuo/13.jpg"></div>
+			<div><img src="./img/luotuo/14.jpg"></div>
+		</article>
+		<article class="tongyi">
+			<div><img src="./img/tongyi/1.jpg"></div>
+			<div><img src="./img/tongyi/3.jpg"></div>
+			<div><img src="./img/tongyi/4.jpg"></div>
+			<div><img src="./img/tongyi/6.jpg"></div>
+			<div><img src="./img/tongyi/7.jpg"></div>
+			<div><img src="./img/tongyi/9.jpg"></div>
+			<div><img src="./img/tongyi/13.jpg"></div>
+			<div><img src="./img/tongyi/14.jpg"></div>
+		</article>
+		<article class="waerta">
+			<div><img src="./img/waerta/1.jpg"></div>
+			<div><img src="./img/waerta/10.jpg"></div>
+			<div><img src="./img/waerta/11.jpg"></div>
+			<div><img src="./img/waerta/12.jpg"></div>
+			<div><img src="./img/waerta/13.jpg"></div>
+			<div><img src="./img/waerta/14.jpg"></div>
+		</article>
+		<article class="redguan">
+			<div><img src="./img/redguan/hongguan1.jpg"></div>
+			<div><img src="./img/redguan/hongguan2.jpg"></div>
+			<div><img src="./img/redguan/hongguan3.jpg"></div>
+			<div><img src="./img/redguan/hongguan4.jpg"></div>
+		</article>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    var dataName=decodeURI(decodeURI(paramJson.dataName));
+	    if(dataName.indexOf('博世')!=-1){
+	    	$('article.boshi').show()
+	    }else if(dataName.indexOf('德尔福')!=-1){
+	    	$('article.deerfu').show()
+	    }else if(dataName.indexOf('风帆')!=-1){
+	    	$('article.fengfan').show()
+	    }else if(dataName.indexOf('骆驼')!=-1){
+	    	$('article.luotuo').show()
+	    }else if(dataName.indexOf('统一')!=-1){
+	    	$('article.tongyi').show()
+	    }else if(dataName.indexOf('瓦尔塔')!=-1){
+	    	$('article.waerta').show()
+	    }else if(dataName.indexOf('红冠')!=-1){
+	    	$('article.redguan').show()
+	    }
+	})
+</script>
+</html>

@@ -1,0 +1,202 @@
+<div class="urlContentWraper" id="Wraper_wx_insurance">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>微信保险活动</strong><bottom class="all-work-info numb911">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_wx_insurance"></table>
+		</div>
+    </div>
+    <div id="Form_wx_insurance" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <input name="id" type="hidden">
+            <div class="row">
+                 <label class="span3 grid-layout-label">筛子1概率设置：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="firstRateConfig" class="jrad-input-container"></div>
+					   </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">筛子2概率设置：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="secondRateConfig" class="jrad-input-container"></div>  
+                 </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"></label>
+                 <div class="span7 grid-layout-content">
+                       <p class="note">分别填入筛子掷点0.1-6的概率，用英文逗号隔开</p> 
+                 </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg911" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>原来去哪保合作的活动，已停用。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_wx_insurance');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+ 
+	jRad.params['isOrdered'] = {data:[{id:'',name:'全部'},{id:'0',name:'否'},{id:'1',name:'是'}]};
+	
+    page_column_model.push({display: 'openid', name : 'sponsorId'});
+    page_column_model.push({display: '微信昵称', name : 'sponsorNickname'});
+    page_column_model.push({display: '领取手机号', name : 'acceptMobile'});
+    page_column_model.push({display: '车牌号', name : 'plateNumber'});
+	page_column_model.push({display: '初登日期', name : 'initialDate'});
+	page_column_model.push({display: '车型', name : 'style'});
+	page_column_model.push({display: '查询报价公司', name : 'inquiryQuotationCompany'});
+	page_column_model.push({display: '车险报价', name : 'autoInsuranceQuote'});
+	page_column_model.push({display: '好友助战数', name : 'friendAssistInNumber'});
+	page_column_model.push({display: '助战金额', name : 'assistInCash'});
+	page_column_model.push({display: '是否已购买订单', name : 'isOrdered'});
+	page_column_model.push({display: '是否达到阀值', name : 'isAchieveThreshold'});
+	page_column_model.push({display: '购买报价公司', name : 'purchaseQuotationCompany'});
+	page_column_model.push({display: '对应保单号', name : 'policyNumber'});
+	page_column_model.push({display: '对应保单金额', name : 'policyAmount'});
+	page_column_model.push({display: '抵消金额', name : 'offsetAmount'});
+	page_column_model.push({display: '数据生成时间', name : 'createDate'});
+	page_column_model.push({display: '购买时间', name : 'purchaseDate'});
+    
+    page_search_items.push({row:'1',type:'jrad-input',display:'openid',name:'sponsorId'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'微信昵称',name:'sponsorNickname'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'车牌号',name:'plateNumber'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'是否下单',name:'isOrdered',params:jRad.params['isOrdered']});
+	
+    page_list_buttons.push({title:'筛子概率设置',displayname: '筛子概率设置',name:'set', bclass: 'set',
+    	onpress : function(){ 
+	         var checked = $('#Table_wx_insurance').getCheckedTrs(); 
+	         var item = $.jRadGet({url : '/shopmanage-ws/ws/0.1/qunabao/listRateConfig'});
+		   	 $('#Form_wx_insurance').form({
+		   		title: '筛子概率设置',
+				item:item, 
+				url:'/shopmanage-ws/ws/0.1/qunabao/editRateConfig',
+				before_submit:function(json){
+					return json;
+				},
+				success_callback:function(){ 
+					$('#Table_wx_insurance').flexMessage('设置成功', 'success');
+					$('#Table_wx_insurance').flexReload();
+				}
+		     }).form('open');
+        }
+    });
+  
+ 	page_list_buttons.push({title: '导出',displayname:'导出EXCEl',name:'excel',bclass: 'excel',onpress : function(){
+	    	$.jRadConfirm('确认导出吗？',1,function(){
+				 var param = {};
+				 var sponsorId = $.trim($(".searchContent div[name='sponsorId']",wraper).input('val'));
+				 if(sponsorId!=""){
+					param['sponsorId'] = sponsorId;
+				 }; 
+				 var sponsorNickname = $.trim($(".searchContent div[name='sponsorNickname']",wraper).input('val'));
+				 if(sponsorNickname!=""){
+					param['sponsorNickname'] = sponsorNickname;
+				 };
+				 var plateNumber = $.trim($(".searchContent div[name='plateNumber']",wraper).input('val'));
+				 if(plateNumber!=""){
+					param['plateNumber'] = plateNumber;
+				 }; 
+				 var isOrdered = $.trim($(".searchContent div[name='isOrdered']",wraper).select('val'));
+				 if(isOrdered!=""){
+					param['isOrdered'] = isOrdered;
+				 };
+				 var paramUrl = "";
+				 if(param!={}){   
+				 paramUrl+="?"
+				 $.each(param,function(k,v){ 
+						paramUrl+="&"+k+"="+v; 
+				 });
+				 }
+				 window.open('/shopmanage-ws/ws/0.1/qunabao/exportQunabaoFriendAssistIn'+paramUrl);
+			}); 
+		}
+	});
+    page_list_buttons.push({separator: true});
+
+	$('#Table_wx_insurance').flexigrid({
+			reload:true,
+			method:'get', 
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			overflow:true,
+			url:'/shopmanage-ws/ws/0.1/qunabao/pageQunabaoFriendAssistIn',
+			onError:showRemarkError,
+			checkBoxType:'single'
+	})
+    $(".numb911").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg911").form({}).form('close');
+        $("#Form_explain_eg911").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg911 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg911").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg911").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg911 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	
+});
+function showRemarkError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_wx_insurance .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+</script>

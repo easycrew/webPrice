@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="robots" content="noarchive"/>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+<title>盒子激活</title>
+</head>
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+	text-shadow:none;
+}
+html {
+	font-size: 62.5%;
+	height: 100%;
+	-webkit-tap-highlight-color: transparent;
+}
+body{
+	background-color: #ebebeb;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:1.6rem;
+	color:#39434e;
+	height: 100%;
+}
+ul{
+	list-style:none;
+}
+a{
+	color: #fb451f;
+	text-decoration: none;
+}
+img{
+	border:none;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.btn{
+	background-color: #fb451f;
+	color: #ffffff;
+	font-size: 1.8rem;
+	display: block;
+	text-align: center;
+	height: 4.5rem;
+	line-height: 4.5rem;
+	padding: 0 1.5rem;
+	margin: 0 1.2rem;
+}
+.btn:hover{
+	text-decoration: none;
+}
+/*绑定步骤*/
+.bind-step{
+	padding: 2.8rem 0;
+}
+.bind-step ul{
+	display: -webkit-box;
+	display: box;
+}
+.bind-step li{
+	-webkit-box-flex:1;
+	box-flex:1;
+	text-align: center;
+	width: 100%;
+	position: relative;
+}
+.bind-step li:before,
+.bind-step li:after{
+	content: '';
+	background-color: #dfdfdf;
+	height: .3rem;
+	position: absolute;
+	top: 1.5rem;
+	z-index: 0;
+}
+.bind-step li:before{
+	width: 100%;
+	left: -50%;
+}
+.bind-step li:last-child:after{
+	width: 50%;
+	right: 0;
+}
+.bind-step li > span{
+	background-color: #dfdfdf;
+	color: #aaaaaa;
+	display: inline-block;
+	font-weight: bold;
+	width: 3.2rem;
+	height: 3.2rem;
+	line-height: 3.2rem;
+	-webkit-border-radius:50%;
+	border-radius:50%;
+	position: relative;
+	z-index: 1
+}
+.bind-step li > p{
+	color: #888888;
+	font-size: 1.5rem;
+	margin-top: .8rem;
+}
+.bind-step li.current > span,
+.bind-step li.finish > span{
+	background-color: #fb451f;
+	color: #ffffff;
+}
+.bind-step li.current:before,
+.bind-step li.finish:before{
+	background-color: #fb451f;
+}
+.bind-step li.current > p,
+.bind-step li.finish > p{
+	color: #484848;
+}
+.bind-step li.finish > span{
+	background: #fb451f url('http://app.yangchebao.com.cn/group1/M00/0B/41/ChUBl1WKitOADAyeAAAIfkNKVyI963.png') no-repeat scroll 0.7rem center;
+	background-size: auto 2rem;
+	color: #fb451f;
+	font-size: 0rem;
+}
+/*选车型*/
+.veh-info-list > li{
+	background-color: #ffffff;
+	border-style: solid;
+	border-color: #eaeaea;
+	font-size: 1.5rem;
+	padding: 1.5rem 1.8rem;
+	position: relative;
+	cursor: pointer;
+}
+.veh-info-list > li:before{
+	content: '';
+	background: transparent url('http://app.yangchebao.com.cn/group1/M00/0B/41/ChUBl1WKinmAA-qjAAAFBsFYN2o810.png') no-repeat;
+	background-size: auto 1.8rem;
+	width: 1rem;
+	height:1.8rem;
+	position: absolute;
+	right: 1.8rem;
+	top: 50%;
+	margin-top: -0.9rem;
+}
+.sorter{
+	background-color: #ffffff;
+	position: fixed;
+	right: 0;
+	top: 0;
+	bottom:0;
+	width: 1.8rem;
+	padding-top: 2rem;
+	text-align: center;
+}
+.sorter li:hover {
+	cursor: pointer;
+}
+.sorter > li >span{
+	color: #27b7ff;
+	cursor: pointer;
+	font-size: 1.0rem;
+	height: 1.1rem;
+	display: block;
+}
+.vehicle-list, .model-wrap, .style-wrap {
+	position: absolute;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	background: #ebebeb;
+	height: 100%;
+}
+.modle-wrap ul{
+	margin-bottom: 4rem;
+}
+.modle-wrap .veh-info-list > li{
+	border-width: 1px 0;
+	margin-bottom: 1.5rem;
+}
+.vehicle-list .veh-info-list{
+	background-color: #ffffff;
+	padding:0 1.8rem;
+}
+.vehicle-list .veh-info-list > li{
+	border-width: 0 0 0.05rem;
+	padding-left: 0;
+}
+.vehicle-list .veh-info-list > li:last-child{
+	border-width: 0;
+}
+.vehicle-list header{
+	background-color: #373636;
+	height: 4.5rem;
+	line-height: 4.5rem;
+	padding: 0 1.8rem;
+}
+.vehicle-list header > a{
+	color: #ffffff;
+}
+.vehicle-list header .close{
+	float: right;
+}
+.sorted-list h2{
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: #eaeaea;
+	color: #00b1ff;
+	font-size: 1.6rem;
+	font-weight: normal;
+	padding: 0 1.8rem;
+	height: 3rem;
+	line-height: 3rem;
+}
+.style-wrap .veh-info-list > li:before{
+	right: 0;
+} 
+.tasat-wrap{
+		position: fixed;
+		text-align: center;
+		bottom: 50%;
+		width: 100%; 
+	}
+.tasat {
+    background-color: #000;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 20px;
+    opacity: 0.8;
+    padding:10px;
+}
+</style>
+<body>
+	<section class="bind-flow-wrap">
+	    <nav class="bind-step">
+			<ul>
+				<li class="current">
+					<span>1</span>
+					<p>选定车型</p>
+				</li>
+				<li>
+					<span>2</span>
+					<p>绑定</p>
+				</li> 
+				<li>
+					<span>3</span>
+					<p>插入设备</p>
+				</li>
+			</ul>
+		</nav>
+		<!--选择车型-->
+		<div class="section modle-wrap">
+			<ul class="veh-info-list">
+				<li data-role="brand">选择品牌</li>
+				<li data-role="model">选择车系</li>
+				<li data-role="style">选择车型</li>
+			</ul>
+			<a href="#" class="btn" data-next="3">下一步</a>
+		</div>
+	</section>
+	<section class="brand-wrap vehicle-list" data-role="brand" style="display:none">
+		<div class="sorted-list">
+			
+
+		</div>
+		<ul class="sorter">
+				<li><span>A</span></li>
+				<li><span>B</span></li>
+				<li><span>C</span></li>
+				<li><span>D</span></li>
+				<li><span>E</span></li>
+				<li><span>F</span></li>
+				<li><span>G</span></li>
+				<li><span>H</span></li>
+				<li><span>I</span></li>
+				<li><span>J</span></li>
+				<li><span>K</span></li>
+				<li><span>L</span></li>
+				<li><span>M</span></li>
+				<li><span>N</span></li>
+				<li><span>O</span></li>
+				<li><span>P</span></li>
+				<li><span>Q</span></li>
+				<li><span>R</span></li>
+				<li><span>S</span></li>
+				<li><span>T</span></li>
+				<li><span>U</span></li>
+				<li><span>V</span></li>
+				<li><span>W</span></li>
+				<li><span>X</span></li>
+				<li><span>Y</span></li>
+				<li><span>Z</span></li>
+				<li><span>#</span></li>
+			</ul>
+	</section>
+	<section class="model-wrap vehicle-list" data-role="model" style="display:none">
+		<div class="sorted-list">
+		</div>
+	</section>
+	<section class="style-wrap vehicle-list" data-role="style"  style="display:none">
+		<div class="sorted-list">
+			
+		</div>
+
+	</section>
+	<script type="text/javascript">
+		$(document).ready(function(){ 
+			var url =window.location.search;    
+			var paramsArr = (url.split("?")[1]).split("&");
+			var paramJson = {}; 
+			$.each(paramsArr,function(i){
+				var item = paramsArr[i].split("=");
+				paramJson[item[0]] = item[1];
+			});  
+			var customerId = paramJson.customerId;
+            var userId = paramJson.userId;
+            var carInfoId = "";			
+			var getMaincar = function(){
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/user/carinfo/maincar?customerId='+customerId,
+					dataType:'json',
+					async:true,
+					success: function(data){
+					   carInfoId = data.carInfoId;
+					   if(data.brandId!=undefined&&data.brandId!=null&&data.brandId!=""){
+						 $('li[data-role=brand]').data('id',data.brandId);
+					     $('li[data-role=brand]').text(data.brandName);
+					   }
+					   if(data.modelId!=undefined&&data.modelId!=null&&data.modelId!=""){
+						 $('li[data-role=model]').data('id',data.modelId);
+					     $('li[data-role=model]').text(data.modelName);
+					   }
+					  if(data.styleId!=undefined&&data.styleId!=null&&data.styleId!=""){
+					    $('li[data-role=style]').data('id',data.styleId);
+					    $('li[data-role=style]').text(data.styleName);
+					  }
+					}
+				});
+			};
+			getMaincar();
+			var setStyle = function(){  
+			    if($('li[data-role=model]').data('id')==null){
+				  alertTasat("请选择车系"); 
+				  return false;
+				}
+				if($('li[data-role=style]').data('id')==null){
+				  alertTasat("请选择车型"); 
+				  return false;
+				}
+				var postData = {
+					'carInfoId':carInfoId,
+					'customerId':customerId,
+					'modelId': $('li[data-role=model]').data('id'),
+					'styleId': $('li[data-role=style]').data('id') 
+				}
+				$.ajax({
+					url:'/yangchebao-app-ws/ws/0.1/user/complete/editCarInfo',
+					type:'post',
+					data:JSON.stringify(postData),
+					contentType:'application/json',
+					success:function(){  
+						window.location.href = "step2.html"+window.location.search;
+					},
+					error:function(xhr){ 
+						var responseText = $.parseJSON(xhr.responseText);
+						alertTasat(responseText[0].message); 
+					}
+				});
+			}
+			var getBrands = function(){
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/support/brand/list',
+					dataType:'json',
+					async:true,
+					success: function(data){
+						var sorterList = $('.brand-wrap .sorted-list'); 
+						var htmlArray = []; 
+						$.each(data, function(key, value){
+							htmlArray.push('<h2>'+key+'</h2><ul data-spell="'+ key +'" class="veh-info-list">');
+							if (value.length > 0) {
+								$.each(value,function(index,value){
+									htmlArray.push('<li id="'+value.id+'">'+value.name+'</li>')
+								})
+							};
+							htmlArray.push('</ul>')
+						});
+						sorterList.html(htmlArray.join(''));
+					}
+				})
+			};
+			getBrands();
+			var getModels = function(brandId, brandName){
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/support/model/list?brandId='+brandId,
+					dataType:'json',
+					async:true,
+					success: function(data){
+						var sorterList = $('.model-wrap .sorted-list'); 
+						var htmlArray = []; 
+						$.each(data, function(index, item){
+							htmlArray.push('<h2>'+item.name+'</h2><ul data-spell="A" class="veh-info-list">'); 
+							if (item.models.length > 0) { 
+							    var models = item.models;
+								$.each(models,function(index,value){ 
+									htmlArray.push('<li id="'+value.id+'">'+value.name+'</li>')
+								})
+							};
+							htmlArray.push('</ul>')
+						});
+						sorterList.html(htmlArray.join(''));
+						if (data.length > 0) {
+							$('.model-wrap').show();
+						};
+					}
+				})
+			}
+			var getStyles = function(modelId, brandName){
+				$.ajax({
+					url: '/yangchebao-app-ws/ws/0.1/support/style/list?modelId='+modelId+'&boxType=1',
+					dataType:'json',
+					async:true,
+					success: function(data){
+						var sorterList = $('.style-wrap .sorted-list');
+						var styles = {};
+						var htmlArray = [];
+						htmlArray.push('<h2>'+ brandName+'</h2><ul class="veh-info-list">');
+						$.each(data, function(index, value){ 
+							htmlArray.push('<li id="'+value.id+'">'+value.name+'</li>'); 
+						});
+						htmlArray.push('</ul>')
+						sorterList.html(htmlArray.join(''));
+						if (data.length > 0) {
+							$('.style-wrap').show();
+						};
+						
+					}
+				})
+			}
+			$('a.btn').click(function(event){
+				setStyle();
+				event.preventDefault();
+			});  
+			$('.modle-wrap .veh-info-list li').click(function(){
+				var data = $(this).data('role');
+				switch(data){
+					case 'model':
+						var brandId = $('li[data-role=brand]').data('id');
+						var name = $('li[data-role=brand]').text();
+						$('li[data-role=style]').text('选择车型').data('id',null);
+						getModels(brandId, name);
+						break;
+					case 'style':
+						var name = $('li[data-role=model]').text();
+						var modelId = $('li[data-role=model]').data('id');
+						getStyles(modelId, name);
+						break;
+					default:
+						$('.brand-wrap').show();
+						$('li[data-role=model]').text('选择车系').data('id',null);
+						$('li[data-role=style]').text('选择车型').data('id',null);
+				}
+				
+			});
+			$('.sorter li').on('touchend click',function(){
+				var index = $(this).index();
+				var $parents = $(this).parents('.sorter').siblings('.sorted-list');
+				var $h2 = $('h2:contains('+$(this).text()+')');
+				$(document).scrollTop($h2.position().top)
+			});
+			$('.sorted-list').on('click', 'li', function(){
+				var self = $(this);
+				var role = self.parents('section').data('role');
+				self.parents('section').hide();
+				$('li[data-role='+ role +']').text(self.text()).data('id',this.id);
+
+			});   
+		}); 
+      function alertTasat(msg){
+		var _html = $("<div>").addClass("tasat-wrap")
+		var _span = $("<span>").addClass("tasat").html(msg);
+		$("body").append(_html.append(_span));
+		_html.fadeIn();
+		window.setTimeout(function(){
+			_html.fadeOut(function(){
+				_html.remove();
+			});
+		}, 1500);   
+	}
+	</script> 
+</body> 
+</html>

@@ -1,0 +1,383 @@
+/**资讯评论start**/
+.remark-wrap{
+	padding:0 1em;
+}
+.comment-list{
+	font-family: "华文细黑","HelveticaNeue-Light"; 
+} 
+.comment-list > li {
+    border-bottom: 1px dashed #abcfef;
+}
+.comment-list h3 {
+    background: url("http://app.yangchebao.com.cn/group1/M00/05/3A/ChUBl1SaXIuAWxQeAAAE4_rNrXc676.png") no-repeat scroll 0 center / 1em auto transparent; 
+    color: #00a0e9;
+    font-size: 1.4em;
+    font-weight: normal;
+    height: 2.286em;
+    line-height: 2.286em;
+    padding:0 0 0 1.5em;
+} 
+.comment-text {
+    font-size: 1.4em;
+    line-height: 1.714em;
+    padding:0 1em 0 2.143em; 
+	margin:0.5em 0;
+}
+.comment-list  .time{
+	color: #c2c2c6;
+    float: right;
+    font-size: 0.75em;
+}
+.moreRemark{ 
+	font-size: 1.5em;
+	color: #5bb4d9;
+	background-color: #e2f0f6;
+	border: 1px solid #d9d9e2;
+	display: block;
+	height: 2.33em;
+	line-height: 2.33em;
+	text-align: center;
+	margin: 1.67em 0;
+	border-radius:2px;
+}
+.remarkInput{ 
+	font-size: 1.4em;
+	color: #c2c2c6; 
+	border: 1px solid #d9d9e2;
+	display: block;
+	height: 2.5em;
+	line-height: 2.5em; 
+	margin: 1.78em 0 1.43em;
+	padding-left: 0.78em;
+	border-radius:2px;
+}
+/**资讯评论end**/
+
+/**首页新模板**/
+.service-list-search {
+    margin: 1.5em 1em; 
+}
+.service-list-search  .outwraper{
+	border:2px solid #aee9cf;
+	padding:5px;
+	background-color: #ebf6f1;
+	border-radius: 3px;
+}
+.service-list-search  .innerwraper{ 
+	background-color: #fff;
+	padding:5px;
+}
+.service-list-search .service-title{ 
+	padding: 5px 0 10px;
+	position: relative;
+	height: auto;
+	overflow: auto;
+} 
+.service-list-search .service-btn{
+	background-color: #34cc89;
+	color: #fff;
+	height: 1.86em;
+	line-height: 1.86em;
+	padding: 0 18px;
+	display: inline-block; 
+	position: absolute;
+	top: 7px;
+	right: 0;
+	font-size: 1.4em;
+}
+.service-title .input-wrap{
+	margin:0 10em 0 3.36em;
+} 
+.search-input{ 
+	font-size: 1.4em;
+	height:2em;
+	line-height: 2em;
+	display:block;
+	border:1px solid #99e5c4; 
+	border-radius: 3px;
+	padding: 0 38px;
+	position:relative; 
+}
+.search-input .left{
+	position: absolute;
+	left: 5px; 
+}
+.search-input .right{
+	position: absolute;
+	right: 5px;
+} 
+.search-input input{
+	border:none;
+	background-color: #fff;
+	height:2em;
+	line-height: 2em; 
+	width: 100%;
+}   
+.service-wrap h4{
+	font-size: 1.4em; 
+}
+.service-wrap h4 .price{
+	font-size: 0.86em;
+	color: #fb451f;
+	display: inline-block;
+	float: right;
+} 
+.outwraper .service-wrap{
+	border-bottom:1px solid #d9d9e2;
+	border-top:1px solid #d9d9e2;
+}
+.service-wrap {
+	height: auto;
+	overflow: auto;
+	padding: 9px 0 7px; 
+}
+.service-list-search .service-wrap p{
+	font-size: 1.2em;
+}
+.service-wrap .left{
+	width:49%;
+	float: left; 
+}
+.outwraper .service-wrap .left{
+	border-right: 1px solid #d9d9e2;
+}
+.service-wrap .right{
+	width:50%;
+	float: left;
+}
+.service-wrap .left>div,.service-wrap .right>div{
+	 padding:0 12px;
+}
+.service-list-search .outwraper .more{
+	color: #34cc89;
+}
+.more{
+	float: right; 
+	color: #1e1e1e;
+	font-size: 1.4em;
+	height: 2.57em;
+	line-height: 2.57em;
+	padding-right: 12px;
+	background:transparent url('http://app.yangchebao.com.cn/group1/M00/05/50/ChUBl1Sf5N2AKWhqAAACVujSeIU111.png') no-repeat scroll center right;
+	background-size:0.5em auto;
+} 
+.service-list-search li{
+	margin-bottom: 15px;
+}
+.service-list-search .service-icon{  
+	width: 3.6em;
+	height: 3.6em;
+	background:transparent url('http://app.yangchebao.com.cn/group1/M00/05/79/ChUBl1SpDJGAbL3eAAAgujkDvWY118.png') no-repeat scroll 0 0;
+	background-size:3.5em auto;
+	display: block;  
+	float: left;
+}
+.service-list-search .beautify .service-icon{ 
+	background-position:0 -2.23em;
+}
+.service-list-search .carwash .service-icon{ 
+	background-position:0 -5.75em;
+}
+.service-list-search .repair .service-icon{ 
+	background-position:0 -9.35em;
+}
+.service-list-search .upkeep .service-icon{ 
+	background-position:0 -13em;
+}
+.service-list-search .outwraper .service-icon{  
+	width: 3em;
+	height: 2.3em;
+	background:transparent url('http://app.yangchebao.com.cn/group1/M00/05/79/ChUBl1SpDJGAbL3eAAAgujkDvWY118.png') no-repeat scroll 0 0;
+	background-size:3.6em auto;
+	display: inline-block;
+	position: absolute;
+	top: 9px;
+	left: 0;
+}
+.service-list-search .service-label{
+	height: 2.57em; 
+	line-height: 2.57em; 
+	display: block;  
+	float: left;
+	font-size: 1.4em;
+	padding-left: 5px;
+}
+.service-list-search .line-wrap{
+	padding:0 100px 0 75px; 
+}
+.service-list-search .line{
+ 	border-top: 1px solid #d9d9e2;
+    height: 1px;
+    margin: 1.8em 0;
+    overflow: hidden;
+    width: 100%;
+}
+.beautify .more,.carwash .more,.repair .more,.upkeep .more{
+	position: absolute;
+    right: 0;
+    top: 5px;
+}
+.label-wrap{
+	padding: 0 1em 0 2.5em;
+}
+.label-wrap label{
+	font-size: 1.3em;
+	padding: 0 0.6em;
+	height: 1.62em;
+	line-height: 1.62em;
+	border:1px solid #ffd6cb;
+	border-radius: 2px;
+	display: inline-block;
+	margin:0 0.4em 0.77em 0;
+}
+.beautify .point{
+	color: #ff8463;
+} 
+.carwash .point{
+	color: #6eaade;
+}
+.carwash .service-wrap label{
+	border-color: #bed9f0;
+}
+.repair .point{
+	color: #ffa600;
+}
+.repair .service-wrap label{
+	border-color: #f4dfb1;
+}
+.upkeep .point{
+	color: #34cc89;
+}
+.upkeep .service-wrap label{
+	border-color: #34cc89;
+} 
+
+
+.ui-tit +.more{
+ margin:-2.8em 0.8em 0 0; 
+}
+.shopList .list-module-pic h3{
+	font-size:1.4em;
+	font-weight: normal;
+}
+.shopList .info{
+	font-size:1.2em;
+	color:#323232;
+	margin: 0;
+	line-height: 150%; 
+}
+.list-module-pic .pic {
+    float: left; 
+    margin-top: 0.5em;
+    height: 6em;
+    width: 8.2em;
+}
+.shopList .list-module-pic .pic img {
+    display: block;
+    height: 6em;
+    width: 8.2em;
+}
+.shopList li{
+	margin-top: 1em;
+	background-color: #fff;
+}
+.distanceLabel{
+	float:right;
+	display: inline-block;
+	color: #fff;
+	background-color: #fb451f;
+	font-size:1em;
+	padding: 0 1em 0 0.6em;
+	height: 1.1em;
+	line-height: 1.1em;
+	margin-right: -0.7em;
+} 
+.shopList .notice{
+	font-size: 1.2em;
+	display: inline-block;
+	margin-top: 0.5em;
+}
+.shopList .price{
+	font-size: 1.8em;
+	color: #fb451f;
+	display: inline-block;
+	float: right;
+} 
+
+.news-wrap .list-module-pic h3{
+	font-size:1.5em; 
+	font-weight: normal;
+}
+.news-wrap .info{
+	font-size:1.2em;
+	color:#a0a097;
+	margin:0; 
+	line-height: 150%;
+}
+.news-wrap .list-module-pic .pic {
+    float: left; 
+    margin-top: 0.5em;
+    height: 5.5em;
+    width: 7.6em;
+}
+.news-wrap .list-module-pic .pic img {
+    display: block;
+    height: 5.5em;
+    width: 7.6em;
+}
+.news-wrap li{
+	margin-top: 1em;
+	background-color: #fff;
+}
+.news-wrap .notice{ 
+	color: #1e1e1e;
+	display: block;
+	float: right;
+}
+.want-tit{
+	color: #a0a097;
+	font-size: 1.2em;
+	font-weight: normal;
+	background:url('http://app.yangchebao.com.cn/group1/M00/05/50/ChUBl1Sf3P2AMuADAAAILDxahEw054.png') no-repeat scroll 0.83em center;
+	background-size:2.96em auto; 
+	padding:0 0.83em 0 4.25em;
+	height: 3.33em;
+	line-height:4em;
+	border-bottom:1px solid #c9cbcb;
+}
+.want-tit span:first-child{
+	color: #34cc89;
+	font-size: 1.33em;
+} 
+.service-wrap,.carwash-wrap,.want-wrap,.news-wrap{
+	margin-top: 1em;
+	background-color: #fff;
+}  
+.tool-list li{
+	font-size: 1.5em;
+	height: 4em; 
+	position: relative;
+	border-bottom:1px solid #c9cbcb;
+	padding: 0 0.67em;
+}
+.tool-list .name{
+	display: block; 
+	padding-top: 0.8em;
+}
+.tool-list .comment{
+	display: block;
+	font-size:0.8em;
+	color: #a0a097;
+	padding-top: 0.2em;
+}
+.tool-list .link{
+	display: block;
+	background:url('http://app.yangchebao.com.cn/group1/M00/05/50/ChUBl1Sf5N2AKWhqAAACVujSeIU111.png') no-repeat scroll center center;
+	background-size:0.67em auto; 
+	width: 0.67em;
+	height: 4em; 
+	position: absolute;
+	right: 0.67em;
+	top: 0; 
+	cursor:pointer; 
+}

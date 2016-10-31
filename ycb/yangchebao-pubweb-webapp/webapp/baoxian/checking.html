@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<title>等待核保</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+
+		section{
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+
+		div.toIndex{
+			overflow: hidden;
+			background-color: #f4f7f8;
+			line-height: 2.2rem;
+			padding: 0 1rem;
+		}
+		div.toIndex a{
+			color: #6eaade;
+			font-size: 1rem;
+			float: right;
+		}
+		article{
+			background-color: #fff;
+			padding: 1.2rem;
+			border-bottom: 1px solid #DCDCE4;
+			margin-bottom: 7rem;
+		}
+		div.failCheck-title{
+			color: #1e1e1e;
+			font-size: 1.2rem;
+		}
+		div.failCheck-title img{
+			width: 1.9rem;
+			margin-right: 0.6rem;
+			margin-top: -0.17rem;
+		}
+		div.failCheck-detail{
+			color: #999;
+			font-size: 1rem;
+			padding: 0.8rem 0;
+		}
+		div.failCheck-detail a{
+			color: #6eaade;
+			font-size: 1rem;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<div class="toIndex"><a href="http://w2l?closeActivity">返回首页</a></div>
+		<article>
+			<div class="failCheck-title">正在核保······</div>
+			<div class="failCheck-detail">保险公司正在努力核保中，稍后请到 <a href="javascript:">我的保险订单</a> 中查看核保结果。</div>
+		</article>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+
+		$('div.failCheck-detail a').attr('href','/yangchebao-pubweb/baoxian/mySafeOrder.html?customerId='+paramJson.customerId+'&userId='+paramJson.userId)
+	})
+</script>
+</html>

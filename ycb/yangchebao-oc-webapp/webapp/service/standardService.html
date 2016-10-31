@@ -1,0 +1,1013 @@
+<style>
+	.bbit-grid .bDiv td > div{
+		height:auto;
+	}
+</style>
+<div class="urlContentWraper" id="Wraper_standard_service"> 
+    <div class="details-box">
+    	<ul class="details-tab">
+			<li class="tab-cur tab-cur-first f-left" rele="carwash"><span name="title">洗车</span></li>
+			<li class="f-left" rele="beautify"><span name="title">美容</span></li>
+			<li class="f-left" rele="upkeep"><span name="title">保养</span></li>
+			<li class="f-left" rele="repair"><span name="title">维修</span></li>
+		</ul>
+		<div class="details-content">
+			<div class="details-scroll">
+				<div class="details-content-inner">
+					<div class="ui-info-layout tabReleForm" id="carwash">
+				      <div class="qdiv">
+				           <h2 class="ui-tit"><strong>服务列表</strong><bottom class="all-work-info numb46">页面说明</bottom></h2>
+				           <table id="Table_settle_carwash"></table>
+				      </div>
+				      <div class="bdiv" style="margin-top:10px;">
+				           <h2 class="ui-tit"><strong>扩展属性管理</strong></h2>
+				           <table id="Table_settle_carwashAttr"></table>
+				      </div>
+				      <div class="zdiv" style="margin-top:10px;">
+				           <h2 class="ui-tit"><strong>扩展属性可选项</strong></h2>
+				           <table id="Table_settle_carwashAdd"></table>
+				      </div> 
+				    </div>
+
+					<div class="ui-info-layout tabReleForm" id="beautify" style="display:none;">
+				      <div class="qdiv">
+				           <h2 class="ui-tit"><strong>服务列表</strong></h2>
+				           <table id="Table_settle_beautify"></table>
+				      </div>
+				      <div class="bdiv" style="margin-top:10px;">
+				           <h2 class="ui-tit"><strong>扩展属性管理</strong></h2>
+				           <table id="Table_settle_beautifyAttr"></table>
+				      </div>
+				      <div class="zdiv" style="margin-top:10px;">
+				           <h2 class="ui-tit"><strong>扩展属性可选项</strong></h2>
+				           <table id="Table_settle_beautifyAdd"></table>
+				      </div>
+				    </div>
+
+					<div class="ui-info-layout tabReleForm" id="upkeep" style="display:none;">
+				      <div class="qdiv">
+				           <h2 class="ui-tit"><strong>服务列表</strong></h2>
+				           <table id="Table_settle_upkeep"></table>
+				      </div>
+				      <div class="bdiv" style="margin-top:10px;">
+				           <h2 class="ui-tit"><strong>扩展属性管理</strong></h2>
+				           <table id="Table_settle_upkeepAttr"></table>
+				      </div>
+				      <div class="zdiv" style="margin-top:10px;">
+				           <h2 class="ui-tit"><strong>扩展属性可选项</strong></h2>
+				           <table id="Table_settle_upkeepAdd"></table>
+				      </div>
+				    </div>
+
+					<div class="ui-info-layout tabReleForm" id="repair" style="display:none;">
+				      <div class="qdiv">
+				           <h2 class="ui-tit"><strong>服务列表</strong></h2>
+				           <table id="Table_settle_repair"></table>
+				      </div>
+				      <div class="bdiv" style="margin-top:10px;">
+				           <h2 class="ui-tit"><strong>扩展属性管理</strong></h2>
+				           <table id="Table_settle_repairAttr"></table>
+				      </div>
+				      <div class="zdiv" style="margin-top:10px;">
+				           <h2 class="ui-tit"><strong>扩展属性可选项</strong></h2>
+				           <table id="Table_settle_repairAdd"></table>
+				      </div>
+				    </div>
+
+				</div>
+			</div>
+		</div>
+    </div>
+
+	<!-- 增加 -->
+	<div id="Form_standard_service_add" class="grid-layout ui-form"  style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			<input name="operator" type="hidden">  
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>服务名称</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="serviceName" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>服务最高报价：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="topPrice" class="jrad-input-container"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>排序号：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="sequnce" class="jrad-input-container"></div>
+					   </div>
+					  
+			</div>
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>服务列表是否显示：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="isShow" class="jrad-select-container"></div>
+				 </div>	  
+			</div> 
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>服务图片：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="servicePicture" class="jrad-uploadimg-container"></div>
+				 </div>
+			</div>  
+        	<input type="hidden" name="servicePic">  
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>理赔有效期：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="claimPeriod" class="jrad-input-container" placeholder="天"></div>
+				 </div> 
+			</div>     
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>先行理赔说明：</label>
+				 <label class="span4 grid-layout-label">补贴余额使用比例设置：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="subsidyUseRatio" class="jrad-input-container"></div>%
+                                    </div>
+			</div>  
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>现行理赔说明：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="claimContant" class="jrad-mediaarea-container" style="margin-left:0"></div>
+				 </div>
+			</div>  
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>状态：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="status" class="jrad-select-container"></div>
+				 </div>
+			</div> 
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+
+	<!-- 扩展属性管理  -->
+	<div id="Form_standard_service_addAttr" class="grid-layout ui-form"  style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			<input name="serviceId" type="hidden">  
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>扩展属性名称</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="attrName" class="jrad-input-container" placeholder="例：服务车型"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>是否影响报价：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="isAffectQuote" class="jrad-select-container"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>是否关联服务说明：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="isRelaServiceExplain" class="jrad-select-container"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>排序号：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="sequence" class="jrad-input-container"></div>
+				 </div> 
+			</div>
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>是否匹配服务车型：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="isMatchCarType" class="jrad-select-container"></div>
+				 </div> 
+			</div>
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>状态：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="status" class="jrad-select-container"></div>
+				 </div>
+			</div> 
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+
+	<!-- 扩展属性可选项  -->
+	<div id="Form_standard_service_attrOptsion" class="grid-layout ui-form"  style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			 <input name="serviceId" type="hidden">  
+			 <div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>可选项</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="optionName" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row">
+				 <label class="span4 grid-layout-label">推荐车辆价格范围：</label>
+				 <div class="span4 grid-layout-content">
+					   <div name="minPrice" class="jrad-input-container" placeholder="万"></div>
+				 </div>
+				 <div class="span grid-layout-content fluid-wrap">--</div>
+				 <div class="span4 grid-layout-content">
+					   <div name="maxPrice" class="jrad-input-container" placeholder="万"></div>
+				 </div>
+			</div> 
+			<div class="row">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>排序号：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="sequence" class="jrad-input-container"></div>
+				 </div>
+			</div>
+			<div class="row active">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>推荐说明：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="recommendDesc" class="jrad-input-container"  placeholder="例：15万以下车95%车主的选择"></div>
+				 </div>
+			</div>  
+			<div class="row active">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>推荐详情：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="recommendDetail" class="jrad-mediaarea-container" style="margin-left:0"></div>
+				 </div>
+			</div>   
+			<div class="row active">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>对应品牌：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="brandDesc" class="jrad-mediaarea-container" style="margin-left:0"></div>
+				 </div>
+			</div>  
+			<div class="row active">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>服务说明：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="serviceExplain" class="jrad-mediaarea-container" style="margin-left:0"></div>
+				 </div>
+			</div>  
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>	<!-- 扩展属性可选项  -->
+	<div id="Form_standard_service_reason" class="grid-layout ui-form"  style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			 <input name="standardServiceId" type="hidden">  
+			<div class="row active">
+				 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>赔付原因：</label>
+				 <div class="span10 grid-layout-content">
+					   <div name="causeReason" class="jrad-textarea-container" style="margin-left:0"></div>
+					   <p>多条赔付原因用英文逗号隔开</p>
+				 </div>
+			</div>  
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<span class="jrad-btn-primary">确定</span> 
+			<span class="jrad-btn-normal">取消</span>
+		</div>
+	</div>
+	
+    <div id="Form_explain_eg46" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>标准化服务的创建功能。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>1、服务名称、扩展属性、可选项，每个列表都需要创建数据，否则APP不能显示。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div> 
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		var wraper = $('#Wraper_standard_service'); 
+		$(".details-tab .f-left",wraper).click(function(){
+	    	$(".details-tab .tab-cur").removeClass("tab-cur");
+			$(this).addClass("tab-cur");
+			var rele = $(this).attr("rele");
+			$(".tabReleForm",wraper).hide();
+
+			if(rele=="carwash"){
+				getServiceInfo("1","carwash")
+			}else if(rele=="beautify"){
+				getServiceInfo("2","beautify")
+			}else if(rele=="upkeep"){
+				getServiceInfo("3","upkeep")
+			}else if(rele=="repair"){
+				getServiceInfo("4","repair")
+			}
+			$('div#'+rele,wraper).show()
+	    });
+    	getServiceInfo("1","carwash");
+
+	
+	    function getServiceInfo(type,typeName){ 
+	    	var serviceTable=$('#Table_settle_'+typeName,wraper);
+	    	var serviceAttr=$('#Table_settle_'+typeName+'Attr',wraper);
+	    	var serviceAdd=$('#Table_settle_'+typeName+'Add',wraper);
+
+		    var page_column_model = new Array();
+		    var page_column_model_b = new Array();
+		    var page_column_model_c = new Array();
+		    var page_search_items = new Array();
+		    var page_list_buttons = new Array();
+		    var page_list_buttons_b = new Array();
+		    var page_list_buttons_c = new Array();
+
+			var entityModel = {};
+		    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+
+			jRad.validators['serviceName'] = [{msg:"服务名称不能为空",type:'min',value:'1'}];  
+			jRad.validators['topPrice'] = [{msg:"服务最高报价不能为空",type:'min',value:'1'}];
+			jRad.validators['sequnce'] = [{msg:"排序号不能为空",type:'min',value:'1'}];
+			jRad.validators['claimPeriod'] = [{msg:"理赔有效期不能为空",type:'min',value:'1'}];
+			jRad.validators['servicePic'] = [{msg:"服务图片不能为空",type:'min',value:'1'}];
+			jRad.validators['claimContant'] = [{msg:"现行理赔说明不能为空",type:'min',value:'1'}];
+
+			jRad.validators['attrName'] = [{msg:"扩展属性名称不能为空",type:'min',value:'1'}];
+			jRad.validators['sequence'] = [{msg:"排序号不能为空",type:'min',value:'1'}];
+			jRad.validators['subsidyUseRatio'] = [{"msg":"请输入正确的使用比例","type":"regex","value":/^([0-9]|[1-9][0-9]|100)(.[0-9]{1,2}){0,1}$/}]; 
+			jRad.validators['optionName'] = [{msg:"可选项不能为空",type:'min',value:'1'}];
+			jRad.validators['recommendDetail'] = [{msg:"推荐详情不能为空",type:'min',value:'1'}];
+			jRad.validators['brandDesc'] = [{msg:"对应品牌不能为空",type:'min',value:'1'}];
+			jRad.validators['serviceExplain'] = [{msg:"服务说明不能为空",type:'min',value:'1'}];
+			jRad.validators['sequence'] = [{msg:"排序号不能为空",type:'min',value:'1'}];
+			
+			jRad.params['isShow'] = {
+				data: [{id:'1',name:'是'},{id:'0',name:'否'},{id:'',name:'全部'}]
+			};	
+			var fields_params = {};  
+			fields_params['isShow'] = {
+				data: [{id:'0',name:'否'},{id:'1',name:'是'}]
+			};  
+			fields_params['status'] = {
+				data: [{id:'0',name:'无效'},{id:'1',name:'有效'}]
+			};
+			fields_params['isMatchCarType'] = {
+				data: [{id:'0',name:'否'},{id:'1',name:'是'}]
+			};
+
+			fields_params['isAffectQuote'] = {
+				data: [{id:'1',name:'是'},{id:'0',name:'否'}]
+			};
+			fields_params["servicePicture"]={
+				url:'/shopmanage-ws/ws/0.1/file/uploadThree',
+		    	delFunc: function(item){
+				   item.list.remove();
+				   $("input[name='servicePic']",wraper).val("");
+				},
+				fileName:"file",
+		        note: '',
+		        show: false,
+		        params: {type:""},
+		        success: function(data){
+				   if(data[0]&&data[0].code=="400"){
+				     $.jRadMessage({level:'error',message:data[0].message});
+				   }else{
+				    $("input[name='servicePic']",wraper).val(data.fileUrl);
+				   }
+				},
+		        beforeSubmit: function(obj){
+				  var re = /^.*\.(jpg|JPG|gif|GIF|png|PNG)$/;
+				  if(re.test(obj.val())){
+				    return true;
+				  }else{  
+					$.jRadAlert("只能上传JPG、GIF、PNG图片文件", "error");
+				    return false;
+				  }
+				},
+		        single: true,
+		        showInfo:false,
+		        prev:'smallUrl'
+			};
+
+			fields_params["recommendDesc"]={
+				grid:10
+			};
+			fields_params["claimContant"]={
+				CKOpt:{
+					fullPage:true,//是否使用完整的html编辑模式
+					basicEntities:false, //Whether to escape basic HTML entities in the document, including:  nbsp gt lt amp 
+					startupMode:'source' //载入时，以何种方式编辑 源码和所见即所得 "source"和"wysiwyg"
+				} 
+			};
+			var fields_params2 = {}; 
+			fields_params2['status'] = {
+				data: [{id:'1',name:'有效'},{id:'0',name:'无效'}]
+			};
+			fields_params2['isAffectQuote'] = {
+				data: [{id:'1',name:'是'},{id:'0',name:'否'}]
+			};
+			fields_params2['isMatchCarType'] = {
+				data: [{id:'0',name:'否'},{id:'1',name:'是'}]
+			};
+			fields_params2['isRelaServiceExplain'] = {
+				data: [{id:'0',name:'否'},{id:'1',name:'是'}]
+			};
+
+			fields_params['recommendDetail'] = {
+			    theme:"Full",
+			    resizing: false, 
+			    grid: 16, 
+			    height: 200 ,
+			    uploadImg: { //上传图片参数
+			    url: '/shopmanage-ws/ws/0.1/file/uploadThree',
+			    filename: 'file', 
+			      	delFunc: function(item) { 
+			        item.list.remove(); 
+			    }, 
+			    validator : [{
+			        msg : "只能上传jpg文件",
+			        type : "regex",
+			        value : /^.*\.(jpg|JPG)$/
+			    }], 
+			    success: function(data){ 
+			        if(data[0]&&data[0].code=="400"){
+			        $.jRadMessage({level:'error',message:data[0].message});
+			        } 
+			    },
+			    note: '仅支持 JPG图片文件。',
+			    show:true,
+			    showLarge:true, 
+			    prev:'fileUrl', 
+			    params: {type:""}, 
+			    single: true 
+			    },
+			    CKOpt:{
+			      fullPage:true,//是否使用完整的html编辑模式
+			      basicEntities:false, //Whether to escape basic HTML entities in the document, including:  nbsp gt lt amp 
+			      startupMode:'source' //载入时，以何种方式编辑 源码和所见即所得 "source"和"wysiwyg"
+			    } 
+			}; 
+			fields_params['brandDesc'] = {
+			    theme:"Full",
+			    resizing: false, 
+			    grid: 16, 
+			    height: 200 ,
+			    uploadImg: { //上传图片参数
+			    url: '/shopmanage-ws/ws/0.1/file/uploadThree',
+			    filename: 'file', 
+			      	delFunc: function(item) { 
+			        item.list.remove(); 
+			    }, 
+			    validator : [{
+			        msg : "只能上传jpg文件",
+			        type : "regex",
+			        value : /^.*\.(jpg|JPG)$/
+			    }], 
+			    success: function(data){ 
+			        if(data[0]&&data[0].code=="400"){
+			        $.jRadMessage({level:'error',message:data[0].message});
+			        } 
+			    },
+			    note: '仅支持 JPG图片文件。',
+			    show:true,
+			    showLarge:true, 
+			    prev:'fileUrl', 
+			    params: {type:""}, 
+			    single: true 
+			    },
+			    CKOpt:{
+			      fullPage:true,//是否使用完整的html编辑模式
+			      basicEntities:false, //Whether to escape basic HTML entities in the document, including:  nbsp gt lt amp 
+			      startupMode:'source' //载入时，以何种方式编辑 源码和所见即所得 "source"和"wysiwyg"
+			    } 
+			}; 
+			fields_params['serviceExplain'] = {
+			    theme:"Full",
+			    resizing: false, 
+			    grid: 16, 
+			    height: 200 ,
+			    uploadImg: { //上传图片参数
+			    url: '/shopmanage-ws/ws/0.1/file/uploadThree',
+			    filename: 'file', 
+			      	delFunc: function(item) { 
+			        item.list.remove(); 
+			    }, 
+			    validator : [{
+			        msg : "只能上传jpg文件",
+			        type : "regex",
+			        value : /^.*\.(jpg|JPG)$/
+			    }], 
+			    success: function(data){ 
+			        if(data[0]&&data[0].code=="400"){
+			        $.jRadMessage({level:'error',message:data[0].message});
+			        } 
+			    },
+			    note: '仅支持 JPG图片文件。',
+			    show:true,
+			    showLarge:true, 
+			    prev:'fileUrl', 
+			    params: {type:""}, 
+			    single: true 
+			    },
+			    CKOpt:{
+			      fullPage:true,//是否使用完整的html编辑模式
+			      basicEntities:false, //Whether to escape basic HTML entities in the document, including:  nbsp gt lt amp 
+			      startupMode:'source' //载入时，以何种方式编辑 源码和所见即所得 "source"和"wysiwyg"
+			    } 
+			}; 
+
+			page_column_model.push({display: 'ID', name : 'id'});
+		    page_column_model.push({display: '服务名称', name : 'serviceName'});
+		    page_column_model.push({display: '服务最高报价', name : 'topPrice'}); 
+		    page_column_model.push({display: '列表是否显示', name : 'isShow'});
+			page_column_model.push({display: '扩展属性', name : 'attrDetail',diy:function(item,$div){ 
+				var reg = new RegExp("\n","g"); 
+				if(item.attrDetail){
+					var str = item.attrDetail.replace(reg,"<br>");
+					$div.html(str)
+				}else{
+			 		$div.html("");
+				}
+			}});
+		 	page_column_model.push({display: '扩展属性', name : 'attrDetail'});
+		 	page_column_model.push({display: '赔付原因', name : 'causeReason'});
+		    // page_column_model.push({display: '扩展属性', name : 'attrDetail',diy:function(item,$div){ 
+			// if(item.items.length>0){
+			// 		var arr = item.items;
+			// 		var str = "";
+			// 		$.each(arr,function(i){
+			// 			var info = arr[i];
+			// 			var categoryName = info.categoryName?info.categoryName:"-";
+			// 			var productName = info.productName?info.productName:"-";
+			// 			var productPrice = info.productPrice?info.productPrice:"-"; 
+			// 			var htmlstr = categoryName +' ：'+ productName +' ：'+productPrice;
+			// 			str +='<p title="'+htmlstr+'">'+ htmlstr +'</p>'; 
+			// 		});
+			// 		$div.html(str);
+			// 	}else{
+			// 		$div.html("");
+			// 	}
+			// }});
+		    page_column_model.push({display: '排序号', name : 'sequence'});
+		    page_column_model.push({display: '最后操作时间', name : 'updateDate'});   
+		    page_column_model.push({display: '最后操作人', name : 'operator'}); 
+			 
+	    	page_search_items.push({row:'1',type:'jrad-input',display:'服务名称',name:'serviceName'});
+	    	page_search_items.push({row:'1',type:'jrad-select',display:'服务列表是否显示',name:'isShow',params:jRad.params['isShow']});
+
+		
+			page_list_buttons.push({name:'Add',bclass: 'add',
+				onpress : function(){
+					$('#Form_standard_service_add').form({
+		                title: '标准化服务', 
+						fields_params: fields_params,
+						validators:jRad.validators,
+		                url:'/shopmanage-ws/ws/0.1/standServiceManage/addService', 
+						item:{},
+						before_submit:function(json){
+							json.serviceType = type;
+							json.operator = carsmart_config.operatorName;
+							return json;
+						},
+						success_callback:function(){ 
+							serviceTable.flexMessage('创建成功', 'success');
+							serviceTable.flexReload();
+						}
+		            }).form('open');
+		        }
+		    }); 
+
+			var colorbox_params = {
+				reposition:true,
+				scalePhotos:true,
+				scrolling:false,
+				previous:'<i class="icon-arrow-left"></i>',
+				next:'<i class="icon-arrow-right"></i>',
+				close:'&times;',
+				current:'{current} of {total}',
+				maxWidth:'100%',
+				maxHeight:'100%',
+				onOpen:function(){
+					document.body.style.overflow = 'hidden';
+				},
+				onClosed:function(){
+					document.body.style.overflow = 'auto';
+				},
+				onComplete:function(){
+					$.colorbox.resize();
+				}
+			};
+
+			page_list_buttons.push({name:'Edit', bclass: 'edit',
+				prefunc:function(){
+		            var checked = serviceTable.getCheckedTrs();
+		            if (checked.length != 1){return false;}else{return true;}
+		        },
+		        onpress : function(){
+		            var checked = serviceTable.getCheckedTrs();
+	            	if(checked[0]) {
+						var stand;
+						if(checked[0].isShow == '是'){
+							stand = 1
+						}else{
+							stand = 0
+						}
+						checked[0].isShow = stand;
+						checked[0].sequnce = checked[0].sequence;
+						$('#Form_standard_service_add',wraper).form({
+							title: '修改',
+							fields_params: fields_params,
+							validators:jRad.validators,
+							item:checked[0],
+							url:'/shopmanage-ws/ws/0.1/standServiceManage/updateService',
+							before_submit:function(json){
+								json.serviceId = checked[0].id; 
+								json.operator = carsmart_config.operatorName;
+								json.serviceType = type;
+								json.servicePic = $('.pic-show img').attr("src");
+								return json;
+							},
+							success_callback: function(){ 
+								serviceTable.flexMessage('修改成功!', 'success');
+								serviceTable.flexReload();
+							}
+						}).form('open'); 
+		   				var _ul = $("div[name='servicePicture']",wraper).children(".pic-show");  
+	            		var src = checked[0].servicePic
+					    if(src!=""){ 
+						    var _li = '<li name="" class="servicePicLi"><div class="large-pic"><div class="pic-box"><div class="pic-content"><div class="pic-vc">'
+									+'<a href="'+src+'" class="colorboxLink"><img src="'+src+'"></a>'
+									+'</div></div><span  class="del-btn"></span></div></div></li>'
+						    _ul.html(_li); 
+						    $(".servicePicLi .del-btn").click(function(){
+							   var small = $(this).prev(".pic-content").find("img").attr("src");
+							   $(this).parents(".servicePicLi").remove(); 
+							   serviceTable.find("input[name='servicePic']").val("");  //图片地址
+							   
+						    });  
+						    $(".servicePicLi .colorboxLink").colorbox(colorbox_params);
+						}
+					}
+
+		        }
+		    }); 
+            var reason_fields_params = {};  
+			reason_fields_params['causeReason'] = {
+				grid:10
+			};  
+			page_list_buttons.push({displayname: '赔付原因设置',title:'赔付原因设置',name:'reason',bclass: 'reason',
+				prefunc:function(){
+		            var checked = serviceTable.getCheckedTrs();
+		            if (checked.length == 0) {return false;}else{return true;}
+		        },
+		        onpress : function(){
+			    	var checked = serviceTable.getCheckedTrs();
+					var reasonJson = {};
+					reasonJson.standardServiceId = checked[0].id;
+					var _item = $.jRadGet({url : '/shopmanage-ws/ws/0.1/standServiceManage/causereason/query?standardServiceId='+checked[0].id});
+					reasonJson.causeReason =  _item.causeReason;
+					if(reasonJson.causeReason==undefined||reasonJson.causeReason==""){
+						reasonJson.causeReason="服务做坏了，施工未达标";
+					}
+					$('#Form_standard_service_reason').form({
+		                title: '赔付原因设置', 
+						fields_params: reason_fields_params,
+						validators:{'causeReason':[{msg:"赔付原因不能为空",type:'min',value:'1'}]},
+		                url: '/shopmanage-ws/ws/0.1/standServiceManage/causereason/update', 
+						item:reasonJson, 
+						success_callback:function(){ 
+							serviceTable.flexMessage('设置成功', 'success');
+							serviceTable.flexReload();
+						}
+		            }).form('open'); 
+				}
+			});
+			page_list_buttons.push({name:'Delete',bclass: 'delete',
+				prefunc:function(){
+		            var checked = serviceTable.getCheckedTrs();
+		            if (checked.length == 0) {return false;}else{return true;}
+		        },
+		        onpress : function(){
+			    	var checked = serviceTable.getCheckedTrs();
+					$.jRadConfirm('删除后，商家添加此服务的也将删除，确认删除？',1,function(){
+						var postData = []; 
+						$.each(checked,function(i){
+						 	var postJson={};
+						 	postJson.serviceId=checked[i].id;
+						 	postData.push(postJson)
+						});
+						$.jRadAjax({
+						    type:'post',
+							data:postData,
+							url:'/shopmanage-ws/ws/0.1/standServiceManage/delService', 
+							success: function(){
+								serviceTable.flexMessage('删除成功!', 'success');
+		           	    		serviceTable.flexReloadSearch();
+		           	    		serviceAttr.flexReloadSearch();
+		           	    		serviceAdd.flexReloadSearch();
+							},
+							error:function(xhr){
+							    var errormsg = eval("(" + xhr.responseText + ")"); 
+								if (errormsg != undefined) {
+									serviceTable.flexMessage(errormsg[0].message, 'error');
+								}
+							}
+						});
+					});
+				}
+			});
+
+		 	page_list_buttons.push({separator: true});
+
+			page_column_model_b.push({display: 'ID', name : 'id'});
+		    page_column_model_b.push({display: '扩展属性名称', name : 'name'});
+		    page_column_model_b.push({display: '是否影响报价', name : 'isAffectQuote'}); 
+		    page_column_model_b.push({display: '是否关联服务说明', name : 'isRelaServiceExplain'})
+		    page_column_model_b.push({display: '排序号', name : 'sequence'});
+		    page_column_model_b.push({display: '状态', name : 'status'});   
+		    page_column_model_b.push({display: '最后操作时间', name : 'updateDate'});
+		    page_column_model_b.push({display: '最后操作人', name : 'operator'});   
+
+			page_list_buttons_b.push({displayname:'添加服务车型',name:'cashInstall',bclass:'cashInstall',  //cashInstall
+				prefunc:function(){
+		            var checked = serviceTable.getCheckedTrs();
+		            if (checked.length != 1) {return false;}else{return true;}
+		        },
+				onpress:function(){
+					var checked = serviceTable.getCheckedTrs();
+		            var postData={};
+		            postData.serviceId = checked[0].id;
+		            postData.operator = carsmart_config.operatorName;
+					$.jRadConfirm('是否快捷添加服务车型？',1,function(){
+						$.jRadAjax({
+						    type:'post',
+							data:postData,
+							url:'/shopmanage-ws/ws/0.1/standServiceManage/quickAddCar', 
+							success: function(){
+								serviceAttr.flexMessage('添加成功!', 'success');
+								serviceAdd.flexMessage('添加成功!', 'success');
+		           	    		serviceAdd.flexReloadSearch();
+		           	    		serviceAttr.flexReloadSearch();
+		           	    		serviceAttr.flexReload();
+		           	    		serviceAdd.flexReload();
+		           	    		serviceTable.flexReloadSearch();
+							},
+							error:function(xhr){
+							    var errormsg = eval("(" + xhr.responseText + ")"); 
+								if (errormsg != undefined) {
+									serviceAttr.flexMessage(errormsg[0].message, 'error');
+								}
+							}
+						});
+					});
+				}
+			});	 
+
+			page_list_buttons_b.push({name:'Add',bclass: 'add',
+				prefunc:function(){
+		            var checked = serviceTable.getCheckedTrs();
+		            if (checked.length != 1){return false;}else{return true;}
+		        },
+				onpress : function(){
+					var checked = serviceTable.getCheckedTrs();
+					$('#Form_standard_service_addAttr').form({
+		                title: '扩展属性', 
+		                item:{},
+						fields_params:fields_params2,
+						validators:jRad.validators,
+		                url: '/shopmanage-ws/ws/0.1/standServiceManage/addServiceAttr', 
+						before_submit:function(json){
+							json.operator = carsmart_config.operatorName;
+							json.serviceId = checked[0].id;
+							return json;
+						},
+						success_callback:function(){ 
+							serviceAttr.flexMessage('创建成功', 'success');
+							serviceAttr.flexReloadSearch();
+		           	    	serviceAdd.flexReloadSearch();
+						}
+		            }).form('open');
+		        }
+		    });		
+
+			page_list_buttons_b.push({name:'Edit', bclass: 'edit',				
+				prefunc:function(){
+		            var checked = serviceAttr.getCheckedTrs();
+		            if (checked.length != 1) {return false;}else{return true;}
+		        },
+		        onpress : function(){
+		            var checked = serviceAttr.getCheckedTrs(); 
+					var stand2;
+					if(checked[0].isAffectQuote == '是'){stand2 = 1}else{stand2 = 0}
+					var stand3;
+					if(checked[0].status == '有效'){stand3 = 1}else{stand3 = 0}
+					var stand4;
+				    stand4 = checked[0].isMatchCarType;
+				    var stand5;
+					if(checked[0].isRelaServiceExplain == '是'){stand5 = 1}else{stand5 = 0}
+					$('#Form_standard_service_addAttr',wraper).form({
+						title: '扩展属性', 
+						fields_params: fields_params2,
+						validators:jRad.validators,
+						item:{'attrName':checked[0].name,'sequence':checked[0].sequence,'isMatchCarType':stand4,'isAffectQuote':stand2,'status':stand3,'isRelaServiceExplain':stand5},
+						url:'/shopmanage-ws/ws/0.1/standServiceManage/updateServiceAttr',
+						before_submit:function(json){
+							json.operator = carsmart_config.operatorName;
+							json.attrId = checked[0].id; 
+							return json;
+						},
+						success_callback: function(){ 
+							serviceAttr.flexMessage('修改成功!', 'success');
+							serviceAttr.flexReloadSearch();
+		           	    	serviceAdd.flexReloadSearch();
+						} 
+					}).form('open'); 
+		        }
+		    }); 
+
+		 	page_list_buttons_b.push({separator: true});
+
+			page_column_model_c.push({display: 'ID', name : 'id'});
+		    page_column_model_c.push({display: '可选项', name : 'name'});
+		    page_column_model_c.push({display: '排序号', name : 'sequence'}); 
+		    page_column_model_c.push({display: '最后操作时间', name : 'updateDate'});
+		    page_column_model_c.push({display: '最后操作人', name : 'operator'}); 
+
+			$('#Form_standard_service_attrOptsion').form({
+				grid: 22,
+				fields_params: fields_params,
+				validators:jRad.validators
+			})
+
+			page_list_buttons_c.push({name:'add',bclass: 'add',
+				onpress : function(){
+	            	var checked = serviceAttr.getCheckedTrs(); 
+					$('#Form_standard_service_attrOptsion').form({
+		                title: '扩展属性可选项', 
+						fields_params: fields_params,
+						validators:jRad.validators,
+						height:'auto',
+						item:{},
+		                url: '/shopmanage-ws/ws/0.1/standServiceManage/addAttrOption', 
+						before_submit:function(json){
+							json.attrId = checked[0].id;
+							json.operator = carsmart_config.operatorName;
+							return json;
+						},
+						success_callback: function(){ 
+							serviceAdd.flexMessage('创建成功', 'success');
+							serviceAdd.flexReloadSearch();
+		           	    	serviceAdd.flexReload();
+						}
+		            }).form('open');
+					$('#Form_standard_service_attrOptsion div[name="optionName"]').input('readonly',false);
+					if(checked[0].isRelaServiceExplain == '是'){
+						$('.active').show();
+					}else{
+						$('.active').hide();
+					}
+		        }
+		    });
+
+			page_list_buttons_c.push({name:'Edit', bclass: 'edit',
+				prefunc:function(){
+		            var checked = serviceAdd.getCheckedTrs();
+		            if (checked.length != 1) {return false;}else{return true;}
+		        },
+		        onpress : function(){
+	            	var checked = serviceAdd.getCheckedTrs();
+	            	var _item = $.jRadGet({url : '/shopmanage-ws/ws/0.1/standServiceManage/getOptionInfoById?optionId='+checked[0].id});
+					$('#Form_standard_service_attrOptsion').form({
+						title: '修改',
+						item:_item,
+						url:'/shopmanage-ws/ws/0.1/standServiceManage/updateAttrOption',
+						before_submit:function(json){
+							json.attrOptionId = checked[0].id;
+							json.operator = carsmart_config.operatorName;
+							return json;
+						},
+						success_callback: function(){ 
+							serviceAdd.flexMessage('修改成功!', 'success');
+							serviceAdd.flexReloadSearch();
+						} 
+					}).form('open'); 
+					$('#Form_standard_service_attrOptsion div[name="optionName"]').input('readonly',true);
+
+	            	var checked2 = serviceAttr.getCheckedTrs();
+					if(checked2[0].isRelaServiceExplain == '是'){
+						$('.active').show();
+					}else{
+						$('.active').hide();
+					}
+		        }
+		    }); 
+
+		 	page_list_buttons_c.push({separator: true});
+
+		
+	    	serviceTable.flexigrid({
+	            reload:true,
+				method:'get',
+	            colModel : page_column_model,
+	            buttons : page_list_buttons,
+	            searchitems :page_search_items,
+	            pagination: {
+					diaplay_pages: 5,
+					align: 'bottom'
+				},
+				showSearch:true,
+				checkBoxType:'single',
+	            url:'/shopmanage-ws/ws/0.1/standServiceManage/servicelist?serviceType='+type,
+				onError:showError,
+				trEvent:function(){
+					var checked = serviceTable.getCheckedTrs();
+					serviceAttr.flexOptions({
+	            		url:'/shopmanage-ws/ws/0.1/standServiceManage/serviceAttrlist', 
+						extParam:{serviceId: checked[0].id}  
+					}).flexReload();
+				}
+		    })
+	    
+	    	serviceAttr.flexigrid({
+	            reload:true,
+				method:'get',
+	            colModel : page_column_model_b,
+	            buttons : page_list_buttons_b,
+	            pagination: {
+					diaplay_pages: 5,
+					align: 'bottom'
+				},
+				showSearch:true,
+				//autoload: false,
+				onError:showError,
+				checkBoxType:'single',
+				trEvent:function(){
+					var checked = serviceAttr.getCheckedTrs();
+					serviceAdd.flexOptions({ 
+	            		url:'/shopmanage-ws/ws/0.1/standServiceManage/attrOptsionlist', 
+						extParam:{attrId: checked[0].id}  
+					}).flexReload();
+				}
+		    })
+	    
+	    	serviceAdd.flexigrid({
+	            reload:true,
+				method:'get',
+	            colModel : page_column_model_c,
+	            buttons : page_list_buttons_c,
+	            pagination: {
+					diaplay_pages: 5,
+					align: 'bottom'
+				},
+				showSearch:true,
+				//autoload: false,
+				onError:showError,
+				checkBoxType:'single'
+		    })
+		}
+		
+    $(".numb46").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg46").form({}).form('close');
+        $("#Form_explain_eg46").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg46 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg46").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg46").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg46 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+
+		function showError(xhr){
+		 	var errormsg = eval("(" + xhr.responseText + ")");
+		  	$.jRadMessage({level:'error',message:errormsg[0].message});
+		}
+	});
+</script>

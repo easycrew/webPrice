@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="sae" uri="sae.tld" %>
+[   
+	{"id":"10","name":"商品管理","remark":"","submenu":[ 
+		{"id":"1010","name":"sku列表","remark":"","url":"goodsManage/skuManager.html"},
+		{"id":"1020","name":"商品列表","remark":"","url":"goodsManage/goodsManage.html"}, 
+        {"id":"1030","name":"商品分类管理","remark":"","url":"goodsManage/goodsSort.html"},
+		{"id":"1040","name":"品牌管理","remark":"","url":"goodsManage/brandManage.html"}
+	],"url":""}, 
+	{"id":"20","name":"订单管理","remark":"","submenu":[
+		{"id":"2010","name":"订单列表","remark":"","url":"orderManage/orderList.html"},
+		{"id":"2020","name":"待发货订单","remark":"","url":"orderManage/halfOrder.html"}
+	],"url":""},
+	{"id":"30","name":"促销管理","remark":"","submenu":[
+		{"id":"3010","name":"限量购管理","remark":"","url":"promotionManage/limitBuy.html"},
+		{"id":"3020","name":"团购发起","remark":"","url":"promotionManage/groupPurchaseManage.html"},
+		{"id":"3030","name":"4S店专供页礼包","remark":"","url":"giftBagManage/giftBagManage.html"},
+		{"id":"4040","name":"4S店专供页栏目","remark":"","url":"columnsManage/columnsManage.html"}
+	],"url":""},
+	{"id":"40","name":"主数据管理","remark":"","submenu":[
+		{"id":"4010","name":"开通城市管理","remark":"","url":"cityManage/openCityManage.html"}
+	],"url":""},
+	{"id":"50","name":"界面管理","remark":"","submenu":[
+		{"id":"5010","name":"APP广告位管理","remark":"","url":"advertisingManage/advertisingManage.html",reload:true},
+		{"id":"5020","name":"PC广告位管理","remark":"","url":"advertisingManage/pcAdvertisingManage.html",reload:true}
+	],"url":""},
+	{"id":"60","name":"财务管理","remark":"","submenu":[
+		{"id":"6010","name":"增票资质管理","remark":"","url":"vatInvoiceManage/vatInvoiceManage.html"},
+		{"id":"6020","name":"退款订单管理","remark":"","url":"orderManage/refundOrderList.html"},
+		{"id":"6030","name":"结算管理","remark":"","url":"settlementManage/settlementManage.html"}
+	],"url":""},
+	{"id":"70","name":"商家管理","remark":"","submenu":[
+		{"id":"7010","name":"权限管理","remark":"","url":"merchantManage/exclusivePrivileges.html"}
+	],"url":""},
+	{"id":"80","name":"供应商管理","remark":"","submenu":[
+		{"id":"8010","name":"供应商管理","remark":"","url":"supplyManage/supplyManage.html"}
+	],"url":""},
+]

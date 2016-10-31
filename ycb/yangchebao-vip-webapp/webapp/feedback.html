@@ -1,0 +1,71 @@
+<div class="urlContentWraper" id="Wraper_feedback">
+	<!-- 列表显示 -->
+    <div id="Form_feedback" class="grid-layout ui-form">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid"> 
+                <label class="span2 grid-layout-label">
+                    提交反馈：
+                </label>
+                <div class="span7 grid-layout-content fluid-wrap">
+                    <div data-name="remarks" class="jrad-textarea-container" placeholder='用的不爽，吐槽两句……'>
+                    </div>
+                </div>
+                <button class="jrad-btn-primary btn btn-small btn-primary" style="margin-top:6.5%;">提交</button>
+            </div>
+        </div>
+    </div>
+    <div class="ui-info-layout">
+        <table id="Table_feedback">
+        </table>
+	</div>   
+    	
+</div> 
+<script type="text/javascript">
+$(document).ready(function() {
+	var wraper = $('#Wraper_feedback');
+	var parentId = carsmart_config.shopId;
+    var page_column_model = new Array();
+    var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    jRad.validators['remarks']=[{msg:"反馈内容不能为空",type:'min',value:1}];
+    $('div[data-name="remarks"]',wraper).textarea({
+        rows:8,
+        grid:20
+    });
+    $('#hide').css('visibility','hidden');
+    $("#Form_feedback").form({
+        layout:'grid',
+        grid:22,
+        validators: jRad.validators, 
+        type:'post',
+        url:'/vip-ws/ws/0.1/feedBack/add',
+        preSubmit:function(json){
+            json.shopAccountId=carsmart_config.shopId;
+            return json
+        },
+        success: function() {
+            $('#Table_feedback').flexMessage('提交成功', 'success');
+            $('#Table_feedback').flexReload();
+        }
+    })
+    page_column_model.push({display: '反馈内容', name : 'remarks'});
+    page_column_model.push({display: '官方回复内容', name : 'replyContent'}); 
+    page_column_model.push({display: '反馈时间', name : 'createDate'}); 
+    page_column_model.push({display: '官方回复时间', name : 'replyTime'});
+
+    $('#Table_feedback',wraper).flexigrid({
+        reload: true,
+        grid:40,
+        pagination: {diaplay_pages: 6,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model,
+		method:'get',
+		showSearch:true,
+        showCheckbox:false,
+        url:'/vip-ws/ws/0.1/feedBack/list?shopAccountId='+carsmart_config.shopId,      
+        overflow:true 
+    }); 
+    $('.mDiv',wraper).hide();
+    
+});
+</script>
+<div id="footer" style=""><div style="">©2016 北京车盈科技有限公司 京ICP备15056241号-1</div> </div>

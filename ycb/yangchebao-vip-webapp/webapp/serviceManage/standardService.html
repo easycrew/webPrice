@@ -1,0 +1,1327 @@
+<!-- <style>
+	div.jrad-checkbox-container{
+		border:none;
+	}
+	#Wraper_standard_service .ui-checkbox{
+		display:block;
+	}
+
+</style> -->
+<style>
+
+	.cDiv table tr td, .cDiv table tr th{text-align:center;}
+	p.p_one{
+		display:inline-block;color:#0099FF;
+	}
+	p.p_one{
+		*display:inline;
+	}
+	p.p_two{
+		display:inline-block;color:#0099FF;position:relative;top:32px;left: 0;
+	}
+	p.p_two{
+		*display:inline;
+	}
+	.details-tab{
+		background-color: #e8e8e8;
+	    border-bottom: 1px solid #ccc;
+	    color: #0099ff;
+	    font-size: 14px;
+	    height: 55px;
+	    line-height: 55px;
+	    padding-left: 20px;
+	}
+	.details-tab li{
+	    height: 55px;
+	    line-height: 55px;
+	}
+	.f-left{float:left;}
+	.f-right{margin-right:20px;}
+	.f-right span{
+		height:35px;line-height:35px;display:block;border:1px solid #ccc;margin-top:10px;padding:0px 20px;cursor: pointer;
+	}
+	/*表格样式*/
+	table#process {
+	    font-size:11px;
+	    color:#333333;
+	    border-width: 1px;
+	    border-color: #d5d5d5;
+	    border-collapse: collapse;
+	    margin-left: 100px;
+	}
+	table#process th {
+	    border-width: 1px;
+	    padding: 8px;
+	    border-style: solid;
+	    border-color: #d5d5d5;
+	    background-color: #2f8ac8;
+		text-align: center;
+	}
+	table#process td {
+		text-align: center;
+	    border-width: 1px;
+	    padding: 4px;
+	    border-style: solid;
+	    border-color: #d5d5d5;
+	    background-color: #ffffff;
+	}
+	table#process td input{
+		height: 24px;
+    	padding: 0 2px;
+    	width: 70px;
+	}
+	.app{padding-left:50px;}
+	.app .note{
+		margin-left:28px;color:#ff0000;
+	}
+	input[type="checkbox"]{
+		position:static;height:18px;height:18px;opacity: 1;
+	}
+	.cke_top{position: relative;}
+	.cke_toolbar{position: absolute;}
+	.cke_contents{height:320px !important;background: #fff;width: 100%;}
+    .cke_contents iframe{width:100%;}
+	html {height: 100% !important;}
+</style>
+<div class="urlContentWraper" id="Wraper_standard_service"> 
+	<div id="serviceTabs" class="jrad-table">  
+		<ul>
+			<li>
+				<a href="#carwash">洗车</a>
+			</li>
+			<li>
+				<a href="#beautify">美容</a>
+			</li>
+			<li>
+				<a href="#upkeep">保养</a>
+			</li>
+			<li>
+				<a href="#repair">维修</a>
+			</li>
+		</ul>  
+		<div id="carwash" style="height:800px;">
+			<table id="Table_carwash_list"></table> 
+		</div>
+		<div id="beautify" style="height:800px;">
+			<table id="Table_beautify_list"></table> 
+		</div>
+		<div id="upkeep" style="height:800px;">
+			<table id="Table_upkeep_list"></table> 
+		</div>
+		<div id="repair" style="height:800px;">
+			<table id="Table_repair_list"></table> 
+		</div> 
+	</div>   
+
+	<div id="service_check_reason" style="display:none;">
+		<p class="reason"></p>
+	</div>
+
+	<div id="Form_standard_service" class="grid-layout ui-form" style="display:none;">
+		<div class="grid-layout-main jrad-form">  
+			<div class="grid-row-fluid">
+				<label class="span5 grid-layout-label"><span class="ui-form-required">*</span>服务名称：</label>
+				<div class="span14 grid-layout-content">
+					   <div name="serviceId" class="jrad-select-container"></div>
+				</div>
+			</div>
+			<div class="app">
+			</div>
+			<div class="grid-row-fluid">
+                <ul>
+                    <li><div id="createTable"></div></li>
+                </ul>
+			</div>
+			<div class="grid-row-fluid">
+				<label class="span5 grid-layout-label"><span class="ui-form-required">*</span>预约信息：</label>
+				<div class="span14 grid-layout-content">
+					<div name="reserveInfo" class="jrad-select-container"></div>
+				</div>
+			</div>
+			<div class="grid-row-fluid">
+				<label class="span5 grid-layout-label"><span class="ui-form-required">*</span>使用规则： </label>
+				<div class="span14 grid-layout-content fluid-wrap">
+					<div class="jrad-textarea-container" name="useRule" placeholder="您可以参照以下格式： &nbsp;&nbsp;预约电话：010-xxxxxxx &nbsp;&nbsp; 营业时间：早8：30-晚17：30 &nbsp;&nbsp; 注意事项：本服务仅限于5座车型"></div>
+				</div>
+			</div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container" style="margin-left:130px;"> 
+			<button class="jrad-btn-primary btn btn-small btn-primary">确定</button>
+	        <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+		</div>
+	</div>
+
+	<div id="Form_service_desc" class="grid-layout ui-form"  style="display:none;">
+		<div class="grid-layout-main jrad-form">  
+			<div class="grid-row-fluid">
+				 <div class="span28 grid-layout-content">
+					   <div name="serviceExplain" class="jrad-mediaarea-container"></div>
+				 </div>
+			</div>  
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container"> 
+			<button class="jrad-btn-primary btn btn-small btn-primary">确定</button>
+	        <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+		</div>
+	</div>
+
+</div> 
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		var wraper = $('#Wraper_standard_service');
+		var serviceJson = {};
+		serviceJson.carwash = "1";
+		serviceJson.beautify = "2";
+		serviceJson.upkeep = "3";
+		serviceJson.repair = "4";
+		//serviceJson.smallUpkeep = "5";
+		$('#serviceTabs').tabs({
+			heightStyle: 'auto', 
+			beforeLoad: function( event, ui ) {// 加载前操作
+				  ui.jqXHR.error(function() {
+				  ui.panel.html("无法加载页面" );
+				});
+			},
+			select:function(event, ui){
+				var panel = ui.panel; 
+				var typeName = $(panel).attr('id'); 
+				var type = serviceJson[typeName]; 
+				window.setTimeout(function(){
+					getServiceInfo(type,typeName);//1.洗车 2.美容 3.保养 4.维修 
+				},300);
+			}
+		});
+		getServiceInfo("1","carwash");
+
+		$("#service_check_reason",wraper).dialog({
+			title: '驳回原因',
+			grid: 15, 
+			buttons: false
+		});
+	});
+	
+	function getServiceInfo(type,typeName){ 
+		var wraper = $('#Wraper_standard_service'); 
+		var _table = 'Table_'+typeName+'_list';
+	    var page_column_model = new Array();
+	    var page_search_items = new Array();
+	    var page_list_buttons = new Array();
+		//1.洗车  2.美容 3.保养 4.维修	
+		var entityModel = {};  
+	    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+		jRad.validators['shopPrice'] = [{msg:"请填写门市价",type:'min',value:'1'},{msg:"请填写非负整数",type:'regex',value:/^[0-9]+$/}];
+		jRad.validators['reservePrice'] = [{msg:"请填写预订价",type:'min',value:'1'},{msg:"请填写非负整数",type:'regex',value:/^[0-9]+$/}];
+		jRad.validators['useRule'] = [{msg:"使用规则不能为空",type:'min',value:'1'}];
+		var fields = {};  
+		//上传图片
+		fields['serviceExplain'] = {
+			theme:"Full",
+			resizing: false, 
+			grid: 24, 
+			height: 200,
+			uploadImg: { //上传图片参数 
+				url :'/vip-ws/ws/0.1/file/upload', 
+				filename:"file",
+				params: {type:""},
+				note: '仅支持 JPG图片文件，且建议大小小于20M,宽高不能小于180*135。',
+				beforeSubmit: function(obj){
+					  var re = /^.*\.(jpg|JPG)$/;
+					  if(re.test(obj.val())){
+						return true;
+					  }else{  
+						$.jRadAlert("只能上传jpg文件", "error");
+						return false;
+					  }
+				},
+				validator : [{
+					msg : "请选择要上传的文件",
+					type : "min",
+					value : "1"
+				}],
+				error:function(data){
+					 $.jRadAlert(data,"error"); 
+				},
+				show:true,
+				showLarge:true,
+				single:true,
+				prev:'large'	
+			}
+	 	};
+
+	 	//预约信息
+	 	var reserveInfoSelect = $.jRadGetDataSources('/vip-ws/ws/0.1/datadictionary/dictionarylist?type=reserve_info','id','name'); 
+		fields['reserveInfo'] = {
+			data:reserveInfoSelect
+		};
+
+		var getNameList = [];
+	    var _result = $.jRadGet({url: '/shopmanage-ws/ws/0.1/busiStandardService/getServiceList?serviceType='+type});
+	    $.each(_result,function(index, vo){
+	      	var __id = vo['serviceId'];
+	      	var __name = vo['serviceName'];
+	      	var __tm = {'id': __id,'name': __name};
+	      	getNameList.push(__tm);
+	    });	
+	    fields['serviceId'] = {
+	        data:getNameList,
+	  	    onclick:function(){
+				$('#Form_standard_service').form({
+	                title: '创建', 
+					fields: fields,
+					item:{'reserveInfo':reserveInfoSelect[0].id},
+				    grid: 16,
+	                url: '/vip-ws/ws/0.1/standardService/addStandradServiceRel',
+					preSubmit:function(json){
+						json.serviceType = type;
+						json.businessInfoId = carsmart_config.businessInfoId;
+						json.operator = carsmart_config.operatorName;
+						var attrOption =[];
+
+						$('#process tbody tr').each(function(i){ 
+							var att ={};
+							att.shopPrice = $("#process tbody tr").eq(i).find("td input[name='shopPrice']").val();
+							att.reservePrice = $("#process tbody tr").eq(i).find("td input[name='reservePrice']").val();
+							//if(isCbus.isChainBusiness == 1){
+							att.workPrice = 0
+							att.workHour = 1
+								// att.workPrice = $("#process tbody tr").eq(i).find("td input[name='workPrice']").val();
+								// att.workHour = $("#process tbody tr").eq(i).find("td input[name='workHour']").val();
+							// 	att.isChainBusiness = 1
+							// }else{
+							// 	att.isChainBusiness = 0
+							// }
+							//att.clearingPrice = $("#process tbody tr").eq(i).find("td input[name='clearingPrice']").val();
+							att.serviceExplain = $("#process tbody tr").eq(i).find("td a").attr("val");
+							att.attrOptionIdList = step.optionList[i];
+							attrOption.push(att)
+						})
+						
+						json.attrOption = attrOption;
+						return json;
+					},
+					success:function(data){ 
+						$('#'+_table).flexMessage(data.msg, 'success');
+						$('#'+_table).flexReload();
+					}
+	            })
+				// var placeholder = '您可以参照以下格式：\n预约电话：010-xxxxxxx\n营业时间：早8：30-晚17：30\n注意事项：本服务仅限于5座车型';
+				// $('#Form_standard_service div[name="useRule"]').textarea('val',placeholder);
+				// $('textarea[name="useRule"]').focus(function() {
+				// 	if ($(this).val() == placeholder) {
+				// 		$(this).val('');
+				// 	}
+				// });
+				// $('textarea[name="useRule"]').blur(function() {
+				// 	if ($(this).val() == '') {
+				// 		$(this).val(placeholder);
+				// 	}
+				// });
+	  	    	var urlstr = '/shopmanage-ws/ws/0.1/busiStandardService/getAttrOptionInfo'
+				var fristId = $("div[name='serviceId']").select('val');
+	            var flag = (fristId!=undefined&&fristId!="");
+			    if(flag){ 
+			 	    urlstr = '/shopmanage-ws/ws/0.1/busiStandardService/getAttrOptionInfo?serviceId='+fristId;
+			    }
+			 	var Data = $.jRadGet({url : urlstr});
+
+			    var _moudle = $(".app");
+			    _moudle.html("");
+
+				$.each(Data,function(j){
+			 		var info = Data[j]; 
+			 		var _row = $("<div style='overflow:hidden'>").addClass('div_contentlist');
+			 		var _ul = $("<ul class='Father_Title'>")
+					var _li = $("<li style='float:left;width:100px;text-align:right;'>").attr("data",info.attrId).html('<span class="ui-form-required" style="margin-right:0;color:red;">*</span>'+info.attrName +'：');
+					var _div = $("<div class='divlist' style='float:left;margin-left:10px;width:425px;'>");
+					var _ul2 = $("<ul></ul>").addClass("Father_Item" + j);
+					var opt2 = [];
+					var value2 = [];
+					var _li2 = $("<li></li>");
+					$.each(info.option,function(i){
+						var param = info.option[i];
+	                	var vk2 = {};
+	                	vk2.id = param.optionId;
+	                	vk2.name = param.optionName; 
+	                	opt2.push(vk2); 
+	                	value2.push(param.optionName); 
+	          			var _label2 = $("<label style='margin-right:15px;float:left;'></label>");
+			            var _input = $("<input type='checkbox' style='float:left;margin:2px 3px 0 0;'>").addClass("chcBox_Width").attr({value:param.optionName,alt:param.optionId,explain:param.serviceExplain})
+			            var _span = $("<span></span>").addClass("li_empty").attr("contentEditable","true")
+					    _li2.append(_label2.append(_input).append(param.optionName).append(_span))
+					}); 
+
+					if(info.option.length != 0){ 
+						_ul2.append(_li2);
+		        		_row.append(_ul.append(_li)).append(_div.append(_ul2));
+		        		_moudle.append(_row);
+	                }
+			 	});
+
+			 	if(_moudle.html() != ""){
+			 		_moudle.append('<p class="note">您需要选择所有的扩展属性,才能组合成完整的服务信息。</p>')
+			 	}
+				
+				$('#process').html("");
+			    $('#createTable p').html("")
+
+			    var step = {
+			        optionList:[],
+			        Creat_Table: function () {
+			        	var _step = this;
+			            step.hebingFunction();
+			            var SKUObj = $(".Father_Title");
+			            var arrayTile = new Array();
+			            var arrayInfor = new Array();
+			            var arrayColumn = new Array();
+			            var attrOptionIdList = new Array();
+			            var bCheck = true;//是否全选
+			            var columnIndex = 0;
+			            $.each(SKUObj, function (i, item){
+			                arrayColumn.push(columnIndex);
+			                columnIndex++;
+			                arrayTile.push(SKUObj.find("li").eq(i).html().replace("：", ""));
+			                var itemName = "Father_Item" + i;
+			                
+			                var order = new Array();
+			                $("." + itemName + " input[type=checkbox]:checked").each(function (){
+			                    order.push($(this).val());
+			                });
+			                arrayInfor.push(order);
+
+			                var data = []
+			                $("." + itemName + " input[type=checkbox]:checked").each(function (){
+			                	var json ={};
+			                	json.attrId = $(this).parent().parent().parent().parent().prev().children().attr("data");
+			                	json.optionId = $(this).attr("alt");
+			                	json.serviceExplain = $(this).attr("explain");
+			                	var jsonstring = JSON.stringify(json)
+			                	data.push(jsonstring)
+			                });
+
+							data.sort(getSortFun('desc', 'optionId'));
+							function getSortFun(order, sortBy) {
+							    var ordAlpah = (order == 'asc') ? '>' : '<';
+							    var sortFun = new Function('a', 'b', 'return a.' + sortBy + ordAlpah + 'b.' + sortBy + '?1:-1');
+							    return sortFun;
+							}
+
+			                attrOptionIdList.push(data)
+
+			                if (order.join() == ""){
+			                    bCheck = false;
+			                } 
+			            });
+
+			            //开始创建Table表
+			            if (bCheck == true) {
+			                var RowsCount = 0;
+			                $("#createTable").html("");
+			                var table = $("<table id=\"process\" border=\"1\" cellpadding=\"1\" cellspacing=\"0\" style=\"width:90%;padding:5px;margin-left:56px;\"></table>");
+			                table.appendTo($("#createTable"));
+			                var thead = $("<thead></thead>");
+			                thead.appendTo(table);
+			                var trHead = $("<tr></tr>");
+			                trHead.appendTo(thead);
+			                //创建表头
+			                $.each(arrayTile, function (index, item) {
+			                    var td = $("<th>" + item + "</th>");
+			                    td.appendTo(trHead);
+			                });
+			                
+			                //if(isCbus.isChainBusiness == 1){
+		                		// var itemColumHead = $("<th  style=\"width:70px;\">门市价</th><th style=\"width:70px;\">预定价</th><th style=\"width:70px;\">工时费</th><th style=\"width:70px;\">所需工时</th><th style=\"width:50px;\">服务说明</th>");
+		                		// itemColumHead.appendTo(trHead);
+						    //}
+						    // else{
+			                	var itemColumHead = $("<th  style=\"width:70px;\">门市价</th><th style=\"width:70px;\">预定价</th><th style=\"width:50px;\">服务说明</th>");
+			                	itemColumHead.appendTo(trHead);
+						    // }
+
+			                var tbody = $("<tbody></tbody>");
+			                tbody.appendTo(table);
+			                ////生成组合
+			                var zuheDate = step.doExchange(arrayInfor);
+			                var zuheDate2 = step.doExchange(attrOptionIdList);
+			                var attr = [];
+			                $.each(zuheDate2,function(i){
+			                	attr.push($.parseJSON("[" + zuheDate2[i] + "]"));
+			                })
+			                
+							var zuiArr = [];
+							$.each(attr,function(v){
+			                	var minArr = attr[v]
+			                	$.each(minArr,function(z){
+			                		if(minArr[z].serviceExplain){
+			                			zuiArr.push(minArr[z].serviceExplain);
+			                		}
+			                	})
+			                })
+
+			                _step.optionList = attr;
+
+			                if (zuheDate.length > 0) {
+			                    //创建行
+			                    $.each(zuheDate, function (index, item) {
+
+			                        var td_array = item.split(",");
+			                        var tr = $("<tr></tr>");
+			                        tr.appendTo(tbody);
+			                        $.each(td_array, function (i, values) {
+			                            var td = $("<td>" + values + "</td>");
+			                            td.appendTo(tr);
+			                        });
+			                        var td1 = $("<td ><input name=\"shopPrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+			                        td1.appendTo(tr);
+			                        var td2 = $("<td ><input name=\"reservePrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+			                        td2.appendTo(tr);
+			                        //if(isCbus.isChainBusiness == 1){
+			                        	// var td3 = $("<td ><input name=\"workPrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+			                        	// td3.appendTo(tr);
+			                        	// var td4 = $("<td ><input name=\"workHour\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+			                        	// td4.appendTo(tr);
+			                        //}
+				                    var td5 = $("<td align=\"center\"><a href=\"javascript:void(0);\" class=\"l-text\">编辑</a></td>");
+				                    td5.appendTo(tr);
+			                    });
+
+			                    $('#process td a').each(function(i){
+				                    	$(this).attr("val",zuiArr[i])	
+				                })
+			                }
+			                //结束创建Table表
+			                arrayColumn.pop();//删除数组中最后一项
+			                //合并单元格
+			                $(table).mergeCell({
+			                    // 目前只有cols这么一个配置项, 用数组表示列的索引,从0开始
+			                    cols: arrayColumn
+			                });
+			            } else{
+			                //未全选中,清除表格
+			                document.getElementById('createTable').innerHTML="";
+			            }
+			        },//合并行
+			        hebingFunction: function () {
+			            $.fn.mergeCell = function (options) {
+			                return this.each(function () {
+			                    var cols = options.cols;
+			                    for (var i = cols.length - 1; cols[i] != undefined; i--) {
+			                        // fixbug console调试
+			                        // console.debug(cols[i]);
+			                        mergeCell($(this), cols[i]);
+			                    }
+			                    dispose($(this));
+			                });
+			            };
+			            function mergeCell($table, colIndex) {
+			                $table.data('col-content', ''); // 存放单元格内容
+			                $table.data('col-rowspan', 1); // 存放计算的rowspan值 默认为1
+			                $table.data('col-td', $()); // 存放发现的第一个与前一行比较结果不同td(jQuery封装过的), 默认一个"空"的jquery对象
+			                $table.data('trNum', $('tbody tr', $table).length); // 要处理表格的总行数, 用于最后一行做特殊处理时进行判断之用
+			                // 进行"扫面"处理 关键是定位col-td, 和其对应的rowspan
+			                $('tbody tr', $table).each(function (index) {
+			                    // td:eq中的colIndex即列索引
+			                    var $td = $('td:eq(' + colIndex + ')', this);
+			                    // 取出单元格的当前内容
+			                    var currentContent = $td.html();
+			                    // 第一次时走此分支
+			                    if ($table.data('col-content') == '') {
+			                        $table.data('col-content', currentContent);
+			                        $table.data('col-td', $td);
+			                    } else {
+			                        // 上一行与当前行内容相同
+			                        if ($table.data('col-content') == currentContent) {
+			                            // 上一行与当前行内容相同则col-rowspan累加, 保存新值
+			                            var rowspan = $table.data('col-rowspan') + 1;
+			                            $table.data('col-rowspan', rowspan);
+			                            // 值得注意的是 如果用了$td.remove()就会对其他列的处理造成影响
+			                            $td.hide();
+			                            // 最后一行的情况比较特殊一点
+			                            // 比如最后2行 td中的内容是一样的, 那么到最后一行就应该把此时的col-td里保存的td设置rowspan
+			                            if (++index == $table.data('trNum'))
+			                                $table.data('col-td').attr('rowspan', $table.data('col-rowspan'));
+			                        } else { // 上一行与当前行内容不同
+			                            // col-rowspan默认为1, 如果统计出的col-rowspan没有变化, 不处理
+			                            if ($table.data('col-rowspan') != 1) {
+			                                $table.data('col-td').attr('rowspan', $table.data('col-rowspan'));
+			                            }
+			                            // 保存第一次出现不同内容的td, 和其内容, 重置col-rowspan
+			                            $table.data('col-td', $td);
+			                            $table.data('col-content', $td.html());
+			                            $table.data('col-rowspan', 1);
+			                        }
+			                    }
+			                });
+			            }
+			            // 同样是个private函数 清理内存之用
+			            function dispose($table) {
+			                $table.removeData();
+			            }
+			        },
+			        //组合数组
+			        doExchange: function (doubleArrays) {
+			            var len = doubleArrays.length;
+			            if (len >= 2) {
+			                var arr1 = doubleArrays[0];
+			                var arr2 = doubleArrays[1];
+			                var len1 = doubleArrays[0].length;
+			                var len2 = doubleArrays[1].length;
+			                var newlen = len1 * len2;
+			                var temp = new Array(newlen);
+			                var index = 0;
+			                for (var i = 0; i < len1; i++) {
+			                    for (var j = 0; j < len2; j++) {
+			                        temp[index] = arr1[i] + "," + arr2[j];
+			                        index++;
+			                    }
+			                }
+			                var newArray = new Array(len - 1);
+			                newArray[0] = temp;
+			                if (len > 2) {
+			                    var _count = 1;
+			                    for (var i = 2; i < len; i++) {
+			                        newArray[_count] = doubleArrays[i];
+			                        _count++;
+			                    }
+			                }
+			                //console.log(newArray);
+			                return step.doExchange(newArray);
+			            }
+			            else {
+			                return doubleArrays[0];
+			            }
+			        }
+			    }
+			    //return step;
+
+			    $(".divlist label").bind("change", function () { 
+			        step.Creat_Table(); 
+			        $('#createTable th span').hide()
+			        if($('#createTable').html() != ""){
+			    		$('.app .note').hide();
+			    			$('#createTable').append('<p style="margin-left:58px;color:#ff0000">门市价、预订价都不为空时，才能在APP正常显示，都为空，则不创建服务。<br>服务创建重复时不会生成新的服务，若需修改服务请直接修改原有服务。</p>')
+			    	}else{
+			    		$('.app .note').show();
+			    		$('#createTable').html("")
+			    	}
+
+			    	$('#process td a').click(function(){
+			    		var _that = $(this)
+				    	var html = _that.attr('val');
+				    	var serviceExplain;
+				    	var textHtml = $('#Form_standard_service div[name="useRule"]').textarea('val');
+				    	$('#Form_standard_service').form({}).form('close')
+				    	$('#Form_service_desc').form({
+				    		title:'服务说明',
+				    		grid: 18,
+				    		height:'400px',
+							autobinding: false,
+				    		fields:fields,
+				    		item:{"serviceExplain":html},
+				    		submit:function(){
+								var json = $('#Form_service_desc').form('getValue'); 
+								_that.attr("val",json.serviceExplain)
+								$('#Form_service_desc').form().form("close");
+				    			$('#Form_standard_service').form({item:{useRule:textHtml}}).form('open')
+				    		},
+				    		cancel:function(){
+								$('#Form_service_desc').form().form("close");
+				    			$('#Form_standard_service').form({item:{useRule:textHtml}}).form('open')
+								$(".scroll-up-btn").click();
+				    		}
+				    	}).form('open');
+
+				    })
+
+				    $(".cke_toolbar").hide();
+				    $(".cke_toolbar").eq(0).show().attr("style","left:0px");
+				    $(".cke_toolbar").eq(4).show().attr("style","left:35px");
+				    $(".cke_toolbar").eq(7).show().attr("style","left:142px");
+				    $(".cke_toolbar").eq(8).show().attr("style","left:176px");
+				    $(".cke_toolbar").eq(9).show().attr("style","left:318px");
+				    $(".cke_toolbar").eq(0).find("a").hide();
+				    $(".cke_toolbar").eq(0).find("a").eq(3).show();
+				    $(".cke_toolbar").eq(4).find("a").hide();
+				    $(".cke_toolbar").eq(4).find("a").eq(0).show();
+				    $(".cke_toolbar").eq(4).find("a").eq(1).show();
+				    $(".cke_toolbar").eq(4).find("a").eq(2).show();
+				    $(".cke_toolbar").eq(4).find("a").eq(3).show();
+				    $(".cke_toolbar").eq(7).find("a").hide();
+				    $(".cke_toolbar").eq(7).find("a").eq(0).show();
+				    $(".cke_toolbar").eq(8).find(".cke_combo").hide();
+				    $(".cke_toolbar").eq(8).find(".cke_combo").eq(2).show();
+				    $(".cke_toolbar").eq(8).find(".cke_combo").eq(3).show();
+				    $(".cke_toolbar_separator").hide();
+			    });
+	  	    } 
+	    }
+
+		$('#Form_service_desc').form({ 
+			fields: fields,
+			grid:20,
+			fluid:false
+		});
+		//var isCbus = $.jRadGet({url:'/vip-ws/ws/0.1/business/checkIsChainBusiness?businessInfoId='+carsmart_config.businessInfoId})
+		page_column_model.push({display: 'ID', name : 'bindId',hidden:true});
+		page_column_model.push({display: '服务', name : 'serviceName'});
+	    page_column_model.push({display: '门市价', name : 'shopPrice',width:100});
+	    page_column_model.push({display: '预订价', name : 'reservePrice',width:100}); 	    
+	    //if(isCbus.isChainBusiness == 1){
+		    // page_column_model.push({display: '工时费', name : 'workPrice'});
+		    // page_column_model.push({display: '所需工时', name : 'workHour'});
+	    //}
+	    page_column_model.push({display: '预约信息', name : 'reserveInfo',diy:function(item,$div){
+	    	if(item.reserveInfo == 0){
+	    		$div.html("无需预约，如遇客户较多，您可能需要排队")	
+	    	}else if(item.reserveInfo == 1){
+	    		$div.html("请您提前1天预约")	
+	    	}else if(item.reserveInfo == 2){
+	    		$div.html("请您提前2天预约")	
+	    	}else if(item.reserveInfo == 3){
+	    		$div.html("请您提前3天预约")	
+	    	}else if(item.reserveInfo == 4){
+	    		$div.html("请您提前4天预约")	
+	    	}else if(item.reserveInfo == 5){
+	    		$div.html("请您提前5天预约")	
+	    	}else{
+	    		$div.html("请您提前2小时预约")	
+	    	}
+	    }});   
+	    page_column_model.push({display: '审核状态', name : 'auditStatusDesc',width:200,diy:function(item,$div){
+			if(item.auditStatus=='2'){
+				var $reason = $("<a>").addClass('flexOperate').html("驳回原因");
+				$div.html(item.auditStatusDesc+"&nbsp;&nbsp;&nbsp;&nbsp;").append($reason);
+				$reason.click(function(){ 
+					$("#service_check_reason .reason",wraper).html(item.auditDesc);
+					$("#service_check_reason",wraper).dialog('open'); 
+				});
+			}else {
+				$div.html(item.auditStatusDesc);
+			}
+		}}); 
+		 
+	    page_column_model.push({display: '操作', name : 'operate',width:200 ,diy:function(item,$div){
+			var $edit = $("<a>").addClass('flexOperate').html("编辑"); 
+			var $del = $("<a>").addClass('flexOperate').html("删除");
+			$div.append($edit).append($del);  
+			
+			$del.click(function(e){
+				$.jRadConfirm('确认删除吗？',1,function(){
+	                var checked = $('#'+_table).getCheckedTrs();
+					var jsonarry = [];
+	            	var postData={};
+	            	postData.bindId=checked[0].id;
+	            	jsonarry.push(postData)
+					$.jRadPost({  
+						url:'/vip-ws/ws/0.1/standardService/delService',
+	                    data:jsonarry, 
+						success: function(data){ 
+							$('#'+_table).flexMessage('删除成功!', 'success');
+	           	    		$('#'+_table).flexReload();
+						},
+						error:function(xhr){ 
+						    var errormsg = eval("(" + xhr.responseText + ")"); 
+							if (errormsg != undefined) {
+								$('#'+_table).flexMessage(errormsg[0].message, 'error');
+							}
+						}
+					});
+				}); 
+			});
+
+			$edit.click(function(e){
+	            var _item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/busiStandardService/getServiceInfo?bindId='+item.id});
+				$('#Form_standard_service').form({
+					title: '修改',
+					fields: fields,
+					validators:jRad.validators,
+					item:_item,
+					url:'/vip-ws/ws/0.1/standardService/updateBusiService',
+					preSubmit:function(json){
+						json.bindId = item.id;
+						json.shopPrice =  $('#Form_standard_service input[name="shopPrice"]').val();
+						json.reservePrice =  $('#Form_standard_service input[name="reservePrice"]').val();
+							json.workPrice = 0
+							json.workHour = 1
+						//if(isCbus.isChainBusiness == 1){
+							// json.workPrice =  $('#Form_standard_service input[name="workPrice"]').val();
+							// json.workHour =  $('#Form_standard_service input[name="workHour"]').val();
+						// 	json.isChainBusiness = 1
+			   //          }else{
+						// 		json.isChainBusiness = 0
+						// }
+						json.serviceExplain =  $('#process td a').attr("val");
+						json.operator = carsmart_config.operatorName;
+						return json;
+					},
+					success: function(){ 
+						$('#'+_table).flexMessage('修改成功!', 'success');
+						$('#'+_table).flexReload();
+					}
+				}).form('open'); 
+				$('#Form_standard_service div[name="serviceId"]').select("readonly",true);
+				$('#Form_standard_service .app').hide();
+				$("#createTable").html("");
+				// var placeholder = '您可以参照以下格式：\n预约电话：010-xxxxxxx\n营业时间：早8：30-晚17：30\n注意事项：本服务仅限于5座车型';
+				// $('#Form_standard_service div[name="useRule"]').textarea('val',placeholder);
+				// $('textarea[name="useRule"]').focus(function() {
+				// 	if ($(this).val() == placeholder) {
+				// 		$(this).val('');
+				// 	}
+				// });
+				// $('textarea[name="useRule"]').blur(function() {
+				// 	if ($(this).val() == '') {
+				// 		$(this).val(placeholder);
+				// 	}
+				// });
+	            var table = $("<table id=\"process\" border=\"1\" cellpadding=\"1\" cellspacing=\"0\" style=\"width:90%;padding:5px;margin-left:56px;\"></table>");
+	            table.appendTo($("#createTable"));
+	            var thead = $("<thead></thead>");
+	            var tbody = $("<tbody></tbody>");
+	            thead.appendTo(table);
+	            tbody.appendTo(table);
+	            var trHead = $("<tr></tr>");
+				var trbody = $("<tr></tr>");
+	            trHead.appendTo(thead);
+	            trbody.appendTo(tbody);
+
+	            var arrpor = _item.attrOptionList;
+	            var headData =  [];
+	            $.each(arrpor, function(i){
+	            	headData.push(arrpor[i].attrName)
+	            })
+	            $.each(headData, function (index, item) {
+	                var td = $("<th>" + item + "</th>");
+	                td.appendTo(trHead);
+	            });
+	            var bodyData = [];
+	            $.each(arrpor, function(i){
+	            	bodyData.push(arrpor[i].optionName)
+	            })
+	            $.each(bodyData, function (index, item) {
+	                var td2 = $("<td>" + item + "</td>");
+	                td2.appendTo(trbody);
+	            });
+
+				//if(isCbus.isChainBusiness == 1){
+	            	// var itemColumHead = $("<th  style=\"width:70px;\">门市价</th><th style=\"width:70px;\">预定价</th><th style=\"width:70px;\">工时费</th><th style=\"width:70px;\">所需工时</th><th style=\"width:50px;\">服务说明</th>");
+	            	// itemColumHead.appendTo(trHead);
+	            // }else{
+		            var itemColumHead = $("<th  style=\"width:70px;\">门市价</th><th style=\"width:70px;\">预定价</th><th style=\"width:50px;\">服务说明</th>");
+		            itemColumHead.appendTo(trHead);
+	            // }
+	            var td1 = $("<td ><input name=\"shopPrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+	            td1.appendTo(trbody);
+	            var td2 = $("<td ><input name=\"reservePrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+	            td2.appendTo(trbody);
+	            //if(isCbus.isChainBusiness == 1){
+	            	// var td3 = $("<td ><input name=\"workPrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+	            	// td3.appendTo(trbody);
+	            	// var td4 = $("<td ><input name=\"workHour\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+	            	// td4.appendTo(trbody);
+	            //}
+	            // var td3 = $("<td ><input name=\"clearingPrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+	            // td3.appendTo(trbody);
+	            var td5 = $("<td align=\"center\"><a href=\"javascript:void(0);\" class=\"l-text\">编辑</a></td>");
+	            td5.appendTo(trbody);
+	            $('input[name="shopPrice"]').val(_item.shopPrice);
+	            $('input[name="reservePrice"]').val(_item.reservePrice);
+	            //if(isCbus.isChainBusiness == 1){
+		            // $('input[name="workPrice"]').val(_item.workPrice);
+		            // $('input[name="workHour"]').val(_item.workHour);
+	            //}
+	            $("#process td a").attr("val",_item.serviceExplain);
+	            $('#createTable').append('<p style="margin-left:58px;color:#ff0000">门市价、预订价都不为空时，才能在APP正常显示，都为空，则不创建服务。<br>服务创建重复时不会生成新的服务，若需修改服务请直接修改原有服务。</p>')
+	            $('#process td a').click(function(){
+		    		var _that = $(this)
+			    	var html = _that.attr('val');
+			    	var serviceExplain;
+				    var textHtml = $('#Form_standard_service div[name="useRule"]').textarea('val');
+				    $('#Form_standard_service').form({}).form('close')
+			    	$('#Form_service_desc').form({
+			    		title:'服务说明',
+			    		grid: 18,
+			    		height:'400px',
+						autobinding: false,
+						fields: fields,
+			    		item:{"serviceExplain":html},
+			    		submit:function(){
+							var json = $('#Form_service_desc').form('getValue'); 
+							_that.attr("val",json.serviceExplain)
+							$('#Form_service_desc').form().form("close");
+				    		$('#Form_standard_service').form({item:{useRule:textHtml}}).form('open')
+			    		},
+			    		cancel:function(){
+							$('#Form_service_desc').form().form("close");
+				    		$('#Form_standard_service').form({item:{useRule:textHtml}}).form('open')
+							$(".scroll-up-btn").click();
+			    		}
+			    	}).form('open');   
+			    	$(".cke").addClass("cke_focus")
+			    	$(".cke_contents p").blur();	
+				})
+
+			    $(".cke_toolbar").hide();
+			    $(".cke_toolbar").eq(0).show().attr("style","left:0px");
+			    $(".cke_toolbar").eq(4).show().attr("style","left:35px");
+			    $(".cke_toolbar").eq(7).show().attr("style","left:142px");
+			    $(".cke_toolbar").eq(8).show().attr("style","left:176px");
+			    $(".cke_toolbar").eq(9).show().attr("style","left:318px");
+			    $(".cke_toolbar").eq(0).find("a").hide();
+			    $(".cke_toolbar").eq(0).find("a").eq(3).show();
+			    $(".cke_toolbar").eq(4).find("a").hide();
+			    $(".cke_toolbar").eq(4).find("a").eq(0).show();
+			    $(".cke_toolbar").eq(4).find("a").eq(1).show();
+			    $(".cke_toolbar").eq(4).find("a").eq(2).show();
+			    $(".cke_toolbar").eq(4).find("a").eq(3).show();
+			    $(".cke_toolbar").eq(7).find("a").hide();
+			    $(".cke_toolbar").eq(7).find("a").eq(0).show();
+			    $(".cke_toolbar").eq(8).find(".cke_combo").hide();
+			    $(".cke_toolbar").eq(8).find(".cke_combo").eq(2).show();
+			    $(".cke_toolbar").eq(8).find(".cke_combo").eq(3).show();
+			    $(".cke_toolbar_separator").hide();
+			});
+		}});
+
+		page_list_buttons.push({title: '创建',displayname:'创建',bclass: 'icon-plus',
+			onpress : function(){ 
+				$('#Form_standard_service').form({
+	                title: '创建',
+					fields: fields,
+				    grid: 20,
+					item:{'serviceId':getNameList[0].id,'reserveInfo':reserveInfoSelect[0].id}, 
+	                url: '/vip-ws/ws/0.1/standardService/addStandradServiceRel',
+					preSubmit:function(json){
+						json.serviceType = type;
+						json.businessInfoId = carsmart_config.businessInfoId;
+						json.operator = carsmart_config.operatorName;
+						var attrOption =[];
+						$('#process tbody tr').each(function(i){ 
+							var att ={};
+							att.shopPrice = $("#process tbody tr").eq(i).find("td input[name='shopPrice']").val();
+							att.reservePrice = $("#process tbody tr").eq(i).find("td input[name='reservePrice']").val();
+							att.workPrice = 0
+							att.workHour = 1
+							//if(isCbus.isChainBusiness == 1){
+								// att.workPrice = $("#process tbody tr").eq(i).find("td input[name='workPrice']").val();
+								// att.workHour = $("#process tbody tr").eq(i).find("td input[name='workHour']").val();
+							// 	att.isChainBusiness = 1
+							// }else{
+							// 	att.isChainBusiness = 0
+							// }
+							att.serviceExplain = $("#process tbody tr").eq(i).find("td a").attr("val");
+							att.attrOptionIdList = step.optionList[i];
+							attrOption.push(att)
+						})
+						
+						json.attrOption = attrOption;
+						return json;
+					},
+					success:function(data){ 
+						$('#'+_table).flexMessage(data.msg, 'success');
+						$('#'+_table).flexReload();
+					},
+                    error:function(xhr){
+                        var mes = eval('('+xhr.responseText+')');
+                        $.jRadMessage({level:'error', message:mes[0].message,selector:$('#Form_standard_service .pop-up-middle')});
+                    }
+	            }).form("open")
+
+				$('#Form_standard_service div[name="serviceId"]').select("readonly",false);
+				$('#Form_standard_service .app').show();
+
+				// var placeholder = '您可以参照以下格式：\n预约电话：010-xxxxxxx\n营业时间：早8：30-晚17：30\n注意事项：本服务仅限于5座车型';
+				// $('#Form_standard_service div[name="useRule"]').textarea('val',placeholder);
+
+				// $('textarea[name="useRule"]').focus(function() {
+				// 	if ($(this).val() == placeholder) {
+				// 		$(this).val('');
+				// 	}
+				// });
+				// $('textarea[name="useRule"]').blur(function() {
+				// 	if ($(this).val() == '') {
+				// 		//$(this).val(placeholder);
+				// 		$(this).attr("placeholder",placeholder);
+				// 	}
+				// });	
+
+				var urlstr = '/shopmanage-ws/ws/0.1/busiStandardService/getAttrOptionInfo';
+				var fristId = $("#Form_standard_service div[name='serviceId']",wraper).select('val');
+	            var flag = (fristId!=undefined&&fristId!="");
+			    if(flag){ 
+			 	    urlstr = '/shopmanage-ws/ws/0.1/busiStandardService/getAttrOptionInfo?serviceId='+fristId;
+			    }
+			 	var Data = $.jRadGet({url : urlstr});
+			    var _moudle = $(".app");
+			    _moudle.html("");
+
+				$.each(Data,function(j){
+			 		var info = Data[j]; 
+			 		var _row = $("<div style='overflow:hidden'>").addClass('div_contentlist');
+			 		var _ul = $("<ul class='Father_Title'>")
+					var _li = $("<li style='float:left;width:100px;text-align:right;'>").attr("data",info.attrId).html('<span class="ui-form-required" style="margin-right:0;color:red;">*</span>'+info.attrName +'：');
+					var _div = $("<div class='divlist' style='float:left;margin-left:10px;width:425px;'>");
+					var _ul2 = $("<ul></ul>").addClass("Father_Item" + j);
+					var opt2 = [];
+					var value2 = [];
+					var _li2 = $("<li></li>");
+					$.each(info.option,function(i){
+						var param = info.option[i];
+	                	var vk2 = {};
+	                	vk2.id = param.optionId;
+	                	vk2.name = param.optionName; 
+	                	opt2.push(vk2); 
+	                	value2.push(param.optionName); 
+	          			var _label2 = $("<label style='margin-right:15px;float:left;'></label>");
+			            var _input = $("<input type='checkbox' style='float:left;margin:2px 3px 0 0;'>").addClass("chcBox_Width").attr({value:param.optionName,alt:param.optionId,explain:param.serviceExplain})
+			            var _span = $("<span></span>").addClass("li_empty").attr("contentEditable","true")
+					    _li2.append(_label2.append(_input).append(param.optionName).append(_span))
+					}); 
+
+					if(info.option.length != 0){ 
+						_ul2.append(_li2);
+		        		_row.append(_ul.append(_li)).append(_div.append(_ul2));
+		        		_moudle.append(_row);
+	                }
+			 	});
+
+			 	if(_moudle.html() != ""){
+			 		_moudle.append('<p class="note">您需要选择所有的扩展属性,才能组合成完整的服务信息。</p>')
+			 	}
+				
+				$('#process').html("");
+			    $('#createTable p').html("")
+
+			    $(".divlist label").bind("change", function () { 
+			        step.Creat_Table(); 
+			        $('#createTable th span').hide()
+			        if($('#createTable').html() != ""){
+			    		$('.app .note').hide();
+			    		$('#createTable').append('<p style="margin-left:58px;color:#ff0000">门市价、预订价都不为空时，才能在APP正常显示，都为空，则不创建服务。<br>服务创建重复时不会生成新的服务，若需修改服务请直接修改原有服务。</p>')
+			    	}else{
+			    		$('.app .note').show();
+			    		$('#createTable').html("")
+			    	}
+
+			    	$('#process td a').click(function(){
+			    		var _that = $(this)
+				    	var html = _that.attr('val');
+				    	var serviceExplain;
+				    	var textHtml = $('#Form_standard_service div[name="useRule"]').textarea('val');
+				    	//console.log(textHtml)
+				    	$('#Form_standard_service').form({}).form('close')
+				    	$('#Form_service_desc').form({
+				    		title:'服务说明',
+				    		grid: 20,
+				    		height:'400px',
+							autobinding: false,
+				    		fields:fields,
+				    		item:{"serviceExplain":html},
+				    		submit:function(){
+								var json = $('#Form_service_desc').form('getValue'); 
+								_that.attr("val",json.serviceExplain)
+								$('#Form_service_desc').form().form("close");
+				    			$('#Form_standard_service').form({item:{useRule:textHtml}}).form('open')
+				    		},
+				    		cancel:function(){
+								$('#Form_service_desc').form().form("close");
+				    			$('#Form_standard_service').form({item:{useRule:textHtml}}).form('open')
+								$(".scroll-up-btn").click();
+				    		}
+				    	}).form('open');
+				    	$(".cke").addClass("cke_focus")
+				    	$(".cke_contents p").blur();
+				    })
+			    });
+
+			    var step = {
+			        optionList:[],
+			        Creat_Table: function () {
+			        	var _step = this;
+			            step.hebingFunction();
+			            var SKUObj = $(".Father_Title");
+			            var arrayTile = new Array();
+			            var arrayInfor = new Array();
+			            var arrayColumn = new Array();
+			            var attrOptionIdList = new Array();
+			            var attrOptionIdList2 = new Array();
+			            var bCheck = true;//是否全选
+			            var columnIndex = 0;
+			            $.each(SKUObj, function (i, item){
+			                arrayColumn.push(columnIndex);
+			                columnIndex++;
+			                arrayTile.push(SKUObj.find("li").eq(i).html().replace("：", ""));
+			                var itemName = "Father_Item" + i;
+			                
+			                var order = new Array();
+			                $("." + itemName + " input[type=checkbox]:checked").each(function (){
+			                    order.push($(this).val());
+			                });
+			                arrayInfor.push(order);
+
+			                var data = []
+			                $("." + itemName + " input[type=checkbox]:checked").each(function (){
+			                	var json ={};
+			                	json.attrId = $(this).parent().parent().parent().parent().prev().children().attr("data");
+			                	json.optionId = $(this).attr("alt");
+			                	var jsonstring = JSON.stringify(json)
+			                	data.push(jsonstring)
+			                });
+
+			                var data2 = []
+			                $("." + itemName + " input[type=checkbox]:checked").each(function (){
+			                	var json ={};
+			                	json.attrId = $(this).parent().parent().parent().parent().prev().children().attr("data");
+			                	json.optionId = $(this).attr("alt");
+			                	json.serviceExplain = $(this).attr("explain");
+			                	var jsonstring = JSON.stringify(json)
+			                	data2.push(jsonstring)
+			                });
+
+							data.sort(getSortFun('desc', 'optionId'));
+							function getSortFun(order, sortBy) {
+							    var ordAlpah = (order == 'asc') ? '>' : '<';
+							    var sortFun = new Function('a', 'b', 'return a.' + sortBy + ordAlpah + 'b.' + sortBy + '?1:-1');
+							    return sortFun;
+							}
+
+			                attrOptionIdList.push(data)
+			                attrOptionIdList2.push(data2)
+
+			                if (order.join() == ""){
+			                    bCheck = false;
+			                } 
+			            });
+
+			            //开始创建Table表
+			            if (bCheck == true) {
+			                var RowsCount = 0;
+			                $("#createTable").html("");
+			                var table = $("<table id=\"process\" border=\"1\" cellpadding=\"1\" cellspacing=\"0\" style=\"width:90%;padding:5px;margin-left:56px;\"></table>");
+			                table.appendTo($("#createTable"));
+			                var thead = $("<thead></thead>");
+			                thead.appendTo(table);
+			                var trHead = $("<tr></tr>");
+			                trHead.appendTo(thead);
+			                //创建表头
+			                $.each(arrayTile, function (index, item) {
+			                    var td = $("<th>" + item + "</th>");
+			                    td.appendTo(trHead);
+			                });
+			                //if(isCbus.isChainBusiness == 1){
+		                		// var itemColumHead = $("<th  style=\"width:70px;\">门市价</th><th style=\"width:70px;\">预定价</th><th style=\"width:70px;\">工时费</th><th style=\"width:70px;\">所需工时</th><th style=\"width:50px;\">服务说明</th>");
+		                		// itemColumHead.appendTo(trHead);
+						    // }else{
+			                	var itemColumHead = $("<th  style=\"width:70px;\">门市价</th><th style=\"width:70px;\">预定价</th><th style=\"width:50px;\">服务说明</th>");
+			                	itemColumHead.appendTo(trHead);
+						    // }
+			                var tbody = $("<tbody></tbody>");
+			                tbody.appendTo(table);
+			                ////生成组合
+			                var zuheDate = step.doExchange(arrayInfor);
+			                var zuheDate2 = step.doExchange(attrOptionIdList);
+			                var zuheDate3 = step.doExchange(attrOptionIdList2);
+
+			                var attr = [];
+			                $.each(zuheDate2,function(i){
+			                	attr.push($.parseJSON("[" + zuheDate2[i] + "]"));
+			                })
+
+			                var attr2 = [];
+			                $.each(zuheDate3,function(i){
+			                	attr2.push($.parseJSON("[" + zuheDate3[i] + "]"));
+			                })
+			                
+							var zuiArr = [];
+							$.each(attr2,function(v){
+			                	var minArr = attr2[v]
+			                	$.each(minArr,function(z){
+			                		if(minArr[z].serviceExplain){
+			                			zuiArr.push(minArr[z].serviceExplain);
+			                		}
+			                	})
+			                })
+							console.log(zuiArr)
+			                _step.optionList = attr;
+
+			                if (zuheDate.length > 0) {
+			                    //创建行
+			                    $.each(zuheDate, function (index, item) {
+
+			                        var td_array = item.split(",");
+			                        var tr = $("<tr></tr>");
+			                        tr.appendTo(tbody);
+			                        $.each(td_array, function (i, values) {
+			                            var td = $("<td>" + values + "</td>");
+			                            td.appendTo(tr);
+			                        });
+			                        var td1 = $("<td ><input name=\"shopPrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+			                        td1.appendTo(tr);
+			                        var td2 = $("<td ><input name=\"reservePrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+			                        td2.appendTo(tr);
+			                        //if(isCbus.isChainBusiness == 1){
+			                        	// var td3 = $("<td ><input name=\"workPrice\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+			                        	// td3.appendTo(tr);
+			                        	// var td4 = $("<td ><input name=\"workHour\" class=\"l-text\" type=\"text\" value=\"\"></td>");
+			                        	// td4.appendTo(tr);
+			                        //}
+				                    var td5 = $("<td align=\"center\"><a href=\"javascript:void(0);\" class=\"l-text\">编辑</a></td>");
+				                    td5.appendTo(tr);
+			                    });
+
+			                    $('#process td a').each(function(i){
+				                    $(this).attr("val",zuiArr[i])	
+				                })
+			                }
+			                //结束创建Table表
+			                arrayColumn.pop();//删除数组中最后一项
+			                //合并单元格
+			                $(table).mergeCell({
+			                    // 目前只有cols这么一个配置项, 用数组表示列的索引,从0开始
+			                    cols: arrayColumn
+			                });
+			            } else{
+			                //未全选中,清除表格
+			                document.getElementById('createTable').innerHTML="";
+			            }
+			        },//合并行
+			        hebingFunction: function () {
+			            $.fn.mergeCell = function (options) {
+			                return this.each(function () {
+			                    var cols = options.cols;
+			                    for (var i = cols.length - 1; cols[i] != undefined; i--) {
+			                        // fixbug console调试
+			                        // console.debug(cols[i]);
+			                        mergeCell($(this), cols[i]);
+			                    }
+			                    dispose($(this));
+			                });
+			            };
+			            function mergeCell($table, colIndex) {
+			                $table.data('col-content', ''); // 存放单元格内容
+			                $table.data('col-rowspan', 1); // 存放计算的rowspan值 默认为1
+			                $table.data('col-td', $()); // 存放发现的第一个与前一行比较结果不同td(jQuery封装过的), 默认一个"空"的jquery对象
+			                $table.data('trNum', $('tbody tr', $table).length); // 要处理表格的总行数, 用于最后一行做特殊处理时进行判断之用
+			                // 进行"扫面"处理 关键是定位col-td, 和其对应的rowspan
+			                $('tbody tr', $table).each(function (index) {
+			                    // td:eq中的colIndex即列索引
+			                    var $td = $('td:eq(' + colIndex + ')', this);
+			                    // 取出单元格的当前内容
+			                    var currentContent = $td.html();
+			                    // 第一次时走此分支
+			                    if ($table.data('col-content') == '') {
+			                        $table.data('col-content', currentContent);
+			                        $table.data('col-td', $td);
+			                    } else {
+			                        // 上一行与当前行内容相同
+			                        if ($table.data('col-content') == currentContent) {
+			                            // 上一行与当前行内容相同则col-rowspan累加, 保存新值
+			                            var rowspan = $table.data('col-rowspan') + 1;
+			                            $table.data('col-rowspan', rowspan);
+			                            // 值得注意的是 如果用了$td.remove()就会对其他列的处理造成影响
+			                            $td.hide();
+			                            // 最后一行的情况比较特殊一点
+			                            // 比如最后2行 td中的内容是一样的, 那么到最后一行就应该把此时的col-td里保存的td设置rowspan
+			                            if (++index == $table.data('trNum'))
+			                                $table.data('col-td').attr('rowspan', $table.data('col-rowspan'));
+			                        } else { // 上一行与当前行内容不同
+			                            // col-rowspan默认为1, 如果统计出的col-rowspan没有变化, 不处理
+			                            if ($table.data('col-rowspan') != 1) {
+			                                $table.data('col-td').attr('rowspan', $table.data('col-rowspan'));
+			                            }
+			                            // 保存第一次出现不同内容的td, 和其内容, 重置col-rowspan
+			                            $table.data('col-td', $td);
+			                            $table.data('col-content', $td.html());
+			                            $table.data('col-rowspan', 1);
+			                        }
+			                    }
+			                });
+			            }
+			            // 同样是个private函数 清理内存之用
+			            function dispose($table) {
+			                $table.removeData();
+			            }
+			        },
+			        //组合数组
+			        doExchange: function (doubleArrays) {
+			            var len = doubleArrays.length;
+			            if (len >= 2) {
+			                var arr1 = doubleArrays[0];
+			                var arr2 = doubleArrays[1];
+			                var len1 = doubleArrays[0].length;
+			                var len2 = doubleArrays[1].length;
+			                var newlen = len1 * len2;
+			                var temp = new Array(newlen);
+			                var index = 0;
+			                for (var i = 0; i < len1; i++) {
+			                    for (var j = 0; j < len2; j++) {
+			                        temp[index] = arr1[i] + "," + arr2[j];
+			                        index++;
+			                    }
+			                }
+			                var newArray = new Array(len - 1);
+			                newArray[0] = temp;
+			                if (len > 2) {
+			                    var _count = 1;
+			                    for (var i = 2; i < len; i++) {
+			                        newArray[_count] = doubleArrays[i];
+			                        _count++;
+			                    }
+			                }
+			                //console.log(newArray);
+			                return step.doExchange(newArray);
+			            }
+			            else {
+			                return doubleArrays[0];
+			            }
+			        }
+			    }
+
+			    $(".cke_toolbar").hide();
+			    $(".cke_toolbar").eq(0).show().attr("style","left:0px");
+			    $(".cke_toolbar").eq(4).show().attr("style","left:35px");
+			    $(".cke_toolbar").eq(7).show().attr("style","left:142px");
+			    $(".cke_toolbar").eq(8).show().attr("style","left:176px");
+			    $(".cke_toolbar").eq(9).show().attr("style","left:318px");
+			    $(".cke_toolbar").eq(0).find("a").hide();
+			    $(".cke_toolbar").eq(0).find("a").eq(3).show();
+			    $(".cke_toolbar").eq(4).find("a").hide();
+			    $(".cke_toolbar").eq(4).find("a").eq(0).show();
+			    $(".cke_toolbar").eq(4).find("a").eq(1).show();
+			    $(".cke_toolbar").eq(4).find("a").eq(2).show();
+			    $(".cke_toolbar").eq(4).find("a").eq(3).show();
+			    $(".cke_toolbar").eq(7).find("a").hide();
+			    $(".cke_toolbar").eq(7).find("a").eq(0).show();
+			    $(".cke_toolbar").eq(8).find(".cke_combo").hide();
+			    $(".cke_toolbar").eq(8).find(".cke_combo").eq(2).show();
+			    $(".cke_toolbar").eq(8).find(".cke_combo").eq(3).show();
+			    $(".cke_toolbar_separator").hide();
+
+	        }
+	    }); 
+
+		$('#'+_table).flexigrid({
+	        reload:true,
+			method:'get',
+			showCheckbox: false,
+        	pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+	        colModel : page_column_model,
+	        buttons : page_list_buttons,
+	        searchitems :page_search_items,
+	        pagedStyle: 'oc',
+			checkBoxType:'single',
+			showSearch:true,
+	        url:'/vip-ws/ws/0.1/standardService/busiServicelist?serviceType='+type+"&businessInfoId="+carsmart_config.businessInfoId,
+			overflow:true 
+	    })
+
+	    $('#carwash .hDivBox tr th').eq(0).attr("style","display:none;")
+	    $('#beautify .hDivBox tr th').eq(0).attr("style","display:none;")
+	    $('#upkeep .hDivBox tr th').eq(0).attr("style","display:none;")
+	    $('#repair .hDivBox tr th').eq(0).attr("style","display:none;")
+
+		$(".pic-show",wraper).parent().css("margin-top","30px");
+		$('.hDiv',wraper).css('overflow','hidden');
+	    $('.bDiv',wraper).css('overflow-x','scroll');
+	}
+
+</script>

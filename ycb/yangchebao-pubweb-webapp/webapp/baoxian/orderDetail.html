@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/md50000000000000000000000000000.js"></script>
+	<title>保单详情</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+
+		div.container{
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+			background-color: #f4f7f8;
+		}
+
+		div.tab-title{
+			background-color: #fff;
+			padding: 1rem;
+			border-bottom: 1px solid #DCDCE4;
+		}
+		div.tab-title ul{
+			overflow: hidden;
+			border: 1px solid #FF6138;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+		div.tab-title ul li{
+			float: left;
+			width: 50%;
+			line-height: 2.6rem;
+			text-align: center;
+			cursor: pointer;
+			color: #FF6138;
+			font-size: 1.1rem;
+		}
+		.liClick{
+			background-color: #FF6138;
+			cursor: default!important;
+			color: #fff!important;
+		}
+		
+		div.tab-detail article{
+			margin-top: 0.8rem;
+			background-color: #fff;
+		}
+		div.infoTitle{
+			color: #6eaade;
+			font-size: 1.2rem;
+			padding: 0 1rem;
+			line-height: 2.6rem;
+			border-bottom: 1px solid ;
+		}
+		ul.info-ul li.info-li{
+			overflow: hidden;
+			border-bottom: 1px solid #DCDCE4;
+			line-height: 2.4rem;
+			padding: 0 1rem;
+		}
+		ul.info-ul li.info-li span{
+			float: left;
+			width: 6rem;
+			color: #999;
+			font-size: 0.9rem;
+		}
+		ul.info-ul li.info-li div{
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			margin-left: 6rem;
+			color: #1e1e1e;
+			font-size: 1rem;
+		}
+		div.btns{
+			width: 90%;
+			margin: 1rem auto 1rem;
+			text-align: center;
+		}
+		div.btns span{
+			display: inline-block;
+			width: 47%;
+			border: 1px solid #FF6138;
+			line-height: 2.6rem;
+			font-size: 1.2rem;
+			-moz-border-radius: 6px;
+			-webkit-border-radius: 6px;
+			border-radius: 6px;
+			cursor: pointer;
+		}
+		span.btnOne{
+			margin-right: 3%;
+			color: #FF6138;
+			background-color: #fff;
+		}
+		span.btnTwo{
+			color: #fff;
+			background-color: #FF6138;
+		}
+		
+		table{
+			width: 100%;
+			text-align: center;
+		}
+		table thead tr td{
+			/*border-top: 1px solid #DCDCE4;*/
+			background-color: #F2F3F4;
+			padding-top: 1rem;
+		}
+		table thead tr td p{
+			background-color: #6eaade;
+			line-height: 2.4rem;
+			color: #fff;
+			font-size: 1rem;
+			text-align: center;
+		}
+		table tbody tr.safeTitle td{
+			padding-top: 0.3rem;
+			line-height: 2.6rem;
+			font-size: 1rem;
+			color: #6eaade;
+			border-bottom: 1px solid #7DB3E1;
+			background-color: #fff;
+			text-align: left;
+			padding-left: 1.2rem;
+		}
+		table tbody tr.safeDetail td{
+			height: 2.6rem;
+			border-bottom: 1px solid #DDDDE5;
+			font-size: 0.9rem;
+			background-color: #fff;
+		}
+		table tbody tr.safeDetail td.safeDetail-title,tr.safeDetail td.safeDetail-price{
+			color: #1e1e1e;
+		}
+		table tbody tr.safeDetail td.safeDetail-item{
+			width: 36%;
+			color: #999;
+		}
+		table tbody tr.null td{
+			height: 0.8rem;
+		}
+		table tbody tr.lastSafeDetail td{
+			border-bottom: 1px solid #6eaade!important;
+		}
+		table tbody tr.lastSafeDetail td.lastSafe{
+			color: #6eaade!important;
+			font-size: 1rem!important;
+			text-align: left;
+			padding-left: 1.2rem;
+		}
+
+		tfoot tr td{
+			background-color: #6eaade;
+			color: #fff;
+			font-size: 1rem;
+			line-height: 2.6rem;
+		}
+		tfoot tr td.totalMoney-left{
+			text-align: left;
+			padding-left: 1.2rem;
+		}
+
+		div.top{
+			padding: 1.2rem 1.2rem 0;
+			background-color: #fff;
+		}
+		div.top p{
+			color: #1e1e1e;
+			font-size: 1rem;
+			line-height: 1.8rem;
+		}
+		div.top p span{
+			color: #999;
+			font-size: 1rem;
+			line-height: 1.8rem;
+		}
+		td#baofei{
+			min-width: 81px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="top" style="display:none;">
+			<p>投保单号：<span name="sqid"></span></p>
+			<p class="baoOrderNo">商业险保单号：<span name="bizPolicyCode"></span></p>
+			<p class="baoOrderNo">交强险保单号：<span name="efcPolicyCode"></span></p>
+		</div>
+		<div class="tab-title">
+			<ul>
+				<li class="liClick" id="basicInfo">基本信息</li>
+				<li id="safeInfo">险种信息</li>
+			</ul>
+		</div>
+		<div class="tab-detail basicInfo">
+			<article class="listInfo">
+				<div class="infoTitle">保单信息</div>
+				<ul class="info-ul">
+					<li class="info-li">
+						<span>商业险单号：</span>
+						<div name="bizPolicyCode"></div>
+					</li>
+					<li class="info-li">
+						<span>交强险单号：</span>
+						<div name="efcPolicyCode"></div>
+					</li>
+				</ul>
+			</article>
+			<article class="carInfo">
+				<div class="infoTitle">车辆信息</div>
+				<ul class="info-ul">
+					<li class="info-li">
+						<span>车牌号码：</span>
+						<div name="plateNum"></div>
+					</li>
+					<li class="info-li">
+						<span>品牌型号：</span>
+						<div name="carModelName"></div>
+					</li>
+					<li class="info-li">
+						<span>车辆识别码：</span>
+						<div name="vin"></div>
+					</li>
+					<li class="info-li">
+						<span>发动机号：</span>
+						<div name="engineNum"></div>
+					</li>
+					<li class="info-li">
+						<span>排量：</span>
+						<div name="displacement"></div>
+					</li>
+					<li class="info-li">
+						<span>初登日期：</span>
+						<div name="firstRegDate"></div>
+					</li>
+				</ul>
+			</article>
+			<article class="holderInfo">
+				<div class="infoTitle">车主信息</div>
+				<ul class="info-ul">
+					<li class="info-li">
+						<span>姓名：</span>
+						<div name="ownerName"></div>
+					</li>
+					<li class="info-li">
+						<span>身份证号：</span>
+						<div name="ownerCertNumber"></div>
+					</li>
+				</ul>
+			</article>
+			<article class="toSafePersonInfo">
+				<div class="infoTitle">投保人信息</div>
+				<ul class="info-ul">
+					<li class="info-li">
+						<span>姓名：</span>
+						<div name="proposerName"></div>
+					</li>
+					<li class="info-li">
+						<span>身份证号：</span>
+						<div name="proposerCertnumber"></div>
+					</li>
+				</ul>
+			</article>
+			<article class="safePersonInfo">
+				<div class="infoTitle">被保人信息</div>
+				<ul class="info-ul">
+					<li class="info-li">
+						<span>姓名：</span>
+						<div name="insuredName"></div>
+					</li>
+					<li class="info-li">
+						<span>身份证号：</span>
+						<div name="insuredCertnumber"></div>
+					</li>
+				</ul>
+			</article>
+		</div>
+		<div class="tab-detail safeInfo" style="display:none;">
+			<table cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<td><p>险种名称</p></td>
+						<td><p>保额（元）</p></td>
+						<td id="baofei"><p>保费（元）</p></td>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- <tr class="null"><td></td><td></td><td></td></tr>
+					<tr class="safeTitle">
+						<td>基本险</td><td></td><td></td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">车辆损失险：</td>
+						<td class="safeDetail-item">投保</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">第三者责任险：</td>
+						<td class="safeDetail-item">500000</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">全车盗抢险：</td>
+						<td class="safeDetail-item">10000</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">司机责任险：</td>
+						<td class="safeDetail-item">40000</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="null"><td></td><td></td><td></td></tr>
+					<tr class="safeTitle">
+						<td>附加险</td><td></td><td></td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">玻璃单独破碎险：</td>
+						<td class="safeDetail-item">投保</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">第三者责任险：</td>
+						<td class="safeDetail-item">500000</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">全车盗抢险：</td>
+						<td class="safeDetail-item">10000</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">司机责任险：</td>
+						<td class="safeDetail-item">40000</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="null"><td></td><td></td><td></td></tr>
+					<tr class="safeTitle">
+						<td>不计免赔险</td><td></td><td></td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">玻璃单独破碎险：</td>
+						<td class="safeDetail-item">投保</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">第三者责任险：</td>
+						<td class="safeDetail-item">500000</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">全车盗抢险：</td>
+						<td class="safeDetail-item">10000</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail">
+						<td class="safeDetail-title">司机责任险：</td>
+						<td class="safeDetail-item">40000</td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="null"><td></td><td></td><td></td></tr>
+					<tr class="safeDetail lastSafeDetail">
+						<td class="safeDetail-title lastSafe">交强险</td>
+						<td class="safeDetail-item"></td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr>
+					<tr class="safeDetail lastSafeDetail">
+						<td class="safeDetail-title lastSafe">车税险</td>
+						<td class="safeDetail-item"></td>
+						<td class="safeDetail-price">2362.59</td>
+					</tr> -->
+				</tbody>
+				<tfoot>
+					<tr class="totalMoney">
+						<td class="totalMoney-left">合计：</td>
+						<td></td>
+						<td class="totalMoney-right"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<div class="btns">
+			<!--<span class="btnOne">修改投保信息</span>-->
+			<span class="btnTwo">立即支付</span>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    if(paramJson.isMySafe){
+	    	$('article.listInfo').hide();
+	    	$('div.top').show()
+	    }
+	    // 区分去哪保和易保险
+	    if(paramJson.appcode=='ycbqnb'){
+	    	/*if(paramJson.status=='25' || paramJson.status=='26' || paramJson.status=='27'){
+		    	$('span.btnOne').hide()
+		    }*/
+		    if(paramJson.orderStatus!='0'){
+		    	$('span.btnTwo').hide()
+		    }
+	    }else if(paramJson.appcode=='ycbybx'){
+	    	//$('span.btnOne').hide();
+		    if(paramJson.orderStatus!='0'){
+		    	$('span.btnTwo').hide()
+		    }else if(paramJson.status=='1' || paramJson.status=='2'){
+		    	$('span.btnTwo').hide()
+		    }
+	    }
+	    // tab切换
+		$('div.tab-title ul li').unbind('click').bind('click',function(){
+			if(!($(this).hasClass('liClick'))){
+				var _id=$(this).attr('id');
+				$(this).addClass('liClick').siblings().removeClass('liClick');
+				$('div.'+_id).show();
+				$('div.'+_id).siblings('div.tab-detail').hide()
+			}
+		});
+		// 获取保单详情
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/insure/detail?sqid='+paramJson.sqid+'&customerId='+paramJson.customerId+'&'+new Date().getTime(),
+			type:'get',
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				paramJson.name=data.name;
+				paramJson.privilegeCharge=data.totalCharge;
+				if(data.payUrl){
+					paramJson.payUrl=data.payUrl
+				}
+				if(!(data.bizPolicyCode)){
+					$('article.listInfo').hide();
+					if(paramJson.isMySafe){
+						$('div.top p.baoOrderNo').hide()
+					}
+				}
+				$('span[name="sqid"]').html(data.sqid);
+				$.each(data,function(key,val){
+					$('div.basicInfo div[name="'+key+'"]').html(val);
+					$('span[name="'+key+'"]').html(val)
+				});
+				if(!(data.carInfo['displacement'])){
+					$('div.basicInfo div[name="displacement"]').closest('li.info-li').remove()
+				}
+				$.each(data.carInfo,function(key,val){
+					if(key=='firstRegDate'){
+						val=val.split(' ')[0];
+						var valArr=val.split('-');
+						val=valArr[0]+'年'+valArr[1]+'月'+valArr[2]+'日'
+					}
+					$('div.basicInfo div[name="'+key+'"]').html(val)
+				});
+				// 险种信息
+				var safeDetailsStr='';
+				$.each(data.suite,function(key,val){
+					if(paramJson.appcode=='ycbybx'){
+						val.forEach(function(arrKey,i){
+							if(arrKey.ecode=='cov_231'){
+								if(arrKey.amount=='0' || arrKey.amount=='0.0'){
+									arrKey.amount='不投保'
+								}else if(arrKey.amount=='1' || arrKey.amount=='1.0'){
+									arrKey.amount='国产玻璃'
+								}else if(arrKey.amount=='2' || arrKey.amount=='2.0'){
+									arrKey.amount='进口玻璃'
+								}
+							}else{
+								if(arrKey.amount=='0' || arrKey.amount=='0.0'){
+									arrKey.amount='不投保'
+								}else if(arrKey.amount=='1' || arrKey.amount=='1.0'){
+									arrKey.amount='投保'
+								}
+							}
+							arrKey.caption=arrKey.amount
+						})
+					};
+					if(key=='mainInsure'){
+						safeDetailsStr+='<tr class="null"><td></td><td></td><td></td></tr>'
+									   +'<tr class="safeTitle"><td>基本险</td><td></td><td></td></tr>'
+					    val.forEach(function(arrKey,i){
+					    	safeDetailsStr+='<tr class="safeDetail">'
+								    	   +'<td class="safeDetail-title">'+arrKey.name+'：</td>'
+								    	   +'<td class="safeDetail-item">'+arrKey.caption+'</td>'
+								    	   +'<td class="safeDetail-price">'+arrKey.charge+'</td>'
+								    	   +'</tr>'
+					    })
+					}else if(key=='extraInsure'){
+						safeDetailsStr+='<tr class="null"><td></td><td></td><td></td></tr>'
+									   +'<tr class="safeTitle"><td>附加险</td><td></td><td></td></tr>'
+					    val.forEach(function(arrKey,i){
+					    	safeDetailsStr+='<tr class="safeDetail">'
+								    	   +'<td class="safeDetail-title">'+arrKey.name+'：</td>'
+								    	   +'<td class="safeDetail-item">'+arrKey.caption+'</td>'
+								    	   +'<td class="safeDetail-price">'+arrKey.charge+'</td>'
+								    	   +'</tr>'
+					    })
+					}else if(key=='ncfInsure'){
+						safeDetailsStr+='<tr class="null"><td></td><td></td><td></td></tr>'
+									   +'<tr class="safeTitle"><td>不计免赔险</td><td></td><td></td></tr>'
+					    val.forEach(function(arrKey,i){
+					    	safeDetailsStr+='<tr class="safeDetail">'
+								    	   +'<td class="safeDetail-title">'+arrKey.name+'：</td>'
+								    	   +'<td class="safeDetail-item">'+arrKey.caption+'</td>'
+								    	   +'<td class="safeDetail-price">'+arrKey.charge+'</td>'
+								    	   +'</tr>'
+					    })
+					}else if(key=='vehicleInsure'){
+						safeDetailsStr+='<tr class="null"><td></td><td></td><td></td></tr>'
+					    val.forEach(function(arrKey,i){
+					    	safeDetailsStr+='<tr class="safeDetail lastSafeDetail">'
+								    	   +'<td class="safeDetail-title lastSafe">'+arrKey.name+'</td>'
+								    	   +'<td></td>'
+								    	   +'<td class="safeDetail-price">'+arrKey.charge+'</td>'
+								    	   +'</tr>'
+					    })
+					}
+				});
+				$('tbody').html(safeDetailsStr);
+				$('tfoot td.totalMoney-right').html('￥ '+data.totalCharge)
+			}
+		});
+
+		/*$('span.btnOne').unbind('click').bind('click',function(){
+			window.location.href="/yangchebao-pubweb/baoxian/checkInfo.html?customerId="+paramJson.customerId+'&userId='+paramJson.userId+'&sqid='+paramJson.sqid+'&name='+paramJson.name+'&privilegeCharge='+paramJson.privilegeCharge
+		});*/
+		$('span.btnTwo').unbind('click').bind('click',function(){
+			if(paramJson.payUrl){
+				window.location.href=paramJson.payUrl
+			}
+		})
+	})
+</script>
+</html>

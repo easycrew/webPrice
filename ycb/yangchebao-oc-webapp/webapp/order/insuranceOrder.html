@@ -1,0 +1,433 @@
+<div class="urlContentWraper" id="Wraper_insuranceClaims_order"> 
+	<div class="row-fluid ui-data-show"> 
+		<div class="hDiv">
+			 <h2 class="ui-tit"><strong>保险理赔单</strong><bottom class="all-work-info numb510">页面说明</bottom></h2>
+			 <table id="Table_insuranceClaims_order"></table>
+		</div>
+    </div> 
+	
+    <div id="Form_insuranceClaims_order" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+		    <input name="shroffAccountId" type="hidden">  
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>理赔员手机号：</label>
+				<div class="span5 grid-layout-content">
+					<div name="operatorMobile" class="jrad-input-container"></div> 
+				</div>
+			</div> 
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>客户手机号：</label>
+				<div class="span5 grid-layout-content">
+					<div name="userMobile" class="jrad-input-container"></div> 
+				</div>
+			</div> 
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>客户姓名：</label>
+				<div class="span5 grid-layout-content">
+					<div name="userName" class="jrad-input-container"></div> 
+				</div>
+			</div> 
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>维修厂ID：</label>
+				<div class="span5 grid-layout-content">
+					<div name="factoryId" class="jrad-input-container"></div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>维修零件费/元：</label>
+				<div class="span5 grid-layout-content">
+					<div name="partsPrice" class="jrad-input-container"></div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>维修工时费/元：</label>
+				<div class="span5 grid-layout-content">
+					<div name="workPrice" class="jrad-input-container"></div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label"><span class="ui-form-required">*</span>订单状态：</label>
+				<div class="span5 grid-layout-content">
+					<div name="status" class="jrad-select-container"></div> 
+				</div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+
+    <div id="Form_order_detail" style="display:none;">
+      <div class="grid-layout-main jrad-form">
+        <table id="Table_orderdetail">
+            <tr>
+                <th style="width:150px;">状态</th>
+                <th style="width:150px;">时间</th>
+                <th>操作人</th>
+            </tr>
+        </table>
+      </div>
+    </div>
+
+    <div id="Form_explain_eg510" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>永安理赔功能的订单列表。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_insuranceClaims_order');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+	var fields_params = {};  
+	fields_params['status'] = {data:[{id:"1",name:"待确认"},{id:"2",name:"维修中"},{id:"3",name:"已付款"},{id:"4",name:"删除"}]};
+
+    $('#Form_order_detail').form({
+        title: '操作日志', 
+        grid:32,
+        fluid: true,
+        autobinding:true  
+    });
+	page_column_model.push({display: '理赔员匹配Id', name : 'claimOrderId',hidden:true}); 
+    page_column_model.push({display: '理赔单号', name : 'orderNumber'}); 
+    page_column_model.push({display: '客户手机号', name : 'userMobile'}); 
+    page_column_model.push({display: '客户姓名', name : 'userName',hidden:true}); 
+    page_column_model.push({display: '城市', name : 'city',hidden:true}); 
+    page_column_model.push({display: '保险公司', name : 'companyName',sortable:true,hidden:true}); 
+    page_column_model.push({display: '理赔员手机号', name : 'operatorMobile',sortable:true}); 
+    page_column_model.push({display: '理赔员姓名', name : 'operatorName',sortable:true,hidden:true});
+    page_column_model.push({display: '维修厂简称', name : 'businessRegName'}); 
+    page_column_model.push({display: '零件费/元', name : 'partsPrice',width:150,hidden:true,align:'center'});  
+    page_column_model.push({display: '工时费/元', name : 'workPrice',width:150,hidden:true,align:'center'});  
+    page_column_model.push({display: '维修合计费/元', name : 'sumPrice',width:150,align:'center'});  
+    page_column_model.push({display: '理赔员提成/元', name : 'claimsRebate',hidden:true,width:150,align:'center'}); 
+    page_column_model.push({display: '客户返利/元', name : 'userRebate',width:150,hidden:true,align:'center'});  
+    page_column_model.push({display: '养车宝提成/元', name : 'ycbRebate',hidden:true,width:150,align:'center'});  
+    page_column_model.push({display: '商家结算金额/元', name : 'clearingPrice',align:'center'}); 
+    page_column_model.push({display: '订单状态', name : 'statusName'}); 
+    page_column_model.push({display: '最后变动时间', name : 'updateDate'}); 
+    page_column_model.push({display: '操作日志',align:'center',hidden:true,diy:function(item,$div){
+        $div.html("<a href='javascript:' class='order_detail'>点击查看</a>").css('text-align','center');
+        $('.order_detail',$div).unbind('click').bind('click',function(){
+            $.jRadGet({
+                url:'/shopmanage-ws/ws/0.1/claimOrder/getOrderHistory?claimOrderId='+item.claimOrderId,
+                success:function(data){
+                    $("#Form_order_detail").form({
+                        title:"操作日志",
+                        success_callback:function(){
+                            $('#Table_insuranceClaims_order').flexReload();
+                        }
+                    }).form('open');
+                    var tr_len=$("#Table_orderdetail",wraper).find("tr").length;
+                    for(cur=0;cur<tr_len;cur++){
+                      if(cur!==0){
+                        $("#Table_orderdetail",wraper).find("tr").eq(cur).hide();
+                      }
+                    };
+                    var str="";
+                    $.each(data,function(i){
+                        var _item=data[i];
+                        str+="<tr>"
+                            +"<td>"+_item.statusChange+"</td>"
+                            +"<td>"+_item.createDate+"</td>"
+                            +"<td>"+_item.operator+"</td>"
+                            +"</tr>";
+                    });
+                    $("#Table_orderdetail",wraper).append(str);
+                },
+                error:function(xhr){
+                    var errormsg = eval("(" + xhr.responseText + ")"); 
+                    if (errormsg != undefined) {
+                        $('#Table_insuranceClaims_order').flexMessage(errormsg[0].message, 'error');
+                    } 
+                }
+            })
+        })
+    }});
+    page_search_items.push({row:'1',type:'jrad-input',display:'理赔单号',name:'orderNumber'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'客户手机号',name:'userMobile'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'城市',name:'city'});     
+    page_search_items.push({row:'2',type:'jrad-select',display:'保险公司',name:'companyName',params:{
+        data:[{id:" ",name:"全部"},{id:"1",name:"永安保险"}]}
+    });   
+    page_search_items.push({row:'2',type:'jrad-input',display:'理赔员手机号',name:'operatorMobile'}) 
+    page_search_items.push({row:'2',type:'jrad-input',display:'理赔员姓名',name:'operatorName'})
+    page_search_items.push({row:'3',type:'jrad-input',display:'维修厂简称',name:'businessRegName'})
+    page_search_items.push({row:'3',type:'jrad-select',display:'订单状态',name:'status',params:{
+		data:[{id:" ",name:"全部"},{id:"1",name:"待确认"},{id:"2",name:"维修中"},{id:"3",name:"已付款"},{id:"4",name:"删除"}]}
+	});  
+    page_search_items.push({row:'4',type:'jrad-dateinput',display:'最后变动时间始',name:'startDate'});
+    page_search_items.push({row:'4',type:'jrad-dateinput',display:'最后变动时间终',name:'endDate'});
+
+    page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',
+    	onpress : function(){ 
+			$('#Form_insuranceClaims_order').form({
+                title: '创建',
+                item:{},
+				fields_params:fields_params,
+               	url:'/shopmanage-ws/ws/0.1/claimOrder/addClaimOrder',
+				before_submit:function(json){
+                    json.operator = carsmart_config.operatorName;
+					return json
+				},				
+				success_callback:function(){ 
+                    $('#Table_insuranceClaims_order').flexMessage('添加成功', 'success');
+                    $('#Table_insuranceClaims_order').flexReload();
+                } 
+            }).form('open');  
+            $('#Form_insuranceClaims_order div[name="operatorMobile"]').input('readonly',false);
+        }
+    }); 
+	page_list_buttons.push({title: '修改',name:'edit', bclass: 'edit',
+        prefunc:function(){
+            var checked = $('#Table_insuranceClaims_order').getCheckedTrs();
+            if (checked.length != 1 || checked[0].status == 3) {return false;}else{return true;}
+        },
+    	onpress : function(){ 
+            var checked = $('#Table_insuranceClaims_order').getCheckedTrs();
+            
+			$('#Form_insuranceClaims_order').form({
+                title: '修改',
+                item:{
+                    operatorMobile:checked[0].operatorMobile,
+                    userMobile:checked[0].userMobile,
+                    userName:checked[0].userName,
+                    factoryId:checked[0].businessInfoId,
+                    partsPrice:checked[0].partsPrice,
+                    workPrice:checked[0].workPrice,
+                    status:checked[0].status
+                }, 
+				fields_params:fields_params,
+               	url:'/shopmanage-ws/ws/0.1/claimOrder/updateClaimOrder',
+				before_submit:function(json){
+                    var checked = $('#Table_insuranceClaims_order').getCheckedTrs();
+                    json.claimsOrderId = checked[0].claimOrderId; 
+                    json.operator = carsmart_config.operatorName;
+					return json
+				},				
+				success_callback:function(){ 
+                    $('#Table_insuranceClaims_order').flexMessage('添加成功', 'success');
+                    $('#Table_insuranceClaims_order').flexReload();
+                } 
+            }).form('open'); 
+            $('#Form_insuranceClaims_order div[name="operatorMobile"]').input('readonly',true);
+        }
+    });
+	page_list_buttons.push({title: '删除',name:'delete', bclass: 'delete',
+        prefunc:function(){
+            var checked = $('#Table_insuranceClaims_order').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },
+    	onpress : function(){ 
+            var checked = $('#Table_insuranceClaims_order').getCheckedTrs();
+            var postData={};
+            postData.claimsOrderId=checked[0].claimOrderId;
+            postData.operator=carsmart_config.operatorName;
+			$.jRadConfirm('确认删除吗？',1,function(){
+                var checked = $('#Table_insuranceClaims_order').getCheckedTrs();
+                $.jRadPost({  
+                    url:'/shopmanage-ws/ws/0.1/claimOrder/deleteClaimOrder',
+                    data:postData, 
+                    success: function(data){ 
+                        $('#Table_insuranceClaims_order').flexMessage('删除成功!', 'success');
+                        $('#Table_insuranceClaims_order').flexReload();
+                    },
+                    error:function(xhr){ 
+                        var errormsg = eval("(" + xhr.responseText + ")"); 
+                        if (errormsg != undefined) {
+                            $('#Table_insuranceClaims_order').flexMessage(errormsg[0].message, 'error');
+                        }
+                    }
+                });
+            });   
+        }
+    }); 
+
+    function excelplus(){
+        var param = {};
+            var orderNumber = $.trim($(".searchContent div[name='orderNumber']",wraper).input('val'));
+            if(orderNumber!=""){
+                param['orderNumber'] = orderNumber;
+            };
+            var companyName = $.trim($(".searchContent div[name='companyName']",wraper).select('val'));
+            if(companyName!=""){
+                param['companyName'] = companyName;
+            }; 
+            var userMobile = $.trim($(".searchContent div[name='userMobile']",wraper).input('val'));
+            if(userMobile!=""){
+                param['userMobile'] = userMobile;
+            };
+            var operatorName = $.trim($(".searchContent div[name='operatorName']",wraper).input('val'));
+            if(operatorName!=""){
+                param['operatorName'] = operatorName;
+            };
+            var operatorMobile = $.trim($(".searchContent div[name='operatorMobile']",wraper).input('val'));
+            if(operatorMobile!=""){
+                param['operatorMobile'] = operatorMobile;
+            };
+            var city = $.trim($(".searchContent div[name='city']",wraper).input('val'));
+            if(city!=""){
+                param['city'] = city;
+            };
+            var businessRegName = $.trim($(".searchContent div[name='businessRegName']",wraper).input('val'));
+            if(businessRegName!=""){
+                param['businessRegName'] = businessRegName;
+            };
+            var status = $.trim($(".searchContent div[name='status']",wraper).select('val'));
+            if(status!=""){
+                param['status'] = status;
+            };
+            var startDate = $.trim($(".searchContent div[name='startDate']",wraper).dateinput('val'));
+            if(startDate!=""){
+                param['startDate'] = startDate;
+            };
+            var endDate = $.trim($(".searchContent div[name='endDate']",wraper).dateinput('val'));
+            if(endDate!=""){
+                param['endDate'] = endDate;
+            };
+            var paramUrl = "";
+            if(param!={}){   
+                paramUrl+="?"
+                $.each(param,function(k,v){ 
+                    paramUrl+="&"+k+"="+v; 
+                });
+            }
+        param['paramUrl'] = paramUrl;
+        return param;
+    }
+
+    page_list_buttons.push({displayname: '导出EXCEL',name:'excel', bclass: 'excel',
+        onpress : function(){ 
+            $.jRadConfirm('确认导出吗？',1,function(){
+                var paramUrl = excelplus().paramUrl;
+                window.open('/shopmanage-ws/ws/0.1/claimOrder/exportClaimOrderList'+paramUrl);
+            }); 
+        }
+    });
+
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_insuranceClaims_order').flexigrid({
+        reload:true,
+		method:'get',
+        colModel : page_column_model,
+        buttons : page_list_buttons,
+        searchitems :page_search_items,
+        pagination: {
+			diaplay_pages: 5,
+			align: 'bottom' 
+		},
+		showSearch:true, 
+        filter: true,
+        url:'/shopmanage-ws/ws/0.1/claimOrder/getClaimOrderList', 
+		onError:showError,
+        overflow:true,
+		checkBoxType:'single'
+    }); 
+
+    var total=$.jRadGet({url:'/shopmanage-ws/ws/0.1/claimOrder/getTotalOrderFee'});
+    if(total !='' && total !='undefined'){
+            $('.hDivBox:eq(0) th:eq(10)',wraper).html('<div>'+'零件费/元<br>（合计'+total.sumPartsPrice+'元）'+'</div>').attr("style","text-align:center");
+            $('.hDivBox:eq(0) th:eq(11)',wraper).html('<div>'+'工时费/元<br>（合计'+total.sumWorkPrice+'元）'+'</div>').attr("style","text-align:center");
+            $('.hDivBox:eq(0) th:eq(12)',wraper).html('<div>'+'维修费合计/元<br>（合计'+total.sumRepairPrice+'元）'+'</div>').attr("style","text-align:center");
+            $('.hDivBox:eq(0) th:eq(13)',wraper).html('<div>'+'理赔员提成/元<br>（合计'+total.sumClaimsRebate+'元）'+'</div>').attr("style","text-align:center");
+            $('.hDivBox:eq(0) th:eq(14)',wraper).html('<div>'+'客户返利/元<br>（合计'+total.sumUserRebate+'元）'+'</div>').attr("style","text-align:center");
+            $('.hDivBox:eq(0) th:eq(15)',wraper).html('<div>'+'养车宝提成/元<br>（合计'+total.sumYcbRebate+'元）'+'</div>').attr("style","text-align:center");
+            $('.hDivBox:eq(0) th:eq(16)',wraper).html('<div>'+'商家结算金额/元<br>（合计'+total.sumClearingPrice+'元）'+'</div>').attr("style","text-align:center");
+       
+    }else{
+        $('.hDivBox:eq(0) th:eq(10)',wraper).html('零件费/元');
+        $('.hDivBox:eq(0) th:eq(11)',wraper).html('工时费/元');
+        $('.hDivBox:eq(0) th:eq(12)',wraper).html('维修费合计/元');
+        $('.hDivBox:eq(0) th:eq(13)',wraper).html('理赔员提成/元');
+        $('.hDivBox:eq(0) th:eq(14)',wraper).html('客户返利/元');
+        $('.hDivBox:eq(0) th:eq(15)',wraper).html('养车宝提成/元');
+        $('.hDivBox:eq(0) th:eq(16)',wraper).html('商家结算金额/元');
+    }
+    
+
+    $('.ui-btn-icon:first',wraper).click(function(){
+        var param = excelplus();
+        var total2=$.jRadGet({url:'/shopmanage-ws/ws/0.1/claimOrder/getTotalOrderFee'+param.paramUrl});
+        if(total2 !=''&&total2 !='undefined'){
+                $('.hDivBox:eq(0) th:eq(10)',wraper).html('<div>'+'零件费/元<br>（合计'+total2.sumPartsPrice+'元）'+'</div>').attr("style","text-align:center");
+                $('.hDivBox:eq(0) th:eq(11)',wraper).html('<div>'+'工时费/元<br>（合计'+total2.sumWorkPrice+'元）'+'</div>').attr("style","text-align:center");
+                $('.hDivBox:eq(0) th:eq(12)',wraper).html('<div>'+'维修费合计/元<br>（合计'+total2.sumRepairPrice+'元）'+'</div>').attr("style","text-align:center");
+                $('.hDivBox:eq(0) th:eq(13)',wraper).html('<div>'+'理赔员提成/元<br>（合计'+total2.sumClaimsRebate+'元）'+'</div>').attr("style","text-align:center");
+                $('.hDivBox:eq(0) th:eq(14)',wraper).html('<div>'+'客户返利/元<br>（合计'+total2.sumUserRebate+'元）'+'</div>').attr("style","text-align:center");
+                $('.hDivBox:eq(0) th:eq(15)',wraper).html('<div>'+'养车宝提成/元<br>（合计'+total2.sumYcbRebate+'元）'+'</div>').attr("style","text-align:center");
+                $('.hDivBox:eq(0) th:eq(16)',wraper).html('<div>'+'商家结算金额/元<br>（合计'+total2.sumClearingPrice+'元）'+'</div>').attr("style","text-align:center");
+        }else{
+            $('.hDivBox:eq(0) th:eq(10)',wraper).html('零件费/元');
+            $('.hDivBox:eq(0) th:eq(11)',wraper).html('工时费/元');
+            $('.hDivBox:eq(0) th:eq(12)',wraper).html('维修费合计/元');
+            $('.hDivBox:eq(0) th:eq(13)',wraper).html('理赔员提成/元');
+            $('.hDivBox:eq(0) th:eq(14)',wraper).html('客户返利/元');
+            $('.hDivBox:eq(0) th:eq(15)',wraper).html('养车宝提成/元');
+            $('.hDivBox:eq(0) th:eq(16)',wraper).html('商家结算金额/元');
+        }
+    });
+    $(".numb510").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg510").form({}).form('close');
+        $("#Form_explain_eg510").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg510 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg510").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg510").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg510 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+function showError(xhr){
+    var errormsg = eval("(" + xhr.responseText + ")"); 
+    $.jRadMessage({level:'error',message:errormsg[0].message});
+} 
+</script>

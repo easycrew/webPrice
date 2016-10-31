@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta name="format-detection" content="telephone=no" />
+<link href="css/query.css" rel="stylesheet" type="text/css" />
+<title>车险报价</title>
+</head>  
+<body>
+  <section>
+  <article class="price-wrap">
+  	<h1><span id="sponsorNickname"></span>在养车宝查询的爱车报价：<span class="btn" id="queryBtn">重新查询</span></h1> 
+  	<p><label>保险公司报价：&nbsp;&nbsp;</label><span class="price" id="marketAmount"></span></p>
+  	<p><label>养车宝报价：&nbsp;&nbsp;&nbsp;&nbsp;</label>
+  	   <span class="price org autoInsurancequote"></span>
+  	   <span class="org">保险公司报价85折</span>
+  	</p>
+  	<p><label>好友助战还能减：</label><span class="price org" id="restAmout"></span>
+	<span class="org">商业险部分<strong class="autoInsurancequote">2000</strong>×10%</span>
+  	</p> 
+  </article> 
+  <article class="play-wrap"> 
+  	<p class="sharetxt">分享给好友帮我砍保费吧！<br/> 每个好友助战可减少1-36元保费！ <br/>最多可减免商业险保费金额的10 ％！</p>
+  	<h1 class="sharetxt2">数量有限，先到先得！</h1>
+  	<div class="y-btn" id="share">分享好友砍保费</div>
+  	<p class="info">已获得 <span id="friendNum">4</span> 位好友帮助，共减免 <span id="assistInCash"></span> 元！</p>  
+	<ul class="list">
+	   <!-- <li><div class="left"><img src="images/head.jpg"></div>
+	   <p><span>橘子 </span>十世行善 人品冲天，<br> <span>摇出6×6点，</span><br> 助苹果获得<span>36元</span>优惠！</p> --> 
+	</ul>
+	<a href="javascript:void(0);" class="download-btn"><div class="btn">下载养车宝购买车险</div></a>
+  </article>  
+</section>
+<div class="sharecover" style="display: none;">
+ <span>点击这里分享朋友圈</span>
+</div>
+<script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script>  
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>  
+<script type="text/javascript" src="js/commen.js"></script>  
+<script type="text/javascript"> 
+   var paramJson = {},pageindex = 0;
+   $(document).ready(function(){ 
+      try{
+        var phoneWidth = parseInt(window.screen.width);
+        var phoneHeight = parseInt(window.screen.height); 
+        var phoneScale = phoneWidth / 640;
+        var ua = navigator.userAgent;
+        var sUserAgent = ua.toLowerCase(); 
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os"; 
+        if (/Android (\d+\.\d+)/.test(ua)) {
+            var version = parseFloat(RegExp.$1);
+            // andriod 2.3
+                $('[name="viewport"]').attr('content', 'width=640, initial-scale=' + phoneScale + ', minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi');
+            if (version >= 2.3) {
+                // andriod 2.3以上
+            } else {
+                $('[name="viewport"]').attr('content', 'width=640, initial-scale= 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable=no, target-densitydpi=device-dpi');
+            }
+        // 其他系统
+        } else if(bIsIpad || bIsIphoneOs || bIsIphone){   
+            var otherW = phoneWidth*2;
+            $(".content-wrap").css({
+                'width':otherW,
+                'min-width':otherW,
+                'min-width':otherW,
+                'margin-left': -phoneWidth
+            });
+            $('[name="viewport"]').attr('content', 'width='+otherW+', initial-scale= 0.5, minimum-scale = 0.5, maximum-scale = 0.5, user-scalable=no, target-densitydpi=device-dpi'); 
+        }else{
+             $('[name="viewport"]').attr('content', 'width=640, initial-scale= 0.5, minimum-scale = 0.5, maximum-scale = 0.5, user-scalable=no, target-densitydpi=device-dpi');
+        }
+       }catch(e){}
+
+		var url =window.location.search;  
+		if(url!=undefined&&url!=""){
+		var paramsArr = (url.split("?")[1]).split("&"); 
+		$.each(paramsArr,function(i){
+		var item = paramsArr[i].split("=");
+		paramJson[item[0]] = item[1];
+		});    
+		} 
+		$("#share").click(function(){
+			$(".sharecover").show(); 
+		}); 
+		$('.sharecover').click(function(e){
+		    $(".sharecover").hide(); 
+		}); 
+		$("#queryBtn").click(function(){
+			window.location.href = "index.html?openid="+paramJson.openid+"&edit=edit";
+		});
+		getList(); 
+		getShareInfo();
+        is_weixin();
+});
+ function getList(){  
+      $.ajax({
+          url: '/yangchebao-weixin-ws/ws/0.1/qunabao/getResult?openid='+paramJson.openid+'&pagesize=10&pageindex='+pageindex+"&"+(new Date()).getTime(),
+          type: 'get', 
+          async:false,
+          dataType: 'json',
+          success: function(data) {  
+          	$("#marketAmount").html("￥"+data.marketAmount);
+          	$(".autoInsurancequote").html("￥"+data.autoInsurancequote);
+          	$("#restAmout").html("￥"+data.restAmout);
+          	var assistInList = data.assistInList;
+          	$("#friendNum").html(assistInList.totalCount);
+          	$("#assistInCash").html(data.assistInCash);  
+          	$("#sponsorNickname").html(data.sponsorNickname);  
+			document.title = data.sponsorNickname+"车险报价";
+		    if((pageindex+1)<assistInList.totalPages){
+				$(".tip").show();
+			} else{
+				$(".tip").hide();
+			} 
+			pageindex++;  	
+            var items = assistInList.items; 
+            $.each(items,function(i){
+              var item  = items[i];   
+              var desc = getDesc(item.cash);
+              var _li = '<li><div class="left"><img src="'+item.friendHeadImgUrl+'"></div>'
+						+'<p><span>'+item.friendNickname+'</span>'+desc+'<br> <span>摇出'+item.remark+'点，</span><br>'
+						+'助'+item.sponsorNickname+'获得<span>'+item.cash+'元</span>优惠！</p>'; 
+              $(".list").append(_li);
+            }); 
+          },error:function(xhr){  
+		      var mes = eval('('+xhr.responseText+')'); 
+		      alertTasat(mes[0].message);
+          }
+      });  
+ }   
+ function getShareInfo(){  
+ 	 //channel	1,查询车险报价页面；2，获取助战结果页面
+      $.ajax({
+          url: '/yangchebao-weixin-ws/ws/0.1/qunabao/genShareUrl?channel=2&sponsorId='+paramJson.openid+'&'+(new Date()).getTime(),
+          type: 'get', 
+          async:false,
+          dataType: 'json',
+          success: function(data) {   
+			share(data);
+          },error:function(xhr){  
+		      var mes = eval('('+xhr.responseText+')'); 
+		      alertTasat(mes[0].message);
+          }
+      });  
+ }  
+function  is_weixin(){
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i)=="micromessenger") {
+			$('.download-btn').attr('href','http://a.app.qq.com/o/simple.jsp?pkgname=com.carsmart.emaintain');
+		}else{
+			var sUserAgent = navigator.userAgent.toLowerCase(); 
+			var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+			var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+			var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+			var bIsAndroid = sUserAgent.match(/android/i) == "android"; 
+			if(bIsIpad || bIsIphone || bIsIphoneOs){
+				$('.download-btn').attr('href','https://itunes.apple.com/us/app/yang-che-bao/id736543893');
+				window.location.href = "https://itunes.apple.com/us/app/yang-che-bao/id736543893"; 
+			}else{   
+			$('.download-btn').attr('href','http://yangchebao.com.cn/website-ws/ws/0.1/app/download');
+			}
+		}
+	}   
+ 
+</script>  
+</body>
+</html>

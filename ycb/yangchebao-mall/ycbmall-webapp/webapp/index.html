@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <jsp:include page="properties.jsp"></jsp:include> -->
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="养车宝，配件商城">
+	<meta name="description" content="养车宝配件商城，100%原厂品质，3M、威固、美孚、壳牌Ahell、普利司通、米其林等汽车配件，厂价直销！">
+	<title>全网正品汽车配件_养车宝配件商城！</title>
+	<link rel="icon" href="favicon.ico">
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script src="js/md5.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/jquery.urlParam.js"></script>
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script><!--根据IP地址获取当前所在地城市-->
+	<link rel="stylesheet" type="text/css" href="css/swiper-2.0.css"/>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+	<div class="login"></div>
+	<div class="container">
+		<div class="top"></div>
+		<div class="main">
+			<div class="mainCommen"></div>
+			<div class="banner device">
+				<div class="swiper-container swiper1">
+					<div class="swiper-wrapper" id="mySwipe">
+						<!--<div class="swiper-slide">
+							<a><img src="" class="img-responsive" alt="养车宝配件商城" title="养车宝配件商城" width="1200" height="295"/> </a>
+						</div>-->
+					</div>
+					<div class="pagination"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+			<div class="weekLimit">
+				<div class="weekLimit_top">
+					<div class="weekLimit_title"><h2><span class="left_line"></span><span class="weekLimit_text">超值限量购</span><span class="right_line"></span></h2></div>
+					<!--<div class="weekLimit_date"><span>11.18-12.18</span></div>-->
+				</div>
+				<div class="weekLimit_con">
+					<ul>
+
+					</ul>
+				</div>
+			</div>
+			<div class="toOnline">
+				<div class="toOnline_top">
+					<div class="toOnline_title"><h2><span class="left_line left_line2"></span><span class="toOnline_text">热卖商品</span><span class="right_line right_line2"></span></h2></div>
+				</div>
+				<div class="toOnline_con">
+					<ul>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer"></div>
+	</div>
+</body>
+<script src="js/swiper-2.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".banner").on('selectstart',function(){return false;})
+		$('div.top').load('top.html');
+		$('div.mainCommen').load('searchAndNav.html');
+		$('div.footer').load('footer.html');
+		var username=mall.getCookie('username');
+		var customerId=mall.getCookie('customerId');
+		var areaCodeId=mall.getCookie('areaCodeId');
+		var areaCodeName=mall.getCookie('areaCodeName');
+		var postData={};
+		postData.location=2;
+		postData.osInfo=5;
+		if(areaCodeId){
+			postData.areaCodeId=areaCodeId;
+		}
+		var length=0;
+		$.ajax({
+			type:"get",
+			url:mall.url('/advertising/getAdvertisings'),
+			async:false,
+			data:postData,
+			dataType:'json',
+			contentType:'application/json;charset="utf-8"',
+			success:function(data){
+				length=data.length;
+				var str="";
+				$.each(data, function() {
+					str+='<div class="swiper-slide">'
+					if(this.turnToUrl!=''){
+						str+='<a href="'+this.turnToUrl+'" target="_blank"><img src="'+this.adPicAddress+'" class="img-responsive" alt="养车宝配件商城" title="养车宝配件商城" width="1200" height="295"/></a>'
+					}else{
+						str+='<a><img src="'+this.adPicAddress+'" class="img-responsive" alt="养车宝配件商城" title="养车宝配件商城" width="1200" height="295"/></a>'
+					}
+					str+='</div>';
+				});
+				$("#mySwipe").html(str);
+				if(length==1){
+					var myswiper = new Swiper('.swiper1', {});
+					//$(".swiper-button-prev,.swiper-button-next").removeClass();
+				}else{
+					var myswiper1 = new Swiper('.swiper1', {
+				        autoplay: 5000,
+				        pagination: '.pagination',
+				        loop:true,
+				        paginationClickable: true,
+				        grabCursor: true
+				    });
+				    $('.swiper-button-prev').on('click', function(e){
+					    e.preventDefault();
+					    myswiper1.swipePrev();
+				  	});
+				  	$('.swiper-button-next').on('click', function(e){
+					    e.preventDefault();
+					    myswiper1.swipeNext();
+				  	})
+				}
+				$(".banner").mouseover(function(){
+					$(".swiper-button-prev,.swiper-button-next").show();
+				}).mouseout(function(){
+					$(".swiper-button-prev,.swiper-button-next").hide();
+				});
+			}
+		});
+		loadGoodsList(0);
+		function loadGoodsList(page){
+			var pageParams={};
+			//$("div.pagination").hide();
+			pageParams.pageindex=page;
+			pageParams.pagesize=40;
+
+			if(areaCodeId==null){}else{
+				pageParams.areaCodeId=areaCodeId;
+			}
+			if(customerId==null){
+				pageParams.isShowUnavailable=1;
+			}else{
+				pageParams.userInfoId=customerId;
+				pageParams.isShowUnavailable=0;
+			}
+			$.get(mall.url('/limitedPurchasing/queryLimitedPurchasings'),pageParams,function(data){
+				if(data){
+					var items=data.items;
+					var goodsStr='';
+					var hotGoodsStr='';
+					if(data.totalCount!=0){
+						$.each(items,function(i){
+							if(i<=9){
+								var item_name=this.name;
+								goodsStr+='<li class="limit_firstGood">'
+										 +'<div class="limitGood"><a href="goodsDetail.html?commodityId='+this.commodityId+'&skuId='+this.skuId+'" target="_blank"><img src="'+this.picUrl+'" alt="'+this.name+'_养车宝" title="'+this.name+'_养车宝"></a></div>'
+										 +'<div class="limitGood_detail">'
+										 +'<div class="limitGood_num"><img src="img/alarm.png"><span class="limitGood_limitNum">限量 '+this.limitNum+''+this.salesUnit+'</span><span class="limitGood_remainNum">剩余 '+this.canSellNum+''+this.salesUnit+'</span></div>'
+										 +'<h2 class="limitGood_name"><a href="goodsDetail.html?commodityId='+this.commodityId+'&skuId='+this.skuId+'" target="_blank">'+this.limitedPurchasingName+'</a></h2>'
+										 +'<p class="limitGood_recommand">'+this.introduce+'</p>'
+										 +'<div class="limitGood_buy">'
+										 +'<label>特卖价: ￥</label>'
+										if(document.cookie.indexOf('customerId=')!=-1){
+											goodsStr+='<span class="limitGood_price ">'+this.sellingPrice+'</span>'
+										}else{
+											goodsStr+='<span class="limitGood_price limitGood_price_change">登录后查看优惠</span>'
+										}
+								goodsStr+='<a class="limitGood_shop" href="goodsDetail.html?commodityId='+this.commodityId+'&skuId='+this.skuId+'" target=" _blank">立即购买</a>'
+										 +'</div>'
+										 +'<div class="liRight_bottom">'
+										 +'<ul class="liRight_bottomUl">'
+										 +'<li class="mallPrice"><span class="mallGray Gray">市场价</span><br><span class="mallPrice Price">￥'+this.marketPrice+'</span></li>'
+										 +'<li><span class="discountGray Gray">折扣</span>'
+										if(document.cookie.indexOf('customerId=')!=-1){
+											goodsStr+='<br><span class="discountPrice Price">'+this.discount+'折</span>'
+										}else{
+											goodsStr+='<br><span class="discountPrice Price">10折</span>'
+										}
+								goodsStr+='</li>'
+										 +'</ul>'
+										 //+'<p class="buyPerson"><img src="img/yellowHart.png"><span class="buyPersonNum">50</span>人 已购买</p>'
+										 +'</div>'
+										 +'</div>'
+										 +'</li>'
+							}else{
+								hotGoodsStr+='<li>'
+										+'<a href="goodsDetail.html?commodityId='+this.commodityId+'&skuId='+this.skuId+'" target="_blank">'
+										+'<p class="goos_img2"><img src="'+this.picUrl+'" alt="'+this.name+'_养车宝" title="'+this.name+'_养车宝" width="265" height="265"></p>'
+										+'<p class="toOnline_goodsName">'+this.limitedPurchasingName+'</p>'
+										//+'<p class="toOnline_goodsSKU">'+this.introduce+'</p>'
+										+'<p class="toOnline_stockGoods"><span class="delMallPrice">市场价：￥'+this.marketPrice+'</span><span class="stockGoods">库存：'+this.canSellNum+'件</span></p>'
+										+'</a>'
+										+'<p class="toOnline_buy">'
+										if(document.cookie.indexOf('customerId=')!=-1){
+											hotGoodsStr+='<span class="toOnline_price">￥'+this.sellingPrice+'</span>'
+										}else{
+											hotGoodsStr+='<span class="toOnline_price toOnline_price_change">登录后查看优惠</span>'
+										}
+								hotGoodsStr+='<a href="goodsDetail.html?commodityId='+this.commodityId+'&skuId='+this.skuId+'" target="_blank"><span class="smallShop_car"><img src="img/shopCar_small.png"></span></a></p>'
+										+'</li>'
+							}
+						});
+						$('div.weekLimit_con ul').html(goodsStr);
+						$('div.toOnline_con ul').html(hotGoodsStr);
+
+					}else{
+
+					}
+				}
+			})
+		};
+
+		$('div.weekLimit_con ').on('click','li.limit_firstGood span.limitGood_price_change',function(){
+			$('div.Form-login').show();
+			$('div.login-dialog-overlay').show();
+			$('li.login a').html('请登录');
+			$('li.username p').html('');
+		})
+		$('div.toOnline_con ').on('click','li span.toOnline_price_change',function(){
+			$('div.Form-login').show();
+			$('div.login-dialog-overlay').show();
+			$('li.login a').html('请登录');
+			$('li.username p').html('');
+		})
+
+
+
+	})
+</script>
+
+</html>

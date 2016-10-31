@@ -1,0 +1,327 @@
+ <style>
+    #Form_contract_info div{
+        line-height: 24px;
+    }
+ </style>
+ <div class="urlContentWraper" id="Wraper_contract_manage">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>合同列表</strong><bottom class="all-work-info numb39">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_contract_manage"></table>
+		</div>
+    </div>
+    <div id="Form_contract_manage" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+	        <input type="hidden" name="businessContractId" />
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>合同编号：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="contractNumber" class="jrad-input-container"></div>
+						</div> 
+            </div>  
+			<div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>合同状态：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="auditStatus" class="jrad-select-container"></div>
+						</div> 
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label">备注：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="remark" class="jrad-textarea-container"></div>
+                                    </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_contract_info" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+	        <input type="hidden" name="businessContractId" />
+            <div class="row">
+                 <label class="span3 grid-layout-label">公司注册名称：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="businessName"></div>
+						</div> 
+            </div>  
+			<div class="row">
+                 <label class="span3 grid-layout-label">店铺地址：</label>
+                 <div class="span12 grid-layout-content">
+                       <div name="address"></div>
+						</div> 
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label">联系电话：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="mobile"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">合同类型：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="contractTypeName"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">佣金：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="commissionRate"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">账期：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="paymentPeriodName"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">申请年限：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="expirationYears"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">收款帐号信息：</label>
+                 <div class="span5 grid-layout-content" name="accountInfo">
+                       <div><span name="provinceName"></span><span name="areaCodeName" style="padding-left:12px;"></span></div>
+                       <div><span name="bankName"></span><span name="bankBranch" style="padding-left:12px;"></span></div>
+                       <div><span name="accountHolder"></span></div>
+                       <div><span name="bankAccount"></span></div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Form_explain_eg39" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>商家在线申请在线支付后，合同在此审核，审核通过后，此商家支持在线支付，结算比例为90%。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_contract_manage');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+    jRad.validators['contractNumber'] = [{"msg":"合同编号不能为空","type":"min","value":"1"},{msg:"合同编号只能是数字",type:'regex',value:/^[ ]*\d+[ ]*$/}];
+	jRad.validators['remark'] = [{"msg":"备注最多100字","type":"max","value":"100"}];
+    var fields_params = {};
+	fields_params['auditStatus'] = {data:[{id:'1',name:'审核中'},{id:'2',name:'审核通过'},{id:'3',name:'审核驳回'}]}; 
+    //省市区select值
+    jRad.params['provinceCodeSearch'] = {
+            urlData:{
+                url:'/euc/ws/0.1/user/provinces?userId='+carsmart_config.userId
+            },
+            unshiftData: {id:'',name:'请选择'},
+            onchange: function(){
+                var provinceCode = $('.searchContent div[name=provinceId]',wraper).select('val');
+                if(provinceCode==''){
+                    $('.searchContent div[name=areaCodeId]',wraper).select({
+                                                                urlData:{url:''},
+                                                                data:[{id:'',name:'请选择'}],
+                                                                val: ''});
+                }else{
+                $('.searchContent div[name=areaCodeId]',wraper).select({
+                    urlData:{
+                        url: '/euc/ws/0.1/user/cities?provinceId='+provinceCode+'&userId='+carsmart_config.userId
+                    },
+                    unshiftData: {id:'',name:'请选择'},
+                    val:''
+                });
+                } 
+                $('.searchContent div[name=countyId]',wraper).select({
+                                                                urlData:{url:''},
+                                                                data:[{id:'',name:'请选择'}],
+                                                                val: ''});
+            }
+        };
+    jRad.params['cityIdSearch'] = {
+        data: [{id:'',name:'请选择'}],
+        onchange: function(){
+            var cityId = $('.searchContent div[name=areaCodeId]',wraper).select('val');
+            if(cityId==''){
+                $('.searchContent div[name=countyId]',wraper).select({
+                                                                urlData:{url:''},
+                                                                data:[{id:'',name:'请选择'}],val: ''});
+            }else{
+                $('.searchContent div[name=countyId]',wraper).select({
+                    urlData:{
+                        url: '/shopmanage-ws/ws/0.1/userInfoCms/countries?areaCodeId=' + cityId
+                    },
+                    unshiftData: {id:'',name:'请选择'},
+                    val:''
+                });
+            }
+        }
+    };
+    
+    jRad.params['countyIdSearch'] = {
+            data: [{id:'',name:'请选择'}]
+        };   
+    $('#Form_contract_info',wraper).form({
+        title:'合同详情',
+        item:{}
+    });
+    page_column_model.push({display: 'ID', name : 'businessContractId'});
+    page_column_model.push({display: '合同编号', name : 'contractNumber'});
+    page_column_model.push({display: '商家ID', name : 'businessInfoId'});
+    page_column_model.push({display: '商家简称', name : 'businessRegName'});
+    page_column_model.push({display: '商家电话', name : 'mobile',diy:function(item,$div){
+        var _str=item.mobile;
+        var arrStr=_str.split(',');
+        $div.html(arrStr[0])
+    }}); 
+    page_column_model.push({display: '城市', name : 'areaName'});
+    page_column_model.push({display: '合同状态', name : 'auditStatusName'});
+	page_column_model.push({display: '提交时间', name : 'commitAuditTime'});
+	page_column_model.push({display: '最后操作时间', name : 'auditTime'});
+	page_column_model.push({display: '操作人', name : 'auditPerson'});
+	page_column_model.push({display: '合同基本信息', diy:function(item,$div){
+		var a=$('<a>').attr('href','javascript:').html('详情');
+		$div.append(a);
+		$('a',$div).unbind('click').bind('click',function(){
+			$('#Form_contract_info',wraper).form('open');
+            var contractDetail=$.jRadGet({url:'/shopmanage-ws/ws/0.1/businessContractCms/getBusinessContract?businessContractId='+item.businessContractId});
+            $('#Form_contract_info div[name="businessName"]',wraper).html(contractDetail.businessName);
+            $('#Form_contract_info div[name="address"]',wraper).html(contractDetail.address);
+            $('#Form_contract_info div[name="mobile"]',wraper).html(contractDetail.mobile);
+            $('#Form_contract_info div[name="contractTypeName"]',wraper).html(contractDetail.contractTypeName);
+            $('#Form_contract_info div[name="commissionRate"]',wraper).html(contractDetail.commissionRate);
+            $('#Form_contract_info div[name="paymentPeriodName"]',wraper).html(contractDetail.paymentPeriodName);
+            $('#Form_contract_info div[name="expirationYears"]',wraper).html(contractDetail.expirationYears+'年');
+            $('#Form_contract_info span[name="provinceName"]',wraper).html(contractDetail.provinceName);
+            $('#Form_contract_info span[name="areaCodeName"]',wraper).html(contractDetail.areaCodeName);
+            $('#Form_contract_info span[name="bankName"]',wraper).html(contractDetail.bankName);
+            $('#Form_contract_info span[name="bankBranch"]',wraper).html(contractDetail.bankBranch);
+            $('#Form_contract_info span[name="accountHolder"]',wraper).html(contractDetail.accountHolder);
+            $('#Form_contract_info span[name="bankAccount"]',wraper).html(contractDetail.bankAccount);
+		});
+
+	}});
+	page_column_model.push({display: '备注', name : 'remark'});
+
+    page_search_items.push({row:'1',type:'jrad-input',display:'合同编号',name:'contractNumber'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'商家ID',name:'businessInfoId'}); 
+	page_search_items.push({row:'1',type:'jrad-input',display:'商家简称',name:'businessRegName'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']});
+	page_search_items.push({row:'2',type:'jrad-select',display:'市',name:'areaCodeId',params:jRad.params['cityIdSearch']});
+	page_search_items.push({row:'2',type:'jrad-select',display:'县',name:'countyId',params:jRad.params['countyIdSearch']});
+	page_search_items.push({row:'3',type:'jrad-input',display:'商家电话',name:'mobile'});
+	page_search_items.push({row:'3',type:'jrad-select',display:'合同状态',name:'auditStatus',params:{
+	  data:[{id:'',name:'全部'},{id:'1',name:'审核中'},{id:'2',name:'审核通过'},{id:'3',name:'审核驳回'}]
+	}});
+	page_search_items.push({row:'3',type:'jrad-input',display:'最后操作人',name:'auditPerson'});
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'提交时间始',name:'commitAuditTimeStrat'});
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'提交时间终',name:'commitAuditTimeEnd'});
+	page_search_items.push({row:'5',type:'jrad-dateinput',display:'最后操作时间始',name:'auditTimeStart'});
+	page_search_items.push({row:'5',type:'jrad-dateinput',display:'最后操作时间终',name:'auditTimeEnd'});
+	 
+   $('#Form_contract_manage').form({
+		title: '合同信息设置',
+		validators: jRad.validators,
+		fields_params:fields_params,
+		item:{}, 
+		height:200,
+		grid:10,
+		url:'/shopmanage-ws/ws/0.1/businessContractCms/auditBusinessContract',
+		before_submit:function(json){
+			json.auditPerson = carsmart_config.operatorName;
+			return json;
+		},
+		success_callback:function(){ 
+			$('#Table_contract_manage').flexMessage('设置成功', 'success');
+			$('#Table_contract_manage').flexReload();
+		}
+	}); 
+	 
+    page_list_buttons.push({displayname: '合同信息设置',name:'contractInstall', bclass: 'contractInstall',prefunc:function(){
+            var checked = $('#Table_contract_manage',wraper).getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){ 
+	    	var checked=$('#Table_contract_manage',wraper).getCheckedTrs();
+		   $('#Form_contract_manage').form({
+			   	item:{businessContractId:checked[0].businessContractId,auditStatus:checked[0].auditStatus,remark:checked[0].remark,contractNumber:checked[0].contractNumber}
+		   }).form('open');
+        }
+    }); 
+    page_list_buttons.push({separator: true});
+
+	$('#Table_contract_manage').flexigrid({
+			reload:true,
+			method:'get', 
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			url:'/shopmanage-ws/ws/0.1/businessContractCms/queryBusinessContracts',
+			onError:showError,
+			checkBoxType:'single'
+	}); 
+    $(".numb39").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg39").form({}).form('close');
+        $("#Form_explain_eg39").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg39 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg39").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg39").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg39 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    }) 
+});
+function showError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_contract_manage .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+</script>

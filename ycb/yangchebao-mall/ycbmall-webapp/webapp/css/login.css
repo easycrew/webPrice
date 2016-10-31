@@ -1,0 +1,120 @@
+@charset 'utf-8';
+body{
+	 +background-image:url(about:blank);
+    +background-attachment:fixed;
+}
+.Form-login{
+	position: fixed;
+	z-index: 1505;
+	top: 200px;
+	left: 50%;
+	margin-left: -225px;
+	border: 1px solid #FD6244;
+	width: 420px;
+	background-color: #fff;
+}
+.form-dialog-con{
+	padding: 40px 60px 30px 60px;
+	text-align: center;
+}
+.form-dialog-con p.goToVip{
+	font-size: 12px;
+	font-family: "microsoft yahei";
+	color: #333;
+	margin-top: 20px;
+}
+.form-dialog-con p.goToVip a{
+	font-size: 12px;
+	font-family: "microsoft yahei";
+	color: #FD6244;
+}
+p.loginAndRegist{
+	margin-top: 30px;
+}
+.form-dialog-con span.dialog-login{
+	display: inline-block;
+	background-color: #FD6244;
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	color: #fff;
+	height: 16px;
+	line-height: 16px;
+	margin-right:20px;
+	padding: 11px 52px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.form-dialog-con p input{
+	padding: 7px;
+	border: 1px solid #ddd;
+	width: 230px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #333;
+	vertical-align: middle;
+}
+.form-dialog-con p.account span,.form-dialog-con p.pwd span{
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #333;
+	padding-right: 20px;
+}
+.form-dialog-con p.findPwd{
+	overflow: hidden;
+	padding: 10px 0;
+}
+.form-dialog-con p.account{
+	margin-bottom: 12px;
+}
+.form-dialog-con p.findPwd a{
+	float: right;
+	font-size: 12px;
+	font-family: "microsoft yahei";
+	color: #FD6244;
+}
+.form-dialog-con span.dialog-regist{
+	display: inline-block;
+	background-color: #A0A0A0;
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	color: #fff;
+	height: 16px;
+	line-height: 16px;
+	padding: 11px 52px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+/*.login-dialog-overlay{
+	position: fixed;
+	top:0;
+	z-index: 1500;
+	overflow: hidden;
+	display: block;
+	width:100%;
+	background-color: black;
+	filter:alpha(opacity=50);
+	-moz-opacity: 0.5;
+	opacity: 0.5;
+	+position:absolute;
+    +width:expression(eval(Math.max(document.documentElement.scrollWidth,document.documentElement.clientWidth)));
+    +height:expression(eval(Math.max(document.documentElement.scrollHeight,document.documentElement.clientHeight)));
+}*/
+.login-dialog-overlay{
+	background-color: #000000;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    opacity: 0.5;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1500;
+/*ie6,ie7,ie8实现透明*/
+    filter: alpha(opacity=50);
+/*ie6,ie7自动定位,解决不支持position:fixed*/
+    +position:absolute;
+    +width:expression(eval(Math.max(document.documentElement.scrollWidth,document.documentElement.clientWidth)));
+    +height:expression(eval(Math.max(document.documentElement.scrollHeight,document.documentElement.clientHeight)));
+}

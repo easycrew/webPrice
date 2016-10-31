@@ -1,0 +1,187 @@
+<div class="urlContentWraper" id="Wraper_user_inform">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>用户举报列表</strong><bottom class="all-work-info numb29">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+		<div class="pic-grid">
+			<table id="Table_user_inform"></table>
+		</div>
+    </div> 
+    <div id="Form_explain_eg29" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>此功能已停用。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_user_inform');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    var datasources = {};
+	datasources['status'] = [{"id":"0","name":"无效"},{"id":"1","name":"有效"},{"id":"2","name":"未处理"}]; 
+    datasources['status'].unshift({"id":"",name:"全部"});
+     
+	
+    page_column_model.push({display: '用户ID', name : 'userInfoId',  sortable : true,width:80});
+    page_column_model.push({display: '商家简称', name : 'businessRegName',  sortable : true,width:350});
+    page_column_model.push({display: '举报内容', name : 'remarks',  sortable : true});
+   // page_column_model.push({display: '反馈信息', name : 'replyInfo',  sortable : true,width:80}); 
+	page_column_model.push({display: '举报时间', name : 'statusDate',  sortable : true,width:150});
+	page_column_model.push({display: '状态', name : 'statusName',  sortable : true,width:80});
+    
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'商家简称',name:'businessRegName'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'举报内容',name:'remarks'});
+	
+	page_search_items.push({row:'2',type:'jrad-select',display:'状态',name:'status',params:{
+	  data:datasources['status']
+	}}); 
+	page_list_buttons.push({displayname: '举报有效',name:'useful',bclass: 'useful',prefunc:function(){
+            var checked = $('#Table_user_inform').getCheckedTrs();
+            if (checked.length != 1||checked[0].statusName!="未处理") {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_user_inform').getCheckedTrs(); 
+			$.jRadConfirm('确认该条举报有效吗？',1,function(){ 
+				var json = {};
+				json.informId = checked[0].informId; 
+				json.statusCode = 1;   
+				$.jRadPost({
+					url:'/shopmanage-ws/ws/0.1/inform/editStatus',
+					data:json,
+					success: function(){
+						$('#Table_user_inform').flexMessage('操作成功!', 'success');
+           	    		$('#Table_user_inform').flexReload();
+					}
+				});
+			});
+		}
+	});
+	
+	page_list_buttons.push({displayname: '举报无效',name:'unuseful',bclass: 'unuseful',prefunc:function(){
+            var checked = $('#Table_user_inform').getCheckedTrs();
+            if (checked.length != 1||checked[0].statusName!="未处理") {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_user_inform').getCheckedTrs();
+			$ .jRadConfirm('确认该条举报无效吗？',1,function(){
+				var json = {};
+				json.informId = checked[0].informId; 
+				json.statusCode = 0;  
+				$.jRadPost({
+					url:'/shopmanage-ws/ws/0.1/inform/editStatus',
+					data:json,
+					success: function(){
+						$('#Table_user_inform').flexMessage('操作成功!', 'success');
+           	    		$('#Table_user_inform').flexReload();
+					}
+				});
+			});
+		}
+	});
+	
+    page_list_buttons.push({separator: true});
+    
+   var reloadFlag = false;
+   //黑名单管理-查看举报
+	if($(document).data('blackInformShopName')!=undefined & $(document).data('blackInformShopName')!=''){ 
+	  var id = $(document).data('blackInformShopName');  
+	  $(document).removeData('blackInformShopName');   
+	    var queryParamJson = {"businessRegName":id};
+		getInformList(queryParamJson);
+		$('.sDiv div[name="businessRegName"]',wraper).input('val',id); 
+		reloadFlag = true;
+	}  
+	//用户管理-查看举报
+	if($(document).data('userInformId')!=undefined & $(document).data('userInformId')!=''){
+		  var id = $(document).data('userInformId'); 
+		  $(document).removeData('userInformId');  
+		  var queryParamJson = {"userInfoId":id};
+		  getInformList(queryParamJson);
+		  $('.sDiv div[name="userInfoId"]',wraper).input('val',id); 
+		  reloadFlag = true;
+	}
+	if(!reloadFlag){
+		getInformList({});
+	}
+	
+	function getInformList(json){
+		   $('#Table_user_inform').flexigrid({
+				reload:true,
+				method:'post',
+				queryParam:json,
+				colModel : page_column_model,
+				buttons : page_list_buttons,
+				searchitems :page_search_items,
+				showSearch:true,
+				pagination: {
+					diaplay_pages: 5,
+					align: 'bottom' 
+				},
+				url:'/shopmanage-ws/ws/0.1/inform/queryInforms',
+				onError:showInformError,
+				checkBoxType:'single'
+		});
+}
+
+	 
+    $(".numb29").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg29").form({}).form('close');
+        $("#Form_explain_eg29").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg29 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg29").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg29").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg29 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+function showInformError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_user_inform .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+
+</script>

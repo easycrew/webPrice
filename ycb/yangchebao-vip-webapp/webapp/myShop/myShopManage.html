@@ -1,0 +1,1038 @@
+<style>
+	.add{
+    	display:inline-block;
+    	font-size:18px;
+    	position:relative;
+    	left:0;
+    	top:3px;
+    	cursor:pointer;
+    }
+    .del{
+		display:inline-block;
+		font-size:18px;
+		cursor:pointer;
+		position:relative;
+		left:13px;
+		top:3px;
+    }	
+    #b_map img {
+       max-width: none;
+    }
+    #shopInfo{
+    	min-width:1100px;
+    }
+</style>
+<div class="urlContentWraper" id="shopInfoEditWraper">
+	<div class="ui-info-layout"> 
+		<div id="shopInfo" class="ui-form">
+			<div class="grid-layout-main jrad-form">
+				<!--input name="shopAccountId" type="hidden"-->
+				<div class="grid-row-fluid">
+					<label class="span1 grid-layout-label"></label>
+					<div class="span12 grid-layout-content fluid-wrap">
+						<p class="tipinfo" style="margin-left:26px;font-size:16px;"></p>
+					</div>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label">
+						<span class="ui-form-required">*</span>工商注册名称：</label>
+					<div class="span5 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="name">
+						</div>
+					</div>
+					<div class="checkInfo"></div>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label">
+						<span class="ui-form-required">
+							*
+						</span>
+						商户对外简称：
+					</label>
+					<div class="span5 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="businessRegName">
+						</div>
+					</div> 
+					<div class="checkInfo"></div>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"> 
+						<span class="ui-form-required">
+							*
+						</span>
+						店铺地址：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="provinceId">
+						</div>
+					</div>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="areaCodeId">
+						</div>
+					</div>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="countyId">
+						</div>
+					</div>
+					<div class="checkInfo"></div>
+				</div>
+				<div class="grid-row-fluid">
+					<div class="span5 grid-layout-content fluid-wrap" style="margin-left:12.62%;">
+						<div class="jrad-input-container" name="address" placeholder="详细地址">
+						</div>
+					</div>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"> 
+						邮箱：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="email">
+						</div>
+					</div>
+					<label class="span3 grid-layout-label"> 
+						QQ：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="qq">
+						</div>
+					</div>
+				</div> 
+				<div class="grid-row-fluid allMobile">
+					<label class="span3 grid-layout-label"> 
+					<span class="ui-form-required">*</span>
+						手机号码：
+					</label>
+					<div class="span5 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container mobile" name="mobile">
+						</div>
+						<span style="color:#999;">此号码将用来接收新订单提醒</span>
+					</div>
+					<span class="add">+</span>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label">
+						<span class="ui-form-required">
+							*
+						</span>
+						商家类型：
+					</label>
+					<div class="span5 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="type">
+						</div>
+					</div>
+				</div> 
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"> 
+						<span class="ui-form-required">
+							*
+						</span>
+						营业开始时间：
+					</label> 
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="ui-date">	
+							<div class="input-append date" id="startTime-date">
+								<div class="input-wrap">
+									<input type="text" name="startTime"/>
+								</div>
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+					<label class="span3 grid-layout-label"> 
+						<span class="ui-form-required">
+							*
+						</span>
+						营业结束时间：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="ui-date">	
+							<div class="input-append date" id="endTime-date">
+								<div class="input-wrap">
+									<input type="text" name="endTime"/>
+								</div>
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+				</div> 
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"><span class="ui-form-required">*</span> 服务品牌： </label>
+					<div class="span14 grid-layout-content fluid-wrap">
+						<!--div class="jrad-buttons-container" name="brand_check_btn">
+							<span id="jrad-button-brand" class="jrad-primary">
+								点击选择 </span>
+						</div-->
+						<button class="btn btn-small btn-primary" id="jrad-button-brand"> 点击选择 </button> 
+						<p id="brand_check_string" style="margin: 10px 0;"></p>
+					</div>
+				</div> 
+				<!--tab 切换-->
+				<div style="margin-top:20px"> 
+					<span class="showTab showTab_select" name="shop_map_btn">经纬度信息</span>
+					<span class="showTab" name="shop_dec_btn">商家简介</span>
+					<span class="showTab" name="shop_photo_btn">商家图片</span> 
+				</div>
+				<div style="border:1px solid #ccc;padding-top:10px;min-height:200px;">
+					<div class="shop_map"> 
+						<div class="grid-row-fluid">
+							<input type="text" id="txtCity" name="txtCity" value="" style="width:427px;margin-left:210px;float:left;height:23px;" placeholder="请输入商家地址">
+							<button id="chaxun"  onClick="sear(document.getElementById('txtCity').value);" style="float:left;margin:0 8px 5px 10px;" class="btn btn-small btn-primary ui-widget ui-state-default"> 查询 </button>
+							<label class="span1 grid-layout-label" style="margin-left:0;">经度</label>
+							<div class="span3 grid-layout-content">
+								<div class="jrad-input-container" name="baiduLongtitude" id="Longtitude">
+								</div>
+							</div>
+							<label class="span1 grid-layout-label" style="margin-left:0px;">纬度</label>
+							<div class="span3 grid-layout-content">
+								<div class="jrad-input-container" name="baiduLatitude" id="Latitude">
+								</div>
+							</div>
+						</div>
+						<div id="b_map" style="height:400px;width:950px;margin-left:210px;"></div>
+						<span id="showPosition" class="mouseDiv"></span>
+					</div>  
+					<div class="shop_dec">
+						<div class="grid-row-fluid">
+							<label class="span3 grid-layout-label"> 商家简介： </label>
+							<div class="span15 grid-layout-content fluid-wrap">
+								<div class="jrad-mediaarea-container" name="introduction">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="shop_photo">
+						<div class="grid-row-fluid">
+							<label class="span3 grid-layout-label">
+								<span class="ui-form-required">
+									*
+								</span> 商家logo： 
+							</label>
+							<div class="span15 grid-layout-content fluid-wrap">
+								<div name="logoId" class="jrad-uploadimg-container">
+								</div>
+							</div>
+						</div>   
+						<div class="grid-row-fluid">
+							<label class="span3 grid-layout-label"> 
+								<span class="ui-form-required">
+									*
+								</span>商家图片： 
+							</label>
+							<div class="span15 grid-layout-content fluid-wrap">
+								<div name="businessIdsFile" class="jrad-uploadimg-container">
+								</div>
+							</div>
+						</div>
+					</div>			
+				</div> 
+				<input type="hidden" name="id"/> 
+				<div id="businessIds"></div>
+				<div name="brandIds"></div>
+			</div>
+		</div> 
+		<div>
+			<button class="btn btn-big btn-primary" id="saveShopInfo"> 提交修改 </button> 
+		</div>
+		<p style="color:#999;">提交修改后，需要养车宝官方审核“商家简称”，审核成功后“商家简称”才会修改，养车宝会在一个工作日内完成审核。</p>
+	</div> 
+</div>
+<!--服务品牌-->
+<div id="Form_service_brand" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		<div class="jrad-checkbox-container" name="vendor" style="font-weight:bold;"></div>
+			<div class="jrad-tree-container" id="brandsTree">
+		</div>  
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container">
+		<button class="jrad-btn-primary btn btn-small btn-primary"> 确定 </button>
+		<button class="jrad-btn-normal btn btn-small"> 取消 </button>
+	</div>
+</div> 
+<script type="text/javascript">
+	var map = new BMap.Map("b_map");//在指定的容器内创建地图实例
+	//map.setDefaultCursor("crosshair");//设置地图默认的鼠标指针样式
+	map.enableScrollWheelZoom();//启用滚轮放大缩小，默认禁用。
+	map.centerAndZoom(new BMap.Point(116.124878, 24.309178), 13);
+	map.addControl(new BMap.NavigationControl()); 
+	map.addEventListener("click", function(e){//地图单击事件
+		document.getElementById("lonlat").value = e.point.lng + ", " + e.point.lat;
+	});
+    function iploac(result){//根据IP设置地图中心
+    	var cityName = result.name;
+	    map.setCenter(cityName);
+	}
+	var myCity = new BMap.LocalCity();
+	myCity.get(iploac);
+
+	function sear(result){//地图搜索
+		var local = new BMap.LocalSearch(map, {renderOptions:{map: map}});
+		local.search(result);
+	}
+</script>
+<script type="text/javascript">
+$(document).ready(function() { 
+    var wraper = $("#shopInfoEditWraper");   
+    var BrandFlag;
+    var shopInfoItem; 
+    var treeOption = setBrandTree();  
+	$("#Form_service_brand .jrad-tree-container").tree(treeOption);      
+   	map.addEventListener("dblclick", function (e) { 
+	 	var latlng = e.point;  
+	 	var pt = new BMap.Point(latlng.lng,latlng.lat);
+	 	map.clearOverlays(); 
+	 	var marker_b = new BMap.Marker(pt);  // 创建标注
+	    map.addOverlay(marker_b);  
+	 	$("#shopInfo div[name='baiduLongtitude']").input('val',latlng.lng); 
+	 	$("#shopInfo div[name='baiduLatitude']").input('val',latlng.lat);  
+	});  
+    map.addEventListener("mousemove",function(e){
+		$('#showPosition').html(e.point.lng + "," + e.point.lat).show()
+	});
+	$('#b_map').mousemove(function(e){
+		$('#showPosition').css({position:'absolute','z-index':'1000',top:e.pageY-40,left:e.pageX+10,display:'inline-block'})
+	});
+	$('#b_map').mouseout(function(e){
+		$('#showPosition').hide()
+	});
+
+   	$("#shopInfo .shop_dec").hide(); 
+   	$("#shopInfo .shop_photo").hide(); 
+   	$(".showTab").click(function(){
+   		$(".showTab").removeClass("showTab_select");
+	   	$(this).addClass("showTab_select");
+	   	var name = $(this).attr("name"); 
+	   	if(name=="shop_map_btn"){ 
+			$("#shopInfo .shop_map").show(); 
+			$("#shopInfo .shop_dec").hide();
+			$("#shopInfo .shop_photo").hide(); 
+	   	}else if(name=="shop_dec_btn"){ 
+			$("#shopInfo .shop_map").hide(); 
+			$("#shopInfo .shop_dec").show();
+			$("#shopInfo .shop_photo").hide(); 
+	   	}else if(name=="shop_photo_btn"){ 
+			$("#shopInfo .shop_map").hide(); 
+			$("#shopInfo .shop_dec").hide();
+			$("#shopInfo .shop_photo").show(); 
+	   	} 
+	});
+    $('#Form_service_brand').form({
+		title: '服务品牌', 
+		fields:{'vendor':{data: [{id:'全部',name:'全部  &nbsp;&nbsp;&nbsp;&nbsp;(可服务大部分品牌，请直接选择全部)'}]}}, 
+		item: {},  
+		height: 500,
+		submit:function(){   
+			var vendor = $('#Form_service_brand div[name="vendor"]').checkbox('val');   
+			if(vendor.length==0||vendor[0]==""){
+				var selectors = $('#Form_service_brand .brand-checkbox-container'); 
+				var array = [];//选中字符串集
+				var array2 = [];//选中仅有brandid的集
+				var array3 = [];//选中仅有modelid的集
+				var brandIds = [];
+				$.each(selectors,function(i,item){    
+					array = $.merge(array,$(item).checkbox("text")); 
+					if($(item).attr("name")=="brand-checkbox-container"){
+						array2 = $.merge(array2,$(item).checkbox("val"));
+					}else{
+						array3 = $.merge(array3,$(item).checkbox("val"));
+					}
+					if($(item).checkbox("text").length>0){
+						var k = $(item).data("brandid");
+						var v = $(item).checkbox("val").join(",");
+						var kv = {};
+						if(k==v&&$(item).attr("name")=="brand-checkbox-container"){
+							kv = {"brandId":k}; 
+						}else{
+							kv = {"brandId":k,"modelId":v}; 
+						}
+						brandIds.push(kv);
+					}
+				});
+				array = $.unique(array);   
+				var  str="已选择："; 
+				if(array.length>0){ 
+					$.each(array,function(i,json){
+					str += json.name+" &nbsp;&nbsp;&nbsp;&nbsp ";
+					})
+				}
+				$("#shopInfo #jrad-button-brand").next("#brand_check_string").html(str); 
+				$("div[name='brandIds']",wraper).data("brandIds",brandIds);
+				$("div[name='brandIds']",wraper).data("brandIdsArr",{"brand-checkbox-container":array2,"model-checkbox-container":array3}); 
+			}else{
+				$("#shopInfo #jrad-button-brand").next("#brand_check_string").html("已选择："+vendor[0]);	
+				$("div[name='brandIds']",wraper).data("brandIds",[]);
+				$("div[name='brandIds']",wraper).data("brandsArr",{"brand-checkbox-container":[],"model-checkbox-container":[],"vendor":['全部']});
+			}
+			$("#Form_service_brand").form('close'); 
+		} 
+	});  
+	$("#jrad-button-brand").click(function() {  
+		if(BrandFlag){
+			brand(shopInfoItem,wraper);
+		}
+		$('#Form_service_brand').form({
+			item:$("div[name='brandIds']",wraper).data("brandIdsArr"),
+			height:500
+		}).form('open');
+	});  
+   
+    var fields = {}; 
+    fields['provinceId'] = {
+			urlData:{
+				url:'/vip-ws/ws/0.1/area/provinceAll'
+			},
+			unshiftData: {id:'',name:'请选择'},
+			onchange: function(){
+				var provinceCode = $('#shopInfo div[name=provinceId]').select('val');
+				if(provinceCode==''){
+				$('#shopInfo div[name=areaCodeId]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val: ''});
+				}else{
+				$('#shopInfo div[name=areaCodeId]').select({
+					urlData:{
+						url: '/vip-ws/ws/0.1/area/municipalities?provinceId=' + provinceCode 
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+				} 
+				$('#shopInfo div[name=countyId]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val: ''
+				});
+			}
+	};
+	fields['areaCodeId'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){
+			var cityId = $('#shopInfo div[name=areaCodeId]').select('val');
+			if(cityId==''){
+				$('#shopInfo div[name=countyId]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],val: ''});
+			}else{
+				$('#shopInfo div[name=countyId]').select({
+					urlData:{
+						url: '/vip-ws/ws/0.1/area/countries?areaCodeId=' + cityId
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+			}
+		}
+	}; 
+	fields['countyId'] = {
+		data: [{id:'',name:'请选择'}]
+	}; 
+
+	fields['provinceId2'] = {
+			urlData:{
+				url:'/vip-ws/ws/0.1/area/provinceAll'
+			},
+			unshiftData: {id:'',name:'请选择'},
+			onchange: function(){
+				var provinceCode = $('#shopInfo div[name=provinceId2]').select('val');
+				if(provinceCode==''){
+				$('#shopInfo div[name=areaCodeId2]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val: ''});
+				}else{
+				$('#shopInfo div[name=areaCodeId2]').select({
+					urlData:{
+						url: '/vip-ws/ws/0.1/area/municipalities?provinceId=' + provinceCode 
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+				} 
+				$('#shopInfo div[name=countyId2]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],
+					val: ''
+				});
+			}
+	};
+	fields['areaCodeId2'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){
+			var cityId = $('#shopInfo div[name=areaCodeId2]').select('val');
+			if(cityId==''){
+				$('#shopInfo div[name=countyId2]').select({
+					urlData:{url:''},
+					data:[{id:'',name:'请选择'}],val: ''});
+			}else{
+				$('#shopInfo div[name=countyId2]').select({
+					urlData:{
+						url: '/vip-ws/ws/0.1/area/countries?areaCodeId=' + cityId
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+			}
+		}
+	}; 
+	fields['countyId2'] = {
+		data: [{id:'',name:'请选择'}]
+	}; 
+
+   	fields['type'] = {data:[{'id':'0','name':'4S店'},{'id':'1',name:'连锁店'},{'id':'2','name':'专修店'},{'id':'3','name':'汽配城'},{'id':'4','name':'其他'}]};   
+	var todyDate = moment().add('days').format('YYYY-MM-DD');
+	$('#startTime-date').datetimepickerBS({
+		format: 'hh:ii', 
+	    autoclose: 1, 
+		startDate:todyDate,
+		startView: 1,
+		maxView: 1,
+		pickerPosition:'bottom-left', 
+	    language: "zh-CN",  
+	});
+	$('#endTime-date').datetimepickerBS({
+		format: 'hh:ii',
+		startDate:todyDate,
+	    autoclose: 1,
+		startView: 1,
+		maxView: 1,
+		pickerPosition:'bottom-left', 
+	    language: "zh-CN",  
+	});   
+	fields['logoId']={
+		grid:4,
+		url :'/vip-ws/ws/0.1/file/disposePic', 
+		filename:"file",
+		params: {type:"1"},
+		note: '仅支持 JPG图片文件，且建议大小小于20M,宽高不能小于180*135。',
+		beforeSubmit: function(obj){
+			  var re = /^.*\.(jpg|JPG)$/;
+			  if(re.test(obj.val())){
+			    return true;
+			  }else{  
+				$.jRadAlert("只能上传jpg文件", "error");
+			    return false;
+			  }
+		},
+		validator : [{
+			msg : "请选择要上传的文件",
+			type : "min",
+			value : "1"
+		}],
+		error:function(data){
+			 $.jRadAlert(data,"error"); 
+		},
+		show:true,
+		showLarge:true,
+	    single:true,
+		prev:'large'		
+	};
+	fields['businessIdsFile']={
+		grid:4,
+		url :'/vip-ws/ws/0.1/file/upload', 
+		filename:"file",
+		params: {type:"2"},
+		note: '仅支持 JPG图片文件，且建议大小小于20M,宽高不能小于500*280。',
+		beforeSubmit: function(obj){
+			  var re = /^.*\.(jpg|JPG)$/;
+			  if(re.test(obj.val())){
+			    return true;
+			  }else{  
+				$.jRadAlert("只能上传jpg文件", "error");
+			    return false;
+			  }
+		},
+		success: function(data) { 
+			   var _pDiv = $("div[name='businessIdsFile']",wraper);
+			   var liArr = $(".pic-show",_pDiv).children("li");
+			   var len = liArr.length;
+			   var $tDiv = $("<div>").css({'clear':'left','width':'141px'});
+			   var $sDiv = $("<div>").addClass("imgType");
+			   $(liArr[len-1]).append($tDiv.append($sDiv));
+			   $(liArr[len-1]).data('large',data.large);
+			   $sDiv.select({
+				   urlData:{
+						url:'/vip-ws/ws/0.1/business/pic/types',
+						id:'picType',
+						name:'picTypeDesc'
+					},
+					unshiftData: {id:'',name:'请选择'}
+			   });
+		},
+		error:function(data){ 
+			$.jRadAlert(data,"error"); 
+		},
+		validator : [{
+			msg : "请选择要上传的文件",
+			type : "min",
+			value : "1"
+		}],
+		show:true,
+		showLarge:true,
+	    maxPiece:'50',
+		prev:'large'		
+	};
+	 
+	 
+    //验证器
+	var validators = {};
+	validators['name'] = [{
+		msg: "请输入工商注册名称",
+		type: "min",
+		value: "1"
+	}];
+	validators['businessRegName'] = [{
+		msg: "请输入商户对外简称",
+		type: "min",
+		value: "1"
+	}];
+	validators['address'] = [{
+		msg: "请输入地址",
+		type: "min",
+		value: "1"
+	}];
+	validators['provinceId'] = [{
+		msg: "请选择省",
+		type: "min",
+		value: "1"
+	}];
+	validators['areaCodeId'] = [{
+		msg: "请选择市",
+		type: "min",
+		value: "1"
+	}];
+	validators['countyId'] = [{
+		msg: "请选择区县",
+		type: "min",
+		value: "1"
+	}];
+	validators['startTime'] = [{
+		msg: "请选择营业开始时间",
+		type: "min",
+		value: "1"
+	}];
+	validators['endTime'] = [{
+		msg: "请选择营业结束时间",
+		type: "min",
+		value: "1"
+	}];
+	validators['endTime'] = [{
+		msg: "请选择营业结束时间",
+		type: "min",
+		value: "1"
+	}];
+	validators['mobile'] = [{
+		msg: "请输入手机号码",
+		type: "min",
+		value: "1"
+	}];
+	
+	$('#shopInfo').form({
+		layout: 'grid',
+		fields: fields, 
+		validators: validators,
+		autobinding: false,  
+		preSubmit: function() {},
+		success: function(data) {},
+		//提交成功后回调函数
+		error: function(xhr) {} //提交失败后回调函数
+	}); 
+
+	var initShopInfo = function(){
+		BrandFlag = true;
+		shopInfoItem =$.jRadGet({
+			 url : "/vip-ws/ws/0.1/business/queryBasicInfo?shopAccountId="+carsmart_config.shopId,
+			 async:false
+		}); 
+		showBMap(map,shopInfoItem);
+		if(shopInfoItem.name.isChange=='0'){ 
+			shopInfoItem.name = shopInfoItem.name.beforeUpdate;
+		}else{  
+			if(shopInfoItem.name.auditStatus=='1'){ 
+			$("#shopInfo div[name='name']").parents(".grid-row-fluid").children(".checkInfo").html("审核中");
+			}else if(shopInfoItem.name.auditStatus=='3'){
+			$("#shopInfo div[name='name']").parents(".grid-row-fluid").children(".checkInfo").html("审核未通过，"+shopInfoItem.name.auditDesc+"。(修改前为 “ "+shopInfoItem.name.beforeUpdate+" ”)");
+			}
+			shopInfoItem.name = shopInfoItem.name.afterUpdate;
+		}
+		if(shopInfoItem.businessRegName.isChange=='0'){ 
+			shopInfoItem.businessRegName = shopInfoItem.businessRegName.beforeUpdate;
+		}else{  
+			if(shopInfoItem.businessRegName.auditStatus=='1'){ 
+			$("#shopInfo div[name='businessRegName']").parents(".grid-row-fluid").children(".checkInfo").html("审核中");
+			}else if(shopInfoItem.businessRegName.auditStatus=='3'){
+			$("#shopInfo div[name='businessRegName']").parents(".grid-row-fluid").children(".checkInfo").html("审核未通过，"+shopInfoItem.businessRegName.auditDesc+"。(修改前为 “ "+shopInfoItem.businessRegName.beforeUpdate+" ”)");
+			}
+			shopInfoItem.businessRegName = shopInfoItem.businessRegName.afterUpdate;
+		} 
+		var Arr='';
+		if(shopInfoItem.shopCity.isChange=='0'){ 
+			Arr=shopInfoItem.shopCity.beforeUpdate.split(',')
+		}else{  
+			if(shopInfoItem.shopCity.auditStatus=='1'){ 
+				$("#shopInfo div[name='provinceId']").parents(".grid-row-fluid").children(".checkInfo").html("审核中");
+			}else if(shopInfoItem.shopCity.auditStatus=='3'){
+				var arr=shopInfoItem.shopCity.beforeUpdate.split(',');
+				proName =$.jRadGet({
+					 url : "/vip-ws/ws/0.1/area/provinceAll",
+					 async:false
+				});
+				var firstName='';
+				$.each(proName,function(i){
+					if(proName[i].id==arr[0]){
+						firstName=proName[i].name
+					}
+				});
+
+				citName =$.jRadGet({
+					 url : "/vip-ws/ws/0.1/area/municipalities?provinceId="+arr[0],
+					 async:false
+				});
+				var secondName="";
+				$.each(citName,function(i){
+					if(citName[i].id==arr[1]){
+						secondName=citName[i].name
+					}
+				});
+
+				couName =$.jRadGet({
+					 url : "/vip-ws/ws/0.1/area/countries?areaCodeId="+arr[1],
+					 async:false
+				});
+				var thirdName="";
+				$.each(couName,function(i){
+					if(couName[i].id==arr[2]){
+						thirdName=couName[i].name
+					}
+				});
+				$("#shopInfo div[name='provinceId']").parents(".grid-row-fluid").children(".checkInfo").html("审核未通过，"+shopInfoItem.shopCity.auditDesc+"。(修改前为 “ "+firstName+secondName+thirdName+" ”)");
+			}
+			Arr=shopInfoItem.shopCity.afterUpdate.split(',')
+		}
+		shopInfoItem.provinceId=Arr[0];
+		shopInfoItem.areaCodeId=Arr[1];
+		shopInfoItem.countyId=Arr[2];
+		$('#shopInfo').form({
+			item: shopInfoItem 
+		});
+		$('#shopInfo .add_row').remove();
+		var mobile_val=$('#shopInfo div[name="mobile"]').input('val');
+		var mobile_arr=mobile_val.split(',');
+		var len=mobile_arr.length;
+		for(i=1;i<len;i++){
+			var _row=$('<div class="add_row">').addClass('grid-row-fluid');
+			var _label=$('<label>').addClass("span3 grid-layout-label").html('电话号码：');
+			var _div=$('<div>').addClass('span5 grid-layout-content fluid-wrap');
+			var _input=$('<div>').addClass('jrad-input-container mobile');
+			var _add=$('<span>').html("+").addClass('add');
+			var _del=$('<span>').html("-").addClass('del');
+			_row.append(_label).append(_div.append(_input)).append(_add).append(_del);
+			_input.input({validator:[{msg:"请输入电话号码",type:"min",value:"1"},{msg:"电话号码格式不对",type:"regex",value:/^[0-9]+$/}]});
+			$('.allMobile').after(_row);
+		};
+		$.each($('div.mobile'),function(j){
+			$('div.mobile').eq(j).input('val',mobile_arr[j])
+		}); 
+		//商家店内图片
+		var _ul = $("div[name='businessIdsFile']",wraper).find(".pic-show").html("");   
+		var arr = shopInfoItem.businessIds; 
+		$.each(arr,function(i){
+			var $li = $("<li>").addClass("businessPicBoxli");
+			var $div = $("<div>").addClass("large-pic").html('<div class="pic-box"><div class="pic-content"><divclass="pic-vc">'
+															+'<img src="'+arr[i].businessId+'">'
+															+'</div></div><span name="large" class="del-btn"></span></div>');
+			 
+		    $li.append($div);
+		    var $tDiv = $("<div>").css({'clear':'left','width':'141px'});
+		    var $sDiv = $("<div>").addClass("imgType"); 
+		  
+		    if(arr[i].isChange=="0"){
+				$tDiv.append($sDiv).append("<p class='checkInfo'></p>");
+		    }else if(arr[i].auditStatus=="1"){
+				$tDiv.append($sDiv).append("<p class='checkInfo'>"+arr[i].auditStatusDesc+"</p>");
+		    }else if(arr[i].auditStatus=="3"){
+			var $p = $("<p>").html("<span class='checkInfo'>"+arr[i].auditStatusDesc+"&nbsp;&nbsp;&nbsp;&nbsp;</span>");
+			var $a = $("<a>").html("查看原因");
+			var $alertDiv = $("<div>").addClass("alert alert-info").css({'position':'absolute','display':'none'});
+			var $alertBtn = $("<button>").attr("type","button").addClass("close").data("dismiss","alert").html('<i class="icon-remove"></i>');
+			$alertDiv.append($alertBtn).append('<strong>驳回原因：</strong>	'+arr[i].auditDesc+'<br />');  
+			$tDiv.append($sDiv).append($p.append($a).append($alertDiv));
+			$alertBtn.click(function(){
+				$alertDiv.hide();
+			});
+			$a.click(function(){
+				$alertDiv.show();
+			}); 
+		}
+		  
+		$li.append($tDiv);                    
+		$sDiv.select({
+			urlData:{
+				url:'/vip-ws/ws/0.1/business/pic/types',
+				id:'picType',
+				name:'picTypeDesc'
+			},
+			val:arr[i].picType,
+			unshiftData: {id:'',name:'请选择'} 
+		});
+		_ul.append($li);
+		$li.data('large',arr[i].businessId).data("businessPicModifyId",arr[i].businessPicModifyId).data("businessPicId",arr[i].businessPicId);
+		}); 
+		$(".businessPicBoxli .del-btn",wraper).click(function(){ 
+			$(this).parents(".businessPicBoxli").remove(); 
+		}); 
+		$("#shopInfo input[name='startTime']").val(shopInfoItem.startTime);
+		$("#shopInfo input[name='endTime']").val(shopInfoItem.endTime);  
+		if(shopInfoItem.vendor!="0"){
+		  var brandCheckString = [];
+		  if(shopInfoItem.brandNames!=undefined&&shopInfoItem.brandNames.length > 0){
+			  $.each(shopInfoItem.brandNames,function(i){ 
+				 if(shopInfoItem.brandNames[i].modelName!=undefined&&shopInfoItem.brandNames[i].modelName!=""){
+
+					$.merge(brandCheckString,shopInfoItem.brandNames[i].modelName.split(",")); 
+				 }else{
+					brandCheckString.push(shopInfoItem.brandNames[i].brandName);
+				 }
+			   }); 
+		   }  
+		   $.unique(brandCheckString);
+		   $("#brand_check_string",wraper).html(brandCheckString.join(","));   
+	   }else{
+		   $("#brand_check_string",wraper).html("已选择：全部"); 
+	   } 
+	   $("#shopInfo div[name='brandIds']",wraper).data("brandIds",shopInfoItem.brandIds?shopInfoItem.brandIds:[]);  
+    }; 
+	
+	$('.btn').button(); 
+	$("#saveShopInfo").click(function() { 
+		var json = $('#shopInfo').form('getValue'); 
+		var flag = $('#shopInfo',wraper).form('validateAll');
+
+		var arrStr= [];
+		if(json.mobile == ''){
+			arrStr.push('手机号码');
+		}
+		if($("#shopInfo input[name='startTime']").val() == '' || $("#shopInfo input[name='endTime']").val() == ''){
+			arrStr.push('营业时间');
+		}
+		if($("#brand_check_string").html() == ''){
+			arrStr.push('服务品牌');
+		}
+		if(json.logoId=="" || json.businessIdsFile==''){
+			arrStr.push('商家图片');
+		}
+		if(json.introduction==""){
+			arrStr.push('商家简介');
+		}
+		if(json.baiduLongtitude==""){
+			arrStr.push('经纬度信息');
+		}
+		if(arrStr !=''){
+			//var _arrStr = arrStr.split(',')
+			$('.tipinfo').html('您还需要完善'+arrStr+'后，您的店铺才能在APP展示。').css('color','#ff0000')
+		}
+
+		if(flag){
+			json.brandIds = $("#shopInfo div[name='brandIds']",wraper).data("brandIds");  
+			if($("#brand_check_string").html()=="已选择：全部"){
+				json.vendor = "0";
+			}else{
+				json.vendor = "";
+			}  
+			json.logoId = json.logoId.length>0?json.logoId[0].src:"";
+			json.businessIds =[];
+			var _p = $("div[name='businessIdsFile']",wraper);
+			$.each($(".pic-show",_p).children("li"),function(i){
+			   var item = {};
+			   item.businessId = $(this).data('large');
+			   item.picType = $(this).find(".imgType").select('val')[0]; 
+			   item.businessPicModifyId = $(this).data('businessPicModifyId')?$(this).data('businessPicModifyId'):"";
+			   item.businessPicId = $(this).data('businessPicId')?$(this).data('businessPicId'):"";
+			   json.businessIds.push(item);
+			});   
+			json.shopAccountId = carsmart_config.shopId;
+			json.startTime = $("#shopInfo input[name='startTime']").val();
+			json.endTime = $("#shopInfo input[name='endTime']").val();
+			if(json.startTime==""){
+			  $.jRadAlert("请选择营业结束时间","error"); 
+			  return false;
+			}
+			if(json.endTime==""){
+			  $.jRadAlert("请选择营业结束时间","error"); 
+			  return false;
+			}
+			var arr=[];
+			$.each($('div.mobile'),function(i){
+				var number=$('div.mobile').eq(i).input('val');
+				while(number.indexOf(" ")!=-1){
+					number=number.replace(" ","");
+				}
+				if(/^\d+/.test(number)){
+					arr.push(number)
+				}
+			});
+			var mobile_str=arr.join(',');
+			json.mobile=mobile_str;
+			if(json.vendor==""){
+				if(json.brandIds==undefined||json.brandIds==[]){
+				  $.jRadAlert("请选择服务品牌","error"); 
+				  return false;
+				}
+			}
+			if(json.logoId==""){
+			  $.jRadAlert("请上传商家logo","error"); 
+			  return false;
+			}
+			if(json.businessIds==[]){
+			  $.jRadAlert("请上传商家照片","error"); 
+			  return false;
+			}
+			$.jRadPost({
+				url:'/vip-ws/ws/0.1/business/editBasicInfo',
+				data:json,
+				success:function(data){  
+					  $.jRadAlert("修改已经提交到服务器，“工商注册名称”“商家简称”“店铺地址”“商家图片”的修改，需要审核通过后才能生效，审核时间为1个工作日,其他信息立即生效。","success",'','-1');  
+					  initShopInfo();
+				},error:function(data){ 
+					var mes = eval('('+data.responseText+')'); 
+					$.jRadAlert(mes[0].message,"error"); 
+				}
+			});
+		}				
+	}); 
+
+	function brand(shopInfoItem,wraper){  
+		//服务品牌
+		if(shopInfoItem.vendor!="0"){ 
+		   var brandIdsArr = [];
+		   var modelIdsArr = [];
+		   if(shopInfoItem.brandNames!=undefined&&shopInfoItem.brandNames.length > 0){
+			   $.each(shopInfoItem.brandIds,function(i){
+				   var node = $("#brandsTree").tree('getNodeByParam','id',shopInfoItem.brandIds[i].brandId);  
+				   var pNode = node.getParentNode();
+				   $("#brandsTree").tree('open',pNode,true); 
+				   $("#"+node.tId+"_span").click(); 
+				   if(shopInfoItem.brandIds[i].modelId==""){
+					   var bArr = shopInfoItem.brandIds[i].brandId; 
+					   brandIdsArr.push(bArr); 
+				   }else{
+					   var mArr = shopInfoItem.brandIds[i].modelId.split(","); 
+					   $.merge(modelIdsArr,mArr); 
+				   }
+			   });
+		   }
+		   $("#shopInfo div[name='brandIds']",wraper).data("brandIds",shopInfoItem.brandIds?shopInfoItem.brandIds:[]);  
+		   $("#shopInfo div[name='brandIds']",wraper).data("brandIdsArr",{"brand-checkbox-container":brandIdsArr,"model-checkbox-container":modelIdsArr});  
+	   }else{ 
+		   $("#shopInfo div[name='brandIds']",wraper).data("brandIds",[]);//
+		   $("#shopInfo div[name='brandIds']",wraper).data("brandIdsArr",{"brand-checkbox-container":[],"model-checkbox-container":[],"vendor":"全部"});
+	   }  
+	   BrandFlag = false;
+	}
+
+	function setBrandTree(){ 
+			var json =$.jRadGet({
+				 url : "/vip-ws/ws/0.1/support/brand/list",
+				 async:false
+			}); 
+			var treeData = [];
+			var num = 0;
+			$.each(json,function(name,value){
+			    num++;
+				var id = "p"+num;
+			    var parent = {"pId":-1,"name":name,"id":id,children:value}; 
+				treeData.push(parent); 
+			});  
+			var optionsSimple = {
+			    urlData:{},
+			    setting:{
+			        view: {
+			            showIcon: false
+			        },
+			        data: {
+			            simpleData: {
+			                enable: true
+			            }
+			        },
+			        callback: {
+			            onClick: zTreeOnClick
+			        }
+			    },
+			    data:treeData
+			}; 
+			return optionsSimple;
+	}
+
+	function zTreeOnClick(event, treeId, treeNode) {
+	    var obj;
+		if ($.browser.msie && $.browser.version > 6 ){
+		  obj = $(event.srcElement);
+		}else{ 
+		  obj = $(event.target);
+		}
+	    var _li = obj.parent().parent("li");	 
+		if(_li.find(".jrad-checkbox-container").length>0){
+		   return;
+		}else{
+			var json =$.jRadGet({
+					 url : "/vip-ws/ws/0.1/support/model/list?brandId="+treeNode.id,
+					 async:false
+				}); 
+		   var str = '<div class="jrad-checkbox-container brand-checkbox-container"  name="model-checkbox-container" data-brandid='+treeNode.id+' style="display:block;white-space:normal;margin-left:22px;"></div>'; 
+		   if(json.length==0){
+		        json = [{"id":treeNode.id,"name":treeNode.name}];
+				str = '<div class="jrad-checkbox-container brand-checkbox-container" name="brand-checkbox-container" data-brandid='+treeNode.id+' style="display:block;white-space:normal;margin-left:22px;"></div>'; 
+		   }
+		   
+		   _li.append(str);  
+		   $(".brand-checkbox-container",_li).each(function(){
+				$(this).checkbox({ 
+					data:json,
+					selectAll:true
+				});
+				 
+		   });
+	   }  
+	}
+	initShopInfo();
+
+	function showBMap(map,item){ 
+		var blon = item.baiduLongtitude;
+		var blat = item.baiduLatitude;
+		map.clearOverlays();
+		if(blon!=""&&blat!=""){ 
+			var pt = new BMap.Point(blon,blat);
+			var marker_b = new BMap.Marker(pt);  // 创建标注
+			map.addOverlay(marker_b); 
+			map.setCenter(pt);   
+		}else{
+		   var point = new BMap.Point("116.403068", "39.914504");
+		   map.centerAndZoom(point, 14);
+		}
+	}
+
+	$('#shopInfo').on('click','.add',function(){
+		var _row=$('<div class="add_row">').addClass('grid-row-fluid');
+		var _label=$('<label>').addClass("span3 grid-layout-label").html('电话号码：');
+		var _div=$('<div>').addClass('span5 grid-layout-content fluid-wrap');
+		var _input=$('<div>').addClass('jrad-input-container mobile');
+		var _add=$('<span>').html("+").addClass("add");
+		var _del=$('<span>').html("-").addClass("del");
+		_row.append(_label).append(_div.append(_input)).append(_add).append(_del);
+		_input.input({validator:[{msg:"请输入电话号码",type:"min",value:"1"},{msg:"电话号码格式不对",type:"regex",value:/^[0-9]+$/}]});
+		if($('.add_row:visible').length<10){
+			$(this).parent().after(_row);
+		}else{
+				$.jRadAlert("最多可输入10个电话号码！",'error')
+			}
+	});
+
+	$('#shopInfo').on('click','.del',function(){
+		$(this).parent().remove();
+	});
+
+	$('#shopInfo').on('blur','.mobile',function(){
+		$(this).input('validate')
+	})
+})
+</script>

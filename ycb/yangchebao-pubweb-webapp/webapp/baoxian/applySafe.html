@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/md50000000000000000000000000000.js"></script>
+	<title>提交投保</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+
+		div.container{
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+		header{
+			padding-top: 0.8rem;
+			padding-bottom: 0.8rem;
+			background-color: #fff;
+		}
+		header nav ul{
+			width: 95%;
+			margin: auto;
+			overflow: hidden;
+		}
+		header nav ul li{
+			float: left;
+		}
+		header nav ul li img{
+			width: 100%;
+		}
+		header nav ul li.carSafe_step1{
+			width: 34.76%;
+		}
+		header nav ul li.carSafe_step2{
+			width: 25.09%;
+		}
+		header nav ul li.carSafe_step3{
+			width: 25.09%;
+		}
+		header nav ul li.carSafe_step4{
+			width: 14.96%;
+		}
+		div.line{
+			border-top: 1px solid #d9d9e2;
+			background-color: #F4F7F8;
+			height: 1rem;
+		}
+		section{
+			background-color: #fff;
+		}
+		article.safePrice{
+			padding: 0.6rem 0.8rem;
+			border-top: 1px solid #DCDCE4;
+			overflow: hidden;
+		}
+		article.safePrice img{
+			float: left;
+			width: 7rem;
+		}
+		article.safePrice div{
+			width: 100%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			margin-left: 8rem;
+		}
+		article.safePrice div p{
+			color:#666;
+			font-size: 0.8rem;
+		}
+		article.safePrice div p span#ycbPrice{
+			color: #ff6138;
+			font-size: 0.9rem;
+		}
+		article.safePrice div p span#safePrice{
+			color: #666;
+			font-size: 0.8rem;
+		}
+		div.perSafePrice-title{
+			color: #fff;
+			background-color: #6eaade;
+			line-height: 2.2rem;
+			text-align: center;
+			font-size: 1rem;
+		}
+		div.perSafePrice-detail{
+			overflow: hidden;
+			padding: 0.6rem 0.8rem;
+			border-bottom: 1px solid #DDDDE4;
+		}
+		p.perSafePrice-detail-left{
+			float: left;
+			color: #666;
+			font-size: 1rem;
+			border-right: 1px solid #6eaade;
+			width: 46%;
+			line-height: 2.6rem;
+		}
+		div.perSafePrice-detail-right{
+			float: left;
+			margin-left: 1rem;
+			width: 48%;
+		}
+		div.perSafePrice-detail-right p.p-top{
+			color: #aaa;
+			font-size: 0.8rem;
+		}
+		div.perSafePrice-detail-right p.p-bottom{
+			color: #6eaade;
+			font-size: 1rem;
+		}
+		li.perSafePrice-li div.perSafePrice-detail:last-child{
+			border-bottom: none!important;
+		}
+
+		article.article-bottom{
+			border-top: 1px solid #DDDDE4;
+			background-color: #F4F7F8;
+			padding-top: 1rem;
+		}
+		div.allSafePrice{
+			line-height: 2.5rem;
+			background-color: #6eaade;
+			padding: 0 0.8rem;
+			overflow: hidden;
+		}
+		div.allSafePrice span{
+			color: #fff;
+			font-size: 1.1rem;
+		}
+		div.allSafePrice span.allSafePrice-text{
+			float: left;
+		}
+		div.allSafePrice span.allSafePrice-detail{
+			float: right;
+		}
+		div.btns{
+			width: 90%;
+			margin: 1.2rem auto;
+			overflow: hidden;
+		}
+		div.btns div{
+			float: left;
+			width: 46%;
+			text-align: center;
+		}
+		div.btns div p.btnOne{
+			border:2px solid #ff6138;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			background-color: #fff;
+			color: #ff6138;
+			font-size: 1.2rem;
+			line-height: 2.6rem; 
+			cursor: pointer;
+		}
+		div.btns p.btnTwo{
+			float: right;
+			width: 46%;
+			border:2px solid #ff6138;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			background-color: #ff6138;
+			color: #fff;
+			font-size: 1.2rem;
+			line-height: 2.6rem; 
+			text-align: center;
+			cursor: pointer;
+		}
+		div.btns div p.tiqian{
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<nav>
+				<ul>
+					<li class="carSafe_step1"><img src="img/carSafe_step1.png"></li>
+					<li class="carSafe_step2"><img src="img/carSafe_step2.png"></li>
+					<li class="carSafe_step3"><img src="img/carSafe_step3.png"></li>
+					<li class="carSafe_step4"><img src="img/carSafe_stepGray4.png"></li>
+				</ul>
+			</nav>
+		</header>
+		<div class="line"></div>
+		<section>
+			<article class="safePrice">
+				<img src="">
+				<div>
+					<p>养车宝优惠价：<span id="ycbPrice">￥3999.00</span></p>
+					<p>保险公司原价：<span id="safePrice">￥5900.00</span></p>
+				</div>
+			</article>
+			<article class="perSafePrice">
+				<ul class="perSafePrice-ul">
+					<li class="perSafePrice-li">
+						<div class="perSafePrice-title">主险</div>
+						<div class="perSafePrice-detail">
+							<p class="perSafePrice-detail-left">车辆损失险</p>
+							<div class="perSafePrice-detail-right"><p class="p-top">投保</p><p class="p-bottom">2950.00（保费）</p></div>
+						</div>
+						<div class="perSafePrice-detail">
+							<p class="perSafePrice-detail-left">车辆损失险</p>
+							<div class="perSafePrice-detail-right"><p class="p-top">投保</p><p class="p-bottom">2950.00（保费）</p></div>
+						</div>
+						<div class="perSafePrice-detail">
+							<p class="perSafePrice-detail-left">车辆损失险</p>
+							<div class="perSafePrice-detail-right"><p class="p-top">投保</p><p class="p-bottom">2950.00（保费）</p></div>
+						</div>
+					</li>
+					<li class="perSafePrice-li">
+						<div class="perSafePrice-title">主险</div>
+						<div class="perSafePrice-detail">
+							<p class="perSafePrice-detail-left">车辆损失险</p>
+							<div class="perSafePrice-detail-right"><p class="p-top">投保</p><p class="p-bottom">2950.00（保费）</p></div>
+						</div>
+						<div class="perSafePrice-detail">
+							<p class="perSafePrice-detail-left">车辆损失险</p>
+							<div class="perSafePrice-detail-right"><p class="p-top">投保</p><p class="p-bottom">2950.00（保费）</p></div>
+						</div>
+						<div class="perSafePrice-detail">
+							<p class="perSafePrice-detail-left">车辆损失险</p>
+							<div class="perSafePrice-detail-right"><p class="p-top">投保</p><p class="p-bottom">2950.00（保费）</p></div>
+						</div>
+					</li>
+					<li class="perSafePrice-li">
+						<div class="perSafePrice-title">主险</div>
+						<div class="perSafePrice-detail">
+							<p class="perSafePrice-detail-left">车辆损失险</p>
+							<div class="perSafePrice-detail-right"><p class="p-top">投保</p><p class="p-bottom">2950.00（保费）</p></div>
+						</div>
+						<div class="perSafePrice-detail">
+							<p class="perSafePrice-detail-left">车辆损失险</p>
+							<div class="perSafePrice-detail-right"><p class="p-top">投保</p><p class="p-bottom">2950.00（保费）</p></div>
+						</div>
+						<div class="perSafePrice-detail">
+							<p class="perSafePrice-detail-left">车辆损失险</p>
+							<div class="perSafePrice-detail-right"><p class="p-top">投保</p><p class="p-bottom">2950.00（保费）</p></div>
+						</div>
+					</li>
+				</ul>
+			</article>
+			<article class="article-bottom">
+				<div class="allSafePrice">
+					<span class="allSafePrice-text">保费合计：</span>
+					<span class="allSafePrice-detail">￥4810.00</span>
+				</div>
+				<div class="btns">
+					<div>
+						<p class="btnOne">提前续保</p>
+						<p class="tiqian">可提前3个月续保</p>
+					</div>
+					<p class="btnTwo">提交投保</p>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    };
+	    paramJson.privilegeCharge='';
+	    paramJson.companyName='';
+	    // 获取各项险种价格
+	    $.ajax({
+	    	url:'/yangchebao-app-ws/ws/0.1/insure/latest?sqid='+paramJson.sqid,
+	    	type:'get',
+	    	dataType:'json',
+	    	contentType:'application/json;charset=utf-8',
+	    	success:function(data){
+	    		if(!data){
+	    			return false
+	    		}
+	    		paramJson.privilegeCharge=data.privilegeCharge;
+	    		paramJson.companyName=data.name;
+	    		$('article.safePrice img').attr('src',data.logo);
+	    		$('span#ycbPrice').html('￥'+data.privilegeCharge);
+	    		$('span#safePrice').html('￥'+data.totalCharge);
+	    		var perSafePriceStr='';
+	    		$.each(data.suite,function(key,val){
+	    			if(key=='mainInsure'){
+	    				perSafePriceStr+='<li class="perSafePrice-li">'
+					    				+'<div class="perSafePrice-title">主险</div>'
+	    				val.forEach(function(arrVal,i){
+	    					perSafePriceStr+='<div class="perSafePrice-detail">'
+					    					+'<p class="perSafePrice-detail-left">'+arrVal.name+'</p>'
+					    					+'<div class="perSafePrice-detail-right"><p class="p-top">'+arrVal.caption+'</p><p class="p-bottom">'+arrVal.charge+'（保费）</p></div>'
+					    					+'</div>'
+	    				});
+	    				perSafePriceStr+='</li>'
+	    			}else if(key=='extraInsure'){
+	    				perSafePriceStr+='<li class="perSafePrice-li">'
+					    				+'<div class="perSafePrice-title">附加险</div>'
+	    				val.forEach(function(arrVal,i){
+	    					perSafePriceStr+='<div class="perSafePrice-detail">'
+					    					+'<p class="perSafePrice-detail-left">'+arrVal.name+'</p>'
+					    					+'<div class="perSafePrice-detail-right"><p class="p-top">'+arrVal.caption+'</p><p class="p-bottom">'+arrVal.charge+'（保费）</p></div>'
+					    					+'</div>'
+	    				});
+	    				perSafePriceStr+='</li>'
+	    			}else if(key=='ncfInsure'){
+	    				perSafePriceStr+='<li class="perSafePrice-li">'
+					    				+'<div class="perSafePrice-title">附加不计免赔险</div>'
+	    				val.forEach(function(arrVal,i){
+	    					perSafePriceStr+='<div class="perSafePrice-detail">'
+					    					+'<p class="perSafePrice-detail-left">'+arrVal.name+'</p>'
+					    					+'<div class="perSafePrice-detail-right"><p class="p-top">'+arrVal.caption+'</p><p class="p-bottom">'+arrVal.charge+'（保费）</p></div>'
+					    					+'</div>'
+	    				});
+	    				perSafePriceStr+='</li>'
+	    			}else if(key=='vehicleInsure'){
+	    				perSafePriceStr+='<li class="perSafePrice-li">'
+					    				+'<div class="perSafePrice-title">交强险和车船税</div>'
+	    				val.forEach(function(arrVal,i){
+	    					perSafePriceStr+='<div class="perSafePrice-detail">'
+					    					+'<p class="perSafePrice-detail-left">'+arrVal.name+'</p>'
+					    					+'<div class="perSafePrice-detail-right"><p class="p-top">'+arrVal.caption+'</p><p class="p-bottom">'+arrVal.charge+'（保费）</p></div>'
+					    					+'</div>'
+	    				});
+	    				perSafePriceStr+='</li>'
+	    			}
+	    		});
+				$('ul.perSafePrice-ul').html(perSafePriceStr);
+				$('span.allSafePrice-detail').html('￥'+data.privilegeCharge)
+	    	},
+	    	error:function(xhr){
+	    		var error=eval('('+xhr.responseText+')');
+	    		alert(error[0].message)
+	    	}
+	    });
+	    // 投保
+		$('p.btnOne,p.btnTwo').unbind('click').bind('click',function(){
+			window.location.href="/yangchebao-pubweb/baoxian/checkInfo.html?privilegeCharge="+paramJson.privilegeCharge+'&name='+paramJson.companyName+'&sqid='+paramJson.sqid+'&customerId='+paramJson.customerId+'&userId='+paramJson.userId
+		})
+	})
+</script>
+</html>

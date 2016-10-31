@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<script src="js/jquery-1.9.1.min.js"></script>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<title>购物点评</title>
+<script type="text/javascript" name="baidu-tc-cerfication" src="http://apps.bdimg.com/cloudaapi/lightapp.js#b549b101949af1d41b82fbaf396396a0"></script>
+<script type="text/javascript">window.bd && bd._qdc && bd._qdc.init({app_id: 'e1cf9f344f8bd8fbe6f3eb8b'});</script> 
+</head>
+<body>
+	<section class="comment-wrap">
+		<header>
+			<a href="index.html" class="back" id="back"></a>全部点评<a href="javascript:void(0);" class="drop" id="dropBtn"></a>
+			<ul id="dropList">
+				<li id="all">全部评论</li>
+				<li id="pic">图片晒单</li>
+			</ul>
+		</header>
+		<article>
+			<h2>全部评论(<strong id="remarkCount">0</strong>)</h2>
+			<ul class="comment-list" id="remarkList"> 
+			</ul>
+		</article>
+	</section>
+	<div class="overlay-wrap"></div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var url =window.location.href; 
+			var urlParams = (url.split("?")[1]).split("&");
+			var paramJson = {};
+			$.each(urlParams,function(i){
+				var item = urlParams[i].split("=");
+				paramJson[item[0]] = item[1];
+			});
+			document.title = "购物点评-"+decodeURI(paramJson.title);
+			$('#dropBtn').on('click',function(){
+				$('.overlay-wrap').toggle();
+				$('#dropList').toggleClass('open');
+			});
+			$('#dropList li').on('click',function(){
+				$('.overlay-wrap').hide();
+				$('#dropList').removeClass('open'); 
+				if(($(this).attr("id"))=="all"){ 
+					getRemarkList(paramJson.businessInfoId,paramJson.busiServiceRelId,"");
+				}else{
+					getRemarkList(paramJson.businessInfoId,paramJson.busiServiceRelId,"pic");
+				}
+			});
+			function getRemarkList(id,serviceId,remarkType){ 
+				var remarkUrl = '/yangchebao-app-ws/ws/0.1/remarks/businessInfos/'+id;  
+				var param = {};
+				if(serviceId!=undefined){
+					param.businessServiceRefId = serviceId;
+					$("#back").attr("href","service.html?busiServiceRelId="+paramJson.busiServiceRelId+"&businessInfoId="+paramJson.businessInfoId+"&title="+paramJson.title);
+				}
+				if(remarkType=="pic"){
+					param.remarkType = 1;
+				}   
+				var arr = [];
+				$.each(param,function(key,value){
+				  var kv =key+"="+value;
+				  arr.push(kv);
+				}); 
+				var str = arr.join("&"); 
+				if(str!=""){ 
+					remarkUrl += "?"+str; 
+				} 
+				$.ajax({
+					url:remarkUrl,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) { 
+						 $("#remarkCount").html(data.count); 
+						 var items = data.items;
+						 var remarkStr = "";
+						 $.each(items,function(i){
+						 	 var starClass = "";
+						 	 var item = items[i];
+						 	 if(item.level!=undefined&&item.level!=""){
+								var score = parseInt(item.level)/2*10;
+								var className = "start-"+score;
+								starClass = className;
+							 }else{
+								starClass = "start-00";
+							 } 
+						 	var p1 = "",p2 = "",p3 = "";
+						 	if(item.serviceName==""){
+						  		p1 = '<p><span class="time">'+ item.remarkDate +'</span><span class="comment-none">未购物点评</span></p>'; 
+						  	}else{
+						  		p1 = '<p><span class="time">'+ item.remarkDate +'</span><span class="level"><span class="'+starClass+'"></span></span></p>';
+						  		p2 = '<p class="series">'+ item.serviceName +'</p>';
+						  	}
+						  	var remarkImgs = item.remarkImgs;
+						  	if(remarkImgs.length>0){ 
+						  		p3 = '<ul class="series-pic">';
+						  		$.each(remarkImgs,function(i){
+						  			p3 += '<li><img src="'+ remarkImgs[i]+'"/></li>';
+						  		});
+						  		p3 += '</ul>';
+						  	}  
+						 	var li ='<li>'
+									+'<h3>'+ item.nicName +'</h3>'
+									+'<div class="comment-content">'
+									+ p1
+									+'<p class="comment-text">'+ item.remarks +'</p>'
+									+'</div>'
+									+ p2
+									+ p3
+									+'</li>';
+							remarkStr+=li;
+						 });
+						 $("#remarkList").html(remarkStr);
+					}
+				});
+			} 
+			getRemarkList(paramJson.businessInfoId,paramJson.busiServiceRelId); 
+		}); 
+	</script>
+	<div class="baiduCount">
+	<script>//baidu 统计
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?36befafd9d601c669f9856c43f3ab457";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script> 
+	</div>
+</body>
+
+</html>

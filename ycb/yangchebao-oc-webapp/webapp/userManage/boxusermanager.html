@@ -1,0 +1,291 @@
+﻿<style type="text/css">
+    .cDiv{min-width:1100px;}
+</style>
+<div class="urlContentWraper" id="Wraper_user_boxManage">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>盒子用户管理</strong><bottom class="all-work-info numb215">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+            <table id="Table_user_boxManage"></table>
+        </div>
+        <div id="Form_user_boxManage" style="display:none;">
+            <div class="grid-layout-main jrad-form">  
+                <input type="hidden" name='cardTopicId'/>
+                <div class="row">
+                     <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>IMEI号：</label>
+                     <div class="span5 grid-layout-content">
+                           <div name="imeiNo" class="jrad-input-container"></div>
+                     </div>
+                </div>
+                <div class="row">
+                     <label class="span3 grid-layout-label">关联订单编号：</label>
+                     <div class="span5 grid-layout-content">
+                           <div name="orderNum" class="jrad-input-container"></div>
+                     </div>
+                </div>
+                <div class="row">
+                     <label class="span3 grid-layout-label">补贴开始时间：</label>
+                     <div class="span8 grid-layout-content">
+                           <div name="subsidyStartDate" class="jrad-dateinput-container"></div> 
+                     </div>
+                </div> 
+                <div class="row">
+                     <label class="span3 grid-layout-label">补贴结束时间：</label>
+                     <div class="span8 grid-layout-content">
+                           <div name="subsidyEndDate" class="jrad-dateinput-container"></div> 
+                     </div>
+                </div>
+            </div>
+            <div class="jrad-buttons-container ui-buttons-container">
+                <span class="jrad-btn-primary">确定</span> 
+                <span class="jrad-btn-normal">取消</span>
+            </div>
+        </div> 
+
+        <div id="Form_box_grant" style="display:none;">
+            <div class="grid-layout-main jrad-form">  
+                <input type="hidden" name='cardTopicId'/>
+                <div class="row">
+                     <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>用户手机号：</label>
+                     <div class="span5 grid-layout-content">
+                           <div name="mobile" class="jrad-input-container"></div>
+                     </div>
+                </div>
+                <div class="row">
+                     <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>IMEI号：</label>
+                     <div class="span8 grid-layout-content">
+                           <div name="imeiNo" class="jrad-input-container"></div> 
+                     </div>
+                </div> 
+                <div class="row">
+                     <label class="span3 grid-layout-label">关联订单号：</label>
+                     <div class="span8 grid-layout-content">
+                           <div name="orderNum" class="jrad-input-container"></div> 
+                     </div>
+                </div>
+                <div class="row">
+                     <label class="span3 grid-layout-label">补贴开始时间：</label>
+                     <div class="span8 grid-layout-content">
+                           <div name="subsidyStartDate" class="jrad-dateinput-container"></div> 
+                     </div>
+                </div>
+                <div class="row">
+                     <label class="span3 grid-layout-label">补贴结束时间：</label>
+                     <div class="span8 grid-layout-content">
+                           <div name="subsidyEndDate" class="jrad-dateinput-container"></div> 
+                     </div>
+                </div>
+            </div>
+            <div class="jrad-buttons-container ui-buttons-container">
+                <span class="jrad-btn-primary">确定</span> 
+                <span class="jrad-btn-normal">取消</span>
+            </div>
+        </div> 
+        
+        <div id="Form_explain_eg215" style="display:none;">
+            <div class="grid-layout-main jrad-form"> 
+                <div class="row">
+                    <label class="span3 grid-layout-label">业务说明：</label>
+                    <div class="span12 grid-layout-content">
+                        <div><strong>功能简介：</strong>乐乘盒子在养车宝APP激活的记录列表。</div>
+                        <div><strong>重要功能说明：</strong>1、绑定盒子：手动激活盒子。2、补贴时间设置：盒子已经激活，点此按钮设置补贴时间。3、盒子解除绑定：解除盒子在养车宝的绑定关系，若需完全解绑，需找杨峥到oc系统再次解绑。</div>
+                        <div><strong>注意事项：</strong>绑定盒子时，输入的手机号必须先注册为养车宝用户，同时订单编号必须为“待评价”、“已完成”的订单。</div>
+                    </div> 
+                </div> 
+                <div class="row">
+                    <label class="span3 grid-layout-label">备注：</label>
+                    <div class="span12 grid-layout-content">
+                        <div class="jrad-textarea-container" name="remark">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jrad-buttons-container ui-buttons-container"> 
+                <span class="jrad-btn-primary">确定</span> 
+                <span class="jrad-btn-normal">取消</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_user_boxManage');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();  
+    var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel})
+    // jRad.validators['subsidyStartDate'] = [{"msg":"补贴开始时间不能为空","type":"min","value":"1"}];
+    // jRad.validators['subsidyEndDate'] = [{"msg":"补贴结束时间不能为空","type":"min","value":"1"}];
+    var fields_params = {};   
+    // fields_params['subsidyStartDate'] = {
+    //         grid:4,
+    //         dateFmt:'yyyy-MM-dd HH:mm:ss',
+    // }; 
+    // fields_params['subsidyEndDate'] = {
+    //         grid:4,
+    //         dateFmt:'yyyy-MM-dd HH:mm:ss',
+    // }; 
+    page_column_model.push({display: '用户ID', name : 'userId'});
+    page_column_model.push({display: '用户手机号', name : 'mobilePhone',width:140});
+    page_column_model.push({display: 'IMEI', name : 'imei',width:140});
+    page_column_model.push({display: '关联订单编号', name : 'orderNumber'});
+    page_column_model.push({display: '关联商家简称', name : 'busiRegName'});
+    page_column_model.push({display: '返现分店是否能使用', name : 'fanxianBranchUseDesc'});
+    page_column_model.push({display: '绑定时间', name : 'bindDate',width:140});
+    page_column_model.push({display: '补贴开始时间', name : 'subsidyStartDate',width:140});
+    page_column_model.push({display: '补贴结束时间', name : 'subsidyEndDate',width:140});
+    page_column_model.push({display: '最后操作时间', name : 'updateDate',width:140});
+    page_column_model.push({display: '最后操作人', name : 'operator'});
+
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userId'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户手机号',name:'mobilePhone'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'IMEI',name:'imei'});
+    page_search_items.push({row:'2',type:'jrad-input',display:'关联订单编号',name:'orderNumber'});
+    page_search_items.push({row:'2',type:'jrad-input',display:'关联商家简称',name:'busiRegName'});
+    page_search_items.push({row:'2',type:'jrad-select',display:'返现分店是否能使用',name:'fanxianBranchUseDesc',params:{
+      data:[  
+            {"id":"0",name:"全部"},
+            {"id":"1",name:"是"},
+            {"id":"2",name:"否"}
+          ]
+    }}); 
+    page_search_items.push({row:'3',type:'jrad-dateinput',display:'绑定时间始',name:'bindStartDate'});
+    page_search_items.push({row:'3',type:'jrad-dateinput',display:'绑定时间终',name:'bindEndDate'});
+    page_search_items.push({row:'3',type:'jrad-input',display:'最后操作人',name:'operator'}); 
+
+    page_list_buttons.push({displayname: '绑定盒子',name:'bindbox', bclass: 'bindbox',onpress : function(){
+                $('#Form_box_grant',wraper).form({
+                    title:'绑定盒子', 
+                    //item:{},
+                    url:'/shopmanage-ws/ws/0.1/userInfoCms/boundBox',
+                    before_submit:function(json){
+                        json.Operator = carsmart_config.operatorName;
+                        return json
+                    },
+                    success_callback:function(){
+                        $('#Table_user_boxManage').flexMessage('设置成功','success');
+                        $('#Table_user_boxManage').flexReloadCurrentPage();
+                    }
+                }).form('open');
+            
+        }
+    });
+    page_list_buttons.push({displayname: '补贴时间设置',name:'set', bclass: 'set',prefunc:function(){
+            var checked = $('#Table_user_boxManage').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+            var checked = $('#Table_user_boxManage').getCheckedTrs(); 
+            var id = checked[0].id;
+            var item = $ .jRadGet({url : '/shopmanage-ws/ws/0.1/userInfoCms/getSubsidyDate?userDeviceId='+id}); 
+            if(checked[0]) {
+                $('#Form_user_boxManage',wraper).form({
+                    title:'补贴时间设置', 
+                    item:item,
+                    fields_params:fields_params,
+                    //validators: jRad.validators,
+                    url:'/shopmanage-ws/ws/0.1/userInfoCms/addSubsidyDate',
+                    before_submit:function(json){
+                        json.userDeviceId = checked[0].id;
+                        json.userInfoId = checked[0].userId;
+                        json.Operator = carsmart_config.operatorName;
+                        return json
+                    },
+                    success_callback:function(){
+                        $('#Table_user_boxManage').flexMessage('设置成功','success');
+                        $('#Table_user_boxManage').flexReloadCurrentPage();
+                    }
+                }).form('open');
+            }
+        }
+    }); 
+
+    page_list_buttons.push({displayname: '盒子解除绑定',name:'nobindbox',bclass: 'nobindbox',prefunc:function(){
+            var checked = $('#Table_user_boxManage').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+            var checked = $('#Table_user_boxManage').getCheckedTrs();
+            var postData={};
+            postData.userInfoId = checked[0].userId;
+            postData.userDeviceId =checked[0].id;
+            $.jRadConfirm('确认解除绑定吗？',1,function(){
+                $.jRadAjax({
+                    type:'post',
+                    data:postData,
+                    url:'/shopmanage-ws/ws/0.1/userInfoCms/releaseBox', 
+                    success: function(){
+                        $('#Table_user_boxManage').flexMessage('解除绑定成功!', 'success');
+                        $('#Table_user_boxManage').flexReloadSearch();
+                    },
+                    error:function(xhr){
+                        var errormsg = eval("(" + xhr.responseText + ")"); 
+                        if (errormsg != undefined) {
+                            $('#Table_user_boxManage').flexMessage(errormsg[0].message, 'error');
+                        }
+                    }
+                });
+            });
+        }
+    });
+
+    page_list_buttons.push({separator: true});
+
+    $('#Table_user_boxManage').flexigrid({
+            reload:true,
+            method:'get', 
+            colModel:page_column_model,
+            buttons:page_list_buttons,
+            searchitems:page_search_items,
+            showSearch:true,
+            pagination:{
+                diaplay_pages: 5,
+                align: 'bottom' 
+            },
+            url:'/shopmanage-ws/ws/0.1/userInfoCms/chezhengUserList',
+            onError:showError,
+            overflow:true,
+            checkBoxType:'single'
+    });  
+    
+    $(".numb215").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg215").form({}).form('close');
+        $("#Form_explain_eg215").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg215 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg215").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg215").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg215 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+
+    function showError(xhr){
+             var errormsg = eval("(" + xhr.responseText + ")");
+              var cDiv = $("#Wraper_user_boxManage .cDiv");
+              $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+            }
+});
+
+</script>

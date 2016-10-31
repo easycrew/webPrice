@@ -1,0 +1,156 @@
+<div class="urlContentWraper" id="Wraper_drive_order">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>代驾订单</strong><bottom class="all-work-info numb54">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <table id="Table_drive_order"></table>
+    </div>
+    <div id="Form_explain_eg54" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>APP上外接的e代驾的订单列表。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_drive_order');
+    var page_column_model = new Array();
+    var page_list_buttons = new Array();
+    var page_search_items = new Array();
+
+	
+	page_column_model.push({display: '订单ID', name : 'aidaijiaOrderId'}); 
+	page_column_model.push({display: '订单编号', name : 'orderNumber',width:150}); 
+    page_column_model.push({display: '用户信息', width:170,diy:function(item,$div){
+        var userInfoId=item.userInfoId;
+        var nicName=item.nicName;
+        var mobile=item.mobile;
+        $div.css('height','auto').html('<p>用户ID：'+userInfoId+'</p><p>用户昵称：'+nicName+'</p><p>手机号：'+mobile+'</p>');
+    }}); 
+    page_column_model.push({display: '司机信息', width:160,diy:function(item,$div){
+        var ucode=item.ucode;
+        var name=item.name;
+        var phone=item.phone;
+        $div.css('height','auto').html('<p>编号：'+ucode+'</p><p>姓名：'+name+'</p><p>手机号：'+phone+'</p>');
+    }});
+    page_column_model.push({display: '预约地址', name : 'address'});
+    page_column_model.push({display: '订单状态', name : 'orderStatusName'}); 
+    page_column_model.push({display: '预约时间', name : 'appointTime'}); 
+    page_column_model.push({display: '更新时间', name : 'updated'});
+
+    page_search_items.push({row:'1',type:'jrad-input',display:'订单编号',name:'orderNumber'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'用户昵称',name:'nicName'}); 
+	page_search_items.push({row:'1',type:'jrad-input',display:'用户手机',name:'mobile'});
+	page_search_items.push({row:'2',type:'jrad-input',display:'司机编号',name:'ucode'});
+    page_search_items.push({row:'2',type:'jrad-input',display:'司机姓名',name:'name'});
+    page_search_items.push({row:'2',type:'jrad-input',display:'司机手机',name:'phone'}); 
+    page_search_items.push({row:'3',type:'jrad-dateinput',display:'预约时间开始',name:'appointStartDate',params:{
+            grid:4,
+            dateFmt:'yyyy-MM-dd HH:mm:ss',
+    }});
+    page_search_items.push({row:'3',type:'jrad-dateinput',display:'预约时间结束',name:'appointEndDate',params:{
+            grid:4,
+            dateFmt:'yyyy-MM-dd HH:mm:ss',
+    }});
+    page_search_items.push({row:'3',type:'jrad-select',display:'订单状态',name:'orderStatus',params:{
+        data:[
+            {id:'',name:'全部'},
+            {id:'0',name:'未派'},
+            {id:'1',name:'正在派单'},
+            {id:'11',name:'司机已接单'},
+            {id:'20',name:'司机已到达'},
+            {id:'21',name:'开始代驾'},
+            {id:'22',name:'结束代驾'},
+            {id:'23',name:'开始等待'},
+            {id:'30',name:'订单已完成'},
+            {id:'40',name:'客户取消订单'},
+            {id:'41',name:'司机订单取消'},
+            {id:'45',name:'客服订单取消'},
+            {id:'46',name:'第三方取消订单'},
+            {id:'4',name:'司机无响应'},
+            {id:'5',name:'周边无可派司机'}
+        ]
+    }});
+    page_search_items.push({row:'4',type:'jrad-dateinput',display:'更新时间开始',name:'updateStartDate',params:{
+            grid:4,
+            dateFmt:'yyyy-MM-dd HH:mm:ss',
+    }}); 
+    page_search_items.push({row:'4',type:'jrad-dateinput',display:'更新时间结束',name:'updateEndDate',params:{
+            grid:4,
+            dateFmt:'yyyy-MM-dd HH:mm:ss',
+    }});
+   
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_drive_order').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			}, 
+			showSearch:true,
+            url:'/shopmanage-ws/ws/0.1/aidaijiaOrder/queryAidaijiaOrders', 
+            overflow:true,
+			onError:showError
+    });
+    
+    $(".numb54").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg54").form({}).form('close');
+        $("#Form_explain_eg54").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg54 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg54").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg54").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg54 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		} 
+</script>

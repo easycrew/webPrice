@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<title>恭喜您中奖啦！</title>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<style>
+/* 公共css */
+html {
+	font-size: 62.5%;
+}
+body {
+	font-family:'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	line-height: normal;
+	margin: 0 auto;
+	background-color: #2fa73b;
+}
+a {
+	text-decoration: none;
+}
+em{
+	font-style: normal;
+}
+ul {
+	list-style: none;
+}
+li{ list-style-type:none;}
+img {
+	border: none;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.clearfix {
+ *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+.clearfix:after {
+	clear: both;
+}
+section,article{
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+article img{
+	width: 100%;
+	display: block;
+}
+.success-img{
+	position: relative;
+	z-index: 10;
+}
+.success-from{
+	width: 100%;
+	position: absolute;
+	top: 26px;
+	z-index: 100;
+	display: block;
+
+}
+.success-from input{
+	display: block;
+	border: none;
+	height: 42px;
+	border-radius: 5px;
+	padding: 5px;
+	box-sizing: border-box;
+	font-size: 1.4rem;
+}
+.success-from input.inp-text{
+	width: 80%;
+	margin: 0 auto;
+}
+.success-from  p{
+	width: 80%;
+	margin: 15px auto;
+}
+.success-from  p input.inp2-text{
+	width: 50%; 
+	float: left;
+	display: block;
+}
+span.getQrcodeBtn{
+	width: 40%;
+	background-color: #ea4833; 
+	float: right;
+	display: block;
+	height: 42px;
+	line-height: 42px;
+	text-align: center;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 1.4rem;
+}
+.success-from  p .draw{
+	width: 50%;
+	background-color: #f6e833;
+	height: 42px;
+	line-height: 42px;
+	text-align: center;
+	border-radius: 5px;
+	display: block;
+	margin: 0 auto;
+	font-size: 1.4rem;
+}
+.getQrcodeBtn.disabled{
+			background-color: #ccc;
+			color: #fff;
+			cursor: default;
+		}
+
+/*弹窗*/
+div.popup{
+	width: 90%;
+	position:fixed;
+	top: 50%;
+	left: 5%;
+	margin-top:-82.5px;
+	z-index: 1000;
+	padding: 2.2rem 1.5rem  2rem 1.5rem;
+	box-sizing: border-box;
+	background-color:rgba(255,255,255,0.9); 
+	border-radius: 10px;
+	box-shadow: 3px 3px 15px #000;
+ }
+  div.popup{
+ 	
+ 	margin-top: -149px;
+ }
+ div.suc{
+ 	width: 100%;
+	background-color:rgba(0,0,0,0.6);
+ 	display: none;
+ 	z-index: 10000;
+ 	position: fixed;
+ 	top: 0;
+ 	left: 0;
+ 	bottom: 0;
+ 	right: 0;
+ }
+ div.popup p{
+ 	width: 100%;
+ 	text-align: center;
+ 	font-size: 1.4rem;
+ 	line-height: 2.5rem;
+ 	color: #298c31;
+ }
+  div.popup p em{
+  	color: red;
+  }
+ div.popup p a{
+ 	width: 40%;
+ 	line-height: 3.5rem;
+ 	border-radius: 5px;
+ 	background-color: #d24241;
+ 	display:inline-block;
+ 	margin-top: 10px;
+ 	color: #fff;
+ 	margin-right: 10px;
+ }
+/*提示框*/
+div.errorLog {
+	position: fixed;
+	top: 0;
+	z-index: 500;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0);
+}
+div.errorLog p {
+	position: relative;
+	width: 90%;
+	margin: 10rem auto;
+	background-color: rgba(0, 0, 0, 0.5);
+	font-size: 1.6rem;
+	color: #fff;
+	text-align: center;
+	padding: 1rem 0;
+	border-radius: 8px;
+}
+/*dialog*/
+		.dialog {
+		    background-color: rgba(0, 0, 0, 0.4);
+		    bottom: 0;
+		    height: 100%;
+		    position: fixed;
+		    top: 0;
+		    width: 100%;
+		    z-index: 1001;
+		    
+		}
+		.dialog > div {
+		    background-color: #fff;
+		    height: auto;
+		    margin: 40% 10px 0;
+		    overflow: auto;
+		}
+		.dialog h1 {
+		    border-bottom: 1px solid #fb451f;
+		    color: #fb451f;
+		    font-size: 1.7em;
+		    font-weight: normal;
+		    height: 33px;
+		    line-height: 33px;
+		    text-align: center;
+		}
+		.dialog h1 {
+		    border-bottom: 1px solid #fb451f;
+		    color: #fb451f;
+		    font-size: 1.7em;
+		    font-weight: normal;
+		    height: 33px;
+		    line-height: 33px;
+		    text-align: center;
+		}
+		.dialog p {
+		    font-size: 1.6em;
+		    font-weight: normal;
+		    line-height: 150%;
+		    padding: 20px;
+		}
+		.dialog .btn-wrap > div {
+		    margin:0 auto;
+		    width: 70%;
+		}
+		.dialog .dialog-btn {
+		    background-color: #fb451f;
+		    color: #fff;
+		    cursor: pointer;
+		    display: block;
+		    font-size: 1.6em;
+		    height: 34px;
+		    line-height: 34px;
+		    text-align: center;
+		}
+		.dialog .left {
+		    margin: 0 auto 17px auto;
+		}
+		.dialog .right {
+		    background-color: #c2c2c6;
+		    margin: 0 27px 17px 9px;
+		} 
+  /* 隐藏弹出层 */
+  #sharecover {
+    background-color: rgba(0, 0, 0, 0.5);
+    bottom: 0; 
+    height: 100%;
+    left: 0;
+    position: fixed;
+    right: 0;
+    text-align: left;
+    top: 0;
+    width: 100%;
+	z-index:10002;
+}
+#sharecover img{
+	width:100%;
+}
+</style>
+</head>
+<body>
+<div class="suc">
+<div class="popup">
+	<p>奖品领取成功！</p>
+	<p> 请在养车宝App-<em>我的资产</em>中查看或提现 </p>
+	<p><a class="download-btn" id="ycb">立即下载</a><a class="share">分享好友</a></p>
+</div>
+</div>
+<div class="dialog" style="display:none;">
+	  <div>
+	    <h1>提示</h1>
+	    <p>您已经是养车宝用户，点击下一步继续。</p>
+	    <div class="btn-wrap">
+	        <div><div class="dialog-btn left">下一步</div></div>
+	    </div>
+	  </div>
+</div>
+<section>
+
+	<article>
+		<img src="images/suc_01.jpg" />
+	</article>
+	<article>
+		<img src="images/suc_05.jpg"  id="suc-img"  />
+	</article>
+	<article>
+	<div class="success-img">
+		<img src="images/suc_03.jpg" />
+	</div>
+	<div class="success-from">
+		<input type="text" class="inp-text" placeholder='请输入手机号领取' name="mobileNo" id="mobileNo" />
+		<p class="clearfix"><input type="text" class="inp2-text" placeholder='请输入验证码' name="qrCode" id="qrCode" /><span class="getQrcodeBtn">发送验证码</span></p>
+		<p><span class="draw">立即领取</span></p>
+	</div>
+	</article>
+</section>
+<div id="sharecover" style="display: none;"><img src="http://app.yangchebao.com.cn/group1/M00/05/00/ChUBl1SOrkCAV_1UAABSgg_DsAY434.png" /></div>
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/share.js"></script>
+<script>
+//下载养车宝app
+	function  is_weixin(){
+		var ua = navigator.userAgent.toLowerCase();
+	    /**if(ua.match(/mqqbrowser/i)=="mqqbrowser") {
+     		$("#sharecover img").attr("src","http://app.yangchebao.com.cn/group1/M00/05/00/ChUBl1SOrkCAV_1UAABSgg_DsAY434.png");
+		}else{
+	        $("#sharecover img").attr("src","http://app.yangchebao.com.cn/group1/M00/05/00/ChUBl1SOrM2AGgatAABTszyk_9M207.png");
+		}**/
+		if(ua.match(/MicroMessenger/i)=="micromessenger") {
+			$('.download-btn').attr('href','http://a.app.qq.com/o/simple.jsp?pkgname=com.carsmart.emaintain');
+		}else{
+			var sUserAgent = navigator.userAgent.toLowerCase(); 
+			var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+			var bIsIphone = sUserAgent.match(/iphone/i) == "iphone";
+			var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+			var bIsAndroid = sUserAgent.match(/android/i) == "android"; 
+			if(bIsIpad || bIsIphone || bIsIphoneOs){
+				$('.download-btn').attr('href','YangCheBao://1');
+			function applink(){  
+		                return function(){  
+		                    var clickedAt = +new Date;  
+		                     setTimeout(function(){
+		                         !window.document.webkitHidden && setTimeout(function(){ 
+		                               if (+new Date - clickedAt < 2000){  
+		                                   window.location = 'https://itunes.apple.com/us/app/yang-che-bao/id736543893';  
+		                               }  
+		                         }, 500);       
+		                     }, 500)   
+		                };  
+		            }  
+            document.getElementById("ycb").onclick = applink();   
+				//window.location.href = "https://itunes.apple.com/us/app/yang-che-bao/id736543893"; 
+				
+			}else{   
+			    $('.download-btn').attr('href','http://d.yangchebao.com.cn/down.myapp.com/yangchebao2.8.0.apk');
+			}
+		}
+	} 
+ var paramJson = {};
+$(function(){
+
+// 获取参数
+            var url = window.location.search;
+            if (url != '') {
+                var paramsArr = (url.split("?")[1]).split("&");
+                $.each(paramsArr, function(i) {
+                    var item = paramsArr[i].split("=");
+                    paramJson[item[0]] = item[1];
+                });
+            }
+           //根据不同奖励显示不同图片
+	if(decodeURIComponent(paramJson.prizeName) == "5元现金"){
+		$("#suc-img").attr("src","images/suc_05.jpg");
+	}else if(decodeURIComponent(paramJson.prizeName) == "2元现金"){
+		$("#suc-img").attr("src","images/suc_02.jpg");
+	}else if(decodeURIComponent(paramJson.prizeName) == "10元代金券"){
+		$("#suc-img").attr("src","images/suc_04.jpg");
+	}
+})
+		// 获取验证码
+		var waiter = 30;
+		function timer() {
+			var $getQrcodeBtn = $('span.getQrcodeBtn');
+			if (waiter == 0) {
+				$getQrcodeBtn.html('获取验证码').removeClass('disabled');
+				$('span.getQrcodeBtn').on('click', codeClick)
+				waiter = 30;
+				return false
+			} else {
+				$getQrcodeBtn.html(waiter + 'S后重新获取').addClass('disabled', true);
+				$('span.getQrcodeBtn').off('click')
+			}
+			waiter--;
+			setTimeout(function() {
+					timer(); //循环调用
+				},
+				1000)
+		};
+	// 点击提交验证
+		$('span.draw').unbind('click').bind('click', function() {
+		/*防止用户多次点击*/
+		var nowTime = new Date().getTime();
+		var clickTime = $(this).attr("ctime");
+		if (clickTime != 'undefined' && (nowTime - clickTime < 5000)) {
+			return false;
+		} else {
+			$(this).attr("ctime", nowTime);
+		}
+			//alert('提交验证');
+			var mobile = $.trim($('input[name="mobileNo"]').val());
+			var code = $.trim($('input[name="qrCode"]').val());
+			if (mobile == '') {
+				errorLog('手机号不能为空');
+				return false
+			}
+			if (!(/^1[0-9]{10}$/.test(mobile))) {
+				errorLog('手机号格式不正确');
+				return false
+			}
+			if(code==''){
+				errorLog('请输入验证码');
+				return false
+			}
+			$.ajax({
+			url:'/yangchebao-weixin-ws/ws/0.1/renbao/getMobileCode?mobile='+mobile,
+			type:'get',
+			async:false,
+			dataType:'json',
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				if(data.isReg=='no'){
+						var postData = {};
+						var postData2 = {};
+						postData.fastRegStatus = '1';
+						postData.alias = mobile;
+						postData.code = code;
+						postData2.mobile=mobile;
+						postData2.lotteryRecordId=paramJson.lotteryRecordId;
+						$.ajax({
+							url: '/yangchebao-uc/ws/0.1/registry/mobile',
+							type: 'post',
+							dataType: 'json',
+							data: $.toJSON(postData),
+							contentType: 'application/json;charset=utf-8',
+							success: function(data2) {
+								$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/weixinLotteryActivity/awardPrizes',
+								type:'post',
+								dataType:'json',
+								data:$.toJSON(postData2),
+								contentType:'application/json;charset=utf-8',
+								success:function(data3){
+									if(data3.statusCode == 200){
+										$('.suc').fadeIn();
+										is_weixin();
+										/*设置分享弹出层*/
+									           $(".share").click(function(){
+											$("#sharecover").show();
+										}); 
+										$('#sharecover').click(function(e){
+											$("#sharecover").hide(); 
+										});  
+									}
+								},
+								error:function(xhr){
+									var error=eval('('+xhr.responseText+')');
+									errorLog(error[0].message)
+								}
+								})
+							},
+							error: function(xhr) {
+								var error = eval('(' + xhr.responseText + ')');
+								errorLog(error[0].message)
+							}
+						})
+				}else{
+					$('div.dialog').show();
+					$('div.dialog div.right').unbind('click').bind('click',function(){
+						$('div.dialog').hide()
+					})
+					$('div.dialog div.left').unbind('click').bind('click',function(){
+						$('div.dialog').hide()
+						var postData2 = {};
+						postData2.mobile=mobile;
+						postData2.lotteryRecordId=paramJson.lotteryRecordId;
+						$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/weixinLotteryActivity/awardPrizes',
+								type:'post',
+								dataType:'json',
+								data:$.toJSON(postData2),
+								contentType:'application/json;charset=utf-8',
+								success:function(data3){
+									if(data3.statusCode == 200){
+										$('.suc').fadeIn();
+										is_weixin();
+										/*设置分享弹出层*/
+									           $(".share").click(function(){
+											$("#sharecover").show();
+										}); 
+										$('#sharecover').click(function(e){
+											$("#sharecover").hide(); 
+										});  
+									}
+								},
+								error:function(xhr){
+									var error=eval('('+xhr.responseText+')');
+									errorLog(error[0].message)
+								}
+						})
+					})
+					
+
+				}
+			},
+			error:function(xhr){
+				var error=eval('('+xhr.responseText+')');
+				errorLog(error[0].message)
+			}
+		})
+		})
+function codeClick() {
+			if (!($(this).hasClass('disable'))) {
+				var mobile = $.trim($('input[name="mobileNo"]').val());
+				if (mobile == '') {
+					errorLog('手机号不能为空');
+					return false
+				}
+				if (!(/^1[0-9]{10}$/.test(mobile))) {
+					errorLog('手机号格式不正确');
+					return false
+				}
+				$.ajax({
+				url:'/yangchebao-weixin-ws/ws/0.1/renbao/getMobileCode?mobile='+mobile,
+				type:'get',
+				async:false,
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					if(data.isReg=='no'){
+						timer();
+						if (code == '') {
+							errorLog('请输入验证码');
+							return false
+						}
+						//点击提交验证
+						$('span.draw').unbind('click').bind('click', function() {
+						var postData = {};
+						var postData2 = {};
+						postData.fastRegStatus = '1';
+						postData.alias = mobile;
+						postData.code = code;
+						postData2.mobile=mobile;
+						postData2.lotteryRecordId=paramJson.lotteryRecordId;
+						$.ajax({
+							url: '/yangchebao-uc/ws/0.1/registry/mobile',
+							type: 'post',
+							dataType: 'json',
+							data: $.toJSON(postData),
+							contentType: 'application/json;charset=utf-8',
+							success: function(data2) {
+								$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/weixinLotteryActivity/awardPrizes',
+								type:'post',
+								dataType:'json',
+								data:$.toJSON(postData2),
+								contentType:'application/json;charset=utf-8',
+								success:function(data3){
+									if(data3.statusCode == 200){
+										$('.suc').fadeIn();
+										is_weixin();
+										/*设置分享弹出层*/
+									           $(".share").click(function(){
+											$("#sharecover").show();
+										}); 
+										$('#sharecover').click(function(e){
+											$("#sharecover").hide(); 
+										});  
+									}
+								},
+								error:function(xhr){
+									var error=eval('('+xhr.responseText+')');
+									errorLog(error[0].message)
+								}
+								})
+							},
+							error: function(xhr) {
+								var error = eval('(' + xhr.responseText + ')');
+								errorLog(error[0].message)
+							}
+						})
+						})
+						
+					}else{
+						$('div.dialog').show();
+						$('div.dialog div.right').unbind('click').bind('click',function(){
+							$('div.dialog').hide()
+						})
+						$('div.dialog div.left').unbind('click').bind('click',function(){
+						$('div.dialog').hide()
+						var postData2 = {};
+						postData2.mobile=mobile;
+						postData2.lotteryRecordId=paramJson.lotteryRecordId;
+						$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/weixinLotteryActivity/awardPrizes',
+								type:'post',
+								dataType:'json',
+								data:$.toJSON(postData2),
+								contentType:'application/json;charset=utf-8',
+								success:function(data3){
+									if(data3.statusCode == 200){
+										$('.suc').fadeIn();
+										is_weixin();
+										/*设置分享弹出层*/
+									           $(".share").click(function(){
+											$("#sharecover").show();
+										}); 
+										$('#sharecover').click(function(e){
+											$("#sharecover").hide(); 
+										});  
+									}
+								},
+								error:function(xhr){
+									var error=eval('('+xhr.responseText+')');
+									errorLog(error[0].message)
+								}
+						})
+					})
+					}
+				},
+				error:function(xhr){
+					var error=eval('('+xhr.responseText+')');
+					errorLog(error[0].message)
+				}
+			})
+			}
+		};
+		$('span.getQrcodeBtn').on('click', codeClick);
+			// 错误框
+		var errorLog = function(msg) {
+			$('div.errorLog').remove();
+			var errorStr = '';
+			errorStr += '<div class="errorLog" style="display:none;"><p></p></div>'
+			$('body').append(errorStr);
+			$('div.errorLog p').html(msg);
+			$('div.errorLog').fadeIn();
+			var errorHeight = $('div.errorLog p').outerHeight();
+			$('div.errorLog p').css({
+				'top': '50%',
+				'margin-top': '-' + errorHeight / 2 + 'px'
+			});
+			$('div.errorLog').unbind('click').bind('click', function() {
+				$('div.errorLog').fadeOut()
+			});
+			setTimeout(function() {
+				$('div.errorLog').fadeOut()
+			}, 3000)
+		};
+</script>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<meta name="format-detection" content="telephone=no" />
+	<title>五折车险限时抢购！</title>
+	<script src="./js/jquery-1.10.1.min.js"></script>
+	<script src="./js/commen.js"></script>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		html,body{
+			min-height: 100%;
+		}
+		html{
+		    font-size: 62.5%;
+		}
+		body{
+			background-color: #f4f7f8; 
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+		input,textarea{
+			border: none;
+			-webkit-appearance: none;
+		}
+		.clearfix::before,.clearfix::after{
+			display: block;
+			content: '';
+			font-size: 0px;
+		}
+		.clearfix::after{
+			clear: both;
+		}
+
+		article{
+			background-color: #fff;
+		}
+		div.bannerW img{
+			width: 100%;
+		}
+		div.cheapW{
+			margin-top: 1rem;
+		}
+		h2{
+			text-align: center;
+			font-size: 2rem;
+			padding: 0.5rem 0 1.6rem;
+		}
+		div.line{
+			padding: 0 1.5rem;
+			text-align: center;
+		}
+		p.lineText{
+			position: relative;
+			top: -1.1rem;
+			display: inline-block;
+			background-color: #fff;
+			padding: 0 0.6rem;
+			font-size: 1.5rem;
+		}
+		p.lineP{
+			height: 1px;
+			width: 100%;
+			font-size: 0px;
+			background-color: #a2a2a2;
+		}
+		div.accounts{
+			margin-top: 1.8rem;
+		}
+		div.accountRow{
+			text-align: center;
+		}
+		p.accountRowL{
+			position: relative;
+			top: -1rem;
+			display: inline-block;
+			width: 3.5rem;
+			font-size: 1.62rem;
+			padding: 1.2rem 0.5rem;
+			border: 1px solid #ff6138;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			margin-right: 1.2rem;
+			color: #ff6138;
+		}
+		div.accountRowR{
+			display: inline-block;
+			text-align: left;
+			width: 19.5rem;
+		}
+		p.rowTitle{
+			font-size: 1.8rem;
+			color: #ff6138;
+		}
+		p.rowD{
+			font-size: 1.2rem;
+		}
+		div.plumW{
+			text-align: center;
+		}
+		p.plum{
+			display: inline-block;
+			position: relative;
+			top: -0.2rem;
+			width: 242px;
+			font-size: 1.8rem;
+			text-align: left;
+			padding-left: 2.2rem;
+			padding-bottom: 0.1rem;
+			margin-top: -1.2rem;
+		}
+
+		div.totalAccount{
+			margin: 1.5rem;
+			padding-top: 1.5rem;
+			border-top: 1px solid #ff6138;
+			text-align: center;
+		}
+		div.totalRow{
+			position: relative;
+			left: -0.7rem;
+		}
+		div.totalRow p.totalRowL{
+			display: inline-block;
+			position: relative;
+			top: -1.2rem;
+			font-size: 1.945rem;
+			color: #fff;
+			background-color: #ff6138;
+			padding: 1.2rem 0.5rem;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			margin-right: 0rem;
+		}
+		div.totalRowR{
+			display: inline-block;
+			width: 190px;
+		}
+		p.totalRowTitle{
+			font-size: 2.2rem;
+			color: #ff6138;
+		}
+		p.totalRowD{
+			font-size: 1.5rem;
+		}
+		div.operatData{
+			margin-top: 1rem;
+			background-color: #EDF6FF;
+			padding: 1rem 0.6rem;
+		}
+		p.operatTop{
+			color: #446084;
+			font-size: 1.2rem;
+			padding: 0.5rem;
+		}
+		div.dataD{
+			padding: 0.5rem;
+		}
+		div.dataD img{
+			width: 100%;
+		}
+		p.operatBottom{
+			margin-top: 0.5rem;
+			line-height: 3rem;
+		}
+		span.operatBottomL{
+			float: left;
+			color: #446084;
+			font-size: 1.8rem;
+			padding-left: 0.6rem;
+		}
+		span.operatBottomL span{
+			color: #ff6138;
+		}
+		span.toDetailBtn{
+			float: right;
+			color: #6EAADE;
+			font-size: 1.5rem;
+			margin-right: 1rem;
+		}
+
+		div.easyW{
+			margin-top: 2rem;
+		}
+		div.easyItems{
+			margin-top: -0.8rem;
+		}
+		div.easyItem{
+			padding: 0.6rem 1.5rem;
+		}
+		p.easyTitle{
+			padding: 0.8rem ;
+			text-align: center;
+			color: #ff6138;
+			font-size: 1.5rem;
+			border-bottom: 1px solid #d9d9e2;
+		}
+		p.easyTitleD{
+			padding-top: 1rem;
+			font-size: 1.2rem;
+		}
+
+		article.middle{
+			margin-top: 1rem;
+		}
+		div.title{
+			padding: 0.8rem 1.2rem;
+			border-bottom: 1px solid #d9d9e2;
+		}
+		div.title p{
+			font-size: 1.5rem;
+			line-height: 1.8rem;
+			padding-left: 0.5rem;
+			border-left: 2px solid #ff6138;
+		}
+		div.middleD{
+			padding: 1.6rem 0;
+		}
+		div.middleD p{
+			float: left; 
+			width: 50%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			line-height: 6.5rem;
+		}
+		p.ycbLogo{
+			border-right: 1px solid #d9d9e2;
+			text-align: right;
+			padding: 0 1.8rem;
+		}
+		p.renshouLogo{
+			padding: 0 1.8rem;
+		}
+		article.bottom{
+			margin-top: 1rem;
+		}
+		div.evaluates{
+			padding: 0 1.2rem 1.6rem;
+		}
+		p.evaluateT{
+			color: #6EAADE;
+			font-size: 1.2rem;
+			padding: 0.8rem 0 0.4rem;
+		}
+		p.evaluateD{
+			font-size: 1.4rem;
+			padding-bottom: 0.8rem;
+		}
+		div.eMi{
+			border-top: 1px dashed #6EAADE;
+			border-bottom: 1px dashed #6EAADE;
+		}
+		p.baomingBtn{
+			background-color: #ff6138;
+			color: #fff;
+			text-align: center;
+			font-size: 1.8rem;
+			line-height: 4rem;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<article class="top">
+			<div class="bannerW"><img src="./img/banner.jpg" alt="车险5折"></div>
+			<div class="cheapW">
+				<h2>买车险省钱就是王道</h2>
+				<div class="line">
+					<p class="lineP"></p>
+					<p class="lineText">5折车险 从未如此疯狂</p>
+				</div>
+				<div class="accounts">
+					<div class="accountRow clearfix">
+						<p class="accountRowL">15%</p>
+						<div class="accountRowR">
+							<p class="rowTitle">车险直降</p>
+							<p class="rowD">省去业务员的提成，全部回馈给用户</p>
+						</div>
+					</div>
+					<div class="plumW"><p class="plum">+</p></div>
+					<div class="accountRow clearfix">
+						<p class="accountRowL">27%</p>
+						<div class="accountRowR">
+							<p class="rowTitle">1095养车基金</p>
+							<p class="rowD">直接存入个人会员账号</p>
+						</div>
+					</div>
+					<div class="plumW"><p class="plum">+</p></div>
+					<div class="accountRow clearfix">
+						<p class="accountRowL">8%</p>
+						<div class="accountRowR">
+							<p class="rowTitle">可折现加油费</p>
+							<p class="rowD">可加油卡充值或购买服务</p>
+						</div>
+					</div>
+					<div class="plumW"><p class="plum">+</p></div>
+					<div class="accountRow clearfix">
+						<p class="accountRowL">8%</p>
+						<div class="accountRowR">
+							<p class="rowTitle">代金券</p>
+							<p class="rowD">保费越高，金额越大</p>
+						</div>
+					</div>
+				</div>
+				<div class="totalAccount">
+					<div class="totalRow">
+						<p class="totalRowL">58%</p>
+						<div class="totalRowR">
+							<p class="totalRowTitle">一共节省了58%</p>
+							<p class="totalRowD">说到做到的真5折</p>
+						</div>
+					</div>
+				</div>
+				<div class="operatData">
+					<p class="operatTop">以市场价为4000元的车险(商业险)为例</p>
+					<div class="dataD"><img src="./img/dataD.jpg"></div>
+					<p class="operatBottom clearfix">
+						<span class="operatBottomL">为您节省<span>2239</span>元</span>
+						<span class="toDetailBtn">详细说明></span>
+					</p>
+				</div>
+			</div>
+			<div class="easyW">
+				<h2>岂止是省钱还更省心</h2>
+				<div class="line">
+					<p class="lineP"></p>
+					<p class="lineText">尖叫特权服务享不停</p>
+				</div>
+				<div class="easyItems">
+					<div class="easyItem">
+						<p class="easyTitle">无忧理赔－不垫付无风险</p>
+						<p class="easyTitleD">出险理赔，定损后直接修车，无需车主垫付修车费用，方便快捷无负担无风险。</p>
+					</div>
+					<div class="easyItem">
+						<p class="easyTitle">免费救援－第一时间赶到</p>
+						<p class="easyTitleD">一旦出险，保险公司第一时间赶到，帮您解决一切有关事故的周边问题，包括救援、法律援助、医疗救险等服务。</p>
+					</div>
+					<div class="easyItem">
+						<p class="easyTitle">一站式服务－花钱少服务优</p>
+						<p class="easyTitleD">无论修车理赔或是日常保养，您可以放心将车交给商户，保证您取车时拿到完好无损运转正常的车辆。</p>
+					</div>
+				</div>
+				
+			</div>
+		</article>
+		<article class='middle'>
+			<div class='title'><p>养车宝&中国人寿联合保障</p></div>
+			<div class="middleD clearfix">
+				<p class="ycbLogo"><img src="./img/ycbLogo.png" alt="养车宝" width="104.5px"></p>
+				<p class="renshouLogo"><img src="./img/renshouLogo.png" alt="中国人寿" width="110px"></p>
+			</div>
+		</article>
+		<article class="bottom">
+			<div class='title'><p>用户评价</p></div>
+			<div class="evaluates">
+				<div class="evaluate">
+					<p class="evaluateT">哈佛H6车友(130****072)</p>
+					<p class="evaluateD">真的比保险公司省很多哦，还送了代金券和余额，太超值了，32个赞～～</p>
+				</div>
+				<div class="evaluate eMi">
+					<p class="evaluateT">奥迪A6车友(155****192)</p>
+					<p class="evaluateD">购买流程很流畅，下单也特别快，基本支付完成就立马生成保单了，赞一个！！！</p>
+				</div>
+				<div class="evaluate">
+					<p class="evaluateT">别克凯越车友(182****403)</p>
+					<p class="evaluateD">不错不错真的不错，以后买车险都来你们这，真的太省心了，动动手指头就搞定了。</p>
+				</div>
+			</div>
+		</article>
+		<p class="baomingBtn">立即报名参加</p>
+	</section>
+</body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+	$('span.toDetailBtn').unbind('click').bind('click',function(){
+		window.location.href="activityDetail.html"
+	});
+	$('p.baomingBtn').unbind('click').bind('click',function(){
+		window.location.href="enterFor.html"
+	});
+	// 分享
+	var sharedata={};
+	sharedata.title="五折车险限时抢购！";
+	sharedata.shareUrl="http://"+urlIp()+'/yangchebao-weixin-ws/renbao/index.html';
+	sharedata.headImgUrl="http://"+urlIp()+'/yangchebao-weixin-ws/renbao/img/logo.png';
+	share(sharedata);
+</script>
+</html>

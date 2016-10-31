@@ -1,0 +1,227 @@
+ <div class="urlContentWraper" id="Wraper_user_integrals2">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>用户积分管理</strong><bottom class="all-work-info numb213">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_user_integrals2"></table>
+		</div>
+    </div>
+    <div id="Form_user_integrals2" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <input name="id" type="hidden"> 
+            <div class="row">
+                 <label class="span3 grid-layout-label">用户ID：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="userInfoId" class="jrad-input-container"></div>
+						<p class="nameTips"></p>
+						</div> 
+            </div>  
+			<div class="row">
+                 <label class="span3 grid-layout-label">积分：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="changeIntegral" class="jrad-input-container"></div>
+						<p class="ui-note">请输入整数，负数代表减少积分。</p>
+						</div> 
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label">变动原因</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="reason" class="jrad-select-container"></div>
+                                    </div>
+            </div>
+            
+            <div class="row">
+                 <label class="span3 grid-layout-label">备注：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="remarks" class="jrad-textarea-container"></div>
+                                    </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg213" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>用户的积分浏览功能。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_user_integrals2');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	 
+	var entityModel = {};
+	var reasonSelect =  $.jRadGet({url:'/shopmanage-ws/ws/0.1/datadictionary/dictionarylist?type=integral_vary_reason'});
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	jRad.validators['userInfoId'] = [{"msg":"用户id不能为空","type":"min","value":"1"},{msg:"用户id只能是数字",type:'regex',value:/^\d+$/}];
+	jRad.validators['changeIntegral'] = [{"msg":"积分不能为空","type":"min","value":"1"},{msg:"积分只能是数字",type:'regex',value:/^[-]*\d+$/}];
+	jRad.params['reason'] = {data:reasonSelect};     
+    page_column_model.push({display: '时间', name : 'createDate',width:150});
+    page_column_model.push({display: '用户ID', name : 'userInfoId',width:80});
+    page_column_model.push({display: '积分余额', name : 'integral',width:300});
+    page_column_model.push({display: '积分变动', name : 'changeIntegral',diy:function(item,$div){
+	   var score = item.changeIntegral;
+	   if(score > 0){
+		 $div.html("+"+score); 
+	   }else{
+		 $div.html(score); 
+	   }
+	}}); 
+    page_column_model.push({display: '原因', name : 'seasonName'});
+	page_column_model.push({display: '备注', name : 'remarks'});
+	page_column_model.push({display: '操作人', name : 'modifyPerson'});
+ 
+    var allRreasonSelect = $.merge([{"id":"","name":"全部"}],reasonSelect);
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'备注',name:'remarks'}); 
+	page_search_items.push({row:'1',type:'jrad-select',display:'变动原因',name:'reason',params:{
+	  data:allRreasonSelect
+	}});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'开始时间',name:'startDate'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'结束时间',name:'endDate'});
+	 
+ //   $('#Form_user_integrals2').form({
+	// 	title: '增减积分',
+	// 	validators: jRad.validators,
+	// 	fields_params:jRad.params,
+	// 	item:{}, 
+	// 	height:280,
+	// 	url:'/shopmanage-ws/ws/0.1/userIntegral/adjustUserIntegral',
+	// 	before_submit:function(json){
+	// 		json.modifyPerson = carsmart_config.operatorName;
+	// 		return json;
+	// 	},
+	// 	success_callback:function(){ 
+	// 		$('#Table_user_integrals2').flexMessage('操作成功', 'success');
+	// 		$('#Table_user_integrals2').flexReload();
+	// 	},
+	// 	error_callback:function(xhr){ 
+	// 		var errormsg = eval("(" + xhr.responseText + ")"); 
+	// 		$('#Table_user_integrals2').flexMessage(errormsg.result, 'error'); 
+	// 	}
+	// }); 
+	 
+ //    page_list_buttons.push({displayname: '增减积分',name:'AddOrMinus', bclass: 'AddOrMinus',onpress : function(){ 
+	// 	   $('#Form_user_integrals2').form({item:{}}).form('open');
+	// 		getNameTips();
+ //        }
+ //    }); 
+    page_list_buttons.push({separator: true});
+     var reloadFlag = false;
+   //用户管理-积分管理
+	if($(document).data('userIntegralsId')!=undefined & $(document).data('userIntegralsId')!=''){
+		var id = $(document).data('userIntegralsId'); 
+		$(document).removeData('userIntegralsId');     
+	    var queryParamJson = {"userInfoId":id};
+		getRemarkList(queryParamJson);
+		$('.sDiv div[name="userInfoId"]',wraper).input('val',id);
+		reloadFlag = true;
+	} 
+	if(!reloadFlag){
+		getRemarkList({});
+	}
+    function getRemarkList(json){
+		$('#Table_user_integrals2').flexigrid({
+				reload:true,
+				method:'get', 
+				queryParam:json,
+				colModel : page_column_model,
+				buttons : page_list_buttons,
+				searchitems :page_search_items,
+				showSearch:true,
+				pagination: {
+					diaplay_pages: 5,
+					align: 'bottom' 
+				},
+				url:'/shopmanage-ws/ws/0.1/userIntegral/queryUserIntegrals',
+				onError:showIntegralsError,
+				checkBoxType:'single'
+		});  
+	} 
+	function getNameTips(){
+			$("#Form_user_integrals2 .nameTips").html(""); 
+			$("#Form_user_integrals2 div[name='userInfoId']").focusout(function(){ 
+					 var flag = $("#Form_user_integrals2 div[name='userInfoId']").input('validate',jRad.validators["userInfoId"]);
+					 if(flag){
+					   var id = $(this).input("val");
+					   var _tip = $(this).parent().children(".nameTips");
+					   $.jRadGet({
+								url:'/shopmanage-ws/ws/0.1/user/getNameById?id='+id, 
+								success: function(data){
+									_tip.html(data.userName).css("color","#1F2228"); 
+								},
+								error:function(){ 
+									_tip.html("查询用户不存在！").css("color","#BB4B47"); 
+								}
+							});
+					   
+					 }else{
+					   $(this).parent().children(".nameTips").html("");
+					 }
+				});
+	} 
+
+	
+    $(".numb213").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg213").form({}).form('close');
+        $("#Form_explain_eg213").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg213 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg213").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg213").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg213 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+function showIntegralsError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_user_integrals2 .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+</script>

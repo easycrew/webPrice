@@ -1,0 +1,379 @@
+
+<div class="urlContentWraper" id="Wraper_claims_order">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>服务理赔单</strong><bottom class="all-work-info numb57">页面说明</bottom></h2>
+		<table id="Table_claims_order"></table> 
+    </div> 
+    <div id="Form_remark_pic" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <input type="hidden" name="remarkServiceId"/>
+			<div class="piclist">
+			</div>
+        </div>
+    </div>
+	<div id="Form_claims_order" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div class="row">
+                 <div class="span10 grid-layout-label"></div>
+            </div>
+			<div class="row">
+                 <label class="span3 grid-layout-label">备注：</label>
+                 <div class="span8 grid-layout-content">
+                       <div name="remark" class="jrad-textarea-container"></div>
+                       <p class="note" style="display:none">多条赔付原因用英文逗号,隔开。</p>
+                 </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>	
+
+	<div id="Form_claims_order2" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div class="row">
+                 <div class="span10 grid-layout-label">赔付完成，确认后保单状态将修改为“申请成功”</div>
+            </div>
+			<div class="row">
+                 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>赔付可提现金额：</label>
+                 <div class="span8 grid-layout-content">
+                       <div name="withdrawalsAmount" class="jrad-input-container"></div>
+                 </div>
+            </div>
+			<div class="row">
+                 <label class="span4 grid-layout-label"><span class="ui-form-required">*</span>赔付不可提现金额：</label>
+                 <div class="span8 grid-layout-content">
+                       <div name="disWithdrawalsAmount" class="jrad-input-container"></div>
+                 </div>
+            </div>
+			<div class="row">
+                 <label class="span4 grid-layout-label">备注：</label>
+                 <div class="span7 grid-layout-content">
+                       <div name="remark" class="jrad-textarea-container"></div>
+                 </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+
+	<div id="Form_claims_reason" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+			<div class="row">
+                 <label class="span3 grid-layout-label">赔付原因：</label>
+                 <div class="span8 grid-layout-content">
+                       <div name="claimReason" class="jrad-textarea-container"></div>
+                       <p class="note">多条赔付原因用英文逗号,隔开。</p>
+                 </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+
+    <div id="Form_explain_eg57" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>标准化服务的理赔单列表，购买理赔单时，会生成对应理赔单，车主可申请理赔。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_claims_order');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    jRad.params['level'] = {data:[{id:'10',name:'10'},{id:'8',name:'8'},{id:'6',name:'6'},{id:'4',name:'4'},{id:'2',name:'2'}]};   
+	jRad.params['remarksFrom'] = {data:[  {"id":"0",name:"用户"},{"id":"1",name:"系统"},{"id":"2",name:"运营"}]};   
+
+	var fields_params = {};  
+	fields_params['remark'] = {
+		grid: 10
+	}; 	
+	fields_params['claimReason'] = {
+		grid: 10
+	}; 
+
+	$("#Form_remark_pic").form({
+		title:'赔付照片',
+		grid:20
+	});
+
+    page_column_model.push({display: 'ID', name : 'id',hidden:true});
+    //page_column_model.push({display: 'businessInfoId', name : 'businessInfoId',hidden:true});
+    page_column_model.push({display: 'userInfoId', name : 'userInfoId',hidden:true});
+    page_column_model.push({display: '投保单号', name : 'compensateNo'});
+    page_column_model.push({display: '用户手机号', name : 'mobile'});
+    page_column_model.push({display: '关联订单号', name : 'orderNumber'});
+    page_column_model.push({display: '订单服务名称', name : 'summary'});
+    page_column_model.push({display: '城市', name : 'city'});
+    page_column_model.push({display: '订单金额', name : 'orderPayment'});
+    page_column_model.push({display: '赔付金额', name : 'compensateAmount'}); 
+	page_column_model.push({display: '赔付原因', name : 'causeReason'});  
+	page_column_model.push({display: '赔付原因说明', name : 'causeDescription',width:300});
+	page_column_model.push({display: '赔付照片', name : 'picCnt',diy:function(item,$div){
+	    var $a = $("<a>").html(item.picCnt==0?"":item.picCnt); 
+	    $div.html($a);
+	    var id = item.id; 
+	    $a.click(function(){
+	    	console.log(id)
+	        var jsonArr = $.jRadGet({url:'/shopmanage-ws/ws/0.1/serviceClaimOrder/getClaimPic?id='+id});
+		    $("#Form_remark_pic .piclist").html("");
+		    var $list = $("<div>");
+		    $.each(jsonArr,function(i){
+				var row = $("<div>").addClass("row").data("id",jsonArr[i].id);
+				var img = $("<img>").attr("src",jsonArr[i].originalImgUrl);
+				$list.append(row.append(img)); 
+		  	});
+		  	$("#Form_remark_pic .piclist").append($list); 
+		  	$("#Form_remark_pic").form({item:{'remarkServiceId':item.id}}).form('open');
+	   });
+	}});
+	page_column_model.push({display: '保单状态', name : 'orderStatus',datasource:jRad.params['remarksFrom'].data}); 
+	page_column_model.push({display: '备注', name : 'remark',width:250}); 
+	page_column_model.push({display: '理赔单生成时间', name : 'orderDate'});  
+	page_column_model.push({display: '最后操作时间', name : 'updateDate'});
+	page_column_model.push({display: '最后操作人', name : 'operator'});
+    
+    page_search_items.push({row:'1',type:'jrad-input',display:'投保单号',name:'compensateNo'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'用户手机号',name:'mobile'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'关联订单号',name:'orderNumber'});
+	page_search_items.push({row:'2',type:'jrad-input',display:'订单服务名称',name:'summary'});
+	page_search_items.push({row:'2',type:'jrad-input',display:'城市',name:'cityName'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'保单状态',name:'orderStatus',params:{
+	  data:[
+	    {"id":"",name:"全部"}, 
+		{"id":"0",name:"等待申请赔付"},
+		{"id":"1",name:"等待受理中"},
+		{"id":"2",name:"赔付处理中"},
+		{"id":"3",name:"赔付完成"},
+		{"id":"4",name:"申请被驳回"},
+		{"id":"5",name:"已撤消"},
+		{"id":"6",name:"维权已过期"},
+		{"id":"7",name:"维权已关闭"},
+		{"id":"8",name:"条件不符已关闭"}
+	  ]
+	}});
+	page_search_items.push({row:'3',type:'jrad-input',display:'最后操作人',name:'operator'});
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'最后更新时间始',name:'updateStartDate'});
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'最后操作时间终',name:'updateEndDate'})
+  
+	page_list_buttons.push({displayname:'赔付受理',name:'赔付受理',bclass: 'claimscan',
+		prefunc:function(){
+            var checked = $('#Table_claims_order').getCheckedTrs();
+            if (checked.length == 0 || checked[0].orderStatus !== "等待受理中") {return false;}else{return true;}
+        },
+        onpress : function(){
+        	var checked = $('#Table_claims_order').getCheckedTrs();
+        	var _item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/serviceClaimOrder/getRemark?id='+checked[0].id})
+	    	$('#Form_claims_order').form({
+                title: '赔付受理', 
+	  			grid:14,
+	  			fields_params:fields_params,
+	  			item:_item,
+                url: '/shopmanage-ws/ws/0.1/serviceClaimOrder/claimAcceptance', 
+				before_submit:function(json){
+					json.id = checked[0].id;
+					json.operator = carsmart_config.operatorName;
+					return json;
+				},
+				success_callback:function(){ 
+					$('#Table_claims_order').flexMessage('设置成功', 'success');
+					$('#Table_claims_order').flexReload();
+				}
+            }).form('open');
+            $('#Form_claims_order .row .grid-layout-label').eq(0).html("赔付受理，确认后保单状态将修改为“已申请处理中”。")
+		}
+	});
+
+	page_list_buttons.push({displayname:'赔付驳回',name:'赔付驳回',bclass: 'claimscan',
+		prefunc:function(){
+            var checked = $('#Table_claims_order').getCheckedTrs();
+            if (checked.length == 0 || checked[0].orderStatus !== "赔付处理中") {return false;}else{return true;}
+        },
+        onpress : function(){
+        	var checked = $('#Table_claims_order').getCheckedTrs();
+        	var _item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/serviceClaimOrder/getRemark?id='+checked[0].id})
+	    	$('#Form_claims_order').form({
+                title: '赔付驳回', 
+	  			grid:14,
+	  			fields_params:fields_params,
+	  			item:_item,
+                url: '/shopmanage-ws/ws/0.1/serviceClaimOrder/claimReject', 
+				before_submit:function(json){
+					json.id = checked[0].id;
+					json.operator = carsmart_config.operatorName; 
+					return json;
+				},
+				success_callback:function(){ 
+					$('#Table_claims_order').flexMessage('设置成功', 'success');
+					$('#Table_claims_order').flexReload();
+				}
+            }).form('open');
+            $('#Form_claims_order .row .grid-layout-label').eq(0).html("赔付驳回，确认后保单状态将修改为“申请驳回”。")
+		}
+	});
+
+	page_list_buttons.push({displayname:'赔付关闭',name:'赔付关闭',bclass: 'claimscan',
+		prefunc:function(){
+            var checked = $('#Table_claims_order').getCheckedTrs();
+            if (checked.length == 0 || checked[0].orderStatus !== "赔付处理中") {return false;}else{return true;}
+        },
+        onpress : function(){
+        	var checked = $('#Table_claims_order').getCheckedTrs();
+        	var _item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/serviceClaimOrder/getRemark?id='+checked[0].id})
+	    	$('#Form_claims_order').form({
+                title: '赔付关闭', 
+	  			grid:14,
+	  			fields_params:fields_params,
+	  			item:_item,
+                url: '/shopmanage-ws/ws/0.1/serviceClaimOrder/claimClose', 
+				before_submit:function(json){
+					json.id = checked[0].id;
+					json.operator = carsmart_config.operatorName; 
+					return json;
+				},
+				success_callback:function(){ 
+					$('#Table_claims_order').flexMessage('设置成功', 'success');
+					$('#Table_claims_order').flexReload();
+				}
+            }).form('open');
+            $('#Form_claims_order .row .grid-layout-label').eq(0).html("赔付关闭，确认保单状态将修改为“取消申请”。")
+		}
+	});	
+
+	page_list_buttons.push({displayname:'赔付完成',name:'赔付完成',bclass: 'claimscan',
+		prefunc:function(){
+            var checked = $('#Table_claims_order').getCheckedTrs();
+            if (checked.length == 0 || checked[0].orderStatus !== "赔付处理中") {return false;}else{return true;}
+        },
+        onpress : function(){
+        	var checked = $('#Table_claims_order').getCheckedTrs();
+        	var _item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/serviceClaimOrder/getRemark?id='+checked[0].id})
+	    	$('#Form_claims_order2').form({
+                title: '赔付完成', 
+	  			grid:14,
+	  			fields_params:fields_params,
+	  			item:_item,
+                url: '/shopmanage-ws/ws/0.1/serviceClaimOrder/claimComplete', 
+				before_submit:function(json){
+					json.id = checked[0].id;
+					//json.businessInfoId = checked[0].businessInfoId;
+					json.userInfoId = checked[0].userInfoId;
+					json.orderNumber = checked[0].orderNumber;
+					json.operator = carsmart_config.operatorName; 
+					return json;
+				},
+				success_callback:function(){ 
+					$('#Table_claims_order').flexMessage('设置成功', 'success');
+					$('#Table_claims_order').flexReload();
+				}
+            }).form('open');
+		}
+	});
+
+	page_list_buttons.push({displayname:'赔付原因设置',name:'赔付完成',bclass: 'claimscan',
+        onpress : function(){
+        	var checked = $('#Table_claims_order').getCheckedTrs();
+        	var _item = $.jRadGet({url:'/shopmanage-ws/ws/0.1/serviceClaimOrder/getClaimReason'})
+	    	$('#Form_claims_reason').form({
+                title: '赔付原因设置', 
+	  			grid:14,
+	  			type:'post',
+	  			fields_params:fields_params,
+	  			item:_item,
+                url: '/shopmanage-ws/ws/0.1/serviceClaimOrder/setClaimReason', 
+				before_submit:function(json){
+					return json;
+				},
+				success_callback:function(){ 
+					$('#Table_claims_order').flexMessage('设置成功', 'success');
+					$('#Table_claims_order').flexReload();
+				}
+            }).form('open');
+		}
+	});
+
+    page_list_buttons.push({separator: true});
+    
+	$('#Table_claims_order').flexigrid({
+			reload:true,
+			method:'get',  
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			url:'/shopmanage-ws/ws/0.1/serviceClaimOrder/claimOrderlist',
+			onError:showServiceRemarkError,
+			checkBoxType:'single',
+			overflow:true
+	});  
+	$(".numb57").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg57").form({}).form('close');
+        $("#Form_explain_eg57").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+			submit:function(){
+            	var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg57 div[name='remark']").textarea("val")
+				$.jRadPost({
+				    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+				    data:postData,
+				    success:function(){
+						$("#Form_explain_eg57").form('close')
+      					$('.overcurtainDiv').hide();
+				   	}
+				});
+			}, 
+			cancel:function(){
+				$("#Form_explain_eg57").form('close')
+      			$('.overcurtainDiv').hide();
+			}
+        }).form('open')
+        $("#Form_explain_eg57 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+function showServiceRemarkError(xhr){
+ 	var errormsg = eval("(" + xhr.responseText + ")");
+  	var cDiv = $("#Wraper_claims_order .cDiv");
+  	$.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+}
+</script>

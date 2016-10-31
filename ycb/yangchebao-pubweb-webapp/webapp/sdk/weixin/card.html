@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<script src="../js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.json-2.2.js"></script>  
+	<script src="../js/index.js"></script>
+	<script src="../js/md5.js"></script>
+	<link href="../css/index.css" rel="stylesheet" type="text/css" />  
+	<title>我的车主卡</title>
+</head> 
+<body> 
+<section class="main-wrap" style="display:none;">
+<!-- <article class="card-wrap">
+<ul class="card">
+	<li><a class="btn" href="javascript:void(0);">使用记录</a></li>
+	<li class="middle">永安保险赠送车主卡<br/>¥699</li>
+	<li class="last">使用期限：2015.02.02－2016.02.02</li>
+</ul> 
+</article>
+<article class="card-service">
+	<h1><span>洗车</span><strong>3/12</strong><span>使用</span></h1>
+	<h1><span>打蜡</span><strong>3/12</strong><span>使用</span></h1>
+	<h1><span>四轮定位四轮定四轮定</span><strong>3/12</strong><span>使用</span></h1>
+</article> -->
+</section>
+<p class="tip">点击查看更多</p>  
+<article class="null-wrap" style="display:none;">
+	<img src="http://app.yangchebao.com.cn/group1/M00/08/D5/ChUBl1UH-TqABkG6AAAUgZnKjdM111.png"> 
+	<p>没有车主卡</p>
+</article>
+<article class="change-wrap">
+		<p>如果您有车主卡未兑换 ，请兑换车主卡</p>
+		<a href="javascript:void(0);" id="changeBtn">兑换车主卡</a>
+</article> 
+<script type="text/javascript">  
+var userId = "",path=""; 
+$(document).ready(function(){     
+    path = getPath()+"weixin/";
+	var paramJson = {}; 
+	var url = window.location.search;  
+    if(url!=undefined&&url!=""){
+		var paramsArr = (url.split("?")[1]).split("&"); 
+		$.each(paramsArr,function(i){
+		 var item = paramsArr[i].split("=");
+		 paramJson[item[0]] = item[1];
+		});    
+	}  
+	$(".tip").click(function(){
+        getCardList();
+    });  
+	$("#changeBtn").click(function(){ 
+		window.location.href = path+"card-change.html";
+	});	
+	$(".main-wrap").on('click','.toRecord',function(){
+		var cardid = $(this).parents(".card-wrap").attr("cardid");
+		window.location.href = path+"orderList.html?cardId="+cardid;
+	}); 
+	$(".main-wrap").on('click','h1',function(){
+		var serviceId = $(this).attr("serviceid");
+		var cardid = $(this).parents(".card-service").prev(".card-wrap").attr("cardid");
+		window.location.href = path+"shopList.html?serviceId="+serviceId+"&cardId="+cardid;
+	}); 
+    var getUserInfo = function(){
+	    var companyNo = paramJson.companyNo;
+		var mobile = paramJson.mobile;
+		var key = paramJson.key;
+		var sign = hex_md5(companyNo+mobile+key);
+		var postData = {};
+		postData.companyNo = companyNo;
+		postData.mobile = mobile;
+		postData.sign = sign;
+		postData.timestamp = new Date().getTime();
+		$.ajax({
+			url: "/yangchebao-app-ws/ws/0.1/public/sdk/auth", 
+			type: 'post', 
+			data:$.toJSON(postData),
+			dataType: 'json',
+			async:'false',
+			contentType:'application/json;charset=utf-8', 
+			success: function(data) {  
+				$.each(data,function(key,value){
+				  setCookie(key,value);
+				});
+				/**if(data.modelId==undefined||data.modelId==""){
+					window.location.href = path+"brand.html"+window.location.search;
+				}else{**/
+					userId = data.userInfoId;
+					getCardList();
+				/**}**/
+			},error: function(xhr) {
+			   var mes = eval('('+xhr.responseText+')'); 
+			   alertTasat(mes[0].message);
+			}
+		});
+	};
+	userId = getCookie("userInfoId");
+	if(userId==""){
+		getUserInfo();  
+	}else{
+		getCardList();
+	} 
+});
+var pageindex = 0;
+function getCardList(){
+	$.ajax({
+			url: "/yangchebao-app-ws/ws/0.1/card/cardList?userInfoId="+userId+'&pagesize=10&pageindex='+pageindex,
+			contentType: "application/json;charset=utf-8",
+			dataType: "json",
+			type: "get",
+			success: function(data) {
+				if(data.totalCount>0){
+					if((data.page+1)<data.totalPages){
+						$(".tip").show();
+					} else{
+						$(".tip").hide();
+					} 
+					pageindex++;  				
+					var items = data.items; 
+					$.each(items,function(i){
+						var item  = items[i]; 
+						var serviceArr = [];
+						var services =item.services;
+						$.each(services,function(j){ 
+							serviceArr.push('<h1 serviceid="'+services[j].serviceId+'"><span>'+services[j].displayName+'</span><strong>'+(services[j].totalTimes-services[j].usedTimes)+'/'+services[j].totalTimes+'</strong><span>使用</span></h1>');
+						});
+						var _card = '<article class="card-wrap" cardid="'+item.cardId+'">'
+							+'<ul class="card">'
+							+'	<li><a class="btn toRecord" href="javascript:void(0);">使用记录</a></li>'
+							+'	<li class="middle">'+item.cardName+'</li>'
+							// +'	<li class="middle">'+item.cardName+'<br/>¥'+item.buyPrice+'</li>'
+							+'	<li class="last">使用期限：'+item.buyDate+'－'+item.expireDate+'</li>'
+							+'</ul> '
+							+'</article>'
+							+'<article class="card-service">'
+							+serviceArr.join(""); 
+							+'</article>';
+						$(".main-wrap").append(_card).show();
+					});
+				}else{
+					$(".null-wrap").show();
+				}
+			},error: function(xhr) {
+			   var mes = eval('('+xhr.responseText+')'); 
+			   alertTasat(mes[0].message);
+			}
+	});
+} 
+</script>
+</body>
+</html>

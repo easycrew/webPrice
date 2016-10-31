@@ -1,0 +1,485 @@
+ <style>
+ 	 #Wraper_user_vipManage button.getCode{
+		background-color: #508ae8;
+		border:1px solid #4178d2;
+		border-radius: 3px;
+		padding:3px 5px;
+		margin-left:20px;
+		position:relative;
+		top:-2px;
+		left:0;
+		color:#fff;
+		cursor: pointer;
+	 }
+	 .remove{
+		background-color: #e9e9e9!important;
+		border:1px solid #c8c8c8!important;
+		color:#5e6770!important;
+		cursor: default!important;
+	 }
+	 #Wraper_user_vipManage #Form_user_vipManage .regist{
+	 	display:none;
+	 }
+ </style>
+ <div class="urlContentWraper" id="Wraper_user_vipManage">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>会员列表</strong><bottom class="all-work-info numb23">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_user_vipManage"></table>
+		</div>
+    </div>
+    <div id="Form_user_vipManage" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <input name="id" type="hidden">
+            <div class="row">
+                 <label class="span3 grid-layout-label">用户注册手机：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="mobile" class="jrad-input-container"></div>
+					   </div>
+            </div>
+            <div class="row regist">
+                 <label class="span3 grid-layout-label">手机验证码：</label>
+                 <div class="span4 grid-layout-content">
+                       <div name="code" class="jrad-input-container"></div>  
+                 </div>
+                 <button class="getCode">获取验证码</button>
+            </div>
+            <div class="row regist">
+            	<label class="span3 grid-layout-label"></label>
+            	<p class="span9"><a href="javascript:" id="sound">短信收不到，获取语音验证码。</a></p>
+            </div>
+            <p class="ui-note regist">此手机号码未注册，已向用户手机发送验证码，填入用户手机收到的验证码后，点击“确定”即可快速注册。</p>
+
+            <div class="row">
+                 <label class="span3 grid-layout-label">VIP等级：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="vipLevel" class="jrad-select-container"></div>
+						</div> 
+            </div>
+            <input name="modifyPerson" type="hidden">
+
+            <div class="row">
+                 <label class="span3 grid-layout-label">赠送车主卡：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="memberDonateRelId" class="jrad-radio-container"></div>
+				 </div> 
+            </div>
+
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_user_registSuccess" style="display:none;">
+        <div class="grid-layout-main jrad-form" style="text-align:center;">
+            <h1>用户养车宝账号注册成功！</h1>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+        </div>
+    </div>
+    <div id="Form_user_vipManageEdit" style="display:none;">
+    	<div class="grid-layout-main jrad-form">
+    		<div class="row">
+                 <label class="span3 grid-layout-label">VIP等级：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="vipLevel" class="jrad-select-container"></div>
+				 </div> 
+            </div> 
+    	</div>
+    	<div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg23" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>四川宜宾特有的会员系统，现已关闭此功能。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_user_vipManage');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+
+    jRad.params['memberDonateRelId'] = {
+			urlData:{
+				url:'/shopmanage-ws/ws/0.1/userMember/giftList',
+				id:'memberDonateRelId',
+				name:'donateName'
+					},
+			vertical: true, 
+
+		};
+    jRad.params['vipLevel'] = {data:[{id:'',name:'请选择'},{id:'1',name:'1'},
+								 {id:'2',name:'2'},
+								 {id:'3',name:'3'},
+								 {id:'4',name:'4'},
+								 {id:'5',name:'5'}
+								 ]}; 
+
+    jRad.params['isDonate'] = {data:[{id:'0',name:'否'},{id:'1',name:'是'}]};  
+	jRad.params['memberChannel'] = {data:[ 
+							{"id":"1",name:"CMS"},
+							{"id":"2",name:"APP"},
+							{"id":"3",name:"VIP"}
+						  ]};  
+    var fields_params={}; 
+    fields_params['vipLevel'] = {data:[{id:'0',name:'0'},{id:'1',name:'1'},
+		 {id:'2',name:'2'},
+		 {id:'3',name:'3'},
+		 {id:'4',name:'4'},
+		 {id:'5',name:'5'}
+		 ]};
+    
+
+    jRad.validators['mobile'] = [{"msg":"注册手机号不能为空","type":"min","value":"1"},{msg:"手机号格式不正确",type:'regex',value:/^1{1}\d{10}$/}];
+	// jRad.validators['code'] = [{"msg":"请填写验证码","type":"min","value":"1"}];
+	
+    
+    page_column_model.push({display: '用户ID', name : 'userInfoId'});
+    page_column_model.push({display: '昵称', name : 'nicName'});
+    page_column_model.push({display: '手机', name : 'mobile'});
+    page_column_model.push({display: 'VIP等级', name : 'vipLevel',datasource:jRad.params['vipLevel'].data});
+	page_column_model.push({display: '会员渠道', name : 'memberChannel',datasource:jRad.params['memberChannel'].data});
+	page_column_model.push({display: '赠送车主卡(ID)', name : 'donate'});
+	page_column_model.push({display: '创建商家', name : 'businessRegName'});
+	page_column_model.push({display: '生效时间', name : 'takingEffectDate'});
+    
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userInfoId'});
+	page_search_items.push({row:'1',type:'jrad-input',display:'用户手机',name:'mobile'});
+	page_search_items.push({row:'1',type:'jrad-select',display:'VIP等级',name:'vipLevel',params:{
+	  data:[
+	     {"id":"",name:"全部"}, 
+		 {id:'1',name:'1'},
+		 {id:'2',name:'2'},
+		 {id:'3',name:'3'},
+		 {id:'4',name:'4'},
+		 {id:'5',name:'5'}
+	  ]
+	}});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'生效时间始',name:'takingEffectDateStart'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'生效时间终',name:'takingEffectDateEnd'});
+	page_search_items.push({row:'2',type:'jrad-select',display:'会员渠道',name:'memberChannel',params:{
+	  data:[
+	     {"id":"",name:"全部"}, 
+		 {"id":"1",name:"CMS"},
+		 {"id":"2",name:"APP"},
+		 {"id":"3",name:"VIP"}
+	  ]
+	}});
+	page_search_items.push({row:'3',type:'jrad-input',display:'创建商家',name:'businessRegName'});
+	var _mobile="";
+	var _code="";
+	var _item="";
+	var wait=60;
+	var timer='';
+	$('#Form_user_vipManageEdit').form({
+		title:'修改',
+		fields_params:fields_params
+	});
+    $('#Form_user_vipManage').form({
+		title: '创建',
+		validators: jRad.validators,
+		fields_params:jRad.params,
+		item:{}, 
+		url:'/shopmanage-ws/ws/0.1/userMember/registerUserMember',
+		before_submit:function(json){
+			_mobile = $('#Form_user_vipManage div[name="mobile"]',wraper).input('val');
+			_code = $('#Form_user_vipManage div[name="code"]',wraper).input('val');
+			json.modifyPerson=carsmart_config.operatorName;
+			return json
+		 },
+		// success_callback:function(){ 
+		// 	if(_code!=''){
+		// 		$('#Form_user_registSuccess',wraper).form({
+		// 			title:'创建',
+		// 			success_callback:function(){
+		// 				$('#Table_user_vipManage').flexMessage('创建成功', 'success');
+		// 				$('#Table_user_vipManage').flexReload()
+		// 			}
+		// 		}).form('open');
+		// 		$('#Form_user_registSuccess span.loginAccount',wraper).html(_mobile)
+		// 	}else{
+		// 		$('#Table_user_vipManage').flexMessage('创建成功', 'success');
+		// 		$('#Table_user_vipManage').flexReload()
+		// 	},
+			autobinding: false
+
+			
+		
+
+	}); 
+	$('#Form_user_vipManage .jrad-btn-primary').button();
+	$('#Form_user_vipManage .jrad-btn-normal').button();
+	$('#Form_user_vipManage .jrad-btn-primary').bind('click',function(){
+		var _memberDonateRelId = $("#Form_user_vipManage div[name='memberDonateRelId']").radio('val');
+		if(_memberDonateRelId == '-99'){
+
+			$.jRadConfirm('确认不赠送'+'?',"1",function(){
+				var postData = $('#Form_user_vipManage').form('getValue');
+
+				postData.modifyPerson=carsmart_config.operatorName;
+				$.jRadPost({
+                            url:"/shopmanage-ws/ws/0.1/userMember/registerUserMember",
+                            data:postData, 
+                            success:function(){ 
+                            	 $('#Form_user_vipManage').form('close');
+                                 $('#Table_user_vipManage').flexMessage('创建成功', 'success');
+								 $('#Table_user_vipManage').flexReload()
+                            }
+                        });
+
+			});
+
+		}else{
+			var text = $("#Form_user_vipManage div[name='memberDonateRelId']").radio('text');
+			$.jRadConfirm('确认赠送'+'"'+text+'"'+'?',"1",function(){
+				var postData = $('#Form_user_vipManage').form('getValue');
+				postData.modifyPerson=carsmart_config.operatorName;
+				$.jRadPost({
+                            url:"/shopmanage-ws/ws/0.1/userMember/registerUserMember",
+                           
+                            data:postData, 
+                            success:function(){ 
+                            	 $('#Form_user_vipManage').form('close');
+                                 $('#Table_user_vipManage').flexMessage('创建成功', 'success');
+								 $('#Table_user_vipManage').flexReload()
+                            }
+                        });
+
+			});
+		}
+
+	});
+
+	$('#Form_user_vipManage .jrad-btn-normal').bind('click',function(){
+
+		 $('#Form_user_vipManage').form('close');
+	});
+	
+	function time(){
+		var o=$('#Form_user_vipManage .getCode',wraper);
+		if(wait==0){
+			o.removeClass('disabled').removeClass('remove');
+			o.html('获取验证码');
+			wait=60
+		}else{
+			o.addClass('disabled',true).addClass('remove');
+			o.html(wait+'秒后获取验证码');
+			wait--;
+			timer=setTimeout(time,1000)
+		}
+	};
+    page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){ 
+		   $('#Form_user_vipManage').form({item:{'memberDonateRelId':'-99'}}).form('open');
+		   $('#Form_user_vipManage .regist',wraper).hide();
+		   $($('#Form_user_vipManage div[name="mobile"] input',wraper)).unbind('blur').bind('blur',function(){
+		   		_mobile=$('#Form_user_vipManage div[name="mobile"]',wraper).input('val');
+		   		setTimeout(onBlur,800);
+		   		function onBlur(){
+		   			$.jRadGet({
+						url:'/shopmanage-ws/ws/0.1/userInfoCms/isRegistered?mobile='+_mobile,
+						success:function(data){
+							if(data.isRegistered==0){
+								$('#Form_user_vipManage .regist',wraper).show();
+								clearTimeout(timer);
+								$('#Form_user_vipManage .getCode',wraper).removeClass('disabled').removeClass('remove').html("获取验证码");
+								wait=60;
+								$('#Form_user_vipManage #sound',wraper).show();
+								$('#Form_user_vipManage span.ui-note',wraper).remove();
+								$('#Form_user_vipManage .getCode',wraper).unbind('click').bind('click',function(){
+									if($(this).hasClass('disabled')){
+										return false
+									}
+									var input=$('#Form_user_vipManage div[name="mobile"]',wraper);
+									var flag=input.input('validate');
+									if(flag){
+										$.jRadGet({
+											url:'/shopmanage-ws/ws/0.1/common/registry/getcode?user='+_mobile,
+											error:function(xhr){
+												var errormsg = eval("(" + xhr.responseText + ")");
+												$.jRadAlert(errormsg[0].message,"error","",-1);
+												wait = 0
+											}
+										});
+										time()
+									}
+								});
+								$('#Form_user_vipManage #sound',wraper).unbind('click').bind('click',function(){
+									$.jRadGet({
+										url:'/shopmanage-ws/ws/0.1/common/registry/getcode?user='+_mobile+'&voice=1',
+										success:function(){
+											$('#Form_user_vipManage #sound',wraper).after('<span class="ui-note">用户将会接到系统自动拨打的电话，请接听并记录4位验证码。</span>');
+											$('#Form_user_vipManage #sound',wraper).hide()
+										},
+										error:function(xhr){
+											var errormsg = eval("(" + xhr.responseText + ")");
+											$.jRadAlert(errormsg[0].message,"error","",-1)
+										}
+									})
+								})
+							}else{
+								$('#Form_user_vipManage .regist',wraper).hide()
+							}
+						
+						},
+						error:function(xhr){
+							var errormsg = eval("(" + xhr.responseText + ")");
+							$('#Form_user_vipManage',wraper).flexMessage(errormsg[0].message, 'error')
+						}
+					});
+		   		}
+		   	 	
+		   })
+        }
+    });
+  
+	// page_list_buttons.push({title: '编辑',name:'edit',bclass: 'edit',prefunc:function(){
+ //            var checked = $('#Table_user_vipManage').getCheckedTrs();
+ //            if (checked.length != 1) {return false;}else{return true;}
+ //        },onpress : function(){
+	//     	var checked = $('#Table_user_vipManage').getCheckedTrs();
+	// 		$('#Form_user_vipManageEdit').form({
+	// 			title:"修改",
+	// 			fields_params:fields_params,
+	// 			url:'/shopmanage-ws/ws/0.1/userMember/modifyVipLevel',
+	// 			before_submit:function(json){
+	// 				json.userMemberId=checked[0].userMemberId;
+	// 				return json
+	// 			},
+	// 			success_callback:function(){
+	// 				$('#Table_user_vipManage',wraper).flexReload();
+	// 				$('#Table_user_vipManage').flexMessage('编辑成功', 'success')
+	// 			}
+	// 		}).form('open');
+	// 		$('#Form_user_vipManageEdit div[name="vipLevel"]',wraper).select('val',checked[0].vipLevel)
+	// 	}
+	// });
+ 	page_list_buttons.push({title: '导出',displayname:'导出EXCEl',name:'excel',bclass: 'excel',onpress : function(){
+	    	$.jRadConfirm('确认导出吗？',1,function(){
+				 var param = {};
+				 var userInfoId = $.trim($(".searchContent div[name='userInfoId']",wraper).input('val'));
+				 if(userInfoId!=""){
+					param['userInfoId'] = userInfoId;
+				 }; 
+				 var mobile = $.trim($(".searchContent div[name='mobile']",wraper).input('val'));
+				 if(mobile!=""){
+					param['mobile'] = mobile;
+				 };
+				 var vipLevel = $.trim($(".searchContent div[name='vipLevel']",wraper).select('val'));
+				 if(vipLevel!=""){
+					param['vipLevel'] = vipLevel;
+				 }; 
+				 var memberChannel = $.trim($(".searchContent div[name='memberChannel']",wraper).select('val'));
+				 if(memberChannel!=""){
+					param['memberChannel'] = memberChannel;
+				 };
+				 var takingEffectDateStart = $.trim($(".searchContent div[name='takingEffectDateStart']",wraper).dateinput('val'));
+				 if(takingEffectDateStart!=""){
+					param['takingEffectDateStart'] = takingEffectDateStart;
+				 }; 
+				 var takingEffectDateEnd = $.trim($(".searchContent div[name='takingEffectDateEnd']",wraper).dateinput('val'));
+				 if(takingEffectDateEnd!=""){
+					param['takingEffectDateEnd'] = takingEffectDateEnd;
+				 }; 
+				 var businessRegName = $.trim($(".searchContent div[name='businessRegName']",wraper).input('val'));
+				 if(businessRegName!=""){
+					param['businessRegName'] = businessRegName;
+				 };
+				 
+				 var paramUrl = "";
+				 if(param!={}){   
+				 paramUrl+="?"
+				 $.each(param,function(k,v){ 
+						paramUrl+="&"+k+"="+v; 
+				 });
+				 }
+				 window.open('/shopmanage-ws/ws/0.1/userMember/exportUserMembers'+paramUrl);
+			}); 
+		}
+	});
+    page_list_buttons.push({separator: true});
+
+	$('#Table_user_vipManage').flexigrid({
+			reload:true,
+			method:'get', 
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			url:'/shopmanage-ws/ws/0.1/userMember/queryUserMembers',
+			onError:showRemarkError,
+			checkBoxType:'single'
+	})
+	
+    $(".numb23").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg23").form({}).form('close');
+        $("#Form_explain_eg23").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg23 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg23").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg23").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg23 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	
+});
+function showRemarkError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_user_vipManage .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+</script>

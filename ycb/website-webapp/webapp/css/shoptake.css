@@ -1,0 +1,56 @@
+.tip{margin:5px;font-size:14px;}
+.divpic{margin:35px 10px;}
+.desc{
+	width: 78px;
+	height:38px;
+	line-height:40px;
+	text-align: right;
+	float: left;
+}
+.thirdtree{margin:20px 0;overflow: hidden;}
+.thirdtree label{
+	font-size:14px;
+    font-family:"微软雅黑";
+    color:#555;
+}
+.thirdtree input,select{
+	font-size:14px;
+    font-family:"微软雅黑";
+    color:#555;
+}
+.thirdtree select{
+	float:left;
+	height:32px;
+	width:150px;
+	margin:5px 10px 0 0;
+}
+.thirdtree input{
+	float:left;
+	height:30px;
+	width:200px;
+	margin:5px 10px 0 4px;
+	line-height:30px;
+	vertical-align:middle;
+	border:1px solid #c3c9d2;
+	padding: 0 5px;
+}
+.thirdtree .searchbtn{
+	width:120px;height:40px;line-height: 35px;text-align:center;font-size:18px;color:#fff;background: #57a2ff;margin: 0 0 0 10px;cursor:pointer;border: none;padding:0;border-radius: 5px;
+}
+.search-content li{
+	overflow:hidden;
+	padding:15px;border-bottom: 1px dashed #ccc;
+}
+.left{float:left;}
+.left a{font-size:20px;font-weight: bold;line-height:30px;color:#2a89fe;}
+.left p{height:30px;line-height:30px;font-size:18px;}
+.left p span{margin-right:25px;font-size:18px;}
+.right{float:right;}
+.right a{border:none;text-decoration: none;}
+.right input{width:134px;height:45px;line-height: 45px;text-align:center;font-size:16px;margin:10px 15px 0 0;border: none;cursor: pointer;color:#fff;border-radius: 5px;}
+.right .red{background: #ff3535}
+.right .gird{background:#c0c0c0;cursor:auto;}
+.pagination {
+	text-align: center;
+	margin-top: 15px;
+}

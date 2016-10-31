@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta name="format-detection" content="telephone=no" />
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<script src="js/swiper.min.js"></script>
+<link rel="stylesheet" href="css/swiper.min.css"> 
+<link rel="stylesheet" href="../css/main.css">
+<script src="../js/commen.js"></script>
+<title>众诚奖励</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+} 
+body{
+	background-color: #fff;
+	font-family:'华文细黑','HelveticaNeue-Light'; 
+	color:#1e1e1e;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+body,html{
+	min-height:100%;
+}
+ol{
+	list-style: none;
+}
+img{
+	border:none;
+}
+.clearfix {
+   *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+   display: table;
+   line-height: 0;
+   content: "";
+}
+.clearfix:after {
+  clear: both;
+} 
+a{
+	text-decoration: none;
+} 
+.swiper-slide{
+	position: relative;
+}
+.yellow{  
+  color:#F8E71C; 
+} 
+.main-wrap{
+	max-width: 64rem;
+	margin: 0 auto;
+	position:relative;
+}
+.monthBg{
+	display: block;
+	width: 93%;
+	margin:0 auto;
+}
+.content h1{ 
+	font-size: 1.5rem;
+	font-weight: normal;
+	text-align: center;   
+}
+.content h1 span{
+	display: inline-block;
+	vertical-align: middle;
+}
+.content h1 .bigger{
+	font-size: 2.4rem;
+	display: inline-block;
+	vertical-align: middle;
+}
+.content .p3{ 
+	font-size: 1.2rem;
+	text-align: center;
+	border-top: 1px solid #fff;  
+	padding-top: 1rem;
+	width: 63%; 
+	margin: 2.3rem auto 0;
+}
+.content .p3 .yellow{
+	font-size: 1.5rem;
+}
+.content,.season{
+	position: absolute;
+	width: 100%; 
+	box-sizing:border-box;
+	top: 0;
+	color: #fff;
+} 
+h2.desc{
+	font-weight: normal;
+	font-size: 1.8rem;
+	color:#2abeff;
+	text-align: center;
+	margin: 2rem 0 0;
+}
+h2.desc.bigger{
+	font-size: 2rem;
+	margin: 0 0 2rem;
+}
+.gift{
+	background-image: url(images/money.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	width: 68%;
+	margin: 0 auto;
+	padding: 11% 0;
+	box-sizing:border-box;
+	line-height: 100%;
+}
+.gift .p1{
+	font-size: 1.6rem; 
+	color:#2ABEFF;  
+	text-align: center;
+	font-weight: bold;
+}
+.gift .p2{
+	font-size: 3.8rem; 
+	color:#2ABEFF; 
+	text-align: center;
+	font-weight: bold;
+	margin-top: 13%;
+}
+.p15{
+	font-size: 1.5rem;
+	text-align: center; 
+}
+.button{
+	display: block;
+	width: 47%;
+	margin:0 auto;
+    height: 3.2rem;
+    line-height: 3.2rem;
+    background:#ffd555;
+	border-radius:5rem; 
+	font-size:1.8rem;
+	color:#8f711a; 
+	text-align:center;
+	position: absolute;
+	bottom:12%;
+	left:50%;
+	margin-left: -23.5%;
+	box-shadow: 1px 5px 0 #b7952f;
+}
+.whiteButton{
+	background:#2abeff;
+	border:2px solid #ffffff;
+	border-radius:8px;
+	width:59%;
+	height:33px;
+	line-height: 33px;
+	display: block; 
+	text-align: center;
+	margin:0 auto;
+	font-size: 1.8rem;
+    position: absolute;
+    bottom:28%;
+	left:50%;
+	margin-left: -30%; 
+	color: #fff;
+}
+.p3.tleft{
+	text-align: left;
+}
+.y12{ 
+	font-size:1.2rem;
+	color:#f8e71c;
+	text-align:center;
+	position: absolute;
+	width: 100%;
+    bottom: 26%;
+}
+.season table{
+	width: 55%;
+	margin: 0 auto;
+	border-collapse: collapse; 
+}
+table th{
+	font-weight: normal;
+	font-size: 1.6rem;
+} 
+.season{
+	padding-top: 6%;
+}
+table .left span,table th span{
+	display: block;
+	line-height: 120%;
+}
+table td,table th{
+	border-bottom: 1px solid #fff;
+	font-size: 1.5rem;
+	text-align: center;
+	vertical-align: bottom;
+}
+table .left span:nth-child(1),table th span:nth-child(2){
+	font-size: 1rem;
+}
+.swiper-container {
+    position: relative;
+}
+#swiper-container1 .pagination {
+    bottom: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+	bottom:0;
+}
+.swiper-pagination-bullet {
+    background: #CDDFF3 none repeat scroll 0 0;
+    height: 10px;
+    margin-right: 10px;
+    opacity: 1;
+    width: 10px;
+}
+.swiper-pagination-bullet-active {
+    background: #2ABEFF none repeat scroll 0 0;
+} 
+.swiper-slide .content{
+	visibility:hidden;
+} 
+#swiper-container2{
+	text-align: center;
+	margin: 2.5rem auto;
+	font-size: 1.8rem; 
+	color:#2abeff;  
+	border:1px solid #2abeff;
+	width: 72%; 
+	border-radius: 5px; 
+	height: 3rem;
+	line-height: 3rem;
+	overflow:hidden;
+	position:relative;
+}
+#swiper-container2 .swiper-wrapper {
+    box-sizing: content-box;
+} 
+#swiper-container2 .active-nav{ 
+	background-color: #2ABEFF;
+	color: #fff; 
+} 
+.monthBg2{
+	display: block;
+	width: 93%;
+	left:3.5%;
+	position:absolute;
+	top:0;
+	z-index:1;
+}
+.swiper-slide-active .monthBg2{
+	z-index:-1;
+}
+</style>
+<body>  
+<section class="main-wrap">
+
+   <div class="swiper-container" id="swiper-container2">
+		<div class="swiper-wrapper">
+           <div class="swiper-slide active-nav">
+				 季度 
+			</div>  		   
+		   <div class="swiper-slide">
+				 日驾驶报告 
+			</div>
+			<div class="swiper-slide">
+				 月驾驶报告 
+			</div>	 
+		</div>
+	</div>    
+   <div class="swiper-container" id="swiper-container1">
+    <div class="swiper-wrapper"> 
+	    <div class="swiper-slide seasonWrap">
+        	<img src="images/monthBg.png" class="monthBg"/>
+			<img src="images/monthBg2.png" class="monthBg2"/>
+        	<div class="season">
+        		<table>
+        			<tr><th><span>续保奖</span><span>（基金）</span></th>
+        				<th><span>安全奖</span><span>（现金）</span></th></tr>
+        			<!-- <tr><td><div class="left"><span>2016.03-2016.05</span><span>30元</span></div></td><td>20元</td></tr>
+        			<tr><td><div class="left"><span>2016.03-2016.05</span><span>30元</span></div></td><td>20元</td></tr>
+        			<tr><td><div class="left"><span>2016.03-2016.05</span><span>30元</span></div></td><td>20元</td></tr>
+        			<tr><td><div class="left"><span>2016.03-2016.05</span><span>期待您的表现</span></div></td><td></td></tr> -->
+        		</table>
+        		<p class="y12 expiredText" style="display:none;">保险已到期，请续保继续参与活动</p>  
+        		<a href="javascript:void(0);" class="button toReInsurance">续保得车险基金</a>
+        	</div>  
+        	<h2 class="desc">季度时间也发奖</h2>
+        	<h2 class="desc bigger">想方设法送奖金</h2>
+        </div>
+        <div class="swiper-slide dayWrap">
+        	<img src="images/monthBg.png" class="monthBg"/>
+			<img src="images/monthBg2.png" class="monthBg2"/>
+        	<div class="content dayContent"><!--无奖励-->
+        		<h1><span>昨日排名</span><span class="bigger sequence">500+</span></h1>
+        		<p class="p3">昨日有 <span class="yellow dailyUserAwardNum">6988</span> 名车主获得驾驶奖励</p>
+        		<a href="javascript:void(0);" class="button toGradeHistory">点击查看详情</a>
+        	</div>
+        	<div class="content dayContent2"><!--有奖励-->
+        		<h1><span>昨日排名</span><span class="bigger sequence">500+</span></h1> 
+        		<div class="gift">
+        			<p class="p1 awardName">众诚驾驶排位赛三等奖</p>
+        			<p class="p2 awardValue">5元</p>
+        		</div>
+        		<a href="javascript:void(0);" class="button toGradeHistory">点击查看详情</a>
+        	</div>
+        	<div class="content dayContent3"><!--无盒子-->
+        		<p class="p15">安装乐乘盒子，根据<br>驾驶行为得奖励</p>
+        		<p class="p3">昨日有 <span class="yellow dailyUserAwardNum">6988</span> 名车主获得驾驶奖励</p>
+        		<a href="javascript:void(0);" class="whiteButton toBoxActive">立即安装乐乘盒子</a>
+        		<a href="javascript:void(0);" class="button toGradeHistory">点击查看详情</a>
+        	</div>
+        	<div class="content dayContent4"><!--无数据-->
+        		<p class="p15">昨日无驾驶数据</p>
+        		<p class="p3 tleft">昨日若有开车<br>				请拔插盒子等待明日排行，如果仍无效，请拨打客服电话400-607-1222</p> 
+        		<a href="javascript:void(0);" class="button toGradeHistory">点击查看详情</a>
+        	</div>
+        	<div class="content dayContent5"><!--保险到期-->
+        		<p class="p15">保险已到期，请续保<br>继续参与活动</p>
+        		<p class="p3">昨日有 <span class="yellow dailyUserAwardNum">6988</span> 名车主获得驾驶奖励</p>
+        		<a href="javascript:void(0);" class="whiteButton toReInsurance">续保参与活动</a>
+        	</div>
+        	<h2 class="desc">每天驾驶排名  有趣有奖励</h2>
+        	<h2 class="desc bigger">非众诚不参与</h2>
+		</div> 
+		<div class="swiper-slide monthWrap">
+        	<img src="images/monthBg.png" class="monthBg"/>
+			<img src="images/monthBg2.png" class="monthBg2"/>
+			<div class="content monthContent">
+        		<h1>月驾驶奖励</h1> <!-- 月奖励 -->
+        		<div class="gift">
+        			<p class="p1 awardDate">-月驾驶奖励</p>
+        			<p class="p2 awardValue">5元</p>
+        		</div>
+        		<a href="javascript:void(0);" class="button toReport">查看驾驶报告</a>
+        	</div>
+        	<div class="content monthContent2"> <!-- 无盒子 -->
+        		<p class="p15">安装乐乘盒子，根据<br>驾驶行为得奖励</p>
+        		<p class="p3">免费 ／ 方便 ／ 安全 ／ 挣钱<br>还等什么！</p>
+        		<a href="javascript:void(0);" class="whiteButton toBoxActive">立即安装乐乘盒子</a>
+        		<a href="javascript:void(0);" class="button toReport">看看冠军的报告</a>
+        	</div>
+        	<div class="content monthContent3"> <!-- 无数据 -->
+        		<p class="p15">上月无驾驶数据</p> 
+        		<p class="p3 tleft">上月若有开车<br>				请拔插盒子等待排行，如果仍无效，请拨打客服电话400-607-1222</p> 
+        		 
+        	</div> 
+        	<div class="content monthContent4"> <!-- 保险已到期 -->
+        		<p class="p15">保险已到期，请续保<br>继续参与活动</p>  
+        		<a href="javascript:void(0);" class="whiteButton toReInsurance">续保参与活动</a>
+        		<a href="javascript:void(0);" class="button toReport" style="display:none;">看看上月的报告</a>
+        	</div>  
+        	<h2 class="desc">每月现金送给你</h2>
+        	<h2 class="desc bigger">驾驶报告带现金</h2>
+        </div>        
+    </div>  
+    	<div class="pagination"></div>
+	</div>
+</section>
+<script type="text/javascript">
+	var paramJson = {};
+	$(function(){  
+		 // 获取参数 
+		 var url = window.location.search; 
+	     if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	     }   
+		 $(".content,.season").css({
+		 	"height":$(".monthBg").height()+"px" 
+		 });
+		 $(".content").css("padding-top","12%"); 
+		 var mySwiper2 = new Swiper('#swiper-container2', {  
+			//centeredSlides:true,//设定为true时，活动块会居中，而不是默认状态下的居左
+			slidesPerView : 3,
+			watchSlidesProgress : true,
+			watchSlidesVisibility : true, 
+			onTap: function(){  
+			    if(mySwiper2.clickedIndex==0){ 
+					mySwiper1.slideTo(1);
+				}else{
+					mySwiper1.slideTo(mySwiper2.clickedIndex+1);
+				}
+			}			
+		});  
+		 var mySwiper1 = new Swiper('#swiper-container1', { 
+			loop: true ,
+			autoplay:4000,
+			pagination: '.pagination',
+			effect: 'coverflow',
+			coverflow: { 
+				stretch: 100,
+				depth:350,
+				modifier: 1,
+				slideShadows : false,
+				rotate: 0
+			},
+            onSlideChangeStart: function(){
+			    if(mySwiper1){ 
+				  updateNavPosition();
+				}else{
+				  $('#swiper-container2 .active-nav').removeClass('active-nav');
+			      var activeNav = $('#swiper-container2 .swiper-slide').eq(0).addClass('active-nav'); 
+				  mySwiper2.slideTo(0);
+				} 
+		    }			
+		});  
+	    function updateNavPosition(){
+			$('#swiper-container2 .active-nav').removeClass('active-nav');
+			var i2 = mySwiper1.activeIndex-1;
+			if(i2>3||i2==3){
+				i2 = i2-3;
+			}
+			var activeNav = $('#swiper-container2 .swiper-slide').eq(i2).addClass('active-nav'); 
+			if (!activeNav.hasClass('swiper-slide-visible')) { 
+				if (activeNav.index()>mySwiper2.activeIndex) { 
+					var thumbsPerNav = Math.floor(mySwiper2.width/activeNav.width())-1
+					mySwiper2.slideTo(activeNav.index()-thumbsPerNav)
+				}
+				else { 
+					mySwiper2.slideTo(activeNav.index())
+				}	
+			}
+		}  
+        $(".toBoxActive").click(function(){//跳转盒子激活
+        	window.location.href = "http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/carEarn/boxActive/step1.html"; 
+        });
+         $(".toReport").click(function(){//跳转月报
+        	window.location.href = "http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/zhongcheng/monthReport/monthReport.html?box=1"; 
+        }); 
+        $(".toReInsurance").click(function(){//跳转续保
+        	window.location.href = "http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/zhongcheng/reInsurance.html"; 
+        });
+        homepageData();
+	});
+	function homepageData(){     
+		$.ajax({
+			  url: '/yangchebao-app-ws/ws/0.1/tripMonthly/homepageData?userInfoId='+paramJson.userId+"&"+new Date().getTime(),
+			  type: 'get',  
+			  async:false,
+			  dataType: 'json',
+			  success: function(data) {   
+				if(data.isExpired==1){//保险是否到期  0否 1是
+					$(".dayContent5").css('visibility', 'visible');
+					$(".monthContent4").css('visibility', 'visible');
+					if(data.monthly.resultCode==1){
+						$(".monthContent4 .toReport").show();
+					}
+					$(".seasonWrap .expiredText").show();
+					$(".dailyUserAwardNum").html(data.daily.dailyUserAwardNum);		
+				}else if(data.isHaveBox==0){//是否安装盒子  0否 1是
+				   $(".dayContent3").css('visibility', 'visible');
+				   $(".monthContent2").css('visibility', 'visible');
+				   $(".dailyUserAwardNum").html(data.daily.dailyUserAwardNum);
+				   $(".toGradeHistory").click(function(){
+				   		window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/archives/gradeHistory.html?box=0";
+				   });
+				   $(".toReport").unbind('click').bind('click',function(){
+				        //跳转月报 
+			        	window.location.href = "http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/zhongcheng/monthReport/monthReport.html?box=0"; 
+			        }); 
+				}else{
+					//日驾驶数据
+					 $(".toGradeHistory").click(function(){
+				   		window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/archives/gradeHistory.html?box=1";
+				     });
+				     //无数据
+                     if(data.daily.resultCode==0){// 0异常 1正常
+                     	$(".dayContent4").css('visibility', 'visible');
+                     }else{ 
+                     	 $(".dailyUserAwardNum").html(data.daily.dailyUserAwardNum);
+                     	 $(".sequence").html(data.daily.sequence);
+	                     if(data.daily.awardValue!="0"){//有奖励
+	                     	 $(".dayContent2").css('visibility', 'visible');
+	                     	 $(".dayContent2 .awardName").html(data.daily.awardName);
+	                     	 $(".dayContent2 .awardValue").html(data.daily.awardValue+"元");
+	                     }else{//无奖励
+	                     	 $(".dayContent").css('visibility', 'visible');
+	                     }
+                 	}
+
+                 	//月驾驶数据 
+                     if(data.monthly.resultCode==0){// 0异常 1正常
+                     	$(".monthContent3").css('visibility', 'visible');
+                     }else{ 
+                     	$(".monthContent").css('visibility', 'visible');
+                     	$(".monthContent .awardValue").html(data.monthly.awardValue+"元");
+                     	$(".monthContent .awardDate").html(parseInt(data.monthly.date.substring(4))+"月驾驶奖励");
+                     }
+                }
+                 //季度
+                 var quarterly = data.quarterly;
+                 var num = 0; 
+                 var dateArr = []; 
+                 $.each(quarterly,function(i){ 
+                 	if(i==0){
+                 		dateArr = getDate(this.date);
+                 	} 
+                 	var _tr = '<tr><td><div class="left"><span>'+dateArr[i]+'</span><span>'+this.renewalAmount+'元</span></div></td><td>'+this.noClaimAmount+'元</td></tr>';
+                 	num++;
+                 	$(".season table").append(_tr);
+                 });
+                 for(num;num<4;num++){
+					var _tr = '<tr><td><div class="left"><span>'+dateArr[num]+'</span><span>期待您的表现</span></div></td><td></td></tr>'; 
+                 	$(".season table").append(_tr); 
+                 }   
+				 $(".button").css("bottom","12%");
+		         $(".whiteButton").css("bottom","28%");		
+				
+			  },
+			  error:function(xhr){ 
+					var error=eval('('+xhr.responseText+')');
+					errorLog(error[0].message)
+			  }      
+		 });
+	} 
+	function getDate(start){
+		var arr = [];
+		var y = parseInt(start.substring(0,4));
+		var m = parseInt(start.substring(4,6));
+		for(var i=0;i<4;i++){
+			var str = y+".";
+			if(m<10){
+				str+="0";
+			}
+			str+=m+"-";
+			m = m+2;
+			if(m>12){
+				m=m-12;
+				y=y+1;
+			}
+			str+=y+".";
+			if(m<10){
+				str+="0";
+			}
+			str+=m;
+			arr.push(str);
+			m = m+1;
+			if(m>12){
+				m=m-12;
+				y=y+1;
+			}
+		}
+		return arr;
+	}
+	window.onload = function(){
+	
+	}
+</script>
+</body> 
+</html>

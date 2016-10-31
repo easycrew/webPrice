@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/md50000000000000000000000000000.js"></script>
+	<title>核保成功</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+
+		div.container{
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+		header{
+			padding-top: 0.8rem;
+			padding-bottom: 0.8rem;
+			background-color: #fff;
+		}
+		header nav ul{
+			width: 95%;
+			margin: auto;
+			overflow: hidden;
+		}
+		header nav ul li{
+			float: left;
+		}
+		header nav ul li img{
+			width: 100%;
+		}
+		header nav ul li.carSafe_step1{
+			width: 34.76%;
+		}
+		header nav ul li.carSafe_step2{
+			width: 25.09%;
+		}
+		header nav ul li.carSafe_step3{
+			width: 25.09%;
+		}
+		header nav ul li.carSafe_step4{
+			width: 14.96%;
+		}
+
+		section{
+			background-color: #f4f7f8;
+		}
+		article{
+			background-color: #fff;
+		}
+		div.buyNum{
+			background-color: #f4f7f8;
+			overflow: hidden;
+			line-height: 2.6rem;
+			border-top: 1px solid #DCDCE4;
+			border-bottom: 1px solid #DCDCE4;
+			padding: 0 1rem;
+		}
+		div.buyNum span{
+			float: left;
+			color: #ff6138;
+			font-size: 0.9rem;
+		}
+		div.buyNum a{
+			float: right;
+			color: #6eaade;
+			font-size: 0.9rem;
+		}
+		div.article-top-safe{
+			padding: 1rem;
+			
+		}
+		p.pOne{
+			padding: 0.1rem 0 0.5rem 0;
+		}
+		p.pOne img{
+			width: 50%;
+		}
+		p.pTwo{
+			color: #6eaade;
+			font-size: 1.2rem;
+			padding: 0.2rem 0 0.2rem 0;
+		}
+		p.pThree,p.pFour{
+			color: #999;
+			font-size: 0.9rem;
+			padding: 0.3rem 0 0.4rem 0;
+		}
+		article.article-middle{
+			margin-top: 1rem;
+		}
+		ul.article-middle-ul{
+			border-bottom: 1px solid #DCDCE4;
+		}
+		ul.article-middle-ul li{
+			overflow: hidden;
+			padding: 1rem;
+			border-top: 1px solid #DCDCE4;
+		}
+		ul.article-middle-ul li p.li-pLeft{
+			float: left;
+		}
+		ul.article-middle-ul li p.li-pRight{
+			float: right;
+			text-align: right;
+		}
+		span.safe{
+			color: #1e1e1e;
+			font-size: 1rem;
+			padding-bottom: 0.2rem;
+		}
+		span.safeNumber{
+			color: #999;
+			font-size: 0.9rem;
+		}
+		a.toCheckOrder{
+			color: #6eaade;
+			font-size: 0.9rem;
+		}
+		article.article-charge{
+			overflow: hidden;
+			padding-left: 1rem;
+			margin-top: 1rem;
+			border-top: 1px solid #DCDCE4;
+		}
+		article.article-charge p.priceAll{
+			float: left;
+			line-height: 3.2rem;
+		}
+		article.article-charge p.priceAll span.priceAll-text{
+			font-size: 1rem;
+			color: #666;
+		}
+		article.article-charge p.priceAll span.priceAll-detail{
+			font-size: 1rem;
+			color: #fb4f2c;
+		}
+		article.article-charge p.chargeBtn{
+			float: right;
+			line-height: 3.2rem;
+			color: #fff;
+			font-size: 1.2rem;
+			text-align: center;
+			background-color: #fb4f2c;
+			padding: 0 1.8rem;
+			cursor: pointer;
+		}
+
+		div.checkOrderInfo{
+			padding: 0 1rem 1rem;
+			border-bottom: 1px solid #DCDCE4;
+		}
+		div.checkOrderInfo p{
+			background-color: #6eaade;
+			color: #fff;
+			font-size: 1rem;
+			width: 40%;
+			line-height: 2rem;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			text-align: center;
+			cursor:pointer;
+		}
+
+		article.article-bottom{
+			margin-top: 1rem;
+			border-top: 1px solid #DCDCE4;
+			padding: 0 1rem 1rem;
+		}
+		article.article-bottom p{
+			padding-top: 1rem;
+			font-size: 0.9rem;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<nav>
+				<ul>
+					<li class="carSafe_step1"><img src="img/carSafe_step1.png"></li>
+					<li class="carSafe_step2"><img src="img/carSafe_step2.png"></li>
+					<li class="carSafe_step3"><img src="img/carSafe_step3.png"></li>
+					<li class="carSafe_step4"><img src="img/carSafe_step4.png"></li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<article class="article-top">
+				<div class="buyNum">
+					<span>已有<span name="saleNum">9998</span>人在养车宝购买车险</span>
+					<!-- <a href="http://w2l?closeActivity">返回首页</a> -->
+				</div>
+				<div class="article-top-safe">
+					<p class="pOne"><img src="img/safeLogo.png" name="logo"></p>
+					<p class="pTwo">您的订单已成功提交到<span name="name">天安车险</span></p>
+					<p class="pThree">订单完成，将立即返还10%商业险返现至您的养车宝账户中。</p>
+					<p class="pFour">同时还可获得每天1元，3年1095元养车宝车险补贴。</p>
+				</div>
+				<div class="checkOrderInfo"><p class="checkOrderInfo-btn">查看保单信息</p></div>
+			</article>
+			<article class="article-middle">
+				<ul class="article-middle-ul">
+					<li class="article-middle-li">
+						<p class="li-pLeft"><span class="safe safeText">商业险</span><br /><span class="safeNumber">投保单号：<span name="busiInsureNum">2344567789995</span></span></p>
+						<p class="li-pRight"><span class="safe safePrice">¥ <span name="busiInsureCharge">3500.00</span></span><br />
+						<!-- <a class="toCheckOrder" href="http://w2nw?http://10.23.31.151/yangchebao-pubweb/baoxianVip/orderDetail.html">查看投保单</a></p> -->
+					</li>
+					<li class="article-middle-li">
+						<p class="li-pLeft"><span class="safe safeText">交强险</span><br /><span class="safeNumber">投保单号：<span name="vehicleInsureNum">2344567789995</span></span></p>
+						<p class="li-pRight"><span class="safe safePrice">¥ <span name="vehicleInsureCharge">3500.00</span></span></p>
+					</li>
+					<li class="article-middle-li">
+						<p class="li-pLeft"><span class="safe safeText">车船税</span></p>
+						<p class="li-pRight"><span class="safe safePrice">¥ <span name="taxInsureCharge">3500.00</span></span></p>
+					</li>
+				</ul>
+			</article>
+			<article class="article-charge">
+				<p class="priceAll"><span class="priceAll-text">合计费用：</span><span class="priceAll-detail">￥<span name="totalCharge">4810.00</span></span></p>
+				<!-- <p class="chargeBtn">立即支付</p> -->
+			</article>
+			<article class="article-bottom">
+				<p>订单已投保成功，请告知用户在养车宝APP的个人中心，点击“我的保险订单”完成支付。</p>
+			</article>
+		</section>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    // 获取成功信息
+	    $.ajax({
+	    	url:'/yangchebao-app-ws/ws/0.1/insure/check/result?sqid='+paramJson.sqid+'&customerId='+paramJson.customerId+'&'+new Date().getTime(),
+	    	type:'get',
+	    	dataType:'json',
+	    	contentType:'application/json;charset=utf-8',
+	    	success:function(data){
+	    		$.each(data,function(key,val){
+	    			$('span[name="'+key+'"]').html(val)
+	    		});
+	    		$('img[name="logo"]').attr('src',data.logo);
+	    		paramJson.payUrl=data.payUrl
+	    	}
+	    });
+	    // 查看保单信息
+	    $('p.checkOrderInfo-btn').unbind('click').bind('click',function(){
+	    	window.location.href="/yangchebao-pubweb/baoxianVip/orderDetail.html?sqid="+paramJson.sqid+"&customerId="+paramJson.customerId+'&userId='+paramJson.userId+'&orderStatus=0&payUrl='+paramJson.payUrl
+	    });
+		// 立即支付
+		// $('p.chargeBtn').unbind('click').bind('click',function(){
+		// 	window.location.href=paramJson.payUrl
+		// })
+	})
+</script>
+</html>

@@ -1,0 +1,151 @@
+<script type="text/javascript" src="settlementManage/settlementManage.js"></script>
+<style>
+	#Wraper_settlement_manage div#Form_settlement_manage div.grid-layout-content{
+		line-height: 24px;
+	}
+</style>
+<div class="urlContentWraper" id="Wraper_settlement_manage">
+<div class="ui-info-layout">
+<div class="ui-info-layout-subbox "> 
+	<div class="jrad-table">
+        <h2 class="ui-tit"><strong>结算列表</strong></h2>
+        <!-- 列表显示 -->
+        <table id="Table_settlement_manage"></table>
+    </div>
+	<div class="details-box" style="display:none;">
+			<ul class="details-tab">
+				<li class="tab-cur tab-cur-first f-left"><span name="title">结算订单详情</span></li>
+				<li><span class="return"></span></li>
+			</ul>
+			<div class="details-content">
+				<div class="details-scroll">
+					<div class="details-content-inner">
+						<div class="grid-layout ui-form" id="Form_settlement_manage">
+							<div class="jrad-form">  
+								<div class="grid-layout-main">
+								<h2 class="ui-tit ui-dashboard-header"><strong>基本信息</strong></h2> 
+								<div class="row-fluid">
+								 <label class="span3 grid-layout-label">分订单号：</label>
+								 <div class="span5 grid-layout-content">
+									   <div name="branchOrderNumber"></div>
+								 </div>
+								 <label class="span3 grid-layout-label">发货单号：</label>
+								 <div class="span5 grid-layout-content">
+									   <div name="billNumber"></div>
+								 </div>
+								</div>
+								<div class="row-fluid">
+									 <label class="span3 grid-layout-label">下单时间：</label>
+									 <div class="span5 grid-layout-content">
+										   <div name="deliveredTime""></div>
+									 </div>
+									 <label class="span3 grid-layout-label">发货时间：</label>
+									 <div class="span5 grid-layout-content">
+										   <div name="orderDate"></div>
+									 </div>
+								</div>  
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label"> 订单城市： </label>
+									<div class="span5 grid-layout-content">
+										<div name="areaName">
+										</div>
+									</div>
+								</div>
+						
+								<h2 class="ui-tit ui-dashboard-header"><strong>结算信息</strong></h2> 
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label"> 发货供应商： </label>
+									<div class="span5 grid-layout-content">
+										<div name="supplyName">
+										</div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">商品成本： </label>
+									<div class="span5 grid-layout-content">
+										<div name="commodityCost">
+										</div>
+									</div>
+									<label class="span3 grid-layout-label">发货运费： </label>
+									<div class="span5 grid-layout-content">
+										<div name="postage">
+										</div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">应结算金额： </label>
+									<div class="span5 grid-layout-content">
+										<div name="settlementAmount">
+										</div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">结算操作人： </label>
+									<div class="span5 grid-layout-content">
+										<div name="settlementMan">
+										</div>
+									</div>
+									<label class="span3 grid-layout-label">结算时间： </label>
+									<div class="span5 grid-layout-content">
+										<div name="settlementTime">
+										</div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<label class="span3 grid-layout-label">结算证明： </label>
+									<div class="span5 grid-layout-content">
+										<div name="settlementProveShow">
+										</div>
+									</div>
+								</div>
+								<h2 class="ui-tit ui-dashboard-header"><strong>发货商品</strong></h2>
+								 <div class="row-fluid">
+									<table id="Table_deliverySku_manage" style="align:center">
+										<thead>
+											<tr>
+												<th style="align:center">SKUID</th>
+												<th>SKU名称</th>
+												<th>数量</th>
+												<th>采购成本价</th>
+												<th>商品类型</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+								</div> 
+							</div>
+							<div class="offset18 jrad-buttons-container ui-buttons-container" style="margin-top: 60px;">
+									<span class="jrad-btn-normal jrad-form-element ui-btn-normal" tabindex="1">
+										<span class="ui-btn-normal-content">取消</span>
+									</span>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+     </div>
+</div>
+</div>
+
+<!-- 结算证明-->
+<div id="Form_settlement" style="display:none;">
+	<div class="grid-layout-main jrad-form"> 
+		<input type="hidden" name="settlementProvePic">
+		<input type="hidden" name="settlementProveMidPic">
+		<input type="hidden" name="settlementProveSmallPic">
+		<div class="row">
+			<label class="span3 grid-layout-label">结算证明</label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-uploadimg-container" name="settlementProve"></div>
+			</div> 
+		</div>   
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary">结算完成</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div> 	 						
+</div>

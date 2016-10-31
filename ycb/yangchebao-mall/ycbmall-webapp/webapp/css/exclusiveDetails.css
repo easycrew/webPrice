@@ -1,0 +1,326 @@
+div.m-t{
+	background: #e0e0e0;
+	padding: 10px;
+	margin-top: 30px;
+	position: relative;
+	overflow: hidden;
+}
+div.m-m{
+	border-left: 1px solid #e8e8e8;
+	border-right: 1px solid #e8e8e8;
+	margin-top: 30px;
+}
+div.m-b{
+	border:1px solid #E8E8E8;
+	border-width: 0 1px 1px 1px;
+	margin-top: 40px;
+}
+/*弹出浮层*/
+div.putShopCar-success {
+  position: fixed;
+  width: 400px;
+  z-index: 1600;
+  top: 30%;
+  left: 50%;
+  margin-left: -191px;
+  padding: 40px 0 40px 40px;
+  background-color: #fff;
+  border: 1px solid #FD6244;
+  overflow: hidden;
+}
+div.putShopCar-success div.hsaPutShopCarImg {
+  float: left;
+  margin-right: 20px;
+}
+div.putShopCar-success div.hasPutShopCarText {
+  width: 282px;
+  float: right;
+}
+div.putShopCar-success div.hasPutShopCarText p.p_one {
+  font-family: "microsoft yahei";
+  font-size: 22px;
+  color: #333;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #FD6244;
+}
+div.putShopCar-success div.hasPutShopCarText p.p_two {
+  margin-top: 12px;
+}
+div.putShopCar-success div.hasPutShopCarText p.p_two span.tocarSettle a {
+  font-family: "microsoft yahei";
+  font-size: 16px;
+  color: #FD6244;
+  margin-right: 26px;
+}
+div.putShopCar-success div.hasPutShopCarText p.p_two span.continueShop {
+  font-family: "microsoft yahei";
+  font-size: 12px;
+  color: #333;
+}
+div.putShopCar-success div.hasPutShopCarText p.p_two span.continueShop a {
+  font-family: "microsoft yahei";
+  font-size: 12px;
+  color: #FD6244;
+}
+
+
+div.title-H{
+	border-top: 1px solid #E8E8E8;
+	background: #f7f7f7;
+	height: 48px;
+	line-height: 48px;
+	text-align: left;
+}
+.detail-box{
+	padding: 10px 40px 80px 40px;
+}
+.video-l,.video-r{
+	float: left;
+}
+.video-l{
+	width: 800px;
+	height: 451px;
+	background:#000000;
+}
+.video-r{
+	width: 380px;
+	height: 451px;
+	background: #FFFFFF;
+}
+.giftBagBac{
+	background: #f7f7f7;
+	text-align: center;
+	padding: 32px 39px 20px 29px;
+	height: 86px;
+}
+.giftBagBac span.giftBagName,.giftBagBac span.giftBagTitle{
+	display: inline-block;
+	width: 320px;
+	text-align: left;
+	font-family: "microsoft yahei";
+}
+.giftBagBac span.giftBagName{
+	font-size: 24px;
+}
+.giftBagBac span.giftBagTitle{
+	font-size: 16px;
+	color: #fd6244;
+}
+.giftBagDec{
+	padding:0 39px 25px 29px;
+	width: 312px;
+}
+.giftBagDec h3{
+	padding-top: 25px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #FD6244;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #FD6244;
+}
+p.g-b-description{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	overflow: hidden;
+}
+p.giftBagIntroduction{
+	height: 105px;
+}
+p.giftBagArguments{
+	height: 63px;
+}
+div.giftBag-detail .floor-title{
+	height: 60px;
+	line-height: 60px;
+	background: #f7f7f7;
+	border-top: 1px solid #e8e8e8;
+	font-family: "microsoft yahei";
+	font-size: 20px;
+	padding-left: 28px;
+	color: #333333;
+}
+span.slideDown,span.slideUp{
+	margin-left: 30px;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #FD6244;
+	padding-right: 22px;
+	cursor: pointer;	
+}
+span.slideDown{
+	background: url(../img/slide-down.png) no-repeat center right;
+}
+span.slideUp{
+	display: none;
+	background: url(../img/slide-up.png) no-repeat center right;
+}
+.giftBag-detail-list{
+	position: relative;
+	overflow: hidden;
+	padding:25px;
+	border-bottom: 1px solid #e8e8e8;
+}
+.giftBag-detail-list-last{
+	border-bottom: 0px;
+}
+div.list-pic,div.list-info,div.list-num{
+	float: left;
+}
+div.list-pic img{
+	width: 190px;
+	height: 190px;
+}
+div.list-info{
+	border-right: 1px dashed #e8e8e8;
+	padding: 45px 30px 48px 10px;
+	width: 620px;
+}
+div.list-info a{
+	display: inline-block;
+	height: 54px;
+	font-family: "microsoft yahei";
+	font-size: 18px;
+	margin-bottom: 7px;
+	color: #333333;
+}
+div.list-info .list-price span,div.list-info .list-price span em{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333333;
+}
+div.list-info .list-price span.price-span-r{
+	margin-left: 40px ;
+}
+div.list-info .list-price .price-note{
+	font-size: 24px;
+	color: #FD6244;
+}
+div.list-info .list-price span.price-note{
+	font-size: 14px;
+	padding-right: 5px;
+}
+div.list-num{
+	padding: 53px 40px 16px 35px;
+	text-align: center;
+	
+}
+div.list-num p{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	text-align: left;
+}
+div.list-num p.buyNum{
+	margin-bottom: 5px;
+}
+div.list-num input.selfBuyNum{
+  	width: 40px;
+  	height: 20px;
+  	line-height: 20px;
+  	padding: 8px 10px;
+  	border: 1px solid #CCCCCC;
+  	background-color: #FFFFFF;
+  	font-size: 14px;
+  	font-family: "microsoft yahei";
+  	color: #333333;
+  	text-align: center;
+}
+div.list-num span.buyNum_down,div.list-num span.buyNum_up{
+  	display: inline-block;
+  	height: 36px;
+  	+height: 26px;
+  	line-height: 36px;
+  	padding: 0 6px;
+  	+padding-top: 10px;
+  	border-top: 1px solid #ccc;
+  	border-bottom: 1px solid #ccc;
+  	background-color: #ededed;
+  	font-size: 14px;
+  	font-family: "microsoft yahei";
+  	color: #333;
+  	cursor: pointer;
+}
+div.list-num span.buyNum_up{
+	border-left: 0px;
+	border-right: 1px solid #CCCCCC;
+}
+div.list-num span.buyNum_down{
+	border-left: 1px solid #CCCCCC;
+	border-right: 0px;
+}
+div.list-num p.prePriceSum span,div.list-num p.prePriceSum em.p-sum-pricenum{
+	font-family: "microsoft yahei";
+	font-size: 24px;
+	color: #333333;
+	padding-left: 7px;
+}
+div.list-num p.prePriceSum span{
+	margin-left: 27px;
+}
+div.list-num p.ui-note{
+	display: inline-block;
+	width: 200px;
+	color: #FF0000;
+}
+
+div.giftBag-footer{
+	text-align: right;
+	margin-top: 15px;
+}
+div.giftBag-footer span{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+}
+div.giftBag-footer span.sumNum,div.giftBag-footer span.sumPrice{
+	padding-right: 40px;
+}
+div.giftBag-footer span em,div.giftBag-footer span.unit,div.giftBag-footer span.allPrice{
+	font-family: "microsoft yahei";
+	font-size: 18px;
+	color: #FD6244;
+}
+div.giftBag-footer a{
+	display: inline-block;
+	width: 200px;
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #FFFFFF;
+}
+div.giftBag-footer a.addShopCarBtn{
+	background: #ff9900;
+}
+div.giftBag-footer a.limitedBuyBtn{
+	background: #FD6244;
+}
+div.giftBag-footer a.addShopCarBtn-dis{
+	background-color: #c0c0c0;
+}
+div.giftBag-footer a.limitedBuyBtn-dis{
+	background-color: #A0A0A0;
+}
+div.detailsTitle{
+	border-bottom: 1px solid #E8E8E8;
+}
+#detailsTitle li{
+	width: 160px;
+  	float: left;
+  	text-align: center;
+  	line-height: 48px;
+  	border-left: 0px;
+  	border-right: 1px solid #E8E8E8;
+ 	cursor: pointer;
+  	font-size: 16px;
+  	font-family: "microsoft yahei";
+  	color: #333;
+}
+#detailsTitle li.checked{
+	margin-top: -1px;
+	background: #FFF;
+  	border: 1px solid #e5e5e5;
+  	border-width: 0 1px 0 0;
+  	border-top: 2px solid #fd6244;
+  	color: #fd6244;
+  	cursor: default!important;
+}

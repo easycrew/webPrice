@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<title>我的成员</title>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<script src="js/commen.js?v=1"></script>
+<style>
+html {
+	font-size: 62.5%;
+}
+body {
+	font-family:"MicrosoftYaHei","HelveticaNeue-Light";
+	font-weight: normal;
+	font-style: normal;
+	line-height: normal;
+	width: 100%;
+	margin: 0 auto;
+}
+i, em {
+	font-style: normal;
+}
+a {
+	text-decoration: none;
+}
+ul {
+	list-style: none;
+}
+li{ list-style-type:none;}
+img {
+	border: none;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+.clearfix {
+ *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+.clearfix:after {
+	clear: both;
+}
+section,article{ width:100%; display:block; background:#f4f7f8;}
+.biaot{ width:100%; display:block; height:3.5rem; padding:0.95rem 1rem; box-sizing:border-box; border-bottom:1px solid #c2c2c6; background:#fff;}
+.biaot span{height:1.6rem; border-left:4px solid #ff6138; font-size:1.5rem; padding:2px 0 2px 2%; box-sizing:border-box;}
+.biaot span,.biaot i,.biaot a{ display:block; float:left;}
+.biaot i{ font-size:1.5rem; margin-left:5%; margin-top:1px;}
+.biaot a{ font-size:1.75rem; color:#c2c2c6; float:right;}
+.biaot a em{ font-size:1.2rem; position:relative; bottom:1px; color:#1e1e1e; right:5px;}
+.box_1{ padding:1.95rem 1.65rem 4.35rem 2.25rem; box-sizing:border-box; background:#fff; position:relative; border-bottom:1px solid #c2c2c6; }
+.box1_1 span.sps0,.box1_1 span.sps1,.box1_1 span.sps2{ background-size:15px 15px;}
+.box1_1{height:5.5rem; width:95%;background:url(img/bj1.png) repeat-x center center #fff; margin:0 auto;}
+.box1_1 span{ height:5.5rem; width:4.05rem; background-size:15px 15px; display:block; float:left;  position:relative;}
+.box1_1 span a{width:4.5rem; height:1.9rem;font-size:1.2rem; padding-top:1px; overflow: hidden; display:block; color:#fff; text-align:center; box-sizing:border-box; position:absolute; top:0;}
+.box1_1 span em{  width:4.5rem; text-align:center; font-size:1.2rem; position:absolute; bottom:0;}
+/*判断成员背景*/
+.sps2{background:url(img/yuan1.png) no-repeat; background-position:center center;  position:relative;}
+.sps1{background:url(img/yuan2.png) no-repeat; background-position:center center;  position:relative;}
+.sps0{background:url(img/yuan2.png) no-repeat;background-position:center center;  position:relative;}
+.sps_a2{background:url(img/huak.png) no-repeat; background-size:100% 100%;}
+.sps_a1{background:url(img/huak.png) no-repeat; background-size:100% 100%;}
+.sps_a0{background:url(img/huik.png) no-repeat; background-size:100% 100%;}
+
+.box1_1 span:nth-of-type(1){background-position:center left;}
+.box1_1 span:nth-of-type(1) a{ left:-15px;}
+.box1_1 span:nth-of-type(1) em{ text-align:left; left:-5px;}
+.box1_1 span:nth-of-type(2){margin-left:2%;}
+.box1_1 span:nth-of-type(3){ margin-left:6%;}
+.box1_1 span:nth-of-type(4){ margin-left:6%;}
+.box1_1 span:nth-of-type(2) em{ left:0;}
+.box1_1 span:nth-of-type(3) em{ left:0;}
+.box1_1 span:nth-of-type(2) a{ left:0;}
+.box1_1 span:nth-of-type(3) a{ left:0;}
+.box1_1 span:last-child{ float:right; background-position:center right;}
+.box1_1 span:last-child a{ right:-15px;}
+.box1_1 span:last-child em{ text-align:right; right:-5px;}
+.box_2{ width:100%; display:block; padding:1.5rem; box-sizing:border-box; background-color:#fff; border-bottom:1px solid #c2c2c6;}
+.box2_1{ width:45%; height:7.6rem; display:block; float:left; background-color:#54c3aa; margin-bottom:10px; box-shadow: 2px 2px 2px #ccc;}
+.box2_1 span{ width:80%;  height:1.65rem; background-color:#40a790; display:block; border-radius:10px; text-align:center; line-height:20px; font-size:1.2rem; color:#fff; margin:1rem auto 0.5rem auto;}
+.box2_1 p{ width:90%; border-top:1.5px solid #fff; display:block; text-align:center; padding-top:1.1rem;  box-sizing:border-box; margin:0 auto; font-size:2rem; color:#fff;}
+.box_2 div:nth-of-type(2),.box_2 div:nth-of-type(4){ float:right;}
+.box_2 div:nth-of-type(2) span{ width:93%;}
+.box_2 div:nth-of-type(3) span,.box_2 div:nth-of-type(4) span{ width:70%;}
+.box_2 .te_p{ width:100%; text-align:right; color:#a2a2a2; font-size:1.2rem;}
+.dl_01{ width:100%; padding:1rem 1.5rem;  box-sizing:border-box; border-bottom:1px solid #c2c2c6; background-color:#fff;}
+.dl_01 dt{  width:10rem; height:6rem;  display:block; float:left;}
+.dl_01 dt img{ width:100%;}
+.dl_01 dd{ width:58%; display:block; float:left; margin-left:0.5rem;}
+.ddb_01{ font-size:1.5rem; margin-top:0.25rem;}
+.ddb_02{ font-size:1.2rem; margin-top:0.5rem;}
+.xqbz{ width:100%; display:block;height:4.05rem; position:relative;  border-bottom:1px solid #c2c2c6;}
+.xqbz span,.xqbz i{ display:block; float:left; text-align:center; font-size:1.2rem;}
+.xqbz i{line-height:4.05rem; color:#333; width:38%;}
+.xqbz span{ position:relative; top:50%; border-bottom:1px solid #cbcccd; width:30%; height:0.1rem; box-sizing:border-box;}
+.xqbz span.sp2{ float:right;width:32%;}
+.arc2{ margin-top:10px;}
+.box_21{ width:100%; display: block;}
+@media screen and (min-width:320px) and (max-width:375px) {
+.dl_01 dd{ width:62%;}
+.ddb_01{ font-size:1.5rem; margin-top:0.25rem;}
+.ddb_02{ font-size:1.2rem; margin-top:0.5rem;}
+}
+.tasat-wrap{
+	position: fixed;
+	text-align: center;
+	bottom: 50%;
+	width: 100%;
+}
+.G{
+	z-index: 1001;
+}
+.tasat{
+	background-color: #000;
+	border-radius: 8px;
+	color: #fff;
+	font-size: 1.6rem;
+	opacity: 0.8;
+	padding: 0.5em;
+	display: inline-block;
+	margin: 0 20px;
+}
+</style>
+</head>
+
+<body>
+<input name="share" type="hidden" value="1" />
+<input name="share" type="hidden" value="月入万元，我邀请您来养车宝一起赚钱!!" />
+<input name="share" type="hidden" value="" />
+<input name="share" type="hidden" value="http://app.yangchebao.com.cn/group1/M00/0C/0C/ChUBl1W7DPmAe6klAAA5VD3g4B4086.jpg" />
+
+<section>
+<article>
+	<div class="biaot"><span>成员</span><i class="cy">30人</i><a class="mingdan"><em>名单</em>></a></div>
+    <div class="box_1">
+    <div class="box1_1">
+		<!--<span><a class="sps_a01">＋5元</a><em>10人</em></span>-->
+		<!--<span><a class="sps_a02">＋5元</a><em>20人</em></span>-->
+		<!--<span><a class="sps_a03">＋5元</a><em>30人</em></span>-->
+		<!--<span><a class="sps_a04">＋5元</a><em>50人</em></span>-->
+    </div>
+    </div>
+</article>
+<article class="arc2">
+	<div class="biaot"><span class="zjj">总奖金3400</span></div>
+    <div class="box_2">
+		<div class="box_21 clearfix"></div>
+    	<!--<div class="box2_1">
+        	<span>新成员注册奖励</span>
+            <p>9元</p>
+        </div>-->
+        <!--<div class="box2_1">-->
+        	<!--<span>新成员首次消费奖励</span>-->
+            <!--<p>20元</p>-->
+        <!--</div>-->
+        <!--<div class="box2_1">-->
+        	<!--<span>消费提成</span>-->
+            <!--<p>20元</p>-->
+        <!--</div>-->
+        <!--<div class="box2_1">-->
+        	<!--<span>车险提成</span>-->
+            <!--<p>180元</p>-->
+        <!--</div>-->
+        <div class="clearfix"></div>
+        <p class="te_p">点击以上项目可查看详细规则并开始赚钱</p>
+    </div>
+</article>
+<article class="arc2">
+	<div class="biaot"><span>推荐这些赚钱更快</span></div>
+    <!--<dl class="dl_01 clearfix">
+    <dt><img src="img/xjq.png" /></dt>
+    <dd class="ddb_01">车内空气净化套餐</dd>
+    <dd class="ddb_01">108元</dd>
+    <dd class="ddb_02">一级队员贡献20 二级队员贡献10</dd>
+    </dl>-->
+    <dl class="dl_01 clearfix">
+    <dt><img src="img/lALOF3xKp3jMyA_200_120.png" /></dt>
+    <dd class="ddb_01">全国车险</dd>
+    <dd class="ddb_02">一级队员贡献  商业险X3% </dd>
+    <dd class="ddb_02">二级队员贡献  商业险X1% </dd>
+    </dl>
+</article>
+<!--<p class="xqbz"><span></span><i>查看全部车队赚钱项目</i><span class="sp2"></span></p>-->
+</section>
+</body>
+<script type="text/javascript">
+var paramJson = {};
+$(function(){
+	var url = window.location.search;
+	var paramsArr = (url.split("?")[1]).split("&");
+	$.each(paramsArr,function(i){
+	var item = paramsArr[i].split("=");
+	paramJson[item[0]] = item[1];
+	});
+	$.ajax({
+	url:'/yangchebao-app-ws/ws/0.1/autogain/member/general?customerId='+paramJson.customerId+'&'+(new Date()).getTime(),
+	type:'get',
+	async:false,
+	dataType:'json',
+	success:function(data){
+		$('.cy').html(data.memberCount+"人");
+		$('.zjj').html("总奖金"+parseInt(data.totalMemberIncome));
+		var bizGroupInfo = data.bizGroupInfo;
+
+		var box = '';
+		$.each(bizGroupInfo,function(){
+			 box += '<div class="box2_1" bizType='+this.bizType+'>'
+			    +'<span>'+this.bizName+'</span>'
+			    +'<p>'+this.income+'元</p>'
+				+ '</div>'
+			//alert(this.income);
+		})
+		$('.box_21').append(box);
+		var progressNodeInfo = data.progressNodeInfo;
+		console.log(progressNodeInfo);
+		$.each(progressNodeInfo,function(i){
+			var _proN = '<span>'+'<a>＋'+this.extraAward+'元</a>'+'<em>'+this.targerValue+'人</em>'+'</span>';
+			$('.box1_1').append(_proN);
+			if(this.nodeStatus==0){
+				$('.box1_1 span:eq('+i+')').addClass('sps0');
+				//$('.box1_1 span:eq('+i+') a').attr('class','sps_a0');
+			}else if(this.nodeStatus==1){
+				$('.box1_1 span:eq('+i+')').addClass('sps1');
+				$('.box1_1 span:eq('+i+') a').attr('class','sps_a1');
+			}else if(this.nodeStatus==2){
+				$('.box1_1 span:eq('+i+')').addClass('sps2');
+				//$('.box1_1 span:eq('+i+') a').attr('class','sps_a2');
+			}
+
+		})
+	},error: function(xhr){
+			var mes = eval('('+xhr.responseText+')');
+			alertTasat(mes[0].message);
+	}
+	})
+	$('.box2_1').unbind('click').bind('click',function(e){ 
+	        if($(this).index()=="0"){
+				locationFun("122");
+			}else if($(this).index()=="1"){
+				locationFun("123");
+			}else if($(this).index()=="2"){
+				locationFun("124");
+			}else{
+				locationFun("125");
+			}  
+			var bizType = $(this).attr("bizType");
+			window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/carEarn/memBergz.html?bizType="+bizType;
+	})
+	$('.mingdan').unbind('click').bind('click',function(){
+		window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/carEarn/oneList.html";
+	})
+	//弹出框
+	function alertTasat(msg){
+		var _html = $("<div>").addClass("tasat-wrap").addClass("G")
+		var _span = $("<span>").addClass("tasat").html(msg);
+		$("body").append(_html.append(_span));
+		_html.fadeIn();
+		window.setTimeout(function(){
+			_html.fadeOut(function(){
+				_html.remove();
+			});
+		}, 1500);
+	}
+		//跳转保险
+		var cityName = decodeURIComponent(paramJson.cityName);
+		$.ajax({
+			url: '/yangchebao-app-ws/ws/0.1/advertise/location?modelId='+paramJson.modelId+'&cityName='+cityName+'&location=26&count=1&'+(new Date()).getTime(),
+			type: 'get',
+			dataType: 'json',
+			success: function(data) {
+				$(".dl_01").attr("url",data[0].entityUrl);
+			},error:function(xhr){}
+		});
+		$(".dl_01").on('click',function(){
+			locationFun("126");
+			window.location.href="http://w2nw?"+$(this).attr("url");
+		})
+	//分享
+	$.ajax({
+
+		url:'/yangchebao-app-ws/ws/0.1/autogain/user/member/id?userInfoId='+paramJson.userId+'&'+new Date().getTime(),
+
+		type:'get',
+
+		async:false,
+
+		success:function(data){
+			var fenx = "http://"+urlIp()+"/yangchebao-pubweb/carEarn/sharePage.html?memberNo="+data.memberNo;
+			var fenx1 = "http://"+urlIp()+"/yangchebao-pubweb/carEarn/sharePage.html?memberNo:"+data.memberNo;
+			/*var fenx2 = "月入万元，我("+data.memberNo+")邀请您来养车宝一起赚钱!!";
+			$("input:eq(1)").val(fenx2);*/
+			if(bIsAndroid()){
+					$("input:eq(2)").val(fenx);
+
+			}else{
+					$("input:eq(2)").val(fenx1);
+			}
+		},
+		error:function(xhr){
+
+			var mes = eval('('+xhr.responseText+')');
+
+			alertTasat(mes[0].message);
+
+		}
+
+	})
+
+
+})
+function getShareInfos(){
+	var isShare = $("input:eq(0)").val();
+	var content = $("input:eq(1)").val();
+	var targetUrl = $("input:eq(2)").val();
+	var imgUrl = $("input:eq(3)").val();
+	window.shareInfos.a(content,targetUrl,imgUrl,isShare);
+}
+</script>
+
+</html>

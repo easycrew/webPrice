@@ -1,0 +1,224 @@
+<style>
+    #Wraper_ownerCard_myCard table th,#Wraper_ownerCard_myCard table td{
+        text-align:center;
+    }
+</style>
+<div class="urlContentWraper" id="Wraper_ownerCard_myCard">
+    <div class="ui-info-layout">
+    	<div class="vdiv">
+    		<h2></h2>
+            <table id="Table_ownerCard_myCard">
+            </table>
+        </div>
+        <div class="udiv" style="margin-top:10px;">
+           <!-- <h2 class="header smaller lighter blue">车主卡服务</h2> -->
+           <table id="Table_ownerCard_myCardService"></table>
+        </div>
+        <div class="udiv" style="margin-top:10px;">
+           <!-- <h2 class="header smaller lighter blue">购买客户</h2> -->
+           <table id="Table_ownerCard_myCardUser"></table>
+        </div>
+	</div>
+    <div class="recomments" style="color:red;overflow:hidden;margin-top:20px;">
+        <span style="float:left;height:120px;">车主卡结算说明：</span>
+        <p>客户完成车主卡内服务后，按正常订单给您结算。
+        </p>
+    </div>
+    <div id="Form_ownerCard_myCardDtails" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid"> 
+                <table>
+                    <tr>
+                        <th>使用时间</th>
+                        <th>使用商家</th>
+                        <th>使用服务</th>
+                        <th>剩余次数</th>
+                    </tr>
+                </table>
+                <p class="ui-note">说明：用户购买服务后申请退款，会返还次数。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var wraper = $('#Wraper_ownerCard_myCard');
+	var parentId = carsmart_config.shopId;
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_column_model_c = new Array();
+    var page_column_model_d = new Array();
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    jRad.params['cardStatus']={data:[{id:'0',name:'无效'},{id:'1',name:'有效'},{id:'2',name:'删除'}]};
+    var field_params={};
+    field_params['cardStatus']={data:[{id:'1',name:'使用中'},{id:'2',name:'使用完'},{id:'3',name:'已过期'},{id:'4',name:'已退款'}]};
+    page_column_model.push({display: '车主卡名称', name : 'cardName'});
+    page_column_model.push({display: '售价', name : 'price'}); 
+    //page_column_model.push({display: '提成金额', name : 'saleCommission'});
+    page_column_model.push({display: '销售数量', name : 'salCnt'});
+    page_column_model.push({display: '销售总额', name : 'totalSal'});
+    page_column_model.push({display: '补贴总额', name : 'totalSubsidy'});
+    page_column_model.push({display: '有效期（月）', name : 'periodValidity'}); 
+    page_column_model.push({display: '状态', name : 'cardStatus',datasource: jRad.params['cardStatus'].data});
+    
+    page_search_items.push({row:'1',type:'jrad-dateinput',display:'购买开始时间',name:'buyDateStart'});
+    page_search_items.push({row:'1',type:'jrad-dateinput',display:'购买结束时间',name:'buyDateEnd'});
+
+    $('#Table_ownerCard_myCard').flexigrid({
+        reload: true,
+        grid:40,
+        pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model,
+        searchitems: page_search_items,
+        pagedStyle: 'oc',
+		method:'get',
+		showSearch:true,
+        showCheckbox: false, 
+        overflow:true,
+        checkBoxType:'single',
+        url:'/vip-ws/ws/0.1/cardTopic/list?shopAccountId='+parentId,
+        trEvent:function(){		
+			var checked = $('#Table_ownerCard_myCard').getCheckedTrs();  
+			$('#Table_ownerCard_myCardService').flexOptions({ 
+				extParam:{
+					cardTopicId: checked[0].cardTopicId
+				}
+			}).flexReload();
+
+            $('#Table_ownerCard_myCardUser').flexOptions({ 
+                extParam:{
+                    cardTopicId: checked[0].cardTopicId
+                }
+            }).flexReload();
+            //$('.cDiv:eq(1) th:eq(2) div',wraper).html('服务价值（总价值：'+checked[0].totalValue+'）')
+		}
+    });
+
+    page_column_model_c.push({display: '服务', name : 'serviceName'});
+    page_column_model_c.push({display: '显示名称', name : 'displayName'}); 
+    // page_column_model_c.push({display: '服务价值', name : 'serviceValue',width:240,hidden:true});
+    page_column_model_c.push({display: '次数', name : 'serviceTimes'}); 
+    page_column_model_c.push({display: '描述', name : 'remark'});
+
+    $('#Table_ownerCard_myCardService').flexigrid({
+        reload:true,
+        autoload: false,
+        showCheckbox: false,
+		method:'get',
+		onError:showError1,
+		pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel : page_column_model_c,
+        dataType: 'json',  
+        url:'/vip-ws/ws/0.1/cardTopic/serviceList',  
+        pagedStyle: 'oc'
+    });
+    
+    page_column_model_d.push({display: '用户昵称', name : 'nickName'});
+    page_column_model_d.push({display: '购买时间', name : 'buyDate'}); 
+    // page_column_model_d.push({display: '已消费金额', name : 'consumedAmount',hidden:true});
+    // page_column_model_d.push({display: '可退金额', name : 'refundableAmount',hidden:true}); 
+    page_column_model_d.push({display: '结算详情', name : 'billingDetailDesc'}); 
+    page_column_model_d.push({display: '状态', name : 'cardStatus',datasource: field_params['cardStatus'].data});
+    page_column_model_d.push({display: '补贴金额', name : 'subsidyAmount'});
+    page_column_model_d.push({display: '补贴状态', name : 'subsidyStatus'});
+    page_column_model_d.push({display: '服务总剩余次数', name : 'remainTimes'});
+    page_column_model_d.push({display: '使用详情', diy:function(item,$div){
+        $div.html('<a href="javascript:" class="details">详情</a>');
+        $('a.details',$div).unbind('click').bind('click',function(){
+            $.jRadGet({
+                url:'/vip-ws/ws/0.1/cardTopic/consumeList?cardId='+item.cardId,
+                success:function(data){
+                    $('#Form_ownerCard_myCardDtails',wraper).form({
+                        title:'消费详情'
+                    }).form('open')
+                    var str="";
+                    $.each(data,function(i){
+                        str+="<tr class='rowData'>"
+                            +'<td>'+data[i].createDate+'</td>'
+                            +'<td>'+data[i].busiName+'</td>'
+                            +'<td>'+data[i].serviceName+'</td>'
+                            +'<td>'+data[i].remainTimes+'</td>'
+                            +"</tr>"
+                    });
+                    $('#Form_ownerCard_myCardDtails table',wraper).find('tr.rowData').remove();
+                    $('#Form_ownerCard_myCardDtails table',wraper).append(str)
+                },error:function(xhr){
+                    var errormsg = eval("(" + xhr.responseText + ")"); 
+                    if (errormsg != undefined) {
+                        $('#Table_ownerCard_myCardUser').flexMessage(errormsg[0].message, 'error');
+                    } 
+                }
+            })
+        })
+    }});
+
+    $('#Table_ownerCard_myCardUser').flexigrid({
+        reload:true,
+        autoload: false,
+        showCheckbox: false,
+        method:'get',
+        onError:showError2,
+        pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel : page_column_model_d,
+        dataType: 'json',  
+        url:'/vip-ws/ws/0.1/cardTopic/userList',  
+        pagedStyle: 'oc'
+    });
+
+    $('.hDiv',wraper).css('overflow','hidden');
+    $('.bDiv',wraper).css('overflow-x','scroll');
+    
+    $('.mDiv:eq(0)',wraper).html('<h2 style="margin:0;">车主卡列表</h2>');
+    $('.mDiv:eq(1)',wraper).html('<h2 style="margin:0;">车主卡服务</h2>');
+    $('.mDiv:eq(2)',wraper).html('<h2 style="margin:0;">购买客户</h2>');
+
+    var _item=$.jRadGet({url:'/vip-ws/ws/0.1/cardTopic/saleCntAndBillIingCnt?shopAccountId='+parentId});
+    var _str='';
+        _str+='<span style="margin-left:2%;font-size:12px;">（卖出车主卡总数：'+_item.saleCnt+'</span>'
+            +'<span style="margin-left:1%;font-size:12px;">已结算车主卡总数：'+_item.billingCnt+'）</span>';
+    $('div.vdiv h2:eq(1)').append(_str); 
+
+    $('.cDiv:eq(0) th:eq(2) div',wraper).html('销售数量（共：'+_item.saleCnt+'）')
+    $('.cDiv:eq(0) th:eq(3) div',wraper).html('总销售额（共：'+_item.totalSal+'）')
+    $('.cDiv:eq(0) th:eq(4) div',wraper).html('补贴总额（共：'+_item.totalSubsidy+'）')
+
+    $('.btn-info:first',wraper).click(function(){
+        var startTime = $('#Wraper_ownerCard_myCard div[name="buyDateStart"]').dateinput('val');
+        var endTime = $('#Wraper_ownerCard_myCard div[name="buyDateEnd"]').dateinput('val');   
+        var _item2=$.jRadGet({url:'/vip-ws/ws/0.1/cardTopic/saleCntAndBillIingCnt?shopAccountId='+parentId+'&buyDateStart='+startTime+'&buyDateEnd='+endTime});
+        var _str='';
+        _str+='<span style="margin-left:2%;font-size:12px;">（卖出车主卡总数：'+_item2.saleCnt+'</span>'+'<span style="margin-left:1%;font-size:12px;">已结算车主卡总数：'+_item2.billingCnt+'）</span>';
+        $('div.vdiv h2:eq(1) span').remove();
+        $('div.vdiv h2:eq(1)').append(_str); 
+
+        $('.cDiv:eq(0) th:eq(2) div',wraper).html('销售数量（共：'+_item2.saleCnt+'）')
+        $('.cDiv:eq(0) th:eq(3) div',wraper).html('总销售额（共：'+_item2.totalSal+'）')
+        $('.cDiv:eq(0) th:eq(4) div',wraper).html('补贴总额（共：'+_item2.totalSubsidy+'）')
+    }); 
+
+    $('.btn-info:last',wraper).click(function(){   
+        var _str='';
+        _str+='<span style="margin-left:2%;font-size:12px;">（卖出车主卡总数：'+_item.saleCnt+'</span>'+'<span style="margin-left:1%;font-size:12px;">已结算车主卡总数：'+_item.billingCnt+'）</span>';
+        $('div.vdiv h2:eq(1) span').remove();
+        $('div.vdiv h2:eq(1)').append(_str); 
+
+        $('.cDiv:eq(0) th:eq(2) div',wraper).html('销售数量（共：'+_item.saleCnt+'）')
+        $('.cDiv:eq(0) th:eq(3) div',wraper).html('总销售额（共：'+_item.totalSal+'）')
+        $('.cDiv:eq(0) th:eq(4) div',wraper).html('补贴总额（共：'+_item.totalSubsidy+'）')
+    });
+
+	function showError1(){
+		var checked=$('#Table_ownerCard_myCard').getCheckedTrs();
+		if(checked.length==0){
+			$('#Table_ownerCard_myCardService').flexMessage('请先选择车主卡',"error");
+		}
+	}
+    function showError2(){
+        var checked=$('#Table_ownerCard_myCard').getCheckedTrs();
+        if(checked.length==0){
+            $('#Table_ownerCard_myCardUser').flexMessage('请先选择车主卡',"error");
+        }
+    }
+});
+</script>

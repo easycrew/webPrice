@@ -1,0 +1,694 @@
+<style type="text/css">
+    #Wraper_goods_list .hDivBox table th,#Wraper_goods_list .hDivBox table td,
+    #Table_goods_massage th,#Table_goods_massage td
+    {
+        text-align:center;
+    }
+    .starStyle{
+      color: #f00;
+      font-size: 20px;
+      margin-top: 5px;
+      float: left;
+    }
+
+    /*分页样式*/
+    .page{
+      float: right;
+      margin-right: 25.8%;
+      margin-top: 10px;
+    }
+
+    .page a{
+        text-decoration:none;
+    }
+    .page a span{
+      padding:4px 16px 4px 16px;
+      border:1px solid #AAAAEE;
+      color: #1155BB;
+      font-size:12px;
+      font-weight:bold;
+      font-family: 'helvetica neue', arial, sans-serif;
+    }
+
+    .page a span:hover,.click_page{
+      background:#2266BB;
+      color:#ffffff;
+     }
+
+    #Table_currentInventoryChanges th,#Table_currentInventoryChanges td{
+        text-align:center;
+    }
+</style>
+
+<div class="urlContentWraper" id="Wraper_goods_list">
+    <div class="ui-info-layout" id="jrad-table">
+        <div class="vdiv">
+            <table id="Table_goods_massage"></table>
+        </div>
+    </div>
+
+    <div id="Form_goodsMassage" class="grid-layout ui-form" style="display:none">
+        <div class="jrad-form grid-layout-main">  
+            <h2>基本信息</h2>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 112px;">*</span>商品名称：</label>
+                <div class="span10 grid-layout-content">
+                    <div name="name" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">50个字以内</label>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 92px;">*</span>商品一级分类：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="firstClassificationId" class="jrad-select-container"></div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 92px;">*</span>商品二级分类：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="secondClassificationId" class="jrad-select-container"></div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 141px;">*</span>品牌：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="brand" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">30个字以内</label>
+            </div> 
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 141px;">*</span>规格：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="norms" class="jrad-textarea-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">30个字以内</label>
+            </div>  
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label">单位：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="salesUnit" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div> 
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label">商品条码：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="barCode" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div> 
+            <h2>库存信息</h2>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 117px;">*</span>当前库存：</label>
+                <div class="span10 grid-layout-content">
+                    <div name="currentInventory" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div> 
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 117px;">*</span>安全库存：</label>
+                <div class="span10 grid-layout-content">
+                    <div name="safeInventory" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div>
+            <h2>价格信息</h2>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 117px;">*</span>商品售价：</label>
+                <div class="span10 grid-layout-content">
+                    <div name="salePrice" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div>   
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">                               
+            <button class="jrad-btn-primary btn btn-small btn-primary">完成</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div>
+
+    <div id="Form_goodsAdd" class="grid-layout ui-form" style="display:none">
+        <div class="jrad-form grid-layout-main">  
+            <h2>基本信息</h2>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 112px;">*</span>商品名称：</label>
+                <div class="span10 grid-layout-content">
+                    <div name="name" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">50个字以内</label>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 92px;">*</span>商品一级分类：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="firstClassificationId" class="jrad-select-container"></div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 92px;">*</span>商品二级分类：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="secondClassificationId" class="jrad-select-container"></div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 141px;">*</span>品牌：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="brand" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">30个字以内</label>
+            </div> 
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 141px;">*</span>规格：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="norms" class="jrad-textarea-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">30个字以内</label>
+            </div>  
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label">单位：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="salesUnit" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div> 
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label">商品条码：</label>
+                <div class="span10 grid-layout-content">
+                   <div name="barCode" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div> 
+            <h2>库存信息</h2>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 117px;">*</span>当前库存：</label>
+                <div class="span10 grid-layout-content">
+                    <div name="currentInventory" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div> 
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 117px;">*</span>安全库存：</label>
+                <div class="span10 grid-layout-content">
+                    <div name="safeInventory" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div>
+            <h2>价格信息</h2>
+            <div class="grid-row-fluid">
+                <label class="span8 grid-layout-label"><span class="starStyle" style="margin-left: 117px;">*</span>商品售价：</label>
+                <div class="span10 grid-layout-content">
+                    <div name="salePrice" class="jrad-input-container"></div>
+                </div>
+                <label class="span3 grid-layout-label" style="color: #999">10个字以内</label>
+            </div>   
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">                               
+            <button class="jrad-btn-primary btn btn-small btn-primary">完成</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div>
+
+    <div class="grid-layout ui-form"  style="display:none;" id="Form_information">
+        <div class="jrad-form">  
+            <div class="grid-layout-main">
+                <h2 id="return" style="float:right;margin-right: 10px;" class="icon-reply"><a style="color: #383737">返回</a></h2>
+                <h2 style="margin-left: 50px;clear: both;">基本信息</h2>
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">商品名称：</label>
+                    <div class="span10 grid-layout-content">
+                        <div name="name" style="margin-top: 5px;"></div>
+                    </div>
+                </div>
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">商品编号：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="code" style="margin-top: 5px;"></div>
+                    </div>
+                </div>
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">商品一级分类：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="firstClassificationName" style="margin-top: 5px;"></div>
+                    </div>
+                </div>
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">商品二级分类：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="secondClassificationName" style="margin-top: 5px;"></div>
+                    </div>
+                </div>
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">品牌：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="brand" style="margin-top: 5px;"></div>
+                    </div>
+                </div> 
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">规格：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="norms" style="margin-top: 5px;"></div>
+                    </div>
+                </div>  
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">单位：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="salesUnit" style="margin-top: 5px;"></div>
+                    </div>
+                </div> 
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">商品条码：</label>
+                    <div class="span10 grid-layout-content">
+                       <div name="barCode" style="margin-top: 5px;"></div>
+                    </div>
+                </div> 
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">当前库存：</label>
+                    <div class="span10 grid-layout-content">
+                        <div name="currentInventory" style="margin-top: 5px;"></div>
+                    </div>
+                </div> 
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">安全库存：</label>
+                    <div class="span10 grid-layout-content">
+                        <div name="safeInventory" style="margin-top: 5px;"></div>
+                    </div>
+                </div>
+                <div class="grid-row-fluid">
+                    <label class="span8 grid-layout-label">商品售价：</label>
+                    <div class="span10 grid-layout-content">
+                        <div name="salePrice" style="margin-top: 5px;"></div>
+                    </div>
+                </div> 
+                <h2 style="margin-left: 50px;">入库变化记录</h2>
+                <div class="grid-row-fluid">
+                    <table id="Table_currentInventoryChanges" style="width: 800px;margin: 0 auto;">
+                        <thead>
+                            <tr>
+                                <th>库存操作</th>
+                                <th>操作时间</th>
+                                <th>订单号</th>
+                                <th>数量</th>
+                                <th>操作人</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>                          
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var wraper = $('#Wraper_goods_list');
+        var parentId = carsmart_config.shopId;
+        var page_column_model = new Array();
+        var page_search_items = new Array();
+        var page_list_buttons = new Array(); 
+
+        var entityModel = {};
+        var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+
+        // fields: false, 初始化form中的组件
+        var fields_params ={};  //弹框下拉
+        var fields_params2 ={};  //弹框下拉
+
+        jRad.params['secondClassificationId'] = {
+            data: [{id:'',name:'请选择'}]
+        };
+        jRad.params['firstClassificationId'] = {
+            urlData:{
+                url:'/vip-ws/ws/0.1/classification/getClassificationsList',
+                id: 'classificationId',// 隐含值
+                name: 'name'// 展示值
+            },
+            unshiftData: {id:'',name:'请选择'},
+            onchange: function(){
+                var provinceCode = $('.searchContent div[name=firstClassificationId]',wraper).select('val'); 
+                if(provinceCode==''){ 
+                    $('.searchContent div[name=secondClassificationId]',wraper).select({
+                        urlData:{url:''},
+                        data:[{id:'',name:'请选择'}]
+                    });
+                }else{  
+                    $('.searchContent div[name=secondClassificationId]',wraper).select({ 
+                        urlData:{
+                            url: '/vip-ws/ws/0.1/classification/getClassificationsByParentId?classificationId='+provinceCode,
+                            id: 'classificationId',// 隐含值
+                            name: 'name'// 展示值 
+                        },
+                        unshiftData: {id:'',name:'请选择'}
+                    }).select('val','');
+                }
+            }
+        };
+
+        fields_params['secondClassificationId'] = {
+            data: [{id:'',name:'请选择'}]
+        };
+        fields_params['firstClassificationId'] = {
+            urlData:{
+                url:'/vip-ws/ws/0.1/classification/getClassificationsList',
+                id: 'classificationId',// 隐含值
+                name: 'name'// 展示值
+            },
+            unshiftData: {id:'',name:'请选择'},
+            onchange: function(){
+                var provinceCode = $('#Form_goodsMassage div[name=firstClassificationId]').select('val'); 
+                if(provinceCode==''){ 
+                    $('#Form_goodsMassage div[name=secondClassificationId]').select({
+                        urlData:{url:''},
+                        data:[{id:'',name:'请选择'}]
+                    });
+                }else{  
+                    $('#Form_goodsMassage div[name=secondClassificationId]').select({ 
+                        urlData:{
+                            url: '/vip-ws/ws/0.1/classification/getClassificationsByParentId?classificationId='+provinceCode,
+                            id: 'classificationId',// 隐含值
+                            name: 'name'// 展示值 
+                        },
+                        unshiftData: {id:'',name:'请选择'}
+                    }).select('val','');
+                }
+            }
+        };
+
+        fields_params2['secondClassificationId'] = {
+            data: [{id:'',name:'请选择'}]
+        };
+        fields_params2['firstClassificationId'] = {
+            urlData:{
+                url:'/vip-ws/ws/0.1/classification/getClassificationsList',
+                id: 'classificationId',// 隐含值
+                name: 'name'// 展示值
+            },
+            unshiftData: {id:'',name:'请选择'},
+            onchange: function(){
+                var provinceCode = $('#Form_goodsAdd div[name=firstClassificationId]').select('val'); 
+                if(provinceCode==''){ 
+                    $('#Form_goodsAdd div[name=secondClassificationId]').select({
+                        urlData:{url:''},
+                        data:[{id:'',name:'请选择'}]
+                    });
+                }else{  
+                    $('#Form_goodsAdd div[name=secondClassificationId]').select({ 
+                        urlData:{
+                            url: '/vip-ws/ws/0.1/classification/getClassificationsByParentId?classificationId='+provinceCode,
+                            id: 'classificationId',// 隐含值
+                            name: 'name'// 展示值 
+                        },
+                        unshiftData: {id:'',name:'请选择'}
+                    }).select('val','');
+                }
+            }
+        };
+
+        page_search_items.push({row:'1',type:'jrad-input',display:'商品名称',name:'name'});
+        page_search_items.push({row:'1',type:'jrad-select',display:'商品一级分类',name:'firstClassificationId',params:jRad.params['firstClassificationId']});
+        page_search_items.push({row:'1',type:'jrad-select',display:'商品二级分类',name:'secondClassificationId',params:jRad.params['secondClassificationId']});
+        page_search_items.push({row:'2',type:'jrad-select',display:'商品状态',name:'status',params:
+            {data:[
+                {"id":"1","name":"上线"},
+                {"id":"2","name":"全部"},
+                {"id":"0","name":"删除"}]
+            }
+        });
+        page_search_items.push({row:'2',type:'jrad-select',display:'商品预警',name:'isInventoryWarning',params:
+            {data:[
+                {"id":"1","name":"全部"},
+                {"id":"2","name":"是"}]
+            }
+        });
+
+        page_column_model.push({display: '商品id', name : 'id',hidden:true});
+        page_column_model.push({display: '商品编号', name : 'code',diy:function(item,$div){
+                var _span = $("<a>"+item.code+"</a>");
+                $div.append(_span);
+                _span.click(function(){
+                    $("#Form_information").show();                 
+                    information(item);
+                    var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/commodity/queryCommodityInfoById?commodityId='+item.id+"&shopAccountId="+carsmart_config.shopId});
+                    $('#Form_information div[name="name"]',wraper).html(dtails.name);
+                    $('#Form_information div[name="code"]',wraper).html(dtails.code);
+                    $('#Form_information div[name="brand"]',wraper).html(dtails.brand);
+                    $('#Form_information div[name="norms"]',wraper).html(dtails.norms);
+                    $('#Form_information div[name="salesUnit"]',wraper).html(dtails.salesUnit);
+                    $('#Form_information div[name="barCode"]',wraper).html(dtails.barCode);
+                    $('#Form_information div[name="currentInventory"]',wraper).html(dtails.currentInventory);
+                    $('#Form_information div[name="salePrice"]',wraper).html(dtails.salePrice);
+                    $('#Form_information div[name="safeInventory"]',wraper).html(dtails.safeInventory);
+                    $('#Form_information div[name="firstClassificationName"]',wraper).html(dtails.firstClassificationName);
+                    $('#Form_information div[name="secondClassificationName"]',wraper).html(dtails.secondClassificationName);
+
+                    $.jRadGet({
+                        url:'/vip-ws/ws/0.1/commodity/queryCommodityInfoById?commodityId='+item.id+"&shopAccountId="+carsmart_config.shopId,
+                        success:function(data){                      
+                            var str="";
+                            $("#Table_currentInventoryChanges").find("tbody").children().remove();
+                            $.each(data.commodityJsonArray,function(i){
+                                var _item=data.commodityJsonArray[i];
+                                if(_item.agentName == undefined ){
+                                    _item.agentName="";
+                                }
+                                str+="<tr id='"+item.id+"'>"
+                                    +"<td>"+_item.operateType+"</td>"
+                                    +"<td>"+_item.orderDate+"</td>"
+                                    +"<td>"+_item.code+"</td>"
+                                    +"<td>"+_item.amount+"</td>"
+                                    +"<td>"+_item.agentName+"</td>"
+                                    +"</tr>";
+                            });
+                            $("#Table_currentInventoryChanges",wraper).append(str);
+                            TablePage("#Table_currentInventoryChanges",10);
+                            $(".grid-row-fluid .page").eq(1).css("display","none")
+                        },
+                    })   
+                })
+            }
+        });         
+        page_column_model.push({display: '商品名称', name : 'name'});
+        page_column_model.push({display: '品牌', name : 'brand'});
+        page_column_model.push({display: '规格', name : 'norms'});
+        page_column_model.push({display: '单位', name : 'salesUnit'});
+        page_column_model.push({display: '售价', name : 'salePrice'});
+        page_column_model.push({display: '安全库存', name : 'safeInventory'});
+        page_column_model.push({display: '当前库存', name : 'currentInventory'});
+        page_column_model.push({display: '创建时间', name : 'created'});
+        page_column_model.push({display: '操作',width:200, name : 'operate',
+            diy:function(item,$div){
+                var $edit = $("<a>").addClass('flexOperate').html("编辑"); 
+                var $del = $("<a>").addClass('flexOperate').html("删除");
+                var $addInfo = $("<a>").addClass('flexOperate').html("已删除").css("color","#BC1313");
+                if(item.status == 0){  
+                    $div.append($addInfo);   
+                }else{
+                    $div.append($edit);
+                    $div.append($del); 
+                }
+                $edit.click(function(id){
+                    var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/commodity/queryCommodityInfoById?commodityId='+item.id});
+                    $('#Form_goodsMassage').form({
+                        title: '修改',
+                        item:dtails,
+                        fields:fields_params,
+                        url:'/vip-ws/ws/0.1/commodity/editCommodity',
+                        preSubmit:function(json){ 
+                            // var checked = $('#Table_goods_massage').getCheckedTrs();
+                            json.commodityId = item.id;
+                            json.shopAccountId = carsmart_config.shopId;   //商品id获取
+                            json.operator = carsmart_config.operatorName;   //经办人获取
+                            return json;
+                        },
+                        success: function(){ 
+                            $('#Table_goods_massage').flexMessage('修改成功!', 'success');
+                            $('#Table_goods_massage').flexReload();
+                        },
+                        error:function(xhr){
+                            var errormsg = eval("(" + xhr.responseText + ")"); 
+                            if (errormsg != undefined) {
+                                $.jRadMessage({level:'error',message:errormsg[0].message,selector:$('#Form_goodsMassage .pop-up-middle')}); 
+                            }
+                        }
+                    }).form('open');
+                        $('#Form_goodsMassage div[name="currentInventory"]').input('readonly',true); 
+                })
+                $del.click(function(){
+                    if(item.currentInventory != 0){
+                    $.jRadConfirm('当前还有库存确认删除吗？',1,function(){
+                        $.jRadGet({  
+                            url:'/vip-ws/ws/0.1/commodity/deleteCommodity?commodityId='+item.id+'&shopAccountId='+carsmart_config.shopId,
+                            success: function(data){ 
+                                $('#Table_goods_massage').flexMessage('删除成功!', 'success');
+                                $('#Table_goods_massage').flexReload();                           
+                            },
+                            error:function(xhr){ 
+                                var errormsg = eval("(" + xhr.responseText + ")"); 
+                                if (errormsg != undefined) {
+                                    $('#Table_goods_massage').flexMessage(errormsg[0].message, 'error');
+                                    }
+                                }
+                            });
+                        });
+                    }else{
+                       $.jRadConfirm('确认删除吗？',1,function(){
+                        $.jRadGet({  
+                            url:'/vip-ws/ws/0.1/commodity/deleteCommodity?commodityId='+item.id+'&shopAccountId='+carsmart_config.shopId,
+                            success: function(data){ 
+                                $('#Table_goods_massage').flexMessage('删除成功!', 'success');
+                                $('#Table_goods_massage').flexReload();                           
+                            },
+                            error:function(xhr){ 
+                                var errormsg = eval("(" + xhr.responseText + ")"); 
+                                if (errormsg != undefined) {
+                                    $('#Table_goods_massage').flexMessage(errormsg[0].message, 'error');
+                                    }
+                                }
+                            });
+                        }); 
+                    }
+                });
+            }
+        });
+        page_list_buttons.push({title: '增加',displayname:'增加',bclass: 'icon-plus',
+            onpress: function(){
+                $('#Form_goodsAdd').form({
+                    title: '添加',
+                    item:{},
+                    url:'/vip-ws/ws/0.1/commodity/addCommodity',
+                    fields:fields_params2,
+                    preSubmit:function(json){ 
+                        json.shopAccountId = carsmart_config.shopId;   
+                        json.operator = carsmart_config.operatorName;   //经办人获取
+                        return json;
+                    },
+                    success: function(){ 
+                        $('#Table_goods_massage').flexMessage('添加成功!', 'success');
+                        $('#Table_goods_massage').flexReload();
+                    }
+                }).form('open');
+            }
+        })
+
+        $('#Table_goods_massage').flexigrid({
+            reload: true,   //是否有刷新按钮
+            pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},   //是否分页
+            colModel: page_column_model,
+            searchitems: page_search_items,   //设置查询条件
+            buttons : page_list_buttons,      //操作按钮
+            pagedStyle: 'oc',        //请求分页参数格式 默认OC ，RAD GRID
+            method:'get',
+            showSearch:true,      //设置是否默认显示高级查询
+            showCheckbox: false,   //是否加复选框
+            //overflow:true,        //当数据的宽度大于屏幕宽度时，是否显示横向滚动条。false：表示不显示 true:表示显示
+            checkBoxType:'single', //表格但多选，默认空串（多选），如果 'single'单选
+            onError:showError2,
+            url:'/vip-ws/ws/0.1/commodity/queryCommodities?shopAccountId='+carsmart_config.shopId
+        });
+
+        $('.tDiv',wraper).before('<span style="margin:0 20px 0 14px;font-size:16px;float:left;line-height:60px;">商品列表</span>');
+
+        function showError2(xhr){
+            var errormsg = eval("(" + xhr.responseText + ")");
+            var vdiv = $("#Wraper_goods_manage .vdiv");
+            $.jRadMessage({level:'error',message:errormsg[0].message,selector:vdiv});
+        }
+
+        function information(item){
+            $('#jrad-table',wraper).hide();
+            $('.details-box',wraper).show(); 
+        }
+
+        $('#return').click(function(){
+            $('#jrad-table',wraper).show();
+            $('.details-box',wraper).hide(); 
+            $('#Form_information').hide();
+        })
+        
+        page_column_model.push({display: '操作日志', diy:function(item,$div){
+        var account_detail=$('<a>').css('href','javascript:').addClass('account_detail').html('详情');
+        $div.html(account_detail);
+    }}); ;
+
+        // $('.vdiv .hDiv tr th').eq(0).attr("style","display:none;")  //隐藏商品id
+        // $('.vdiv .hDiv tr th').eq(0).css("display","none") //隐藏商品id
+        $('.vdiv .hDiv tr th').eq(0).remove() //隐藏商品id
+
+        $('.hDiv',wraper).css('overflow','hidden');
+        $('.bDiv',wraper).css('overflow-x','scroll');
+
+         // 分页函数
+        function TablePage(id,size){
+           var $table = $(id);
+            var currentPage = 0;  //当前页
+            var pageSize = size;  //每页行数（不包括表头）
+            $table.bind("repaginate", function()
+            {
+               //console.log($table.find("tbody tr").eq(0));
+              $table.find("tbody tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+             // $table.find("tbody tr").eq(0).show();
+            });
+            var numRows = $table.find("tbody tr").length;  //记录宗条数
+            var numPages = Math.ceil(numRows/pageSize);    //总页数
+            //console.log(numPages);
+            var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>« Prev</span></a></div>");  //分页div
+            for( var page = 0; page < numPages; page++ )
+            {
+
+              //为分页标签加上链接
+              //if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}
+              $("<a href='javascript:void(0)'><span id='"+(page+1)+"'>"+ (page+1) +"</span></a>")
+                   .bind("click", { "newPage": page }, function(event){
+                        currentPage = event.data["newPage"];
+                        //console.log($(this).children("span"));
+                        $(this).children("span").attr("class","click_page");
+                        $(this).children("span").css({"color":"#FFFFFF"});
+                        $(".page a span").not($(this).children("span")).attr("class","");
+                        $(".page a span").not($(this).children("span")).css({"color":"#1155BB"});
+                        $table.trigger("repaginate");
+                    })
+                    .appendTo($pager);
+
+                $pager.append("  ");
+            }
+            //$table.trigger("repaginate");
+            var next=$("<a href='javascript:void(0)'><span id='Next'>Next »</span></a>");
+            $pager.append(next);
+            $pager.insertAfter($table);//分页div插入table
+            $("#1").attr("class","click_page");
+            $("#1").css({"color":"#FFFFFF"});
+            $table.trigger("repaginate");
+            //console.log($("#1"));
+            //$("#1").attr("class","click_page");
+            //$("#1").css({"background":"#FFFFFF"});
+            $("#Prev").bind("click",function(){
+               var prev=Number($(".click_page").text())-2;
+               currentPage=prev;
+               $(this).css({"background":"#000000"});
+               if(currentPage<0) {
+                 $(this).css({"background":"#c0c0c0"});
+                 return;
+         }
+               $("#"+(prev+1)).attr("class","click_page");
+               $("#"+(prev+1)).css({"color":"#FFFFFF"});
+               $(".page a span").not($("#"+(prev+1))).attr("class","");
+               $(".page a span").not($("#"+(prev+1))).css({"color":"#1155BB"});
+               //console.log(currentPage);
+               $table.trigger("repaginate");
+            });
+             $("#Next").bind("click",function(){
+               var next=$(".click_page").attr("id");
+               currentPage=Number(next);
+               //console.log($(".click_page").text());
+               $(this).css({"background":"#FFFFFF"});
+               if((currentPage+1)>numPages) {
+                 $(this).css({"background":"#c0c0c0"});
+                 return;
+                 }
+               $("#"+(currentPage+1)).attr("class","click_page");
+               $("#"+(currentPage+1)).css({"color":"#FFFFFF"});
+               $(".page a span").not($("#"+(currentPage+1))).attr("class","");
+               $(".page a span").not($("#"+(currentPage+1))).css({"color":"#1155BB"});
+               $table.trigger("repaginate");
+            });
+        }
+
+    });
+</script>

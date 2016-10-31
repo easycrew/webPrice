@@ -1,0 +1,15 @@
+[{"id":"000","name":"应用管理","remark":"前台组件测试","submenu":[
+			{"id":"00001","name":"应用列表","remark":"","url":"/sps/application/list.jsp"}
+			],"url":""},
+			
+ {"id":"001","name":"渠道管理","remark":"前台组件测试","submenu":[
+			{"id":"00101","name":"渠道列表","remark":"","url":"/sps/channel/channel_list.jsp"},			
+			{"id":"00102","name":"渠道包下载","remark":"","url":"/sps/channel/channel_package_down.jsp"}
+			],"url":""},
+			
+ {"id":"002","name":"基础设置","remark":"前台组件测试","submenu":[
+			{"id":"00201","name":"推广码","remark":"","url":"/sps/baseconfig/spread_way_list.jsp"},			
+			{"id":"00202","name":"结算码","remark":"","url":"/sps/baseconfig/settlement_way_list.jsp"}
+			],"url":""}
+			
+]			

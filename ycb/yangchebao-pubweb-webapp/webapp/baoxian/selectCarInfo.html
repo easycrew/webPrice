@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/md50000000000000000000000000000.js"></script>
+    <script language="javascript" src="./js/jquery.json-2.2.js"></script> 
+    <script src="js/commen.js"></script>
+    <link rel="stylesheet" href="css/commen.css">
+	<title>车辆信息</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+		section{
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+			background-color: #F4F7F8;
+		}
+		article.carIfo-items{
+			padding-top: 1rem;
+			padding-bottom: 12rem;
+		}
+		div.carIfo-item{
+			overflow: hidden;
+			padding: 0 1.6rem;
+			background-color: #fff;
+			border-top: 1px solid #bcbdbe;
+			line-height: 3.2rem;
+		}
+		div.carIfo-item p{
+			float: left;
+			font-size: 1rem;
+		}
+		div.modelYear{
+			border-bottom: 1px solid #C3C4C4;
+		}
+		.unSelect{
+			color: #bcbdbe!important;
+		}
+		div.carIfo-item img{
+			float: right;
+			position: relative;
+			top: 1rem;
+			width: 0.6rem;
+		}
+		div.carIfo-item span{
+			float: right;
+			font-size: 1rem;
+		}
+		div.sureBtn{
+			background-color: #ff6138;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			color: #fff;
+			font-size: 1.3rem;
+			width: 90%;
+			margin: 1rem auto 0;
+			line-height: 3rem;
+			text-align: center;
+			cursor: pointer;
+		}
+		div.overLay{
+			position: absolute;
+			top:0;
+			z-index: 100;
+			background-color: #000;
+			opacity: 0.6;
+			filter:alpha(opacity=60);
+			width: 100%;
+			height: 100%;
+		}
+
+		article.selectItems{
+			position: absolute;
+			z-index: 200;
+			bottom: 0;
+			width: 100%;
+			background-color: #fff;
+		}
+		div.selectItem-title{
+			background-color: #FF6138;
+			color: #fff;
+			font-size: 1.2rem;
+			text-align: center;
+			line-height: 3rem;
+		}
+		ul.selectItems-ul li{
+			border-bottom: 1px solid #dddede;
+			line-height: 3rem;
+			text-align: center;
+			cursor: pointer;
+		}
+		ul.selectItems-ul li span.span-wraper{
+			position: relative;
+		}
+		ul.selectItems-ul li span.span-item{
+			font-size: 1rem;
+		}
+		ul.selectItems-ul li span.span-wraper img{
+			position: absolute;
+			width: 1rem;
+			top: -0.1rem;
+			right: -2rem;
+			/*display: none;*/
+		}
+		div.selectItem-btn{
+			border-top: 1px solid #fb5734;
+			overflow: hidden;
+		}
+		div.selectItem-btn p{
+			color: #fb5734;
+			font-size: 1.2rem;
+			margin: 1rem;
+			cursor: pointer;
+		}
+		div.selectItem-btn p.preStep{
+			float: left;
+		}
+		div.selectItem-btn p.nextStop{
+			float: right;
+		}
+		div.loading{
+			margin-top: 2.5rem;
+			margin-bottom: 2.5rem;
+			text-align: center;
+			color: #ccc;
+			font-size: 1.2rem;
+		}
+		div.loading img{
+			margin-right: 1.2rem;
+		}
+		div.loadResult{
+			margin-top: 1rem;
+		}
+		div.loadResult ul li{
+			overflow: hidden;
+			border-top: 1px solid #C3C4C4;
+			padding: 1.2rem;
+			background-color: #fff;
+		}
+		div.loadResult ul li:last-child{
+			border-bottom: 1px solid #C3C4C4;
+		}
+		div.loadResult ul li img{
+			float: left;
+			width: 1.6rem;
+			position: relative;
+			top: 0.1rem;
+			cursor: pointer;
+		}
+		div.loadResult ul li div.carDetail{
+			-webkit-box-sizing:border-box;
+			-moz-box-sizing:border-box;
+			box-sizing:border-box;
+			margin-left: 3.6em;
+		}
+		div.loadResult div.carDetail p{
+			font-size: 1rem;
+			margin-bottom: 0.3rem;
+		}
+		div.loadResult div.carDetail p.carPrice{
+			color: #ff6138;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<article class="carIfo-items">
+			<div class="isAutoMatic carIfo-item" style="cursor:pointer;">
+				<p>手/自动挡</p>
+				<img src="img/selectModel_icon.png">
+			</div>
+			<div class="gasDisplayment carIfo-item">
+				<p class="unSelect">排气量</p>
+				<!-- <img src="img/selectModel_icon.png"> -->
+			</div>
+			<div class="modelYear carIfo-item">
+				<p class="unSelect">年款</p>
+				<!-- <img src="img/selectModel_icon.png"> -->
+			</div>
+			<div class="loading" style="display:none;"><img src="img/loading.gif" id="img">加载中，请稍等…</div>
+			<div class="loadResult" style="display:none;">
+				<ul>
+					<li>
+						<img src="img/car_checked.png">
+						<div class="carDetail">
+							<p class="carStyle">奥迪AUDI A6 2.4AVA旅行轿车 豪华版 5座</p>
+							<p class="carPrice">参考价：633800元</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/car_unchecked.png">
+						<div class="carDetail">
+							<p class="carStyle">奥迪AUDI A6 2.4AVA旅行轿车 豪华版 5座</p>
+							<p class="carPrice">参考价：633800元</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/car_unchecked.png">
+						<div class="carDetail">
+							<p class="carStyle">奥迪AUDI A6 2.4AVA旅行轿车 豪华版 5座</p>
+							<p class="carPrice">参考价：633800元</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="sureBtn">确定</div>
+		</article>
+		<article class="selectItems" style="display:none;">
+			<div class="selectItemOne" style="display:none;">
+				<div class="selectItem-title">手/自动挡</div>
+				<ul class="selectItems-ul">
+					<li>
+						<span class="span-wraper"><span class="span-item">手动挡</span></span>
+					</li>
+					<li class="selectedItem">
+						<span class="span-wraper"><span class="span-item">自动挡</span><img src="img/checked_img.png"></span>
+					</li>
+				</ul>
+				<div class="selectItem-btn">
+					<p class="nextStop">下一步</p>
+				</div>
+			</div>
+			<div class="selectItemTwo" style="display:none;">
+				<div class="selectItem-title">排气量</div>
+				<ul class="selectItems-ul">
+					<li>
+						<span class="span-wraper"><span class="span-item">2.7L</span></span>
+					</li>
+					<li class="selectedItem">
+						<span class="span-wraper"><span class="span-item">3.0L</span><img src="img/checked_img.png"></span>
+					</li>
+				</ul>
+				<div class="selectItem-btn">
+					<p class="preStep">上一步</p>
+					<p class="nextStop">下一步</p>
+				</div>
+			</div>
+			<div class="selectItemThree" style="display:none;">
+				<div class="selectItem-title">年款</div>
+				<ul class="selectItems-ul">
+					<li>
+						<span class="span-wraper"><span class="span-item">2014</span></span>
+					</li>
+					<li class="selectedItem">
+						<span class="span-wraper"><span class="span-item">2015</span><img src="img/checked_img.png"></span>
+					</li>
+				</ul>
+				<div class="selectItem-btn">
+					<p class="preStep">上一步</p>
+					<p class="nextStop">完成</p>
+				</div>
+			</div>
+		</article>
+		<div class="overLay" style="display:none;"></div>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    };
+	    paramJson.brandName=decodeURI(decodeURI(paramJson.brandName));
+	    paramJson.familyName=decodeURI(decodeURI(paramJson.familyName));
+
+	    // 文档高度
+		var windowHeight=window.innerHeight;
+		var sectionOuterHeight=$('section').outerHeight();
+		if(sectionOuterHeight<window.innerHeight){
+			$('section').css('height',window.innerHeight)
+		}
+		// 选择汽车信息
+		$('div.isAutoMatic').unbind('click').bind('click',function(){
+			$('div.overLay').show();
+			$('article.selectItems').show();
+			// 获取手自动挡选项，显示手自动挡
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/insure/carmodel/getGearList?brandName='+paramJson.brandName+'&familyName='+paramJson.familyName,
+				type:'get',
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					var selectItemOne_str='';
+					data.forEach(function(key,i){
+						selectItemOne_str+='<li id="'+key.gearBoxType+'">'
+										  +'<span class="span-wraper"><span class="span-item">'+key.gearBox+'</span></span>'
+										  +'</li>'
+					});
+					$('div.selectItemOne ul.selectItems-ul').html(selectItemOne_str).css({'max-height':'255px','overflow':'auto'});;
+					// 控制选项框在底部
+					var itemHeight=$('div.selectItemOne').outerHeight();
+					$('article.selectItems').css('bottom',-itemHeight);
+
+					$('div.selectItemOne').show().siblings().hide();
+					// 选项框从下向上滑出
+					if(sectionOuterHeight<window.innerHeight){
+						$('article.selectItems').animate({'bottom':0},500)
+					}else{
+						$('article.selectItems').animate({'bottom':0},500,function(){
+							var scrollTop=$(window).scrollTop();
+							var _windowHeight=$(window).height();
+							var scrollHeight=scrollTop+_windowHeight;
+							window.scrollTo(0,scrollHeight);
+						})
+					}
+					// 添加选择对勾
+					$('ul.selectItems-ul').on('click','li',function(){
+						if($(this).find('img').length==0){
+							$(this).addClass('selectedItem').find('span.span-wraper').append('<img src="img/checked_img.png">');
+							$(this).siblings().removeClass('selectedItem').find('img').remove()
+						}
+					});
+				},
+				error:function(xhr){
+					var error=eval('('+xhr.responseText+')');
+					alert(error[0].message)
+				}
+			});
+			
+			
+			// 点击下一步
+			$('div.selectItemOne p.nextStop').unbind('click').bind('click',function(){
+					var selectLi_id1=$('div.selectItemOne ul.selectItems-ul li.selectedItem').attr('id');
+					if(!selectLi_id1){
+						return false
+					}
+					$.ajax({
+						url:'/yangchebao-app-ws/ws/0.1/insure/carmodel/getDisplacementList?brandName='+paramJson.brandName+'&familyName='+paramJson.familyName+'&gearBox='+selectLi_id1,
+						type:'get',
+						async:false,
+						dataType:'json',
+						contentType:'application/json;charset=utf-8',
+						success:function(data){
+							var selectItemTwo_str='';
+							data.forEach(function(key,i){
+								selectItemTwo_str+='<li id="'+key+'">'
+											     +'<span class="span-wraper"><span class="span-item">'+key+'</span></span>'
+											     +'</li>'
+							});
+							$('div.selectItemTwo ul.selectItems-ul').html(selectItemTwo_str).css({'max-height':'255px','overflow':'auto'});
+							$('div.selectItemTwo').show().siblings().hide()
+						},
+						error:function(xhr){
+							var error=eval('('+xhr.responseText+')');
+							alert(error[0].message)
+						}
+					});
+					var selectedItem=$('div.selectItemOne ul.selectItems-ul li.selectedItem span.span-item').html();
+					$('div.isAutoMatic img').remove();
+					$('div.isAutoMatic span').remove();
+					$('div.isAutoMatic').append('<span>'+selectedItem+'</span>');
+					$('div.gasDisplayment p').removeClass('unSelect');
+					if($('div.gasDisplayment span').length==0){
+						$('div.gasDisplayment').find('img').remove();
+						$('div.gasDisplayment').append('<img src="img/selectModel_icon.png">')
+					}
+					// 第二次点击下一步
+					$('div.selectItemTwo p.nextStop').unbind('click').bind('click',function(){
+						var selectLi_id2=$('div.selectItemTwo ul.selectItems-ul li.selectedItem').attr('id');
+						if(!selectLi_id2){
+							return false
+						}
+						$.ajax({
+							url:'/yangchebao-app-ws/ws/0.1/insure/carmodel/getGroupList?brandName='+paramJson.brandName+'&familyName='+paramJson.familyName+'&gearBox='+selectLi_id1+'&displacement='+selectLi_id2,
+							type:'get',
+							async:false,
+							dataType:'json',
+							contentType:'application/json;charset=utf-8',
+							success:function(data){
+								var selectItemThree_str='';
+								data.forEach(function(key,i){
+									selectItemThree_str+='<li id="'+key.groupId+'">'
+												     +'<span class="span-wraper"><span class="span-item">'+key.groupName+'</span></span>'
+												     +'</li>'
+								});
+								$('div.selectItemThree ul.selectItems-ul').html(selectItemThree_str).css({'max-height':'255px','overflow':'auto'});;
+								$('div.selectItemThree').show().siblings().hide()
+							},
+							error:function(xhr){
+								var error=eval('('+xhr.responseText+')');
+								alert(error[0].message)
+							}
+						});
+						selectedItem=$('div.selectItemTwo ul.selectItems-ul li.selectedItem span.span-item').html();
+						$('div.gasDisplayment img').remove();
+						$('div.gasDisplayment span').remove();
+						$('div.gasDisplayment').append('<span>'+selectedItem+'</span>');
+						$('div.modelYear p').removeClass('unSelect');
+						if($('div.modelYear span').length==0){
+							$('div.modelYear').find('img').remove();
+							$('div.modelYear').append('<img src="img/selectModel_icon.png">');
+						}
+						// 点击完成
+						$('div.selectItemThree p.nextStop').unbind('click').bind('click',function(){
+							var selectLi_id3=$('div.selectItemThree ul.selectItems-ul li.selectedItem').attr('id');
+							if(!selectLi_id3){
+								return false
+							}
+							selectedItem=$('div.selectItemThree ul.selectItems-ul li.selectedItem span.span-item').html();
+							itemHeight=$('div.selectItemThree').outerHeight();
+							$('div.modelYear').find('img').remove();
+							$('div.modelYear').find('span').remove();
+							$('div.modelYear').append('<span style="font-size:1rem;">'+selectedItem+'</span>');
+							$('article.selectItems').animate({'bottom':-itemHeight},500);
+							$('article.selectItems').hide();
+							$('div.overLay').hide();
+							$('div.carIfo-item').unbind('click');
+							$('div.carIfo-item').css('cursor','default');
+							
+							$.ajax({
+								url:'/yangchebao-app-ws/ws/0.1/insure/carmodel/getStandardList?brandName='+paramJson.brandName+'&familyName='+paramJson.familyName+'&gearBox='+selectLi_id1+'&displacement='+selectLi_id2+'&groupId='+selectLi_id3,
+								type:'get',
+								async:false,
+								dataType:'json',
+								contentType:'application/json;charset=utf-8',
+								beforeSend:function(){
+									// 图片旋转
+									$('div.loading').show();
+									// function getName(){ //获取浏览器名
+								 //        if(navigator.userAgent.indexOf("MSIE")>0) { return "MSIE";}
+								 //        if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){return "Firefox";}
+								 //        if(isSafari=navigator.userAgent.indexOf("Safari")>0) { return "Safari";}
+								 //        if(isCamino=navigator.userAgent.indexOf("Camino")>0){return "Camino";}
+								 //        if(isMozilla=navigator.userAgent.indexOf("Gecko/")>0){return "Gecko";}
+								 //    }
+								 //    var version = getName(),CssCode;
+								 //    if(version == 'MSIE'){ CssCode = '-ms-';}
+								 //    if(version == 'Firefox'){ CssCode = '-moz-';}
+								 //    if(version == 'Safari'){ CssCode = '-webkit-';} //chrome 一样
+								 //    if(version != 'MSIE' && version != 'Firefox' && version != 'Safari'){ CssCode = '-o-';}//Opera
+									// var Du = 0;
+								 //    function fransform(){
+								 //        Du++;
+								 //        var Objnode = document.getElementById('img');
+								 //        Objnode.setAttribute('style',''+CssCode+'transform:rotate('+ Du +'deg); '+CssCode+'transform-origin: 50% 50%;');
+								 //        if(Du == 360){ Du = 0; }
+								 //    }
+								 //    autoRotate=setInterval(fransform,10);
+								},
+								success:function(data){
+									var carStyle_str='<ul>';
+									data.forEach(function(key,i){
+										carStyle_str+='<li>'
+											     	+'<img src="img/car_unchecked.png" class="loadResult_img">'
+											     	+'<div class="carDetail">'
+											     	+'<p class="carStyle" data-bwCode="'+key.vehicleCode+'" data-carModelName="'+key.standardName+'" data-price="'+key.price+'" data-displacement="'+key.displacement+'" data-marketYear="'+key.configureName+'" data-taxPrice="'+key.taxPrice+'">'+key.aliasName+' '+key.groupName+' '+key.displacementTag+' '+key.gearBoxName+' '+key.seat+'座</p>'
+											     	+'<p class="carPrice">参考价：'+key.price+'元</p>'
+											     	+'</div>'
+											     	+'</li>'
+									});
+									carStyle_str+='</ul>';
+									// if(autoRotate){
+									// 	clearInterval(autoRotate)
+									// }
+									$('div.loading').hide();
+									$('div.loadResult').html(carStyle_str).show();
+									$('div.loadResult ul li img').unbind('click').bind('click',function(){
+										if($(this).attr('src')=='img/car_unchecked.png'){
+											$(this).attr('src','img/car_checked.png').parent().siblings().find('img').attr('src','img/car_unchecked.png')
+										}
+									});
+									$('div.sureBtn').unbind('click').bind('click',function(){
+										if($('div.loadResult ul li img[src="img/car_checked.png"]').length!=1){
+											return false
+										}
+										var postData={};
+										var $pCarstyle=$('div.loadResult ul li img[src="img/car_checked.png"]').closest('li').find('p.carStyle');
+										postData.customerId=paramJson.customerId;
+										postData.provinceId=paramJson.provinceId;
+										postData.cityId=paramJson.cityId;
+										postData.bwCode=$pCarstyle.attr('data-bwCode');
+										postData.carModelName=$pCarstyle.attr('data-carModelName');
+										postData.price=$pCarstyle.attr('data-price');
+										postData.displacement=$pCarstyle.attr('data-displacement');
+										postData.marketYear=$pCarstyle.attr('data-marketYear');
+										postData.taxPrice=$pCarstyle.attr('data-taxPrice');
+										$.ajax({
+											url:'/yangchebao-app-ws/ws/0.1/insure/car/replace',
+											type:'post',
+											dataType:'json',
+											data:$.toJSON(postData),
+											async:false,
+											contentType:'application/json;charset=utf-8',
+											error:function(xhr){
+												var error=eval('('+xhr.responseText+')');
+												safeAlert(1,error[0].message,'确定','')
+											}
+										}).then(function(data){
+											window.location.href="/yangchebao-pubweb/baoxian/frameNumber.html?provinceId="+paramJson.provinceId+'&cityId='+paramJson.cityId+"&customerId="+paramJson.customerId+'&userId='+paramJson.userId
+										})
+										
+									})
+								}
+							})
+						});
+						$('div.selectItemThree p.preStep').unbind('click').bind('click',function(){
+							$('div.selectItemTwo').show().siblings().hide()
+						})
+					});
+					//点击上一步 
+					$('div.selectItemTwo p.preStep').unbind('click').bind('click',function(){
+						$('div.selectItemOne').show().siblings().hide()
+					});
+			})
+		})
+	})
+</script>
+</html>

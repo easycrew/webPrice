@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script><script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js "></script>
+<title>消费记录</title>
+</head>
+<style type="text/css">
+*{
+padding: 0;
+margin: 0;
+}
+body{
+    color: #1e1e1e;
+    font-family: "冬青黑体","黑体","HelveticaNeue-Light";
+    font-size: 62.5%;
+    background-color: #f4f7f8;
+    color: #lelele;
+} 
+a,a:hover{
+    text-decoration: none;
+    outline: none;
+}
+img,button {
+    border:none;
+}
+ul,ol{
+    list-style: none;
+} 
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.clearfix::after {
+    clear: both;
+}
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}  
+ul li{
+	border-bottom:1px solid #d9d9e2;
+	padding:1.6em 1.5em 0;
+	height: auto;
+	overflow: auto;
+	margin: 0 0 1em;
+	background-color: #fff;
+} 
+li h3{
+	font-size: 1.5em;
+	font-weight: normal; 
+}
+li h3 strong{
+	font-size: 0.8em;
+	color: #a0a097;
+	font-weight: normal;
+}
+li h3 .left{ 
+	display: inline-block;
+	width: 73%;
+	border-bottom:1px solid #d9d9e2; 
+	padding-bottom: 8px;  
+}
+li h3 .money{
+	font-size: 1.2em;
+	color: #fb451f;
+	float: right;
+}
+.info{
+	font-size: 1.3em; 
+	padding: 10px 0; 
+	text-align: left;
+}  
+.null-tip::before {
+    border-bottom: 1px solid #cfd1db;
+    content: "";
+    display: inline-block;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    width: 2.4em;
+}
+.null-tip::after {
+    border-bottom: 1px solid #cfd1db;
+    content: "";
+    display: inline-block;
+    margin-left: 0.5em;
+    vertical-align: middle;
+    width: 2.4em;
+}
+.null-tip {
+    color: #cfd1db;
+    font-size: 1.8em;
+    margin-top: 2.78em;
+    text-align: center;
+    display: none;
+}
+.tip {
+    color: #a0a097;
+    font-size: 1.5em;
+    padding-bottom: 10px;
+    text-align: center;
+    display: none;
+    cursor:pointer;
+}
+</style> 
+<body>  
+<ul id="serviceList">
+<!-- 	<li> 
+		<div class="content">
+			<h3><span class="left">大型车人工精洗 <strong>2015-02-24</strong></span>
+			    <span class="money">-345</span></h3> 
+			<p class="info">美车源美车源（东直门店）美车源（东直门店）</p> 
+		</div>
+    </li>  -->
+</ul>
+<p class="null-tip">暂无消费记录</p> 
+<p class="tip">点击查看更多</p>
+<script type="text/javascript">  
+$(document).ready(function(){   
+	var url =window.location.search;    
+    var paramsArr = (url.split("?")[1]).split("&");
+	var paramJson = {};
+	$.each(paramsArr,function(i){
+		var item = paramsArr[i].split("=");
+		paramJson[item[0]] = item[1];
+	});   
+	$(".tip").click(function(){
+		getRecord();
+	});
+	var pageindex = 0;
+	getRecord();
+	function getRecord(){  
+	 	$.ajax({
+	        url: '/yangchebao-app-ws/ws/0.1/coupon/record/page?customerId='+paramJson.customerId+'&pagesize=10&pageindex='+pageindex,
+	        type: 'get', 
+	        dataType: 'json',
+	        success: function(data) { 
+	            if((data.page+1)<data.totalPages){
+	            	$(".tip").show();
+	            } else{
+	            	$(".tip").hide();
+	            } 
+	            pageindex++;
+		        var items = data.items;
+		        if(items.length>0){ 
+		        $.each(items,function(i){
+		        	var item = items[i];
+		        	var _li = ' <li>'
+							+'<div class="content">'
+							+'<h3><span class="left">'+ item.reason +' <strong>'+ item.createDate +'</strong></span>'
+							+'<span class="money">'+ (item.changeCoupon?item.changeCoupon:"" )+'</span></h3> '
+							+'<p class="info">'+ item.remarks +'</p> '
+							+'</div>'
+							+'</li>';
+		        	$("#serviceList").append(_li);
+	       		 });
+		    	}else{
+		    		$(".null-tip").show();
+		    	}
+	        },error:function(xhr){
+				var mes = eval('('+xhr.responseText+')'); 
+				alert(mes[0].message); 
+			} 
+	    });   
+	 }
+});</script>
+</body> 
+</html>

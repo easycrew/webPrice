@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head>
+<body> 
+<script type="text/javascript">
+window.onload=function(){
+	var arr = window.location.href.split("?");
+	if(arr.length>0&&arr[1].indexOf("shopid=")>-1){
+	var id = arr[1].split("=")[1];
+	if(id!=undefined){
+	window.location.href = "http://"+id+".yangchebao.com.cn/index.html";
+	}} 
+}  
+</script>
+</body>
+</html>

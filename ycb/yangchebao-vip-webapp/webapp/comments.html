@@ -1,0 +1,105 @@
+<div id="ycb-comments">
+    <div class="ui-info-layout">
+        <p style="margin-left:8%;margin-top:26px;margin-bottom:12px;font-size:16px;">全部评价（<span class="count"></span>）</p>
+        <div class="comment">
+            <ul class="detail">
+            </ul>
+        </div>
+        <div id="comment_pages"></div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function(){
+        var wraper=$('#ycb-comments');
+        comment_page(0);
+        function comment_page(page){
+            $.jRadGet({
+                url:'/vip-ws/ws/0.1/busiStatic/serviceRemarkList?shopAccountId='+carsmart_config.shopId+'&pageindex='+page+'&pagesize=5',
+                success:function(data){
+                    $('.count').html(data.totalCount);
+                    var str="";
+                    var str2="";
+                    var colorbox_params = {
+                        reposition:true,
+                        scalePhotos:true,
+                        scrolling:false,
+                        previous:'<i class="icon-arrow-left"></i>',
+                        next:'<i class="icon-arrow-right"></i>',
+                        close:'&times;',
+                        current:'{current} of {total}',
+                        maxWidth:'100%',
+                        maxHeight:'100%',
+                        onOpen:function(){
+                            document.body.style.overflow = 'hidden';
+                        },
+                        onClosed:function(){
+                            document.body.style.overflow = 'auto';
+                        },
+                        onComplete:function(){
+                            $.colorbox.resize();
+                        }
+                    };
+                    $.each(data.items,function(i){
+                        var item=data.items[i];
+                        // 星星
+                        var level=(item.serviceLevel+item.qualityLevel)/2;
+                        var level_star=level%2;
+                        var serviceDate=item.serviceDate.substr(0,10);
+                        var orderDate=item.createDate.substr(0,16);
+                        var str1="";
+                        if(level_star==0){
+                            for(j=0;j<level/2;j++){
+                                str1+='<img src="img/star_1.png"/>'
+                            }
+                        }else{
+                            for(j=0;j<Math.floor(level/2);j++){
+                                str1+='<img src="img/star_1.png"/>'
+                            }
+                            str1+='<img src="img/star_2.png"/>'
+                        }
+                        // 晒单
+                        if(item.remarkType==1){
+                            var service_img=item.serviceImg;
+                            $.each(service_img,function(g){
+                                str2+='<a href="'+service_img[g].imgUrl+'" class="a_img" onfocus="this.blur();"><img src="'+service_img[g].imgUrl+'" style="margin:0 12px;vertical-align:top;width:80px;height:80px;"/></a>';
+                            }) 
+                        }else if(item.remarkType==0){
+                            str2=""
+                        }
+
+
+                        str+='<li>'
+                            +'<p class="nickName" style="float:left;width:10%;text-align:right;margin-right:1%;">'+item.nickName+'</p>'
+                            +'<div class="user_con" style="float:left;width:70%;border:1px solid #ccc;padding:0 1%;">'
+                            +'<p class="grade" style="border-bottom:1px solid #bbb;padding-left:1%;padding-right:3%;"><span class="star">'+str1+'</span>'
+                            +'<span class="com_date" style="float:right;">'+orderDate+'</span></p>'
+                            +'<p class="content">内容：'+item.remarks+'</p>'
+                            +'<p class="service">服务：'+item.serviceName+'</p>'
+                            +'<p class="service_date">服务时间：'+serviceDate+'</p>'
+                            +'<p class="show_order">用户晒单：<span class="imgs">'+str2+'</span></p>'
+                            +'</li>';
+                    });
+                    $('ul.detail').html(str);
+                    $('li',wraper).css({overflow:'hidden','margin-bottom':'16px'});
+                    $('p.content,p.service,p.service_date,p.show_order',wraper).css('padding-left','1%');
+                    $('span.imgs:empty').parent().hide();
+                    $('p.show_order .a_img').colorbox(colorbox_params);
+                    $('#comment_pages').page({
+                        display_pages:5,
+                        pageindex:data.page,
+                        pagesize:5,
+                        totalCount:data.totalCount,
+                        totalPages:data.totalPages,
+                        callback:function(pageIndex){
+                            comment_page(pageIndex)
+                        },
+                        align:'center',
+                        showText:'从第_start_到_end_项 共_total_项'
+                    })
+                }
+
+            }) 
+        }
+    })
+</script>

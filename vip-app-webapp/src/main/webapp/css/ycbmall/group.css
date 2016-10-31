@@ -1,0 +1,270 @@
+@charset "utf-8";
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box
+}
+body{
+	font-family: STHeitiSC-Light;
+	min-width: 320px;
+}
+a{
+	color: #949DAE;
+}
+p.ui-note{
+	float: right;
+	width: 100%;
+	height: 2.3rem;
+	line-height: 2.3rem;
+	text-align: right;
+	color: red;
+	font-size: 1.2rem;
+}
+.group-contianer{
+	text-align: center;
+	padding-bottom: 4.5rem;
+}
+.banner{
+	background: #A3AECD;
+	position: relative;
+}
+.bannerImg{
+	position: relative;
+}
+.banner img{
+	width: 100%;
+	height: auto;
+}
+p.btn-des{
+	position: absolute;
+	background: #FF8463;
+	border-radius: 5px;
+	padding: 1rem 1.2rem;
+	bottom: 2.2rem;
+	right: 2rem;
+	font-size: 1rem;
+	color: #FFFFFF;
+	/*z-index: 2;*/
+}
+.goodsInfo{
+	width: 100%;
+	max-height: 13rem;
+	float: left;
+	background: #A3AECD;
+	padding: 0 1.8rem;
+	padding-right: 1rem;
+	text-align: left;
+	font-size: 1rem;
+}
+div.goodsInfo-l,.goodsInfo-r{
+	display: inline-block;
+	float: left;
+}
+div.goodsInfo-l{
+	width: 53%;
+	padding-top: 0.5rem;
+	padding-bottom: 1rem;
+}
+div.goodsInfo-r{
+	width: 47%;
+	padding-top: 1.5rem;
+	padding-bottom: 0.5rem;
+	padding-left: 0.5rem;
+}
+div.goodsInfo-r li{
+	float: left;
+	border-left: 1px solid #FFFFFF;
+	width: 50%;
+	padding-left: 1rem;
+	color: #FFFFFF;
+}
+p.timeSpan{
+	font-size: 1.2rem;
+}
+div.goodsInfo-l span{
+	background: #3F4968;
+	border-radius: 5px;
+	color: #FFFFFF;
+	display: inline-block;
+	width: 15%;
+	text-align: center;
+	padding-top: 0.4rem;
+	padding-bottom: 0.4rem;
+}
+div.goodsInfo-l p{
+	color: #3F4968;
+}
+.group-content{
+	clear: both;
+}
+#groupList{
+	margin: 2rem 0;
+}
+#groupList li{
+	background: #FFFFFF;
+	overflow: hidden;
+}
+.group-info{
+	padding: 2.3rem 1rem 0 1rem;
+	float: left;
+	width: 100%;
+}
+.group-info div{
+	height: 9rem;
+}
+.list-l{
+	float: left;
+	width: 31%;
+	/*height: 9rem;*/
+}
+.list-r{
+	position: relative;
+	float: left;
+	width: 69%;
+	height: 100%;
+	text-align: left;
+	padding-left: 1rem;
+}
+.list-r p{
+	font-size: 1.2rem;
+}
+p.list-num{
+	position: absolute;
+	bottom: 0px;
+	font-size: 1rem;
+	vertical-align: bottom;
+	line-height: 3.5rem;
+}
+p.list-num span{
+	font-size: 1.5rem;
+}
+span.list-price{
+	position: absolute;
+	top: 0.1rem;
+}
+span.saleNum{
+	float: right;
+	width: 50%;
+}
+span.numDown,span.numUp{
+	display: inline-block;
+	background: #A3AECD;
+	color: #FFFFFF;
+	font-size: 1.2rem;
+	line-height: 3.5rem;
+}
+span.unClick{
+	background: #C6C6C6;
+}
+span.numDown,span.numUp,input{
+	text-align: center;
+	height: 3.5rem;
+	width: 35%;
+}
+span.numDown{
+	border: 1px;
+	border-radius: 5px 0 0 5px;
+}
+span.numUp{
+	border-radius: 0px 5px 5px 0;
+	margin-left: -0.3rem;
+}
+input{
+	vertical-align: bottom;
+	border:1px solid #A3AECD;
+	border-radius: 0px;
+	width: 30%;
+	font-size: 1.6rem;
+	color: #3F4968;
+}
+.list-l img{
+	width: 9rem;
+	height: 100%;
+	border: 1px solid #EEF0F7;
+}
+.price-list{
+	clear: both;
+}
+.price-list ul{
+	width: 100%;
+	float: left;
+	background:#B5BED7;
+}
+ul li:last-child{
+	border-right: 1px solid #A3AECD;
+}
+.price-list li{
+	display: block;
+	width: 16%;
+	float: left;
+	font-size: 1rem;
+	border-top: 1px solid #B5BED7;
+	border-bottom: 1px solid #A3AECD;
+	color: #FFFFFF;
+}
+li.Header{
+	width:20%;
+}
+.price-list li span.num,.price-list li span.price,li.Header span.header-num,li.Header span.header-price{
+	height: 4.5rem;
+	line-height: 4.5rem;
+	display: block;
+	width: 100%;
+}
+span.header-num,span.num{
+	background: #B5BED7;
+}
+span.header-price,span.price{
+	background: #A3AECD;
+}
+li._checked{
+	border: 1px solid #A3AECD;
+	color: #3F4968;
+}
+li._checked span{
+	background: #FFFFFF;
+	border:0px;
+}
+.group-footer{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	clear: both;
+	font-size: 1.2rem;
+	text-align: center;
+	border-top: 1px solid #EEF0F7;
+	border-bottom: 1px solid #EEF0F7;
+	background: #ffffff;
+	/*z-index: 10;*/
+}
+.group-footer p{
+	float: left;
+	width: 33%;
+	height: 6rem;
+	line-height: 6rem;
+}
+p.footer-c{
+	color: #FF8463;
+	font-size: 1.5rem;
+}
+p.footer-r{
+	background: #FF8463;
+	width: 34%;
+	color: #FFFFFF;
+	font-size: 1.6rem;
+}
+p.footer-r span.settle{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.alert-container h2{
+	font-size: 1.4rem;
+	padding: 1rem 0;
+}
+.details{
+	font-size: 1.2rem;
+	color: #949DAE;
+}

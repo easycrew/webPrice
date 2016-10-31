@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="js/jquery.json-2.2.js"></script> 
+<script type="text/javascript" src="js/index.js"></script> 
+<title>提现申请</title>
+</head>
+<style type="text/css">
+.comment{
+   font-size: 1.2em;
+   color:#ff8463;
+   margin: 10px 0;
+   border-top:1px solid #cfd1db;
+   line-height: 150%; 
+   padding:10px 20px 17px 20px; 
+   background: #fff;
+}
+.comment h1{
+  padding: 10px 0; 
+}
+.cash{
+	font-size: 1.8em;
+	color: #707c92;
+	text-align: center;
+	padding-top: 35px;
+}   
+#takeBalanceReal{
+	font-size:1.8em;
+	color: #ff8463;
+}
+.y-ul li{
+	overflow: hidden;
+	padding:20px 15px 12px 15px;
+   font-size: 1.2em;
+}
+.y-ul li .y-cash{
+	float: left;
+}
+.y-btn{
+	float:right;
+	background-color:#ff8463;
+	border-radius: 4px;
+	color:#ffffff;
+	font-size:1.6em;
+	display:block;
+	height:1.8em;
+	line-height:1.8em;
+	text-align:center; 
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	/*margin: 1em 1em;*/
+	padding:5px 8px;
+}
+.y-btn:hover{
+	text-decoration:none;
+} 
+.y-cash p{
+   font-size: 1.6em;
+   color: #8382ac;
+}
+.y-span1{
+   font-size: 1.6em;
+   color:#ff7c7a;
+}
+.y-cash a{
+	color:#69ace0;
+	font-size: 1.6em;
+	margin-left:15px;
+}
+.y-cash #getdatil{
+	font-size: 1.2em;
+}
+.bank-dialog .content2{
+	color: #3f4968;
+	padding:21px;
+	font-size: 1.2em; 
+}
+.bank-dialog .content2 p{
+	text-align: center;
+	line-height:24px;
+}
+.bank-dialog .content2 p em{
+	font-style: normal;
+	color: #ff6d47;
+	font-size:1.8em;
+}
+.profitRate{margin:0 15px;border-top:1px solid #ccc;overflow:hidden;}
+.profitRate div{text-align: center;}
+.profitRate p{font-size:1.6em;color:#999;}
+.profitRate p span{color:#ff9933;}
+.left-div{float:left;margin:10px 0;width:49%;border-right:1px solid #ccc}
+.right-div{float:left;margin:10px 0;width:50%;}
+
+</style>
+<body> 
+	<section class="main-wrap">  
+		<div style="background-color: #fff;margin-bottom:1em; border-bottom:2px solid #e4e6f1;">
+		<!-- <p class="cash">未提现收入：<br><span class="org money">￥0</span></p>
+		<a href="javascript:void(0);" class="btnn ablebtn" id="submit" >申请提现</a> 　
+		<p class="cash" style="border-top:1px solid #cfd1db">未提现收入：<br><span class="org money">￥0</span></p>
+		<a href="javascript:void(0);" class="btnn ablebtn" id="submit" >申请提现</a> -->
+		<ul class="y-ul">
+			<li>
+				<div class="y-cash">
+					<p>现金账户</p>
+					<div><span class="y-span1 org money">￥0</span></div>
+				</div>
+				<a href="javascript:void(0);" class="y-btn apply" id="submit">申请提现</a>
+			</li>
+			<li style="border-top:1px solid #cfd1db">
+				<div class="y-cash">
+					<p>理财账户</p>
+					<div><span class="y-span1 money2">￥0</span><a href="javascript:void(0);" id="getdatil">收益流水</a></div>
+				</div>
+				<a href="javascript:void(0);" class="y-btn strant" id="submit2">转入账户</a>
+			</li>
+		</ul>
+		<article class="profitRate" style="margin:0 15px;border-top:1px solid #ccc;overflow:hidden;">
+			<div class="left-div" style="">
+				<p>万份收益</p>
+				<p><span id="profit"></span>元</p>
+			</div>
+			<div class="right-div" style="float:left;margin:10px 0;width:50%;">
+			<p>预期年化收益率</p>
+			<p><span id="profitRate"></span></p>
+			</div>
+		</article>
+		</div> 
+		<article class="comment">    
+			<p>1、每日0点，现金账户余额转移到理财账户计算利息；</p>
+			<p>2、理财账户转入现金账户后，才可提现；</p>
+			<p>3、申请提现后3个工作日内到账；</p>
+			<p>4、每次主动提现会收取2%的手续费，最多收取50元；</p>
+			<p>5、按合同约定结束周期自动结算的无需支付手续费；</p>
+		</article>
+		<ul class="order-wrap" id="cashList">  
+	    </ul>   
+	</section>  
+	<article class="bank-dialog" id="bank-confirm">
+		<div class="content">
+			<p><span class="left">提现:</span><span class="right" id="takeBalance"></span><span class="left" style="margin-left:25px;">扣除2%:</span><span class="right" id="counterFee"></span></p>
+			<p><span class="left">到账金额:</span><span class="right" id="takeBalanceReal"></span>元</p>
+			<p><span class="left">开户行:</span><span class="right" id="bankName"></span></p>
+			<p><span class="left">姓名:</span><span class="right" id="bankHolder"></span></p>
+			<p><span class="left">银行卡号:</span><span class="right" id="bankAccount"></span></p>
+		</div>
+		<div class="button-wrap">
+			<span class="cancel org">取消</span>
+			<span class="submit">确定</span>
+		</div>
+	</article>  
+	<article class="bank-dialog" id="bank-confirm2">
+		<div class="content2">
+		<p><span>确认把理财余额<em id="transferAmount"></em>元转入账户？</span></p>
+		<p><span>转入账户后即可提现！</span></p>
+		</div>
+		<div class="button-wrap">
+			<span class="cancel org">取消</span>
+			<span class="submit">确定</span>
+		</div>
+	</article>  
+	<article class="bank-dialog" id="bank-alert2"> 
+		<div class="content">
+		     <p class="info org">您还没有理财余额！</p>
+		</div>  
+		<div class="button-wrap"> 
+			<span class="submit" style="width:100%;">确定</span>
+		</div>
+	</article>  
+	<article class="bank-dialog" id="bank-alert"> 
+		<div class="content">
+		     <p class="info org">最小提现金额为¥<span id="minDrawalAmount">100</span></p>
+		</div>  
+		<div class="button-wrap"> 
+			<span class="submit" style="width:100%;">确定</span>
+		</div>
+	</article>  
+	<div class="dialog-overlay" style="display:none;"></div>
+	<script type="text/javascript"> 
+
+	    var response = "1",page = 0,pagesize=10,shopAccountId=-1,businessId=-1,money=0,minDrawalAmount=0;  
+	    //var response = "1",page = 0,pagesize=10,businessId=-1,money=0,minDrawalAmount=0;  
+ 		function getList(){    // 获取下面的列表
+			response = "1"; 		
+			$.ajax({
+				url:'/vip-ws/ws/0.1/businessAccontInfo/getTackCashApplyTrail?shopAccountId='+shopAccountId+'&pageindex='+page+'&pagesize='+pagesize+'&businessId='+businessId+"&"+(new Date()).getTime(),
+				type: 'get',
+				async: false,
+				dataType: 'json',
+				success: function(data) {   
+					page++; 
+					var str = "";
+					var items = data.items; 
+					$.each(items,function(i){
+						var item = items[i]; 
+						var _span = "";
+						var _span1="";
+
+						var applyData=item.applyData;
+				        var strData=applyData.substring(0,10);
+
+						if(item.isTransfered=="否")//转账状态 0 未转帐 1 已转账
+						{
+							_span = '<span class="left-span">未到帐</span>' ;
+						}
+						else{
+							//_span = '<span class="left-span">已到账   时间'+item.transferData+'</span>';
+							_span = '<span class="left-span">已到账</span>';
+						}
+
+
+						if(item.source=="1")//转账状态 1 主动提现金额 2 自动提现金额 0 
+						{
+							_span1 = '<span class="time">结算生成时间：'+ strData +'&nbsp;&nbsp;&nbsp;&nbsp;主动提现金额：¥'+item.cashWithdrawal+'</span>' ;
+						}
+						else if(item.source=="2"){
+							_span1 = '<span class="time">结算生成时间：'+ strData +'&nbsp;&nbsp;&nbsp;&nbsp;自动提现金额：¥'+item.cashWithdrawal+'</span>' ;
+						}else{
+                            _span1 = '<span class="time">结算生成时间：'+ strData +'&nbsp;&nbsp;&nbsp;&nbsp;提现金额：¥'+item.cashWithdrawal+'</span>' ;
+						}
+
+						str += '<li>' 
+							+'<div>'
+							+'<div class="user-info"> '
+							// +'<span class="time">提现时间：'+ strData +'&nbsp;&nbsp;&nbsp;&nbsp;提现金额：¥'+item.cashWithdrawal+'</span>' 	
+							+_span1		 
+							+'</div>'
+							+'<div class="order-info">'
+							+'<p class="serviceName">到账金额：¥'+ item.cashWithdrawalReal+'</p>'
+							+'<div class="clearfix">'
+							+ _span
+							+'</div>'
+							+'</div>'
+							+'</div>' 
+							+'</li> ';
+					});   
+					$("#cashList").append(str); 
+					if(str==""){
+						$("#cashList").after('<p class="null-tip">暂无提现记录</p>'); 
+					}
+					if(data.page >= data.totalPages-1){
+						response = "0";
+					} 
+				},
+				error:function(xhr){
+
+				}
+			}); 
+			return response;
+	 	}  
+   		function apply(){ //申请提现按钮
+              var postData = {};
+              postData.businessId = businessId;
+              postData.cashWithdrawal = $("#takeBalance").html();
+              postData.cashWithdrawalReal = $("#takeBalanceReal").html();
+              postData.shopAccount = $("#bankAccount").html();
+              $.ajax({
+                url: '/vip-ws/ws/0.1/businessAccontInfo/postApplyTakeCash',
+                type: 'post',
+                async: false,
+                data:$.toJSON(postData),
+                dataType: 'json',
+                contentType:'application/json;charset=utf-8',
+                success:function(data){
+        	 		alertRe("已成功申请提现！");
+                    queryDetail();
+		 	    	getList();
+                },error:function(xhr){ 
+	                if(!(xhr.responseText)){
+	                    return false
+	                }
+                    var mes = eval('('+xhr.responseText+')');
+					alertTasat(mes[0].message);
+                } 
+              }); 
+        } 
+   		function apply2(){ //申请提现按钮
+            var postData = {};
+            postData.businessId = businessId;
+            postData.transferAmount = $("#transferAmount").html();
+            $.ajax({
+                url: '/vip-ws/ws/0.1/businessAccontInfo/transferAccount',
+                type: 'post',
+                async: false,
+                data:$.toJSON(postData),
+                dataType: 'json',
+                contentType:'application/json;charset=utf-8',
+                success:function(data){
+        	 		alertRe("已成功转入账户！");
+                    queryStrat();
+                    queryDetail();
+		 	    	getList();
+                },error:function(xhr){ 
+	                if(!(xhr.responseText)){
+	                    return false
+	                }
+                    var mes = eval('('+xhr.responseText+')');
+					alertTasat(mes[0].message);
+                } 
+            }); 
+        } 
+
+        function queryDetail(){  
+            $.ajax({
+                url: '/vip-ws/ws/0.1/businessAccontInfo/getTackCashList?shopAccountId='+shopAccountId+'&businessId='+businessId+"&"+(new Date()).getTime(),
+                type: 'get', 
+                dataType: 'json',
+                success:function(data){ 
+                	  money=data.takeBalance;
+                	  //minDrawalAmount=data.minDrawalAmount; 
+					  $("#minDrawalAmount").html(data.minDrawalAmount);
+					  // takeBalance 账户余额 totalRevenue总收入 counterFee手术费  takeBalanceReal 到账金额
+        			  $(".money").html("¥"+data.takeBalance); 
+        			  $("#takeBalance").html(data.takeBalance); 
+        			  $("#counterFee").html(data.counterFee);
+        			  $("#takeBalanceReal").html(data.takeBalanceReal);
+        			  $("#bankName").html(data.bankName);
+        			  $("#bankHolder").html(data.bankHolder)
+        			  $("#bankAccount").html(data.bankAccount);
+					  // if(data.bankHolder!=undefined&&data.bankHolder!=""){
+					  //   $("#submit").show();
+					  // }
+                },error:function(xhr){ 
+                    var mes = eval('('+xhr.responseText+')');  
+					alertTasat(mes[0].message); 
+                } 
+            });            
+        }         
+        function queryStrat(){  
+            $.ajax({
+                url: '/vip-ws/ws/0.1/businessAccontInfo/getFinancialAccount?businessInfoId='+businessId+"&"+(new Date()).getTime(),
+                type: 'get', 
+                dataType: 'json',
+                success:function(data){ 
+                	  //minDrawalAmount=data.minDrawalAmount; 
+					  // takeBalance 账户余额 totalRevenue总收入 counterFee手术费  takeBalanceReal 到账金额
+        			  $(".money2").html("¥"+data.finanicalBalance); 
+        			  $('#transferAmount').html(data.finanicalBalance)
+        			  $("#profit").html(data.profit);
+        			  $("#profitRate").html(data.profitRate)
+        			  
+                },error:function(xhr){ 
+                    var mes = eval('('+xhr.responseText+')');  
+					alertTasat(mes[0].message); 
+                } 
+            });            
+        }
+        $(document).ready(function(){ 
+      		index.init = function(userInfo,bridge) { 
+      		    //var userInfo = {businessInfoId:146859,shopAccountId:231}
+		 		shopAccountId = userInfo.shopAccountId;  
+		 		businessId = userInfo.businessInfoId;
+		 		queryDetail();
+		 		queryStrat()
+		 	    getList();
+		 	} 
+		 	index.pullUpRefresh = function(bridge) {  
+				getList(); 
+				return response;
+			} 
+      		$("#submit").click(function(){ 
+  				$("#bank-confirm").show(); 
+  			    $(".dialog-overlay").show();
+      		});      		
+      		$("#submit2").click(function(){ 
+  				$("#bank-confirm2").show(); 
+  			    $(".dialog-overlay").show();
+      		});
+      		$(".bank-dialog .cancel").click(function(){
+               $(this).parents(".bank-dialog").fadeOut();
+               $(".dialog-overlay").fadeOut();
+      		});
+      		$(".bank-dialog  .submit").click(function(){
+               $(this).parents(".bank-dialog").fadeOut();
+               $(".dialog-overlay").fadeOut();
+      		});
+      		$("#bank-confirm .submit").click(function(){
+               $(this).parents(".bank-dialog").fadeOut();
+               $(".dialog-overlay").fadeOut();
+               apply();
+      		}); 
+      		$("#bank-confirm2 .submit").click(function(){
+               $(this).parents(".bank-dialog").fadeOut();
+               $(".dialog-overlay").fadeOut();
+               apply2();
+      		}); 
+
+      		var path = getPath(); 
+		 	$('#getdatil').click(function(){ 
+	 			var that = this;
+	 			var home = path;    
+		 		var orderId = $(that).attr("orderId");  
+				// window.location.href = "http://w2nw?"+path+"/cash-wrap.html?orderId="+orderId; 
+				window.location.href = "http://w2nw?"+path+"/cash-wrap.html";
+	 			
+ 			});
+        });
+	</script>  
+</body> 
+</html>

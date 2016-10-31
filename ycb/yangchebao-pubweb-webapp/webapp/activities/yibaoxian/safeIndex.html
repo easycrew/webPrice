@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script> 
+	<title>用车挣钱</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		body{
+			background-color: #f4f7f8;
+			font-size: 62.5%;
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+		::-moz-placeholder{
+			color: #999;
+		}
+		:-moz-placeholder{
+			color: #999;
+		}
+		input:-ms-input-placeholder{
+		    color: #999;
+		}
+
+		input::-webkit-input-placeholder{
+		    color: #999;
+		}
+		input,textarea{
+			border: 0;
+			-webkit-appearance: none!important;
+		}
+
+		section{
+			position: relative;
+			min-width: 320px;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+		article{
+			background-color: #fff;
+		}
+		h3{
+			color:#6eaade;
+			font-size: 1.2rem;
+			font-weight: normal;
+			line-height: 2.2rem;
+		}
+		div.topImg img{
+			width: 100%;
+		}
+		article.article-top{
+			margin-top: 0.8rem;
+			padding: 1.2rem 1rem;
+            border-bottom: 1px solid #DCDCE4;
+			overflow: hidden;
+		}
+		div.article-topLeft{
+			float: left;
+			margin-right: 3%;
+			width: 28%;
+		}
+		div.article-topLeft img{
+			width: 100%;
+		}
+		div.article-topRight{
+			width: 69%;
+			float: left;
+		}
+		div.article-topRight p{
+			font-size: 0.9rem;
+			color: #a2a2a2;
+		}
+		
+		article.article-middle{
+			margin-top: 0.8rem;
+			padding: 1.8rem 1rem 1.2rem;
+			border-bottom: 1px solid #DCDCE4;
+			text-align: center;
+		}
+		article.article-middle p{
+			color: #a2a2a2;
+			font-size: 0.9rem;
+			line-height: 1.4rem;
+		}
+		article.article-middle div.checkAccountBtn{
+			width: 46%;
+			margin: 1.2rem auto 0;
+			border: 1px solid #ff6138;
+			border-radius: 6px;
+			line-height: 2.2rem;
+			color: #ff6138;
+			font-size: 1rem;
+		}
+		article.article-middle p span{
+			display: inline-block;
+			width: 0.6rem;
+			height: 0.6rem;
+			background-color: #6eaade;
+			border-radius: 0.5rem;
+			margin-right: 0.5rem;
+		}
+		article.middle-img{
+			background-color: #fff;
+			padding: 2rem 0;
+			margin-top: 0.8rem;
+			border-bottom: 1px solid #DCDCE4;
+		}
+		ul.middle-img-ul{
+			overflow: hidden;
+		}
+		ul.middle-img-ul li img{
+			width: 64%;
+		}
+		ul.middle-img-ul li p.itemText{
+			color: #1e1e1e;
+			font-size: 0.95rem;
+			line-height: 1.2rem;
+			margin-top: 0.6rem;
+		}
+		ul.middle-img-ul li.itemOne{
+			float: left;
+			width: 50%;
+			text-align: center;
+		}
+		ul.middle-img-ul li.itemTwo{
+			float: right;
+			width: 50%;
+			text-align: center;
+		}
+		section.sectionOne article.article-bottom{
+			padding: 1.2rem 1rem;
+			border-bottom: 1px solid #DCDCE4;
+			margin-top: 0.8rem;
+		}
+		ul.article-bottom-ul{
+			margin-top: 0.6rem;
+			overflow: hidden;
+		}
+		ul.article-bottom-ul li{
+			float:left;
+			width: 32%;
+			margin-right: 2%;
+			margin-bottom: 0.4rem;
+		}
+		ul.article-bottom-ul li:nth-of-type(3n){
+			margin-right: 0!important;
+		}
+		ul.article-bottom-ul li img{
+			width: 100%;
+		}
+
+		div.fourSafe{
+			margin-top: 0.8rem;
+			background-color: #fff;
+			padding: 1.2rem 0;
+			border-bottom: 1px solid #DCDCE4;
+		}
+		div.fourSafe ul.fourSafe-ul{
+			margin: 0 auto;
+			overflow: hidden;
+		}
+		div.fourSafe ul.fourSafe-ul li{
+			float: left;
+			width: 25%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			border-right: 1px solid #dfdfe4;
+			text-align: center;
+		}
+		div.fourSafe ul.fourSafe-ul li:last-child{
+			border-right: 0!important;
+		}
+		div.fourSafe ul.fourSafe-ul li img{
+			width: 62%;
+		}
+		div.fourSafe ul.fourSafe-ul li p.fourSafeText{
+			font-size: 0.95rem;
+			color: #1e1e1e;
+			line-height: 1.2rem;
+			margin-top: 0.6rem;
+		}
+		div.btnWraper{
+			margin-top: 1rem;
+			border-top: 1px solid #DCDCE4;
+			padding: 1rem 1.2rem 2rem;
+			text-align: center;
+			background-color: #fff;
+		}
+		p.searchPriceBtn{
+			background-color: #ff6138;
+			color: #fff;
+			font-size: 1.1rem;
+			line-height: 2.4rem;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			cursor: pointer;
+		}
+		
+	</style>
+</head>
+<body>
+	<section class="sectionOne">
+		<div class="topImg"><img src="http://app.yangchebao.com.cn/group1/M00/02/4A/ChoCK1ZVWFmAULx7AALHSJlnhcw207.png"></div>
+		<article class="article-top">
+			<div class="article-topLeft"><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvJ7yAM5xnAACGLjgZrn8381.png"></div>
+			<div class="article-topRight">
+				<h3>1095元养车宝车险补贴</h3>
+				<p>购买保险成功后，将每天发放1元共1095元养车宝车险补贴到您的养车宝账户中，补贴可用于购买养车宝服务。</p>
+			</div>
+		</article>
+		<!-- <article class="article-top">
+			<div class="article-topLeft"><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvJ6OATPI_AAAq7ozLwbI190.png"></div>
+			<div class="article-topRight">
+				<h3>10%车险返现补贴</h3>
+				<p>购买保险成功后，会将10%的车险补贴立即返还至 您的养车宝账户中，补贴可用于购买养车宝服务。</p>
+			</div>
+		</article> -->
+		<article class="article-middle">
+			<h3>投保送豪礼</h3>
+			<div class="article-middleDetail">
+				<p><span></span>保费满3000元最高可获300元加油费</p>
+				<p><span></span>买的越多，送的越多</p>
+			</div>
+			<div class="checkAccountBtn">查看最新折扣</div>
+		</article>
+		<article class="middle-img">
+			<ul class="middle-img-ul">
+				<li class="itemOne">
+					<p class="itemImg"><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvJ0-AJ1aWAAAs-YiVPBE590.png"></p>
+					<p class="itemText">快捷理赔通道</br>出险无后顾之忧</p>
+				</li>
+				<li class="itemTwo">
+					<p class="itemImg"><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvJ2CAFyQkAAArwYG8ziM836.png"></p>
+					<p class="itemText">保险到期提前提醒</br>贴心服务暖人心</p>
+				</li>
+			</ul>
+		</article>
+		<article class="article-bottom">
+			<h3>合作保险公司</h3>
+			<ul class="article-bottom-ul">
+				<li><img src="http://app.yangchebao.com.cn/group1/M00/01/B3/ChoCK1YvJr6AMO03AAAd6I6Mk_Q110.png"></li>
+				<li><img src="http://app.yangchebao.com.cn/group1/M00/01/B3/ChoCK1YvJt-AXxC0AAAqDk6oElU619.png"></li>
+				<li><img src="http://app.yangchebao.com.cn/group1/M00/01/B3/ChoCK1YvJveAVinAAAAfksF8VHI190.png"></li>
+				<li><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvJwqAU9NYAAAd2MgLOWk914.png"></li>
+				<li><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvJxqAVUTWAAAdwiDR474102.png"></li>
+				<li><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvJyqAbcZtAAAVCP7AHE4617.png"></li>
+				<li><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvJzuAS5MZAAAiN4UEha0227.png"></li>
+                <li><img src="http://app.yangchebao.com.cn/group1/M00/02/44/ChoCK1ZUI7CAQwLcAAAXM8ccvPU499.png"></li>
+			</ul>
+		</article>
+		<div class="fourSafe">
+			<ul class="fourSafe-ul">
+				<li>
+					<p class="fourSafeImg"><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvKACATVZyAAANi2kWGOs315.png"></p>
+					<p class="fourSafeText">全网最低</p>
+				</li>
+				<li>
+					<p class="fourSafeImg"><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvKBiAfAsBAAAK7u21VeM745.png"></p>
+					<p class="fourSafeText">官网直销</p>
+				</li>
+				<li>
+					<p class="fourSafeImg"><img src="http://app.yangchebao.com.cn/group1/M00/01/B4/ChoCK1YvJ3OAK_1GAAANgofnFSU134.png"></p>
+					<p class="fourSafeText">四步出单</p>
+				</li>
+				<li>
+					<p class="fourSafeImg"><img src="http://app.yangchebao.com.cn/group1/M00/01/B3/ChoCK1YvJqaAAFx3AAAOVIMqBMQ317.png"></p>
+					<p class="fourSafeText">全国通赔</p>
+				</li>
+			</ul>
+		</div>
+		<div class="btnWraper">
+			<p class="searchPriceBtn">查询车险报价</p>
+		</div>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    // 左边图片自适应居中
+	    window.onload=function(){
+	    	$('article.article-top').each(function(){
+	    		var articleTopHeight=$(this).height();
+		    	var articleTopLH=$(this).find('div.article-topLeft').height();
+		    	if(articleTopHeight>articleTopLH){
+		    		$(this).find('div.article-topLeft').css({'line-height':articleTopHeight+'px'})
+		    	}
+	    	})
+	    };
+	    // 查询车险报价
+	    $('p.searchPriceBtn').unbind('click').bind('click',function(){
+	    	window.location.href="http://w2l/?presentType=2&needLogin=1&androidName=28&iosName=MyWebViewController&url=http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/04108674"
+	    });
+	    // 查看最新折扣
+	    $('div.checkAccountBtn').unbind('click').bind('click',function(){
+	    	window.location.href="http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/00983014"
+	    })
+	})
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?62a8483ca279e77c1108410ba4a81605";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</html>

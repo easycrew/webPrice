@@ -1,0 +1,665 @@
+<div class="urlContentWraper" id="shopInfoEditWraper">
+	<div class="ui-info-layout"> 
+		<div id="shopInfo" class="ui-form">
+			<div class="grid-layout-main jrad-form">
+				<!--input name="shopAccountId" type="hidden"-->
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label">
+						<span class="ui-form-required">*</span>工商注册名称：</label>
+					<div class="span5 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="name">
+						</div>
+					</div>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label">
+						<span class="ui-form-required">
+							*
+						</span>
+						商户对外简称：
+					</label>
+					<div class="span5 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="businessRegName">
+						</div>
+					</div> 
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"> 
+						<span class="ui-form-required">
+							*
+						</span>
+						地址：
+					</label>
+					<div class="span5 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="address">
+						</div>
+					</div>
+				</div> 
+				<div class="grid-row-fluid"> 
+					<label class="span3 grid-layout-label"> 
+						<span class="ui-form-required">
+							*
+						</span>
+						省：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="provinceId">
+						</div>
+					</div>
+					<label class="span3 grid-layout-label"> 
+						<span class="ui-form-required">
+							*
+						</span>
+						市：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="areaCodeId">
+						</div>
+					</div>
+					<label class="span3 grid-layout-label"> 
+						<span class="ui-form-required">
+							*
+						</span>
+						区县：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="countyId">
+						</div>
+					</div>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"> 
+						邮箱：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="email">
+						</div>
+					</div>
+					<label class="span3 grid-layout-label"> 
+						QQ：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="qq">
+						</div>
+					</div>
+				</div>  
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"> 
+						<span class="ui-form-required">
+							*
+						</span>
+						营业开始时间：
+					</label> 
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="ui-date">	
+							<div class="input-append date" id="startTime-date">
+								<div class="input-wrap">
+									<input type="text" name="startTime"/>
+								</div>
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+					<label class="span3 grid-layout-label"> 
+						<span class="ui-form-required">
+							*
+						</span>
+						营业结束时间：
+					</label>
+					<div class="span3 grid-layout-content fluid-wrap">
+						<div class="ui-date">	
+							<div class="input-append date" id="endTime-date">
+								<div class="input-wrap">
+									<input type="text" name="endTime"/>
+								</div>
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"> 
+						售前电话：
+					</label>
+					<div class="span15 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="serviceTel">
+						</div>
+						<span class="ui-note">多个电话请用英文,隔开</span>
+					</div>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"> 
+						售后电话：
+					</label>
+					<div class="span15 grid-layout-content fluid-wrap">
+						<div class="jrad-input-container" name="mobile">
+						</div>
+						<span class="ui-note">多个电话请用英文,隔开</span>
+					</div>
+				</div>
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label">
+						<span class="ui-form-required">
+							*
+						</span>
+						商家类型：
+					</label>
+					<div class="span5 grid-layout-content fluid-wrap">
+						<div class="jrad-select-container" name="type">
+						</div>
+					</div>
+				</div> 
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label">
+						<span class="ui-form-required">
+							*
+						</span> 服务品牌： 
+					</label>
+					<div class="span14 grid-layout-content fluid-wrap">
+						<!--div class="jrad-buttons-container" name="brand_check_btn">
+							<span id="jrad-button-brand" class="jrad-primary">
+								点击选择 </span>
+						</div-->
+						<button class="btn btn-small btn-primary" id="jrad-button-brand"> 点击选择 </button> 
+						<p id="brand_check_string" style="margin: 10px 0;"></p>
+					</div>
+				</div> 
+				<!--tab 切换-->
+				<div style="margin-top:20px"> 
+					<span class="showTab showTab_select" name="shop_dec_btn">商家简介</span>
+					<span class="showTab" name="shop_photo_btn">商家图片</span> 
+				</div>
+				<div style="border:1px solid #ccc;padding-top:10px;min-height:570px;">   
+				<div class="shop_dec">
+				<div class="grid-row-fluid">
+					<label class="span3 grid-layout-label"> 商家简介： </label>
+					<div class="span15 grid-layout-content fluid-wrap">
+						<div class="jrad-mediaarea-container" name="introduction">
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="shop_photo">
+					<div class="grid-row-fluid">
+						<label class="span3 grid-layout-label">
+							<span class="ui-form-required">
+								*
+							</span> 商家logo： 
+						</label>
+						<div class="span15 grid-layout-content fluid-wrap">
+							<div name="logoId" class="jrad-uploadimg-container">
+							</div>
+						</div>
+					</div>   
+					<div class="grid-row-fluid">
+						<label class="span3 grid-layout-label"> 
+							<span class="ui-form-required">
+								*
+							</span>商家照片： 
+						</label>
+						<div class="span15 grid-layout-content fluid-wrap">
+							<div name="businessIdsFile" class="jrad-uploadimg-container">
+							</div>
+						</div>
+					</div>
+				</div>
+				</div> 
+				<input type="hidden" name="id"/>
+				<!--input type="hidden" name="logoId"/-->
+				<div id="businessIds"></div>
+				<div name="brandIds"></div>
+			</div>
+		</div> 
+		<div>
+			<button class="btn btn-small btn-primary" id="saveShopInfo"> 提交修改 </button> 
+		</div>  
+	</div> 
+	<!--服务品牌-->
+	<div id="Form_service_brand" style="display:none;">
+		<div class="grid-layout-main jrad-form"> 
+			 <div class="jrad-tree-container" id="brandsTree">
+			 </div> 
+			<div class="jrad-checkbox-container" name="vendor" style="position:absolute;bottom:25px;font-weight:bold;"></div>
+		</div>
+		<div class="jrad-buttons-container ui-buttons-container">
+				<button class="jrad-btn-primary btn btn-small btn-primary"> 确定 </button>
+				<button class="jrad-btn-normal btn btn-small"> 取消 </button>
+		</div>
+	</div> 
+</div>
+<script type="text/javascript">
+$(document).ready(function() { 
+   var wraper = $("#shopInfoEditWraper");  
+   var BrandFlag = true;
+   var shopInfoItem =$.jRadGet({
+			 url : "/vip-ws/ws/0.1/business/queryBasicInfo?shopAccountId="+carsmart_config.shopId,
+			 async:false
+		}); 
+	shopInfoItem.name = shopInfoItem.name.isChange=='0'?(shopInfoItem.name.beforeUpdate):(shopInfoItem.name.afterUpdate);
+	shopInfoItem.businessRegName = shopInfoItem.businessRegName.isChange=='0'?(shopInfoItem.businessRegName.beforeUpdate):(shopInfoItem.businessRegName.afterUpdate);
+   var treeOption = setBrandTree();  
+   $("#Form_service_brand .jrad-tree-container").tree(treeOption); 
+   
+   $("#shopInfo .shop_photo").hide(); 
+   $(".showTab").click(function(){
+   $(".showTab").removeClass("showTab_select");
+	   $(this).addClass("showTab_select");
+	   var name = $(this).attr("name"); 
+	   if(name=="shop_dec_btn"){ 
+		$("#shopInfo .shop_map").hide(); 
+		$("#shopInfo .shop_dec").show();
+		$("#shopInfo .shop_photo").hide(); 
+	   }else if(name=="shop_photo_btn"){ 
+		$("#shopInfo .shop_map").hide(); 
+		$("#shopInfo .shop_dec").hide();
+		$("#shopInfo .shop_photo").show(); 
+	   } 
+   });
+   $('#Form_service_brand').form({
+		title: '服务品牌', 
+		fields:{'vendor':{data: [{id:'全部',name:'全部'}]}},
+		item: {},  
+		height: 500,
+		submit:function(){   
+			var vendor = $('#Form_service_brand div[name="vendor"]').checkbox('val');  
+			if(vendor[0].length==0){
+				var selectors = $('#Form_service_brand .brand-checkbox-container'); 
+				var array = [];//选中字符串集
+				var array2 = [];//选中仅有brandid的集
+				var array3 = [];//选中仅有modelid的集
+				var brandIds = [];
+				$.each(selectors,function(i,item){    
+					array = $.merge(array,$(item).checkbox("text"));
+					if($(item).attr("name")=="brand-checkbox-container"){
+						array2 = $.merge(array2,$(item).checkbox("val"));
+					}else{
+						array3 = $.merge(array3,$(item).checkbox("val"));
+					}
+					if($(item).checkbox("text").length>0){
+						var k = $(item).data("brandid");
+						var v = $(item).checkbox("val").join(",");
+						var kv = {};
+						if(k==v&&$(item).attr("name")=="brand-checkbox-container"){
+							kv = {"brandId":k}; 
+						}else{
+							kv = {"brandId":k,"modelId":v}; 
+						}
+						brandIds.push(kv);
+					}
+				});
+				array = $.unique(array);   
+				var  str="已选择：";
+				console.log(array);
+				if(array.length>0){ 
+					$.each(array,function(i,json){
+					str += json.name+" &nbsp;&nbsp;&nbsp;&nbsp ";
+					})
+				}
+				$("#shopInfo #jrad-button-brand").next("#brand_check_string").html(str); 
+				$("div[name='brandIds']",wraper).data("brandIds",brandIds);
+				$("div[name='brandIds']",wraper).data("brandIdsArr",{"brand-checkbox-container":array2,"model-checkbox-container":array3}); 
+			}else{
+				 $("#shopInfo #jrad-button-brand").next("#brand_check_string").html("已选择："+vendor[0]);	
+				  $("div[name='brandIds']",wraper).data("brandIds",[]);
+				  $("div[name='brandIds']",wraper).data("brandsArr",{"brand-checkbox-container":[],"model-checkbox-container":[],"vendor":['全部']});
+			}
+			$("#Form_service_brand").form('close'); 
+		} 
+	});  
+	$("#jrad-button-brand").click(function() {  
+			if(BrandFlag){
+				brand(shopInfoItem,wraper);
+			}
+			$('#Form_service_brand').form({
+			item:$("div[name='brandIds']",wraper).data("brandIdsArr"),
+			height:500
+			}).form('open');
+	});  
+   //$("#shopInfo div[name='brandIds']",wraper).data("brandIds",[]);//
+   //$("#shopInfo div[name='brandIds']",wraper).data("brandIdsArr",{"brand-checkbox-container":[],"model-checkbox-container":[],"vendor":""});
+   var fields = {};
+   //省市区
+   fields['provinceId'] = {
+			urlData:{
+				url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll'
+			},
+			unshiftData: {id:'',name:'请选择'},
+			onchange: function(){
+				var provinceCode = $('#shopInfo div[name=provinceId]').select('val');
+				if(provinceCode==''){
+				$('#shopInfo div[name=areaCodeId]').select({
+															urlData:{url:''},
+															data:[{id:'',name:'请选择'}],
+															val: ''});
+				}else{
+				$('#shopInfo div[name=areaCodeId]').select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+				} 
+				$('#shopInfo div[name=countyId]').select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val: ''});
+			}
+		};
+	fields['areaCodeId'] = {
+		data: [{id:'',name:'请选择'}],
+		onchange: function(){
+			var cityId = $('#shopInfo div[name=areaCodeId]').select('val');
+			if(cityId==''){
+				$('#shopInfo div[name=countyId]').select({
+														urlData:{url:''},
+														data:[{id:'',name:'请选择'}],val: ''});
+			}else{
+				$('#shopInfo div[name=countyId]').select({
+					urlData:{
+						url: '/shopmanage-ws/ws/0.1/userInfoCms/countries?areaCodeId=' + cityId
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+			}
+		}
+	}; 
+	fields['countyId'] = {
+			data: [{id:'',name:'请选择'}]
+		}; 
+   	fields['type'] = {data:[{'id':'0','name':'4S店'},{'id':'1',name:'连锁店'},{'id':'2','name':'专修店'},{'id':'3','name':'汽配城'},{'id':'4','name':'其他'}]};  
+	 
+	$('#startTime-date').datetimepickerBS({
+		format: 'hh:ii', 
+	    autoclose: 1,
+		startView: 1,
+		maxView: 1,
+		pickerPosition:'bottom-left', 
+	    language: "zh-CN",  
+	});
+	$('#endTime-date').datetimepickerBS({
+		format: 'hh:ii', 
+	    autoclose: 1,
+		startView: 1,
+		maxView: 1,
+		pickerPosition:'bottom-left', 
+	    language: "zh-CN",  
+	});  
+	fields['logoId']={
+		grid:4,
+		url :'/vip-ws/ws/0.1/file/upload',
+		/**delFunc: function(item) {
+			item.list.remove(); 
+			//$("input[name='logoId']",wraper).val("");
+		},**/
+		filename:"file",
+		params: {type:"1"},
+		note: '仅支持 JPG图片文件，且建议大小小于20M,宽高不能小于180*135。',
+		/**success: function(data) { 
+			  $("input[name='logoId']",wraper).val(data.large); 
+		},**/
+		validator : [{
+			msg : "请选择要上传的文件",
+			type : "min",
+			value : "1"
+		}],
+		show:true,
+		showLarge:true,
+	    single:true,
+		prev:'large'		
+	};
+	fields['businessIdsFile']={
+		grid:4,
+		url :'/vip-ws/ws/0.1/file/upload', 
+		filename:"file",
+		params: {type:"2"},
+		note: '仅支持 JPG图片文件，且建议大小小于20M,宽高不能小于500*280。',
+		success: function(data) { 
+			   var _pDiv = $("div[name='businessIdsFile']",wraper);
+			   var liArr = $(".pic-show",_pDiv).children("li");
+			   var len = liArr.length;
+			   var $tDiv = $("<div>").css({'clear':'left','width':'141px'});
+			   var $sDiv = $("<div>").addClass("imgType");
+			   $(liArr[len-1]).append($tDiv.append($sDiv));
+			   $(liArr[len-1]).data('large',data.large);
+			   $sDiv.select({
+						   urlData:{
+								url:'/vip-ws/ws/0.1/business/pic/types',
+								id:'picType',
+								name:'picTypeDesc'
+							},
+							unshiftData: {id:'',name:'请选择'}
+					   });
+		},
+		validator : [{
+			msg : "请选择要上传的文件",
+			type : "min",
+			value : "1"
+		}],
+		show:true,
+		showLarge:true,
+	    maxPiece:'50',
+		prev:'large'		
+	};
+	 
+	 
+//验证器
+	var validators = {};
+	validators['name'] = [{
+		msg: "请输入昵称",
+		type: "min",
+		value: "4"
+	}];
+	validators['psd'] = [{
+		msg: "请输入密码",
+		type: "min",
+		value: "1"
+	}];
+	validators['phone'] = [{type: "phoneCN"}];
+	validators['sex'] = [{
+		msg: "请选择性别",
+		type: "min",
+		value: "1"
+	}];
+	 
+	var readonly = {};
+	//readonly['file'] = true;
+	//readonly['details'] = true;
+	$('#shopInfo').form({
+		layout: 'grid',
+		fields: fields,
+		readonly: readonly,
+		validators: validators,
+		autobinding: false,
+		item: shopInfoItem,
+		//赋值
+		preSubmit: function() {},
+		success: function(data) {},
+		//提交成功后回调函数
+		error: function(xhr) {} //提交失败后回调函数
+	});  
+	//商家店内图片
+	var _ul = $("div[name='businessIdsFile']",wraper).find(".pic-show");   
+	var arr = shopInfoItem.businessIds; 
+	$.each(arr,function(i){
+		var $li = $("<li>").addClass("businessPicBoxli");
+		var $div = $("<div>").addClass("large-pic").html('<div class="pic-box"><div class="pic-content"><div class="pic-vc">'
+														+'<img src="'+arr[i].businessId+'">'
+														+'</div></div><span name="large" class="del-btn"></span></div>');
+		 
+	  $li.append($div);
+	  var $tDiv = $("<div>").css({'clear':'left','width':'141px'});
+	  var $sDiv = $("<div>").addClass("imgType"); 
+	  $tDiv.append($sDiv);
+	  $li.append($tDiv);
+	  $sDiv.select({
+					   urlData:{
+							url:'/shopmanage-ws/ws/0.1/shopmanage/pic/types',
+							id:'picType',
+							name:'picTypeDesc'
+						},
+						val:arr[i].picType,
+						unshiftData: {id:'',name:'请选择'} 
+				   });
+	_ul.append($li);
+	$li.data('large',arr[i].businessId).data("businessPicModifyId",arr[i].businessPicModifyId).data("businessPicId",arr[i].businessPicId);
+	}); 
+	$(".businessPicBoxli .del-btn",wraper).click(function(){ 
+		$(this).parents(".businessPicBoxli").remove(); 
+	}); 
+	$("#shopInfo input[name='startTime']").val(shopInfoItem.startTime);
+	$("#shopInfo input[name='endTime']").val(shopInfoItem.endTime); 
+	$('.btn').button(); 
+	$("#saveShopInfo").click(function() { 
+		var json = $('#shopInfo').form('getValue'); 
+		json.brandIds = $("#shopInfo div[name='brandIds']",wraper).data("brandIds");  
+		if($("#brand_check_string").html()=="已选择：全部"){
+			json.vendor = "0";
+		}else{
+			json.vendor = "";
+		}  
+		json.logoId = json.logoId.length>0?json.logoId[0].src:"";
+		json.businessIds =[];
+		var _p = $("div[name='businessIdsFile']",wraper);
+		$.each($(".pic-show",_p).children("li"),function(i){
+		   var item = {};
+		   item.businessId = $(this).data('large');
+		   item.picType = $(this).find(".imgType").select('val')[0]; 
+		   item.businessPicModifyId = $(this).data('businessPicModifyId')?$(this).data('businessPicModifyId'):"";
+		   item.businessPicId = $(this).data('businessPicId')?$(this).data('businessPicId'):"";
+		   json.businessIds.push(item);
+		});   
+		json.shopAccountId = carsmart_config.shopId;
+		json.startTime = $("#shopInfo input[name='startTime']").val();
+		json.endTime = $("#shopInfo input[name='endTime']").val();
+		$.jRadPost({
+					url:'/vip-ws/ws/0.1/business/editBasicInfo',
+					data:json,
+					success:function(data){ 
+						  $.jRadMessage({
+							 level:'success', 
+							 message:'保存成功！' 
+						 }); 
+						 $('#shopInfo',wraper).find("input[name='id']").val(data.id);
+						// $('#shopInfo .jrad-btn-primary',wraper).button('disabled',true);
+						 $("#shopInfo").find("input[name='updateOrAdd']").val('update');
+					},error:function(data){
+						var mes = eval('('+data.responseText+')');
+						 $.jRadMessage({
+							 level:'error', 
+							 message:mes[0].message 
+						 });
+					}
+				}); 
+	});
+	if(shopInfoItem.vendor!="0"){
+	  var brandCheckString = [];
+	  if(shopInfoItem.brandNames!=undefined&&shopInfoItem.brandNames.length > 0){
+		  $.each(shopInfoItem.brandNames,function(i){ 
+			 if(shopInfoItem.brandNames[i].modelName!=undefined&&shopInfoItem.brandNames[i].modelName!=""){
+				$.merge(brandCheckString,shopInfoItem.brandNames[i].modelName.split(",")); 
+			 }else{
+				brandCheckString.push(shopInfoItem.brandNames[i].brandName);
+			 }
+		   }); 
+	   }  
+	   $.unique(brandCheckString);
+	   $("#brand_check_string",wraper).html(brandCheckString.join(","));   
+   }else{
+	   $("#brand_check_string",wraper).html("已选择：全部"); 
+   }   
+function brand(shopInfoItem,wraper){ 
+	console.log("lala33")
+	//服务品牌
+	if(shopInfoItem.vendor!="0"){ 
+	   var brandIdsArr = [];
+	   var modelIdsArr = [];
+	   if(shopInfoItem.brandNames!=undefined&&shopInfoItem.brandNames.length > 0){
+		   $.each(shopInfoItem.brandIds,function(i){
+			   var node = $("#brandsTree").tree('getNodeByParam','id',shopInfoItem.brandIds[i].brandId);  
+			   var pNode = node.getParentNode();
+			   $("#brandsTree").tree('open',pNode,true); 
+			   $("#"+node.tId+"_span").click(); 
+			   if(shopInfoItem.brandIds[i].modelId==""){
+				   var bArr = shopInfoItem.brandIds[i].brandId; 
+				   brandIdsArr.push(bArr); 
+			   }else{
+				   var mArr = shopInfoItem.brandIds[i].modelId.split(","); 
+				   $.merge(modelIdsArr,mArr); 
+			   }
+		   });
+	   }
+	   $("#shopInfo div[name='brandIds']",wraper).data("brandIds",shopInfoItem.brandIds?shopInfoItem.brandIds:[]);  
+	   $("#shopInfo div[name='brandIds']",wraper).data("brandIdsArr",{"brand-checkbox-container":brandIdsArr,"model-checkbox-container":modelIdsArr});  
+   }else{ 
+	   $("#shopInfo div[name='brandIds']",wraper).data("brandIds",[]);//
+	   $("#shopInfo div[name='brandIds']",wraper).data("brandIdsArr",{"brand-checkbox-container":[],"model-checkbox-container":[],"vendor":"全部"});
+   }  
+   BrandFlag = false;
+}
+function setBrandTree(){ 
+		var json =$.jRadGet({
+			 url : "/shopmanage-ws/ws/0.1/support/brand/list",
+			 async:false
+		}); 
+		var treeData = [];
+		var num = 0;
+		$.each(json,function(name,value){
+		    num++;
+			var id = "p"+num;
+		    var parent = {"pId":-1,"name":name,"id":id,children:value}; 
+			treeData.push(parent); 
+		});  
+		var optionsSimple = {
+		    urlData:{},
+		    setting:{
+		        view: {
+		            showIcon: false
+		        },
+		        data: {
+		            simpleData: {
+		                enable: true
+		            }
+		        },
+		        callback: {
+		            onClick: zTreeOnClick
+		        }
+		    },
+		    data:treeData
+		}; 
+		return optionsSimple;
+}
+function zTreeOnClick(event, treeId, treeNode) {
+    var obj;
+	if ($.browser.msie && $.browser.version > 6 ){
+	  obj = $(event.srcElement);
+	}else{ 
+	  obj = $(event.target);
+	}
+    var _li = obj.parent().parent("li");	 
+	if(_li.find(".jrad-checkbox-container").length>0){
+	   return;
+	}else{
+		var json =$.jRadGet({
+				 url : "/shopmanage-ws/ws/0.1/support/model/list?brandId="+treeNode.id,
+				 async:false
+			}); 
+	   var str = '<div class="jrad-checkbox-container brand-checkbox-container"  name="model-checkbox-container" data-brandid='+treeNode.id+' style="display:block;white-space:normal;margin-left:22px;"></div>'; 
+	   if(json.length==0){
+	        json = [{"id":treeNode.id,"name":treeNode.name}];
+			str = '<div class="jrad-checkbox-container brand-checkbox-container" name="brand-checkbox-container" data-brandid='+treeNode.id+' style="display:block;white-space:normal;margin-left:22px;"></div>'; 
+	   }
+	   
+	   _li.append(str);  
+	   $(".brand-checkbox-container",_li).each(function(){
+			$(this).checkbox({ 
+				data:json,
+				selectAll:true
+			});
+			 
+	   });
+   }  
+}
+});
+</script>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>选择车辆信息</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<script src="./js/commen.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<style>
+		div.addText{
+			color: #a2a2a2;
+			font-size: 1.6rem;
+			text-align: center;
+			margin-top: 5.7rem;
+		}
+		div.addCarBtn{
+			background-color: #f55d5d;
+			color: #fff;
+			font-size: 1.8rem;
+			width: 68.75%;
+			margin: 5.7rem auto;
+			text-align: center;
+			line-height: 4.4rem;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<div class="addText">您还没有车辆信息，请添加车辆信息！</div>
+		<div class="addCarBtn"><span class="plus">+</span> 添加车辆信息</div>
+	</section>
+</body>
+<script type="text/javascript">
+	// 获取参数
+	var url = window.location.search; 
+    var paramJson = {};
+    if(url!=''){
+    	var paramsArr = (url.split("?")[1]).split("&");
+    	paramsArr.forEach(function(key,i){
+    		var item = paramsArr[i].split("=");
+	        paramJson[item[0]] = item[1]
+    	})
+    }
+    if(paramJson.companyNo){
+    	store.clear();
+		store.set('customerId', paramJson.customerId);
+		store.set('userInfoId',paramJson.userInfoId);
+		store.set('companyNo', paramJson.companyNo);
+		store.set('lon', paramJson.lon);
+		store.set('lat', paramJson.lat);
+		store.set('areaName', decodeURI(decodeURI(paramJson.areaName)));
+		store.set('bizType', paramJson.bizType);
+		store.set('cityLevel', paramJson.cityLevel);
+		if(paramJson.serviceId){
+			store.set('serviceId', paramJson.serviceId);
+		}
+		if(paramJson.carInfoId){
+			store.set('carInfoId', paramJson.carInfoId);
+			store.set('modelId', paramJson.modelId);
+			store.set('modelName', decodeURI(decodeURI(paramJson.modelName)));
+		}
+    }
+    
+	// store.get('userInfoId');
+	// store.remove('username');
+	// store.clear();
+	// store.set('user', { name: 'marcus', likes: 'javascript' });
+	// var user = store.get('user');
+	// alert(user.name + ' likes ' + user.likes);
+	// // Get all stored values
+	// store.getAll().user.name == 'marcus';
+	// // Loop over all stored values
+	// store.forEach(function(key, val) {
+	//     console.log(key, '==', val)
+	// });
+	$(function(){
+		$('div.addCarBtn').on('click',function(){
+			window.location.href = "brand.html"
+		});
+		// $.ajax({
+		// 	url:'/yangchebao-app-ws/ws/0.1/user/carinfo/maincar?userId='+paramJson.userInfoId+'&'+new Date().getTime(),
+		// 	type:'get',
+		// 	async:false,
+		// 	dataType:'json',
+		// 	contentType:'application/json;charset=utf-8',
+		// 	success:function(data){
+		// 		console.log(data.carInfoId)
+		// 	}
+		// })
+	})
+</script>
+</html>

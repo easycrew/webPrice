@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<title>中奖失败</title>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script>
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<style>
+/* 公共css */
+html {
+	font-size: 62.5%;
+}
+body {
+	font-family:'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	line-height: normal;
+	margin: 0 auto;
+	background-color: #2fa73b;
+}
+a {
+	text-decoration: none;
+}
+ul {
+	list-style: none;
+}
+li{ list-style-type:none;}
+img {
+	border: none;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.clearfix {
+ *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+.clearfix:after {
+	clear: both;
+}
+section,article{
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+article img{
+	width: 100%;
+	display: block;
+}
+.regret-img{
+	 position: relative;
+}
+.regret-text{
+	position:absolute;
+	width: 80%;
+	bottom:16%;
+	left: 11%;
+	text-align: center;
+	font-size: 1.8rem;
+	color: #fff;
+	transform: skew(-30deg);
+	font-weight: bold;
+} 
+.regret-text p{
+	margin-top: 5px;
+
+}
+/*失败按钮*/
+.fail-img{
+	position: relative;
+	z-index: 10;
+}
+.fail-from{
+	width: 100%;
+	position: absolute;
+	top: 26px;
+	z-index: 100;
+	display: block;
+
+}
+.fail-from  p{
+	width: 80%;
+	margin: 15px auto;
+}
+ .draw{
+	width: 50%;
+	background-color: #f6e833;
+	height: 42px;
+	line-height: 42px;
+	text-align: center;
+	border-radius: 5px;
+	display: block;
+	margin: 0 auto;
+	font-size: 1.4rem;
+}
+</style>
+</head>
+<body>
+<section>
+	<article><img src="images/yh_001.jpg"/></article>
+	<article>
+	<div  class="regret-img">
+		<img src="images/yh_02.jpg"/>
+	</div>
+	<div  class="regret-text">
+		<p>真遗憾！</p>
+		<p>换个姿势   再摇一次吧</p>
+	</div>
+	</article>
+	<article>
+	<div class="fail-img">
+		<img src="images/yh_03.jpg" />
+	</div>
+	<div class="fail-from">
+		<p><span class="draw" onclick="javascript:history.go(-1);">再摇一次</span></p>
+	</div>
+	</article>
+</section>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/share.js"></script>
+<script>
+$(function(){
+	/*$('.draw').unbind('click').bind('click',function(){
+		window.location.href="index.html";
+	})*/
+})
+</script>
+</body>
+</html>

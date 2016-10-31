@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>  
+<script type="text/javascript" src="js/index.js"></script>  
+<title>问题详情</title>
+<body> 
+	<section class="feedback-wrap"> 
+		<div class="feedback-list">
+			<div class="question">
+				<p class="info wrap" id="remarks"></p>
+				<p class="time" id="createDate"></p>
+			</div> 
+			<div class="reply-wrap" style="display:none;">
+				<h3><span class="time" id="replyTime"></span>官方回复：</h3>
+				<p id="replyContent" class="wrap"></p>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript"> 
+		$(document).ready(function(){ 
+	    	function readFeedback(id){ 
+	    		$.ajax({
+						url: '/vip-app-ws/ws/0.1/feedback/readReply?feedBackRelpyId='+id,
+						contentType : "application/json;charset=utf-8",
+						dataType : "json",
+						type : "POST", 
+						async : false,
+						success: function(data) {  
+						},
+						error:function(xhr){     
+						}
+					}); 
+	    	}
+	    	function getFeedBackDetail(id){   
+				$.ajax({
+					url: '/vip-app-ws/ws/0.1/feedback/detailFeedBackAndReply?feedBackId='+id,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {   
+					  $("#remarks").html(data.remarks);
+					  $("#createDate").html(data.createDate); 
+					  if(data.feedBackReplyId!=undefined&&data.feedBackRelpyId!=""){ 
+						  $("#replyTime").html(data.replyTime);
+						  $("#replyContent").html(data.replyContent);
+						  $(".reply-wrap").show();
+						  if(data.isRead!='1'){
+							  readFeedback(data.feedBackReplyId);
+							}
+						}
+					},
+					error:function(xhr){
+						alertRe("获取数据失败");
+					}
+				}); 
+		 	}  
+		    index.init = function(userInfo,bridge) {
+			    var feedBackId = (window.location.href.split("?")[1]).split("=")[1];  
+			 	getFeedBackDetail(feedBackId);
+			 	return "0";
+			 }
+		});  
+ 
+	</script>  
+</body>
+
+</html>
+

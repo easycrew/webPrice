@@ -1,0 +1,372 @@
+<div class="urlContentWraper" id="Wraper_client_upgrade">
+<div class="ui-info-layout">
+<div class="ui-info-layout-subbox "> 
+	<div class="jrad-table">
+		<h2 class="ui-tit"><strong>升级管理列表</strong><bottom class="all-work-info numb133">页面说明</bottom></h2>
+		<!-- 列表显示 -->
+		<div class="pic-grid">
+			<table id="Table_client_upgrade"></table>
+		</div>
+	</div> 
+	<div class="details-box" style="display:none;">
+			<ul class="details-tab">
+				<li class="tab-cur tab-cur-first f-left"><span name="title">升级信息</span></li>
+				<li><span class="return"></span></li>
+			</ul>
+			<div class="details-content">
+				<div class="details-scroll">
+					<div class="details-content-inner">
+						<div class="grid-layout ui-form" id="upGradeInfo">
+							<div class="jrad-form">  
+								<div class="grid-layout-main">
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">客户端</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="upgradeType" class="jrad-select-container"></div>
+															</div>
+									</div> 
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">平台</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="osInfoType" class="jrad-select-container"></div>
+															</div>
+									</div>
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">版本号</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="version" class="jrad-input-container"></div>
+															</div>
+									</div>  
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">强制升级</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="isForce" class="jrad-select-container"></div>
+															</div>
+									</div>  
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">状态</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="status" class="jrad-select-container"></div>
+															</div>
+									</div>  
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">升级提示</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="remarks" class="jrad-textarea-container"></div>
+															</div>
+									</div>
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">下载包地址</label>
+										 <div class="span5 grid-layout-content">
+											   <div name="downloadLink" class="jrad-input-container"></div>
+															</div>
+									</div>  
+									<div class="row-fluid">
+										 <label class="span3 grid-layout-label">升级渠道</label>
+										 <div class="span5 grid-layout-content">
+											  <div class="jrad-buttons-container">
+												   <span class="jrad-primary" name="download_check_btn"> 
+													点击添加升级渠道 
+												   </span>
+												</div>
+												<p id="download_check_string" style="margin:10px 0;"></p>
+										</div>
+									</div>  
+									<input type="hidden" name="channelCodes">
+									<input type="hidden" name="id">
+								</div> 
+							</div>
+							<div class="jrad-buttons-container ui-buttons-container">
+								<span class="jrad-btn-primary">确定</span> 
+								<span class="jrad-btn-normal">取消</span>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+     </div>
+</div>
+</div>
+
+<!--添加升级渠道-->
+<div id="Form_client_download" style="display:none;">
+	<div class="grid-layout-main jrad-form">
+		<div class="row-fluid">
+		 <div class="jrad-checkbox-container" name="channels">
+		 </div>
+		</div>
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+</div>
+
+<div id="Form_explain_eg133" style="display:none;">
+    <div class="grid-layout-main jrad-form"> 
+        <div class="row">
+            <label class="span3 grid-layout-label">业务说明：</label>
+            <div class="span12 grid-layout-content">
+                <div><strong>功能简介：</strong>用户APP、商家APP、车机，需要升级时，都是在这里设置的，设置成功后，用户打开对应的客户端，会提示用户升级。</div>
+                <div><strong>重要功能说明：</strong>创建：客户端：选择需要升级的客户端；
+                平台：选择需要升级的平台；
+                版本号：需要升级到的版本号，如最新版本为1.3.0，这里就填写1.3.0，所有低于这个版本的客户端都会提示升级；
+                强制升级：选择“是”后，用户必须升级，否则关闭窗口后，APP也会同时关闭；
+                状态：只有有效时，才会提示升级；
+                升级提示：升级提示框里面显示的内容；
+                下载包地址：安卓的下载地址可以写成http://d.yangchebao.com.cn，前提是应用宝审核通过，否则你把包在官网管理->下载管理，先上传下，获得下载地址，填入那个地址即可。苹果的下载地址可以登陆苹果商城查看，一般地址不会变动，所以复制前面版本的地址即可；
+                 升级渠道：选择官网升级即可。</div>
+                <div><strong>注意事项：</strong>无。</div>
+            </div> 
+        </div> 
+        <div class="row">
+            <label class="span3 grid-layout-label">备注：</label>
+            <div class="span12 grid-layout-content">
+                <div class="jrad-textarea-container" name="remark">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="jrad-buttons-container ui-buttons-container"> 
+        <span class="jrad-btn-primary">确定</span> 
+        <span class="jrad-btn-normal">取消</span>
+    </div>
+</div>
+
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_client_upgrade');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+    var datasources = {};
+    datasources['upgradeType']=[{"id":"","name":"全部"},{"id":"0","name":"用户客户端"},{"id":"1","name":"商家客户端"},{id:'2',name:'车机客户端'}];
+	datasources['osInfoType'] = [{"id":"1","name":"IOS"},{"id":"2","name":"IOS越狱版"},{"id":"3","name":"Andriod"},{"id":"4","name":"Windows Phone"},{"id":"9","name":"车机Android"}]; 
+    datasources['osInfoType'].unshift({"id":"",name:"全部"}); 
+    page_column_model.push({display: '版本号', name : 'version',width:80});
+    page_column_model.push({display: '客户端', name : 'upgradeTypeDesc',width:80});
+    page_column_model.push({display: '平台', name : 'osInfoType',width:350,datasource:[{"id":"1","name":"IOS"},{"id":"2","name":"IOS越狱版"},{"id":"3","name":"Andriod"},{"id":"4","name":"Windows Phone"},{"id":"9","name":"车机Android"}]});
+    page_column_model.push({display: '渠道名称', name : 'names'});
+	page_column_model.push({display: '是否强制', name : 'isForceName',width:150});
+	page_column_model.push({display: '状态', name : 'statusName',width:80});
+    
+    page_search_items.push({row:'1',type:'jrad-select',display:'客户端',name:'upgradeType',params:{
+    	data:datasources['upgradeType']
+    }});
+	page_search_items.push({row:'1',type:'jrad-select',display:'平台',name:'osInfoType',params:{
+	  data:datasources['osInfoType']
+	}});
+    page_search_items.push({row:'2',type:'jrad-input',display:'版本号',name:'version'});
+    page_search_items.push({row:'2',type:'jrad-input',display:'渠道名称',name:'name'}); 
+	 
+	var fields_params = {};
+	fields_params['upgradeType'] = {data:[{"id":"0","name":"用户客户端"},{"id":"1","name":"商家客户端"},{id:'2',name:'车机客户端'}]};
+	fields_params['osInfoType'] = {data:[{"id":"1","name":"IOS"},{"id":"2","name":"IOS越狱版"},{"id":"3","name":"Andriod"},{"id":"4","name":"Windows Phone"},{"id":"9","name":"车机Android"}]};
+	fields_params['isForce'] = {data:[{"id":"0","name":"否"},{"id":"1","name":"是"}]}; 
+	fields_params['status'] = {data:[{"id":"0","name":"无效"},{"id":"1","name":"有效"}]};
+	fields_params['remarks'] = {grid: 14};
+	fields_params['downloadLink'] = {grid: 14};  
+	$("#upGradeInfo span[name='download_check_btn']",wraper).button({
+			click : function() {
+				 var check_params = {}; 
+				 var channels = $.jRadGetDataSources('/shopmanage-ws/ws/0.1/tcUpgrade/channelsAll','code','name'); 
+				 check_params['channels'] = {data:channels}; 
+				 $("#Form_client_download",wraper).form({
+					title:'选择渠道',
+					fields_params:check_params,
+					submit:function(){ 
+					    var json = $("#Form_client_download",wraper).form('getValue');
+						var array = $("#Form_client_download div[name='channels']").checkbox('text');
+						var str = [];
+						$.each(array,function(i){ 
+							str.push(array[i].name);
+						});
+						$("#download_check_string",wraper).html(str.join(" , "));
+						$("input[name='channelCodes']",wraper).val(json.channels);
+						$("#Form_client_download",wraper).form('close');
+					}
+				 }).form('open'); 
+				 var channelCodes = $("#upGradeInfo input[name='channelCodes']").val();
+				 if(channelCodes!=""){
+					$("#Form_client_download div[name='channels']").checkbox('val',channelCodes.split(","));
+				 }
+			}
+		});   
+	$('#upGradeInfo',wraper).form({
+				//validators: jRad.validators,
+				fields_params:fields_params,
+				layout: 'grid', 
+				autobinding: false
+			 }); 
+	$('#upGradeInfo .jrad-btn-normal',wraper).button({
+		click: function(){
+			$('.details-box',wraper).slideUp();
+			$('.jrad-table',wraper).slideDown(); 
+			$(".scroll-up-btn").click();
+		}
+	});  
+	$('#upGradeInfo .jrad-btn-primary',wraper).button({
+		click: function(){
+			var json = $('#upGradeInfo',wraper).form('getValue');  
+			if($(".details-box .details-tab",wraper).find("span[name='title']").html()=="升级添加"){
+			$.jRadPost({
+				    	url:'/shopmanage-ws/ws/0.1/tcUpgrade/addTcUpgrade',
+				    	data:json,
+				    	success:function(){
+				    		$('.details-box',wraper).slideUp();
+							$('.jrad-table',wraper).slideDown();  
+							$(".scroll-up-btn").click();
+							$('#Table_client_upgrade').flexMessage('创建成功', 'success');
+							$('#Table_client_upgrade').flexReload();
+				    	},error:function(data){
+				    		var mes = eval('('+data.responseText+')');
+				    		 $.jRadMessage({
+				    			 level:'error', 
+			    				 message:mes[0].message 
+				    		 });
+				    	}
+				    });
+		 }else{
+			$.jRadPost({
+				    	url:'/shopmanage-ws/ws/0.1/tcUpgrade/editTcUpgrade',
+				    	data:json,
+				    	success:function(){
+				    		$('.details-box',wraper).slideUp();
+							$('.jrad-table',wraper).slideDown();  
+							$(".scroll-up-btn").click();
+							$('#Table_client_upgrade').flexMessage('修改成功', 'success');
+							$('#Table_client_upgrade').flexReload();
+				    	},error:function(data){
+				    		var mes = eval('('+data.responseText+')');
+				    		 $.jRadMessage({
+				    			 level:'error', 
+			    				 message:mes[0].message 
+				    		 });
+				    	}
+				    });
+		 }
+		}	 
+	}); 
+	
+	page_list_buttons.push({name:'Add',bclass: 'add',onpress : function(){   
+			 $('#upGradeInfo',wraper).form({item:{}}); 
+			 $(".details-box .details-tab",wraper).find("span[name='title']").html("升级添加");
+			 $('.jrad-table',wraper).slideUp();
+			 $('.details-box',wraper).slideDown();
+			 $(".scroll-up-btn").click();
+			 $("#download_check_string",wraper).html("");			 
+			 
+		}
+	});
+	
+	page_list_buttons.push({name:'Edit',bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_client_upgrade').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){ 
+			$(".details-box .details-tab",wraper).find("span[name='title']").html("升级编辑");
+	    	var checked = $('#Table_client_upgrade').getCheckedTrs();
+			var json = $.jRadGet({
+			 url : '/shopmanage-ws/ws/0.1/tcUpgrade/getTcUpgradeDetail?tcUpgradeId='+checked[0].tcUpgradeId,
+			 async:false
+			});
+			json.id = checked[0].tcUpgradeId;
+			 $('#upGradeInfo',wraper).form({item:json}); 
+			 $('.jrad-table',wraper).slideUp();
+			 $('.details-box',wraper).slideDown();
+			 $(".scroll-up-btn").click();   
+			 $("#download_check_string",wraper).html((checked[0].names==undefined||checked[0].names=="")?checked[0].names:""); 
+		}
+	}); 
+	page_list_buttons.push({name:'delete',bclass: 'delete',prefunc:function(){
+            var checked = $('#Table_client_upgrade').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_client_upgrade').getCheckedTrs();
+			$.jRadConfirm('确认删除吗？',1,function(){
+				var id =  checked[0].tcUpgradeId; 
+				$.jRadAjax({
+				    type:'post',
+					url:'/shopmanage-ws/ws/0.1/tcUpgrade/deleteTcUpgrades?tcUpgradeId='+id, 
+					success: function(){
+						$('#Table_client_upgrade').flexMessage('删除成功!', 'success');
+           	    		$('#Table_client_upgrade').flexReload();
+					},
+					error:function(xhr){
+					    var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined) {
+							$('#Table_client_upgrade').flexMessage(errormsg[0].message, 'error');
+						}
+					}
+				});
+			});
+		}
+	});
+	
+    page_list_buttons.push({separator: true});  
+    $('#Table_client_upgrade').flexigrid({
+		reload:true, 
+		method:'get',
+		colModel : page_column_model,
+		buttons : page_list_buttons,
+		searchitems :page_search_items,
+		showSearch:true,
+		pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+		url:'/shopmanage-ws/ws/0.1/tcUpgrade/queryTcUpgrades',
+		onError:showInformError,
+		checkBoxType:'single'
+	}); 
+	$(".details-tab .return",wraper).click(function(){
+		$('.details-box',wraper).slideUp();
+		$('.jrad-table',wraper).slideDown(); 
+		$(".scroll-up-btn").click();
+	});
+	
+    $(".numb133").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg133").form({}).form('close');
+        $("#Form_explain_eg133").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg133 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg133").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg133").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg133 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	 
+});
+function showInformError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_client_upgrade .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+
+</script>

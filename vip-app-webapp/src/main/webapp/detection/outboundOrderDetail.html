@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+		<link type="text/css" href="../css/base.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="css/detection.css" />
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script> 
+		<script type="text/javascript" src="../js/index.js"></script>
+		<title>出库单详情</title>
+		<style>
+			body{
+				font-size: 62.5%;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="shopTitle"><span></span>车辆信息</div>
+		<section class="list-wrap">
+			<div class="list-head oBO-item">
+				<div class="oBO-head oBO-l">配件名称</div><div class="oBO-head oBO-r">配件数量</div>
+			</div>
+			
+		</section>
+		<div class="button-wrap" style="display: none;"><div id="sure" class="button">确认出库</div></div>
+		<script type="text/javascript">
+		$(function(){
+			var userInfo={};
+			var path=getPath();
+			var response="0";
+			var bridge;
+			var url = window.location.search;
+			var paramJson = {};
+			if (url != undefined && url != "") {
+				var paramsArr = (url.split("?")[1]).split("&");
+				$.each(paramsArr, function(i) {
+					var item = paramsArr[i].split("=");
+					paramJson[item[0]] = item[1];
+				});
+			}
+			var transferOrderId=paramJson.transferOrderId;
+			paramJson.plateNumber=decodeURI(paramJson.plateNumber);
+			var plateNumber=paramJson.plateNumber;
+			$(".shopTitle span").html(plateNumber);
+			function turnPage(){
+				if(bIsAndroid()){
+					window.mallTitle.popToRootVC('1');  
+				}else{
+					bridge.callHandler('popToRootVC',{'isPopToRootVC':'1'});
+				}
+			}
+			function detail(transferOrderId){
+				$.ajax({
+					type:"get",
+					url:"/vip-app-ws/ws/0.1/deliveryOrder/detail",
+					async:false,
+					data:{transferOrderId:transferOrderId},
+					dataType:'json',
+					success:function(data){
+						if(data.orderStatus==3){
+							$(".button-wrap").show();
+						}
+						var str='';
+						var listWrap=$(".list-wrap");
+						$.each(data.commodities, function(i) {
+							str+='<div class="oBO-item">'+
+									'<div class="oBO-label oBO-l">'+this.commodityName+'</div>'+
+									'<div class="oBO-con oBO-r">'+this.amount+'</div>'+
+								'</div>'
+							listWrap.append(str);
+						});
+					},
+					error:function(xhr){
+						var error=eval('('+xhr.responseText+')');
+						alertTasatF(error[0].message,turnPage);
+					}
+				});	
+			}
+			/*出库*/
+			function delivery(){
+				$.ajax({
+					type:"post",
+					url:"/vip-app-ws/ws/0.1/deliveryOrder/delivery",
+					async:false,
+					data:JSON.stringify({transferOrderId:transferOrderId,operator:userInfo.userId}),
+					dataType:'json',
+			  		contentType: "application/json; charset=utf-8",
+					success:function(data){
+						alertTasatF('出库成功',turnPage);
+					},
+					error:function(xhr){
+						var error=eval('('+xhr.responseText+')');
+						alertTasatF(error[0].message,turnPage);
+					}
+				});
+				
+			}
+			/*检验单子状态*/
+			function checkStatus(){
+				$.ajax({
+					type:"get",
+					url:"/vip-app-ws/ws/0.1/deliveryOrder/checkStatus",/*状态校验接口*/
+					async:false,
+					data:{transferOrderId:transferOrderId},
+					dataType:'json',
+					success:function(data){
+						delivery();
+					},
+					error:function(xhr){
+						var error=eval('('+xhr.responseText+')');
+						alertTasatF(error[0].message,turnPage);
+					}
+				});
+			}
+			index.init=function(userInfo_,bridge_){
+				userInfo=userInfo_;
+				bridge=bridge_;
+				detail(transferOrderId);
+				$("body").on('click','.button-wrap',function(){
+					confirmRe('确定要出库吗？',checkStatus);
+				})
+				return 0;
+			}
+		})
+		</script>
+	</body>
+</html>

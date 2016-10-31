@@ -1,0 +1,130 @@
+﻿ 
+ .label{
+  float:left;
+  height:30px;
+  line-height:30px;
+  text-align:right;
+  width:80px;
+ }
+ .condition-ul{
+  margin: 20px;
+  height: auto;
+  overflow:auto;
+ }
+  .condition-ul li{ 
+   float:left;
+   margin-right:40px;
+  }
+  .text-board{
+    width:150px;
+	height:25px;
+	border:1px solid #d2d7dc;
+	background-color:#fff;
+  }
+  .content_operation .list-title{
+	height: 25px; 
+    float: left; 
+	text-align: center;
+	line-height: 24px;
+	margin-top: 3px; 
+	padding:0  10px;
+	color:#fff;
+	
+} 
+  .content_operation .list-title img{
+    margin:5px 10px 0 0;
+    float:left;
+  }
+  .content_operation .list-title span{
+   float:left;
+   font-weight:bold;
+   padding:5px;
+  }
+  .add-button{
+	   width:60px;
+	   height:20px;
+	   background-color:#fff;
+	   color:#2f2f2f; 
+	   line-height:20px;
+	   text-align:center;
+	   margin:5px 10px 0 0;
+	   cursor:pointer;
+  }
+  .orderSelect{
+   width:15px;
+   height:33px;
+   float:right;
+   background:url(../images/order-select.png) no-repeat;
+   cursor:pointer;
+  }
+  .separate_seprate td span{
+     height:33px;
+	 line-height:33px;
+	 display:inline-block;
+	 cursor:pointer;
+  }
+  .orderUl{ 
+	background-color:#fff;
+	height:auto;
+	overflow:auto;
+	border:1px solid #ccc;
+	z-index:100;
+  }
+  .orderUl li{
+    float:right;
+	height:30px;
+	line-height:30px;
+	margin:0 5px;
+    cursor:pointer;
+  } 
+  .orderUl .unBing{
+    color:#ccc;
+  }
+.orderUl .unBing-stop{
+    color:#ccc;
+  }  
+  .bingOver .bing{
+    color:#ccc;
+  }
+   .bingOver .unBing{
+    color:#000;
+  }
+  .bingOver .unBing-stop{
+    color:#000;
+  }
+  .unAbleBingFence  .bingFence{
+   color:#ccc;
+  }
+  .unAbleBingFence  .unBingFence{
+   color:#ccc;
+  }
+   .dialogUl{
+     padding:10px; 
+  }
+  .dialogUl li{ 
+	float:left;
+	height:auto;
+	overflow:auto;
+	margin:5px;
+  }
+  .dialogUl li span{
+    float:left;
+  }
+  .dialogUl li input{
+    float:left;
+  }
+  .grey{
+ color:#ccc;
+}
+.disAble .unBing{
+  color:#ccc;
+}
+.disAble .unBing-stop{
+  color:#ccc;
+}
+.unAbleBingFence .bingFence{
+   color:#ccc;
+}
+.unAbleBingFence .unBingFence{
+  color:#ccc;
+}

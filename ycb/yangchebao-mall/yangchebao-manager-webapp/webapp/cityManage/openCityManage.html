@@ -1,0 +1,223 @@
+<div class="urlContentWraper" id="Wraper_opencity_manager">   
+	<div class="jrad-tree" id="brandsTree"></div>  
+	<span class="jrad-btn-primary">确定</span>  
+</div>
+<div class="urlContentWraper" id="jrad-dialog-popup">
+	<div class="ui-info-layout">
+		<div class="ui-info-layout-subbox ui-form">
+			<div class="jrad-buttons-container">
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript"> 
+$(document).ready(function(){
+	var wraper=$("#Wraper_opencity_manager"); 
+	var _tree=$("#brandsTree",wraper); 
+	var arrInit;
+	var alertFlag=0;
+	var _alertFlag=0;
+	function getZtree(){ 
+		var obj = $(".jrad-tree",wraper).tree('getTreeObj');
+		return obj;
+	}  
+	$(".jrad-btn-primary",wraper).button({
+		click : function(){
+			var arr = getZtree().getCheckedNodes(true);
+			var alertStr='';
+			var _alertStr='';
+            jsonObject={};
+			var jsonArray=[];//json数组
+			var municipalitiesArr=[];//勾选的同一省份下的城市数组
+			var eveAddress={};//勾选的省份和城市数据json
+			//筛选出关闭的城市
+			$.each(arrInit, function(name,value) {
+				_alertFlag=0;
+				if(value.children==undefined){
+					var _Id=value.id;
+					$.each(arr, function(name,value) {
+						if(value.children==undefined && value.id==_Id){
+							_alertFlag=1;
+						}
+					});
+					if(_alertFlag==0){
+						_alertStr+=' '+value.name;
+					}
+				}
+			});
+			//筛选出开通的城市
+			$.each(arr,function(name,value){
+				alertFlag=0;
+				if(value.children==undefined){
+					var Id=value.id;
+					$.each(arrInit, function(name,value) {
+						if(value.children==undefined && value.id==Id){
+							alertFlag=1
+						}
+					});
+					if(alertFlag==0){
+						alertStr+=' '+value.name;
+					}
+				}
+				//拼接json数据
+				 if(value.children!=undefined){
+				 	eveAddress={};
+				 	eveAddress.provinceId=value.id;
+				 	municipalitiesArr=[];
+				 	jsonArray.push(eveAddress);
+				 }else{
+					var areaCodeId={};//勾选的单个城市
+				 	areaCodeId.areaCodeId=value.id;
+				 	municipalitiesArr.push(areaCodeId); 
+				 	eveAddress.municipalities=municipalitiesArr;
+				 }
+			});
+			jsonObject.jsonArray=jsonArray;
+			jsonObject.operator=carsmart_config.operatorName;
+			if(alertStr==''&&_alertStr==''){
+				$.jRadPost({
+					url:"/ycbmall-manager-ws/ws/0.1/CityInfoCms/addMunicipalities",
+					data:jsonObject,
+					success:function(){
+						$.jRadMessage({
+							level: 'success',
+							message: '编辑成功！',
+							selector: $('div#Wraper_opencity_manager')
+						})
+					},
+					error: function(data) {
+						var mes = eval('(' + data.responseText + ')');
+						$.jRadMessage({
+							level: 'error',
+							message: mes[0].message,
+							selector: $('div#Wraper_opencity_manager')
+						});
+					}
+				});
+			arrInit = getZtree().getCheckedNodes(true);
+			}else{
+				if(_alertStr==''){
+					$.jRadConfirm("是否要开通：<br>"+alertStr, 'success',
+					function(){//点击确定执行函数
+						$.jRadPost({
+							url:"/ycbmall-manager-ws/ws/0.1/CityInfoCms/addMunicipalities",
+							data:jsonObject,
+							success:function(){
+								$.jRadMessage({
+									level: 'success',
+									message: '编辑成功！',
+									selector: $('div#Wraper_opencity_manager')
+								})
+							},
+							error: function(data) {
+								var mes = eval('(' + data.responseText + ')');
+								$.jRadMessage({
+									level: 'error',
+									message: mes[0].message,
+									selector: $('div#Wraper_opencity_manager')
+								});
+							}
+						});
+						arrInit = getZtree().getCheckedNodes(true);
+					},
+					function(){//点击取消执行函数
+						initCityInfo();
+					});
+				}
+				if(alertStr==''){
+					$.jRadConfirm("是否要关闭：<br>"+_alertStr, 'success',
+					function(){//点击确定执行函数
+						$.jRadPost({
+							url:"/ycbmall-manager-ws/ws/0.1/CityInfoCms/addMunicipalities",
+							data:jsonObject,
+							success:function(){
+								$.jRadMessage({
+									level: 'success',
+									message: '编辑成功！',
+									selector: $('div#Wraper_opencity_manager')
+								})
+							},
+							error: function(data) {
+								var mes = eval('(' + data.responseText + ')');
+								$.jRadMessage({
+									level: 'error',
+									message: mes[0].message,
+									selector: $('div#Wraper_opencity_manager')
+								});
+							}
+						});
+						arrInit = getZtree().getCheckedNodes(true);
+					},
+					function(){//点击取消执行函数
+						initCityInfo();
+					});
+				}
+				if(alertStr!='' && _alertStr!=''){
+					$.jRadConfirm("是否要开通：<br>"+alertStr+'<br>是否要关闭：<br>'+_alertStr, 'success',
+					function(){//点击确定执行函数
+						$.jRadPost({
+							url:"/ycbmall-manager-ws/ws/0.1/CityInfoCms/addMunicipalities",
+							data:jsonObject,
+							success:function(){
+								$.jRadMessage({
+									level: 'success',
+									message: '编辑成功！',
+									selector: $('div#Wraper_opencity_manager')
+								})
+							},
+							error: function(data) {
+								var mes = eval('(' + data.responseText + ')');
+								$.jRadMessage({
+									level: 'error',
+									message: mes[0].message,
+									selector: $('div#Wraper_opencity_manager')
+								});
+							}
+						});
+						arrInit = getZtree().getCheckedNodes(true);
+					},
+					function(){
+						initCityInfo();
+					});					
+				}
+			}
+		
+		}
+	}); 
+	function initCityInfo(wraper){
+	var areaArr = [];
+	function initAdsInfo(wraper){  
+	   var treeOption = setProvinceTree(wraper);  
+	   _tree.tree(treeOption);
+	   var jsonObject= $.jRadGet({url:'/ycbmall-manager-ws/ws/0.1/CityInfoCms/queryCheckedMunicipality'}) 
+		if(jsonObject.length>0){  
+			$.each(jsonObject,function(i,json){    
+				var node = _tree.tree('getNodeByParam','id',json.provinceId); 
+				_tree.tree('open',node,true); 
+				$.merge(areaArr,json.areaCodeIds.split(","));
+			});  
+		}	  
+	}
+	initAdsInfo();  
+    setTimeout(function(){
+		var treeObj = getZtree();		
+		$.each(areaArr,function(j){ 
+			var areaId = areaArr[j];  
+			var areaFilter = function(node2){  
+				return (node2.level == 1 && node2.id == areaId); 
+			}   
+			var areaNodes = treeObj.getNodesByFilter(areaFilter);  
+			if(areaNodes.length>0){
+				$.each(areaNodes,function(){
+					treeObj.checkNode(this, true, true);
+				}); 
+			}
+		}); 
+		arrInit = getZtree().getCheckedNodes(true); 
+	},400);	
+}
+	initCityInfo();
+});
+ 	 
+
+</script>

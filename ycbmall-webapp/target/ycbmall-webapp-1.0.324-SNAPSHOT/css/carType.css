@@ -1,0 +1,188 @@
+@charset 'utf-8';
+div.hotCarType{
+	margin-top: 40px;
+}
+div.hotCarType_title,div.allCarType_title{
+	border-bottom: 1px solid #FD6244;
+}
+div.hotCarType_title h2{
+	margin: 0 0 5px 10px;
+	font-size: 18px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.hotCarType_con{
+	margin-top: 35px;
+}
+div.hotCarType_con ul{
+	overflow: hidden;
+}
+div.hotCarType_con ul li{
+	float: left;
+	width: 120px;
+	text-align: center;
+}
+div.hotCarType_con ul li p.hotCarType_conImg{
+	height: 90px;
+	line-height: 90px;
+}
+div.hotCarType_con ul li p.hotCarType_conText{
+	padding-top: 12px;
+}
+div.hotCarType_con ul li p.hotCarType_conText a{
+	display: inline-block;
+	height: 14px;
+	line-height: 14px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #000;
+}
+
+div.allCarType{
+	margin-top: 80px;
+	overflow: hidden;
+	position: relative;
+}
+div.allCarType_title{
+	overflow: hidden;
+}
+div.allCarType div.allCarType_title h2{
+	float: left;
+	margin: 0 0 5px 10px;
+	font-size: 18px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.allCarType div.allCarType_title div.letters{
+	position: absolute;
+	top: 4px;
+	*top:0px;
+	right: 0;
+	float: right;
+	font-size: 14px;
+	height: 35px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.allCarType div.allCarType_title div.letters span{
+	display: inline-block;
+	height: 14px;
+	line-height: 30px;
+	height: 30px;
+	padding: 0 10px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #333;
+	cursor: pointer;
+}
+
+
+div.letterCarType{
+	margin-top: 30px;
+	margin-bottom: 90px;
+	border-top: 1px solid #e5e4e2;
+	border-left: 1px solid #e5e4e2;
+}
+div.theLetter{
+	background-color: #f7f7f7;
+	border-bottom: 1px solid #e5e4e2;
+	border-right: 1px solid #e5e4e2;
+}
+div.theLetter span{
+	display: inline-block;
+	width: 260px;
+	text-align: center;
+	line-height: 38px;
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.theLetter_carType{
+	overflow: hidden;
+	border-bottom: 1px solid #e5e4e2;
+}
+div.theLetter_carType div.theLetter_carType_logo{
+	float: left;
+	padding: 30px 0;
+	width: 260px;
+	text-align: center;
+}
+div.theLetter_carType div.theLetter_carType_logo p.carLogoText{
+	display: inline-block;
+	height: 24px;
+	line-height: 24px;
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	color: #333;
+	margin-top: 10px;
+}
+div.theLetter_carType div.theLetter_carType_text{
+	float: left;
+	width: 937px;
+	min-height: 194px;
+	padding-bottom: 26px;
+	border-right: 1px solid #e5e4e2;
+	border-left: 1px solid #e5e4e2;
+}
+div.theLetter_carType div.theLetter_carType_text p.theCarType{
+	padding: 36px 30px 16px 45px;
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.theLetter_carType div.theLetter_carType_text p.theCarType_detail{
+	padding: 0 20px 0 30px;
+}
+div.theLetter_carType div.theLetter_carType_text p.theCarType_detail span{
+	display: inline-block;
+	margin: 5px 0;
+	padding: 0 15px;
+	border-right: 1px solid #666;
+	height: 14px;
+	line-height: 14px;
+}
+div.theLetter_carType div.theLetter_carType_text p.theCarType_detail span a{
+	display: inline-block;
+	height: 14px;
+	line-height: 14px;
+	font-size: 12px;
+	font-family: "microsoft yahei";
+	color: #666;
+}
+
+.spanClick{
+	background: #FFF;
+	border-right: 1px solid #fd6244;
+	border-left: 1px solid #fd6244;
+	border-bottom: 1px solid #fff;
+	border-top: 2px solid #fd6244;
+	margin-left: -1px;
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	color: #fd6244;
+	cursor: default!important;
+	margin-top: -3px;
+	position: relative;
+	top: -2px;
+	left:0;
+	/**margin-top: 0;
+	*position: relative;
+	*bottom: 0;
+	*left:0;*/
+}
+div.Form-carStyle{
+	top:200px!important;
+}
+div.Form-carStyle span{
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	color: #333;
+}
+div.Form-carStyle select{
+	padding: 5px;
+	border: 1px solid #ddd;
+	width: 185px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	color: #666;
+}

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>支付信息</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		article{
+			background-color: #fff;
+		}
+		div.batteryInfo{
+			background-color: #FFA600;
+			padding: 1.2rem 1rem;
+		}
+		div.batteryInfo p{
+			color: #fff;
+		}
+		div.batteryInfo p:nth-of-type(1),div.batteryInfo p:nth-of-type(1) span{
+			font-size: 0.95rem;
+		}
+		div.batteryInfo p:nth-of-type(2),div.batteryInfo p:nth-of-type(2) span{
+			font-size: 1.2rem;
+		}
+		div.topRow{
+			padding: 0.6rem 0;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		p.topRow-left{
+			float: left;
+			display: inline-block;
+			padding: 0 1.2rem;
+		}
+		p.topRow-left img{
+			width: 1.2rem;
+		}
+		div.topRow-right{
+			margin-left: 3.6rem;
+			padding: 0.2rem 0.8rem;
+			border-left: 1px solid #D9D9E2;
+		}
+		div.topRow-right p{
+			font-size: 0.95rem;
+		}
+
+		article.middle{
+			margin-top: 0.8rem;
+		}
+		div.payStyleTitle{
+			padding: 0.5rem 0.8rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.payStyleTitle p{
+			font-size: 1rem;
+			border-left: 3px solid #f55d5d;
+			padding-left: 0.3rem;
+		}
+		div.payStyleRow{
+			padding: 0.5rem 0;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		p.payStyleLeft{
+			float: left;
+			display: inline-block;
+			line-height: 2rem;
+		}
+		p.payStyleLeft img[alt="支付宝"]{
+			width: 4.6rem;
+			margin: 0 1rem;
+		}
+		p.payStyleLeft img[alt="微信支付"]{
+			width: 5rem;
+			margin: 0 0.8rem;
+		}
+		div.payStyleRight{
+			margin-left: 5.4rem;
+			line-height: 2rem;
+		}
+		div.payStyleRight span{
+			display: inline-block;
+			padding: 0rem 0rem 0rem 0.6rem;
+			border-left: 1px solid #D9D9E2;
+			color: #a2a2a2;
+			font-size: 0.8rem;
+			line-height: 2rem;
+		}
+		div.payStyleRight p img{
+			width: 1.3rem;
+		}
+		div.payStyleRight p{
+			float: right;
+			margin-right: 1rem;
+			line-height: 2rem;
+		}
+		article.bottom{
+			position: fixed;
+			width: 100%;
+			bottom: 0;
+			border-top: 1px solid #D9D9E2;
+			line-height: 3rem;
+		}
+		article.bottom p.bottom-left{
+			float: left;
+			width: 55%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding-left: 1rem;
+			font-size: 1.1rem;
+		}
+		article.bottom p.bottom-left span{
+			color: #f55d5d;
+		}
+		article.bottom p.payBtn{
+			float: left;
+			width: 45%;
+			background-color: #f55d5d;
+			color: #fff;
+			font-size: 1.22rem;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<article class="top">
+			<div class="batteryInfo">
+				<p>已选：<span class="batteryName">loading……</span></p>
+				<p>￥<span class="batterPrice">loading……</span></p>
+			</div>
+			<div class="topRow clearfix">
+				<p class="topRow-left"><img src="./img/contact_icon.png"></p>
+				<div class="topRow-right">
+					<p class="userName">loading……</p>
+					<p class="userMobile">loading……</p>
+				</div>
+			</div>
+			<div class="topRow clearfix">
+				<p class="topRow-left"><img src="./img/location_icon.png"></p>
+				<div class="topRow-right">
+					<!-- <p class="areaDetail">loading……</p> -->
+					<p class="address">loading……</p>
+				</div>
+			</div>
+		</article>
+		<article class="middle">
+			<div class="payStyleTitle">
+				<p>支付方式</p>
+			</div>
+			<div class="payStyleDetail">
+				<div class="payStyleRow" data-id="3">
+					<p class="payStyleLeft"><img src="./img/zfb_icon.png" alt="支付宝"></p>
+					<div class="payStyleRight">
+						<span>需要拥有支付宝账号</span>
+						<p><img src="./img/payUnchecked_icon.png"></p>
+					</div>
+				</div>
+				<!-- <div class="payStyleRow" data-id="1">
+					<p class="payStyleLeft"><img src="./img/wx_icon.png" alt="微信支付"></p>
+					<div class="payStyleRight">
+						<span>推荐安装微信5.0版本以上</span>
+						<p><img src="./img/payUnchecked_icon.png"></p>
+					</div>
+				</div> -->
+			</div>
+		</article>
+		<article class="bottom clearfix">
+			<p class="bottom-left">需支付：<span>loading……</span></p>
+			<p class="payBtn">立即支付</p>
+		</article>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		// batteryInfo图片垂直居中
+		$('p.topRow-left').each(function(){
+			var rowH=$(this).next('div.topRow-right').height();
+			$(this).css('line-height',rowH+'px')
+		});
+
+		// 获取支付信息
+		paramJson.userName=decodeURI(decodeURI(paramJson.userName));
+		paramJson.batteryBrand=decodeURI(decodeURI(paramJson.batteryBrand));
+		$('span.batteryName').html(paramJson.batteryBrand+' '+paramJson.batteryModel);
+		$('span.batterPrice').html(paramJson.batteryPrice);
+		$('p.userName').html(paramJson.userName);
+		$('p.userMobile').html(paramJson.userMobile);
+		$('p.bottom-left span').html('￥'+paramJson.batteryPrice);
+		// $('p.areaDetail').html(decodeURI(decodeURI(paramJson.areaDetail)));
+		$('p.address').html(decodeURI(decodeURI(paramJson.address)));
+
+		// 选择支付方式
+		var isPay=0;
+		$('div.payStyleRight img').unbind('click').bind('click',function(){
+			if($(this).attr('src')=='./img/payUnchecked_icon.png'){
+				isPay=1;
+				// $('div.payStyleRight img').attr('src','./img/payUnchecked_icon.png').removeClass('isCheck');
+				$(this).attr('src','./img/payChecked_icon.png').addClass('isCheck')
+			}else{
+				isPay=0;
+				$(this).attr('src','./img/payUnchecked_icon.png').removeClass('isCheck')
+			}
+		});
+		// 点击支付
+		$('p.payBtn').unbind('click').bind('click',function(){
+			if(isPay==0){
+				errorLog('请选择支付方式');
+				return false
+			}
+			var payData={};
+			payData.customerId=paramJson.customerId;
+			payData.sourceId=paramJson.sourceId;
+			payData.orderChannel=paramJson.orderChannel;
+			payData.payChannelKey='alipay.wap.wallet';
+			$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/orderservice/placeorder',
+				type:'post',
+				dataType:'json',
+				data:$.toJSON(payData),
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					window.location.href=data.payUrl
+				}
+			})
+		})
+	})
+</script>
+</html>

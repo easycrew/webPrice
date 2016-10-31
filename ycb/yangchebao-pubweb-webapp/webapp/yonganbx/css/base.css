@@ -1,0 +1,138 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-size:62.5%;
+}
+body{
+    background-color: #F4F7F8;
+    font-family:'华文细黑','HelveticaNeue-Light'; 
+    color:#1e1e1e;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+body,html{
+    min-height:100%;
+} 
+img{
+    border:none;
+}
+.clearfix {
+   *zoom: 1;
+}
+.clearfix:before,.clearfix:after {
+   display: table;
+   line-height: 0;
+   content: "";
+}
+.clearfix:after {
+  clear: both;
+}  
+a{
+    color: #00a0e9;
+    text-decoration: none;
+}
+ul,ol{
+    list-style: none;
+}
+/**提示对话框**/
+div.dialog {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 300;
+} 
+.dialog-content{
+    background-color: #fff;
+    border-radius: 8px;
+    margin: 8rem 5% 0;
+    position: fixed;
+    width: 90%;
+    z-index: 500; 
+    padding-bottom: 1rem;
+}
+.dialog h1{
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    border-bottom:1px solid #FF6E47;
+    position: relative;
+}
+.close {
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    width: 28px;
+    z-index: 10;
+}  
+.close label {
+    display: inline-block;
+    margin-left: 10px;
+}
+.close label::before {
+    border-right: 1px solid #fc5d3c;
+    content: "";
+    display: inline-block;
+    height: 28px;
+    transform: rotate(45deg); 
+    -ms-transform:rotate(45deg);   
+    -moz-transform:rotate(45deg); 
+    -webkit-transform:rotate(45deg);  
+    -o-transform:rotate(45deg); 
+    width: 1px;
+}
+.close label::after {
+    border-left: 1px solid #fc5d3c;
+    content: "";
+    display: inline-block;
+    height: 28px;
+    transform: rotate(-45deg); 
+    -ms-transform:rotate(-45deg);   
+    -moz-transform:rotate(-45deg); 
+    -webkit-transform:rotate(-45deg);  
+    -o-transform:rotate(-45deg);  
+    width: 1px;
+}
+.dialog p{ 
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 4.7rem 0;
+}
+.dialog-btn-wrap{
+    margin: 0 1rem;
+}
+.dialog-btn-wrap a{
+    display: block;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    font-size: 1.8rem;
+    color:#fff;
+    background-color: #FF6E47;
+    text-align: center;
+    border-radius: 3px;
+}
+/**错误提示**/
+.tasat-wrap{
+   position: fixed;
+   text-align: center;
+   bottom: 50%;
+   width: 100%; 
+}
+.tasat {
+    background-color: #000;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 20px;
+    opacity: 0.8;
+    padding: 10px;
+}

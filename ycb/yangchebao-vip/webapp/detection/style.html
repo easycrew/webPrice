@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>选择车型</title>
+	<script src="../js/jquery-1.9.1.min.js"></script> 
+	<script src="../js/jquery.json-2.2.js"></script>
+	<script src="../js/index.js"></script>
+	<link rel="stylesheet" href="../css/base.css">
+	<style>
+		body{
+			font-size: 62.5%;
+		}
+		ul.allModels-ul li{
+			border-bottom: 1px solid #D9D9E2;
+		}
+		ul.allModels-ul li div.carModel-title{
+			border-bottom: 1px solid #D9D9E2;
+			color: #999;
+			font-size: 1.3em;
+			padding: 0.8em 1.25em;
+			background-color: #f4f7f8;
+		}
+		ul.allModels-ul li div.carModel-detail{
+			background-color: #fff;
+			padding-left: 3em;
+		}
+		ul.allModels-ul li div.carModel-detail p{
+			font-size: 1.6em;
+			padding: 1.3em 0;
+			border-bottom: 1px solid #D9D9E2;
+			cursor: pointer;
+		}
+		ul.allModels-ul li div.carModel-detail p:last-child{
+			border-bottom: none!important;
+		}
+	</style>
+</head>
+<body>
+	<section id="selectModel">
+		<ul class="allModels-ul">
+		</ul>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var path=getPath();
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+		function styleInit(){
+			$.ajax({
+				url:'/vip-app-ws/ws/0.1/support/style/list?modelId='+paramJson.modelId,
+				type:'get',
+				dataType:'json',
+				async:false,
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					var modelStr='';
+					modelStr+='<li>'
+							 +'<div class="carModel-detail">'
+					data.forEach(function(key,i){
+							modelStr+='<p id="'+key.id+'">'+key.name+'</p>'
+					});
+					modelStr+='</div></li>'
+					$('ul.allModels-ul').html(modelStr);
+					$('ul.allModels-ul li div.carModel-detail p').unbind('click').bind('click',function(){
+						var theStyleName=$(this).html();
+						var theStyleId=$(this).attr('id');
+						store.set('styleId',theStyleId);
+						store.set('styleName',theStyleName);
+						window.location.href="http://w2nw?"+path+"/detection-middle.html";
+					})
+				}
+			})
+		}
+		
+		index.init=function(userInfo,bridge){
+			styleInit();
+			if(bIsAndroid()){
+				window.mallTitle.isFinish("0");  
+			}
+			return 0;
+		}
+	})
+</script>
+</html>

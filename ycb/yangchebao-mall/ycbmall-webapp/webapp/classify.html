@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="养车宝，配件商城">
+	<meta name="description" content="养车宝配件商城，100%原厂品质，3M、威固、美孚、壳牌Ahell、普利司通、米其林等汽车配件，厂价直销！">
+	<title>全网正品汽车配件_养车宝配件商城！</title>
+	<link rel="icon" href="favicon.ico">
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script src="js/common.js"></script>
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script><!--根据IP地址获取当前所在地城市-->
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/login.css">
+	<link rel="stylesheet" href="css/classify.css">
+</head>
+<body>
+	<div class="container">
+		<div class="top"></div>
+		<div class="main">
+			<div class="mainCommen"></div>
+			<div class="hotClassify">
+				<div class="hotClassify_title"><h2>热门分类</h2></div>
+				<div class="hotClassify_con">
+					<ul>
+						<li><a href="classifyResult.html?firstClassificationId=44&classificationId=67"><p class="hotClassify_conImg"><img src="img/qjy_icon.png" alt="汽机油_养车宝" title="汽机油_养车宝"></p><p class="hotClassify_conText">汽机油</p></a>	</li>
+						<li><a href="classifyResult.html?firstClassificationId=44&classificationId=77"><p class="hotClassify_conImg"><img src="img/cjy_icon.png" alt="柴机油_养车宝" title="柴机油_养车宝"></p><p class="hotClassify_conText">柴机油</p></a>	</li>
+						<li><a href="classifyResult.html?firstClassificationId=45&classificationId=36"><p class="hotClassify_conImg"><img src="img/lt_icon.png" alt="轮胎_养车宝" title="轮胎_养车宝"></p><p class="hotClassify_conText">轮胎</p></a></li>
+						<li><a href="classifyResult.html?firstClassificationId=46&classificationId=40"><p class="hotClassify_conImg"><img src="img/xdc_icon.png" alt="蓄电池_养车宝" title="蓄电池_养车宝"></p><p class="hotClassify_conText">蓄电池</p></a></li>
+						<li><a href="classifyResult.html?firstClassificationId=50&classificationId=35"><p class="hotClassify_conImg"><img src="img/fdy_icon.png" alt="防冻液_养车宝" title="防冻液_养车宝"></p><p class="hotClassify_conText">防冻液</p></a></li>
+						<li><a href="classifyResult.html?firstClassificationId=48&classificationId=37"><p class="hotClassify_conImg"><img src="img/hhs_icon.png" alt="火花塞_养车宝" title="火花塞_养车宝"></p><p class="hotClassify_conText">火花塞</p></a></li>
+						<li><a href="classifyResult.html?firstClassificationId=47&classificationId=63"><p class="hotClassify_conImg"><img src="img/gj_icon.jpg" alt="工具_养车宝" title="工具_养车宝"></p><p class="hotClassify_conText">工具</p></a></li>
+						<li><a href="classifyResult.html?firstClassificationId=52&classificationId=78"><p class="hotClassify_conImg"><img src="img/jylqq_icon.png" alt="机油滤清器_养车宝" title="机油滤清器_养车宝"></p><p class="hotClassify_conText">机油滤清器</p></a></li>
+						<li><a href="classifyResult.html?firstClassificationId=49"><p class="hotClassify_conImg"><img src="img/qcdp_icon.png" alt="汽车灯泡_养车宝" title="汽车灯泡_养车宝"></p><p class="hotClassify_conText">汽车灯泡</p></a></li>
+						<li><a href="classifyResult.html?firstClassificationId=50&classificationId=57"><p class="hotClassify_conImg"><img src="img/qxj_icon.jpg" alt="清洗剂_养车宝" title="清洗剂_养车宝"></p><p class="hotClassify_conText">清洗剂</p></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="allClassify">
+				<div class="allClassify_title"><h2>全部分类</h2></div>
+				<div class="allClassify_con">
+					<ul>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer"></div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$('div.top').load('top.html');
+		$('div.mainCommen').load('searchAndNav.html');
+		$('div.footer').load('footer.html');
+
+		$.get(mall.url('/classification/getAllClassifications'),{},function(data){
+			var classifyStr='';
+			$.each(data,function(i){
+				classifyStr+='<li>'
+						    +'<div class="allClassify_img"><a href="classifyResult.html?firstClassificationId='+this.id+'" target="_blank"><img src="'+this.picUrl+'"  alt="'+this.name+'_养车宝" title="'+this.name+'_养车宝" width="200" height="200"></a></div>'
+						    +'<div class="allClassify_text">'
+						    +'<p class="allClassify_textTitle"><a href="classifyResult.html?firstClassificationId='+this.id+'" target="_blank">'+this.name+'</a></p>'
+						    +'<div class="allClassify_textItems">';
+			    var childArrayStr='';
+			    $.each(this.childArray,function(j){
+		    		childArrayStr+='<a href="classifyResult.html?firstClassificationId='+data[i].id+'&classificationId='+this.id+'" target="_blank">'+this.name+'</a>'
+			    });
+			    classifyStr+=childArrayStr+'</div></div></li>'
+			});
+			$('div.allClassify_con ul').html(classifyStr);
+		})
+	})
+</script>
+</html>

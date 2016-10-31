@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta name="keywords" content="养车宝，汽车保养，洗车美容">
+<meta name="description" content="养车宝为车主提供汽车保养，汽车美容，汽车维修，免费电话救援等服务，简易流程让您养车省心，交易透明让您养车安心，专业服务让您养车不用担心！">
+<title>意见反馈_汽车保养美容专家！</title>
+<link rel="icon" href="img/icon.png" type="image/png">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/feedback.css">
+</head>
+<body>
+	<div class="container">
+		<div class="top">
+			<div id="navi"></div>
+		</div>
+		<div class="content">
+			<div class="feedback_intro">
+				<div><p class="desc"><label for="nickname">联系人：</label></p><input type="text" id="nickname"></div>
+				<div><p class="desc"><label for="contacts">联系方式：</label></p><input type="text" id="contacts" style="float: left;"><p class="tip">（注：联系电话或QQ）</p></div>
+				<div><p class="desc"><label for="content">内容：</label></p><textarea id="content" rows="7" cols="50"></textarea></div>
+				<div><button id="submit"></button><button id="reset"></button></div>
+			</div>
+			<div class="thx_intro">
+				<p style="margin-bottom: 10px;">感谢您的参与，您的意见将帮助我们更好的改进！</p>
+				<p><span>5</span> 秒后自动返回首页或点击 <a href="index.html">返回</a></p>
+			</div>
+		</div>
+	</div>
+	<div class="footer"></div>
+</body>
+<!--[if IE 6.0]>
+	<script src="js/DD_belatedPNG.js"></script>
+	<script>
+        DD_belatedPNG.fix("img");
+	</script>
+<![endif]-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff924926d1eaf998748c11fd77a92f7ca' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script src="js/jquery-1.7.min.js"></script>
+<script src="js/main.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#navi").load("head.html");
+		Car.footer();
+		
+		$("#nickname").keyup(function(){
+			var val = $(this).val();
+			if (val.length > 50) $(this).val(val.substr(0, 50));
+		});
+
+		$("#contacts").keyup(function(){
+			var val = $(this).val();
+			if (val.length > 20) $(this).val(val.substr(0, 20));
+		});
+		
+		$("#content").keyup(function(){
+			var val = $(this).val();
+			if (val.length > 200) $(this).val(val.substr(0, 200));
+		});
+		
+		$("#submit").click(function(){
+			var content = replyReplace($.trim($("#content").val()));
+			if (content) {
+				var nickname = $.trim($("#nickname").val());
+				var contacts = $.trim($("#contacts").val());
+				if (nickname) content += "（联系人：" + nickname + "）";
+				$.post(Car.url("/feedbackWeb/save"), {
+					nickname: nickname,
+					contacts: contacts,
+					content: content
+				}, function(){
+					$(".feedback_intro").hide();
+					$(".thx_intro").show();
+					window.setInterval(function(){
+						var num = $(".thx_intro span").html() - 1;
+						if (num == 0) {
+							window.location.href = "index.html";
+						} else {
+							$(".thx_intro span").html(num)
+						}
+					}, 1000);
+				});
+			}
+		});
+		
+		$("#reset").click(function(){
+			$("#nickname").val("");
+			$("#contacts").val("");
+			$("#content").val("");
+		});
+	});
+	
+	function replyReplace(source) {
+	    var str = source.replace(/<script/ig, "&lt;script").replace(/<%/ig, "&lt;%").replace(/</ig, "&lt;").replace(/\r|\n/g, "<br />");
+	    return str;
+	}
+</script>
+</html>

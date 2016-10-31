@@ -1,0 +1,501 @@
+<style>
+    .ui-ycb-btn{background:#64a0f3;width:80px;height:30px;line-height:30px;color:#fff;border:none;text-align: center;}
+    #Form_worker_Dtails div{
+        line-height: 30px;
+    }
+</style>
+<div class="urlContentWraper" id="Wraper_worker_manage">
+    <div class="ui-info-layout">
+    	<div class="vdiv">
+            <table id="Table_worker_list"></table>
+        </div>
+	</div>
+    <div id="Form_worker_add" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid"> 
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>登录账号：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="loginAccount" class="jrad-input-container" placeholder="请输入8-16位数字或字母">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid possword">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>密码：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="password" class="jrad-input-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">是否允许登录：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="status" class="jrad-select-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>员工编号：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="employeeCode" class="jrad-input-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>姓名：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="name" class="jrad-input-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>身份证号：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="idCode" class="jrad-input-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>手机号码：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="mobile" class="jrad-input-container"></div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>职位：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <button type="submit" value="点击选择" class="ui-ycb-btn">点击选择</button>
+                    <p class="position"></p>
+                </div>
+            </div>
+            <div class="grid-row-fluid ycbLevel">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>级别：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="level" class="jrad-select-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">
+                <span class="ui-form-required">*</span>入职时间：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="entryDate" class="jrad-dateinput-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">离职时间：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="leaveDate" class="jrad-dateinput-container">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span5 grid-layout-label">状态：</label>
+                <div class="span12 grid-layout-content fluid-wrap">
+                    <div name="employeeStatus" class="jrad-select-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <button class="jrad-btn-primary btn btn-small btn-primary">确定</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div> 
+    <div id="Form_worker_choose" class="grid-layout ui-form" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid"> 
+                <label class="span2 grid-layout-label"></label>
+                <div class="span14 grid-layout-content fluid-wrap">
+                    <div name="type" class="jrad-radio-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <button class="jrad-btn-primary btn btn-small btn-primary">确定</button>
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div> 
+    <div id="Form_worker_Dtails" class="grid-layout ui-form"  style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">登录账号：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="loginAccountName"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">是否允许登录：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="status"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">员工编号：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="employeeCode"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">姓名：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="name"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">身份证号：</label>
+                <div class="span8 grid-layout-content">
+                    <div name="idCode"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">手机号码：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="mobile"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">职位：</label>
+                <div class="span15 grid-layout-content">
+                    <div name="position"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid levelInfo">
+                <label class="span4 grid-layout-label">级别：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="level"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">入职时间：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="entryDate"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">离职时间：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="leaveDate"></div>
+                </div> 
+            </div>
+            <div class="grid-row-fluid">
+                <label class="span4 grid-layout-label">状态：</label>
+                <div class="span5 grid-layout-content">
+                    <div name="employeeStatus"></div>
+                </div> 
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <button class="jrad-btn-normal btn btn-small btn-default">取消</button>
+        </div>
+    </div> 
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var wraper = $('#Wraper_worker_manage');
+	var parentId = carsmart_config.shopId;
+    var page_column_model = new Array();
+    var page_list_buttons = new Array(); 
+    var page_column_model_b = new Array(); 
+    var page_list_buttons_b = new Array();
+
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+
+    jRad.validators['loginAccount']=[{msg:"登录账号不能为空",type:'min',value:1},{msg:"登录账号最少8位数字或字母",type:'min',value:8},{msg:"登录账号最多16位数字或字母",type:'max',value:16}];
+    jRad.validators['password']=[{msg:"密码不能为空且最少8位",type:'min',value:8},{msg:"密码最多16位数字或字母",type:'max',value:16}];
+    jRad.validators['type']=[{msg:"职位不能为空",type:'min',value:1}];
+
+    var field_params={};  
+    field_params['status']={data:[{id:'1',name:'允许'},{id:'0',name:'不允许'}]};
+    field_params['level']={data:[{id:'1',name:'初级工'},{id:'2',name:'中级工'},{id:'3',name:'高级工'},{id:'4',name:'技师'},{id:'5',name:'高级技师'}]};
+    field_params['employeeStatus']={data:[{id:'1',name:'有效'},{id:'0',name:'无效'}]};
+
+    var user_persition = "user_persition"
+    var jsonarr = $.jRadGet({url:'/vip-ws/ws/0.1/shopBaseInfo/getDataList?type='+user_persition})
+
+    field_params["type"]={
+        urlData: {
+            url:'/vip-ws/ws/0.1/shopBaseInfo/getDataList?type='+user_persition,
+            id: 'code',// 隐含值
+            name: 'name',// 展示值
+            type: 'get',// 请求方式
+            dataType: 'json'// 返回数据类型
+        }
+    }
+    page_column_model.push({display: '员工ID', name : 'employeeId',hidden:true});
+    page_column_model.push({display: '员工编号', name : 'employeeCode'});
+    page_column_model.push({display: '员工姓名', name : 'employeeName'});
+    page_column_model.push({display: '手机号码', name : 'mobile'}); 
+    page_column_model.push({display: '登录账号', name : 'shopAccount'});
+    page_column_model.push({display: '职位', name : 'positionName'}); 
+    page_column_model.push({display: '状态', name : 'status',diy:function(item,$div){
+        if(item.status == '1'){
+            $div.html("有效")
+        }else{
+            $div.html("无效")
+        }
+    }});
+    page_column_model.push({display: '操作', name : 'operate',width:200 ,diy:function(item,$div){
+        var $info = $("<a>").addClass('flexOperate').html("查看详情");
+        var $edit = $("<a>").addClass('flexOperate').html("修改"); 
+        var $del = $("<a>").addClass('flexOperate').html("删除");
+        $div.append($info).append($edit).append($del)
+        
+        $info.click(function(){
+            var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/shopBaseInfo/getEmployeeInfo?shopEmployeeId='+item.employeeId});
+            $('#Form_worker_Dtails').form({
+                title: '查看详情', 
+            }).form('open');
+            $('#Form_worker_Dtails div[name="loginAccountName"]',wraper).html(dtails.loginAccountName);
+            var str1 = '';
+            if(dtails.status == "0"){
+                str1 = '不允许';
+            }else{
+                str1 = '允许'
+            }
+            $('#Form_worker_Dtails div[name="status"]',wraper).html(str1);
+            $('#Form_worker_Dtails div[name="employeeCode"]',wraper).html(dtails.employeeCode);
+            $('#Form_worker_Dtails div[name="name"]',wraper).html(dtails.name);
+            $('#Form_worker_Dtails div[name="idCode"]',wraper).html(dtails.idCode);
+            $('#Form_worker_Dtails div[name="mobile"]',wraper).html(dtails.mobile);
+            $('#Form_worker_Dtails div[name="position"]',wraper).html(dtails.positionName);
+            var str3 = '';
+            if(dtails.level == "1"){
+                str3 = '初级工';
+            }else if(dtails.level == "2"){
+                str3 = '中级工';
+            }else if(dtails.level == "3"){
+                str3 = '高级工';
+            }else if(dtails.level == "4"){
+                str3 = '技师';
+            }else if(dtails.level == "5"){
+                str3 = '高级技师';
+            }
+            if(item.positionName.indexOf("维修技师")>=0 || item.positionName.indexOf("美容技师")>=0 )
+            {
+                $('.levelInfo').show();
+                $('#Form_worker_Dtails div[name="level"]',wraper).html(str3);
+            }
+            else{
+                $('.levelInfo').hide();
+            }
+            $('#Form_worker_Dtails div[name="entryDate"]',wraper).html(dtails.entryDate);
+            $('#Form_worker_Dtails div[name="leaveDate"]',wraper).html(dtails.leaveDate);
+            var str2 = '';
+            if(dtails.employeeStatus == "0"){
+                str2 = '无效';
+            }else{
+                str2 = '有效'
+            }
+            $('#Form_worker_Dtails div[name="employeeStatus"]',wraper).html(str2);     
+        })
+
+        var update= 'update';
+        $edit.click(function(){
+            var dtails = $.jRadGet({url:'/vip-ws/ws/0.1/shopBaseInfo/getEmployeeInfo?shopEmployeeId='+item.employeeId});
+            $('#Form_worker_add').form({
+                title: '修改', 
+                fields:field_params,
+                item: dtails,  
+                url: '/vip-ws/ws/0.1/shopBaseInfo/saveEmployee',
+                preSubmit:function(json){ 
+                    json.businessInfoId = carsmart_config.businessInfoId;
+                    json.position = $('.position').attr('post');
+                    json.modifyPerson = carsmart_config.operatorName;
+                    json.shopAccountId = carsmart_config.shopId;  
+                    json.saveType = update;  
+                    json.loginAccountId = dtails.loginAccountId;
+                    json.shopEmployeeId = item.employeeId;
+                    return json;
+                },
+                success:function(){ 
+                    $('#Table_worker_list').flexMessage('修改成功', 'success');
+                    $('#Table_worker_list').flexReload();
+                }
+            }).form('open');
+            $('#Form_worker_add .possword').hide();
+            $("#Form_worker_add input[name='employeeCode']").attr("maxlength","20")
+            $('#Form_worker_add div[name="loginAccount"]').input('val',dtails.loginAccountName);
+            $('#Form_worker_add div[name="loginAccount"]').input('readonly',true);
+            $('.position').html("已选择："+dtails.positionName);
+            $(".position").attr("post",item.position)
+            if(item.positionName.indexOf("维修技师")>=0 || item.positionName.indexOf("美容技师")>=0 )
+            {
+                $(".ycbLevel").show();
+            }
+            else{
+                $(".ycbLevel").hide();
+            }
+
+            $(".ui-ycb-btn").on("click",function(){
+                var str = $(".position").attr("post");
+                $('#Form_worker_add').form("close")
+                $('#Form_worker_choose').form({
+                    title: '职位',
+                    fields:field_params,
+                    height: '350px',
+                    grid: 8,
+                    item:{'type':str},
+                    validators: jRad.validators, 
+                    submit:function(){
+                        var json = $('#Form_worker_choose').form('getValue');
+                        var arr=[];
+                        $.each(jsonarr,function(k){
+                            var aa = jsonarr[k];
+                            if(aa.code == json.type){
+                                arr.push(aa.name)
+                            }
+                        })
+                        $('#Form_worker_choose').form().form("close");
+                        $('#Form_worker_add').form("open")
+                        if(arr.length=='' || arr.length == undefined){
+                            return false;
+                        }else{
+                            $('.position').html("")
+                            $('.position').html("已选择："+arr.join("、"))
+                            if($.inArray('维修技师', arr) != -1 || $.inArray('美容技师', arr) != -1){
+                                $(".ycbLevel").show();
+                            }else{
+                                $(".ycbLevel").hide();
+                            }
+                            $('.position').attr("post",json.type)
+                        }
+                    }
+                }).form('open');
+                // var jsonItem = $.jRadGet({url : '/vip-ws/ws/0.1/shopBaseInfo/getDataList?type='+user_persition});
+                // jsonItem.type = str;
+                // $('#Form_worker_choose',wraper).form({item: jsonItem});  
+            })
+
+        });
+
+        $del.click(function(){
+            $.jRadConfirm('确认删除吗？',1,function(){
+                var checked = $('#Table_worker_list').getCheckedTrs();
+                var postData = {};
+                postData.shopEmployeeId = checked[0].employeeId;
+                $.jRadPost({  
+                    url:'/vip-ws/ws/0.1/shopBaseInfo/deleteEmployee',
+                    data:postData, 
+                    success: function(data){ 
+                        $('#Table_worker_list').flexMessage('删除成功!', 'success');
+                        $('#Table_worker_list').flexReload();
+                    },
+                    error:function(xhr){ 
+                        var errormsg = eval("(" + xhr.responseText + ")"); 
+                        if (errormsg != undefined) {
+                            $('#Table_worker_list').flexMessage(errormsg[0].message, 'error');
+                        }
+                    }
+                });
+            }); 
+        });
+    }});
+
+    var insert = 'insert';
+    page_list_buttons.push({title: '创建',displayname:'创建',bclass: 'icon-plus',
+        onpress: function() { 
+            $('#Form_worker_add').form({
+                title: '创建',
+                item:{"level":1},
+                fields:field_params,
+                validators: jRad.validators, 
+                url:'/vip-ws/ws/0.1/shopBaseInfo/saveEmployee',
+                preSubmit:function(json){
+                    json.businessInfoId = carsmart_config.businessInfoId;
+                    json.saveType = insert;
+                    json.position = $('.position').attr('post');
+                    json.modifyPerson = carsmart_config.operatorName;
+                    json.shopAccountId = carsmart_config.shopId;
+                    return json;
+                },
+                success: function() {
+                    $('#Table_worker_list').flexMessage('创建成功', 'success','3');
+                    $('#Table_worker_list').flexReload();
+                }
+            }).form('open');
+            $('#Form_worker_add .possword').show();
+            $("#Form_worker_add input[name='employeeCode']").attr("maxlength","20")
+            $('#Form_worker_add div[name="loginAccount"]').input('readonly',false);
+            $('#Form_worker_add div[name="employeeStatus"]').select('val',1);
+            $('#Form_worker_add div[name="status"]').select('val',1);
+            $('#Form_worker_add .possword').show();
+            $('.position').html("").attr("post",'')
+            $(".ycbLevel").hide();
+
+            $(".ui-ycb-btn").on("click",function(){
+                $('#Form_worker_add').form("close")
+                $('#Form_worker_choose').form({
+                    title: '职位',
+                    fields:field_params,
+                    height: '350px',
+                    grid: 8,
+                    validators: jRad.validators, 
+                    submit:function(){
+                        var json = $('#Form_worker_choose').form('getValue');
+                        var arr=[];
+                        $.each(jsonarr,function(k){
+                            var aa = jsonarr[k];
+                            if(aa.code == json.type){
+                                arr.push(aa.name)
+                            }
+                        })
+                        $('#Form_worker_choose').form().form("close");
+                        $('#Form_worker_add').form("open")
+                        if(arr.length=='' || arr.length == undefined){
+                            return false;
+                        }else{
+                            $('.position').html("")
+                            $('.position').html("已选择："+arr.join("、"))
+                            if($.inArray('维修技师', arr) != -1 || $.inArray('美容技师', arr) != -1){
+                                $(".ycbLevel").show();
+                            }else{
+                                $(".ycbLevel").hide();
+                            }
+                            $('.position').attr("post",json.type)
+                        }
+                    }
+                }).form('open');
+                var str = $(".position").attr("post");
+                $('#Form_worker_choose',wraper).form({
+                    item: {'type':str}
+                });  
+            })
+        }
+    });
+
+    $('#Table_worker_list').flexigrid({
+        reload: true,
+        pagination: {diaplay_pages: 10,align:'bottom',showText: '从第_start_到_end_项 共_total_项'},
+        colModel: page_column_model,
+        buttons : page_list_buttons,
+        pagedStyle: 'oc',
+		method:'get',
+		showSearch:true,
+        showCheckbox: false, 
+        checkBoxType:'single',
+        url:'/vip-ws/ws/0.1/shopBaseInfo/getEmployeeList?businessInfoId='+carsmart_config.businessInfoId
+    });
+
+    $('.vdiv .hDiv tr th').eq(0).attr("style","display:none;")
+
+    $('.hDiv',wraper).css('overflow','hidden');
+    $('.bDiv',wraper).css('overflow-x','scroll');
+
+    function showRemarkError(xhr){
+        var errormsg = eval("(" + xhr.responseText + ")");
+        var cDiv = $("#Table_worker_evaluate");
+        $.jRadMessage({level:'error',message:'未获取到数据',selector:cDiv});
+    }
+});
+</script>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>安装盒子</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		div.banner{
+			padding: 1.5rem 1rem 2rem;
+		}
+		div.banner img{
+			width: 100%;
+		}
+		article.cardInfo{
+			background-color: #fff;
+		}
+		div.row{
+			position: relative;
+			padding: 0.8rem 0;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.row span{
+			display: inline-block;
+			float: left;
+			font-size: 1.8rem;
+			line-height: 3rem;
+			padding: 0 1rem;
+		}
+		div.row p{
+			margin-left: 5.6rem;
+			border-left: 1px solid #D9D9E2;
+			padding-left: 1rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		div.row input{
+			border: none;
+			width: 100%;
+			font-size: 1.8rem;
+			line-height: 3rem;
+		}
+		div.sureBtn{
+			text-align: center;
+			color: #fff;
+			background-color: #ff6138;
+			margin: 4rem auto 0;
+			font-size: 1.8rem;
+			width: 90%;
+			line-height: 4.2rem;
+			-webkit-border-radius: 8px;
+			-moz-border-radius: 8px;
+			border-radius: 8px;
+		}
+
+		#boxResult div.imgW,p.text{
+			text-align: center;
+		}
+		#boxResult div.imgW{
+			margin: 4rem 0 2rem;
+		}
+		#boxResult div.imgW img{
+			width: 90px;
+		}
+		#boxResult p.text{
+			font-size: 1.5rem;
+			color: #a2a2a2;
+		}
+		#boxResult p.tip{
+			display: none;
+			color: #ff6138;
+			font-size: 1.2rem;
+			width: 220px;
+			margin: 1rem auto 0;
+
+		}
+	</style>
+</head>
+<body>
+	<section id="boxPwd" style="display:none;">
+		<div class="banner"><img src="./img/memBanner.jpg"></div>
+		<article class="cardInfo">
+			<div class="row clearfix">
+				<span>密码</span>
+				<p class="cardPwd"><input name="cardPwd" type="number"></p>
+			</div>
+			<div class="sureBtn">确认</div>
+		</article>
+	</section>
+	<section id="boxResult" style="display:none;">
+		<div class="imgW bigGift" style="display:none;"><img src="./img/bigGift.png"></div>
+		<div class="imgW jianIcon" style="display:none;"><img src="./img/jianIcon.png"></div>
+		<p class="text oneR" style="display:none;">您已经领取了盒子了哦！</p>
+		<p class="text twoR" style="display:none;">安装券密码已经被使用</p>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+
+	    var close = function(){
+            window.location.href = "http://w2l?closeActivity"
+        };
+
+	    if(paramJson.customerId=='null' || paramJson.customerId==null || paramJson.customerId=='' || paramJson.customerId==undefined){
+			// window.location.href="http://w2l?presentType=2&androidName=8&iosName=LoginViewController"
+			// var customerId = getCustomerId(paramJson.userId); 
+			// if(customerId=="-1"){
+			// 	window.location.href="http://w2l/?presentType=2&androidName=8&iosName=LoginViewController&needLogin=1"
+			// }
+			window.location.href="http://w2l?presentType=2&androidName=8&iosName=LoginViewController";
+			setTimeout(close,100)
+		}
+
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/driving/getBoxStatus?userInfoId='+paramJson.userId,
+			type:'get',
+			contentType:'application/json;charset=utf-8',
+			dataType:'json',
+			success:function(data){
+				if(data.boxStatus=='N'){
+					$('section#boxPwd').show();
+					$('div.sureBtn').on('click',function(){
+						if(paramJson.customerId=='null' || paramJson.customerId==null || paramJson.customerId=='' || paramJson.customerId==undefined){
+							// window.location.href="http://w2l?presentType=2&androidName=8&iosName=LoginViewController"
+							// var customerId = getCustomerId(paramJson.userId); 
+							// if(customerId=="-1"){
+							// 	window.location.href="http://w2l/?presentType=2&androidName=8&iosName=LoginViewController&needLogin=1";
+							// 	return false
+							// }
+							window.location.href="http://w2l?presentType=2&androidName=8&iosName=LoginViewController";
+							setTimeout(close,100)
+						}
+						var cardPwd=$.trim($('input[name="cardPwd"]').val());
+						if(cardPwd==''){
+							errorLog('请输入密码');
+							return false
+						}
+						if(!(/^[0-9]{8}$/.test(cardPwd))){
+							errorLog('请输入8位数字的密码');
+							return false
+						}
+						var postData={};
+						postData.cardPwd=cardPwd;
+						postData.userInfoId=paramJson.userId;
+						$.ajax({
+							url:'/yangchebao-app-ws/ws/0.1/driving/boundBox',
+							type:'post',
+							dataType:'json',
+							data:$.toJSON(postData),
+							contentType:'application/json;charset=utf-8',
+							success:function(data){
+								if(data.pwdStatus==1){
+									$('section#boxPwd').hide();
+									$('section#boxResult').show();
+									$('div.jianIcon').show();
+							    	$('p.twoR').show()
+								}else if(data.pwdStatus==0){
+									errorLog('密码错误')
+								}else{
+									window.location.href="installBox.html?money="+data.money+'&serviceId='+data.serviceId
+								}
+							}
+						})
+					})
+				}else{
+					$('section#boxResult').show();
+			    	$('div.bigGift').show();
+			    	$('p.oneR').show()
+				}
+			}
+		})
+
+	})
+</script>
+</html>

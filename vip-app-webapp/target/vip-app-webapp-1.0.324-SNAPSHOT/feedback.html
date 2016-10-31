@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="js/jquery.json-2.2.js"></script> 
+<script type="text/javascript" src="js/index.js"></script>  
+<title>问题反馈</title>
+<body>
+	<section class="feedback-wrap"> 
+		<div class="feedback-textarea">
+			<textarea id="remark" maxlength="200">用的不爽，吐槽两句...</textarea>
+			<a href="javascript:void(0)" class="btnn" id="submit">确定</a>
+		</div>
+		<div class="feedback-list">
+			<h2>我的反馈</h2>
+			<ul id="feedbackList"> 
+			</ul>
+		</div>
+	</section> 
+	<script type="text/javascript"> 
+		$(document).ready(function(){ 
+				var page = 0,pagesize=10,shopAccountId="-1",response="1"; 
+			 	function getFeedBacks(id,pageindex,pagesize,owraper){   
+						$.ajax({
+							url: '/vip-app-ws/ws/0.1/feedback/queryFeedBacks?shopAccountId='+id+'&pageindex='+pageindex+'&pagesize='+pagesize,
+							type: 'get',
+							async: false,
+							dataType: 'json',
+							success: function(data) {  
+							   page++; 
+							   var items = data.items;
+							   var str = "";
+							   $.each(items,function(i){
+							   		var item = items[i];
+						   			var reply = "";
+						   			if(item.feedBackReplyId!=undefined){
+										reply = "reply-flag";
+									}
+							   		str +='<li feedBackId='+ item.feedBackId +' class="'+ reply +'">'
+										+'<p class="info wrap">'+ item.remarks +'</p>'
+										+'<p class="time">'+ item.createDate +'</p>'
+										+'</li>' ;
+							   });
+							   if(owraper!=undefined){ 
+									$("#feedbackList").next('.null-tip').remove();
+									$("#feedbackList").html(str);  
+									if(str==""){
+										$("#feedbackList").after('<p class="null-tip">您还没有提交反馈哦！</p>'); 
+									}  
+								}else{
+									$("#feedbackList").append(str);
+								} 
+							   if(data.page == data.totalPages-1){
+									response = "0";
+							   } 
+							},
+							error:function(xhr){
+								alertRe("获取数据失败");
+							}
+						}); 
+				 }  
+				 function doReply(){ 
+			 		var remarks = $("#remark").val();
+			 		if($.trim(remarks)=="用的不爽，吐槽两句..."){
+			 			return false;
+			 		}
+			 		if($.trim(remarks)==""){
+			 			alertRe("反馈内容不能为空！");
+			 			$("#remark").removeClass("on").val("用的不爽，吐槽两句...");
+			 			return false;
+			 		} 
+			 		var postData = {};
+			 		postData.shopAccountId = shopAccountId;
+			 		postData.remarks = remarks; 
+					$.ajax({
+						url: '/vip-app-ws/ws/0.1/feedback/addFeedBack',
+						contentType : "application/json;charset=utf-8",
+						dataType : "json",
+						type : "POST",
+						data : $.toJSON(postData),
+						async : false,
+						success: function(data) {   
+						},
+						error:function(xhr){  
+							if(xhr.status=="200"){ 
+								$("#remark").removeClass("on").val("用的不爽，吐槽两句...");
+								getFeedBacks(shopAccountId,0,10,"html"); 
+							}else{
+								alertRe("获取数据失败。"); 		
+							}
+						}
+					}); 
+			 	}
+				index.init = function(userInfo,bridge) {
+					shopAccountId = userInfo.shopAccountId;
+					$("textarea").focus(function(){ 
+			 		$(this).addClass("on"); 
+				 		if($(this).val()=="用的不爽，吐槽两句..."){
+				 			$(this).val("");
+				 		} 
+				 	});
+				 	$("textarea").blur(function(){  
+				 		if($(this).val()==""){
+				 			$(this).removeClass("on").val("用的不爽，吐槽两句..."); 
+				 		} 
+				 	}); 
+				 	$("#submit").on('click',function(){
+				 		doReply();
+				 	});
+				 	var path = getPath();
+				 	$("#feedbackList").on('click','li',function(){ 
+				 		var feedBackId = $(this).attr("feedBackId"); 
+				 		window.location.href = "http://w2nw?"+path+"/feedback-detail.html?feedBackId="+feedBackId; 
+				 	});  
+				 	getFeedBacks(shopAccountId,0,10,"html");
+					return response;
+			};
+			index.pullUpRefresh = function(bridge) {  
+				getFeedBacks (shopAccountId,page,pagesize); 
+				return response;
+			};
+		 
+		});   
+	</script>  
+</body>
+
+</html>
+

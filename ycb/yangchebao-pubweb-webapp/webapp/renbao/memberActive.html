@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<meta name="format-detection" content="telephone=no" />
+
+	<title>会员认证奖励激活</title>
+
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+
+	<link rel="stylesheet" href="./css/main.css">
+
+	<script src="./js/commen.js"></script>
+
+	<style>
+		.clearfix {
+			*zoom: 1;
+		}
+		.clearfix:before, .clearfix:after {
+			display: table;
+			line-height: 0;
+			content: "";
+		}
+		.clearfix:after {
+			clear: both;
+		}
+		article{
+
+			background-color: #fff;
+
+		}
+
+		div.title{
+
+			padding: 1rem 1.2rem;
+
+			border-bottom: 1px solid #D9D9E2;
+
+		}
+
+		div.titleW{
+
+			padding-left: 0.6rem;
+
+			border-left: 3px solid #ff6138;
+
+		}
+
+		p.tCon{
+
+			font-size: 1.5rem;
+
+		}
+
+		.tTip{
+
+			font-size: 1.2rem;
+
+			color: #a2a2a2;
+
+		}
+
+		div.infoItems div.row{
+
+			position: relative;
+
+			background-color: #fff;
+
+			border-bottom: 1px solid #D9D9E2;
+
+			padding: 0.8rem 1.2rem;
+			display:block;
+
+		}
+
+		div.infoItems div.row p{
+
+			font-size: 1.5rem;
+
+		}
+
+		span.mark{
+
+			color: #ff6138;
+
+		}
+
+		span.grayArrow{
+
+			position: absolute;
+
+			right: 1.2rem;
+
+			bottom: 3.1rem;
+
+		}
+
+		article.voucher{
+
+			margin-top: 1rem;
+
+			padding-bottom: 2rem;
+
+			border-bottom: 1px solid #D9D9E2;
+
+		}
+
+		div.voucherCon{
+
+			position: relative;
+
+			width: 95%;
+
+			margin: 1.2rem 2.5%;
+
+			background-color: #FFA600;
+
+			padding: 1.2rem;
+
+			-webkit-box-sizing: border-box;
+
+			-moz-box-sizing: border-box;
+
+			box-sizing: border-box;
+
+			-webkit-border-radius: 6px;
+
+			-moz-border-radius: 6px;
+
+			border-radius: 6px;
+
+		}
+
+		p.vlTop{
+
+			color: #fff;
+
+			font-size: 1.5rem;
+
+		}
+
+		p.vlDate{
+
+			color: #fff;
+
+			font-size: 1.2rem;
+
+			padding-top: 1.6rem;
+
+			padding-left: 2.8rem;
+
+		}
+
+		div.voucherL{
+
+			float: left;
+
+			width: 70%;
+
+			-webkit-box-sizing: border-box;
+
+			-moz-box-sizing: border-box;
+
+			box-sizing: border-box;
+
+			border-right: 1px solid #fff;
+
+			padding-left: 1rem;
+
+		}
+
+		div.voucherR{
+
+			float: right;
+
+			width: 30%;
+
+			line-height: 5.4rem;
+
+			text-align: center;
+
+			color: #fff;
+
+			font-size: 2rem;
+
+		}
+
+		img.back{
+
+			position: absolute;
+
+			left:0;
+
+			bottom: 0rem;
+
+			width: 4rem;
+
+		}
+
+		div.voucherTip{
+
+			position: relative;
+
+			width: 95%;
+
+			border-bottom: 1px solid #D9D9E2;
+
+			margin: 2rem auto 0;
+
+			text-align: center;
+
+		}
+
+		div.voucherTip p{
+
+			position: absolute;
+
+			color: #a2a2a2;
+
+			font-size: 1.1rem;
+
+			line-height: 1.6rem;
+
+			background-color: #fff;
+
+			width: 22rem;
+
+			top: -0.8rem;
+
+			left: 50%;
+
+			margin-left: -11rem;
+
+			display: inline-block;
+
+		}
+		div.banner{
+
+			padding: 1.5rem 1rem 2rem;
+
+		}
+
+		div.banner img{
+
+			width: 100%;
+
+		}
+
+		article.cardInfo{
+
+			background-color: #fff;
+
+		}
+
+		div.row1{
+
+			position: relative;
+
+			padding: 0.8rem 0;
+
+			border-bottom: 1px solid #D9D9E2;
+
+		}
+
+		div.row1 span{
+
+			display: inline-block;
+
+			float: left;
+
+			font-size: 1.8rem;
+
+			line-height: 3rem;
+
+			padding: 0 1rem;
+
+		}
+
+		div.row1 p{
+
+			margin-left: 5.6rem;
+
+			border-left: 1px solid #D9D9E2;
+
+			padding-left: 1rem;
+
+			-webkit-box-sizing: border-box;
+
+			-moz-box-sizing: border-box;
+
+			box-sizing: border-box;
+
+		}
+
+		div.row1 input{
+
+			border: none;
+
+			width: 100%;
+
+			font-size: 1.8rem;
+
+			line-height: 3rem;
+
+		}
+		div.sureBtn{
+
+			font-size: 1.8rem;
+
+			color: #fff;
+
+			text-align: center;
+
+			line-height: 4.4rem;
+
+			width: 90%;
+
+			margin: 2rem auto 4rem;
+
+			background-color: #ff6138;
+
+			-webkit-border-radius: 8px;
+
+			-moz-border-radius: 8px;
+
+			border-radius: 8px;
+
+		}
+
+		/*品牌*/
+
+		ul.allBrands-ul li{
+
+			border-bottom: 1px solid #D9D9E2;
+
+		}
+
+		ul.allBrands-ul li div.brand-letter{
+
+			background-color: #F2F3F4;
+
+			font-size: 1.4rem;
+
+			line-height: 2.6rem;
+
+			color: #999;
+
+			padding: 0 2rem;
+
+		}
+
+		ul.allBrands-ul li div.brand-detail p{
+
+			border-top: 1px solid #D9D9E2;
+
+			cursor: pointer;
+
+			line-height: 4.2rem;
+
+			color: #323434;
+
+			font-size: 1.5rem;
+
+			padding: 0.5rem 2rem;
+
+			background-color: #fff;
+
+		}
+
+		article.allBrands-letters{
+
+			position: absolute;
+
+			top:0.1rem;
+
+			right: 0;
+
+			z-index: 200;
+
+		}
+
+		p.allBrands-letters-p{
+
+			text-align: right;
+
+			line-height: 1rem;
+
+		}
+
+		article.allBrands-letters span{
+
+			display: inline-block;
+
+			margin: 0.3rem 0.9rem;
+
+			color:#4172a2;
+
+			font-size: 1.1rem;
+
+			font-weight: bold;
+
+			cursor: pointer;
+
+		}
+		.leftW{ padding-left: 0 !important; margin-left: 0 !important;}
+
+		/*车系*/
+
+		ul.allModels-ul{
+
+			background-color: #FFF;
+
+		}
+
+		ul.allModels-ul li{
+
+			border-bottom: 1px solid #D9D9E2;
+
+		}
+
+		ul.allModels-ul li div.carModel-title{
+
+			background-color: #F2F3F4;
+
+			border-bottom: 1px solid #D9D9E2;
+
+			color: #999;
+
+			font-size: 1.4rem;
+
+			line-height: 2.6rem;
+
+			padding: 0 2rem;
+
+		}
+
+		ul.allModels-ul li div.carModel-detail{
+
+			padding-left: 4.2rem;
+
+		}
+
+		ul.allModels-ul li div.carModel-detail p{
+
+			/*color: #323434;*/
+
+			font-size: 1.5rem;
+
+			line-height: 4.2rem;
+
+			border-bottom: 1px solid #D9D9E2;
+
+			background-color: #fff;
+
+			cursor: pointer;
+
+		}
+
+		ul.allModels-ul li div.carModel-detail p:last-child{
+
+			border-bottom: none!important;
+
+		}
+
+		/*车型*/
+
+		section#selectStyle article{
+
+			background-color: #fff;
+
+			margin-top: 1.2rem;
+
+		}
+
+
+
+		section#selectStyle article.two{
+
+			border-top: 1px solid #D9D9E2;
+
+		}
+
+		div.theStyleRow{
+
+			border-bottom: 1px solid #D9D9E2;
+
+			line-height: 4rem;
+
+			padding: 0rem 1rem;
+
+		}
+
+		div.theStyleRow p{
+
+			color: #595c5c;
+
+			font-size: 1.5rem;
+
+		}
+
+	</style>
+
+</head>
+
+<body>
+<section id="VipId">
+
+	<div class="banner"><img src="./img/memBanner.jpg"></div>
+
+	<article class="cardInfo">
+
+		<div class="row1 clearfix">
+
+			<span>卡号</span>
+
+			<p class="cardNum"><input name="cardNum" type="number"></p>
+
+		</div>
+
+		<div class="row1 clearfix">
+
+			<span>密码</span>
+
+			<p class="cardPwd"><input name="cardPwd" type="number"></p>
+
+		</div>
+
+		<!--<div class="sureBtn">确认</div>-->
+
+	</article>
+
+</section>
+<section id="installBox">
+
+	<article class="carInfo">
+
+		<div class="title">
+
+			<div class="titleW">
+
+				<p class="tCon">填写真实车型，为您提供对应的免费养车服务</p>
+
+				<p class="tTip">车型选错会导致配件不适配而无法服务</p>
+
+			</div>
+
+		</div>
+
+		<div class="infoItems">
+
+			<div class="row brand">
+
+				<p class="leftW">选择品牌<span class="mark">*</span></p>
+
+				<span class="grayArrow"></span>
+
+			</div>
+
+			<div class="row model">
+
+				<p class="leftW">选择车系<span class="mark">*</span></p>
+
+				<span class="grayArrow"></span>
+
+			</div>
+
+			<div class="row style">
+
+				<p class="leftW">选择车型<span class="mark">*</span></p>
+
+				<span class="grayArrow"></span>
+
+			</div>
+
+		</div>
+
+	</article>
+
+	<!--<article class="voucher">
+
+        <div class="title">
+
+            <div class="titleW">
+
+                <p class="tCon">会员额外赠送代金券<span class="tTip">（已存入账户）</span></p>
+
+            </div>
+
+        </div>
+
+        <div class="voucherCon clearfix">
+
+            <div class="voucherL">
+
+                <p class="vlTop">乐乘盒子安装代金券</p>
+
+                <p class="vlDate">有效期：一年</p>
+
+                <img src="./img/back.png" class="back">
+
+            </div>
+
+            <div class="voucherR"></div>
+
+        </div>
+
+        <div class="voucherTip">
+
+            <p>此代金券为会员专享，非会员需自行付费</p>
+
+        </div>
+
+    </article>-->
+
+	<div class="sureBtn">确认</div>
+
+</section>
+
+<section id="selectBrand" style="display:none;">
+
+	<article class="allBrands">
+
+		<ul class="allBrands-ul" style="position: relative;">
+
+		</ul>
+
+	</article>
+
+	<article class="allBrands-letters" style='display:none;'>
+
+		<p class="allBrands-letters-p">
+
+			<span>A</span><br />
+
+			<span>B</span><br />
+
+			<span>C</span><br />
+
+			<span>D</span><br />
+
+			<span>E</span><br />
+
+			<span>F</span><br />
+
+			<span>G</span><br />
+
+			<span>H</span><br />
+
+			<span>I</span><br />
+
+			<span>J</span><br />
+
+			<span>K</span><br />
+
+			<span>L</span><br />
+
+			<span>M</span><br />
+
+			<span>N</span><br />
+
+			<span>O</span><br />
+
+			<span>P</span><br />
+
+			<span>Q</span><br />
+
+			<span>R</span><br />
+
+			<span>S</span><br />
+
+			<span>T</span><br />
+
+			<span>U</span><br />
+
+			<span>V</span><br />
+
+			<span>W</span><br />
+
+			<span>X</span><br />
+
+			<span>Y</span><br />
+
+			<span>Z</span><br />
+
+		</p>
+
+	</article>
+
+</section>
+
+<section id="selectModel" style="display:none;">
+
+	<ul class="allModels-ul">
+
+	</ul>
+
+</section>
+
+<section id="selectStyle" style="display:none;">
+
+	<article class="two">
+
+	</article>
+
+</section>
+
+</body>
+
+<script type="text/javascript">
+	var index = {};
+
+	function connectWebViewJavascriptBridge(callback) {
+
+		if (window.WebViewJavascriptBridge) {
+
+			callback(WebViewJavascriptBridge)
+
+		} else {
+
+			document.addEventListener('WebViewJavascriptBridgeReady', function() {
+
+				callback(WebViewJavascriptBridge)
+
+			}, false)
+
+		}
+
+	}
+
+	connectWebViewJavascriptBridge(function(bridge) {
+
+		document.documentElement.style.webkitTouchCallout='none';
+
+		bridge.init(function(message, responseCallback) {
+
+			if(message instanceof Object){
+
+				if(typeof index.init === 'function') {
+
+					responseCallback(index.init.apply(this,[message,bridge]));
+
+				}
+
+			}else if(message=="pullUpRefresh"){
+
+				typeof index[message] == 'function' && responseCallback(index.pullUpRefresh.apply(this));
+
+			}else{
+
+				responseCallback(setCallCountFromClient.apply(this,[message]));
+
+			}
+
+		})
+
+
+
+	});
+
+	var bridge;
+
+	index.init = function(userInfo,bri){
+
+		bridge = bri;
+
+	};
+	$(function(){
+
+		// 获取参数
+
+		var url = window.location.search;
+
+		var paramJson = {};
+
+		if(url!=''){
+
+			var paramsArr = (url.split("?")[1]).split("&");
+
+			$.each(paramsArr,function(i){
+
+				var item = paramsArr[i].split("=");
+
+				paramJson[item[0]] = item[1]
+
+			});
+
+		}
+		var close = function(){
+
+			window.location.href = "http://w2l?closeActivity"
+
+		};
+
+		if(paramJson.customerId=='null' || paramJson.customerId==null || paramJson.customerId=='' || paramJson.customerId==undefined){
+
+			window.location.href="http://w2l?presentType=2&androidName=8&iosName=LoginViewController";
+
+			setTimeout(close,100)
+
+		}
+
+		// 代金券金额
+
+		$('div.voucherR').html('￥'+paramJson.money);
+
+		// 选择品牌
+
+		var selectBrand=function(){
+
+			$('section#selectBrand').show().siblings().hide();
+
+			$.ajax({
+
+				url:'/yangchebao-app-ws/ws/0.1/support/brand/list',
+
+				async:false,
+
+				type:'get',
+
+				dataType:'json',
+
+				contentType:'application/json;charset=utf-8',
+
+				success:function(data){
+
+					var brandStr='';
+
+					var letterJson={};
+
+					"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(function(key,i){
+
+						letterJson[key]=''
+
+					});
+
+					$.each(data,function(key,val){
+
+						letterJson[key]+='<li>'
+
+						+'<div class="brand-letter" id="'+key+'">'+key+'</div>';
+
+						val.forEach(function(brandName,i){
+
+							letterJson[key]+='<div class="brand-detail">'
+
+							+'<p id="'+brandName.id+'">'+brandName.name+'</p>'
+
+							+'</div>'
+
+						});
+
+						letterJson[key]+='</li>'
+
+					});
+
+					$.each(letterJson,function(key,val){
+
+						brandStr+=val
+
+					});
+
+					$('ul.allBrands-ul').html(brandStr);
+
+					$('article.allBrands-letters').show();
+
+					$('article.allBrands').css({'height':window.innerHeight,'overflow':'auto'});
+
+					$('p.allBrands-letters-p span').unbind('click').bind('click',function(){
+
+						var _id=$(this).html();
+
+						$('article.allBrands').scrollTop($('div#'+_id).position().top+1)
+
+					});
+
+					$('ul.allBrands-ul li div.brand-detail p').unbind('click').bind('click',function(){
+
+						var theBrandId=$(this).attr('id');
+
+						var theBrandName=$(this).html();
+
+						$('div.brand p').html(theBrandName).attr('data-id',theBrandId);
+
+						$('section#selectBrand').hide();
+
+						$('section#installBox').show();
+						$('section#VipId').show();
+
+
+					})
+
+				}
+
+			})
+
+		};
+
+		// 选择车系
+
+		var selectModel=function(brandId){
+
+			$('section#selectModel').show().siblings().hide();
+
+			$.ajax({
+
+				url:'/yangchebao-app-ws/ws/0.1/support/model/list?brandId='+brandId,
+
+				type:'get',
+
+				dataType:'json',
+
+				async:false,
+
+				contentType:'application/json;charset=utf-8',
+
+				success:function(data){
+
+					var modelStr='';
+
+					data.forEach(function(key,i){
+
+						// modelStr+='<p>'+key+'</p>'
+
+						modelStr+='<li>'
+
+						+'<div class="carModel-title" id="'+key.id+'">'+key.name+'</div>'
+
+						+'<div class="carModel-detail">'
+
+						key.models.forEach(function(key2,j){
+
+							modelStr+='<p id="'+key2.id+'">'+key2.name+'</p>'
+
+						});
+
+						modelStr+='</div></li>'
+
+					});
+
+					$('ul.allModels-ul').html(modelStr);
+
+					$('ul.allModels-ul li div.carModel-detail p').unbind('click').bind('click',function(){
+
+						var theModelName=$(this).html();
+
+						var theModelId=$(this).attr('id');
+
+						$('div.model p').html(theModelName).attr('data-id',theModelId);
+
+						$('section#selectModel').hide();
+
+						$('section#installBox').show();
+						$('section#VipId').show();
+
+					})
+
+				}
+
+			})
+
+		};
+
+		// 选择车型
+
+		var selectStyle=function(modelId){
+
+			$('section#selectStyle').show().siblings().hide();
+
+			$.ajax({
+
+				url:'/yangchebao-app-ws/ws/0.1/support/style/list?modelId='+modelId,
+
+				type:'get',
+
+				dataType:'json',
+
+				contentType:'application/json;charset=utf-8',
+
+				async:false,
+
+				success:function(data){
+
+					var styleStr='';
+
+					data.forEach(function(key,i){
+
+						styleStr+='<div id="'+key.id+'" class="theStyleRow">'
+
+						+'<p>'+key.name+'</p>'
+
+						+'</div>'
+
+					});
+
+					$('section#selectStyle article.two').html(styleStr);
+
+					$('div.theStyleRow').unbind('click').bind('click',function(){
+
+						var theStyleRowId=$(this).attr('id');
+
+						var theStyleRowName=$(this).find('p').html();
+
+						$('div.style p').html(theStyleRowName).attr('data-id',theStyleRowId);
+
+						$('section#selectStyle').hide();
+
+						$('section#installBox').show();
+						$('section#VipId').show();
+
+					})
+
+				}
+
+			})
+
+		};
+
+		$('div.brand').on('click',function(){
+
+			selectBrand();
+			$('.model p').attr('data-id','0');
+			$('.style p').attr('data-id','0');
+			$('.model p').html("选择车系<span class='mark'>*</span>");
+			$('.style p').html("选择车型<span class='mark'>*</span>");
+
+		});
+
+		$('div.model').on('click',function(){
+
+			var _brandId=$('div.brand p').attr('data-id');
+			$('.style p').attr('data-id','0');
+			$('.style p').html("选择车型<span class='mark'>*</span>");
+			if(_brandId){
+
+				selectModel(_brandId)
+
+			}else{
+
+				errorLog('请选择品牌')
+
+			}
+
+
+
+		});
+
+		$('div.style').on('click',function(){
+
+			var _modelId=$('div.model p').attr('data-id');
+
+			if(_modelId){
+
+				selectStyle(_modelId)
+
+			}else{
+
+				errorLog('请选择车系')
+
+			}
+
+
+
+		});
+
+		// 确认
+		$("div.sureBtn").unbind('click').bind('click',function(){
+			var nowTime = new Date().getTime();
+			var clickTime = $(this).attr("ctime");
+
+			if( clickTime != 'undefined' && (nowTime - clickTime < 5000)){
+
+				return false;
+			}else{
+				$(this).attr("ctime",nowTime);
+			}
+			//人保用户绑定
+			var cardNo=$.trim($('input[name="cardNum"]').val());
+
+			var cardPwd=$.trim($('input[name="cardPwd"]').val());
+
+			var styleId = $('.style p').attr('data-id');
+			var modelId = $('.model p').attr('data-id');
+
+			//alert(styleId);
+
+			if(cardNo==''){
+
+				errorLog('请输入卡号');
+
+				return false
+
+			}
+
+			if(!(/^[0-9]{10}$/.test(cardNo))){
+
+				errorLog('请输入10位数字的卡号');
+
+				return false
+
+			}
+
+			if(cardPwd==''){
+
+				errorLog('请输入密码');
+
+				return false
+
+			}
+
+			if(!(/^[0-9]{8}$/.test(cardPwd))){
+
+				errorLog('请输入8位数字的密码');
+
+				return false
+
+			}
+			//请选择车型
+			//var _styleId=$('div.style p').attr('data-id');
+
+			if(modelId==0){
+
+				errorLog('请选择车系');
+
+				return false
+
+			}
+			if(styleId==0 || !styleId){
+
+				errorLog('请选择车型');
+
+				return false
+
+			}
+
+
+			var postData={};
+
+			postData.customerId=paramJson.customerId;
+
+			postData.cardNo=cardNo;
+
+			postData.cardPwd=cardPwd;
+
+			postData.channel="2";
+			postData.styleId=styleId;
+
+			postData.lat=paramJson.lat;
+
+			postData.lon=paramJson.lon;
+
+			postData.serviceCityName=paramJson.cityName;
+
+			$.ajax({
+
+				url:'/yangchebao-app-ws/ws/0.1/marketactive/renbao/user/auth',
+
+				type:'post',
+
+				dataType:'json',
+
+				data:$.toJSON(postData),
+
+				contentType:'application/json;charset=utf-8',
+
+				success:function(data){
+					console.log(data);
+					if(data.cardStatus==1){
+
+						//发消息给客户端 刷新挣钱页面
+
+						if(paramJson.osInfo=="3"){
+
+							window.shareInfos.moneyRefresh("1");
+
+						}else{
+
+							var json = {"moneyRefresh":"1"};
+
+							bridge.send(json, function(responseData) {
+
+								log('JS got response', responseData)
+
+							});
+
+						}
+
+						if(data.cardBatchNo=="1"){
+							window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/renbao/memberSuc.html?balance="+data.balance+"&boxStatus="+data.boxStatus;
+
+						}
+						if(data.cardBatchNo=="2"){
+
+							if(data.cardAwardStatus==0){
+
+								window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/renbao/memberSuc2.html?balance="+data.balance;
+
+							}else if(data.cardAwardStatus==1){
+
+								window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/renbao/memberSuc1.html?balance="+data.balance;
+
+							}
+						}
+
+					}else{
+
+						window.location.href="http://w2nw?http://"+urlIp()+"/yangchebao-pubweb/renbao/activeFail.html?cardStatus="+data.cardStatus
+
+					}
+
+				},
+
+				error:function(xhr){
+
+					var error=eval('('+xhr.responseText+')');
+
+					errorLog(error[0].message)
+
+				}
+
+			})
+		})
+
+	})
+
+</script>
+
+</html>

@@ -1,0 +1,110 @@
+<script type="text/javascript" src="vatInvoiceManage/vatInvoiceManage.js"></script>
+<style>
+	#Wraper_vatInvoice_manage div#Form_vat_invoice div.grid-layout-content{
+		line-height: 24px;
+	}
+</style>
+<div class="urlContentWraper" id="Wraper_vatInvoice_manage">
+<div class="ui-info-layout">
+<div class="ui-info-layout-subbox "> 
+	<div class="jrad-table">
+        <h2 class="ui-tit"><strong>增票资质管理</strong></h2>
+        <!-- 列表显示 -->
+        <table id="Table_vatInvoice_list"></table>
+    </div>
+	</div>
+	</div>
+	<!-- 审核form -->
+	<div id="Form_vat_invoice" style="display:none;height:650px">
+	<div class="grid-layout-main jrad-form"> 	
+		 
+		  <h3>商家资料</h3>  
+		  <div class="row">
+			<label class="span4 grid-layout-label"> 单位名称：</label>
+			<div class="span5 grid-layout-content">
+				<div name="unitName"></div>
+			</div>  
+		</div> 
+
+		 <div class="row">
+			<label class="span4 grid-layout-label"> 纳税人识别码：</label>
+			<div class="span5 grid-layout-content">
+				<div name="identificationCode"></div>
+			</div>
+		</div> 
+		 <div class="row">
+			<label class="span4 grid-layout-label"> 注册地址：</label>
+			<div class="span4 grid-layout-content">
+				<div name="registeredAdress"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span4 grid-layout-label"> 注册电话：</label>
+			<div class="span5 grid-layout-content">
+				<div name="registeredPhone"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span4 grid-layout-label"> 开户银行：</label>
+			<div class="span5 grid-layout-content">
+				<div name="bank"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span4 grid-layout-label"> 银行账号：</label>
+			<div class="span5 grid-layout-content">
+				<div name="bankAccount"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span4 grid-layout-label"> 税务登记副本：</label>
+			<div class="span5 grid-layout-content">
+				<div name="taxcodebak"></div>
+			</div>  
+		</div> 
+		<div class="row">
+			<label class="span4 grid-layout-label"> 一般纳税人资格证明：</label>
+			<div class="span5 grid-layout-content">
+				<div name="generalTaxpayer"></div>
+			</div>  
+		</div>
+		<div class="row">
+			<label class="span4 grid-layout-label"> 开户许可证：</label>
+			<div class="span5 grid-layout-content">
+				<div name="license"></div>
+			</div>  
+		</div>
+			<div class="row">
+			<label class="span4 grid-layout-label"> 增票授权委托书：</label>
+			<div class="span5 grid-layout-content">
+				<div name="entrust"></div>
+			</div>  
+		</div>
+		<h3>增税资质状态</h3>  
+		<div class="row">
+			<label class="span2 grid-layout-label"></label>
+			<div class="span5 grid-layout-content">
+				<div class="jrad-select-container" name="vatStatus"></div>
+			</div>  
+		</div> 
+		 <h3>用户说明<label style="color:#aeb4c1;font-size: 12px;font-weight:normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:(用户可查看，驳回用户申请时必须填写)</label></h3>
+		<div class="row">
+			<label class="span2 grid-layout-label"></label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-textarea-container" name="userDesc"></div>
+			</div>  
+		</div> 
+		 <h3>备注</h3>
+		<div class="row">
+			<label class="span2 grid-layout-label"></label>
+			<div class="span8 grid-layout-content">
+				<div class="jrad-textarea-container" name="remark"></div>
+			</div>  
+		</div>  
+	</div>
+	<div class="jrad-buttons-container ui-buttons-container"> 
+		<span class="jrad-btn-primary" id="btn">确定</span> 
+		<span class="jrad-btn-normal">取消</span>
+	</div>
+	</div>		
+</div>							

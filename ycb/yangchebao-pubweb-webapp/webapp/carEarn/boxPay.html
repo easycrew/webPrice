@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="robots" content="noarchive"/>
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script>
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js "></script>
+	<link rel="stylesheet" href="./css/box.css">
+    <title>养车宝补贴</title>
+</head> 
+<body style="background-color:#fff;"> 
+<section id="pay-page">
+  <header>
+    <div class="header-img"><img src="http://app.yangchebao.com.cn/group1/M00/0C/21/ChUBl1XEHQ-AXgYMAADgbRvr9X0807.png"></div>
+    <div class="header-text">
+		<p class="p1"><span style="display:none;">1.</span>您的盒子已经激活！</p> 
+        <p  class="p2" style="display:none;">2.您还可以获得养车宝的养车补贴，只需缴纳设备押金，缴纳成功后开车满100公里返现1元，不开车（0:00-24:00）累积两天返现1元，账户现金余额可累积使用，可在养车宝平台上购买本商家的任意服务。生成补贴后七天失效，要主动及时领取哟！</p>
+		<p  class="p3" style="display:none;">3.如果您是山东用户，且服务商已经承诺给您补贴，请您耐心等待1个工作日，不需支付899，补贴会自动开始。</p>
+		</div>
+  </header>
+    <div class="slidLine"></div>
+    <article>
+        <div class="selectPayStyle-title"><span></span><strong>选择支付方式</strong></div>
+        <ul class="payStyle-ul">
+            <li class="weixinStyle">
+                <img src="http://app.yangchebao.com.cn/group1/M00/0C/21/ChUBl1XEHWKANLptAAAO5JpSiPQ830.png" class="styleImg">
+                <strong>需要开通微信钱包</strong>
+                <span class="checkWraper"><span class="boxCheck" id="1"></span><img src="http://app.yangchebao.com.cn/group1/M00/0C/21/ChUBl1XEHbeAXVWoAAAHp7xHOYk001.png" class="checkedImg" style="display:none;"></span>
+                
+            </li>
+            <li class="zfbStyle">
+                <img src="http://app.yangchebao.com.cn/group1/M00/0C/21/ChUBl1XEHeKAQ5TWAAAkFltbm7A003.png" class="styleImg">
+                <strong>需要拥有支付宝账号</strong>
+                <span class="checkWraper"><span class="boxCheck" id="3"></span><img src="http://app.yangchebao.com.cn/group1/M00/0C/21/ChUBl1XEHbeAXVWoAAAHp7xHOYk001.png" class="checkedImg" style="display:none;"></span>
+            </li>
+        </ul>
+        <div class="mainItems">
+        </div>
+        <div class="payMoney">
+            <span class="payMoneyNum">需支付：<strong>￥899</strong></span>
+            <span class="payMoneyBtn">确认</span>
+        </div>
+    </article>
+</section> 
+<script type="text/javascript">   
+    var obdIMEI;
+	var paramJson = {}; 
+    $(document).ready(function(){  
+        var url =window.location.search;    
+        var paramsArr = (url.split("?")[1]).split("&");
+       
+        $.each(paramsArr,function(i){
+            var item = paramsArr[i].split("=");
+            paramJson[item[0]] = item[1];
+        }); 
+		//未激活用户
+	   $("body").css("background-color","#fff");
+	   var cityArr = ["青岛","淄博","潍坊"];
+	   var cityArr2 = ["东莞","珠海"];
+	   paramJson.cityName=decodeURIComponent(paramJson.cityName); 
+	   if($.inArray(paramJson.cityName, cityArr)!=-1){  
+	      $(".p1 span").show();
+		  $(".p2").show();
+		  $(".p3").show();
+	   }else if($.inArray(paramJson.cityName, cityArr2)!=-1){ 
+	   }else{
+		  $(".p1 span").show();
+		  $(".p2").show();
+	   }  
+	   $('span.boxCheck').unbind('click').bind('click',function(){
+		  if($(this).parent().find('img').is(":hidden")){
+			$('img.checkedImg').removeClass('showChecked').hide();
+			$(this).parent().find('img').show().addClass('showChecked')
+		  }else{
+			$(this).parent().find('img').removeClass('showChecked').hide()
+		  }
+	   });
+	   var link = function(){
+		   window.location.href = 'http://app.yangchebao.com.cn/yangchebao-app-ws/ws/0.1/urlMapper/rot/00105073';
+		  //点支付跳转页面 
+		}
+	   $('span.payMoneyBtn').unbind('click').bind('click',function(){
+		 var payChannel=$('img.showChecked').parent().find('span.boxCheck').attr('id');
+		 if(payChannel==undefined||payChannel==''||payChannel==null){
+			return false
+		 }
+		 window.location.href = 'http://w2l/?presentType=1&needLogin=1&androidName=29&iosName=MyWebViewController&sourceId='+obdIMEI+'&itemType=4&fromChannel=obdSubsidyActive&payChannel='+payChannel; 
+			 setTimeout(link, 100)
+	   });
+	   chezheng();
+    });  
+	function  chezheng(){
+		//status 用户的开车挣补贴状态 1: 用户已开通车挣补贴  2: 用户有绑定盒子IMEI，但是没有开通补贴 3: 用户没有绑定过盒子IMEI
+		//obdIMEI	String	用户绑定的盒子IMEI(只有status为2时才有该字段) 
+		$.ajax({
+			url:'/yangchebao-app-ws/ws/0.1/chezheng/subsidy/status?customerId='+paramJson.customerId+'&'+(new Date()).getTime(),
+			type: 'get',  
+			dataType: 'json',
+			success: function(data) {  
+				if(data.status=='2'){
+				  obdIMEI=data.obdIMEI; 
+				} 
+			}
+		});
+	}
+</script> 
+</body> 
+</html>

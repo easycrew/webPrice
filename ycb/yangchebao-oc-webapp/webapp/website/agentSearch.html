@@ -1,0 +1,366 @@
+<div class="urlContentWraper" id="Wraper_agent_search">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>代理商列表</strong><bottom class="all-work-info numb197">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <table id="Table_agent_search"></table>
+    </div>
+    <div id="Form_agent_search" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+		    <input name="shroffAccountId" type="hidden">  
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					注册公司：
+				</label>
+				<div class="span5 grid-layout-content">
+					<div name="registeredCompany" class="jrad-input-container">
+					</div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					代理商名称：
+				</label>
+				<div class="span5 grid-layout-content">
+					<div name="name" class="jrad-input-container">
+					</div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					代理商级别：
+				</label>
+				<div class="span5 grid-layout-content">
+					<div name="level" class="jrad-select-container">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="span4 grid-layout-label">
+					<span class="ui-form-required">*</span>
+					省：
+				</label>
+				<div class="span5 grid-layout-content">
+					<div name="provinceId" class="jrad-select-container">
+					</div>
+				</div>
+				<label class="span2 grid-layout-label city">
+					<span class="ui-form-required">*</span>
+					市：
+				</label>
+				<div class="span5 grid-layout-content city">
+					<div name="cityId" class="jrad-select-container">
+					</div>
+				</div> 
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					授权时间：
+				</label>
+				<div class="span5 grid-layout-content">
+					<div name="privilegedTime" class="jrad-dateinput-container">
+					</div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					授权期限开始时间：
+				</label>
+				<div class="span8 grid-layout-content">
+					<div name="privilegedStartTime" class="jrad-dateinput-container">
+					</div>
+				</div>
+			</div>
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					授权期限结束时间：
+				</label>
+				<div class="span8 grid-layout-content">
+					<div name="privilegedEndTime" class="jrad-dateinput-container">
+					</div>
+				</div>
+			</div> 
+			<div class="row"> 
+				<label class="span4 grid-layout-label">
+				   <span class="ui-form-required">*</span>
+					状态：
+				</label>
+				<div class="span8 grid-layout-content">
+					<div name="status" class="jrad-select-container">
+					</div>
+				</div>
+			</div> 
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg197" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>官网渠道合作的管理功能。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>1、官网查询时，是按“代理商名称”模糊搜索的，所以“代理商名称”最好带有代理商城市名称；
+          2、不要存在两个有效的相同城市代理商，否则查询只会查出ID较前的代理商。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_agent_search');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+    
+	jRad.validators['registeredCompany'] = [{"msg":"注册公司名称不能为空","type":"min","value":"1"}];
+	jRad.validators['name'] = [{"msg":"代理商名称不能为空","type":"min","value":"1"}];
+	jRad.validators['privilegedTime'] = [{"msg":"授权时间不能为空","type":"min","value":"1"}];
+	jRad.validators['privilegedStartTime'] = [{"msg":"授权期限开始时间不能为空","type":"min","value":"1"}];
+	jRad.validators['privilegedEndTime'] = [{"msg":"授权期限结束时间不能为空","type":"min","value":"1"}];
+	jRad.validators['provinceId'] = [{"msg":"省不能为空","type":"min","value":"1"}];
+
+	jRad.params['status']={
+		data: [{id:'',name:'请选择'},{id:'1',name:'有效'},{id:'2',name:'无效'},{id:'3',name:'删除'}] 
+	};
+	jRad.params['level']={
+		data: [{id:'',name:'请选择'},{id:'1',name:'省级'},{id:'2',name:'市级'}] 
+	};
+	//省市区select值
+	jRad.params['provinceCodeSearch'] = {
+			urlData:{
+				url:'/euc/ws/0.1/user/provinces?userId='+carsmart_config.userId
+			},
+			unshiftData: {id:'',name:'请选择'},
+			onchange: function(){
+				var provinceCode = $('.searchContent div[name=provinceId]').select('val');
+				if(provinceCode==''){
+					$('.searchContent div[name=cityId]').select({
+																urlData:{url:''},
+																data:[{id:'',name:'请选择'}],
+																val: ''});
+				}else{
+				$('.searchContent div[name=cityId]').select({
+					urlData:{
+						url: '/euc/ws/0.1/user/cities?provinceId='+provinceCode+'&userId='+carsmart_config.userId
+					},
+					unshiftData: {id:'',name:'请选择'},
+					val:''
+				});
+				} 
+			}
+		};
+	jRad.params['cityIdSearch'] = {
+		data: [{id:'',name:'请选择'}]
+	};
+
+    var fields_params = {}; 
+    fields_params['status']={
+		data: [{id:'1',name:'有效'},{id:'2',name:'无效'},{id:'3',name:'删除'}] 
+	}; 
+	fields_params['level']={
+		data: [{id:'1',name:'省级'},{id:'2',name:'市级'}] 
+	};
+	fields_params['provinceId'] = {
+		urlData:{
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/provinceAll' 
+		},
+		unshiftData: {id:'',name:'请选择'},
+		onchange: function(){
+			var provinceCode = $('#Form_agent_search div[name=provinceId]').select('val');
+			if(provinceCode==''){
+				$('#Form_agent_search div[name=cityId]').select({
+															urlData:{url:''},
+															data:[{id:'',name:'请选择'}]});
+			}else{
+				$('#Form_agent_search div[name=cityId]').select({
+				urlData:{
+					url: '/shopmanage-ws/ws/0.1/userInfoCms/municipalities?provinceId=' + provinceCode 
+				},
+				unshiftData: {id:'',name:'请选择'}
+				});
+			}
+			$('#Form_agent_search div[name=cityId]').select('val','');
+		}
+	};
+	fields_params['cityId'] = {
+		data: [{id:'',name:'请选择'}]
+	};   
+
+	 $('#Form_agent_search').form({
+        grid: 16,
+        validators: jRad.validators,
+        fields_params: fields_params 
+    });
+	page_column_model.push({display: 'ID', name : 'agentId'}); 
+	page_column_model.push({display: '注册公司名称', name : 'registeredCompany'});
+    page_column_model.push({display: '代理商名称', name : 'name'}); 
+    page_column_model.push({display: '代理商级别', name : 'level'}); 
+    page_column_model.push({display: '省市', name : 'place'}); 
+    page_column_model.push({display: '授权时间', name : 'privilegedTime'}); 
+    page_column_model.push({display: '授权期限起始时间', name:'privilegedStartTime'});
+    page_column_model.push({display: '授权期限结束时间', name : 'privilegedEndTime'}); 
+    page_column_model.push({display: '状态', name : 'status'}); 
+    page_column_model.push({display: '最后操作时间',name:'updateDate'}); 
+    page_column_model.push({display: '最后操作人',name:'lastModifyPeople'}); 
+    
+   page_search_items.push({row:'1',type:'jrad-input',display:'ID',name:'agentId'});
+   page_search_items.push({row:'1',type:'jrad-input',display:'注册公司名称',name:'registeredCompany'}); 
+   page_search_items.push({row:'1',type:'jrad-input',display:'代理商名称',name:'name'}); 
+   page_search_items.push({row:'2',type:'jrad-select',display:'省',name:'provinceId',params:jRad.params['provinceCodeSearch']}); 
+   page_search_items.push({row:'2',type:'jrad-select',display:'市',name:'cityId',params:jRad.params['cityIdSearch']});
+   page_search_items.push({row:'2',type:'jrad-select',display:'代理商级别',name:'level',params:jRad.params['level']}); 
+   page_search_items.push({row:'3',type:'jrad-dateinput',display:'授权时间',name:'privilegedTime'}); 
+   page_search_items.push({row:'3',type:'jrad-dateinput',display:'授权期限起始时间',name:'privilegedStartTime'});
+   page_search_items.push({row:'3',type:'jrad-dateinput',display:'授权期限结束时间',name:'privilegedEndTime'});
+   page_search_items.push({row:'4',type:'jrad-select',display:'状态',name:'status',params:jRad.params['status']});
+
+   page_list_buttons.push({title: '创建',name:'Add', bclass: 'add',onpress : function(){ 
+			$('#Form_agent_search').form({
+                title: '创建',
+                validators: jRad.validators, 
+                fields_params: fields_params,
+                item:{},
+                style:{height:'600px'}, 
+                url:'/websitemanager-ws/ws/0.1/agentCms/add', 
+				before_submit:function(json){
+					json.lastModifyPeople=carsmart_config.operatorName;
+					return json
+				},
+				success_callback:function(){ 
+                    $('#Table_agent_search').flexMessage('创建成功', 'success');
+                    $('#Table_agent_search').flexReload();
+                } 
+            }).form('open');
+            $('#Form_agent_search div[name="level"]',wraper).select({
+            	onchange:function(){
+            		var val=$('#Form_agent_search div[name="level"]',wraper).select('val');
+            		if(val=='1'){
+            			$('#Form_agent_search div[name="cityId"]',wraper).select('val','');
+            			$('#Form_agent_search .city',wraper).hide()
+            		}else{
+            			$('#Form_agent_search .city',wraper).show()
+            		}
+            	}
+            })
+        }
+    }); 
+	
+	page_list_buttons.push({name:'edit',bclass: 'edit',prefunc:function(){
+            var checked = $('#Table_agent_search').getCheckedTrs();
+            if (checked.length != 1) {return false;}else{return true;}
+        },onpress : function(){
+	    	var checked = $('#Table_agent_search').getCheckedTrs();  
+			var json = $.jRadGet({url:'/websitemanager-ws/ws/0.1/agentCms/get?agentId='+checked[0].agentId}); 
+				$('#Form_agent_search').form({
+                title: '编辑',
+                validators: jRad.validators, 
+                item:json,
+                style:{height:'600px'}, 
+                url:'/websitemanager-ws/ws/0.1/agentCms/edit', 
+                before_submit:function(json){
+                	json.lastModifyPeople=carsmart_config.operatorName;
+                	json.agentId=checked[0].agentId;
+                	return json
+                },
+				success_callback:function(){ 
+                            $('#Table_agent_search').flexMessage('编辑成功', 'success');
+                            $('#Table_agent_search').flexReload();
+                        } 
+            }).form('open');
+			if(!(json.cityId==undefined || json.cityId=='')){
+				$('#Form_agent_search .city',wraper).show()
+			}else{
+				$('#Form_agent_search .city',wraper).hide()
+			}
+			$('#Form_agent_search div[name="level"]',wraper).select({
+            	onchange:function(){
+            		var val=$('#Form_agent_search div[name="level"]',wraper).select('val');
+            		if(val=='1'){
+            			$('#Form_agent_search div[name="cityId"]',wraper).select('val','');
+            			$('#Form_agent_search .city',wraper).hide()
+            		}else{
+            			$('#Form_agent_search .city',wraper).show()
+            		}
+            	}
+            })
+		}
+	}); 
+    page_list_buttons.push({separator: true});
+    
+    $('#Table_agent_search').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			showSearch:true, 
+            url:'/websitemanager-ws/ws/0.1/agentCms/page', 
+			onError:showError,
+			checkBoxType:'single'
+    });
+	$(".numb197").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg197").form({}).form('close');
+        $("#Form_explain_eg197").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+			submit:function(){
+            	var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg197 div[name='remark']").textarea("val")
+				$.jRadPost({
+				    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+				    data:postData,
+				    success:function(){
+						$("#Form_explain_eg197").form('close')
+      					$('.overcurtainDiv').hide();
+				   	}
+				});
+			}, 
+			cancel:function(){
+				$("#Form_explain_eg197").form('close')
+      			$('.overcurtainDiv').hide();
+			}
+        }).form('open')
+        $("#Form_explain_eg197 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")"); 
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		} 
+</script>

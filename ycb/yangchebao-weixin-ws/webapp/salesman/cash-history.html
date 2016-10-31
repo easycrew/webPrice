@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>  
+<title>提现历史</title>
+<link rel="stylesheet" href="./css/index.css">
+<script language="javascript" src="./js/jquery-1.10.1.min.js"></script> 
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+<script language="javascript" src="./js/jquery.json-2.2.js"></script>
+<script language="javascript" src="./js/share.js"></script> 
+</head>  
+<body> 
+	<section  class="history-wrap">
+        <h1 class="tit">提现历史</h1>
+        <ul id="historyList">
+           <!--  <li>
+                <p>2014-01-12  12:23:57</p>
+                <p> 提现<span class="point">89</span>元到支付宝账户</p>
+                <p>shezenghui</p>
+            </li>   
+            <li>
+                <p>2014-01-12  12:23:57</p>
+                <p> 提现<span class="point">89</span>元到支付宝账户</p>
+                <p>4093********0577</p>
+            </li>   
+            <li>您还没有提现历史哦！</li> -->
+        </ul>
+    </section>
+    <script type="text/javascript">
+     $(document).ready(function(){ 
+        var postData = {}; 
+        var url = window.location.search; 
+        var paramsArr = (url.split("?")[1]).split("&");
+        var paramJson = {};
+        $.each(paramsArr,function(i){
+            var item = paramsArr[i].split("=");
+            paramJson[item[0]] = item[1];
+        });   
+        getSalaryList();
+        function getSalaryList(){ 
+            $.ajax({
+                url: '/yangchebao-weixin-ws/ws/0.1/salesman/getWithDrawSalaryHistory?salesmanInfoId='+paramJson.salesmanInfoId,
+                 type: 'get',
+                async: false,
+                dataType: 'json',
+                success:function(data){   
+                     if(data.length>0){ 
+                         $.each(data,function(i){
+                            var item = data[i];
+                            var _li = "";
+                           // var mobile = item.mobile; 
+                           // mobile = mobile.substring(0,3)+"****"+mobile.substring(7,11);
+                            var arr = item.message.split("提现")[1].split("元"); 
+                            _li = '<li>'
+                               +'<p>'+item.createDate+'</p>'
+                               +'<p>提现<span class="point">'+arr[0]+'</span>元'+arr[1]+'</p>'
+                               +'<p>'+item.account+'</p>' 
+                               +'</li>'; 
+                            $("#historyList").append(_li);
+                            });
+                        }else{
+                            $("#historyList").html("<li>您还没有提现历史哦！</li>");
+                        }  
+                },error:function(xhr){ 
+                     var mes = eval('('+xhr.responseText+')'); 
+                     alert(mes[0].message);  
+                } 
+            }); 
+        }
+
+    }); 
+    </script>
+	 
+</body>
+
+</html>
+

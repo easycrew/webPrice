@@ -1,0 +1,256 @@
+@charset "utf-8";
+div.orderDetail{
+	margin-top: 30px;
+}
+div.orderDetail-top{
+	overflow: hidden;
+	margin-bottom: 16px;
+}
+div.orderDetail h2{
+	float: left;
+	font-family: "microsoft yahei";
+	font-size: 18px;
+	color: #333;
+}
+div.orderDetail-top a.back{
+	float: right;
+	font-family: "microsoft yahei";
+	font-size: 12px;
+	color: #FD6244;
+	cursor: pointer;
+}
+
+div.orderDetail-main{
+	border: 1px solid #FD6244;
+	padding: 20px 20px 40px 20px;
+}
+div.orderDetail-main h3{
+	border-bottom: 1px solid #FD6244;
+	padding-bottom: 5px;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #FD6244;
+}
+div.orderDetail-main h3 img{
+	margin-right: 8px;
+}
+div.buyerInfo{
+	overflow: hidden;
+	padding-top: 26px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #E5E4E2;
+}
+div.theOrderInfo-top{
+	overflow: hidden;
+	padding-top: 26px;
+	padding-bottom: 16px;
+}
+div.buyerInfo div.buyerAddress,div.theOrderInfo-top div.theOrderStatus{
+	float: left;
+}
+div.buyerInfo div.buyerContact,div.theOrderInfo-top div.theOrderNumber{
+	float: right;
+}
+div.buyerInfo span,div.theOrderInfo span{
+	font-family: "microsoft yahei";
+	font-size: 12px;
+	color: #333;
+}
+div.buyerInfo span.shopName{
+	margin-left: 111px;
+}
+span.buyerInfoText,span.theOrderInfoText{
+	font-family: "microsoft yahei";
+	font-size: 14px!important;
+	color: #333;
+	padding-right: 50px;
+}
+div.buyerContact p span,div.theOrderNumber span{
+	display: inline-block;
+	width: 250px;
+}
+a i {
+  position: absolute;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  background: url(../img/vip_bg.png) no-repeat;
+  font-family: "microsoft yahei";
+  color: #FFFFFF;
+  }
+
+table.Table-theOrderInfo{
+	width: 100%;
+}
+table.Table-theOrderInfo thead{
+	background-color: #F7F7F7;
+}
+table.Table-theOrderInfo thead td{
+	padding: 16px 0;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+	border-top: 1px solid #E8E8E8;
+	border-bottom: 1px solid #E8E8E8;
+	text-align: center;
+	height: 14px;
+	line-height: 14px;
+}
+table.Table-theOrderInfo thead td.goodsName{
+	border-left: 1px solid #E8E8E8;
+}
+table.Table-theOrderInfo thead td.operate{
+	border-right: 1px solid #E8E8E8;
+}
+tbody tr.tr-detailCon-first td,tbody tr.tr-detailCon td{
+	padding: 16px 0;
+	border-bottom: 1px solid #e8e8e8;
+	text-align: center;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+}
+.firstLength1{
+	border-bottom:none!important;
+}
+tbody tr td.td-operate{
+	border-right: 1px solid #e8e8e8;
+	border-left: 1px solid #e8e8e8;
+}
+tbody tr td.td-goodsname{
+	border-left: 1px solid #e8e8e8;
+}
+tbody tr.tr-detailCon-first td span,tbody tr.tr-detailCon td span{
+	text-align: center;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+}
+tbody tr.tr-detailCon-first td a,tbody tr.tr-detailCon td a{
+	text-align: center;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+}
+tbody a.goodsImg{
+	display: inline-block;
+	border: 1px solid #E8E8E8;
+	margin-right: 16px;
+	cursor: default;
+}
+tbody p.td-operate-status span{
+	display: inline-block;
+	background-color: #FD6244;
+	border-radius: 4px;
+	margin-bottom: 5px;
+	color: #fff!important;
+	height: 14px;
+	line-height: 14px;
+	padding: 10px 30px;
+	cursor: pointer;
+}
+tbody p.td-operate-operate span{
+	cursor: pointer;
+}
+
+div.theOrderInfo-main-bottom{
+	overflow: hidden;
+	margin-top: 15px;
+}
+div.theOrderInfo-main-bottom p{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #333;
+}
+div.theOrderInfo-main-bottom p span{
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #FD6244;
+	margin-right: 20px;
+}
+div.theOrderInfo-main-bottom p.goodsAllPrice{
+	float: left;
+}
+div.theOrderInfo-main-bottom p.realCharge{
+	float: right;
+}
+div.theOrderInfo-main-bottom p.goodsAllPrice span.goodsAllPrice-detail{
+	margin-right: 80px;
+}
+
+
+/*查看物流*/
+.Form-goodsFlow{
+	position: absolute;
+	z-index: 1505;
+	top: 10%;
+	left: 50%;
+	margin-left: -225px;
+	border: 1px solid #FD6244;
+	width: 800px;
+	background-color: #fff;
+}
+div.Form-goodsFlow h3.con-h3{
+	font-family: 'microsoft yahei';
+	font-size: 16px;
+	color: #333;
+	font-weight: bold;
+	background-color: #F7F7F7;
+	height: 18px;
+	line-height: 18px;
+	padding: 10px 20px;
+}
+.Form-goodsFlow-con{
+	padding: 20px 30px 30px 30px;
+}
+.Form-goodsFlow-con div.flowOrderInfo-detail{
+	padding-left: 20px;
+	margin-bottom: 20px;
+	margin-top: 6px;
+}
+.Form-goodsFlow-con div.flowOrderInfo-detail p{
+	height: 24px;
+	line-height: 24px;
+}
+.Form-goodsFlow-con div.flowOrderInfo-detail span{
+	font-family: 'microsoft yahei';
+	font-size: 14px;
+	color: #333;
+}
+.Form-goodsFlow-con div.flowGoodsInfo{
+	border: 1px solid #E5E4E2;
+	background-color: #f7f7f7;
+	padding: 20px;
+}
+.Form-goodsFlow-con div.flowGoodsInfo p{
+	height: 24px;
+	line-height: 24px;
+}
+p.receiveGoodsInfo span.receiveGoodsInfo-text,p.bringGoodsInfo span.bringGoodsInfo-text{
+	font-family: 'microsoft yahei';
+	font-size: 14px;
+	color: #333;
+	font-weight: bold;
+}
+p.receiveGoodsInfo span.receiveGoodsInfo-detail,p.bringGoodsInfo span.bringGoodsInfo-detail{
+	font-family: 'microsoft yahei';
+	font-size: 14px;
+	color: #333;
+}
+.goodsFlow-dialog-overlay{
+	position: absolute;
+	top:0;
+	z-index: 1500;
+	display: block;
+	height: 100%;
+	width:100%;
+	background-color: black;
+	filter:alpha(opacity=50);
+	-moz-opacity: 0.5;
+	opacity: 0.5;
+}
+div.packageDetail-info{
+	padding: 10px 10px 30px;
+}

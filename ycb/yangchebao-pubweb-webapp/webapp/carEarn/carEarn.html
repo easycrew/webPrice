@@ -1,0 +1,554 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<title></title>
+		<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script>
+		<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+		<script src="./js/commen.js"></script>
+		<script src="./js/carEarn.js"></script>
+		<link rel="stylesheet" href="./css/main.css">
+		<style>
+			article.top {
+				background-color: #54c3aa;
+				padding: 1.4rem 1.4rem 1.6rem;
+				color: #fff;
+			}
+			
+			div.rank {
+				border-bottom: 1px solid #fff;
+				padding-bottom: 1.2rem;
+				margin-bottom: 1.2rem;
+			}
+			
+			p.rankL {
+				float: left;
+				font-size: 1.3rem;
+			}
+			
+			p.rankL img {
+				position: relative;
+				top: -1px;
+				width: 1.2rem;
+				margin-right: 0.5rem;
+			}
+			
+			p.rankR {
+				float: right;
+				font-size: 1.3rem;
+			}
+			
+			div.moneyL {
+				float: left;
+				width: 50%;
+				text-align: center;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				border-right: 1px solid #fff;
+			}
+			
+			div.moneyR {
+				float: left;
+				width: 50%;
+				text-align: center;
+			}
+			
+			p.moneyData {
+				font-size: 2.4rem;
+				padding: 1.6rem 0;
+			}
+			
+			p.moneyText {
+				padding-bottom: 0.2rem;
+			}
+			
+			p.moneyText span {
+				background-color: #40a790;
+				font-size: 1.2rem;
+				padding: 0.2rem 0.9rem;
+				border-radius: 1rem;
+			}
+			
+			ul.bottomUl li {
+				background-color: #fff;
+				margin-top: 0.8rem;
+				border-bottom: #d9d9e2;
+				padding: 1.6rem 1.2rem;
+				box-sizing: border-box;
+				display: table;
+				width: 100%;
+			}
+			
+			p.liL,
+			div.liM {
+				float: left;
+			}
+			
+			p.liR {
+				display: table-cell;
+				height: 100%;
+				text-align: right;
+				vertical-align: middle;
+				position: relative
+			}
+			
+			p.liL {
+				margin-right: 1.1rem;
+			}
+			
+			div.liM {
+				width: 50%;
+			}
+			
+			div.liM p.liTitle {
+				font-size: 1.6rem;
+				margin-bottom: 0.8rem;
+			}
+			
+			div.liM p.liTitle img {
+				width: 2.2rem;
+				margin-left: 0.5rem;
+			}
+			
+			p.liCon {
+				font-size: 1.2rem;
+				color: #a2a2a2;
+			}
+			
+			p.liL img {
+				width: 5rem;
+			}
+			
+			span.liRT {
+				position: relative;
+				font-size: 1.2rem;
+				margin-right: 1.5rem;
+				top: 0.5rem;
+				white-space: nowrap;
+			}
+			
+			span.num {
+				color: #ff6138;
+			}
+			
+			span.rightArrow {
+				margin-top: -6px;
+				position: absolute;
+				top: 50%;
+				right: 0;
+			}
+			
+			span.rightArrow::before,
+			span.rightArrow::after {
+				position: absolute;
+				top: 1px;
+				width: 0;
+				height: 0;
+				content: '';
+				font-size: 0px;
+				border-top: 1.1rem solid transparent;
+				border-bottom: 1.1rem solid transparent;
+			}
+			
+			span.rightArrow::before {
+				right: -4px;
+				border-left: 1.1rem solid #a2a2a2;
+			}
+			
+			span.rightArrow::after {
+				right: -3px;
+				border-left: 1.1rem solid #fff;
+			}
+			
+			div.zmjDialog,
+			div.rewardDialog {
+				position: fixed;
+				top: 0;
+				z-index: 500;
+				height: 100%;
+				width: 100%;
+				background-color: rgba(0, 0, 0, 0.5);
+				overflow: auto;
+				visibility: hidden;
+			}
+			
+			p.picW img {
+				width: 100%;
+			}
+			
+			div.zmjCon {
+				position: relative;
+				width: 80%;
+				-webkit-border-radius: 8px;
+				-moz-border-radius: 8px;
+				border-radius: 8px;
+				margin-left: 10%;
+			}
+			
+			div.TextW {
+				background-color: #fff;
+				font-size: 1.3rem;
+				padding: 1rem 0.6rem 1rem 1.3rem;
+				line-height: 1.8rem;
+			}
+			
+			div.rewardCon {
+				position: relative;
+				background-color: #fff;
+				width: 90%;
+				-webkit-border-radius: 8px;
+				-moz-border-radius: 8px;
+				border-radius: 8px;
+				margin-left: 5%;
+			}
+			
+			p.rewardText {
+				padding: 3.4rem 2rem 2rem;
+				font-size: 1.5rem;
+			}
+			
+			div.rewardBtns {
+				padding: 0rem 2rem 1.6rem 2rem;
+			}
+			
+			p.laterBtn {
+				float: left;
+				width: 45%;
+				border: 1px solid #ff6138;
+				-webkit-border-radius: 4px;
+				-moz-border-radius: 4px;
+				border-radius: 4px;
+				padding: 0.8rem 0;
+				text-align: center;
+				color: #ff6138;
+				font-size: 1.8rem;
+			}
+			
+			p.getBtn {
+				float: right;
+				width: 45%;
+				border: 1px solid #ff6138;
+				-webkit-border-radius: 4px;
+				-moz-border-radius: 4px;
+				border-radius: 4px;
+				padding: 0.8rem 0;
+				text-align: center;
+				background-color: #ff6138;
+				color: #fff;
+				font-size: 1.8rem;
+			}
+			
+			div.closeW {
+				position: absolute;
+				top: -4.3rem;
+				right: 0rem;
+			}
+			
+			p.closeLine {
+				text-align: right;
+			}
+			
+			p.closeLine {
+				position: relative;
+				left: 1.2rem;
+				top: -1px;
+				width: 1px;
+				height: 1.5rem;
+				background-color: #fff;
+			}
+			
+			canvas {
+				position: relative;
+				top: 0.3rem;
+				-webkit-border-radius: 1.5rem;
+				-moz-border-radius: 1.5rem;
+				border-radius: 1.5rem;
+				padding: 0.6rem;
+				border: 1px solid #fff;
+			}
+			
+			span.upArrow {
+				display: inline-block;
+				width: 2px;
+				height: 1.2rem;
+				-webkit-transform: rotate(-45deg);
+				-moz-transform: rotate(-45deg);
+				transform: rotate(-45deg);
+				background-color: #fff;
+			}
+			
+			span.downArrow {
+				display: inline-block;
+				width: 2px;
+				height: 1.2rem;
+				-webkit-transform: rotate(45deg);
+				-moz-transform: rotate(45deg);
+				transform: rotate(45deg);
+				background-color: #fff;
+			}
+			
+			.zmComment {
+				padding: 8px 10px 10px 0;
+				position: absolute;
+				top: -2px;
+			}
+			
+			.lqTip {
+				font-size: 1.2rem;
+				margin: 1rem;
+				color: #A2A2A2;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="rewardDialog">
+			<div class="rewardCon">
+				<p class="rewardText claimTips">有未领取的奖励，是否一键领取。您也可以稍后逐一领取。超过7天未领取，奖励将收回。</p>
+				<div class="rewardBtns clearfix">
+					<p class="laterBtn">稍后再说</p>
+					<p class="getBtn">一键领取</p>
+				</div>
+			</div>
+		</div>
+		<!--div class="zmjDialog">
+			<div class="zmjCon">
+				<div class="closeW">
+					<div class="closeBtnW"> 
+						<canvas width="12px" height="12px" class="crossBtn" id="canvas"></canvas>
+					</div>
+					<script type="text/javascript">
+						var canvas = document.getElementById('canvas');
+						var cxt = canvas.getContext('2d');
+						cxt.beginPath();
+						cxt.lineWidth = 2;
+						cxt.strokeStyle = "#fff";
+						cxt.moveTo(0, 0);
+						cxt.lineTo(12, 12);
+						cxt.stroke();
+						cxt.closePath();
+						cxt.beginPath();
+						cxt.lineWidth = 2;
+						cxt.strokeStyle = "#fff";
+						cxt.moveTo(12, 0);
+						cxt.lineTo(0, 12);
+						cxt.stroke();
+						cxt.closePath();
+					</script>
+					<p class="closeLine"><span class="line"></span></p>
+				</div>
+				<p class="picW"><img src="./img/zmj.png"></p>
+				<div class="TextW">
+					<p>您招募的注册用户A是您的一线成员。A直接招募的注册用户B是您的二线成员，是A的一线成员，以此类推。</p>
+					<p>1、完成每个一线成员注册，得3元；</p>
+					<p style="white-space:nowrap;">2、完成每个二线成员注册，得1元；</p>
+					<p>3、每个成功招募的一线二线成员在养车宝消费，您都有奖励。</p>
+				</div>
+			</div>
+		</div-->
+		<section>
+			<article class="top">
+				<div class="rank clearfix toRank">
+					<p class="rankL"><img src="./img/rankingWIcon.png">排行榜</p>
+					<p class="rankR">第<span class="earningRanking"></span>名 ></p>
+				</div>
+				<div class="money clearfix">
+					<div class="moneyL">
+						<p class="moneyData totalBalance"></p>
+						<p class="moneyText"><span>我赚的钱（元）</span></p>
+					</div>
+					<div class="moneyR">
+						<p class="moneyData totalInsuranceFund"></p>
+						<p class="moneyText"><span>车险基金（元）</span></p>
+					</div>
+				</div>
+			</article>
+			<article class="bottom">
+				<ul class="bottomUl">
+					<!--li class="clearfix zqLi">
+						<p class="liL"><img src="./img/carEarnedIcon.png"></p>
+						<div class="liM">
+							<p class="liTitle" style="position:relative;">人多钱就多<img src="./img/elipses.png" class="zmComment"></p>
+							<p class="liCon">招募到的成员注册、消费都可获得佣金奖励</p>
+						</div>
+						<p class="liR">
+							<span class="liRT"><span class="num memberCount"></span>人</span>
+							<span class="rightArrow"></span>
+						</p>
+					</li-->
+					<li class="clearfix insuranceLi">
+						<p class="liL"><img src="./img/carSafeIcon.png"></p>
+						<div class="liM">
+							<p class="liTitle">车险返利</p>
+							<p class="liCon">购车险每天得0.5元基金奖励</p>
+						</div>
+						<p class="liR">
+							<span class="liRT"><span class="num yuan"></span>元待领取</span>
+							<span class="rightArrow"></span>
+						</p>
+					</li>
+					<li class="clearfix boxLi">
+						<p class="liL"><img src="./img/lechengBoxIcon.png"></p>
+						<div class="liM">
+							<p class="liTitle">乐乘盒子返利</p>
+							<p class="liCon">购盒子获返利，每月可得30元</p>
+						</div>
+						<p class="liR">
+							<span class="liRT"><span class="num yuan"></span>元待领取</span>
+							<span class="rightArrow"></span>
+						</p>
+					</li>
+					<li class="clearfix driveLi" style="display:none;">
+						<p class="liL"><img src="./img/redBagIcon.png"></p>
+						<div class="liM">
+							<p class="liTitle">驾驶红包</p>
+							<p class="liCon">参加驾驶行为排行赛，驾驶奖励享不停</p>
+						</div>
+						<p class="liR">
+							<span class="liRT flag">立即领取</span>
+							<span class="rightArrow"></span>
+						</p>
+					</li>
+				</ul>
+			</article>
+		</section>
+		<p class="lqTip"></p>
+	</body>
+	<script type="text/javascript">
+		var paramJson = {};
+		var index = {}; 
+		function passParamsFromApp2Web(info) {
+			index.init(info);
+		} 
+		function connectWebViewJavascriptBridge(callback) {
+			if (window.WebViewJavascriptBridge) {
+				callback(WebViewJavascriptBridge)
+			} else {
+				document.addEventListener('WebViewJavascriptBridgeReady', function() {
+					callback(WebViewJavascriptBridge)
+				}, false)
+			}
+		}
+		connectWebViewJavascriptBridge(function(bridge) {
+			document.documentElement.style.webkitTouchCallout = 'none';
+			bridge.init(function(message, responseCallback) {
+				if (message instanceof Object) {
+					if (typeof index.init === 'function') {
+						responseCallback(index.init.apply(this, [message, bridge]));
+					}
+				} else if (message == "pullUpRefresh") {
+					typeof index[message] == 'function' && responseCallback(index.pullUpRefresh.apply(this));
+				} else {
+					responseCallback(setCallCountFromClient.apply(this, [message]));
+				}
+			})
+		}); 
+		$(function() {
+			var url = window.location.search;
+			if (url != '') {
+				var paramsArr = (url.split("?")[1]).split("&");
+				$.each(paramsArr, function(i) {
+					var item = paramsArr[i].split("=");
+					paramJson[item[0]] = item[1];
+				})
+			}
+			// 列表中图片上下居中
+			$('ul.bottomUl li').each(function() {
+				var liH = $(this).height();
+				$(this).find('p.liL').css('line-height', liH + 'px')
+			});
+			// 关闭按钮
+			$('canvas#canvas').on('click', function() {
+				$('div.zmjDialog').fadeOut();
+			});
+			// 防止滚动
+			/**$('div.zmjCon,div.rewardCon').bind("touchmove",function(e){ 
+				e.preventDefault();  
+			});  **/
+			$(".rewardDialog .laterBtn").click(function() {
+				$(".rewardDialog").fadeOut();
+			});
+			//一键领取 awardSource 0:所有 1:盒子返利 2:车险返利 3:驾驶排名 
+			$(".rewardDialog .getBtn").click(function() {
+				$(".rewardDialog").fadeOut();
+				getAward(paramJson.customerId, 0);
+			});
+			//人多钱就多
+			$(".zqLi").click(function(e) {
+				if ($(e.target).hasClass("zmComment")) {
+					$(".zmjDialog").fadeIn();
+					centerZM();
+				} else {
+					locationFun("121");
+					window.location.href = "http://w2nw?http://" + urlIp() + "/yangchebao-pubweb/carEarn/myFleet.html";
+				}
+			});
+			var laterLink = function(url) {
+				setTimeout(function() {
+					window.location.href = url;
+				}, 1500)
+			};
+			//车险返利
+			$(".insuranceLi").click(function(e) {
+				locationFun("127");
+				if ($(e.target).closest(".liR").length > 0 && $(this).attr("lq") == "1") {
+					getAward(paramJson.customerId, 2);
+					laterLink("http://w2nw?" + $(this).attr("url"));
+				} else {
+					window.location.href = "http://w2nw?" + $(this).attr("url");
+				}
+			});
+			//领取盒子返利
+			$(".boxLi").click(function(e) {
+				locationFun("128");
+				if ($(e.target).closest(".liR").length > 0 && $(this).attr("lq") == "1") {
+					getAward(paramJson.customerId, 1);
+					laterLink("http://w2nw?" + $(this).attr("url"));
+				} else {
+					window.location.href = "http://w2nw?" + $(this).attr("url");
+				}
+			});
+			//驾驶返利
+			$(".driveLi").click(function(e) {
+				locationFun("129");
+				if ($(e.target).closest(".liR").length > 0 && $(this).attr("lq") == "1") {
+					getAward(paramJson.customerId, 3);
+					laterLink("http://w2nw?" + $(this).attr("url"));
+				} else {
+					window.location.href = "http://w2nw?" + $(this).attr("url");
+				}
+			});
+			//收益总排行榜
+			$(".toRank").click(function() {
+				window.location.href = "http://w2nw?http://" + urlIp() + "/yangchebao-pubweb/carEarn/ranking.html?loginStatus=1";
+			});
+			index.init = function(info) {//判断新老版本 4.0以前老版本不分渠道都显示驾驶红包入口
+			   var v = info.version.replace(/\./g,"");
+			   if(v!=""&&(parseInt(v)>=400)){
+				  getCarEarnInfo("1", paramJson.userId);
+			   }else{
+			      var driveFlag = true;
+				  getCarEarnInfo("1", paramJson.userId,driveFlag);
+			   } 
+			};
+			
+
+		});
+		/**window.onload = function() {
+			if (store.get('firstVisit') == null) {
+				$(".zmjDialog").css('visibility', 'visible');
+				store.set('firstVisit', true);
+				centerZM();
+			} else {
+				$(".zmjDialog").hide();
+				$(".zmjDialog").css('visibility', 'visible');
+			}
+		}**/
+	</script>
+</html>

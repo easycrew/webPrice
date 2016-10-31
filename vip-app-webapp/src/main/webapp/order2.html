@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="js/jquery.json-2.2.js"></script> 
+<script type="text/javascript" src="js/index.js"></script> 
+<title>待服务订单</title>
+</head>
+<style type="text/css">
+.user-info .right-span{margin-right: 10px;}
+.three-tab>div{width:33%;}
+.order-wrap .user-info2{min-height: 1.8em;background: transparent url('css/images/clock.png') no-repeat scroll 0 0;background-size:1.6em auto; background-position: left;margin-left: 0.8em;padding-left: 2.1em;margin-right:1.5em;line-height: 1.8em;padding-bottom:2px;border-bottom:1px solid #f4f5f9;}
+.order-wrap .time2{font-size:1.2em; padding:0 1.67em 0 0; display: inline-block;  /*border-bottom:1px solid #f4f5f9;*/}
+.right-span2 img{margin-left:10px;vertical-align:top;}
+.order-wrap .right-span2{float: right;vertical-align:top;font-size: 1.2em;color:#3F4968;}
+.serviceName span{margin-right:1.6em;}
+.serviceName span i{font-style:normal}
+.order-wrap .serviceName{font-size: 1.5em;margin: 0.4em 0;}
+.posit-operation{width:100%;height:33px;font-size:1.4em;border-top:1px solid #f4f5f9;}
+.posit-operation span{float:left;line-height:33px;width:50%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+.posit-left{color:#3F4968;background: #fff;text-align:left;padding-left:2.24em;}
+.posit-right{color:#fff;background:#ff6e47;text-align:center;font-size:1.52em;}
+.border-right{border-right:1px solid #f4f5f9;}
+.bank-dialog-claims{position: fixed;top:50%;margin-top:-100px;}
+.bank-dialog-claims p{text-align: center;font-size:16px;line-height:30px;}
+.bank-dialog-claims p span{margin-right:20px;}
+.bank-dialog-claims .button-wrap{background-color: #fff;}
+.bank-dialog-claims .content-claims{padding:20px 0;}
+
+/* 选择付款方式 */
+.dialog2{position: fixed;width: 100%;height: 100%; background-color: rgba(0,0,0,0.4);top:50%;bottom: 0;z-index:1000;margin-top:-220px;/**display: none;**/}
+.dialog-content2{background-color: #fff;margin: 30px; position: relative;}
+.dialog2 .title{font-size: 1.8em;text-align: center;height: 43px;line-height: 43px;border-bottom: 1px solid #fb451f;font-weight: normal;}
+.dialog2 ul{width: 100%; -webkit-box-sizing:border-box;box-sizing:border-box; vertical-align: middle; height: 240px;overflow:auto;margin:10px 0;} 
+.btn-wrap{ padding: 18px 0;border-top: 1px solid #fb451f;}
+.dialog-btn{ width:100px;margin:0 auto;font-size: 1.6em;color: #fff;text-decoration: none;display: block; background-color: #fb451f;height: 30px;line-height: 30px;text-align: center;}
+.close {cursor: pointer;display: inline-block;height: 28px;position: absolute;right: 10px;top: 5px;width: 28px;z-index: 10;}
+.close label::before {border-right: 1px solid #fc5d3c;content: "";display: inline-block;height: 28px;transform: rotate(45deg);-ms-transform:rotate(45deg);   -moz-transform:rotate(45deg); -webkit-transform:rotate(45deg);  -o-transform:rotate(45deg); width: 1px;}
+.close label::after {border-left: 1px solid #fc5d3c;content: "";display: inline-block;height: 28px;transform: rotate(-45deg);-ms-transform:rotate(-45deg);   -moz-transform:rotate(-45deg); -webkit-transform:rotate(-45deg);  -o-transform:rotate(-45deg); width: 1px;}
+.close label {display: inline-block;margin-left: 10px;}
+.pay-style{height:40px;line-height:40px;border-bottom:1px solid #d9d9e2;}
+.pay-style span{float:left;}
+.pay-style .sel{background-image: url("css/images/check.png");background-position: -19px center;background-repeat: no-repeat;background-size: 34px auto;width:15px;height:30px;margin:0.2em 1.5em;display: block; }
+.pay-style .checked{background-position: 0 center;}
+.zfb{margin-left: 5px;background-image: url("http://app.yangchebao.com.cn/group1/M00/0A/FA/ChUBl1VymuGAaFDRAAAMthS5nvg588.png");background-size: 58px auto;background-repeat: no-repeat;background-position:0 center;width:80px;height:36px;}
+.wx{margin-left: 5px;background-image: url("http://app.yangchebao.com.cn/group1/M00/0A/FA/ChUBl1Vymx2AT9oYAAAJTkelqrs820.png");background-size: 71px auto;background-repeat: no-repeat;background-position:0 center;width:80px;height:37px;}
+.pay-style label{font-size:1.2em;color:#a0a097;display: inline-block;height: 40px; line-height: 40px;border-left: 1px solid #d9d9e2;padding-left: 10px;}
+.last-li{margin-top:10px;}
+</style>
+<body>
+	<section class="main-wrap">  
+		<article>
+			<div class="tab-wrap" id="upid" style="display:none;">
+				 <div><span class="selected" orderListType="0" paid="">待服务
+				    <label id="reserveAndPaidCnt"></label></span></div> 
+				 <div><span orderListType="" paid="">全部订单
+				 	<label id="fullCnt"></label></span></div>
+				 <div style="display:none"><span orderListType="2" paid="">理赔订单
+				 	<label id="claims"></label></span></div>
+			</div>  
+			<div class="tab-wrap three-tab" style="display:none;">
+				 <div><span class="selected" orderListType="0" paid="1">预约已付款
+				    <label id="reserveAndPaidCnt"></label></span></div> 
+				 <div><span orderListType="0" paid="0">预约未付款
+				    <label id="reserveAndPaidCnt"></label></span></div> 
+				 <div><span orderListType="" paid="">全部
+				 	<label id="fullCnt"></label></span></div>
+			</div>
+
+			<div class="overlay-containter">
+				<ul class="order-wrap reserve-wrap" id="orderList"> 
+				</ul> 
+				<p class="loadingBar" style="display:none;"><img src="css/images/waiting.gif"></p>		
+
+				<div class="overlay-wrap"></div>
+			</div> 
+		</article> 
+		<article class="bank-dialog bank-dialog-claims" id="bank-confirm"> 
+			<div class="content-claims">
+				<p>若维修费有误，请呼叫理赔员修改。</p>
+				<p><span>零件费</span><span id="partsPrice"></span></p>
+				<p><span>工时费</span><span id="workPrice"></span></p> 
+				<p><span>合计</span><span class="org" id="sumPrice"></span></p>
+			</div>
+			<div class="button-wrap">
+				<span class="cancel">取消</span>
+				<span class="submit org">确定</span>
+			</div>
+		</article>
+		<div class="dialog2" style="display:none">
+			<div class="dialog-content2">
+				<span class="close"><label></label></span>
+				<h1 class="title">支付方式</h1>
+				<ul>
+					<li class="clearfix pay-style">	
+						<span class="sel checked"></span>
+						<span class="zfb"></span>
+						<span class="pro-list"><label>需要拥有支付宝账号</label></span>
+					</li> 
+					<!-- <li class="clearfix pay-style last-li">
+						<span class="sel"></span>
+						<span class="wx"></span>
+						<span class="pro-list"><label>需要开通微信钱包</label></span>
+					</li>  -->
+				</ul>
+				<div class="btn-wrap"><a href="" class="dialog-btn">确定</a></div>
+		    </div>
+		</div>
+		<div class="dialog-overlay" style="display:none;"></div>
+	</section>
+	<script type="text/javascript">  
+		$(document).ready(function(){
+			var response = "1",page = 0,pagesize=10,shopId="-1",orderListType="0",paid="1",atomic="",isYibin=false; 			
+			function isYb(){  
+					$.ajax({
+						url: '/vip-app-ws/ws/0.1/userMember/shop/isAbledToCreateMember?shopAccountId='+shopId+"&"+atomic,
+						type: 'get',
+						async: false,
+						dataType: 'json',
+						success: function(data) {   
+						 	 if(data.isAbled=="1"){//是否可以创建会员：0.否 1.是 
+							 	isYibin=true;   
+								$(".tab-wrap:last").show();
+							 }else{
+							    $(".tab-wrap:first").show();
+							 } 
+						},
+						error:function(xhr){   
+	                    	var mes = eval('('+xhr.responseText+')');  
+							alertRe("获取数据失败");
+						}
+					}); 
+			}
+	   	
+	 		function getOrderList(shopId,owraper,bridge){  
+	 		    $.ajax({
+					url: '/vip-app-ws/ws/0.1/orders/getTypeOrdersCnt?shopId='+shopId+'&withBranchs=1&'+atomic, 
+					type: 'get', 
+					dataType: 'json',
+					success: function(data) {
+						$("#reserveAndPaidCnt").html("("+data.reserveAndPaidCnt+")");
+						$("#reserveAndUnPaidCnt").html("("+data.reserveAndUnPaidCnt+")");
+						$("#fullCnt").html("("+data.fullCnt+")"); 
+					 	if(data.claimServiceFlag=="1"){  //是否有马甲：0.进入原页面 1.进入新页面
+							$(".tab-wrap:first").addClass("three-tab");
+							$(".tab-wrap:first div").eq(2).show();
+						}else{
+							$(".tab-wrap:first").removeClass("three-tab");
+							$(".tab-wrap:first div").eq(2).hide();
+						}
+						$("#claims").html("("+data.claimOrderCnt+")"); 
+					},
+					error:function(xhr){}
+				}); 
+	 		    var param = ""; 
+	 		    if(orderListType!=""){
+	 		    	param += "&orderListType="+orderListType;
+	 		    } 
+	 		    if(paid!=""){
+	 		    	param += "&paid="+paid;
+	 		    }  
+				$.ajax({
+					url: '/vip-app-ws/ws/0.1/orders?shopId='+shopId+'&pageindex='+page+'&pagesize='+pagesize+'&sortname=orderDate&sortorder=desc&withBranchs=1&vs=1'+param+"&"+atomic,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {
+						$(".loadingBar").hide();
+						page++; 
+						var str = "";
+						var items = data.items;
+						$.each(items,function(i){
+							var item = items[i];
+							var time = item.orderDate; 
+							var _span = "";
+							if(item.paid=="0"){  
+							    if(orderListType==""&&!isYibin){ 
+								  return;
+								}else{
+								if(item.isCounPay){
+								_span='<span class="left-span">客户需当面支付现金  ¥'+ item.couponCashPrice +',已扣除抵用券'+item.couponPrice+'</span>';
+								}else{
+								_span='<span class="left-span">客户需当面支付现金  ¥'+ item.reservePrice +'</span>';
+								}  
+								}
+							}else if(item.paid=="1"){ 
+								if(item.isCounPay){
+								_span='<span class="left-span">客户已网上支付现金  ¥'+ item.couponCashPrice +',抵用券'+item.couponPrice+'</span>'
+								}else{
+								_span='<span class="left-span">客户已网上支付现金  ¥'+ item.reservePrice +'</span>';
+								}
+								
+							} 
+							if(item.reserveDate!=""){
+								var reserveDate = item.reserveDate;
+								var arr = (reserveDate.split("-")[1]+"-"+reserveDate.split("-")[2]).split(":");
+								item.reserveDate = arr[0]+":"+arr[1];
+							}else{
+								item.reserveDate = "请电话确认";
+							}
+							var call ="";
+							if(item.userMobile!=""&&orderListType!=""){
+								call = '<div class="phone-info clearfix">'
+									+'<div class="left"><span class="call">预约时间：'+item.reserveDate+'</span></div>'
+									+'<a href="tel:'+ item.userMobile +'?'+item.orderId+'" class="right call">'
+									+'<span class="call">拨打电话（'+ item.callCount+'次）</span>'
+									+'</a>'
+									+'</div>';
+							} 
+							var className = "";
+							if(item.callCount=="0"){
+								className = "phone";
+							}
+							str += '<li orderId="'+ item.orderId +'" class="'+className+'">' 
+								+'<div>'
+								+'<div class="user-info"> '
+								+'<span class="time">'+ time +'</span>'  
+								+'<span class="name">'+ item.nicName +'</span> '
+								+'<span class="right-span org">'+item.orderStatusDesc+'</span>'
+								+'</div>'
+								+'<div class="order-info">'
+								+'<p class="serviceName">'+ item.serviceName +'</p>'
+								+'<div class="clearfix">' 
+								+_span
+								+'</div>'
+								+'</div>'
+								+call
+								+'</div>' 
+								+'</li> ';
+						});  
+						if(owraper!=undefined&&owraper!=""){ 
+							$('.null-tip').remove();
+							$("#orderList").html(str); 
+							$("#orderNum").html(data.totalCount);
+							if(str==""){
+								$("#orderList").after('<p class="null-tip">您还没有待服务订单</p>'); 
+							}
+						}else{
+							$("#orderList").append(str);
+						}   
+						if(data.page == data.totalPages-1){
+							response = "0";  
+						} else{
+							response = "1";
+						} 
+						if(bIsAndroid()){
+							$(".overlay-containter").css("min-height",($(window).height()-94));  
+						}else{
+							$(".overlay-containter").css("min-height",$(window).height()-45);  
+						} 
+						if(bridge!=undefined){
+				 			mobileCallBack.apply(this,[response,bridge]); 
+				 		}
+					},
+					error:function(xhr){
+						$(".loadingBar").remove();
+					}
+				}); 
+		 	} 
+
+		 	function getOrderListClaims(shopId,owraper,bridge){
+				$.ajax({
+					//url: '/vip-app-ws/ws/0.1/orders/claimOrders?shopId='+shopId+'&pageindex='+page+'&pagesize='+pagesize+'&sortname=orderDate&sortorder=desc&withBranchs=1&vs=1'+param+"&"+atomic,
+					url: '/vip-app-ws/ws/0.1/orders/claimOrders?shopId='+shopId+'&pageindex='+page+'&pagesize='+pagesize,
+					type: 'get',
+					async: false,
+					dataType: 'json',
+					success: function(data) {
+						$(".loadingBar").hide();
+						page++; 
+						var str = "";
+						var items = data.items;
+						$.each(items,function(i){
+							var item = items[i];
+							var time = item.updateDate; 
+							var resule ="";
+							if(item.status == "1"){
+								resule +='<div class="posit-operation clearfix">'
+											+'<span class="posit-left">状态：待确认</span>'
+											+'<span class="posit-right submit1">确认</span>'
+										+'</div>'
+							}else if(item.status == '2'){
+								resule +='<div class="posit-operation clearfix">'
+											+'<span class="posit-left">状态：维修中</span>'
+											+'<span class="posit-right submit2">代客户支付</span>'
+										+'</div>'
+							}else if(item.status == '3'){
+								resule +='<div class="posit-operation clearfix">'
+											+'<span class="posit-left border-right">状态：已付款</span>'
+										+'</div>'
+							}else{
+								resule +='<div class="posit-operation clearfix">'
+											+'<span class="posit-left border-right">状态：已删除</span>'
+										+'</div>'
+							}
+							str += '<li orderId="'+ item.orderId +'" class="li-className"  orderNumber="'+ item.orderNumber +'" >' 
+								+'<div>'
+								+'<div class="user-info user-info2" claimOrderId="'+ item.claimOrderId +'"> '
+								+'<span class="time2">'+ time +'</span>'  
+								+'<span class="right-span right-span2">呼叫理赔员'
+								+'<a href="tel:'+ item.operatorMobile +'" class="right call" style="margin-bottom:3px;">'
+								+'<img class="pho" src="css/images/phone.png" width="20" height="20">'
+								+'</a>'
+								+'</span>'
+								+'</div>'
+								+'<div class="order-info">'
+								+'<p class="serviceName">理赔单号：'+ item.orderNumber +'</p>'
+								+'<p class="serviceName lp-list">'
+								+'<span class="partsPrice">零件费¥'+ item.partsPrice +'</span>'  
+								+'<span class="workPrice">工时费¥'+ item.workPrice +'</span>'  
+								+'</p>'
+								+'<p class="serviceName lp-list">'
+								+'<span class="sumPrice">合计¥'+ item.sumPrice +'</span>'  
+								+'<span class="">结算金额'  
+								+'<i class="org">¥'+ item.clearingPrice +'</i>'
+								+'</span>'
+								+'</p>'
+								+'</div>'
+								+resule
+								+'</div>' 
+								+'</li> ';
+						});  
+						if(owraper!=undefined&&owraper!=""){ 
+							$('.null-tip').remove();
+							$("#orderList").html(str); 
+							//$("#orderNum").html(data.totalCount);
+							if(str==""){
+								$("#orderList").after('<p class="null-tip">您还没有理赔服务订单</p>'); 
+							}
+						}else{
+							$("#orderList").append(str);
+						}   
+						if(data.page == data.totalPages-1){
+							response = "0"; //response 反应 答复
+						} else{
+							response = "1";
+						} 
+						if(bIsAndroid()){
+							$(".overlay-containter").css("min-height",($(window).height()-94));  
+						}else{
+							$(".overlay-containter").css("min-height",$(window).height()-45);  
+						} 
+						if(bridge!=undefined){
+				 			mobileCallBack.apply(this,[response,bridge]); 
+				 		}
+					},
+					error:function(xhr){
+						$(".loadingBar").remove();
+					}
+				}); 
+		 	}
+		 	//var userInfo={};
+		 	var qversion = '';
+		    index.init = function(userInfo,bridge) { 
+		 		shopId = userInfo.shopAccountId;
+		 		userInfo.userId = userInfo.userId||"";
+		 		userInfo.osInfo = userInfo.osInfo||"";
+		 		userInfo.version = userInfo.version||"";
+		 		userInfo.imei = userInfo.imei||"";
+		 		userInfo.deviceToken = userInfo.deviceToken||"";
+		 		atomic ="userId="+userInfo.userId+"&osInfo="+userInfo.osInfo+"&version="+userInfo.version+"&imei="+userInfo.imei+"&deviceToken="+userInfo.deviceToken; 
+		 		var bridge = bridge||""; 
+
+		 		qversion = userInfo.version||"";
+		   		function tabTouch (event){
+				    'number' == typeof this.timeout && (window.clearTimeout(this.timeout), delete this.timeout);
+			 		$("#orderList").html(""); 
+			 	 	$(".loadingBar").show();  
+			 		$(".selected").removeClass("selected");
+			 		$(this).addClass("selected");  
+			 		orderListType = $(this).attr("orderListType");
+			 		paid = $(this).attr("paid"); 
+		 			page = 0; 
+
+			 		if(orderListType == "2"){
+			 			this.timeout = window.setTimeout(function(){
+			 				getOrderListClaims(shopId,"html",bridge);
+			 			}, 500);
+			 		}else{
+				 		this.timeout = window.setTimeout(function(){
+				 			getOrderList(shopId,"html",bridge); 
+				 		}, 500);
+			 		}
+			 	}
+			 	$(".tab-wrap span").on('click',tabTouch);   
+			 	isYb(); 
+				getOrderList(userInfo.shopAccountId,"html");
+				return response; 
+			 	getOrderListClaims(userInfo,shopAccountId,"html"); 
+				return response; 
+		 	};
+
+		 	index.pullUpRefresh = function(bridge) {  
+		 		if($('#upid div span').eq(0).hasClass("selected") || $('#upid div span').eq(1).hasClass("selected") ){
+					getOrderList(shopId,"");     
+					return response
+		 		}else{
+					getOrderListClaims(shopId,""); 
+					return response
+		 		}
+			}
+
+			var path = getPath();
+	 		$('#orderList').delegate('li','touchstart click',function(e){ //判断是触摸还是点击事件
+	 			var that = this;
+	 			var home = path;
+	 			var target = e.srcElement || e.target;
+	 			switch(e.type) {
+	 				case 'touchstart':
+	 					$("#orderList .selected").removeClass('selected');  
+	 					$(that).addClass('selected');
+	 					break;
+	 				case 'click':   
+				 		if(target.tagName.toLowerCase() == 'a' || $(target).hasClass('call')) {
+				 			return;
+				 		}
+				 		else if(target.tagName.toLowerCase() == 'img' || $(target).hasClass('pho')) {
+				 			return;
+				 		}
+				 		else if(target.tagName.toLowerCase() == 'span' && $(target).hasClass('submit1')){
+				 			var claimsId = $(that).find("div.user-info").attr("claimOrderId")
+							$("#bank-confirm").show(); 
+			    			$(".dialog-overlay").show();
+			    			
+			    			$('#partsPrice').html($(that).find("span.partsPrice").html().substring(3))
+			    			$('#workPrice').html($(that).find("span.workPrice").html().substring(3))
+			    			$('#sumPrice').html('&nbsp;&nbsp;&nbsp;&nbsp;'+$(that).find("span.sumPrice").html().substring(2))
+
+				      		$(".bank-dialog .cancel").click(function(){
+				                $(".bank-dialog").fadeOut();
+				                $(".dialog-overlay").fadeOut();
+				      		});
+
+				      		$("#bank-confirm .submit").click(function(){
+				      			$.ajax({
+									url: '/vip-app-ws/ws/0.1/orders/confirmClaimOrders?shopId='+shopId+'&claimsOrderId='+claimsId,
+									type: 'get',
+									async: false,
+									dataType: 'json',
+									success: function(data) {
+				                		$(".bank-dialog").fadeOut();
+				                		$(".dialog-overlay").fadeOut();
+							 			$("#upid div span").eq(2).click();
+									},
+									error:function(xtr){
+										$('.content-claims').html('');
+					      				$('.content-claims').append($('<p>').html('该订单状态已变更！').attr('style','line-height:50px;'))
+					      				$("#bank-confirm .submit").click(function(){
+					                		$(this).parents(".bank-dialog").fadeOut();
+					                		$(".dialog-overlay").fadeOut();
+						    				$(".tab-wrap:first").show();
+							 				$("#upid div span").eq(2).click();
+					      				})
+					      				$("#bank-confirm .cancel").click(function(){
+					                		$(this).parents(".bank-dialog").fadeOut();
+					                		$(".dialog-overlay").fadeOut();
+					      				})
+									}
+
+								})
+				      		});
+			    			return;
+			 			}
+			 			else if(target.tagName.toLowerCase() == 'span' && $(target).hasClass('submit2')){
+			 				//客户端版本小于等于1.2.0时，仅弹出对话框提示：需更新到最新版本，才能代客户支付。    
+			 				//对话框只有一个关闭操作。大于1.2.0时，按原支付流程支付即可。
+				 			var claimOrderId = $(that).find("div.user-info").attr("claimOrderId")
+
+			 				var arr = qversion.split('.')  
+			 				var arr0 = arr[0]
+			 				var arr1 = arr[1]
+			 				var arr2 = arr[2]
+			 				if(arr0 > 1 || arr1 > 2 || arr2 > 0){
+			 					$(".dialog2").show(); 
+				    			$(".dialog-overlay").show();
+								$(".dialog2").on('click','li',function(){
+							        $('.sel').removeClass('checked')
+							        $(this).children(".sel").addClass('checked');
+							        if($('.sel').eq(0).hasClass("checked")){
+										$('.dialog-btn').attr("href","http://w2l/?presentType=1&androidName=7&iosName=MyWebViewController&claimOrderId="+claimOrderId+"&orderChannel=claimsOrder&payChannelKey=2")
+									}else{
+										$('.dialog-btn').attr("href","http://w2l/?presentType=1&androidName=7&iosName=MyWebViewController&claimOrderId="+claimOrderId+"&orderChannel=claimsOrder&payChannelKey=1")
+									}
+							    }); 
+						        if($('.sel').eq(0).hasClass("checked")){
+									$('.dialog-btn').attr("href","http://w2l/?presentType=1&androidName=7&iosName=MyWebViewController&claimOrderId="+claimOrderId+"&orderChannel=claimsOrder&payChannelKey=2")
+								}else{
+									$('.dialog-btn').attr("href","http://w2l/?presentType=1&androidName=7&iosName=MyWebViewController&claimOrderId="+claimOrderId+"&orderChannel=claimsOrder&payChannelKey=1")
+								}
+								$('.close').click(function(){
+									$('.dialog2').fadeOut()
+				    				$(".dialog-overlay").fadeOut();
+							        $('.sel').removeClass('checked')
+							        $('.sel').eq(0).addClass('checked')
+								})
+								return
+			 				}
+			 				else{
+			 					alertRe('需更新到最新版本，才能代客户支付。','提示')
+			 				}
+							    
+			 			}
+			 			else if($(this).hasClass('li-className')){
+				 			var orderNumber = $(that).attr("orderNumber"); 
+			 			 	window.location.href = "http://w2nw?"+path+"/order-claimsDetail.html?orderNumber="+orderNumber;
+			 				return
+			 			}
+			 			else if(!$(this).hasClass('li-className')){
+				 			var orderId = $(that).attr("orderId");  
+					 		window.location.href = "http://w2nw?"+path+"/order-reserve.html?orderId="+orderId+"&orderListType="+orderListType; 
+		 					return;
+			 			}
+			 			break;
+	 			}
+	 		});
+		});   
+		//android 记录电话次数
+		function setCallCountFromClient(orderId){
+			var postData = {};
+			postData.orderId = orderId; 
+			$.ajax({
+				url: '/vip-app-ws/ws/0.1/orders/recordCallCount?'+atomic+'&shopId='+shopId,
+				contentType : "application/json;charset=utf-8",
+				dataType : "json",
+				type : "POST",
+				data : $.toJSON(postData),
+				async : false,
+				success: function() {   
+				},
+				error:function(xhr){   
+				}
+			}); 
+		}
+	</script>  
+</body>
+</html>
+

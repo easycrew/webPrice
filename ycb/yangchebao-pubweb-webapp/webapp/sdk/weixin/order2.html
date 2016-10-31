@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="../js/jquery.json-2.2.js"></script>
+<script src="../js/index.js"></script>
+<title>订单确认</title>
+</head>
+<style type="text/css">
+*{
+padding: 0;
+margin: 0;
+}
+body{
+    color: #1e1e1e;
+    font-family: "冬青黑体","黑体","HelveticaNeue-Light";
+    font-size: 62.5%;
+    background-color: #f4f7f8;
+} 
+a,a:hover{
+    text-decoration: none;
+    outline: none;
+}
+img,button {
+    border:none;
+}
+ul,ol{
+    list-style: none;
+}
+.header {
+    position: relative;
+}
+.header img {
+  display: block;
+  width: 100%;
+} 
+.text-align-middle section {
+    background-color: #fff;
+    margin-bottom: 1em;
+}
+.service-wrap, .carwash-wrap, .want-wrap, .news-wrap, .group-buying-wrap {
+    background-color: #fff;
+}
+.service-wrap {
+    height: auto;
+    overflow: auto;
+    padding: 9px 0 7px;
+}
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.clearfix::after {
+    clear: both;
+}
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+    line-height: 0;
+} 
+.order-wrap h1{
+  font-size: 1.6em;
+  color: #fff; 
+  padding: 10px;
+  background-color: #ffa600;
+  min-height: 3.25em;
+  vertical-align: middle;
+  line-height: 150%;
+  font-weight: normal;
+}  
+.order-wrap .price{
+ font-size:1.125em;
+}
+.shop,.user{
+  padding: 0 1em;  
+  background-color: #fff; 
+  border-bottom: 1px solid #d9d9e2;
+}
+.shop p,.user p{ 
+  line-height: 150%;
+  padding: 1.43em 0 1.43em 3.46em;  
+  color: #1e1e1e;
+  font-size: 1.4em;   
+}
+.shop p{
+ background-size: auto 2.4em;
+ background-image: url(../css/images/point.png);
+ background-repeat:no-repeat;  
+ background-position:11px center;
+}
+.user p{
+ background-size: auto 2.4em;
+ background-image: url(../css/images/user.png);
+ background-repeat:no-repeat;  
+ background-position:11px center;
+}
+.comment{
+  font-size: 1.4em;
+  color: #6eaade;
+  margin:40px 25px;
+  background-color: #e2f0f6;
+  border: 1px solid #6eaade;
+  border-radius: 5px;
+  padding:18px;
+  position: relative;
+  list-style: decimal inside;
+  position: relative;
+  margin-bottom: 64px;
+} 
+.comment li:last-child{
+  position: absolute;
+  list-style: none;
+  color: #fff;
+  width: 70px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 12px;
+  background-color: #abcfef;
+  top: -12px;
+  left: 10px;
+}
+footer{
+  border-top:1px solid #fda28f;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+}
+.button{ 
+  margin: 11px 10px;
+  font-size: 1.6em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  color: #fff;
+  display: block;
+  cursor:pointer;
+  background-color: #fb451f;
+}
+.point{
+  color: #fb451f;
+}
+.blue{
+  background-color: #6eaade;
+}
+.two-btn{
+  height: auto;
+  overflow: auto;
+}
+.two-btn>div{
+ width: 50%;  
+ float: left;
+} 
+.two-btn .left .button{
+ margin-right: 5px;
+}
+.two-btn .right .button{
+ margin-left: 5px;
+}
+.button.white{
+ background-color: #fff;
+ border: 1px solid #fb451f;
+ color: #fb451f;
+ margin-top: 0;
+}  
+.two-btn .left p {
+    font-size: 1.2em;
+    height: 32px;
+    margin: 11px 0 11px 10px;
+    vertical-align: middle;
+}
+.two-btn .left p strong{
+   font-size: 1.33em;
+   font-weight: normal;
+}
+/*支付*/
+.ui-tit::before {
+    background-color: #fb451f;
+    width: 2px;  
+    content: "";
+    display: inline-block;
+    height: 1.25em;
+    margin-right: 0.313em;
+    vertical-align: middle; 
+}
+.ui-tit {
+    background-color: #fff; 
+    color: #1e1e1e;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0.67em;
+    font-weight: normal;
+    border-bottom: 1px solid #dddee6;
+    margin-top: 10px;
+} 
+.ui-tit + .more {
+    margin: -2.8em 0.8em 0 0;
+}
+.more {
+    background-image: url("../css/images/arrow.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 10px auto;
+    color: #6eaade;
+    float: right;
+    font-size: 1.5em;
+    height: 40px;
+    line-height: 40px;
+    padding-right: 12px;
+}
+.pay-wrap .info{
+  padding: 0 26px;
+  height: auto;
+  overflow: auto;
+  border-bottom: 1px solid #dddee6;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.pay-wrap .info span{
+  height: 50px;
+  line-height: 50px;
+  display: block;
+  font-size: 1.4em;
+  color: #323232;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.pay-wrap .info .fl label{
+  font-size: 0.86em;
+  color: #a0a097;
+  display: inline-block;
+  height: 30px; 
+  line-height: 30px;
+  border-left: 1px solid #a0a097;
+  padding-left: 20px;
+}
+.pay-wrap .zfb{
+  padding-left: 93px;
+  background-image: url(http://app.yangchebao.com.cn/group1/M00/0A/FA/ChUBl1VymuGAaFDRAAAMthS5nvg588.png);
+  background-size: 58px auto;
+  background-repeat: no-repeat;
+  background-position:16px center;
+}
+.pay-wrap .wx{
+  padding-left: 93px;
+  background-image: url(http://app.yangchebao.com.cn/group1/M00/0A/FA/ChUBl1Vymx2AT9oYAAAJTkelqrs820.png);
+  background-size: 71px auto;
+  background-repeat: no-repeat;
+  background-position:16px center;
+}
+.pay-wrap .fr{
+  background-image: url("http://app.yangchebao.com.cn/group1/M00/0A/FA/ChUBl1Vym0mAayH1AAAM0DdqyZo480.png");
+  background-position: -23px center;
+  background-repeat: no-repeat;
+  background-size: 44px auto;
+  margin-left: 1em;
+  width: 21px;
+}
+.ii-wrap{
+  background-color: #f6fff3;
+  padding: 14px 15px;  
+  border-bottom: 1px solid #dddee6;
+}
+.ii{
+  font-size: 1.4em; 
+}
+.ii-info{
+  color: #ffa600;
+  font-size: 1.1em;
+  margin-top: 5px;
+}
+.org{
+  color: #fb451f;
+} 
+.flip-switch {
+    background-color: #00e367;
+    border-radius: 1.8rem;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 27px;
+    padding:1px;
+    position: relative;
+    text-align: right;
+    transition: padding-right 0.5s ease-in 0s;
+    vertical-align: middle;
+    width: 50px;
+} 
+.flip-switch label {
+    background-color: #ffffff; 
+    display: inline-block; 
+    width: 25px;
+    height: 25px;  
+    border-radius: 50%;
+    box-shadow: 1px 0px 1px #000;
+}
+.ui-tit .flip-switch{
+  float: right;
+  margin-top: -3px;
+}
+.flip-switch.close{
+  padding-right: 23px;
+  background-color: #dfe0e7;
+}
+/**弹框**/
+.dialog{
+  position: fixed;
+  width: 100%;
+  height: 100%; 
+  background-color: rgba(0,0,0,0.4);
+  top:0;
+  bottom: 0;
+  z-index:100;
+  color:#5e696c;
+  display:none;
+}
+.dialog>div{ 
+  margin: 100px 28px 0;
+  background-color: #fff; 
+  height: auto;
+  overflow: auto;
+  border-radius:3px;
+}
+.dialog h1{
+  height: 46px; 
+  border-bottom: 2px solid #fb451f;
+  font-size: 2em;
+  line-height: 46px;  
+  font-weight: normal;
+  padding:0 20px;
+} 
+.dialog p{
+  padding: 15px 20px 20px;  
+  font-size: 1.8em;
+  line-height: 150%; 
+  color: #lelele;
+  font-weight: normal;
+}
+.dialog .btn-wrap{
+  font-size:1.8em;
+  text-align:center;
+  border-top:1px solid #ebebeb; 
+  height:auto;
+  overflow:auto;
+}
+.dialog .btn-wrap>div{
+  height:48px;
+  line-height:48px;
+}
+.dialog .two-btn>div{
+  width: 50%;
+  float: left;
+} 
+.dialog .two-btn .right{
+   border-left:1px solid #ebebeb;
+}
+/**错误提示**/
+.tasat-wrap{
+   position: fixed;
+   text-align: center;
+   bottom: 50%;
+   width: 100%; 
+}
+.tasat {
+    background-color: #000;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 20px;
+    opacity: 0.8;
+    padding: 10px;
+} 
+</style>
+<body> 
+  <article class="order-wrap">  
+    <h1>服务内容：<span class="serviceName" id="serviceName"></span><br/>
+       <!--span class="serviceName">879M—XXD系列</span><br/-->
+       <!--span class="price" id="serviceValue"></span-->
+    </h1> 
+    <div class="shop"><p><span id="businessName"></span><br/><span id="businessAddress"></span></p></div>
+    <div class="user"><p><span id="nickName"></span><br/><span id="mobile"></span></p></div> 
+  </article> 
+  <ol class="comment">
+      <li>确认后您会收到短信服务码，凭服务码到商家接受服务即可</li>
+      <li>如商家为主动与您联系，请您主动与商家约定服务时间。</li> 
+      <li>注意</li>
+  </ol>
+  <footer>
+      <div class="button-wrap">  
+         <div class="right"><div class="button" id="submit">确认</div></div>
+      </div> 
+  </footer>
+  <div class="dialog">
+      <div>
+        <h1>提示</h1>
+        <p id="msg"></p>
+        <div class="btn-wrap">
+            <!--div><div class="left">取消</div></div--> 
+            <div><div class="right">确定</div></div> 
+        </div>
+      </div>
+   </div> 
+<script type="text/javascript">
+var userId = "",customerId = "";  
+$(document).ready(function(){ 
+   userId = getCookie("userInfoId"); 
+   customerId = getCookie("customerId");   
+	var paramJson = {};
+	var url =window.location.search;  
+	if(url!=undefined&&url!=""){
+	var paramsArr = (url.split("?")[1]).split("&"); 
+	$.each(paramsArr,function(i){
+	 var item = paramsArr[i].split("=");
+	 paramJson[item[0]] = item[1];
+	});    
+	} 
+    $("#submit").click(function(){
+      reserve();
+    });
+	$(".dialog .right").click(function(){
+		$(".dialog").fadeOut();
+	});
+    var reserve = function(){ 
+        var items = [];
+        var buy = {};
+        buy.busiServiceRelId = paramJson.busiServiceRelId;
+        buy.count = "1";
+        items.push(buy)
+        var postData = {}; 
+        postData.cardId = paramJson.cardId;
+        postData.customerId = customerId;     
+        postData.items = items;    
+        $.ajax({
+            url: '/yangchebao-app-ws/ws/0.1/card/reserve',
+            type: 'post',
+            data: $.toJSON(postData),
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            success: function(data){  
+              $(".dialog #msg").html(data.orders[0].message);
+	          $(".dialog").fadeIn();
+            },error: function(xhr) {
+			   var mes = eval('('+xhr.responseText+')'); 
+			   alertTasat(mes[0].message);
+			}
+        });
+    };    
+	var getDetail = function(){   
+		$.ajax({
+			url: "/yangchebao-app-ws/ws/0.1/card/service/detail?cardId="+paramJson.cardId+"&userInfoId="+userId+"&sourceId="+paramJson.busiServiceRelId+"&itemType=0",//itemType	Int	购买对象的Type  0 服务  1 套餐
+			contentType: "application/json;charset=utf-8",
+			dataType: "json",
+			type: "get",
+			success: function(data) { 
+				$("#serviceName").html(data.serviceName);
+				$("#serviceValue").html("￥"+data.serviceValue);
+				$("#nickName").html(data.nickName);
+				$("#businessName").html(data.businessName);
+				$("#businessAddress").html(data.businessAddress);
+				$("#mobile").html(data.mobile);
+			},error: function(xhr) {
+			   var mes = eval('('+xhr.responseText+')'); 
+			   alertTasat(mes[0].message);
+			   $("footer").hide();
+			} 
+		});
+	}; 
+	getDetail(); 
+  }); 
+</script>
+</body>
+</html>

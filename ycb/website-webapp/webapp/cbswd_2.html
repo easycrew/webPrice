@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta name="keywords" content="养车宝，汽车保养，洗车美容">
+<meta name="description" content="养车宝为车主提供汽车保养，汽车美容，汽车维修，免费电话救援等服务，简易流程让您养车省心，交易透明让您养车安心，专业服务让您养车不用担心！">
+<title>养车宝！</title>
+<link rel="icon" href="img/icon.png" type="image/png">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/smallnav.css">
+<link rel="stylesheet" href="css/cbswd_2.css">
+</head>
+<body>
+	<div class="container">
+		<div class="top">
+			<div id="navi"></div>
+			<div class="smallnav">
+				<p><span><a href="index.html">养车宝</a></span><span>></span><span><a href="cbswd_1.html">车博士</a></span><span>></span><span class="question">问题详情</span></p>
+			</div>
+		</div>
+		<div class="content">
+			<div class="left">
+			    <h2>车博士问答</h2>
+				<div class="mi_line"></div>
+				<div class="wt_detail">
+					<div class="que">
+						<p><img src="img/icon_Q.png"><span id="qu">正在加载...</span></p>
+					</div>
+					<div>
+						<p><img src="img/icon_A.png"><span id="an">正在加载...</span></p>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<a href="javascript:void(0);"><img src="img/loading.jpg" width="335" height="312"></a>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div class="footer"></div>
+</body>
+<!--[if IE 6.0]>
+	<script src="js/DD_belatedPNG.js"></script>
+	<script>
+        DD_belatedPNG.fix("img");
+	</script>
+<![endif]-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff924926d1eaf998748c11fd77a92f7ca' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script src="js/jquery-1.7.min.js"></script>
+<script src="js/jquery.urlParam.js"></script>
+<script src="js/main.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#navi").load("head.html");
+		Car.footer();
+		
+		$.get(Car.url("/qaWeb/getDetail"), {
+			questionId: $.getQuery("questionId")
+		},function(data) {
+			if (data) {
+				document.title = data.question.substr(0, 10) + "_养车宝！";
+				$("#qu").html(data.question);
+				$("#an").html(data.answer);
+			}
+		});
+		
+		$.get(Car.url("/adWeb/getArticleRightAd"), function(data) {
+			if (data && data.picUrl) {
+				var me = $(".right a");
+				if (data.jumpUrl) {
+					me.attr({href: data.jumpUrl, target: "_blank"});
+				}
+				me.html("<img src='" + data.picUrl + "' width='335' height='312'>");
+			}
+		});
+	});
+</script>
+</html>

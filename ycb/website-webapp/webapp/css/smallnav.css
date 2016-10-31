@@ -1,0 +1,22 @@
+@charset "utf-8";
+.smallnav{
+	border-bottom:1px solid #eee;
+}
+.smallnav p{
+	width:1025px;
+	height:28px;
+	line-height:28px;
+	margin:0 auto;
+}
+.smallnav p span{
+	position:relative;
+	+top:7px;
+    margin-right:6px;
+}
+.smallnav p a{
+	color:#2d519c;
+	text-decoration:none;
+}
+span.question,span.cggsAll,span.mtbdAll{
+	color:#777;
+}

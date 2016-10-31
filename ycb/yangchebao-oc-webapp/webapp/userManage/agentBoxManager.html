@@ -1,0 +1,374 @@
+<style>
+.height28{
+  height:28px;
+  line-height:28px;
+}
+.carInfos .car{
+	border-top: 1px dashed rgb(204, 204, 204);
+    margin: 10px;
+}
+.sDiv{
+	min-width: 830px;
+	overflow-x:auto;
+}
+</style>
+<div class="urlContentWraper" id="Wraper_agentBox_manager">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>代理商盒子管理</strong><bottom class="all-work-info numb218">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+		<div class="pic-grid">
+			<table id="Table_agentBox_manager"></table>
+		</div>
+    </div>
+<!--     <div id="Form_agentBox_manager" style="display:none;">
+       <div class="grid-layout-main jrad-form"> 
+       		<input type="hidden" name="id">
+			<div class="row">
+                 <label class="span3 grid-layout-label">城市：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="deliveryCity" class="jrad-input-container"></div>
+                 </div>
+            </div> 
+			<div class="row">
+                 <label class="span3 grid-layout-label">发货商家简称：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="deliveryBusiName" class="jrad-input-container"></div>
+                 </div>
+            </div>
+	        <div class="jrad-buttons-container ui-buttons-container">
+	            <span class="jrad-btn-primary">确定</span> 
+	            <span class="jrad-btn-normal">取消</span>
+	        </div> 
+    	</div>    
+  	</div> -->
+	<div id="Form_agentBox_manager_msg_b" style="display:none;">
+        <div class="grid-layout-main jrad-form">  
+        	<input type="hidden" name="operator">
+			<div class="row">
+                 <label class="span3 grid-layout-label">上传EXCEL：</label>
+                 <div class="span8 grid-layout-content">
+                       <div name="deliveryInfoFile" class="jrad-upload-container"></div>  <!--a href="#" class="download" id="download">下载模板</a-->
+					   <p class="ui-note">EXCEL格式为每行“IMEI、城市、商家简称”三列</p>
+                 </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg218" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>给代理商查看的盒子管理功能，对应代理商只能看到自己的盒子数据。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_agentBox_manager');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array(); 
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel}); 
+	
+	jRad.params['noEqualBusiRegName'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'关联商家、发放商家不一致数据'}] 
+	};
+	jRad.params['hasDataNoOrder'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'上数无订单数据'}] 
+	};
+	jRad.params['hasOrderNoData'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'有订单无数据'}] 
+	};
+	//jRad.validators['content'] = [{"msg":"发送内容不能为空","type":"min","value":"1"}];
+	
+	// var categoryList = [];
+ //    var _result = $.jRadGet({url: '/shopmanage-ws/ws/0.1/terminalBox/groupCustList'});
+ //    $.each(_result,function(index, vo){
+ //      var __id = vo['groupCustomerName'];
+ //      var __name = vo['groupCustomerName'];
+ //      var __tm = {'id':__id,'name': __name};
+ //      categoryList.push(__tm);
+ //    });
+ //    categoryList.unshift({id:'',name:'全部'})
+
+	var fields_params = {};     
+	fields_params['isAudit'] = {
+		data: [{id:'',name:'全部'},{id:'1',name:'是'},{id:'0',name:'否'}] 
+	}; 
+	// fields_params['groupCustomerName'] = {
+	// 	data: categoryList
+	// }; 
+	// jRad.params['groupCustomerName']={
+    //    data:categoryList
+    // }; 
+
+    // 批量设置
+	// fields_params['deliveryInfoFile'] = {
+	// 	url:'/shopmanage-ws/ws/0.1/terminalBox/setDeliveryInfo',
+ //        autocomplete:false,
+	// 	success: function(data) {   
+	// 		if (data != undefined&&data[0]!=undefined&&data[0].message!="") {
+	// 			$.jRadAlert(data[0].message,"error");  
+	// 		}else{ 
+	// 			$('#Form_agentBox_manager_msg_b',wraper).form('close');
+	// 			if(data.status=="400"){
+	// 				$.jRadAlert(data.msg, 'warning',"",-1); 
+	// 			}else{
+	// 				$('#Table_agentBox_manager',wraper).flexMessage(data.msg, 'success'); 
+	// 			}
+	// 		} 
+	// 		$('#Table_agentBox_manager').flexReload();
+	// 	},
+	// 	error:function(xhr){
+	// 		var errormsg = eval("(" + xhr.responseText + ")");
+	// 		$.jRadMessage({level:'error',message:errormsg[0].message,selector:$('#Form_agentBox_manager_msg_b',wraper)})
+	// 	}
+	// };		
+	// $('#Form_agentBox_manager_msg_b',wraper).form({
+ //        title: '批量设置发货商家',
+ //        validators: jRad.validators,
+ //        fields_params: fields_params,  
+ //        submit: addShortMessage 
+ //    });
+	// function addShortMessage(){
+	// 	   var _form = $("#Form_agentBox_manager_msg_b");
+	// 	   var json = _form.form('getValue'); 
+	// 	   var flag = _form.form('validateAll');
+	// 	   if(!flag) {
+	// 		   return;
+	// 	   }  
+	// 	   delete json.deliveryInfoFile;
+	// 	   $('div[name=deliveryInfoFile]',wraper).upload({
+	// 			params: json,
+	// 	   }).upload('upload'); 
+	// } 
+
+    page_column_model.push({display: '所属代理商', name : 'groupCustomerName'});
+    page_column_model.push({display: '发货时间', name : 'deliveryTime'});
+    page_column_model.push({display: 'IMEI', name : 'imei'});
+    page_column_model.push({display: '首次上数时间', name : 'first_send_data_time',sortable:true});
+    page_column_model.push({display: '最新上数时间', name : 'lastSendDate'});
+    page_column_model.push({display: '连续无上数天数', name : 'continueDays',sortable:true}); 
+    page_column_model.push({display: '订单编号', name : 'orderNumber'});
+	page_column_model.push({display: '订单验证时间', name : 'service_date',sortable:true});
+	page_column_model.push({display: '关联商家', name : 'orderRelBusiRegName'});
+	page_column_model.push({display: '城市', name : 'deliveryCity'});
+	page_column_model.push({display: '发货商家', name : 'deliveryBusiName'});
+	page_column_model.push({display: 'BD负责人', name : 'dbOperator'});
+	page_column_model.push({display: '状态', name : 'statusDesc'});
+    
+    page_search_items.push({row:'1',type:'jrad-select',display:'所属代理商',name:'groupCustomerName',params:jRad.params['groupCustomerName']});
+    page_search_items.push({row:'1',type:'jrad-input',display:'IMEI',name:'imei'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'订单编号',name:'orderNumber'});
+	page_search_items.push({row:'2',type:'jrad-input',display:'关联商家',name:'orderRelBusiRegName'});
+	page_search_items.push({row:'2',type:'jrad-input',display:'发货商家',name:'deliveryBusiName'}); 
+	page_search_items.push({row:'2',type:'jrad-input',display:'城市',name:'deliveryCity'}); 
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'发货时间始',name:'deliveryStartTime'});
+	page_search_items.push({row:'3',type:'jrad-dateinput',display:'发货时间终',name:'deliveryEndTime'});
+	page_search_items.push({row:'3',type:'jrad-radio',name:'noEqualBusiRegName',params:jRad.params['noEqualBusiRegName']});
+
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'上数时间始',name:'firstSendDataStartTime'});
+	page_search_items.push({row:'4',type:'jrad-dateinput',display:'上数时间终',name:'firstSendDataEndTime'});
+	page_search_items.push({row:'4',type:'jrad-radio',name:'hasDataNoOrder',params:jRad.params['hasDataNoOrder']});
+
+	page_search_items.push({row:'5',type:'jrad-dateinput',display:'订单验证时间始',name:'serviceStartDate'});
+	page_search_items.push({row:'5',type:'jrad-dateinput',display:'订单验证时间终',name:'serviceEndDate'});
+	page_search_items.push({row:'5',type:'jrad-radio',name:'hasOrderNoData',params:jRad.params['hasOrderNoData']});
+	
+	// page_list_buttons.push({displayname: '设置',name:'userInfo',bclass: 'userInfo',prefunc:function(){
+ //            var checked = $('#Table_agentBox_manager').getCheckedTrs();
+ //            if (checked.length != 1) {return false;}else{return true;}
+ //        },onpress : function(){
+ //        	var checked = $('#Table_agentBox_manager').getCheckedTrs();
+	//     	$('#Form_agentBox_manager',wraper).form({
+	//     		title: '设置发货商家',
+ //                url:'/shopmanage-ws/ws/0.1/terminalBox/setSingDeliveryInfo',
+ //                item:{'deliveryCity':checked[0].deliveryCity,'deliveryBusiName':checked[0].deliveryBusiName},
+	// 			before_submit:function(json){
+	// 				json.id = checked[0].id;
+	// 				json.operator = carsmart_config.operatorName
+	// 			},
+	// 			success_callback:function(){ 
+ //                $('#Table_agentBox_manager').flexMessage('添加成功', 'success');
+ //                $('#Table_agentBox_manager').flexReload();
+	// 			}
+	// 		}).form('open');  
+	// 	}
+	// });
+	
+	// page_list_buttons.push({displayname: '批量设置',name:'sendMsg',bclass: 'sendMsg',
+	// 	onpress : function(){
+	// 		$('#Form_agentBox_manager_msg_b',wraper).form({
+	// 			item:{'operator':carsmart_config.operatorName},
+	// 			success_callback:function(){ 
+ //                $('#Table_agentBox_manager').flexMessage('设置成功', 'success');
+ //                $('#Table_agentBox_manager').flexReload();
+	// 			}
+	// 		}).form('open');  
+	// 	}
+	// });  
+	page_list_buttons.push({displayname: '导出EXCEL',name:'excel', bclass: 'excel',onpress : function(){ 
+		 $ .jRadConfirm('确认导出吗？',1,function(){
+				 var param = {};
+				 // var groupCustomerName = $.trim($(".searchContent div[name='groupCustomerName']",wraper).select('val'));
+				 // if(groupCustomerName!=""){
+					// param['groupCustomerName'] = groupCustomerName;
+				 // }; 
+				 var imei = $.trim($(".searchContent div[name='imei']",wraper).input('val'));
+				 if(imei!=""){
+					param['imei'] = imei;
+				 };
+				 var orderNumber = $.trim($(".searchContent div[name='orderNumber']",wraper).input('val'));
+				 if(orderNumber!=""){
+					param['orderNumber'] = orderNumber;
+				 }; 
+				 var orderRelBusiRegName = $.trim($(".searchContent div[name='orderRelBusiRegName']",wraper).input('val'));
+				 if(orderRelBusiRegName!=""){
+					param['orderRelBusiRegName'] = orderRelBusiRegName;
+				 };
+				 var deliveryBusiName = $.trim($(".searchContent div[name='deliveryBusiName']",wraper).input('val'));
+				 if(deliveryBusiName!=""){
+					param['deliveryBusiName'] = deliveryBusiName;
+				 }; 
+				 
+				 var deliveryStartTime = $.trim($(".searchContent div[name='deliveryStartTime']",wraper).dateinput('val'));
+				 if(deliveryStartTime!=""){
+					param['deliveryStartTime'] = deliveryStartTime;
+				 };
+				 var deliveryEndTime = $.trim($(".searchContent div[name='deliveryEndTime']",wraper).dateinput('val'));
+				 if(deliveryEndTime!=""){
+					param['deliveryEndTime'] = deliveryEndTime;
+				 };
+				 var noEqualBusiRegName = $.trim($(".searchContent div[name='noEqualBusiRegName']",wraper).radio('val'));
+				 if(noEqualBusiRegName!=""){
+					param['noEqualBusiRegName'] = noEqualBusiRegName;
+				 }; 
+				 var firstSendDataStartTime = $.trim($(".searchContent div[name='firstSendDataStartTime']",wraper).dateinput('val'));
+				 if(firstSendDataStartTime!=""){
+					param['firstSendDataStartTime'] = firstSendDataStartTime;
+				 }; 
+				 var firstSendDataEndTime = $.trim($(".searchContent div[name='firstSendDataEndTime']",wraper).dateinput('val'));
+				 if(firstSendDataEndTime!=""){
+					param['firstSendDataEndTime'] = firstSendDataEndTime;
+				 };  
+				 var hasDataNoOrder = $.trim($(".searchContent div[name='hasDataNoOrder']",wraper).radio('val'));
+				 if(hasDataNoOrder!=""){
+					param['hasDataNoOrder'] = hasDataNoOrder;
+				 };
+				 var serviceStartDate = $.trim($(".searchContent div[name='serviceStartDate']",wraper).dateinput('val'));
+				 if(serviceStartDate!=""){
+					param['serviceStartDate'] = serviceStartDate;
+				 }; 
+				 var serviceEndDate = $.trim($(".searchContent div[name='serviceEndDate']",wraper).dateinput('val'));
+				 if(serviceEndDate!=""){
+					param['serviceEndDate'] = serviceEndDate;
+				 }; 
+				 var hasOrderNoData = $.trim($(".searchContent div[name='hasOrderNoData']",wraper).radio('val'));
+				 if(hasOrderNoData!=""){
+					param['hasOrderNoData'] = hasOrderNoData;
+				 }; 
+				 var paramUrl = "";
+				 if(param!={}){   
+				 paramUrl+="?"
+				 $.each(param,function(k,v){ 
+						paramUrl+="&"+k+"="+v; 
+				 });
+				 }
+				 window.open('/shopmanage-ws/ws/0.1/terminalBox/export'+paramUrl);
+			}); 
+        }
+    });
+    page_list_buttons.push({separator: true});
+
+    $('#Table_agentBox_manager').flexigrid({
+            reload:true,
+			method:'get',
+            colModel : page_column_model,
+            buttons : page_list_buttons,
+            searchitems :page_search_items,
+			showSearch:true,
+			queryParam: {'noEqualBusiRegName':'','hasDataNoOrder':'','hasOrderNoData':''},
+            pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			overflow:true,
+			checkBoxType:'single',
+            url:'/shopmanage-ws/ws/0.1/terminalBox/list?isAgent=1', 
+			onError:showUserError
+    }); 
+
+	$('div.searchContent div[name="groupCustomerName"]',wraper).select('readonly',true);
+
+	$('div.searchContent div[name="noEqualBusiRegName"]',wraper).radio('val','');
+	$('div.searchContent div[name="hasDataNoOrder"]',wraper).radio('val','');
+	$('div.searchContent div[name="hasOrderNoData"]',wraper).radio('val','');
+
+    $(".searchContent .row-fluid").eq(2).find(".span3").eq(2).css("width","40px");
+    $(".searchContent .row-fluid").eq(2).find(".span4").eq(2).css("width","275px");
+    $(".searchContent .row-fluid").eq(3).find(".span3").eq(2).css("width","40px");
+    $(".searchContent .row-fluid").eq(3).find(".span4").eq(2).css("width","275px");
+    $(".searchContent .row-fluid").eq(4).find(".span3").eq(2).css("width","40px");
+    $(".searchContent .row-fluid").eq(4).find(".span4").eq(2).css("width","275px");
+	
+    $(".numb218").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg218").form({}).form('close');
+        $("#Form_explain_eg218").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg218 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg218").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg218").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg218 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	function showUserError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_agentBox_manager .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+	}
+
+});
+</script>

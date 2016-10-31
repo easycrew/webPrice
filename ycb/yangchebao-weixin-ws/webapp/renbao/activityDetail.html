@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+	<meta name="format-detection" content="telephone=no" />
+	<title>详细说明</title>
+	<script src="./js/jquery-1.10.1.min.js"></script>
+	<script src="./js/commen.js"></script>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		html,body{
+			min-height: 100%;
+		}
+		html{
+		    font-size: 62.5%;
+		}
+		body{
+			background-color: #f4f7f8; 
+			font-family: 'Hiragino Sans GB',Helvetica,Arial,sans-serif;
+			color: #1e1e1e;
+		}
+		img{
+			border: none;
+			vertical-align: middle;
+		}
+		a{
+			text-decoration: none;
+			outline:none;
+			blr:expression(this.onFocus=this.blur());
+		}
+		input,textarea{
+			border: none;
+			-webkit-appearance: none;
+		}
+		.clearfix::before,.clearfix::after{
+			display: block;
+			content: '';
+			font-size: 0px;
+		}
+		.clearfix::after{
+			clear: both;
+		}
+
+		article{
+			background-color: #fff;
+			border-bottom: 1px solid #D9D9E2;
+			padding: 1rem;
+		}
+		p.title{
+			color: #ff6138;
+			font-size: 1.8rem;
+			text-align: center;
+			padding-bottom: 0.6rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		p.conOne{
+			font-size: 1.4rem;
+			padding-top: 0.5rem;
+			line-height: 2rem;
+		}
+		div.conThree div.conOne span{
+			float: left;
+			display: inline-block;
+			font-size: 1.4rem;
+			padding-top: 0.5rem;
+			line-height: 2rem;
+		}
+		div.conThree p.conOne{
+			margin-left: 1.6rem;
+		}
+		article.two,article.three{
+			margin-top: 1rem;
+		}
+
+		div.conTwo{
+			padding: 1.8rem 0 1.6rem 0rem;
+		}
+		div.conTwo p{
+			padding-bottom: 0.5rem;
+		}
+		span.conTwoL{
+			line-height: 22px;
+			display: inline-block;
+			font-size: 1.4rem;
+			padding-right: 2px;
+			width: 128px;
+		}
+		span.conTwoR{
+			line-height: 22px;
+			display: inline-block;
+			width: 155px;
+			text-align: center;
+			color: #ff6138;
+			font-size: 1.4rem;
+			padding: 0 0.2rem;
+			border: 1px solid #ff6138;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+		p.tip{
+			color: #a2a2a2;
+			font-size: 1.4rem;
+			padding: 1rem 1.5rem 4rem;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<article class="one">
+			<p class="title">1095元养车基金是怎么发放的？</p>
+			<div class='con'>
+				<p class="conOne">购买保险养车宝按照每天1元钱连续返三年的方式，送您1095元养车基金。基金存放在您的养车宝个人余额里，在养车宝合作门店中消费等同现金。</p>
+			</div>
+		</article>
+		<article class="two">
+			<p class="title">可折现加油费如何使用？</p>
+			<div class='con'>
+				<p class="conOne">保险购买成功后，您的养车宝账户余额中会立即增加一大笔可提现余额，数额等于您所购买商业险部分的8%，可以直接在养车宝加油卡充值功能中为您的加油卡操作充值。</p>
+			</div>
+		</article>
+		<article class="three">
+			<p class="title">通用代金券的额度是怎么确定的？</p>
+			<div class='con conThree'>
+				<div class="conOne clearfix"><span>1.</span><p class="conOne">代金券按照下表所列保费（商业险部分）支付额区间进行发放；</p></div>
+				<div class="conOne clearfix"><span>2.</span><p class="conOne">代金券金额如果不足商业险部分的8%，不足的部分，以养车宝账户余额的形式发放到您的养车宝账户；</p></div>
+				<div class="conOne clearfix"><span>3.</span><p class="conOne">代金券和余额，可以在养车宝全国任意一家合作门店中消费时抵扣相应的现金金额。</p></div>
+				<div class="conTwo">
+					<p><span class="conTwoL">保费满1000-1999元</span><span class="conTwoR">送¥80代金券</span></p>
+					<p><span class="conTwoL">保费满2000-3999元</span><span class="conTwoR">送¥160代金券</span></p>
+					<p><span class="conTwoL">保费满4000-5999元</span><span class="conTwoR">送¥320代金券</span></p>
+					<p><span class="conTwoL">保费满6000-6999元</span><span class="conTwoR">送¥480代金券</span></p>
+					<p><span class="conTwoL">保费满7000元以上</span><span class="conTwoR">送¥560代金券</span></p>
+				</div>
+			</div>
+		</article>
+		<p class="tip">出险、脱保、过户，其中任意一项变化，都会影响保费的计算结果。</p>
+	</section>
+</body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+	// 分享
+	var sharedata={};
+	sharedata.title="五折车险限时抢购！";
+	sharedata.shareUrl="http://"+urlIp()+'/yangchebao-weixin-ws/renbao/index.html';
+	sharedata.headImgUrl="http://"+urlIp()+'/yangchebao-weixin-ws/renbao/img/logo.png';
+	share(sharedata);
+</script>
+</html>

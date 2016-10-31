@@ -1,0 +1,1062 @@
+<div class="urlContentWraper" id="Wraper_settle_account">
+    <div class="details-box">
+    	<ul class="details-tab">
+			<li class="tab-cur tab-cur-first f-left" rele="orderAccount"><span name="title">订单结算列表</span></li>
+			<li class="f-left" rele="cardAccount"><span name="title">车主卡结算列表</span></li>
+			<li class="f-left" rele="cardDecutAccount"><span name="title">车主卡提成结算列表</span></li>
+		</ul>
+		<div class="details-content">
+				<div class="details-scroll">
+					<div class="details-content-inner">
+						<div class="ui-info-layout tabReleForm" id="orderAccount">
+					      <div class="qdiv">
+					           <h2 class="ui-tit"><strong>结算管理列表</strong><bottom class="all-work-info numb33">页面说明</bottom></h2>
+					           <table id="Table_settle_orderAccount"></table>
+					      </div>
+					      <div class="bdiv" style="margin-top:10px;">
+					           <h2 class="ui-tit"><strong>详细订单列表</strong></h2>
+					           <table id="Table_settle_orderAccountList"></table>
+					      </div>
+					    </div>
+					    <div class="ui-info-layout tabReleForm" id="cardAccount" style="display:none;">
+					      <div class="qdiv">
+					           <h2 class="ui-tit"><strong>结算管理列表</strong></h2>
+					           <table id="Table_settle_cardAccount"></table>
+					      </div>
+					      <div class="bdiv" style="margin-top:10px;">
+					           <h2 class="ui-tit"><strong>详细车主卡列表</strong></h2>
+					           <table id="Table_settle_cardAccountList"></table>
+					      </div>
+					    </div>
+					    <div class="ui-info-layout tabReleForm" id="cardDecutAccount" style="display:none;">
+					      <div class="qdiv">
+					           <h2 class="ui-tit"><strong>结算管理列表</strong></h2>
+					           <table id="Table_settle_cardDecutAccount"></table>
+					      </div>
+					      <div class="bdiv" style="margin-top:10px;">
+					           <h2 class="ui-tit"><strong>详细车主卡提成列表</strong></h2>
+					           <table id="Table_settle_cardDecutAccountList"></table>
+					      </div>
+					    </div>
+					</div>
+				</div>
+		</div>
+    </div>
+    <div id="Form_settle_account_remark" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+			<div class="row">
+				<label class="span3 grid-layout-label">备注详情：</label>
+				<div class="span5 grid-layout-content">
+                  <div name="remark" class="jrad-textarea-container">
+                  </div>
+                </div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_settle_cashInstall" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+			<div class="row">
+				<label class="span3 grid-layout-label">最小提现金额：</label>
+				<div class="span5 grid-layout-content">
+                  <div name="minLimit" class="jrad-input-container">
+                  </div>
+                </div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label">最大提现金额：</label>
+				<div class="span5 grid-layout-content">
+                  <div name="maxLimit" class="jrad-input-container">
+                  </div>
+                </div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label">提现次数：</label>
+				<div class="span10 grid-layout-content" id="maxFrequency">
+                  <input type="text" class="days">天<input type="text" class="times">次
+                </div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_settle_status" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+			<div class="row">
+				<label class="span3 grid-layout-label">转账状态：</label>
+				<div class="span5 grid-layout-content">
+                  <div name="transferStatus" class="jrad-select-container">
+                  </div>
+                </div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>    
+    <div id="Form_settle_email" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+			<div class="row">
+				<label class="span3 grid-layout-label">发送邮箱：</label>
+				<div class="span7 grid-layout-content">
+                  <div name="sendEmails" class="jrad-textarea-container">
+                  </div>
+				  <p class="ui-note">多个邮箱请用英文逗号隔开。</p>
+                </div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label"></label>
+				<div class="span5 grid-layout-content">
+				  转账邮件笔数：<span class="staticCnt"></span>
+                </div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label"></label>
+				<div class="span5 grid-layout-content">
+				  转账邮件订单数：<span class="orderDetailCnt"></span>
+                </div>
+			</div>
+			<div class="row">
+				<label class="span3 grid-layout-label"></label>
+				<div class="span5 grid-layout-content">
+				  转账邮件总金额（元）：<span class="transAmount"></span>
+                </div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_settle_transAmount" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+			<div class="row">
+				<label class="span3 grid-layout-label">转账金额：</label>
+				<div class="span5 grid-layout-content">
+                  <div name="noFeeTransAmount" class="jrad-input-container">
+                  </div>
+                </div>
+			</div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span>
+			<span class="jrad-btn-normal">取消</span>
+        </div>
+    </div> 
+    <div id="Form_settle_account_checkRemark" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+			<div class="row">
+				<label class="span3 grid-layout-label">备注详情：</label>
+				<div class="span5 grid-layout-content">
+                  <div name="remark" class="jrad-textarea-container">
+                  </div>
+                </div>
+			</div>
+        </div>
+    </div>
+    <div id="Form_settle_info" style="display:none;">
+      <div class="grid-layout-main jrad-form">
+        <table id="Table_info">
+        	<tr>
+        		<th style="width:100px;">状态变更</th>
+        		<th>转账金额</th>
+        		<th>变更时间</th>
+        		<th>操作人</th>
+        	</tr>
+        </table>
+      </div>
+    </div> 
+    <div id="Form_explain_eg33" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>过去商家的结算系统，现在已停用。</div>
+                    <div><strong>重要功能说明：</strong>无。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_settle_account');
+    $(".details-tab .f-left",wraper).click(function(){
+    	$(".details-tab .tab-cur").removeClass("tab-cur");
+		$(this).addClass("tab-cur");
+		var rele = $(this).attr("rele");
+		$(".tabReleForm",wraper).hide();
+		if(rele=="orderAccount"){
+			getAccountList("1","orderAccount")
+		}else if(rele=="cardAccount"){
+			getAccountList("2","cardAccount")
+		}else if(rele=="cardDecutAccount"){
+			getAccountList("3","cardDecutAccount")
+		}
+		$('div#'+rele,wraper).show()
+    });
+    getAccountList("1","orderAccount");
+    function getAccountList(type,typeName){
+    	var accountTable=$('#Table_settle_'+typeName,wraper);
+    	var accountList=$('#Table_settle_'+typeName+'List',wraper);
+    	var page_column_model = new Array();
+    	var page_column_model_b = new Array();
+	    var page_column_model_c = new Array();
+	    var page_column_model_d = new Array();
+	    var page_column_model_e = new Array();
+	    var page_search_items = new Array();
+	    var page_search_items_b = new Array();
+	    var page_search_items_c = new Array();
+	    var page_list_buttons = new Array();
+	    var page_list_buttons_b = new Array();
+	    var page_list_buttons_c = new Array();
+	    var page_list_buttons_d = new Array();
+	    var page_list_buttons_e = new Array();
+		var entityModel = {};
+	    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});
+	    var payChannels = [];
+		var _result = $.jRadGet({
+			url: '/shopmanage-ws/ws/0.1/orders/payChannels'
+		});
+		$.each(_result.payChannels,
+		function(index, vo) {
+			var __id = vo['payChannelId'];
+			var __name = vo['payChannelName'];
+			var __tm = {
+				'id': __id,
+				'name': __name
+			};
+			payChannels.push(__tm);
+		});
+		payChannels.unshift({'id':'','name':'全部'});
+	    jRad.params['billingPeriod'] = {
+			data: [{id:'',name:'全部'},{id:'1',name:'T+1'},{id:'2',name:'T+1(大于等于1000元)'},{id:'3',name:'T+1(无金额限制)'},{id:'4',name:'半月结'},{id:'5',name:'月结'},{id:'6',name:'主动提现'}]
+		};
+	    jRad.params['useRedeemCode'] = {
+			data: [{id:'',name:'全部'},{id:'0',name:'否'},{id:'2',name:'是'}]
+		};
+		jRad.params['transferStatus'] = {
+			data: [{id:'',name:'全部'},{id:'0',name:'未转账'},{id:'1',name:'已转账'},{id:'2',name:'转账中'},{id:'3',name:'审核中'}]
+		};
+		jRad.params['payChannelType'] = {
+			data: [{id:'',name:'全部'},{id:'0',name:'支付宝支付'},{id:'1',name:'银行卡支付'},{id:'2',name:'兑换码支付'}]
+		};
+		jRad.validators['minLimit'] = [{"msg":"请填写非负整数","type":"regex","value":/^\d+$/}];
+		jRad.validators['maxLimit'] = [{"msg":"请填写非负整数","type":"regex","value":/^\d+$/}];
+		
+		var fields_params={};
+		fields_params['transferStatus'] = {data:[{id:'1',name:'未转账'},{id:'2',name:'已转账'}]};
+		$('#Form_settle_cashInstall',wraper).form({
+			title:'主动提现设置'
+		});
+		fields_params['sendEmails'] = {grid: 9}; 
+		var fields_params2={};
+		fields_params2['transferStatus'] = {data:[{id:'',name:'请选择'},{id:'0',name:'未转账'},{id:'1',name:'已转账'},{id:'2',name:'转账中'},{id:'3',name:'审核中'}]};
+	
+	    page_column_model.push({display: 'ID', name : 'busiOrderBillingStaticId'});
+		page_column_model.push({display: '商家ID', name : 'busiId'});
+	    page_column_model.push({display: '商家简称', name : 'busiName'});
+	    page_column_model.push({display: '开户行', name : 'bankName'});
+		page_column_model.push({display: '开户名', name : 'cardName'});
+		page_column_model.push({display: '银行账户', name : 'cardNo'});
+		page_column_model.push({display: '结算方式', name : 'billingPeriodDesc'});
+	    page_column_model.push({display: '转账金额',width:150, name : 'transferAmount'});
+	    page_column_model.push({display: '用户支付金额',width:150,  name : 'userPayAmount'});
+	    page_column_model.push({display: '转账日期', name : 'transferTime'});
+	    page_column_model.push({display: '状态', name : 'transferStatusDesc'});
+	    page_column_model.push({display: '数据生成时间', name : 'createTime'});
+	    page_column_model.push({display: '最后操作时间', name : 'updateTime'});
+	    page_column_model.push({display: '操作人', name : 'lastModifyUser'});
+
+	    page_column_model_b.push({display: 'ID', name : 'busiSaleCommStaticId'});
+		page_column_model_b.push({display: '商家ID', name : 'busiId'});
+	    page_column_model_b.push({display: '商家简称', name : 'busiName'});
+	    page_column_model_b.push({display: '开户行', name : 'bankName'});
+		page_column_model_b.push({display: '开户名', name : 'cardName'});
+		page_column_model_b.push({display: '银行账户', name : 'cardNo'});
+		page_column_model_b.push({display: '结算方式', name : 'billingPeriodDesc'});
+	    page_column_model_b.push({display: '转账金额', name : 'transferAmount'});
+	    page_column_model_b.push({display: '用户支付金额', name : 'userPayAmount'});
+	    page_column_model_b.push({display: '转账日期', name : 'transferTime'});
+	    page_column_model_b.push({display: '状态', name : 'transferStatusDesc'});
+	    page_column_model_b.push({display: '数据生成时间', name : 'createTime'});
+	    page_column_model_b.push({display: '最后操作时间', name : 'updateTime'});
+	    page_column_model_b.push({display: '操作人', name : 'lastModifyUser'});
+
+	   page_search_items.push({row:'1',type:'jrad-select',display:'结算方式',name:'billingPeriod',params:jRad.params['billingPeriod']});
+	   page_search_items.push({row:'1',type:'jrad-input',display:'商家ID',name:'busiId'});
+	   page_search_items.push({row:'1',type:'jrad-input',display:'商家简称',name:'busiName'});
+	   page_search_items.push({row:'2',type:'jrad-select',display:'支付渠道',name:'payChannelType',params:{
+		 data:payChannels
+		}});
+	   page_search_items.push({row:'2',type:'jrad-select',display:'状态',name:'transferStatus',params:jRad.params['transferStatus']});
+	   page_search_items.push({row:'2',type:'jrad-input',display:'最后操作人',name:'lastModifyUser'});
+	   page_search_items.push({row:'3',type:'jrad-dateinput',display:'数据生成时间始',name:'createStartTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items.push({row:'3',type:'jrad-dateinput',display:'数据生成时间终',name:'createEndTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items.push({row:'3',type:'jrad-input',display:'开户名',name:'cardName'});
+	   page_search_items.push({row:'4',type:'jrad-dateinput',display:'转账日期始',name:'transferStartTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items.push({row:'4',type:'jrad-dateinput',display:'转账日期终',name:'transferEndTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items.push({row:'4',type:'jrad-input',display:'订单编号',name:'orderNumber'});
+
+	   page_search_items.push({row:'5',type:'jrad-dateinput',display:'最后操作时间始',name:'lastModifyStartTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items.push({row:'5',type:'jrad-dateinput',display:'最后操作时间终',name:'lastModifyEndTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_b.push({row:'1',type:'jrad-select',display:'结算方式',name:'billingPeriod',params:jRad.params['billingPeriod']});
+	   page_search_items_b.push({row:'1',type:'jrad-input',display:'商家ID',name:'busiId'});
+	   page_search_items_b.push({row:'1',type:'jrad-input',display:'商家简称',name:'busiName'});
+	   page_search_items_b.push({row:'2',type:'jrad-select',display:'支付渠道',name:'payChannelType',params:{
+		 data:payChannels
+		}});
+	   page_search_items_b.push({row:'2',type:'jrad-select',display:'状态',name:'transferStatus',params:{
+	   		data:[
+	   			{id:'',name:'全部'},
+	   			{id:'0',name:'未转账'},
+	   			{id:'1',name:'已转账'}
+	   		]
+	   }});
+	   page_search_items_b.push({row:'2',type:'jrad-input',display:'最后操作人',name:'lastModifyUser'});
+	   page_search_items_b.push({row:'3',type:'jrad-dateinput',display:'数据生成时间始',name:'createStartTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_b.push({row:'3',type:'jrad-dateinput',display:'数据生成时间终',name:'createEndTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_b.push({row:'4',type:'jrad-dateinput',display:'转账日期始',name:'transferStartTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_b.push({row:'4',type:'jrad-dateinput',display:'转账日期终',name:'transferEndTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_b.push({row:'5',type:'jrad-dateinput',display:'最后操作时间始',name:'lastModifyStartTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_b.push({row:'5',type:'jrad-dateinput',display:'最后操作时间终',name:'lastModifyEndTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_c.push({row:'1',type:'jrad-input',display:'商家ID',name:'busiId'});
+	   page_search_items_c.push({row:'1',type:'jrad-input',display:'商家简称',name:'busiName'});
+	   page_search_items_c.push({row:'1',type:'jrad-select',display:'状态',name:'transferStatus',params:{
+	   		data:[
+	   			{id:'',name:'全部'},
+	   			{id:'0',name:'未转账'},
+	   			{id:'1',name:'已转账'}
+	   		]
+	   }});
+	   page_search_items_c.push({row:'2',type:'jrad-dateinput',display:'数据生成时间始',name:'createStartTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_c.push({row:'2',type:'jrad-dateinput',display:'数据生成时间终',name:'createEndTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_c.push({row:'2',type:'jrad-input',display:'最后操作人',name:'lastModifyUser'});
+	   page_search_items_c.push({row:'3',type:'jrad-dateinput',display:'转账日期始',name:'transferStartTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_c.push({row:'3',type:'jrad-dateinput',display:'转账日期终',name:'transferEndTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_c.push({row:'4',type:'jrad-dateinput',display:'最后操作时间始',name:'lastModifyStartTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_c.push({row:'4',type:'jrad-dateinput',display:'最后操作时间终',name:'lastModifyEndTime',params:{dateFmt: 'yyyy-MM-dd HH:mm:ss'}});
+	   page_search_items_c.push({row:'4',type:'jrad-select',display:'是否显示马甲',name:'ignoreBusiIds',params:{
+	   		data:[
+	   			{id:'179094',name:'否'},
+	   			{id:'',name:'是'}
+	   		]
+	   }});
+	   function excelplus(){
+   			 var param = {};
+			 var billingPeriod = $.trim($("#orderAccount .searchContent div[name='billingPeriod']",wraper).select('val'));
+			 if(billingPeriod!=""){
+				param['billingPeriod'] = billingPeriod;
+			 };
+			 var busiId = $.trim($("#orderAccount .searchContent div[name='busiId']",wraper).input('val'));
+			 if(busiId!=""){
+				param['busiId'] = busiId;
+			 };
+			 var busiName = $.trim($("#orderAccount .searchContent div[name='busiName']",wraper).input('val'));
+			 if(busiName!=""){
+				param['busiName'] = busiName;
+			 };
+			 var transferStatus = $.trim($("#orderAccount .searchContent div[name='transferStatus']",wraper).select('val'));
+			 if(transferStatus!=""){
+				param['transferStatus'] = transferStatus;
+			 }; 
+			 var cardName = $.trim($("#orderAccount .searchContent div[name='cardName']",wraper).input('val'));
+			 if(cardName!=""){
+				param['cardName'] = cardName;
+			 };
+			 var orderNumber = $.trim($("#orderAccount .searchContent div[name='orderNumber']",wraper).input('val'));
+			 if(orderNumber!=""){
+				param['orderNumber'] = orderNumber;
+			 };
+			 var payChannelType = $.trim($("#orderAccount .searchContent div[name='payChannelType']",wraper).select('val'));
+			 if(payChannelType!=""){
+				param['payChannelType'] = payChannelType;
+			 };
+			 var lastModifyUser = $.trim($("#orderAccount .searchContent div[name='lastModifyUser']",wraper).input('val'));
+			 if(lastModifyUser!=""){
+				param['lastModifyUser'] = lastModifyUser;
+			 };
+			 var createStartTime = $.trim($("#orderAccount .searchContent div[name='createStartTime']",wraper).dateinput('val'));
+			 if(createStartTime!=""){
+				param['createStartTime'] = createStartTime;
+			 };
+			 var createEndTime = $.trim($("#orderAccount .searchContent div[name='createEndTime']",wraper).dateinput('val'));
+			 if(createEndTime!=""){
+				param['createEndTime'] = createEndTime;
+			 };
+			 var transferStartTime = $.trim($("#orderAccount .searchContent div[name='transferStartTime']",wraper).dateinput('val'));
+			 if(transferStartTime!=""){
+				param['transferStartTime'] = transferStartTime;
+			 };
+			 var transferEndTime = $.trim($("#orderAccount .searchContent div[name='transferEndTime']",wraper).dateinput('val'));
+			 if(transferEndTime!=""){
+				param['transferEndTime'] = transferEndTime;
+			 };
+			 var lastModifyStartTime = $.trim($("#orderAccount .searchContent div[name='lastModifyStartTime']",wraper).dateinput('val'));
+			 if(lastModifyStartTime!=""){
+				param['lastModifyStartTime'] = lastModifyStartTime;
+			 };
+			 var lastModifyEndTime = $.trim($("#orderAccount .searchContent div[name='lastModifyEndTime']",wraper).dateinput('val'));
+			 if(lastModifyEndTime!=""){
+				param['lastModifyEndTime'] = lastModifyEndTime;
+			 };
+			 var paramUrl = "";
+			 if(param!={}){
+				 paramUrl+="?"
+				 $.each(param,function(k,v){paramUrl+="&"+k+"="+v;});
+			 }
+			 param['paramUrl'] = paramUrl;
+			 return param;
+	   }
+	   page_list_buttons.push({displayname: '导出Excel',name:'excel', bclass: 'excel',onpress : function(){
+				$.jRadConfirm('确认导出吗？',1,function(){
+					var paramUrl = excelplus().paramUrl;
+				 	window.open('/shopmanage-ws/ws/0.1/busiOrderBillingStatic/expOrderStatList'+paramUrl);
+				})
+			}
+		});
+		page_list_buttons.push({displayname: '主动提现设置',name:'cashInstall', bclass: 'cashInstall',onpress : function(){
+			var _item=$.jRadGet({url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/withDraSetDetail'});
+			$('#Form_settle_cashInstall',wraper).form({
+				title:'主动提现设置',
+				url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/withDraSet',
+				item:_item,
+				validators:jRad.validators,
+				type:'post',
+				before_submit:function(json){
+					var days=$('#Form_settle_cashInstall div#maxFrequency input.days').val();
+					var times=$('#Form_settle_cashInstall div#maxFrequency input.times').val();
+					if(days!=''||times!=''){
+						json.maxFrequency=days+'%'+times
+					}
+					return json
+				},
+				success_callback:function(){
+					accountTable.flexMessage('设置成功', 'success')
+				}
+			}).form('open');
+			var dayTime = _item.maxFrequency.split('%');
+			$('#Form_settle_cashInstall div#maxFrequency input.days').val(dayTime[0]);
+			$('#Form_settle_cashInstall div#maxFrequency input.times').val(dayTime[1])
+		}});
+
+		page_list_buttons.push({displayname: '修改转账状态',name:'cashInstall', bclass: 'cashInstall',prefunc:function(){
+            var checked = $('#Table_settle_orderAccount').getCheckedTrs();
+            if (checked.length == 0){return false;}else{return true;}
+        },onpress:function(){
+				var checked = $('#Table_settle_orderAccount').getCheckedTrs();
+        		var ids = [];
+				$.each(checked,function(){
+					ids.push(this.busiOrderBillingStaticId);
+				});
+				var postData = {}; 
+				postData.busiOrderBillingStaticIds = ids.join(',');
+		    	$('#Form_settle_status').form({
+		    		title:'修改转账状态',
+		    		item:{},
+		    		height:130,
+		    		type:'post',
+		    		fields_params:fields_params2,
+	               	url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/modifyTransStatus',
+					before_submit:function(json){ 
+						json.operator = carsmart_config.operatorName; 
+						json.busiOrderBillingStaticIds = ids.join(',');
+						return json;
+					},				
+					success_callback:function(){ 
+	                            $('#Table_settle_orderAccount').flexMessage('修改成功', 'success');
+	                            $('#Table_settle_orderAccount').flexReloadCurrentPage()
+	                        } 
+	            }).form('open'); 
+	        }
+		});
+		page_list_buttons.push({displayname: '发送转账邮件',name:'cashInstall', bclass: 'cashInstall',onpress : function(){
+			var param = excelplus();
+			var _item=$.jRadGet({url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/getTransStatic'+param.paramUrl});
+			$('.transAmount').html(_item.transAmount);
+			$('.staticCnt').html(_item.staticCnt);
+			$('.orderDetailCnt').html(_item.orderDetailCnt);
+
+			$('#Form_settle_email',wraper).form({
+				title:'发送转账邮件',
+				url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/transStaticSendEmail',
+				item:_item,
+		    	fields_params:fields_params,
+				type:'post',
+				before_submit:function(json){
+					param.sendEmails =  $('#Form_settle_email div[name="sendEmails"]',wraper).textarea("val");
+					return param
+				},
+				success_callback:function(){
+					$('#Table_settle_orderAccount').flexMessage('发送成功', 'success')
+				}
+			}).form('open');
+		}});
+
+	    page_list_buttons.push({separator: true});
+	    page_list_buttons_b.push({displayname: '导出Excel',name:'excel', bclass: 'excel',onpress : function(){
+					$.jRadConfirm('确认导出吗？',1,function(){
+					 var param = {};
+					 var billingPeriod = $.trim($("#cardDecutAccount .searchContent div[name='billingPeriod']",wraper).select('val'));
+					 if(billingPeriod!=""){
+						param['billingPeriod'] = billingPeriod;
+					 };
+					 var busiId = $.trim($("#cardDecutAccount .searchContent div[name='busiId']",wraper).input('val'));
+					 if(busiId!=""){
+						param['busiId'] = busiId;
+					 };
+					 var busiName = $.trim($("#cardDecutAccount .searchContent div[name='busiName']",wraper).input('val'));
+					 if(busiName!=""){
+						param['busiName'] = busiName;
+					 };
+					 var useRedeemCode = $.trim($("#cardDecutAccount .searchContent div[name='useRedeemCode']",wraper).select('val'));
+					 if(useRedeemCode!=""){
+						param['useRedeemCode'] = useRedeemCode;
+					 };
+					 var transferStatus = $.trim($("#cardDecutAccount .searchContent div[name='transferStatus']",wraper).select('val'));
+					 if(transferStatus!=""){
+						param['transferStatus'] = transferStatus;
+					 };
+					 var payChannelType = $.trim($("#cardDecutAccount .searchContent div[name='payChannelType']",wraper).select('val'));
+					 if(payChannelType!=""){
+						param['payChannelType'] = payChannelType;
+					 };
+					 var lastModifyUser = $.trim($("#cardDecutAccount .searchContent div[name='lastModifyUser']",wraper).input('val'));
+					 if(lastModifyUser!=""){
+						param['lastModifyUser'] = lastModifyUser;
+					 };
+					 var createStartTime = $.trim($("#cardDecutAccount .searchContent div[name='createStartTime']",wraper).dateinput('val'));
+					 if(createStartTime!=""){
+						param['createStartTime'] = createStartTime;
+					 };
+					 var createEndTime = $.trim($("#cardDecutAccount .searchContent div[name='createEndTime']",wraper).dateinput('val'));
+					 if(createEndTime!=""){
+						param['createEndTime'] = createEndTime;
+					 };
+					 var transferStartTime = $.trim($("#cardDecutAccount .searchContent div[name='transferStartTime']",wraper).dateinput('val'));
+					 if(transferStartTime!=""){
+						param['transferStartTime'] = transferStartTime;
+					 };
+					 var transferEndTime = $.trim($("#cardDecutAccount .searchContent div[name='transferEndTime']",wraper).dateinput('val'));
+					 if(transferEndTime!=""){
+						param['transferEndTime'] = transferEndTime;
+					 };
+					 var lastModifyStartTime = $.trim($("#cardDecutAccount .searchContent div[name='lastModifyStartTime']",wraper).dateinput('val'));
+					 if(lastModifyStartTime!=""){
+						param['lastModifyStartTime'] = lastModifyStartTime;
+					 };
+					 var lastModifyEndTime = $.trim($("#cardDecutAccount .searchContent div[name='lastModifyEndTime']",wraper).dateinput('val'));
+					 if(lastModifyEndTime!=""){
+						param['lastModifyEndTime'] = lastModifyEndTime;
+					 };
+					 var paramUrl = "";
+					 if(param!={}){
+					 paramUrl+="?"
+					 $.each(param,function(k,v){
+							paramUrl+="&"+k+"="+v;
+					 });
+					 }
+					 window.open('/shopmanage-ws/ws/0.1/busiOrderBillingStatic/exportSaleCardList'+paramUrl);
+					})
+			}
+		});
+		page_list_buttons_b.push({displayname: '主动提现设置',name:'cashInstall', bclass: 'cashInstall',onpress : function(){
+			var _item=$.jRadGet({url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/withDraSetDetail'});
+			$('#Form_settle_cashInstall',wraper).form({
+				title:'主动提现设置',
+				validators:jRad.validators,
+				item:_item,
+				url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/withDraSet',
+				type:'post',
+				before_submit:function(json){
+					var days=$('#Form_settle_cashInstall div#maxFrequency input.days').val();
+					var times=$('#Form_settle_cashInstall div#maxFrequency input.times').val();
+					if(days!='' || times!=''){
+						json.maxFrequency=days+'%'+times
+					}
+					return json
+				},
+				success_callback:function(){
+					accountTable.flexMessage('设置成功', 'success')
+				}
+			}).form('open')
+			var dayTime = _item.maxFrequency.split('%');
+			$('#Form_settle_cashInstall div#maxFrequency input.days').val(dayTime[0]);
+			$('#Form_settle_cashInstall div#maxFrequency input.times').val(dayTime[1])
+		}});
+	    page_list_buttons_b.push({separator: true});
+	    page_list_buttons_d.push({displayname: '导出Excel',name:'excel', bclass: 'excel',onpress : function(){
+					$.jRadConfirm('确认导出吗？',1,function(){
+					 var param = {};
+					 var busiId = $.trim($("#cardAccount .searchContent div[name='busiId']",wraper).input('val'));
+					 if(busiId!=""){
+						param['busiId'] = busiId;
+					 };
+					 var busiName = $.trim($("#cardAccount .searchContent div[name='busiName']",wraper).input('val'));
+					 if(busiName!=""){
+						param['busiName'] = busiName;
+					 };
+					 var transferStatus = $.trim($("#cardAccount .searchContent div[name='transferStatus']",wraper).select('val'));
+					 if(transferStatus!=""){
+						param['transferStatus'] = transferStatus;
+					 };
+					 var lastModifyUser = $.trim($("#cardAccount .searchContent div[name='lastModifyUser']",wraper).input('val'));
+					 if(lastModifyUser!=""){
+						param['lastModifyUser'] = lastModifyUser;
+					 };
+					 var createStartTime = $.trim($("#cardAccount .searchContent div[name='createStartTime']",wraper).dateinput('val'));
+					 if(createStartTime!=""){
+						param['createStartTime'] = createStartTime;
+					 };
+					 var createEndTime = $.trim($("#cardAccount .searchContent div[name='createEndTime']",wraper).dateinput('val'));
+					 if(createEndTime!=""){
+						param['createEndTime'] = createEndTime;
+					 };
+					 var transferStartTime = $.trim($("#cardAccount .searchContent div[name='transferStartTime']",wraper).dateinput('val'));
+					 if(transferStartTime!=""){
+						param['transferStartTime'] = transferStartTime;
+					 };
+					 var transferEndTime = $.trim($("#cardAccount .searchContent div[name='transferEndTime']",wraper).dateinput('val'));
+					 if(transferEndTime!=""){
+						param['transferEndTime'] = transferEndTime;
+					 };
+					 var lastModifyStartTime = $.trim($("#cardAccount .searchContent div[name='lastModifyStartTime']",wraper).dateinput('val'));
+					 if(lastModifyStartTime!=""){
+						param['lastModifyStartTime'] = lastModifyStartTime;
+					 };
+					 var lastModifyEndTime = $.trim($("#cardAccount .searchContent div[name='lastModifyEndTime']",wraper).dateinput('val'));
+					 if(lastModifyEndTime!=""){
+						param['lastModifyEndTime'] = lastModifyEndTime;
+					 };
+					 var paramUrl = "";
+					 if(param!={}){
+					 paramUrl+="?"
+					 $.each(param,function(k,v){
+							paramUrl+="&"+k+"="+v;
+					 });
+					 }
+					 window.open('/shopmanage-ws/ws/0.1/busiOrderBillingStatic/exportWholeCardBillList'+paramUrl);
+					})
+			}
+		});
+		page_list_buttons_d.push({separator: true});
+
+	    if(typeName=="cardDecutAccount"){
+	    	accountTable.flexigrid({
+	            reload:true,
+				method:'get',
+	            colModel : page_column_model_b,
+	            buttons : page_list_buttons_b,
+	            searchitems :page_search_items_b,
+	            pagination: {
+					diaplay_pages: 5,
+					align: 'bottom'
+				},
+				showSearch:true,
+	            url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/saleCardStaticList', //此时userId为当前登录用户的ID
+				onError:showError,
+				checkBoxType:'single',
+				trEvent:function(){
+					var checked = accountTable.getCheckedTrs();
+					accountList.flexOptions({
+						extParam:{
+							busiSaleCommStaticId: checked[0].busiSaleCommStaticId
+						}
+					}).flexReload();
+				}
+		    })
+	    }else if(typeName=="orderAccount"){
+    		accountTable.flexigrid({
+	            reload:true,
+				method:'get',
+	            colModel : page_column_model,
+	            buttons : page_list_buttons,
+	            searchitems :page_search_items,
+	            pagination: {
+					diaplay_pages: 5,
+					align: 'bottom'
+				},
+				showSearch:true,
+	            url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/list', //此时userId为当前登录用户的ID
+				onError:showError,
+				//checkBoxType:'single',
+				trEvent:function(){
+					var checked = accountTable.getCheckedTrs();
+					var total2=$.jRadGet({url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/detailCnt?busiOrderBillingStaticId='+checked[0].busiOrderBillingStaticId});
+					accountList.flexOptions({
+						extParam:{
+							busiOrderBillingStaticId: checked[0].busiOrderBillingStaticId
+						}
+					}).flexReload();
+					$('.hDivBox:eq(1) th:eq(5)',wraper).html('&nbsp;&nbsp;订单金额<br>（合计'+total2.orderBillTotalClear+'元）')
+					$('.hDivBox:eq(1) th:eq(6)',wraper).html('&nbsp;&nbsp;通用代金券金额<br>（合计'+total2.geVoucherTotalAmount+'元）')
+					$('.hDivBox:eq(1) th:eq(7)',wraper).html('&nbsp;&nbsp;补贴金额<br>（合计'+total2.subsidyTotalAmount+'元）')
+					$('.hDivBox:eq(1) th:eq(8)',wraper).html('&nbsp;&nbsp;余额支付金额<br>（合计'+total2.balanceTotalPayAmount+'元）')
+					$('.hDivBox:eq(1) th:eq(9)',wraper).html('&nbsp;&nbsp;转账金额(处理前)<br>（合计'+total2.noFeeTransTotalAmount+'元）')
+					$('.hDivBox:eq(1) th:eq(10)',wraper).html('&nbsp;&nbsp;转账金额<br>（合计'+total2.transTotalAmount+'元）')
+					$('.hDivBox:eq(1) th:eq(12)',wraper).html('&nbsp;&nbsp;用户支付金额<br>（合计'+total2.userTotalPayAmount+'元）')
+				}
+		    })
+	    }else{
+	    	accountTable.flexigrid({
+	            reload:true,
+				method:'get',
+	            colModel : page_column_model_b,
+	            buttons : page_list_buttons_d,
+	            searchitems :page_search_items_c,
+	            pagination: {
+					diaplay_pages: 5,
+					align: 'bottom'
+				},
+				showSearch:true,
+				queryParam: {"ignoreBusiIds":179094},
+	            url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/wholeCardBillStatic', //此时userId为当前登录用户的ID
+				onError:showError,
+				checkBoxType:'single',
+				trEvent:function(){
+					var checked = accountTable.getCheckedTrs();
+					accountList.flexOptions({
+						extParam:{
+							busiSaleCommStaticId: checked[0].busiSaleCommStaticId
+						}
+					}).flexReload();
+				}
+		    })
+	    }
+	    var total=$.jRadGet({url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/getTransStatic'});
+		$('.hDivBox:eq(0) th:eq(8)',wraper).html('&nbsp;&nbsp;转账金额<br>（合计'+total.transAmount+'元）');
+		$('.hDivBox:eq(0) th:eq(9)',wraper).html('&nbsp;&nbsp;用户支付金额<br>（合计'+total.userPayAmount+'元）');
+		$('.ui-btn-icon:first',wraper).click(function(){
+				 var param = excelplus();
+				 var total_two=$.jRadGet({url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/getTransStatic'+param.paramUrl});
+				 $('.hDivBox:eq(0) th:eq(8)',wraper).html('转账金额<br>（合计'+total_two.transAmount+'元）')
+				 $('.hDivBox:eq(0) th:eq(9)',wraper).html('用户支付金额<br>（合计'+total_two.userPayAmount+'元）')
+				 
+		});  
+	    $('#Form_settle_account_remark').form({
+			title: '添加备注',
+			fluid: true,
+			autobinding:true
+		});
+
+		$('#Form_settle_account_checkRemark').form({
+			title: '备注详情',
+			fluid: true,
+			autobinding:true
+		});
+
+	    page_column_model_c.push({display: 'ID', name : 'userOrderId'});
+		page_column_model_c.push({display: '订单编号', name : 'orderNumber'});
+		page_column_model_c.push({display: '订单生成时间', name : 'orderDate'});
+		page_column_model_c.push({display: '交易完成日期', name : 'orderServiceDate'});
+		page_column_model_c.push({display: '订单金额',width:130, name : 'orderClearingPrice'});
+		page_column_model_c.push({display: '通用代金券金额', name : 'generalVoucherAmount'});
+		page_column_model_c.push({display: '补贴金额',width:130, name : 'subsidyAmount',diy:function(item,$div){
+			if(item.subsidyAmount==''){
+				$div.html('0')
+			}else{
+				$div.html(item.subsidyAmount)
+			}
+		}});
+		page_column_model_c.push({display: '余额支付金额', name : 'balancePayAmount'});
+		page_column_model_c.push({display: '转账金额(处理前)', name : 'noFeeTransAmount'});
+		page_column_model_c.push({display: '转账金额',width:130, name : 'transferAmount'});
+		page_column_model_c.push({display: '支付渠道', name : 'payChannelTypeDesc'});
+		page_column_model_c.push({display: '用户支付金额', name : 'userPayAmount'});
+		page_column_model_c.push({display: '转账日期', name : 'transferTime'});
+		page_column_model_c.push({display: '状态', name : 'transferStatusDesc'});
+		page_column_model_c.push({display: '备注', width:120,diy:function(item,$div){
+			var addorder=$("<a>").addClass("add_order").attr({href:"javascript:"}).css("margin-right","10px").html("添加");
+			var checkorder=$("<a>").addClass("check_order").attr({href:"javascript:"}).css("margin-right","10px").html("查看详情");
+	        $div.html(addorder.after(checkorder));
+			$("a.add_order",$div).bind('click',function(){
+						$("#Form_settle_account_remark").form({
+							url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/saveRemark',
+							before_submit:function(json){
+							        json.busiOderBlingDetailId = item.busiOderBlingDetailId;
+							        json.lastOperator = carsmart_config.operatorName;
+							        return json;
+							},
+							success_callback:function(){
+			                            accountList.flexMessage('添加成功', 'success');
+			                            accountList.flexReload();
+			                        }
+						}).form('open');
+				  		$('div[name="remark"]').textarea('val',item.remark);
+
+				  		$('div[name="remark"]').textarea('readonly',false);
+
+	        });
+		    $("a.check_order", $div).bind('click',function(){
+				$("#Form_settle_account_checkRemark").form('open');
+				    $('div[name="remark"]').textarea('val',item.remark);
+					$('div[name="remark"]').textarea('readonly',true);
+		    });
+	        }});
+
+		page_column_model_c.push({display: '日志',width:120,diy:function(item,$div){
+    	$div.html("<a href='javascript:' class='settle_info'>查看详情</a>").css('text-align','left');
+    	$('.settle_info',$div).unbind('click').bind('click',function(){
+    		$.jRadGet({
+    			url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/orderBillDetaiOperList?busiOderBlingDetailId='+item.busiOderBlingDetailId,
+    			success:function(data){
+    				$("#Form_settle_info").form({
+    					title:"日志",
+    					success_callback:function(){
+    						$('#Table_order_manage').flexReload();
+    					}
+    				}).form('open');
+    				var tr_len=$("#Table_info",wraper).find("tr").length;
+    				for(cur=0;cur<tr_len;cur++){
+    				  if(cur!==0){
+    				    $("#Table_info",wraper).find("tr").eq(cur).hide();
+    				  }
+    				};
+    				var str="";
+    				$.each(data,function(i){
+    					var _item=data[i];
+    					str+="<tr>"
+    					    +"<td>"+_item.transPreCur+"</td>"
+    					    +"<td>"+_item.nofeeTransPreCur+"</td>"
+    					    +"<td>"+_item.createDate+"</td>"
+    					    +"<td>"+_item.operator+"</td>"
+    					    +"</tr>";
+    				});
+    				$("#Table_info",wraper).append(str);
+    				},
+					error:function(xhr){
+				  		var errormsg = eval("(" + xhr.responseText + ")"); 
+						if (errormsg != undefined){
+							$('#Table_settle_orderAccountList').flexMessage(errormsg[0].message, 'error');
+							} 
+					}
+	    		})
+	    	})
+	    }});
+
+		page_column_model_d.push({display: 'ID', name : 'cardSaleId'});
+		page_column_model_d.push({display: '商家ID', name : 'busiId'});
+		page_column_model_d.push({display: '车主卡ID', name : 'cardId'});
+		page_column_model_d.push({display: '商家简称', name : 'busiRegName'});
+		page_column_model_d.push({display: '车主卡名称', name : 'cardName'});
+		page_column_model_d.push({display: '售价', name : 'salePrice'});
+		page_column_model_d.push({display: '提成金额/转账金额', name : 'transferAmount'});
+		page_column_model_d.push({display: '状态', name : 'transferStatus',datasource:fields_params['transferStatus'].data});
+		page_column_model_d.push({display: '激活时间', name : 'userActiveTime'});
+
+		page_column_model_d.push({display: '验证时间', name : 'busiVerifyTime'});
+
+		page_column_model_e.push({display: 'ID', name : 'cardBillingDetailId'});
+		page_column_model_e.push({display: '车主卡主题ID', name : 'cardTopicId'});
+		page_column_model_e.push({display: '车主卡ID', name : 'cardId'});
+		page_column_model_e.push({display: '车主卡名称', name : 'cardName'});
+		page_column_model_e.push({display: '转账时车主卡状态', name : 'billingCardStatusDesc'});
+		page_column_model_e.push({display: '车主卡售价', name : 'salePrice'});
+		page_column_model_e.push({display: '转账金额', name : 'transferAmount'});
+		page_column_model_e.push({display: '状态', name : 'transferStatusDesc'});
+		page_column_model_e.push({display: '车主卡购买时间', name : 'buyTime'});
+		page_column_model_e.push({display: '最后操作时间', name : 'lastOperatorTime'});
+
+		page_list_buttons_c.push({displayname: '设为已转账',name:'transfered',bclass: 'transfered',onpress : function(){
+				var checked = accountList.getCheckedTrs();
+				var arr=[];
+				$.each(checked,function(i){
+					var id=checked[i].busiOderBlingDetailId;
+					if(typeName == 'cardDecutAccount'){
+						id=checked[i].cardSaleId
+					}else if(typeName == 'cardAccount'){
+						id=checked[i].cardBillingDetailId
+					}
+					arr.push(id);
+				});
+				var ids=arr.join(',');
+				var postData={};
+				// postData.busiOderBlingDetailIds=ids;
+				postData.lastOperator=carsmart_config.operatorName;
+				var _url='';
+				if(typeName == 'cardDecutAccount'){
+					postData.cardSaleIds=ids;
+					_url='/shopmanage-ws/ws/0.1/busiOrderBillingStatic/setSaleCardStatus'
+				}else if(typeName=="orderAccount"){
+					postData.busiOderBlingDetailIds=ids;
+					_url='/shopmanage-ws/ws/0.1/busiOrderBillingStatic/setTransferStatus'
+				}else{
+					postData.cardBillingDetailIds=ids;
+					_url='/shopmanage-ws/ws/0.1/busiOrderBillingStatic/setWholeCardBillStatus'
+				}
+	 			$.jRadConfirm('确认已转账？',1,function(){
+	 				$.jRadPost({
+	 					url:_url,
+	 					data:postData,
+	 					success:function(){
+	 						accountList.flexMessage('设为已转账成功!', 'success');
+	           	    		accountList.flexReloadSearch();
+	           	    		accountTable.flexReloadSearch();
+	 					},
+	 					error:function(xhr){
+	 						var errormsg = eval("(" + xhr.responseText + ")");
+							if (errormsg != undefined) {
+							accountList.flexMessage(errormsg[0].message, 'error');
+						}
+	 					}
+	 				})
+	 			})
+			}
+		});
+		page_list_buttons_e.push({displayname: '导出Excel',name:'excel', bclass: 'excel',onpress : function(){
+				$.jRadConfirm('确认导出吗？',1,function(){
+				 var paramUrl = excelplus().paramUrl;
+				 window.open('/shopmanage-ws/ws/0.1/busiOrderBillingStatic/expOrderBillDetailList'+paramUrl);
+				})
+			}
+		});
+		page_list_buttons_e.push({displayname: '修改结算金额',name:'cashInstall', bclass: 'cashInstall',prefunc:function(){
+            var checked = $('#Table_settle_orderAccountList').getCheckedTrs();
+            if (checked.length != 1||checked[0].transferStatus == 1 ||checked[0].transferStatus == 2){return false;}else{return true;}
+        },onpress:function(){
+				var checked = $('#Table_settle_orderAccountList').getCheckedTrs();
+		    	$('#Form_settle_transAmount').form({
+		    		title:'修改结算金额',
+		    		item:{},
+		    		height:50,
+		    		type:'post',
+	               	url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/modifyNoFeeTransAmount',
+					before_submit:function(json){ 
+						json.operator = carsmart_config.operatorName;
+						json.busiOderBlingDetailId = checked[0].busiOderBlingDetailId;
+						return json;
+					},				
+					success_callback:function(){ 
+	                            $('#Table_settle_orderAccountList').flexMessage('修改成功', 'success');
+	                            $('#Table_settle_orderAccountList').flexReloadCurrentPage()
+	                            $('#Table_settle_orderAccount').flexReloadCurrentPage()
+	                        } 
+	            }).form('open'); 
+	        }
+		});
+
+	 	page_list_buttons_c.push({separator: true});
+	 	if(typeName=="cardDecutAccount"){
+	 		accountList.flexigrid({
+	    		url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/saleCardDetailList',
+	            reload:true,
+	            autoload: false,
+				method:'get',
+	            colModel : page_column_model_d,
+	            buttons : page_list_buttons_c,
+	            pagination: {
+					diaplay_pages: 5,
+					align: 'bottom'
+				},
+	            dataType: 'json',
+	            searchitems: [],
+	            onError:showError2,
+				showSearch:true,
+	            pagedStyle: 'oc'
+	    });
+	 	}else if(typeName=="orderAccount"){
+	 		accountList.flexigrid({
+	    		url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/detailList',
+	            reload:true,
+	            autoload: false,
+				method:'get',
+	            colModel : page_column_model_c,
+	            buttons : page_list_buttons_e,
+	            pagination: {
+					diaplay_pages: 5,
+					align: 'bottom'
+				},
+				checkBoxType: 'single',
+				overflow: true,
+	            dataType: 'json',
+	            searchitems: [],
+	            onError:showError2,
+				showSearch:true,
+	            pagedStyle: 'oc'
+	    });
+	 	}else{
+	 		accountList.flexigrid({
+	    		url:'/shopmanage-ws/ws/0.1/busiOrderBillingStatic/wholeCardBillDetail',
+	            reload:true,
+	            autoload: false,
+				method:'get',
+	            colModel : page_column_model_e,
+	            buttons : page_list_buttons_c,
+	            pagination: {
+					diaplay_pages: 5,
+					align: 'bottom'
+				},
+	            dataType: 'json',
+	            searchitems: [],
+	            onError:showError2,
+				showSearch:true,
+	            pagedStyle: 'oc'
+	    });
+	 	}
+	 	
+    $(".numb33").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg33").form({}).form('close');
+        $("#Form_explain_eg33").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg33 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg33").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg33").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg33 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+	    function showError(xhr){
+		 var errormsg = eval("(" + xhr.responseText + ")");
+		  $.jRadMessage({level:'error',message:errormsg[0].message});
+		}
+		function showError2(){
+			var checked=accountTable.getCheckedTrs();
+			if(checked.length==0){
+				accountList.flexMessage('请选择一个结算账单',"error");
+			}
+		}
+    }
+})
+</script>
+

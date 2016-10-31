@@ -1,0 +1,96 @@
+body{
+	font-family:'华文细黑','HelveticaNeue-Light';
+	font-weight:normal;
+	font-style:normal;
+	line-height:normal;
+	font-size:62.5%;
+	color:#1e1e1e;
+}
+body,html{
+	height:100%;
+}
+a{
+	text-decoration:none;
+}
+ul{
+	list-style:none;
+}
+img{
+	border:none;
+}
+*{
+	margin:0;
+	padding:0;
+}
+.swiper-container {
+	position:relative;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	overflow:hidden;
+}
+.swiper-container img{
+	width:100%;
+}
+.swiper-wrapper{
+	position:relative;
+	width: 100%;
+	-webkit-transition-property: -webkit-transform, left, top;
+	-webkit-transition-duration: 0s;
+	-webkit-transform: translate3d(0px,0,0);
+	-webkit-transition-timing-function: ease;
+	transition-property: transform, left, top;
+	transition-duration: 0s;
+	transform: translate3d(0px,0,0);
+	transition-timing-function: ease;
+}
+.swiper-slide{
+	background:transparent url('images/publicity-1.png') no-repeat scroll center center;
+	background-size:100% auto;
+	height:100%;
+	position:relative;
+}
+.swiper-slide:nth-of-type(2){
+	background-image:url('images/publicity-2.png');
+}
+.swiper-slide:nth-of-type(3){
+	background-image:url('images/publicity-3.png');
+}
+.swiper-slide p{
+	width:100%;
+	position:absolute;
+	bottom:1.67em;
+}
+.download-btn{
+	background-color:#ffffff;
+	border:2px #93d3ff solid;
+	color:#6ebc4d;
+	display:inline-block;
+	font-size:1.8em;
+	height:1.78em;
+	line-height:1.78em;
+	width:8.56em;
+	text-align:center;
+	border-radius:1.11em 1.11em;
+
+}
+.download-btn span{
+	color:#6ebc4d;	
+}
+.pagination{
+	position:absolute;
+	right:1em;
+	top:2em;
+}
+.swiper-pagination-switch{
+	background:#bfcece;
+	border-radius:0.8em;
+	cursor: pointer;
+	display: block;
+	width:0.8em;
+	height:0.8em;
+	margin:0 0px .5em;
+}
+.swiper-active-switch{
+	background-color:#ffcc99;
+}

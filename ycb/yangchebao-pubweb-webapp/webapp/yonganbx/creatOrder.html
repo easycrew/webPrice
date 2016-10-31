@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/> 
+<link type="text/css" href="css/base.css" rel="stylesheet"/>
+<title>创建理赔单</title>
+</head>
+<style type="text/css"> 
+.price{
+	font-size: 2.4rem;
+	color: #FF6138;
+	text-align: center;
+	margin: 3rem 0;
+}
+.orderPage .btn-wrap{
+	margin: 0 1.5rem;
+}
+.btn-wrap .sure{
+	display: block;
+	font-size: 1.8rem;
+	color: #FFF;
+	text-align: center;
+	background-color: #FF6E47;
+	height: 4.4rem;
+	line-height: 4.4rem;
+	border-radius: 5px;
+}
+.form-wrap>div{
+	height: 4rem;
+	line-height: 4rem;
+	padding: 0 1.5rem 0 10.5rem;
+	font-size: 1.5rem;
+    background-color: #fff;
+    border-bottom: 1px solid #D9D9E2;
+}
+.form-wrap label{
+	width: 9rem;
+	float: left;
+	margin-left: -9rem;
+	position: relative;
+}
+.form-wrap label span{
+	color: #FF6138;
+	position: absolute; 
+	top: -3px;
+}
+.form-wrap input{
+	display: inline-block;
+	text-align: right;
+	width: 100%;
+	border: none;
+	background-color: #fff;
+	font-size: 1.5rem;
+}
+.select-wrap{
+	margin: 1rem 0;
+}
+.select-wrap p{ 
+	text-align: right; 
+	font-size: 1.5rem;
+}
+.arrow{  
+    background-image:url("images/arrow.png");
+    background-repeat: no-repeat;
+    background-size:auto 2rem;
+    display: inline-block; 
+    width: 1.1rem;
+    float: right;
+    background-position:center;
+    height: 4rem;
+    margin-left: 0.5rem;
+}  
+</style>
+<body> 
+<input type="hidden" name="cache" value="1"/>
+<section class="orderPage">
+	<article class="form-wrap">
+	<div><label>客户手机号<span>*</span></label><input type="text" class="userMobile" value=""></div>
+	<div><label>客户姓名</label><input type="text" class="userName" value=""></div>
+	<div class="select-wrap"><label>理赔维修厂</label><p><span class="businessRegName" businessInfoId=""></span> <span class="arrow"></span></p></div>
+	<div><label>维修零件费<span>*</span></label><input type="text" class="partsPrice count" value=""></div>
+	<div><label>维修工时费<span>*</span></label><input type="text" class="workPrice count" value=""></div>
+	</article> 
+	<p class="price sumPrice"></p>
+	<div class="btn-wrap"><a href="javascript:void(0);" id="submit" class="sure">确定</a></div>
+</section>
+<div class="dialog" style="display:none;"> 
+    <div class="dialog-content">
+       <h1><span class="dtitle"></span><span class="close"><label></label></span></h1>
+       <p class="dmsg"></p>
+       <div class="dialog-btn-wrap"><a href="javascript:void(0);" class="dbtn">确定</a></div>  
+   </div>
+</div> 
+<script type="text/javascript">  
+var paramJson = {};
+$(document).ready(function(){ 
+	var url = window.location.search; 
+	var paramsArr = (url.split("?")[1]).split("&"); 
+	$.each(paramsArr,function(i){
+	var item = paramsArr[i].split("=");
+	paramJson[item[0]] = item[1];
+	}); 
+    paramJson.operatorType = 1;
+	if(paramJson.orderNumber!=undefined){
+       getDetail();  
+	}  
+	 
+   
+   
+ 
+	$("#submit").click(function(){
+	    var nowTime = new Date().getTime();
+        var clickTime = $(this).attr("ctime");
+		if( clickTime != 'undefined' && (nowTime - clickTime < 5000)){ 
+			return false;
+		 }else{
+			$(this).attr("ctime",nowTime); 
+		 }       
+		var userName  = $(".userName").val();
+		var userMobile  = $(".userMobile").val();
+		var businessInfoId = $(".businessRegName").attr("businessInfoId");  
+		var partsPrice  = $(".partsPrice").val();
+		var workPrice  = $(".workPrice").val();  
+		if(userMobile==""){
+			alertTasat("请输入客户手机号");
+			return false;
+		}
+		var mobileReg = /^((\+86)|(86)){0,}1\d{10}$/;
+		if(!mobileReg.test(userMobile)){
+            alertTasat("请输入正确的客户手机号"); 
+            return;
+          } 
+	 
+		// if(businessInfoId==""){
+		// 	alertTasat("请选择修理厂");
+		// 	return false;
+		// }
+		if(partsPrice==""){
+			alertTasat("请输入维修零件费");
+			return false;
+		}
+		var reg = /^0|[1-9][0-9]*(.[0-9]{1,2})*$/;
+		if(!reg.test(partsPrice)){
+            alertTasat("请输入正确的维修零件费"); 
+            return;
+        } 
+		if(workPrice==""){
+			alertTasat("请输入维修工时费");
+			return false;
+		}
+		if(!reg.test(workPrice)){
+            alertTasat("请输入正确的维修工时费"); 
+            return;
+        } 
+		if(paramJson.orderNumber!=undefined){
+		 updateOrder();
+		}else{
+		 creatOrder();
+		}
+	});	
+	$(".count").blur(function(){
+		  var num = $(".partsPrice").val();
+		  var num2 = $(".workPrice").val();
+		  var reg = /^0|[1-9][0-9]*(.[0-9]{1,2})*$/;
+		  if(reg.test(num)&&reg.test(num2)){
+		  	var sum = floatAdd(num,num2); 
+		  	$(".sumPrice").html("¥ "+sum);
+		  }
+	});
+
+});  
+function getDetail(){    
+    $.ajax({
+        url: "/yangchebao-app-ws/ws/0.1/claims/order/detail?operatorType="+paramJson.operatorType+"&customerId="+paramJson.customerId+"&osInfo="+paramJson.osInfo+"&lon="+paramJson.lon+"&lat="+paramJson.lat+"&orderNumber="+paramJson.orderNumber,
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        type: "get",
+        success: function(data) {
+            $(".userMobile").val(data.userMobile); 
+            $(".userName").val(data.userName);  
+            $(".partsPrice").val(data.partsPrice);
+            $(".workPrice").val(data.workPrice); 
+            $(".businessRegName").html(data.businessRegName); 
+            $(".businessRegName").attr("businessInfoId",data.businessInfoId); 
+            $(".sumPrice").html("¥ "+data.sumPrice); 
+        },error: function(xhr) {
+               var mes = eval('('+xhr.responseText+')'); 
+               alertTasat(mes[0].message);
+        }
+    });
+}
+function updateOrder(){   
+     var postData = {};  
+	postData.customerId = paramJson.customerId;
+    postData.orderNumber = paramJson.orderNumber;
+
+    postData.userName  = $(".userName").val();
+    postData.userMobile  = $(".userMobile").val();
+    postData.businessInfoId = $(".businessRegName").attr("businessInfoId");  
+    postData.partsPrice  = $(".partsPrice").val();
+    postData.workPrice  = $(".workPrice").val(); 
+      $.ajax({  
+          url: '/yangchebao-app-ws/ws/0.1/claims/order/update',
+          type: 'post', 
+          data:$.toJSON(postData),
+          dataType: 'json',
+          contentType:'application/json;charset=utf-8', 
+          success: function(data) {    
+		     $(".dialog .dtitle").html("修改理赔单");
+		     $(".dialog .dmsg").html("理赔单修改成功！");
+           	 $(".dialog").show(); 
+			 $(".dialog .dbtn").click(function(){
+				window.location.href = "orderDetail.html"+window.location.search;
+			 }); 
+          },error:function(xhr){  
+             var errormsg = eval("(" + xhr.responseText + ")");
+             alertTasat(errormsg[0].message);
+          }
+      });   
+   }
+function creatOrder(){     
+    var postData = {};  
+	postData.customerId = paramJson.customerId;
+	postData.userInfoId = paramJson.userId; 
+
+    postData.userName  = $(".userName").val();
+    postData.userMobile  = $(".userMobile").val();
+    postData.businessInfoId = $(".businessRegName").attr("businessInfoId");  
+    postData.partsPrice  = $(".partsPrice").val();
+    postData.workPrice  = $(".workPrice").val(); 
+      $.ajax({  
+          url: '/yangchebao-app-ws/ws/0.1/claims/order',
+          type: 'post', 
+          data:$.toJSON(postData),
+          dataType: 'json',
+          contentType:'application/json;charset=utf-8', 
+          success: function(data) {    
+           	 $(".dialog .dtitle").html("创建理赔单");
+		     $(".dialog .dmsg").html("理赔单创建成功<br>请到“我创建的理赔单”查看详情");
+           	 $(".dialog").show(); 
+			 $(".dialog .dbtn").click(function(){
+				 window.location.href = "orderList.html"+window.location.search;
+			 }); 
+          },error:function(xhr){  
+             var errormsg = eval("(" + xhr.responseText + ")");
+             alertTasat(errormsg[0].message);
+          }
+      });   
+   }
+   function floatAdd(arg1,arg2){    
+     var r1,r2,m;    
+     try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0}    
+     try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0}    
+     m=Math.pow(10,Math.max(r1,r2));    
+     return (arg1*m+arg2*m)/m;    
+  }  
+</script>
+</body> 
+</html>
+

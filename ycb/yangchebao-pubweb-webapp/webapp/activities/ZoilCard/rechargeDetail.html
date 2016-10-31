@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta name="format-detection" content="telephone=no" />
+<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js"></script>
+    <script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+<script src="js/index.js"></script>   
+<link type="text/css" href="css/index.css" rel="stylesheet"/>
+<title>充值详情</title>
+</head>
+<style type="text/css">  
+.detail{
+  padding: 0 1.5rem;
+  background-color: #fff;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #D9D9E2;
+}
+.detail p{
+  font-size: 1.4rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid #D9D9E2;
+}
+.detail p:last-child{
+  border: none;
+}
+.detail p span{
+  display: inline-block;
+  margin-left: 1rem;
+  vertical-align: middle;
+}
+.detail p label{
+  color: #A2A2A2;
+  font-size: 1.2rem;
+  display: inline-block;
+  margin-left: 1rem;
+} 
+.detail .fail{
+  display: table;
+}
+.detail .fail span{
+  display: table-cell; 
+} 
+.detail .fail .left{
+  white-space: nowrap;
+  padding-right: 1rem;
+   vertical-align: top;
+} 
+.org{
+  color: #f55d5d;
+} 
+</style>
+<body> 
+<div class="detail"> 
+  <p>订单编号:<span id="orderNumber"></span></p>
+  <p id="goodsDesc"></p>
+  <p>加油卡类型:<span id="cardType"></span></p>
+  <p>订单金额:<span id="orderAmount"></span><label id="priceInfo"></label></p>
+  <p>使用抵用券:<span id="couponFee"></span></p>
+  <p>付款金额:<span class="org" id="payment"></span></p>
+  <p>充值时间:<span id="rechargeDate"></span></p> 
+</div>
+<div class="detail"> 
+  <p>加油卡卡号:<span id="cardNo"></span></p>
+  <p>用户名:<span id="cardOwner"></span></p>
+</div>
+<div class="detail">  
+  <p>订单状态:<span id="status" class="org"></span></p>
+  <p class="fail" style="display:none;"><span class="left">失败原因:</span><span id="failReason"></span></p>
+</div>
+<script type="text/javascript"> 
+var paramJson = {};  
+$(document).ready(function(){
+    var url =window.location.search;   
+    if(url!=undefined&&url!=""){
+      var paramsArr = (url.split("?")[1]).split("&"); 
+      $.each(paramsArr,function(i){
+        var item = paramsArr[i].split("=");
+        paramJson[item[0]] = item[1];
+      });    
+    }
+    getInfo();
+});
+function getInfo(){
+      var url = "";
+      if(paramJson.orderNumber!=undefined&&paramJson.orderNumber!=""){
+        url = '/yangchebao-app-ws/ws/0.1/oilcard/order/detail/bynumber?orderNumber='+paramJson.orderNumber;
+      }else{
+        url = '/yangchebao-app-ws/ws/0.1/oilcard/order/detail?orderId='+paramJson.orderId+'&customerId='+paramJson.customerId;
+      }
+      $.ajax({
+              url: url,
+              type: 'get', 
+              dataType: 'json',
+              success: function(data) {    
+                $("#orderNumber").html(data.orderNumber);
+                $("#goodsDesc").html(data.goodsDesc);
+                $("#cardType").html(data.oilCardInfo.cardTypeDesc);
+                $("#orderAmount").html("¥"+data.orderAmount);
+                $("#priceInfo").html("原价 : ¥"+data.regularPrice+" 省 ¥"+data.saveAmount); 
+                $("#couponFee").html("¥"+data.couponFee);
+                $("#payment").html("¥"+data.payment);
+                $("#rechargeDate").html(data.rechargeDate||"");
+                $("#cardNo").html(data.oilCardInfo.cardNo);
+                $("#cardOwner").html(data.oilCardInfo.cardOwner);
+                $("#status").html(data.orderStatusName);
+                if(data.orderStatus==3){
+                  $("#status").addClass("org");
+                  $(".fail").show();
+                  $("#failReason").html(data.failReason);
+                }
+
+              },error:function(xhr){  
+                var mes = eval('('+xhr.responseText+')'); 
+                alertTasat(mes[0].message);
+              }
+          });  
+
+   }
+</script>
+</body>
+</html>

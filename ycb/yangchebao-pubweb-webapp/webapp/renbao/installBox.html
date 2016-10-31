@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,heihgt=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>安装盒子</title>
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery-1.9.1.min.00000000000000.js "></script> 
+	<script src="http://app.yangchebao.com.cn/group1/M00/00/9F/jquery.json-2.2.000000000000000.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/commen.js"></script>
+	<style>
+		article{
+			background-color: #fff;
+		}
+		div.title{
+			padding: 1rem 1.2rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.titleW{
+			padding-left: 0.6rem;
+			border-left: 3px solid #ff6138;
+		}
+		p.tCon{
+			font-size: 1.5rem;
+		}
+		.tTip{
+			font-size: 1.2rem;
+			color: #a2a2a2;
+		}
+		div.infoItems div.row{
+			position: relative;
+			background-color: #fff;
+			border-bottom: 1px solid #D9D9E2;
+			padding: 0.8rem 1.2rem;
+		}
+		div.infoItems div.row p{
+			font-size: 1.5rem;
+		}
+		span.mark{
+			color: #ff6138;
+		}
+		span.grayArrow{
+			position: absolute;
+			right: 1.2rem;
+			bottom: 3.1rem;
+		}
+		article.voucher{
+			margin-top: 1rem;
+			padding-bottom: 2rem;
+			border-bottom: 1px solid #D9D9E2;
+		}
+		div.voucherCon{
+			position: relative;
+			width: 95%;
+			margin: 1.2rem 2.5%;
+			background-color: #FFA600;
+			padding: 1.2rem;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+		}
+		p.vlTop{
+			color: #fff;
+			font-size: 1.5rem;
+		}
+		p.vlDate{
+			color: #fff;
+			font-size: 1.2rem;
+			padding-top: 1.6rem;
+			padding-left: 2.8rem;
+		}
+		div.voucherL{
+			float: left;
+			width: 70%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			border-right: 1px solid #fff;
+			padding-left: 1rem;
+		}
+		div.voucherR{
+			float: right;
+			width: 30%;
+			line-height: 5.4rem;
+			text-align: center;
+			color: #fff;
+			font-size: 2rem;
+		}
+		img.back{
+			position: absolute;
+			left:0;
+			bottom: 0rem;
+			width: 4rem;
+		}
+		div.voucherTip{
+			position: relative;
+			width: 95%;
+			border-bottom: 1px solid #D9D9E2;
+			margin: 2rem auto 0;
+			text-align: center;
+		}
+		div.voucherTip p{
+			position: absolute;
+			color: #a2a2a2;
+			font-size: 1.1rem;
+			line-height: 1.6rem;
+			background-color: #fff;
+			width: 22rem;
+			top: -0.8rem;
+			left: 50%;
+			margin-left: -11rem;
+			display: inline-block;
+		}
+		div.sureBtn{
+			font-size: 1.8rem;
+			color: #fff;
+			text-align: center;
+			line-height: 4.4rem;
+			width: 90%;
+			margin: 2rem auto 4rem;
+			background-color: #ff6138;
+			-webkit-border-radius: 8px;
+			-moz-border-radius: 8px;
+			border-radius: 8px;
+		}
+		/*品牌*/
+		ul.allBrands-ul li{
+			border-bottom: 1px solid #D9D9E2;
+		}
+		ul.allBrands-ul li div.brand-letter{
+			background-color: #F2F3F4;
+			font-size: 1.4rem;
+			line-height: 2.6rem;
+			color: #999;
+			padding: 0 2rem;
+		}
+		ul.allBrands-ul li div.brand-detail p{
+			border-top: 1px solid #D9D9E2;
+			cursor: pointer;
+			line-height: 4.2rem;
+			color: #323434;
+			font-size: 1.5rem;
+			padding: 0.5rem 2rem;
+			background-color: #fff;
+		}
+		article.allBrands-letters{
+			position: absolute;
+			top:0.1rem;
+			right: 0;
+			z-index: 200;
+		}
+		p.allBrands-letters-p{
+			text-align: right;
+			line-height: 1rem;
+		}
+		article.allBrands-letters span{
+			display: inline-block;
+			margin: 0.3rem 0.9rem;
+			color:#4172a2;
+			font-size: 1.1rem;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		/*车系*/
+		ul.allModels-ul{
+			background-color: #FFF;
+		}
+		ul.allModels-ul li{
+			border-bottom: 1px solid #D9D9E2;
+		}
+		ul.allModels-ul li div.carModel-title{
+			background-color: #F2F3F4;
+			border-bottom: 1px solid #D9D9E2;
+			color: #999;
+			font-size: 1.4rem;
+			line-height: 2.6rem;
+			padding: 0 2rem;
+		}
+		ul.allModels-ul li div.carModel-detail{
+			padding-left: 4.2rem;
+		}
+		ul.allModels-ul li div.carModel-detail p{
+			/*color: #323434;*/
+			font-size: 1.5rem;
+			line-height: 4.2rem;
+			border-bottom: 1px solid #D9D9E2;
+			background-color: #fff;
+			cursor: pointer;
+		}
+		ul.allModels-ul li div.carModel-detail p:last-child{
+			border-bottom: none!important;
+		}
+		/*车型*/
+		section#selectStyle article{
+			background-color: #fff;
+			margin-top: 1.2rem;
+		}
+		
+		section#selectStyle article.two{
+			border-top: 1px solid #D9D9E2;
+		}
+		div.theStyleRow{
+			border-bottom: 1px solid #D9D9E2;
+			line-height: 4rem;
+			padding: 0rem 1rem;
+		}
+		div.theStyleRow p{
+			color: #595c5c;
+			font-size: 1.5rem;
+		}
+	</style>
+</head>
+<body>
+	<section id="installBox">
+		<article class="carInfo">
+			<div class="title">
+				<div class="titleW">
+					<p class="tCon">领取安防神器-乐乘盒子</p>
+					<p class="tTip">需要根据您的车型为您分配适配的盒子</p>
+				</div>
+			</div>
+			<div class="infoItems">
+				<div class="row brand">
+					<p>选择品牌<span class="mark">*</span></p>
+					<span class="grayArrow"></span>
+				</div>
+				<div class="row model">
+					<p>选择车系<span class="mark">*</span></p>
+					<span class="grayArrow"></span>
+				</div>
+				<div class="row style">
+					<p>选择车型<span class="mark">*</span></p>
+					<span class="grayArrow"></span>
+				</div>
+			</div>
+		</article>
+		<article class="voucher">
+			<div class="title">
+				<div class="titleW">
+					<p class="tCon">会员额外赠送代金券<span class="tTip">（已存入账户）</span></p>
+				</div>
+			</div>
+			<div class="voucherCon clearfix">
+				<div class="voucherL">
+					<p class="vlTop">乐乘盒子安装代金券</p>
+					<p class="vlDate">有效期：一年</p>
+					<img src="./img/back.png" class="back">
+				</div>
+				<div class="voucherR"></div>
+			</div>
+			<div class="voucherTip">
+				<p>此代金券为会员专享，非会员需自行付费</p>
+			</div>
+		</article>
+		<div class="sureBtn">确认</div>
+	</section>
+	<section id="selectBrand" style="display:none;">
+		<article class="allBrands">
+			<ul class="allBrands-ul" style="position: relative;">
+			</ul>
+		</article>
+		<article class="allBrands-letters" style='display:none;'>
+			<p class="allBrands-letters-p">
+				<span>A</span><br />
+				<span>B</span><br />
+				<span>C</span><br />
+				<span>D</span><br />
+				<span>E</span><br />
+				<span>F</span><br />
+				<span>G</span><br />
+				<span>H</span><br />
+				<span>I</span><br />
+				<span>J</span><br />
+				<span>K</span><br />
+				<span>L</span><br />
+				<span>M</span><br />
+				<span>N</span><br />
+				<span>O</span><br />
+				<span>P</span><br />
+				<span>Q</span><br />
+				<span>R</span><br />
+				<span>S</span><br />
+				<span>T</span><br />
+				<span>U</span><br />
+				<span>V</span><br />
+				<span>W</span><br />
+				<span>X</span><br />
+				<span>Y</span><br />
+				<span>Z</span><br />
+			</p>
+		</article>
+	</section>
+	<section id="selectModel" style="display:none;">
+		<ul class="allModels-ul">
+		</ul>
+	</section>
+	<section id="selectStyle" style="display:none;">
+		<article class="two">
+		</article>
+	</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 获取参数
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    // 代金券金额
+	    $('div.voucherR').html('￥'+paramJson.money);
+	    // 选择品牌
+	    var selectBrand=function(){
+	    	$('section#selectBrand').show().siblings().hide();
+	    	$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/support/brand/list',
+				async:false,
+				type:'get',
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					var brandStr='';
+					var letterJson={};
+					"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(function(key,i){
+						letterJson[key]=''
+					});
+					$.each(data,function(key,val){
+						letterJson[key]+='<li>'
+										+'<div class="brand-letter" id="'+key+'">'+key+'</div>';
+						val.forEach(function(brandName,i){
+							letterJson[key]+='<div class="brand-detail">'
+											+'<p id="'+brandName.id+'">'+brandName.name+'</p>'
+											+'</div>'
+						});
+						letterJson[key]+='</li>'
+					});
+					$.each(letterJson,function(key,val){
+						brandStr+=val
+					});
+					$('ul.allBrands-ul').html(brandStr);
+					$('article.allBrands-letters').show();
+					$('article.allBrands').css({'height':window.innerHeight,'overflow':'auto'});
+					$('p.allBrands-letters-p span').unbind('click').bind('click',function(){
+						var _id=$(this).html();
+						$('article.allBrands').scrollTop($('div#'+_id).position().top+1)
+					});
+					$('ul.allBrands-ul li div.brand-detail p').unbind('click').bind('click',function(){
+						var theBrandId=$(this).attr('id');
+						var theBrandName=$(this).html();
+						$('div.brand p').html(theBrandName).attr('data-id',theBrandId);
+						$('section#selectBrand').hide();
+						$('section#installBox').show();
+					})
+				}
+			})
+	    };
+	    // 选择车系
+	    var selectModel=function(brandId){
+	    	$('section#selectModel').show().siblings().hide();
+	    	$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/support/model/list?brandId='+brandId,
+				type:'get',
+				dataType:'json',
+				async:false,
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					var modelStr='';
+					data.forEach(function(key,i){
+						// modelStr+='<p>'+key+'</p>'
+						modelStr+='<li>'
+								 +'<div class="carModel-title" id="'+key.id+'">'+key.name+'</div>'
+								 +'<div class="carModel-detail">'
+						key.models.forEach(function(key2,j){
+							modelStr+='<p id="'+key2.id+'">'+key2.name+'</p>'
+						});
+						modelStr+='</div></li>'
+					});
+					$('ul.allModels-ul').html(modelStr);
+					$('ul.allModels-ul li div.carModel-detail p').unbind('click').bind('click',function(){
+						var theModelName=$(this).html();
+						var theModelId=$(this).attr('id');
+						$('div.model p').html(theModelName).attr('data-id',theModelId);
+						$('section#selectModel').hide();
+						$('section#installBox').show();
+					})
+				}
+			})
+	    };
+	    // 选择车型
+	    var selectStyle=function(modelId){
+	    	$('section#selectStyle').show().siblings().hide();
+	    	$.ajax({
+				url:'/yangchebao-app-ws/ws/0.1/support/style/list?modelId='+modelId,
+				type:'get',
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				async:false,
+				success:function(data){
+					var styleStr='';
+					data.forEach(function(key,i){
+						styleStr+='<div id="'+key.id+'" class="theStyleRow">'
+								 +'<p>'+key.name+'</p>'
+								 +'</div>'
+					});
+					$('section#selectStyle article.two').html(styleStr);
+					$('div.theStyleRow').unbind('click').bind('click',function(){
+						var theStyleRowId=$(this).attr('id');
+						var theStyleRowName=$(this).find('p').html();
+						$('div.style p').html(theStyleRowName).attr('data-id',theStyleRowId);
+						$('section#selectStyle').hide();
+						$('section#installBox').show();
+					})
+				}
+			})
+	    };
+	    $('div.brand').on('click',function(){
+	    	selectBrand()
+	    });
+	    $('div.model').on('click',function(){
+	    	var _brandId=$('div.brand p').attr('data-id');
+	    	if(_brandId){
+	    		selectModel(_brandId)
+	    	}else{
+	    		errorLog('请选择品牌')
+	    	}
+	    	
+	    });
+	    $('div.style').on('click',function(){
+	    	var _modelId=$('div.model p').attr('data-id');
+	    	if(_modelId){
+	    		selectStyle(_modelId)
+	    	}else{
+	    		errorLog('请选择车系')
+	    	}
+	    	
+	    });
+	    // 确认
+	    $('div.sureBtn').on('click',function(){
+	    	var _styleId=$('div.style p').attr('data-id');
+	    	if(!_styleId){
+	    		errorLog('请选择车型');
+	    		return false
+	    	}
+	    	$.ajax({
+	    		url:'/yangchebao-app-ws/ws/0.1/driving/checkStyleAdapt?styleId='+_styleId,
+	    		type:'get',
+	    		dataType:'json',
+	    		contentType:'application/json;charset=utf-8',
+	    		success:function(data){
+	    			if(data.checkStatus==0){
+	    				window.location.href="boxResult.html?checkStatus=0"
+	    			}else if(data.checkStatus==1){
+	    				// window.location.href="http://w2l/?presentType=1&needLogin=0&androidName=6&iosName=ShopListViewController&service="+paramJson.serviceId
+	    				if(urlIp()=='172.18.180.11'){
+	    					window.location.href="http://w2l/?presentType=1&needLogin=1&androidName=5&iosName=ShopListViewController&service=2&subService=4968&selectionServiceId="+paramJson.serviceId+"&name=特惠安装券"
+	    				}else{
+	    					window.location.href="http://w2l/?presentType=1&needLogin=1&androidName=5&iosName=ShopListViewController&service=2&subService="+paramJson.serviceId+"&name=特惠安装券"
+	    				}
+	    				
+	    			}
+	    		},
+	    		error:function(xhr){
+	    			var error=eval('('+xhr.responseText+')');
+	    			errorLog(error[0].message)
+	    		}
+	    	})
+	    })
+	})
+</script>
+</html>

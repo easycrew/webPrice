@@ -1,0 +1,114 @@
+@charset 'utf-8';
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+html,body{
+	min-height: 100%;
+}
+html{
+	font-size: 62.5%;      
+}
+body{
+	background-color: #f4f7f8;
+	font-family: 'STHeitiSC-Light',Helvetica,Arial,sans-serif;
+	color: #1e1e1e;
+}
+img{
+	border: none;
+	vertical-align: middle;
+}
+a{
+	text-decoration: none;
+	outline: none;
+	blr: expression(this.onFocus=this.blur);
+}
+input,textarea{
+	border: none;
+	-webkit-appearance: none;
+}
+.clearfix::before,.clearfix::after{
+	display: block;
+	content: '';
+	font-size: 0px;
+}
+.clearfix::after{
+	clear: both;
+}
+
+div.errorLog{
+	position: fixed;
+	top: 0;
+	z-index: 500;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0);
+	text-align: center;
+}
+div.errorLog p{
+	position: relative;
+	display: inline-block;
+	margin: 10rem auto;
+	background-color: rgba(0,0,0,0.5);
+	font-size: 1.6rem;
+	color: #fff;
+	padding: 0.6rem;
+	border-radius: 8px;
+}
+div.msgTip{
+	position: fixed;
+	top: 0;
+	z-index: 500;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0);
+	text-align: center;
+}
+div.msgTip p{
+	position: relative;
+	display: block;
+	margin: 10rem auto;
+	background-color: rgba(0,0,0,0.5);
+	font-size: 1.6rem;
+	color: #fff;
+	padding: 3.2rem 0;
+	border-radius: 8px;
+	width:60%;
+}
+/** top 排名**/
+article.top{
+	background-color: #54c3aa;
+	padding: 1.3rem 1rem;
+}
+ul.topUl li{
+	background-color: #fff;
+	margin-top: 1rem;
+	padding: 0.7rem 0.7rem 0.7rem 2.8rem;
+	border-radius: 5rem;
+}
+p.modalW{
+	float: left;
+	position: relative;
+	margin-right: 1rem;
+}
+p.modalW img{
+	width: 4.3rem;
+}
+p.oneP{
+	font-size: 1.8rem;
+	color: #ff6138;
+}
+p.twoP{
+	margin-top: 0.5rem;
+}
+span.money{
+	font-size: 2.8rem;
+}
+span.nickName{
+	font-size: 1.5rem;
+}
+span.mobile{
+	font-size: 1.2rem;
+}

@@ -1,0 +1,239 @@
+ <style type="text/css">
+.sDiv{
+	min-width: 770px;
+}
+ </style>
+ <div class="urlContentWraper" id="Wraper_user_account">
+    <div class="ui-info-layout">
+        <h2 class="ui-tit"><strong>用户账户管理</strong><bottom class="all-work-info numb210">页面说明</bottom></h2>
+        <!-- 列表显示 -->
+        <div class="pic-grid">
+			<table id="Table_user_account"></table>
+		</div>
+    </div>
+    <div id="Form_user_account" style="display:none;">
+        <div class="grid-layout-main jrad-form">
+            <input name="id" type="hidden"> 
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>用户手机：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="mobile" class="jrad-input-container"></div>
+						</div> 
+            </div>  
+			<div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>增减值：</label>
+                 <div class="span6 grid-layout-content">
+                       <div name="changeBalance" class="jrad-input-container"></div>
+						<p class="ui-note">请输入整数，负数代表减少余额。</p>
+						</div> 
+            </div>  
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>变动原因</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="reasonType" class="jrad-select-container"></div>
+                 </div>
+                 <input type="checkbox" name="isCanCash" value="" id="isCanCash" style="float:left;margin-top:6px;">
+                 <label class="grid-layout-label" style="margin-left:5px;width:45px;">可提现</label>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label">余额专属商家ID</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="exclusiveBusiId" class="jrad-input-container"></div>
+                                    </div>
+            </div>
+            <div class="row">
+                 <label class="span3 grid-layout-label"><span class="ui-form-required">*</span>备注：</label>
+                 <div class="span5 grid-layout-content">
+                       <div name="remarks" class="jrad-textarea-container"></div>
+                                    </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container">
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+    <div id="Form_explain_eg210" style="display:none;">
+        <div class="grid-layout-main jrad-form"> 
+            <div class="row">
+                <label class="span3 grid-layout-label">业务说明：</label>
+                <div class="span12 grid-layout-content">
+                    <div><strong>功能简介：</strong>用户的账户管理功能。</div>
+                    <div><strong>重要功能说明：</strong>手动增减余额时，“余额专属商家ID”设置成功后，此余额只能在此商家使用。</div>
+                    <div><strong>注意事项：</strong>无。</div>
+                </div> 
+            </div> 
+            <div class="row">
+                <label class="span3 grid-layout-label">备注：</label>
+                <div class="span12 grid-layout-content">
+                    <div class="jrad-textarea-container" name="remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jrad-buttons-container ui-buttons-container"> 
+            <span class="jrad-btn-primary">确定</span> 
+            <span class="jrad-btn-normal">取消</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var wraper = $('#Wraper_user_account');
+    var page_column_model = new Array();
+    var page_search_items = new Array();
+    var page_list_buttons = new Array();
+
+	var reasonSelect =  $.jRadGet({url:'/shopmanage-ws/ws/0.1/datadictionary/dictionarylist?type=integral_vary_reason'});
+
+	var entityModel = {};
+    var jRad = $.jRad({app:'radsample-ws',entityModel:entityModel});  
+	// jRad.validators['userId'] = [{"msg":"用户id不能为空","type":"min","value":"1"},{msg:"用户id只能是数字",type:'regex',value:/^[ ]*\d+[ ]*$/}];
+	jRad.validators['changeBalance'] = [{"msg":"增减余额不能为空","type":"min","value":"1"},{msg:"请输入整数",type:'regex',value:/^[ ]*[-]{0,1}\d+[ ]*$/}];
+	jRad.validators['reasonType'] = [{"msg":"变动原因不能为空","type":"min","value":"1"}];
+	jRad.validators['remarks'] = [{"msg":"备注不能为空","type":"min","value":"1"}];
+
+	//jRad.params['reasonType'] = {data:[{id:'1',name:'反馈油价奖励'},{id:'2',name:'加油站红包'},{id:'3',name:'反馈油价驳回'},{id:'4',name:'用户提现'},{id:'5',name:'用户充值'},{id:'6',name:'购买服务抵扣'},{id:'14',name:'车挣补贴'},{id:'99',name:'其它'}]};    
+	var categoryList = [];
+	var categoryList2 = [];
+    var _result = $.jRadGet({url: '/shopmanage-ws/ws/0.1/userInfoCms/balanceChangeReasonList'});
+    $.each(_result,function(index, vo){
+      var __id = vo['id'];
+      var __name = vo['name'];
+      var __tm = {'id':__id,'name': __name};
+      categoryList.push(__tm);
+      categoryList2.push(__tm);
+    });
+    categoryList.unshift({id:'',name:'全部'})
+
+	var fields_params = {};     
+
+	fields_params['reasonType'] = {data: categoryList2};
+
+	jRad.params['reasonType'] = {data: categoryList};
+
+    page_column_model.push({display: '时间', name : 'createDateStr',width:150});
+    page_column_model.push({display: '用户ID', name : 'userId',width:80});
+    page_column_model.push({display: '账户余额', name : 'balance',width:100});
+    page_column_model.push({display: '可提现余额', name : 'canCashAmount',width:100});
+    page_column_model.push({display: '不可提现余额', name : 'canNotCashAmount',width:100});
+    page_column_model.push({display: '余额变动', name : 'changeBalance',diy:function(item,$div){
+	   var score = item.changeBalance;
+	   if(score > 0){
+		 $div.html("+"+score+" "+item.balanceBusi); 
+	   }else{
+		 $div.html(score+" "+item.balanceBusi); 
+	   }
+	}}); 
+    //page_column_model.push({display: '用户充值金额', name : 'balance',width:100});
+    page_column_model.push({display: '变动原因', name : 'reasonTypeDesc'});
+	page_column_model.push({display: '备注', name : 'remarks'});
+	page_column_model.push({display: '操作人', name : 'operator'});
+
+	var allRreasonSelect = $.merge([{"id":"","name":"全部"}],reasonSelect);
+    page_search_items.push({row:'1',type:'jrad-input',display:'用户ID',name:'userId'});
+    page_search_items.push({row:'1',type:'jrad-input',display:'备注',name:'remarks'}); 
+	page_search_items.push({row:'1',type:'jrad-select',display:'变动原因',name:'reasonType',params:jRad.params['reasonType']});
+
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'开始时间',name:'startTime'});
+	page_search_items.push({row:'2',type:'jrad-dateinput',display:'结束时间',name:'endTime'});
+	page_search_items.push({row:'2',type:'jrad-input',display:'用户手机',name:'mobile'});
+	 
+   $('#Form_user_account').form({
+		title: '增减账户余额',
+		validators: jRad.validators,
+		fields_params:jRad.params,
+		fields_params:fields_params,
+		item:{}, 
+		height:280,
+		url:'/shopmanage-ws/ws/0.1/userInfoCms/changeBalance',
+		before_submit:function(json){
+			json.operator = carsmart_config.operatorName;
+			if($("#isCanCash").attr("checked") !==undefined){
+				json.isCanCash = 1
+			}else{
+				json.isCanCash = 0
+			}
+			return json;
+		},
+		success_callback:function(){ 
+			$('#Table_user_account').flexMessage('操作成功', 'success');
+			$('#Table_user_account').flexReload();
+			$("#isCanCash").attr("checked", false);
+			$('#Form_user_account div[name="exclusiveBusiId"]').input('val','').input('readonly',false);
+		}
+	}); 
+	 
+    page_list_buttons.push({displayname: '增减余额',name:'AddOrMinus', bclass: 'AddOrMinus',onpress : function(){ 
+		   $('#Form_user_account').form({item:{
+
+		   }}).form('open');
+			$(":checkbox[name='isCanCash']").click(function(){ 
+				if($(this).attr("checked") !==undefined){ 
+					$('#Form_user_account div[name="exclusiveBusiId"]').input('val','').input('readonly',true);
+				} 
+				else{
+					$('#Form_user_account div[name="exclusiveBusiId"]').input('readonly',false);
+				}
+			}); 
+        }
+    }); 
+    page_list_buttons.push({separator: true});
+
+	$('#Table_user_account').flexigrid({
+			reload:true,
+			method:'get', 
+			colModel : page_column_model,
+			buttons : page_list_buttons,
+			searchitems :page_search_items,
+			showSearch:true,
+			pagination: {
+				diaplay_pages: 5,
+				align: 'bottom' 
+			},
+			overflow:true,
+			url:'/shopmanage-ws/ws/0.1/userInfoCms/balanceList',
+			onError:showIntegralsError,
+			checkBoxType:'single'
+	});  
+  
+    $(".numb210").click(function(){
+        $('.overcurtainDiv').hide();
+        var menuId = $(".tabs-selected").attr("menuId")
+        var data = $.jRadGet({url:'/shopmanage-ws/ws/0.1/remark/getMenuRemark?menuId='+menuId})
+        $("#Form_explain_eg210").form({}).form('close');
+        $("#Form_explain_eg210").form({
+            title:'页面说明',
+            item:data,
+            autobinding: true, 
+            submit:function(){
+                var postData = {};
+                postData.operator = carsmart_config.operatorName;
+                postData.menuName = $(".tabs-selected").attr("menuName");
+                postData.menuId = $(".tabs-selected").attr("menuId");
+                postData.remark = $("#Form_explain_eg210 div[name='remark']").textarea("val")
+                $.jRadPost({
+                    url:'/shopmanage-ws/ws/0.1/remark/updateMenuRemark',
+                    data:postData,
+                    success:function(){
+                        $("#Form_explain_eg210").form('close')
+                        $('.overcurtainDiv').hide();
+                    }
+                });
+            }, 
+            cancel:function(){
+                $("#Form_explain_eg210").form('close')
+                $('.overcurtainDiv').hide();
+            }
+        }).form('open')
+        $("#Form_explain_eg210 .textarea-content").removeClass("span4").addClass("span12")
+        $('.overcurtainDiv').hide();
+        $('.overcurtainDiv').eq(0).show().attr("style","z-index:303;display:block");
+    })
+});
+function showIntegralsError(xhr){
+			 var errormsg = eval("(" + xhr.responseText + ")");
+			  var cDiv = $("#Wraper_user_account .cDiv");
+			  $.jRadMessage({level:'error',message:errormsg[0].message,selector:cDiv});
+			}
+</script>

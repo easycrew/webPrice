@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="养车宝，配件商城">
+	<meta name="description" content="养车宝配件商城，100%原厂品质，3M、威固、美孚、壳牌Ahell、普利司通、米其林等汽车配件，厂价直销！">
+	<title>全网正品汽车配件_养车宝配件商城！</title>
+	<link rel="icon" href="favicon.ico">
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script language="javascript" src="js/jquery.json-2.2.js"></script> 
+	<script src="js/common.js"></script>
+	<script src="js/jquery.urlParam.js"></script>
+	<script src="js/dialog/laydate.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/playment.css">
+	<link rel="stylesheet" href="css/orderDetail.css">
+	<link rel="stylesheet" href="css/checkOrderInfo.css">
+	<link rel="stylesheet" href="css/selectCharge.css">
+	<link rel="stylesheet" href="css/login.css">
+	<link rel="stylesheet" type="text/css" href="css/underLinerPay.css"/>
+	<style>
+		#payDate{cursor: pointer;}
+		.addPay .item2{
+			width: 100px;
+			vertical-align: middle;
+		}
+		.addPay{
+			width: 580px;
+		}
+		.addPay .dialog-title{
+			text-align: left;
+			padding-left: 20px;
+		}
+	</style>
+	</head>
+	<body>
+	<div class="Form-goCharge dialog" style="display:none;">
+		<div class="dialog-title"><h3></h3><img src="img/alertRe_close.png" class="dialog-close"></div>
+		<div class="dialog-con">
+			<p class="account">请在单独打开的界面中进行支付。</p>
+			<p class="chargeSucAndchargeFail"><span class="chargeSucBtn">支付成功</span><span class="chargeFailBtn">支付遇到问题</span></p>
+		</div>
+	</div>
+	
+	<div class="dialog addPay" style="display: none;">
+		<div class="dialog-title"><h3>新增/编辑付款交易信息</h3><img src="img/alertRe_close.png" class="dialog-close"></div>
+		<div class="dialog-con addPay-con">
+			<input type="hidden" name="payAccountId" value='' />
+			<div class="regLine">
+				<h3>付款单位：</h3>
+				<div class="item1"><input type="text" id="payer" placeholder="30个字以内" maxlength="30" /></div>
+				<div class="item2">*请填写付款单位</div>
+			</div>
+			<div class="regLine">
+				<h3>付款账户：</h3>
+				<div class="item1"><input type="text" id="payAccount" maxlength="40" /></div>
+				<div class="item2">*请填写付款账户</div>
+			</div>
+			<div class="regLine">
+				<h3>付款银行：</h3>
+				<div class="item1"><input type="text" id="payBank" maxlength="20"/></div>
+				<div class="item2">*请填写付款银行</div>
+			</div>
+			<div class="oKAndCancle"><span class="okBtn">确定</span><span class="cancleBtn">取消</span></div>
+		</div>
+	</div>
+	<div class="dialog-overlay" style="display:none;"></div>
+		<div class="container">
+			<div class="top"></div>
+			<div class="main">
+				<div class="mainCommen"></div>
+				<div class="orderDetail" style="display: none;">
+				<div class="orderDetail-top"><h2>订单详情</h2><a class="back">返回></a></div>
+				<div class="orderDetail-main">
+					<h3><img src="img/orderDetail_h3Img.png">订单详情</h3>
+					<div class="buyerInfo">
+						<div class="buyerAddress">
+							<p>
+								<span class="buyerInfoText">买家信息</span>
+								<span class="buyerAddressDetail"></span>
+							</p>
+							<p>
+								<span class="shopName">店名:汽车用品店</span>
+							</p>
+							
+						</div>
+						<div class="buyerContact">
+							<p class="buyerContact_p1">
+								<span class="buyerName"></span>
+								<span class="bringType">配送方式：养车宝配送</span>
+							</p>
+							<p class="buyerContact_p2">
+								<span class="buyerTel"></span>
+								<span class="chargeType"></span>
+							</p>
+						</div>
+					</div>
+					<div class="theOrderInfo">
+						<div class='theOrderInfo-top'>
+							<div class="theOrderStatus">
+								<span class="theOrderInfoText">订单信息</span>
+								<span class="theOrderStatusDetail"><!--订单状态：待确认--></span>
+							</div>
+							<div class="theOrderNumber">
+								<span class="theOrderNumberDetail"><!--订单号：C15052705001047--></span>
+								<span class="theOrderTime"><!--下单时间：2015-04-23 23:34:15--></span>
+							</div>
+						</div>
+						<div class="theOrderInfo-main">
+							<table class="Table-theOrderInfo" cellpadding="0" cellspacing="0">
+								<thead>
+									<td class="goodsName">商品信息</td>
+									<td>价格</td>
+									<td>数量</td>
+								</thead>
+								<tbody>
+									
+								</tbody>
+							</table>
+							<div class="theOrderInfo-main-bottom">
+								<p class="goodsAllPrice">商品总价：<span class="goodsAllPrice-detail">￥0</span>快递费：<span class="postMoney">+￥0</span></p>
+								<p class="realCharge">
+									余额支付金额：<span class="balancePayment" style="padding-right: 20px;">￥0</span> 
+									实付款：<span class="realChargeDetail">￥0</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+				<div class="selectCharge">
+					<div class="myShopCar-con-topRight">
+						<ul>
+							<li>
+								<div class="li-top">
+									<p class="third-line-left line line-left thisP"></p>
+									<p class="third-circle circleTh">3</p>
+									<p class="third-line-right line line-right thisP"></p>
+								</div>
+								<div class="li-bottom thisBottom">提交订单</div>
+							</li>
+							<li class="li-second">
+								<div class="li-top">
+									<p class="second-line-left line line-left thisP"></p>
+									<p class="second-circle circleTh">2</p>
+									<p class="second-line-right line line-right thisP"></p>
+								</div>
+								<div class="li-bottom thisBottom">填写核对订单信息</div>
+							</li>
+							<li class="li-first">
+								<div class="li-top">
+									<p class="first-line-left line line-left thisP"></p>
+									<p class="first-circle circleTh">1</p>
+									<p class="first-line-right line line-right thisP"></p>
+								</div>
+								<div class="li-bottom thisBottom">我的购物车</div>
+							</li>
+						</ul>
+					</div>
+					<div class="orderPrice">
+						<p class="orderPrice-detail">
+							<span>订单号：</span><span class="orderPrice-orderNumber" id=""></span>
+							<span>余额支付金额：</span><span class="orderPrice-balancePayment" style="padding-right: 20px; color: #FD6244;"></span>
+							<span>还需支付金额：</span><span class="orderPrice-chargePrice"></span>
+						</p>
+						<p class="orderPrice-note">请您在提交订单 <span class="limitChargeTime">24小时</span> 内完成支付，否则订单会自动取消。</p>
+						<p class="orderPrice-checkOrderDetail"><a>[查看订单详情]</a></p>
+					</div>
+					<div class="selectChargeDetail">
+						<div class="collectionInfo">
+							<h2>收款交易信息</h2>
+							<div class="collectionInfo_l fl">
+								<p>账户名称：<span class="comName">北京车盈科技有限公司</span></p>
+								<p>收款账号：<span class="bankNum">1028 1000 0006 3754 7</span></p>
+								<p>开户行：<span class="bankName">华夏银行北京世纪城支行</span></p>
+							</div>
+							<div class="collectionInfo_r fl">
+								<img src="img/bankLogo/HXBANKl.png"/>
+							</div>
+						</div>
+						<div class="paymentInfo">
+							<h2>付款交易信息<span class="addPaymentBtn">新增</span></h2>
+							<div class="paymentInfoCon">
+								<p class="addPaymentList-ui-note" style="display: none;">请点击上面新增按钮，添加汇款信息。</p>
+								<ul class="paymentUl" style="display: block;">
+									<li>
+										<span class="checkedIcon span_one span_one_checked"></span>
+										<span class="span_two">付款单位：<span class="drawee">北京车盈科技有限公司…</span></span>
+										<span class="span_three">付款账号：<span class="paymentAccountId">1028  1000  0006  3754  7</span></span>
+										<span class="span_four">付款银行：<span class="paymentBank">北京工商银行海淀支行…</span></span>
+										<span class="span_five pay-edit">编辑</span>
+										<span class="span_six pay-delete">删除</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="otherInfo">
+							<h2>其他</h2>
+							<div class="payDate">
+								转账/汇款日期：<input class="laydate-icon" id="payDate" value="" readonly="readonly" placeholder="示例：2016-01-02"> 
+							</div>
+							<div class="noteInfo">
+								<p>备注：我们仅在您转账/汇款之后的两个工作日内进行收款确认，如超期未收款，将视为订单取消，请务必准确填写时间。</p>
+							</div>
+						</div>
+						<div class="chargeNext"><span>提交</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="footer"></div>
+		</div>
+		
+	</body>
+	<script>
+	//日历选框初始化
+		!function(){
+			laydate({elem: '#payDate'});//绑定元素
+		}();
+	</script>
+	<script type="text/javascript">
+if(!(document.cookie.indexOf('customerId')!=-1)){
+	location.href="index.html";
+}
+	$(function(){
+		$('div.top').load('top.html');
+		$('div.mainCommen').load('searchAndNav.html');
+		$('div.footer').load('footer.html');
+		var username=mall.getCookie('username');
+		var customerId=mall.getCookie('customerId');
+		var areaCodeId=mall.getCookie('areaCodeId');
+		var orderNumber=$.getQuery('orderNumber');
+		$("span.span_wraper:eq(1)").find('input[type="radio"]').prop('checked',false);
+		var url = window.location.search; 
+	    var paramJson = {};
+	    if(url!=''){
+	    	var paramsArr = (url.split("?")[1]).split("&");
+		    $.each(paramsArr,function(i){
+		        var item = paramsArr[i].split("=");
+		        paramJson[item[0]] = item[1]
+		    });
+	    }
+	    var orderNumber=paramJson.orderNumber;
+	    $.get(mall.url('/userorder/detail'),{orderNumber:orderNumber},function(data){
+			$('div.selectCharge span.orderPrice-orderNumber').attr('id',data.userOrderId).html(data.orderNumber);
+			$("div.selectCharge span.orderPrice-balancePayment").html('￥'+data.balancePayment);
+			$('div.selectCharge span.orderPrice-chargePrice').html('￥'+data.cashPayment);
+		});
+	function searchOrderInf(orderNumber){
+		$.get(mall.url('/userorder/detail'),{orderNumber:orderNumber},function(data){
+			var entityId=data.entityId;
+			$('span.buyerAddressDetail').html('收货地址：'+data.postalAddress);
+			$('span.shopName').html('店名：'+username);
+			$('span.buyerName').html('联系人：'+data.consigneeName);
+			$('span.buyerTel').html('联系电话：'+data.mobile);
+			$('span.chargeType').html('支付方式：'+data.payOnlineName);
+			$('span.theOrderNumberDetail').html('订单号：'+data.orderNumber);
+			$('span.theOrderTime').html('下单时间：'+data.orderDate);
+			switch(data.orderStatus){
+				case "1":
+					if(data.remitAuditStatus==1){
+						$('span.theOrderStatusDetail').html('订单状态：汇款确认中...');
+					}else{
+						$('span.theOrderStatusDetail').html('订单状态：待付款');
+					}
+					break;
+				case "2":
+				case "3":
+				case "4":
+					$('span.theOrderStatusDetail').html('订单状态：待发货');
+					break;
+				case "5":
+					$('span.theOrderStatusDetail').html('订单状态：待收货');
+					break;
+				case "6":
+					$('span.theOrderStatusDetail').html('订单状态：已完成');
+					break;
+				case "7":
+					$('span.theOrderStatusDetail').html('订单状态：已评价');
+					break;
+				case "8":
+					$('span.theOrderStatusDetail').html('订单状态：'+data.orderStatusName);
+					break;
+				default:
+					break;
+			}			
+			var orderDetailStr='';
+			var skulist=data.skulist;
+			$.each(skulist,function(i){
+				
+				if(i==0){
+					if(skulist.length>1){
+						orderDetailStr+='<tr class="tr-detailCon-first">'
+									   +'<td class="td-goodsname" style="text-align:left;padding-left:40px;">'
+									   +'<a href="javascript:" class="goodsImg" onclick="judgeStatus('+this.skuId+','+entityId+','+this.commodityId+')">'
+									  if(this.commodityType==2){
+								  			orderDetailStr+='<i>专享</i>'
+								  		}
+									   orderDetailStr+='<img src="'+this.smallPicUrl+'" width="78" height="78">'
+									   +'</a>'
+									   var item_name=this.skuName;
+									  if(item_name.length>61){
+										item_name=item_name.substring(0,60)+'…'
+									  };
+					    orderDetailStr+='<span class="goodsNameDetail"><span>'+item_name+'</span></span>'
+									   +'</td>'
+									   +'<td>'+this.skuPrice+'</td>'
+									   +'<td class="td-goodsPrice" style="border-right:1px solid #e8e8e8">×'+this.skuNum+'</td>'
+					}else{
+						orderDetailStr+='<tr class="tr-detailCon-first">'
+									   +'<td class="td-goodsname" style="text-align:left;padding-left:40px;">'
+									   +'<a href="javascript:" class="goodsImg" onclick="judgeStatus('+this.skuId+','+entityId+','+this.commodityId+')">'
+									   if(this.commodityType==2){
+								  			orderDetailStr+='<i>专享</i>'
+								  		}
+									   orderDetailStr+='<img src="'+this.smallPicUrl+'" width="78" height="78">'
+									   +'</a>'
+									   var item_name=this.skuName;
+									  if(item_name.length>61){
+										item_name=item_name.substring(0,60)+'…'
+									  };
+					    orderDetailStr+='<span class="goodsNameDetail"><span>'+item_name+'</span></span>'
+									   +'</td>'
+									   +'<td>'+this.skuPrice+'</td>'
+									   +'<td class="td-goodsPrice" style="border-right:1px solid #e8e8e8">×'+this.skuNum+'</td>'
+					}
+				}else{
+					orderDetailStr+='<tr class="tr-detailCon">'
+								  +'<td class="td-goodsname" style="text-align:left;padding-left:40px;">'
+								  +'<a href="javascript:" class="goodsImg" onclick="judgeStatus('+this.skuId+','+entityId+','+this.commodityId+')">'
+								  if(this.commodityType==2){
+						  			orderDetailStr+='<i>专享</i>'
+							  		}
+								   orderDetailStr+='<img src="'+this.smallPicUrl+'" width="78" height="78">'
+								   +'</a>'
+								   var item_name=this.skuName;
+								  if(item_name.length>61){
+									item_name=item_name.substring(0,60)+'…'
+								  };
+				    orderDetailStr+='<span class="goodsNameDetail"><span>'+item_name+'</span></span>'
+								  +'</td>'
+								  +'<td>'+this.skuPrice+'</td>'
+								  +'<td class="td-goodsPrice" style="border-right:1px solid #e8e8e8">×'+this.skuNum+'</td>'
+				}
+				    	orderDetailStr+='</tr>'
+			});
+			$('table.Table-theOrderInfo tbody').html(orderDetailStr);
+
+			$('span.goodsAllPrice-detail').html('￥'+data.originalPayment);
+			$('span.postMoney').html('￥'+'0');
+			$('span.realChargeDetail').html('￥'+data.cashPayment);
+			$(".balancePayment").html('￥'+data.balancePayment);
+		});
+		}
+		//点击查看订单详情
+		$("p.orderPrice-checkOrderDetail a").click(function(){
+			$("div.orderDetail").show();
+			$("div.selectCharge").hide();
+			searchOrderInf(orderNumber);
+		})
+		//返回按钮
+		$("div.orderDetail a.back").click(function(){
+			$("div.orderDetail").hide();
+			$("div.selectCharge").show();
+		})
+		//勾选汇款信息
+		$("ul.paymentUl").on('click','li span.span_one',function(){
+			$(this).addClass('span_one_checked').parents('li').siblings().find('span.span_one').removeClass('span_one_checked');
+		})
+		//新增汇款信息
+		$(".addPaymentBtn").click(function(){
+			$(".addPay").show();
+			$(".dialog-overlay").show();
+			$(".item2").hide();
+			$(".addPay input[name='addPay']").val('');
+			$("#payer").val('');
+			$("#payAccount").val('');
+			$("#payBank").val('');
+		})
+		//删除汇款信息
+		$("ul.paymentUl").on('click','li span.span_delete',function(){
+			var thisELem=$(this);
+			mall.alertReAndCanselFun("是否确定删除汇款信息","",DELE);
+			function DELE(){
+				var payAccountId=thisELem.parents('li').find('input[type="hidden"]').val();
+				var postData={};
+				postData.payAccountId=payAccountId;
+				$.ajax({
+					type:"post",
+					url:mall.url('/payAccount/delete'),
+					async:false,
+					data:$.toJSON(postData),
+					dataType:"json",
+					contentType:'application/json;charset=utf-8',
+					success:function(data){
+						payInfoList();
+					},
+					error:function(xhr){
+						var error =JSON.parse(xhr.responseText);
+						mall.alertRe(error[0].message,"");
+					}
+				});
+			}	
+		})
+		//编辑汇款信息
+		$("ul.paymentUl").on('click','li span.span_edit',function(){
+			var payAccountId=$(this).parents('li').find('input[type="hidden"]').val();
+			$.ajax({
+				type:"get",
+				url:mall.url('/payAccount/get'),
+				async:false,
+				data:{payAccountId:payAccountId},
+				datdType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					$(".addPay").show();
+					$(".dialog-overlay").show();
+					$(".item2").hide();
+					var payAccountId=$(this).parents('li').find('input[type="hidden"]').val();
+					var payAccount=data.payAccount;
+					payAccount=payAccount.replace(/\s+/g,"");
+					payAccount=payAccount.replace(/(.{4})/g,"$1 ");
+					$(".addPay .addPay-con").find('input[name="payAccountId"]').val(data.payAccountId);
+					$("#payer").val(data.payer);
+					$("#payAccount").val(payAccount);
+					$("#payBank").val(data.payBank);
+				},
+				error:function(xhr){
+					var error=JSON.parse(xhr.responseText);
+					mall.alertRe(error[0].message,"");
+				}
+			});
+		})
+		
+		//汇款信息校验
+		$("#payer,#payAccount,#payBank").focus(function(){
+			$(this).parent().siblings('.item2').hide();
+		}).blur(function(){
+			Message(true,$(this));
+		});
+		//提交新添加汇款信息
+		$(".okBtn").on('click',function(){
+			var checkedThrough=true;
+			$("#payer,#payAccount,#payBank").each(function(){
+				Message(true,$(this))
+				if(Message(true,$(this))){
+					checkedThrough=true;
+				}else{
+					checkedThrough=false;
+					return false
+				}
+			});
+			if(checkedThrough){
+				var payer=$.trim($("#payer").val()),
+					payBank=$.trim($("#payBank").val()),
+					payAccountId=$('input[name="payAccountId"]').val();
+				var	payAccount=$.trim($("#payAccount").val()),
+					payAccount=payAccount.replace(/\s+/g,"");
+				var postData={};
+				postData.userInfoId=customerId;
+				postData.payer=payer;
+				postData.payAccount=payAccount;
+				postData.payBank=payBank;
+				if(!payAccountId==''){
+					postData.payAccountId=payAccountId;
+				}
+				$.ajax({
+					type:"post",
+					url:mall.url('/payAccount/replace'),
+					async:false,
+					data:$.toJSON(postData),
+					dataType:"json",
+					contentType:"application/json;charset=utf-8",
+					success:function(){
+						$(".addPay").hide();
+						$(".dialog-overlay").hide();
+						payInfoList();
+					},
+					error:function(){
+						var error =JSON.parse(xhr.responseText);
+						mall.alertRe(error[0].message,"");
+					}
+				});
+			}
+		});
+		$(".cancleBtn,.dialog-close").on('click',function(){
+			$(this).parents('.dialog').hide();
+			$(".dialog-overlay").hide();
+		});
+		//银行卡账号数据格式化
+		$("#payAccount").keyup(function(){
+			this.value =this.value.replace(/\s/g,'').replace(/(\d{4})(?=\d)/g,"$1 ");
+		})
+		//提交汇款信息
+		$(".chargeNext span").click(function(){
+			var userOrderId=$('div.selectCharge span.orderPrice-orderNumber').attr('id'),//订单ID,
+				payAccountId=$(".paymentUl span.span_one_checked").siblings('input[type="hidden"]').val(),
+				payDate=$("#payDate").val(),
+				postData={};
+			if(payAccountId==undefined||payAccountId==''){
+				mall.alertReFun("请勾选付款交易信息","");
+				return false
+			}else{
+				postData.payAccountId=payAccountId;
+			}
+			postData.userInfoId=customerId;
+			postData.userOrderId=userOrderId;
+			postData.payDate=payDate;
+			$.ajax({
+				type:"post",
+				url:mall.url('/userorder/submitOfflineRemittanceInfo'),
+				async:false,
+				data:$.toJSON(postData),
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					window,location.href='historyOrder.html';
+				},
+				error:function(xhr){
+					var error=JSON.parse(xhr.responseText);
+					mall.alertReFun(error[0].message,"");
+				}
+			});
+			
+		})
+		payInfoList()
+		//汇款信息列表查询
+		function payInfoList(){
+			$.ajax({
+				type:"get",
+				url:mall.url('/payAccount/getHistoryList?userInfoId='+customerId+'&'+new Date().getTime()),
+				async:false,
+				dataType:'json',
+				contentType:'application/json;charset=utf-8',
+				success:function(data){
+					if(data.length<=0){
+						$("ul.paymentUl").html('').hide();
+						$(".addPaymentList-ui-note").show();
+					}else{
+						var str=''
+						$.each(data,function(){
+							str+='<li>'
+							+'<input type="hidden" value="'+this.payAccountId+'">'
+							if(this.checked){
+								str+='<span class="checkedIcon span_one span_one_checked"></span>'
+							}else{
+								str+='<span class="checkedIcon span_one"></span>'
+							}
+							str+='<span class="span_two">付款单位：<span class="payer">'+dataDoto(this.payer,20)+'</span></span>'
+							+'<span class="span_three">付款账号：<span class="payAccount">'+dataFormate(this.payAccount)+'</span></span>'
+							+'<span class="span_four">付款银行：<span class="payBank">'+dataDoto(this.payBank,20)+'</span></span>'
+							+'<span class="span_five span_edit">编辑</span>'
+							+'<span class="span_six span_delete">删除</span>'
+							+'</li>'
+						})
+						$(".addPaymentList-ui-note").hide();
+						$("ul.paymentUl").html(str).show();
+					}
+				},
+				error:function(xhr){
+					var error =JSON.parse(xhr.responseText);
+					mall.alertRe(error[0].message,"");
+				}
+			});
+		}
+		
+		function Message(isCheck,Elem){
+			var obj=Elem;
+			var Value=$.trim(obj.val());
+			var ID=obj.attr('id');
+			var checkThrough=true;
+			if(ID==='payAccount'){
+				Value=Value.replace(/\s+/g,"");
+				if(Value==''){
+					obj.parent().siblings('.item2').html('*请填写付款账户').css("display","inline-block");
+					checkThrough=false;
+					return checkThrough
+				}
+				var reg=/^[0-9]{12,24}$/;
+				if(!reg.test(Value)){
+					obj.parent().siblings('.item2').html('*请填写正确格式的银行卡号').css("display","inline-block");
+					checkThrough=false;
+					return checkThrough
+				}
+			}
+			if(Value==''){
+				obj.parent().siblings('.item2').css("display","inline-block");
+				checkThrough=false;
+				return checkThrough
+			}
+			return checkThrough
+		}
+		//银行账号格式化，转换成4位一组
+		function dataFormate(data){
+			data=data.replace(/(\d{4})(?=\d)/g,"$1"+" ");
+			return data
+		}
+		//多余字符省略号显示
+		function dataDoto(str, len) {
+			//length属性读出来的汉字长度为1
+			if (str.length * 2 <= len) {
+				return str;
+			}
+			var strlen = 0;
+			var s = "";
+			for (var i = 0; i < str.length; i++) {
+				s = s + str.charAt(i);
+				if (str.charCodeAt(i) > 128) {
+					strlen = strlen + 2;
+					if (strlen >= len) {
+						return s.substring(0, s.length - 1) + "...";
+					}
+				} else {
+					strlen = strlen + 1;
+					if (strlen >= len) {
+						return s.substring(0, s.length - 2) + "...";
+					}
+				}
+			}
+			return s;
+		}
+		
+		//判断商品状态
+		function judgeStatus(skuId, entityId, commodityId) {
+			$.get(mall.url('/sku/getSkuById'),{skuId:skuId},function(data){
+				if(data.status!=1){
+					mall.alertRe("该商品已下架","");
+					return false;
+				}else{
+					location.href='goodsDetail.html?groupPurchasingId='+entityId+'&skuId='+skuId+'&commodityId='+commodityId;
+				}
+			})
+		}
+	});
+</script>
+</html>
